@@ -6,6 +6,9 @@ The OGC SensorThings API is an OGC standard specification for providing an open 
 ## Standard Specification
 An PDF version of the standard will be available on [OGC web site](http://www.opengeospatial.org/standards) soon. An HTML version of the standard will be available at THIS LINK SOON.
 
+## OGC Blog Posts
+* [Amazon IoT and the candidate OGC SensorThings API Standard](http://www.opengeospatial.org/blog/2315)
+
 ## Compliance
 No standard is complete without compliance test. The SensorThings test suite is available on the OGC Compliance and Interoperability Testing and Evaluation(CITE) website in [Beta version](http://cite.opengeospatial.org/te2/). Also, the project details, including the [release notes](http://cite.opengeospatial.org/te2/about/sta10/1.0/site/relnotes.html) and [JavaDocs](http://cite.opengeospatial.org/te2/about/sta10/1.0/site/apidocs/index.html), are available. You can test your service against SensorThings API [after registering on CITE website](http://cite.opengeospatial.org/te2/register.jsp).
 
