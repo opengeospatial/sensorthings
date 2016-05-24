@@ -3,6 +3,9 @@
 # OGC SensorThings API
 The OGC SensorThings API is an OGC standard specification for providing an open and unified way to interconnect IoT devices, data, and applications over the Web. The SensorThings API is an open standard, builds on Web protocols and the OGC Sensor Web Enablement standards, and applies an easy-to-use REST-like style. The result is to provide a uniform way to expose the full potential of the Internet of Things.
 
+## Compliance
+No standard is complete without compliance test. The SensorThings test suite is available on the OGC Compliance and Interoperability Testing and Evaluation(CITE) website in [Beta version](http://cite.opengeospatial.org/te2/). Also, the project details, including the [release notes](http://cite.opengeospatial.org/te2/about/sta10/1.0/site/relnotes.html) and [JavaDocs](http://cite.opengeospatial.org/te2/about/sta10/1.0/site/apidocs/index.html), are available. You can test your service against SensorThings API [after registering on CITE website](http://cite.opengeospatial.org/te2/register.jsp).
+
 ## Frequent Asked Questions
 ### Is SensorThings API part of the OGC Sensor Web Enablement standards?
 Ths answer is YES. This might be the #1 question get asked. SensorThings API is part of the OGC Sensor Web Enablement standards. Hey, SenosrThings API was called SWE for IoT! For example, SensorThings API's data model is based on OGC/ISO Observations and Measurements (OGC/ISO 19156:2011), so that it can easily interoperate with OGC Sensor Observation Services (SOS). The main difference is that SensorThings is RESTful, uses the efficient JSON encoding, adopts the OASIS OData URL pattern and query options, and supports the ISO MQTT messaging protocol.
