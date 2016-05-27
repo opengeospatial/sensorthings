@@ -6,6 +6,12 @@ The OGC SensorThings API is an OGC standard specification for providing an open 
 ## Standard Specification
 An PDF version of the standard will be available on [OGC web site](http://www.opengeospatial.org/standards) soon. An HTML version of the standard will be available at THIS LINK SOON.
 
+## About
+* Editor: Dr. [Steve Liang](http://www.sensorup.com)
+* Co-editors: [Tania Khalafbeigi](http://www.sensorup.com), Dr. [Chih-Yuan Huang](http://www1.csrsr.ncu.edu.tw/Ver13_J30/index.php/about-us/personal/faculty)
+
+## Contributions
+
 ## OGC Blog Posts
 * [Amazon IoT and the candidate OGC SensorThings API Standard - http://www.opengeospatial.org/blog/2315](http://www.opengeospatial.org/blog/2315) by Steve Liang
 
