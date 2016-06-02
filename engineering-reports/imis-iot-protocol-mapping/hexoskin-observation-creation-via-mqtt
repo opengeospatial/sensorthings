@@ -1,0 +1,8 @@
+MQTT Publish
+Topic: v1.0/Datastreams({example_id}/Observations
+Message:
+
+{
+  "result": 72,
+  "phenonmenonTime": "2015-02-05T17:00:00Z"
+}
