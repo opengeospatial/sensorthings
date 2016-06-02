@@ -1,0 +1,52 @@
+POST /Things HTTP1.1
+Host: example.org/v1.0
+Content-Type: application/json
+
+{
+  "description": "First Responder",
+  "Locations": [
+    {
+      "description": "GPS Location",
+      "encodingType": "application/vnd.geo+json",
+      "location": {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-114.0708,51.0486]
+        }
+      }
+    }
+  ],
+  "Datastreams": [
+    {
+      "description": "datastream of computed heart rate",
+      "unitOfMeasurement": {
+        "name": " Beats Per Minute",
+        "symbol": "BPM",
+        "definition": "http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#BPM"
+      },
+      "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+      "ObservedProperty": {
+        "name": "Heart Rate",
+        "definition": "http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#BPM",
+        "description": "Heart rate of the wearer"
+      },
+      "Sensor": {
+        "description": "Hexoskin Heart rate sensor",
+        "encodingType": "http://schema.org/description",
+        "metadata": "Calibration date: 1 to 3 lead ECG channel with a 12 bits resolution."
+      }
+    }
+  ]
+}
+
+Example Response
+{
+    "@iot.selfLink": "http://example.org/v1.0/Things(example_id)",
+    "Datastreams@iot.navigationLink": " http://example.org/v1.0/Things(example_id)/Datastreams",
+    "@iot.id": example_id,
+    "description": "First Responder",
+    "Locations@iot.navigationLink": " http://example.org/v1.0/Things(example_id)/Locations",
+    "properties": {},
+    "HistoricalLocations@iot.navigationLink": "http://example.org/v1.0/Things(example_id)/HistoricalLocations"
+}
