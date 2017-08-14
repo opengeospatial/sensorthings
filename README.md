@@ -25,16 +25,16 @@ No standard is complete without compliance test. The SensorThings test suite is 
 ### Is SensorThings API part of the OGC Sensor Web Enablement standards?
 Ths answer is YES. This might be the #1 question get asked. SensorThings API is part of the OGC Sensor Web Enablement standards. Hey, SenosrThings API was called SWE for IoT! For example, SensorThings API's data model is based on OGC/ISO Observations and Measurements (OGC/ISO 19156:2011), so that it can easily interoperate with OGC Sensor Observation Services (SOS). The main difference is that SensorThings is RESTful, uses the efficient JSON encoding, adopts the OASIS OData URL pattern and query options, and supports the ISO MQTT messaging protocol.
 
-###What is the OGC SensorThings API?
+### What is the OGC SensorThings API?
 The OGC SensorThings API is an OGC standard providing an open and unified framework to interconnect IoT devices, data, and applications over the Web. It is non-proprietary, platform-independent, and perpetual royalty-free. The OGC SensorThings API significantly simplifies and accelerates the development of IoT applications. Application developers can connect to various IoT devices and create innovative applications without worrying the daunting heterogeneous protocols of the different IoT devices. The OGC SensorThings API can also be embedded within various IoT hardware and software platforms, so that the various IoT devices can effortlessly connect with the OGC standard-compliant servers around the world. In summary, the OGC SensorThings API is transforming the numerous disjointed IoT systems into a fully connected platform where complex tasks can be synchronized and performed.
 
-###Why do we develop the OGC SensorThings API?
+### Why do we develop the OGC SensorThings API?
 In today's world, most sensors have proprietary software interfaces defined by their manufacturers and used selectively. New APIs are requested and developed on an as needed basis. This situation causes significant burden not only on developers who develope applications with new sensors, but also on providers of gateways, portals or services where observations are used. The OGC SensorThings API defines standardized interfaces for sensors in the Web of Things (WoT) and Internet of Things (IoT), two terms that are frequently used interchangeably. These standardized interfaces will permit the proliferation of new high value services with lower overhead of development and wider reach, and will also lower the cost for sensor and gateway providers.
 
-###What is the status of the OGC SensorThings API?
+### What is the status of the OGC SensorThings API?
 OGC SensorThings API is an official OGC standard specification. The OGC SensorThings API was approved by OGC Techncial Committee in February 2016. 
 
-###Is the OGC SensorThings API a new standard?
+### Is the OGC SensorThings API a new standard?
 Yes and No. The answer can be yes, because it is a new standard designed specifically for IoT devices and applications. The answer can also be no, because the OGC SensorThings API is developed based on the existing [OGC Sensor Web Enablement (SWE) standards](http://www.opengeospatial.org/ogc/markets-technologies/swe). The OGC SWE standards enable all types of sensors and actuators discoverable, accessible and re-usable via the Web. These standards have been widely implemented around the world. SWE standards, however, are as complex as necessary to support tasks such as controlling Earth imaging satellites and archiving national libraries of geological observation data, and thus are, too "heavyweight" for the resource-constrained IoT applications. The OGC SensorThings API can be considered as a lightweight SWE profile suited particularly for IoT applications. As a result, the OGC SensorThings API is a new and efficient API based on the proven and widely implemented SWE standard framework.
 
 
