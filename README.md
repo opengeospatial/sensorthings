@@ -19,7 +19,7 @@ Liang, Steve H.L., Chih-Yuan Huang, and Tania Khalafbeigi. "OGC SensorThings API
 * [Amazon IoT and the candidate OGC SensorThings API Standard - http://www.opengeospatial.org/blog/2315](http://www.opengeospatial.org/blog/2315) by Steve Liang
 
 ## Compliance
-No standard is complete without compliance test. The SensorThings test suite is available on the OGC Compliance and Interoperability Testing and Evaluation(CITE) website in [Beta version](http://cite.opengeospatial.org/te2/). Also, the project details, including the [release notes](http://cite.opengeospatial.org/te2/about/sta10/1.0/site/relnotes.html) and [JavaDocs](http://cite.opengeospatial.org/te2/about/sta10/1.0/site/apidocs/index.html), are available. You can test your service against SensorThings API [after registering on CITE website](http://cite.opengeospatial.org/te2/register.jsp).
+No standard is complete without compliance test. The SensorThings test suite is available on the [OGC Compliance and Interoperability Testing and Evaluation(CITE) website](http://cite.opengeospatial.org/teamengine/about/sta10/1.0/site/).  You can test your service against SensorThings API [after registering on CITE website](http://cite.opengeospatial.org/te2/register.jsp).
 
 ## Frequent Asked Questions
 ### Is SensorThings API part of the OGC Sensor Web Enablement standards?
