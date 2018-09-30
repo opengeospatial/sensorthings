@@ -1,0 +1,24 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker pull asciidoctor/docker-asciidoctor
+
+script:
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name generate asciidoctor/docker-asciidoctor src/asciidoctor.sh
+
+after_error:
+  - docker logs generate
+
+after_failure:
+  - docker logs generate
+
+after_success:
+  - cd /tmp; git clone --quiet --depth 2 --branch gh-pages "https://${GH_REF}" gh-pages > /dev/null 2>&1
+  - cd /tmp/gh-pages;mkdir -p "${TRAVIS_BRANCH}";cd "${TRAVIS_BRANCH}"; cp -R $TRAVIS_BUILD_DIR/dist/* .
+  - git config user.name "${GH_USER_NAME}"
+  - git config user.email "{GH_USER_EMAIL}"
+  - git add . ; git commit -m "Deploy to GitHub Pages"
+  - git push --quiet "https://${GH_TOKEN}@${GH_REF}" gh-pages:gh-pages > /dev/null 2>&1
