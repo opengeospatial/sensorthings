@@ -21,7 +21,8 @@
 [[req-bm,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bm>>: <<requirement-bm>>[[requirement-bm,batch-request/batch-request]]
+|[[requirement-bm,batch-request/batch-request]]
+Req <<req-bm>>: <<requirement-bm>>
 
 |The batch-processing of the SensorThings service SHALL be as defined in <<batch-requests>>.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bm>>

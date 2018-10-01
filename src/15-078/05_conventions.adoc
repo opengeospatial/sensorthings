@@ -12,7 +12,7 @@ Requirements are presented using the following style:
 
 [cols="a"]
 |===
-|Req <number>
+|Req [number]
 
 |<requirement text>
 |[blue]#<requirement id>#

@@ -18,7 +18,8 @@
 [[req-bq,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bq>>: <<requirement-bq>>[[requirement-bq,data-array/data-array]]
+|[[requirement-bq,data-array/data-array]]
+Req <<req-bq>>: <<requirement-bq>>
 
 |To support the SensorThings data array extension, a service SHALL support the retrieval and creation of observations as defined in <<data-array-extension>>.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bq>>

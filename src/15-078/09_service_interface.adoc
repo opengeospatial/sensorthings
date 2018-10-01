@@ -57,7 +57,8 @@ The resource path comes right after the service root URI and can be used to addr
 [[req-as,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-as>>: <<requirement-as>>[[requirement-as,resource-path/resource-path-to-entities]]
+|[[requirement-as,resource-path/resource-path-to-entities]]
+Req <<req-as>>: <<requirement-as>>
 
 |An OGC SensorThings API service SHALL support all the resource path usages listed in <<resource-path>>.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-as>>
@@ -378,7 +379,8 @@ Clients issue HTTP GET requests to OGC SensorThings API services for data. The r
 [[req-at,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-at>>: <<requirement-at>>[[requirement-at,request-data/status-code]]
+|[[requirement-at,request-data/status-code]]
+Req <<req-at>>: <<requirement-at>>
 
 |OGC SensorThings API services are hypermedia driven services that return URLs to the client. If a client subsequently requests the advertised resource and the URL has expired, then the service SHALL respond with 410 Gone. If this is not feasible, the service SHALL respond with 404 Not Found.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-at>>
@@ -388,7 +390,8 @@ Clients issue HTTP GET requests to OGC SensorThings API services for data. The r
 [[req-au,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-au>>: <<requirement-au>>[[requirement-au,request-data/query-status-code]]
+|[[requirement-au,request-data/query-status-code]]
+Req <<req-au>>: <<requirement-au>>
 
 |If a service does not support a system query option, it SHALL fail any request that contains the unsupported option and SHALL return 501 Not Implemented.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-au>>
@@ -401,7 +404,8 @@ Clients issue HTTP GET requests to OGC SensorThings API services for data. The r
 [[req-av,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-av>>: <<requirement-av>>[[requirement-av,request-data/order]]
+|[[requirement-av,request-data/order]]
+Req <<req-av>>: <<requirement-av>>
 
 |An OGC SensorThings API service SHALL evaluate the system query options following the order specified in <<evaluating-system-query-options>>.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-av>>
@@ -437,7 +441,8 @@ The $select and $expand system query options enable the client to specify the se
 [[req-aw,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-aw>>: <<requirement-aw>>[[requirement-aw,request-data/expand]]
+|[[requirement-aw,request-data/expand]]
+Req <<req-aw>>: <<requirement-aw>>
 
 |The $expand system query option indicates the related entities to be represented inline. The value of the $expand query option SHALL be a comma separated list of navigation property names. Additionally, each navigation property can be followed by a forward slash and another navigation property to enable identifying a multi-level relationship.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aw>>
@@ -523,7 +528,8 @@ returns the Datastream whose id is 1 as well as its Observations with a result e
 [[req-ax,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-ax>>: <<requirement-ax>>[[requirement-ax,request-data/select]]
+|[[requirement-ax,request-data/select]]
+Req <<req-ax>>: <<requirement-ax>>
 
 |The $select system query option requests the service to return only the properties explicitly requested by the client. The value of a $select query option SHALL be a comma-separated list of selection clauses. Each selection clause SHALL be a property name (including navigation property names). In the response, the service SHALL return the specified content, if available, along with any available expanded navigation properties.
 
@@ -563,7 +569,8 @@ returns the Datastream whose id is 1 as well as the result property of the entit
 [[req-ay,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-ay>>: <<requirement-ay>>[[requirement-ay,request-data/orderby]]
+|[[requirement-ay,request-data/orderby]]
+Req <<req-ay>>: <<requirement-ay>>
 
 |The $orderby system query option specifies the order in which items are returned from the service. The value of the $orderby system query option SHALL contain a comma-separated list of expressions whose primitive result values are used to sort the items. A special case of such an expression is a property path terminating on a primitive property. A type cast using the qualified entity type name SHALL be ordered by a property defined on a derived type.
 
@@ -599,7 +606,8 @@ returns all Observations ordered by the id property of the linked Datastream ent
 [[req-az,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-az>>: <<requirement-az>>[[requirement-az,request-data/top]]
+|[[requirement-az,request-data/top]]
+Req <<req-az>>: <<requirement-az>>
 
 |The $top system query option specifies the limit on the number of items returned from a collection of entities. The value of the $top system query option SHALL be a non-negative integer n. The service SHALL return the number of available items up to but not greater than the specified value n.
 
@@ -634,7 +642,8 @@ returns the first five Observation entries after sorted by the phenomenonTime pr
 [[req-ba,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-ba>>: <<requirement-ba>>[[requirement-ba,request-data/skip]]
+|[[requirement-ba,request-data/skip]]
+Req <<req-ba>>: <<requirement-ba>>
 
 |The $skip system query option specifies the number for the items of the queried collection that SHALL be excluded from the result. The value of $skip system query option SHALL be a non-negative integer n. The service SHALL return items starting at position n+1.
 
@@ -669,7 +678,8 @@ returns the third and fourth Observation entities from the collection of all Obs
 [[req-bb,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bb>>: <<requirement-bb>>[[requirement-bb,request-data/count]]
+|[[requirement-bb,request-data/count]]
+Req <<req-bb>>: <<requirement-bb>>
 
 |The $count system query option with a value of true specifies that the total count of items within a collection matching the request SHALL be returned along with the result. A $count query option with a value of false (or not specified) hints that the service SHALL not return a count.
 
@@ -709,7 +719,8 @@ returns, along with the results, the total number of Things in the collection.
 [[req-bc,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bc>>: <<requirement-bc>>[[requirement-bc,request-data/filter]]
+|[[requirement-bc,request-data/filter]]
+Req <<req-bc>>: <<requirement-bc>>
 
 |The $filter system query option allows clients to filter a collection of entities that are addressed by a request URL. The expression specified with $filter is evaluated for each entity in the collection, and only items where the expression evaluates to true SHALL be included in the response. Entities for which the expression evaluates to false or to null, or which reference properties that are unavailable due to permissions, SHALL be omitted from the response.
 
@@ -755,7 +766,8 @@ The OGC SensorThings API supports a set of built-in filter operations, as descri
 [[req-bd,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bd>>: <<requirement-bd>>[[requirement-bd,request-data/built-in-filter-operations]]
+|[[requirement-bd,request-data/built-in-filter-operations]]
+Req <<req-bd>>: <<requirement-bd>>
 
 |The built-in filter operators SHALL be as defined in Table 22.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bd>>
@@ -851,7 +863,8 @@ In order to support spatial relationship functions, SensorThings API defines nin
 [[req-be,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-be>>: <<requirement-be>>[[requirement-be,request-data/built-in-query-functions]]
+|[[requirement-be,request-data/built-in-query-functions]]
+Req <<req-be>>: <<requirement-be>>
 
 |The built-in query functions SHALL be as defined in Table 23.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-be>>
@@ -1000,7 +1013,8 @@ In order to support spatial relationship functions, SensorThings API defines nin
 [[req-bf,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bf>>: <<requirement-bf>>[[requirement-bf,request-data/pagination]]
+|[[requirement-bf,request-data/pagination]]
+Req <<req-bf>>: <<requirement-bf>>
 
 |Responses that include only a partial set of the items identified by the request URL SHALL contain a link that allows retrieving the next partial set of items. This link is called a nextLink;
 its representation is format-specific. The final partial set of items SHALL NOT contain a nextLink.

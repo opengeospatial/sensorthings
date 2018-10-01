@@ -37,9 +37,9 @@ SensorThings API defines eight entities for the IoT sensing applications. <<sens
 
 
 [[tab-sensing-entities]]
-.SensorThings API Sensing entities and equivalent concepts in O&M 2.0
+.SensorThings API Sensing entities and equivalent concepts in O&amp;M 2.0
 |===
-|SensorThings API Entities |O&M 2.0 Concepts
+|SensorThings API Entities |O&amp;M 2.0 Concepts
 
 |Thing (and Locations, HistoricalLocations)
 |-

@@ -36,7 +36,8 @@ image::SensingEntitiesMultiDatastream.png[MultiDatastream Extension Entities]
 [[req-bn,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bn>>: <<requirement-bn>>[[requirement-bn,multi-datastream/properties]]
+|[[requirement-bn,multi-datastream/properties]]
+Req <<req-bn>>: <<requirement-bn>>
 
 |Each MultiDatastream entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-multidatastream>>.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bn>>
@@ -46,7 +47,8 @@ image::SensingEntitiesMultiDatastream.png[MultiDatastream Extension Entities]
 [[req-bo,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bo>>: <<requirement-bo>>[[requirement-bo,multi-datastream/relations]]
+|[[requirement-bo,multi-datastream/relations]]
+Req <<req-bo>>: <<requirement-bo>>
 
 |Each MultiDatastream entity SHALL have the direct relation between a MultiDatastream entity and other entity types listed in <<tab-relation-multidatastream>>.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bo>>
@@ -148,7 +150,8 @@ Note: It is possible an observation does not have a unit of measurement. For exa
 [[req-bp,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bp>>: <<requirement-bp>>[[requirement-bp,multi-datastream/constraints]]
+|[[requirement-bp,multi-datastream/constraints]]
+Req <<req-bp>>: <<requirement-bp>>
 
 |The size and the order of each element of a MultiDatastream’s unitOfMeasurements array (__i.e.__, MultiDatastream(id)/unitOfMeasurements) SHALL match the size and the order of each element of the related ObservedProperties collection (__i.e.__, MultiDatastreams(id)/ObservedProperties).
 
@@ -184,13 +187,13 @@ When a complex result’s element does not have a unit of measurement (e.g., a O
   "unitOfMeasurements": [
     {
       "name": "degree Celsius",
-      "symbol": " °C",
-      "definition": " http://unitsofmeasure.org/ucum.html#para-30"
+      "symbol": "°C",
+      "definition": "http://unitsofmeasure.org/ucum.html#para-30"
     },
     {
       "name": "percent",
       "symbol": "%",
-      "definition": " http://unitsofmeasure.org/ucum.html#para-29"
+      "definition": "http://unitsofmeasure.org/ucum.html#para-29"
     },
     {
       "name": "null",

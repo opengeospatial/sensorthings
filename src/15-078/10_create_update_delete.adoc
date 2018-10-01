@@ -51,7 +51,8 @@ As many IoT devices are resource-constrained, the SensorThings API adopts the ef
 [[req-bg,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bg>>: <<requirement-bg>>[[requirement-bg,create-update-delete/create-entity]]
+|[[requirement-bg,create-update-delete/create-entity]]
+Req <<req-bg>>: <<requirement-bg>>
 
 |To create an entity in a collection, the client SHALL send a HTTP POST request to that collection's URL. The POST body SHALL contain a single valid entity representation.
 
@@ -142,7 +143,8 @@ Content-Type: application/json
 [[req-bh,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bh>>: <<requirement-bh>>[[requirement-bh,create-update-delete/link-to-existing-entities]]
+|[[requirement-bh,create-update-delete/link-to-existing-entities]]
+Req <<req-bh>>: <<requirement-bh>>
 
 |A SensorThings API service, that supports entity creation, SHALL support linking new entities to existing entities upon creation. To create a new entity with links to existing entities in a single request, the client SHALL include the unique identifiers of the related entities associated with the corresponding navigation properties in the request body.
 
@@ -180,7 +182,8 @@ Content-Type: application/json
 [[req-bi,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bi>>: <<requirement-bi>>[[requirement-bi,create-update-delete/deep-insert]]
+|[[requirement-bi,create-update-delete/deep-insert]]
+Req <<req-bi>>: <<requirement-bi>>
 
 |A request to create an entity that includes related entities, represented using the appropriate inline representation, is referred to as a "deep insert". A SensorThings service that supports entity creation SHALL support deep insert.
 
@@ -279,7 +282,8 @@ Content-Type: application/json
 [[req-bj,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bj>>: <<requirement-bj>>[[requirement-bj,create-update-delete/deep-insert-status-code]]
+|[[requirement-bj,create-update-delete/deep-insert-status-code]]
+Req <<req-bj>>: <<requirement-bj>>
 
 |Upon successfully creating an entity, the service response SHALL contain a Location header that contains the URL of the created entity. Upon successful completion the service SHALL respond with 201 Created. Regarding all the HTTP status code, please refer to the HTTP Status Code section.
 
@@ -294,7 +298,8 @@ Content-Type: application/json
 [[req-bk,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bk>>: <<requirement-bk>>[[requirement-bk,create-update-delete/update-entity]]
+|[[requirement-bk,create-update-delete/update-entity]]
+Req <<req-bk>>: <<requirement-bk>>
 
 |To update an entity in a collection a SensorThings service SHALL follow the requirements as defined in <<update-entity>>.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bk>>
@@ -354,7 +359,8 @@ Upon successful completion, the service must respond with 200 OK or 204 No Conte
 [[req-bl,{counter:req}]]
 [cols="a"]
 |===
-|Req <<req-bl>>: <<requirement-bl>>[[requirement-bl,create-update-delete/delete-entity]]
+|[[requirement-bl,create-update-delete/delete-entity]]
+Req <<req-bl>>: <<requirement-bl>>
 
 |To delete an entity in a collection a SensorThings service SHALL follow the requirements as defined in <<delete-entity>>.
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bl>>
