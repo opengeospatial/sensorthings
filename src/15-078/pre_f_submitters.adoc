@@ -1,0 +1,38 @@
+[preface]
+[[submitters]]
+== submitters
+
+all questions regarding this submission should be directed to the editor or the submitters:
+
+[%autowidth,cols="3*"]
+|===
+|name |representing |ogc member
+
+|steve liang
+|university of calgary, canada / sensorup inc.
+|yes
+
+|alec chih-yuan huang
+|national central university, taiwan
+|yes
+
+|tania khalafbeigi
+|university of calgary, canada / sensorup inc.
+|yes
+
+|kyoungsook kim
+|aist, japan
+|yes
+
+|thomas schwab
+|lockheed martin
+|yes
+
+|jean brodeur
+|nrcan/canadian geospatial data infrastructure
+|yes
+
+|marcus alzona
+|noblis
+|yes
+|===

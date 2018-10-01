@@ -1,0 +1,1071 @@
+[[sensing-entities1]]
+== The SensorThings API Sensing Entities
+
+
+[[common-control-information]]
+=== Common Control Information
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/entity-control-information
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aa>>
+|===
+
+
+[[req-aa,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-aa>>: <<requirement-aa>>[[requirement-aa,entity-control-information/common-control-information]]
+
+|Each entity SHALL have the following common control information listed in Table 2.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aa>>
+|===
+
+
+**In SensorThings control information is represented as annotations whose names start with iot followed by a dot ( . ). Annotations are name/value pairs that have a dot ( . ) as part of the name.**
+
+When annotating a name/value pair for which the value is represented as a JSON object, each annotation is placed within the object and represented as a single name/value pair. In SensorThings the name always starts with the “at” sign (@), followed by the namespace iot, followed by a dot (.), followed by the name of the term (e.g., **"@iot.id":**1).
+
+When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair is placed next to the annotated name/value pair and represented as a single name/value pair. The name is the same as the name of the name/value pair being annotated, followed by the “at” sign (**@**), followed by the namespace iot, followed by a dot (.), followed by the name of the term.  (e.g., ``"Locations@iot.navigationLink":"http://example.org/v.1.0/Things(1)/Locations"``)
+
+
+[[tab-common-control-information]]
+.Common control information
+[cols="20a,50a,15a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|id
+|id is the system-generated identifier of an entity. id is unique among the entities of the same entity type in a SensorThings service.
+|Any
+|One (mandatory)
+
+|selfLink
+|selfLink is the absolute URL of an entity that is unique among all other entities.
+|URL
+|One (mandatory)
+
+|navigationLink
+|navigationLink is the relative or absolute URL that retrieves content of related entities.
+|URL
+|One-to-many +
+(mandatory)
+|===
+
+
+[[sensing-entities2]]
+=== The Sensing Entities
+
+The SensorThings API Sensing part’s Entities are depicted in <<fig-sensing-entities>>.
+
+[[fig-sensing-entities]]
+[.text-center]
+.Sensing Entities
+image::SensingEntities.png[Sensing Entities]
+
+In this section, we explain the properties in each entity type and the direct relation to the other entity types. In addition, for each entity type, we show an example of the associated JSON encoding.
+
+
+[[thing]]
+==== Thing
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/thing
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ab>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ac>>
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aa>>
+|===
+
+The OGC SensorThings API follows the ITU-T definition, __i.e.__, with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060].
+
+
+[[req-ab,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-ab>>: <<requirement-ab>>[[requirement-ab,thing/properties]]
+
+|Each Thing entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-thing>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ab>>
+|===
+
+
+[[tab-properties-thing]]
+.Properties of a Thing entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for Thing entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|This is a short description of the corresponding Thing entity.
+|CharacterString
+|One (mandatory)
+
+|properties
+|A JSON Object containing user-annotated properties as key-value pairs.
+|JSON Object
+|Zero-to-one
+|===
+
+
+[[req-ac,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-ac>>: <<requirement-ac>>[[requirement-ac,thing/relations]]
+
+|Each Thing entity SHALL have the direct relation between a Thing entity and other entity types listed in <<tab-relations-thing>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ac>>
+|===
+
+
+[[tab-relations-thing]]
+.Direct relation between a Thing entity and other entity types
+[cols="20a,20a,60a"]
+|===
+|Entity type |Relation |Description
+
+|Location
+|Many optional to many optional
+|The Location entity locates the Thing. Multiple Things MAY be located at the same Location. A Thing MAY not have a Location. A Thing SHOULD have only one Location.
+
+However, in some complex use cases, a Thing MAY have more than one Location representations. In such case, the Thing MAY have more than one Locations. These Locations SHALL have different encodingTypes and the encodingTypes SHOULD be in different spaces (e.g., one encodingType in Geometrical space and one encodingType in Topological space).
+
+|HistoricalLocation
+|One mandatory to many optional
+|A Thing has zero-to-many HistoricalLocations. A HistoricalLocation has one-and-only-one Thing.
+
+|Datastream
+|One mandatory to many optional
+|A Thing MAY have zero-to-many Datastreams.
+|===
+
+
+.Example {counter:examples} an example of a Thing entity:
+[source,json]
+----
+{
+  "@iot.id": 1,
+  "@iot.selfLink": "http://example.org/v1.0/Things(1)",
+  "Locations@iot.navigationLink": "Things(1)/Locations",
+  "Datastreams@iot.navigationLink": "Things(1)/Datastreams",
+  "HistoricalLocations@iot.navigationLink": "Things(1)/HistoricalLocations",
+
+  "name": "Oven",
+  "description": "This thing is an oven.",
+  "properties": {
+    "owner": "Noah Liang",
+    "color": "Black"
+  }
+}
+----
+
+
+[[location]]
+==== Location
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/location
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ad>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ae>>
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aa>>
+|===
+
+
+The Location entity locates the Thing or the Things it associated with. A Thing’s Location entity is defined as the last known location of the Thing.
+
+
+A Thing’s Location may be identical to the Thing’s Observations’ FeatureOfInterest. In the context of the IoT, the principle location of interest is usually associated with the location of the Thing, especially for __in-situ__ sensing applications. For example, the location of interest of a wifi-connected thermostat should be the building or the room in which the smart thermostat is located. And the FeatureOfInterest of the Observations made by the thermostat (e.g., room temperature readings) should also be the building or the room. In this case, the content of the smart thermostat’s location should be the same as the content of the temperature readings’ feature of interest.
+
+
+However, the ultimate location of interest of a Thing is not always the location of the Thing (e.g., in the case of remote sensing). In those use cases, the content of a Thing’s Location is different from the content of the FeatureOfInterest of the Thing’s Observations. Section 7.1.4 of [OGC 10-004r3 and ISO 19156:2011] provides a detailed explanation of observation location.
+
+
+[[req-ad,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-ad>>: <<requirement-ad>>[[requirement-ad,location/properties]]
+
+|Each Location entity SHALL have the mandatory properties listed in <<tab-properties-location>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ad>>
+|===
+
+
+[[tab-properties-location]]
+.Properties of a Location entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for Location entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|The description about the Location.
+|CharacterString
+|One (mandatory)
+
+|encodingType
+|The encoding type of the Location property. Its value is one of the ValueCode enumeration (see <<tab-encodingtype-codes>>).
+|ValueCode
+|One (mandatory)
+
+|location
+|The location type is defined by encodingType.
+|Any (__i.e.__, the type is depending on the value of the encodingType)
+|One (mandatory)
+|===
+
+
+[[req-ae,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-ae>>: <<requirement-ae>>[[requirement-ae,location/relations]]
+
+|Each Location entity SHALL have the direct relation between a Location entity and other entity types listed in <<tab-relation-location>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ae>>
+|===
+
+
+[[tab-relation-location]]
+.Direct relation between a Location entity and other entity types
+[cols="20a,20a,60a"]
+|===
+|Entity type |Relation |Description
+
+|Thing
+|Many optional to many optional
+|Multiple Things MAY locate at the same Location. A Thing MAY not have a Location.
+
+|HistoricalLocation
+|Many mandatory to many optional
+|A Location can have zero-to-many HistoricalLocations. One HistoricalLocation SHALL have one or many Locations.
+|===
+
+
+.Example {counter:examples} an example of a Location entity:
+[source,json]
+----
+{
+  "@iot.id": 1,
+  "@iot.selfLink": "http://example.org/v1.0/Locations(1)",
+  "Things@iot.navigationLink": "Locations(1)/Things",
+  "HistoricalLocations@iot.navigationLink": "Locations(1)/HistoricalLocations",
+
+  "name": "CCIT",
+  "description": "Calgary Center for Innvative Technologies",
+  "encodingType": "application/vnd.geo+json",
+  "location": {
+    "type": "Feature",
+    "geometry":{
+      "type": "Point",
+      "coordinates": [-114.06,51.05]
+    }
+  }
+}
+----
+
+
+[[tab-encodingtype-codes]]
+.List of some code values used for identifying types for the encodingType of the Location and FeatureOfInterest entity
+|===
+|Location encodingType |ValueCode Value
+
+|GeoJSON
+|application/vnd.geo+json
+|===
+
+
+A thing can be geo-referenced in different spaces. For example, for some applications it is more suitable to use a topological space model (e.g., IndoorGML) to describe an indoor things’ location rather than using a geometric space model (e.g., GeoJSON). Currently GeoJSON is the only Location encodingType of the SensorThings API. In the future we expect to extend SensorThings API’s capabilities by adding additional encodingType to the code values listed in the above table. For example, one potential new Location encodingType can be a JSON encoding for IndoorGML.
+
+
+[[historicallocation]]
+==== HistoricalLocation
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/historical-location
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-af>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ag>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ah>>
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aa>>
+|===
+
+
+A Thing’s HistoricalLocation entity set provides the times of the current (__i.e.__, last known) and previous locations of the Thing.
+
+
+[[req-af,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-af>>: <<requirement-af>>[[requirement-af,historical-location/properties]]
+
+|Each HistoricalLocation entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-historicallocation>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-af>>
+|===
+
+
+[[req-ag,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-ag>>: <<requirement-ag>>[[requirement-ag,historical-location/relations]]
+
+|Each HistoricalLocation entity SHALL have the direct relation between a HistoricalLocation entity and other entity types listed in <<tab-relation-historicallocation>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ag>>
+|===
+
+
+[[req-ah,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-ah>>: <<requirement-ah>>[[requirement-ah,create-update-delete/historical-location-auto-creation]]
+
+|When a Thing has a new Location, a new HistoricalLocation SHALL be created and added to the Thing automatically by the service. The current Location of the Thing SHALL only be added to HistoricalLocation automatically by the service, and SHALL not be created as HistoricalLocation directly by user.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ah>>
+|===
+
+
+The HistoricalLocation can also be created, updated and deleted. One use case is to migrate historical observation data from an existing observation data management system to a SensorThings API system.
+
+[[tab-properties-historicallocation]]
+.Properties of a HistoricalLocation entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|time
+|The time when the Thing is known at the Location.
+|TM_Instant (ISO-8601 Time String)
+|One (mandatory)
+|===
+
+
+[[tab-relation-historicallocation]]
+.Direct relation between an HistoricalLocation entity and other entity types
+[cols="20a,20a,60a"]
+|===
+|Entity type |Relation |Description
+
+|Location
+|Many optional to many mandatory
+|A Location can have zero-to-many HistoricalLocations. One HistoricalLocation SHALL have one or many Locations.
+
+|Thing
+|Many optional to one mandatory
+|A HistoricalLocation has one-and-only-one Thing. One Thing MAY have zero-to-many HistoricalLocations.
+|===
+
+
+.Example {counter:examples}: An example of a HistoricalLocations entity set (e.g., Things(1)/HistoricalLocations)
+[source,json]
+----
+{
+  "value": [
+    {
+      "@iot.id": 1,
+      "@iot.selfLink": "http://example.org/v1.0/HistoricalLocations(1)",
+      "Locations@iot.navigationLink": "HistoricalLocations(1)/Locations",
+      "Thing@iot.navigationLink": "HistoricalLocations(1)/Thing",
+      "time": "2015-01-25T12:00:00-07:00"
+    },
+    {
+      "@iot.id": 2,
+      "@iot.selfLink": "http://example.org/v1.0/HistoricalLocations(2)",
+      "Locations@iot.navigationLink": "HistoricalLocations(2)/Locations",
+      "Thing@iot.navigationLink": "HistoricalLocations(2)/Thing",
+      "time": "2015-01-25T13:00:00-07:00"
+    }
+  ],
+  "@iot.nextLink":"http://example.org/v1.0/Things(1)/HistoricalLocations?$skip=2&$top=2"
+}
+----
+[[datastream]]
+==== Datastream
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/datastream
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ai>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aj>>
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aa>>
+
+|Dependency
+|urn:iso:dis:iso:19156:clause:8.2.2
+|===
+
+
+A Datastream groups a collection of Observations measuring the same ObservedProperty and produced by the same Sensor.
+
+
+[[req-ai,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-ai>>: <<requirement-ai>>[[requirement-ai,datastream/properties]]
+
+|Each Datastream entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-datastream>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ai>>
+|===
+
+
+[[req-aj,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-aj>>: <<requirement-aj>>[[requirement-aj,datastream/relations]]
+
+|Each Datastream entity SHALL have the direct relation between a Datastream entity and other entity types listed in <<tab-relation-datastream>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aj>>
+|===
+
+
+[[tab-properties-datastream]]
+.Properties of a Datastream entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for Datastream entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|The description of the Datastream entity.
+|CharacterString
+|One (mandatory)
+
+|unitOfMeasurement
+|A JSON Object containing three key-value pairs. The name property presents the full name of the unitOfMeasurement; the symbol property shows the textual form of the unit symbol; and the definition contains the URI defining the unitOfMeasurement.
+
+The values of these properties SHOULD follow the Unified Code for Unit of Measure (UCUM).
+
+|JSON Object
+|One (mandatory)
+
+Note: When a Datastream does not have a unit of measurement (e.g., a OM_TruthObservation type), the corresponding unitOfMeasurement properties SHALL have null values.
+
+|observationType
+|The type of Observation (with unique result type), which is used by the service to encode observations.
+|ValueCode +
+see <<tab-value-codes-obstypes>>.
+|One (mandatory)
+
+|observedArea
+|The spatial bounding box of the spatial extent of all FeaturesOfInterest that belong to the Observations associated with this Datastream.
+|GM_Envelope (GeoJSON Polygon)
+|Zero-to-one (optional)
+
+|phenomenonTime
+|The temporal interval of the phenomenon times of all observations belonging to this Datastream.
+|TM_Period (ISO 8601 Time Interval)
+|Zero-to-one (optional)
+
+|resultTime
+|The temporal interval of the result times of all observations belonging to this Datastream.
+|TM_Period (ISO 8601 Time Interval)
+|Zero-to-one (optional)
+|===
+
+
+[[tab-relation-datastream]]
+.Direct relation between a Datastream entity and other entity types
+[cols="20a,20a,60a"]
+|===
+|Entity type |Relation |Description
+
+|Thing
+|Many optional to one mandatory
+|A Thing has zero-to-many Datastreams. A Datastream entity SHALL only link to a Thing as a collection of Observations.
+
+|Sensor
+|Many optional to one mandatory
+|The Observations in a Datastream are performed by one-and-only-one Sensor. One Sensor MAY produce zero-to-many Observations in different Datastreams.
+
+|ObservedProperty
+|Many optional to one mandatory
+|The Observations of a Datastream SHALL observe the same ObservedProperty. The Observations of different Datastreams MAY observe the same ObservedProperty.
+
+|Observation
+|One mandatory to many optional
+|A Datastream has zero-to-many Observations. One Observation SHALL occur in one-and-only-one Datastream.
+|===
+
+
+.Example {counter:examples}: A Datastream entity example
+[source,json]
+----
+{
+  "@iot.id": 1,
+  "@iot.selfLink": "http://example.org/v1.0/Datastreams(1)",
+  "Thing@iot.navigationLink": "HistoricalLocations(1)/Thing",
+  "Sensor@iot.navigationLink": "Datastreams(1)/Sensor",
+  "ObservedProperty@iot.navigationLink": "Datastreams(1)/ObservedProperty",
+  "Observations@iot.navigationLink": "Datastreams(1)/Observations",
+
+  "name": "oven temperature",
+  "description": "This is a datastream measuring the air temperature in an oven.",
+  "unitOfMeasurement": {
+    "name": "degree Celsius",
+    "symbol": "°C",
+    "definition": "http://unitsofmeasure.org/ucum.html#para-30"
+  },
+  "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+  "observedArea": {
+    "type": "Polygon",
+    "coordinates": [[[100,0],[101,0],[101,1],[100,1],[100,0]]]
+  },
+  "phenomenonTime": "2014-03-01T13:00:00Z/2015-05-11T15:30:00Z",
+  "resultTime": "2014-03-01T13:00:00Z/2015-05-11T15:30:00Z"
+}
+----
+
+
+The observationType defines the result types for specialized observations [OGC 10-004r3 and ISO 19156:2011 Table 3]. The following table shows some of the valueCodes that maps the UML classes in O&M v2.0 [OGC 10-004r3 and ISO 19156:2011] to observationType names and observation result types.
+
+
+[[tab-value-codes-obstypes]]
+.List of some code values used for identifying types defined in the O&M conceptual model (OGC 10-004r3 and ISO 19156:2011 Clause 8.2.2)
+[cols="30a,55a,15a"]
+|===
+|O&M 2.0 |Value Code Value (observationType names) |Content of result
+
+|OM_CategoryObservation
+|\http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation
+|URI
+
+|OM_CountObservation
+|\http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CountObservation
+|integer
+
+|OM_Measurement
+|\http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement
+|double
+
+|OM_Observation
+|\http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Observation
+|Any
+
+|OM_TruthObservation
+|\http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_TruthObservation
+|boolean
+|===
+
+
+[[sensor]]
+==== Sensor
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/sensor
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ak>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-al>>
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aa>>
+|===
+
+
+A Sensor is an instrument that observes a property or phenomenon with the goal of producing an estimate of the value of the property<<footnote3>>.
+
+[[req-ak,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-ak>>: <<requirement-ak>>[[requirement-ak,sensor/properties]]
+
+|Each Sensor entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-sensor>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ak>>
+|===
+
+
+[[req-al,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-al>>: <<requirement-al>>[[requirement-al,sensor/relations]]
+
+|Each Sensor entity SHALL have the direct relation between a Sensor entity and other entity types listed in <<tab-relation-sensor>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-al>>
+|===
+
+
+[[tab-properties-sensor]]
+.Properties of a Sensor entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for Sensor entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|The description of the Sensor entity.
+|CharacterString
+|One (mandatory)
+
+|encodingType
+|The encoding type of the metadata property. Its value is one of the ValueCode enumeration (see <<tab-encodingtypes-sensor>> for the available ValueCode).
+|ValueCode
+|One (mandatory)
+
+|metadata
+|The detailed description of the Sensor or system. The metadata type is defined by encodingType.
+|Any (depending on the value of the encodingType)
+|One (mandatory)
+|===
+
+
+[[tab-relation-sensor]]
+.Direct relation between a Sensor entity and other entity types
+[cols="20a,20a,60a"]
+|===
+|Entity type |Relation |Description
+
+|Datastream
+|One mandatory to many optional
+|The Observations of a Datastream are measured with the same Sensor. One Sensor MAY produce zero-to-many Observations in different Datastreams.
+|===
+
+
+[[tab-encodingtypes-sensor]]
+.List of some code values used for identifying types for the encodingType of the Sensor entity
+|===
+|Sensor encodingType |ValueCode Value
+
+|PDF
+|application/pdf
+
+|SensorML
+|\http://www.opengis.net/doc/IS/SensorML/2.0
+|===
+
+
+The Sensor encodingType allows clients to know how to interpret metadata’s value. Currently SensorThings API defines two common Sensor metadata encodingTypes. Most sensor manufacturers provide their sensor datasheets in a PDF format. As a result, PDF is a Sensor encodingType supported by SensorThings API. The second Sensor encodingType is SensorML.
+
+
+.Example {counter:examples}: An example of a Sensor entity
+[source,json]
+----
+{
+  "@iot.id": 1,
+  "@iot.selfLink": "http://example.org/v1.0/Sensors(1)",
+  "Datastreams@iot.navigationLink": "Sensors(1)/Datastreams",
+
+  "name": "TMP36",
+  "description": "TMP36 - Analog Temperature sensor",
+  "encodingType": "application/pdf",
+  "metadata": "http://example.org/TMP35_36_37.pdf"
+}
+----
+
+
+[[observedproperty]]
+==== ObservedProperty
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/observed-property
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-am>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-an>>
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aa>>
+|===
+
+
+An ObservedProperty specifies the phenomenon of an Observation.
+
+
+[[req-am,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-am>>: <<requirement-am>>[[requirement-am,observed-property/properties]]
+
+|Each ObservedProperty entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-observedproperty>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-am>>
+|===
+
+
+[[req-an,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-an>>: <<requirement-an>>[[requirement-an,observed-property/relations]]
+
+|Each ObservedProperty entity SHALL have the direct relation between a ObservedProperty entity and other entity types listed in <<tab-relation-observedproperty>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-an>>
+|===
+
+
+[[tab-properties-observedproperty]]
+.Properties of an ObservedProperty entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for ObservedProperty entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|definition
+|The URI of the ObservedProperty. Dereferencing this URI SHOULD result in a representation of the definition of the ObservedProperty.
+|URI
+|One (mandatory)
+
+|description
+|A description about the ObservedProperty.
+|CharacterString
+|One (mandatory)
+|===
+
+
+[[tab-relation-observedproperty]]
+.Direct relation between an ObservedProperty entity and other entity types
+[cols="20a,20a,60a"]
+|===
+|Entity type |Relation |Description
+
+|Datastream
+|One mandatory to many optional
+|The Observations of a Datastream observe the same ObservedProperty. The Observations of different Datastreams MAY observe the same ObservedProperty.
+|===
+
+
+.Example {counter:examples}: an example ObservedProperty entity
+[source,json]
+----
+{
+  "@iot.id": 1,
+  "@iot.selfLink": "http://example.org/v1.0/ObservedProperties(1)",
+  "Datastreams@iot.navigationLink": "ObservedProperties(1)/Datastreams",
+  "description": "The dewpoint temperature is the temperature to which the
+                  air must be cooled, at constant pressure, for dew to form.
+                  As the grass and other objects near the ground cool to
+                  the dewpoint, some of the water vapor in the atmosphere
+                  condenses into liquid water on the objects.",
+  "name": "DewPoint Temperature",
+  "definition": "http://dbpedia.org/page/Dew_point"
+}
+----
+
+
+[[observation]]
+==== Observation
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/observation
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ao>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ap>>
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aa>>
+
+|Dependency
+|urn:iso:dis:iso:19156:clause:7.2.2
+|===
+
+
+An Observation is the act of measuring or otherwise determining the value of a property [OGC 10-004r3 and ISO 19156:2011]
+
+
+[[req-ao,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-ao>>: <<requirement-ao>>[[requirement-ao,observation/properties]]
+
+|Each Observation entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-observation>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ao>>
+|===
+
+
+[[req-ap,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-ap>>: <<requirement-ap>>[[requirement-ap,observation/relations]]
+
+|Each Observation entity SHALL have the direct relation between an Observation entity and other entity types listed in <<tab-relations-observation>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ap>>
+|===
+
+
+[[tab-properties-observation]]
+.Properties of an Observation entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|phenomenonTime
+|The time instant or period of when the Observation happens.
+
+Note: Many resource-constrained sensing devices do not have a clock. As a result, a client may omit phenonmenonTime when POST new Observations, even though phenonmenonTime is a mandatory property. When a SensorThings service receives a POST Observations without phenonmenonTime, the service SHALL assign the current server time to the value of the phenomenonTime.
+
+|TM_Object (ISO 8601 Time string or Time Interval string (e.g., ``2010-12-23T10:20:00.00-07:00`` or ``2010-12-23T10:20:00.00-07:00/2010-12-23T12:20:00.00-07:00``))
+|One (mandatory)
+
+|result
+|The estimated value of an ObservedProperty from the Observation.
+|Any (depends on the observationType defined in the associated Datastream)
+|One (mandatory)
+
+|resultTime
+|The time of the Observation's result was generated.
+
+Note: Many resource-constrained sensing devices do not have a clock. As a result, a client may omit resultTime when POST new Observations, even though resultTime is a mandatory property. When a SensorThings service receives a POST Observations without resultTime, the service SHALL assign a null value to the resultTime.
+
+|TM_Instant (ISO 8601 Time string)
+|One (mandatory)
+
+|resultQuality
+|Describes the quality of the result.
+|DQ_Element
+|Zero-to-many
+
+|validTime
+|The time period during which the result may be used.
+|TM_Period (ISO 8601 Time Interval string)
+|Zero-to-one
+
+|parameters
+|Key-value pairs showing the environmental conditions during measurement.
+|NamedValues in a JSON Array
+|Zero-to-one
+|===
+
+
+[[tab-relations-observation]]
+.Direct relation between an Observation entity and other entity types
+[cols="20a,20a,60a"]
+|===
+|Entity type |Relation |Description
+
+|Datastream
+|Many optional to one mandatory
+|A Datastream can have zero-to-many Observations. One Observation SHALL occur in one-and-only-one Datastream.
+
+|FeatureOfInterest
+|Many optional to one mandatory
+|An Observation observes on one-and-only-one FeatureOfInterest. One FeatureOfInterest could be observed by zero-to-many Observations.
+|===
+
+
+.Example {counter:examples}  An Observation entity example - The following example shows an Observation whose Datastream has an ObservationType of OM_Measurement. A result’s data type is defined by the observationType.
+[source,json]
+----
+{
+  "@iot.id": 1,
+  "@iot.selfLink": "http://example.org/v1.0/Observations(1)",
+  "FeatureOfInterest@iot.navigationLink": "Observations(1)/FeatureOfInterest",
+  "Datastream@iot.navigationLink":"Observations(1)/Datastream",
+
+  "phenomenonTime": "2014-12-31T11:59:59.00+08:00",
+  "resultTime": "2014-12-31T11:59:59.00+08:00",
+  "result": 70.4
+}
+----
+
+
+[[featureofinterest]]
+==== FeatureOfInterest
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/feature-of-interest
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aq>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ar>>
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aa>>
+|===
+
+
+An Observation results in a value being assigned to a phenomenon. The phenomenon is a property of a feature, the latter being the FeatureOfInterest of the Observation [OGC and ISO 19156:2011]. In the context of the Internet of Things, many Observations’ FeatureOfInterest can be the Location of the Thing. For example, the FeatureOfInterest of a wifi-connect thermostat can be the Location of the thermostat (__i.e.__, the living room where the thermostat is located in). In the case of remote sensing, the FeatureOfInterest can be the geographical area or volume that is being sensed.
+
+
+[[req-aq,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-aq>>: <<requirement-aq>>[[requirement-aq,feature-of-interest/properties]]
+
+|Each FeatureOfInterest entity SHALL have the mandatory properties listed in <<tab-properties-featureofinterest>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aq>>
+|===
+
+
+[[req-ar,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-ar>>: <<requirement-ar>>[[requirement-ar,feature-of-interest/relations]]
+
+|Each FeatureOfInterest entity SHALL have the direct relation between a FeatureOfInterest entity and other entity types listed in <<tab-relation-featureofinterest>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ar>>
+|===
+
+
+[[tab-properties-featureofinterest]]
+.Properties of a FeatureOfInterest entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for FeatureOfInterest entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|The description about the FeatureOfInterest.
+|CharacterString
+|One (mandatory)
+
+|encodingType
+|The encoding type of the feature property.
+
+Its value is one of the ValueCode enumeration (see <<tab-encodingtype-codes>> for the available ValueCode).
+
+|ValueCode
+|One (mandatory)
+
+|feature
+|The detailed description of the feature. The data type is defined by encodingType.
+|Any
+|One (mandatory)
+|===
+
+
+[[tab-relation-featureofinterest]]
+.Direct relation between a FeatureOfInterest entity and other entity types
+[cols="20a,20a,60a"]
+|===
+|Entity type |Relation |Description
+
+|Observation
+|One mandatory to many optional
+|An Observation observes on one-and-only-one FeatureOfInterest. One FeatureOfInterest could be observed by zero-to-many Observations.
+|===
+
+
+.Example {counter:examples}: an example of a FeatureOfInterest entity
+[source,json]
+----
+{
+  "@iot.id": 1,
+  "@iot.selfLink": "http://example.org/v1.0/FeaturesOfInterest(1)",
+  "Observations@iot.navigationLink": "FeaturesOfInterest(1)/Observations",
+
+  "name": "Weather Station YYC.",
+  "description": "This is a weather station located at the Calgary Airport.",
+  "encodingType": "application/vnd.geo+json",
+  "feature": {
+    "type": "Feature",
+    "geometry":{
+      "type": "Point",
+      "coordinates": [-114.06,51.05]
+    }
+  }
+}
+----
+

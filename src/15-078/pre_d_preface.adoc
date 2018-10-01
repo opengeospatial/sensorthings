@@ -1,0 +1,16 @@
+[preface]
+[[preface]]
+== preface
+
+the ogc sensorthings api provides an open, geospatial-enabled and unified way to interconnect the internet of things devices, data, and applications over the web. the ogc sensorthings api is an open standard, and that means it is non-proprietary, platform-independent, and perpetual royalty-free. although it is a new standard, it builds on a rich set of proven-working and widely-adopted open standards, such as the web protocols and the ogc sensor web enablement (swe) standards, including the iso/ogc observation and measurement data model [ogc 10-004r3 and iso 19156:2011]. that also means the ogc sensorthings api is extensible and can be applied to not only simple but also complex use cases.
+
+
+at a high level the ogc sensorthings api provides two main functionalities and each function is handled by a part. the two parts are the part i - sensing and the part ii - tasking. the sensing part provides a standard way to manage and retrieve observations and metadata from heterogeneous iot sensor systems. the tasking part provides a standard way for parameterizing - also called tasking - of task-able iot devices, such as sensors or actuators. the tasking part is planned as a future work activity and will be defined in a separate document as the part ii of the sensorthings api.
+
+
+the sensing part provides functions similar to the ogc sensor observation service (sos) and the tasking part will provide functions similar to the ogc sensor planning service (sps). the main difference between the sensorthings api and the ogc sos and sps is that the sensorthings api is designed specifically for the resource-constrained iot devices and the web developer community. as a result, the sensorthings api follows the rest principles, the use of an efficient json encoding, the use of mqtt protocol, the use of the flexible oasis odata protocol and url conventions.
+
+
+attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. the open geospatial consortium shall not be held responsible for identifying any or all such patent rights.
+
+__recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.__

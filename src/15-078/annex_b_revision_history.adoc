@@ -1,0 +1,62 @@
+[appendix]
+== Revision history
+
+
+|===
+|Date |Release |Author |Paragraph modified |Description
+
+|2015-01-24
+|0.9.0
+|Steve Liang
+|Many.
+|Updated according to the Calgary and Tokyo TC SWG meeting. Changed trajectory to HistoricalLocation.
+
+|2015-02-24
+|0.9
+|Carl Reed
+|Many.
+|Major edit and alignment with OGC document template.
+
+|2015-04-11
+|0.9
+|Steve Liang
+|Many.
+|Updated according to the Barcelona TC SWG meeting. Changed ComplexDatastream to MultiDatastream.
+
+|2015-05-11
+|0.9.1
+|Steve Liang
+|Many.
+|Updated according to the OGC Architecture Board meeting on May 5^th^ 2015. Added requirement classes.
+
+|2015-06-11
+|0.9.2
+|Steve Liang
+|Many.
+|Updated according to the OGC Architecture Board meeting on May 19^th^ 2015. Revised requirement classes to follow the OGC Naming Authority. Changed common properties to common control information. Added support to server-side pagination for expanded related entities.
+
+|2015-08-24
+|0.9.3
+|Steve Liang
+|Many.
+|Updated according to the RFC comments. Added requirement classes. Added dependencies. Added a section to describe the relationship between this specification and O&M as well as OData.
+
+|2015-10-26
+|1.0
+|Steve Liang
+|Many.
+|Updated according to the OGC Architecture Board meeting on October 12^th^ 2015. Updated a section to explain the design decision of choosing the OData KVP encoding rather than OGC KVP encoding.
+
+|2016-05-19
+|1.0
+|Steve Liang
+|Many.
+|Updated according to comments received from the OGC TC approval vote and Washington DC TC SWG meeting.
+
+|2016-06-30
+|1.0
+|Scott Simmons
+|All
+|Editing for final publication
+|===
+

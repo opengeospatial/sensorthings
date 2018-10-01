@@ -1,0 +1,133 @@
+[[conformance]]
+== conformance
+
+conformance with this standard shall be checked using all the relevant tests specified in annex a (normative)
+of this document. the framework, concepts, and methodology for testing, and the criteria to be achieved
+to claim conformance are specified in the ogc compliance testing policies and procedures and the ogc
+compliance testing web site<<footnote1>>.
+
+All requirements-classes and conformance-classes described in this document are owned by the standard(s) identified.
+
+
+The following table list the requirements classes defined by this standard.
+
+
+NOTE: The text in the __Requirements__ column in the following table is the path fragment that, when appended to the URI: \http://www.opengis.net/spec/iot_sensing/1.0/, provides the URI that can be used to unambiguously identify the requirement and the conformance class.
+
+[cols="<2,4a,<2"]
+|===
+|Requirements class id |Requirements |Description
+
+|req/thing
+|
+* req/<<requirement-ab>>
+* req/<<requirement-ac>>
+|Thing entity
+
+|req/location
+|
+* req/<<requirement-ad>>
+* req/<<requirement-ae>>
+|Location entity
+
+|req/historical-location
+|
+* req/<<requirement-af>>
+* req/<<requirement-ag>>
+|HistoricalLocation entity
+
+|req/datastream
+|
+* req/<<requirement-ai>>
+* req/<<requirement-aj>>
+|Datastream entity
+
+|req/sensor
+|
+* req/<<requirement-ak>>
+* req/<<requirement-al>>
+|Sensor Entity
+
+|req/observed-property
+|
+* req/<<requirement-am>>
+* req/<<requirement-an>>
+|ObservedProperty entity
+
+|req/observation
+|
+* req/<<requirement-ao>>
+* req/<<requirement-ap>>
+|Observation entity
+
+|req/feature-of-interest
+|
+* req/<<requirement-aq>>
+* req/<<requirement-ar>>
+|FeatureOfInterest entity
+
+|req/entity-control-information
+|
+* req/<<requirement-aa>>
+|Entities’ common control information
+
+|req/resource-path
+|
+* req/<<requirement-as>>
+|Addressing to the entities of the SensorThings API service
+
+|req/request-data
+|
+* req/<<requirement-av>>
+* req/<<requirement-aw>>
+* req/<<requirement-ax>>
+* req/<<requirement-at>>
+* req/<<requirement-au>>
+* req/<<requirement-ay>>
+* req/<<requirement-az>>
+* req/<<requirement-ba>>
+* req/<<requirement-bb>>
+* req/<<requirement-bc>>
+* req/<<requirement-bd>>
+* req/<<requirement-be>>
+* req/<<requirement-bf>>
+|Requesting data with system query options
+
+|req/create-update-delete
+|
+* req/<<requirement-bg>>
+* req/<<requirement-bh>>
+* req/<<requirement-bi>>
+* req/<<requirement-bj>>
+* req/<<requirement-bk>>
+* req/<<requirement-bl>>
+* req/<<requirement-ah>>
+|Creating, updating, and deleting entities
+
+|req/batch-request
+|
+* req/<<requirement-bm>>
+|Processing multiple requests with a single request
+
+|req/multi-datastream
+|
+* req/<<requirement-bn>>
+* req/<<requirement-bo>>
+* req/<<requirement-bp>>
+|Handling complex observations with complex results, especially when the result is an array.
+
+|req/data-array
+|
+* req/<<requirement-bq>>
+|Serving Observations with the efficient data array encoding
+
+|req/create-observations-via-mqtt
+|
+* req/<<requirement-br>>
+|creating observations through MQTT
+
+|req/receive-updates-via-mqtt
+|
+* req/<<requirement-bs>>
+|Receiving updates through MQTT
+|===

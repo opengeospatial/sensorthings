@@ -1,0 +1,5 @@
+[preface]
+[[abstract]]
+== abstract
+
+the ogc sensorthings api provides an open, geospatial-enabled and unified way to interconnect the internet of things (iot) devices, data, and applications over the web. at a high level the ogc sensorthings api provides two main functionalities and each function is handled by a part. the two parts are the sensing part and the tasking part. the sensing part provides a standard way to manage and retrieve observations and metadata from heterogeneous iot sensor systems. the tasking part is planned as a future work activity and will be defined in a separate document as the part ii of the sensorthings api.

@@ -1,0 +1,16 @@
+[appendix]
+[[bibliography]]
+== Bibliography
+
+[[bib-geojson,{counter:bib}]][{bib}]The GeoJSON Format Specification, January 15, 2015. Available Online: https://datatracker.ietf.org/doc/draft-butler-geojson/
+
+[[bib-itu-iot,{counter:bib}]][{bib}]ITU-T Y.2060 Overview of the Internet of Things, 2012. Available Online:https://www.itu.int/rec/T-REC-Y.2060-201206-I
+
+[[bib-ogc-oandm,{counter:bib}]][{bib}]OGC and ISO 19156:2001, OGC 10-004r3 and ISO 19156:2011(E), OGC Abstract Specification: Geographic information — Observations and Measurements. Available Online: http://portal.opengeospatial.org/files/?artifact_id=41579
+
+[[bib-sensorml,{counter:bib}]][{bib}]OGC 12-000, OGC® SensorML: Model and XML Encoding Standard. Available Online: http://www.opengeospatial.org/standards/sensorml
+
+[[bib-atom,{counter:bib}]][{bib}]RFC 5023, The Atom Publishing Protocol. Available Online: https://www.ietf.org/rfc/rfc5023.txt
+
+[[bib-json,{counter:bib}]][{bib}]RFC 6902, JavaScript Object Notation (JSON) Patch. Available Online:https://www.ietf.org/rfc/rfc6902.txt
+

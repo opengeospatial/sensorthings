@@ -1,0 +1,290 @@
+[[data-array-extension]]
+== SensorThings Data Array Extension
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/data-array
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/ req/<<requirement-bq>>
+|===
+
+
+[[req-bq,{counter:req}]]
+[cols="a"]
+|===
+|Req <<req-bq>>: <<requirement-bq>>[[requirement-bq,data-array/data-array]]
+
+|To support the SensorThings data array extension, a service SHALL support the retrieval and creation of observations as defined in <<data-array-extension>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bq>>
+|===
+
+Similar to the SWE DataArray in the OGC SOS, SensorThings API also provides the support of dataArray (in addition to formatting every observation entity as a JSON object) to aggregate multiple Observation entities and reduce the request (e.g., POST) and response (e.g., GET) size. SensorThings mainly use dataArray in two scenarios: (1) get Observation entities in dataArray, and (2) create Observation entities with dataArray.
+
+
+[[retrieve-observation-dataarray]]
+=== Retrieve a Datastream’s Observation entities in dataArray
+
+In SensorThings services, users are able to request for multiple Observation entities and format the entities in the dataArray format. When a SensorThings service returns a dataArray response, the service groups Observation entities by Datastream or MultiDatastream, which means the Observation entities that link to the same Datastream or the same MultiDatastream are aggregated in one dataArray.
+
+
+==== Request
+
+In order to request for dataArray, users must include the query option ``$resultFormat=dataArray``
+when requesting Observation entities. For example, ``http://example.org/v1.0/Observations?$resultFormat=dataArray``.
+
+
+==== Response
+
+The response Observations in dataArray format contains the following properties.
+
+
+[[properties-getting-observation-dataarray]]
+.Properties of getting Observation entities in dataArray
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|Datastream or MultiDatastream
+|The navigationLink of the Datastream or the MultiDatastream entity used to group Observation entities in the dataArray.
+|navigationLink
+|One (mandatory)
+
+|components
+|An ordered array of Observation property names whose matched values are included in the dataArray.
+|An ordered array of Observation property names
+|One (mandatory)
+
+|dataArray
+|A JSON Array containing Observation entities. Each Observation entity is represented by the ordered property values, which match with the ordered property names in components.
+|JSON Array
+|One (mandatory)
+|===
+
+**Example {counter:examples}: an example of getting Observation entities from a Datastream in dataArray result format:**
+
+[source,json]
+----
+GET /v1.0/Datastreams(1)/Observations?$resultFormat=dataArray
+HTTP/1.1 200 OK
+Host: www.example.org
+Content-Type: application/json
+
+{
+  "value": [
+    {
+      "Datastream@iot.navigationLink": "Datastreams(1)",
+      "components": [
+        "id",
+        "phenomenonTime",
+        "resultTime",
+        "result"
+      ],
+      "dataArray@iot.count": 3,
+      "dataArray": [
+        [
+          1,
+          "2005-08-05T12:21:13Z",
+          "2005-08-05T12:21:13Z",
+          20
+        ],
+        [
+          2,
+          "2005-08-05T12:22:08Z",
+          "2005-08-05T12:21:13Z",
+          30
+        ],
+        [
+          3,
+          "2005-08-05T12:22:54Z",
+          "2005-08-05T12:21:13Z",
+          0
+        ]
+      ]
+    }
+  ]
+}
+----
+
+**Example {counter:examples}: an example of getting Observation entities from a MultiDatastream in dataArray result format**
+
+[source,json]
+----
+GET /v1.0/MultiDatastreams(1)/Observations?$resultFormat=dataArray
+HTTP/1.1 200 OK
+Host: www.example.org
+Content-Type: **application/json
+
+{
+  "value": [
+    {
+      "MultiDatastream@iot.navigationLink": "MultiDatastreams(1)",
+      "components": [
+        "id",
+        "phenomenonTime",
+        "resultTime",
+        "result"
+      ],
+      "dataArray@iot.count": 3,
+      "dataArray": [
+        [
+          1,
+          "2010-12-23T11:20:00-0700",
+          "2010-12-23T11:20:00-0700",
+          [
+            10.2,
+            65,
+            "clear"
+          ]
+        ],
+        [
+          2,
+          "2010-12-23T11:22:08-0700",
+          "2010-12-23T11:20:00-0700",
+          [
+            11.3,
+            63,
+            "clear"
+          ]
+        ],
+        [
+          3,
+          "2010-12-23T11:22:54-0700",
+          "2010-12-23T11:20:00-0700",
+          [
+            9.8,
+            67,
+            "clear"
+          ]
+        ]
+      ]
+    }
+  ]
+}
+----
+
+
+[[create-observation-dataarray]]
+=== Create Observation entities with dataArray
+
+Besides creating Observation entities one by one with multiple HTTP POST requests, there is a need to create multiple Observation entities with a lighter message body in a single HTTP request. In this case, a sensing system can buffer multiple Observations and send them to a SensorThings service in one HTTP request. Here we propose an Action operation CreateObservations.
+
+
+==== Request
+
+Users can invoke the CreateObservations action by sending a HTTP POST request to the SERVICE_ROOT_URL/CreateObservations.
+
+For example, http://example.org/v1.0/CreateObservations.
+
+The message body aggregates Observations by Datastreams, which means all the Observations linked to one Datastream SHALL be aggregated in one JSON object. The parameters of each JSON object are shown in the following table.
+
+As an Observation links to one FeatureOfInterest, to establish the link between an Observation and a FeatureOfInterest, users should include the FeatureOfInterest ids in the dataArray. If no FeatureOfInterest id presented, the FeatureOfInterest will be created based on the Location entities of the linked Thing entity by default.
+
+
+[[properties-creating-observation-dataarray]]
+.Properties of creating Observation entities with dataArray
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|Datastream
+|The unique identifier of the Datasteam linking to the group of Observation entities in the dataArray.
+|The unique identifier of a Datastream
+|One (mandatory)
+
+|components
+|An ordered array of Observation property names whose matched values are included in the dataArray. At least the phenomenonTime and result properties SHALL be included. To establish the link between an Observation and a FeatureOfInterest, the component name is "FeatureOfInterest/id" and the FeatureOfInterest ids should be included in the dataArray array. If no FeatureOfInterest id is presented, the FeatureOfInterest will be created based on the Location entities of the linked Thing entity by default.
+
+|An ordered array of Observation property names
+|One (mandatory)
+
+|dataArray
+|A JSON Array containing Observations. Each Observation is represented by the ordered property values. The ordered property values match with the ordered property names in components.
+|JSON Array
+|One (mandatory)
+|===
+
+**Example {counter:examples}: example of a request for creating Observation entities in dataArray**
+
+[source]
+----
+POST /v1.0/CreateObservations HTTP/1.1
+Host: example.org/
+Content-Type: application/json
+
+[
+  {
+    "Datastream": {
+      "@iot.id": 1
+    },
+    "components": [
+      "phenomenonTime",
+      "result",
+      "FeatureOfInterest/id"
+    ],
+    "dataArray@iot.count": 2,
+    "dataArray": [
+      [
+        "2010-12-23T10:20:00-0700",
+        20,
+        1
+      ],
+      [
+        "2010-12-23T10:21:00-0700",
+        30,
+        1
+      ]
+    ]
+  },
+  {
+    "Datastream": {
+      "@iot.id": 2
+    },
+    "components": [
+      "phenomenonTime",
+      "result",
+      "FeatureOfInterest/id"
+    ],
+    "dataArray@iot.count": 2,
+    "dataArray": [
+      [
+        "2010-12-23T10:20:00-0700",
+        65,
+        1
+      ],
+      [
+        "2010-12-23T10:21:00-0700",
+        60,
+        1
+      ]
+    ]
+  }
+]
+----
+
+
+==== Response
+
+Upon successful completion the service SHALL respond with 201 Created. The response message body SHALL contain the URLs of the created Observation entities, where the order of URLs must match with the order of Observations in the dataArray from the request. In the case of the service having exceptions when creating individual observation entities, instead of responding with URLs, the service must specify "error" in the corresponding array element.
+
+**Example {counter:examples}: an example of a response of creating Observation entities with dataArray**
+
+[source,json]
+----
+POST /v1.0/CreateObservations HTTP/1.1
+201 Created
+Host: example.org
+Content-Type: application/json
+
+[
+  "http://examples.org/v1.0/Observations(1)",
+  "error",
+  "http://examples.org/v1.0/Observations(2)"
+]
+----
+
