@@ -1,7 +1,7 @@
 [preface]
 [[keywords]]
-== keywords
+== Keywords
 
-the following are keywords to be used by search engines and document catalogues.
+The following are keywords to be used by search engines and document catalogues.
 
 ogcdoc, ogc document, iot, internet of things, sensor things, sensors, swe, sensor webs, sensor web enablement, sensor networks

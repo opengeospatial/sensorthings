@@ -1,16 +1,16 @@
 [preface]
 [[submittingorganizations]]
-== submitting organizations
+== Submitting organizations
 
-the following organizations submitted this document to the open geospatial consortium (ogc):
+The following organizations submitted this document to the open geospatial consortium (ogc):
 
 [none]
-* university of calgary, canada
-* national central university, taiwan
-* lockheed martin, usa
-* aist, japan
-* fcu.gis, taiwan
-* itri, taiwan
-* geoconnections, canada
-* noblis, usa
-* fraunhofer, germany
+* University of Calgary, Canada
+* National Central University, Taiwan
+* Lockheed Martin, USA
+* AIST, Japan
+* FCU.GIS, Taiwan
+* ITRI, Taiwan
+* GeoConnections, Canada
+* Noblis, USA
+* Fraunhofer, Germany

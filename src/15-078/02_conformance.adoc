@@ -1,8 +1,8 @@
 [[conformance]]
-== conformance
+== Conformance
 
-conformance with this standard shall be checked using all the relevant tests specified in annex a (normative)
-of this document. the framework, concepts, and methodology for testing, and the criteria to be achieved
+Conformance with this standard shall be checked using all the relevant tests specified in annex a (normative)
+of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved
 to claim conformance are specified in the ogc compliance testing policies and procedures and the ogc
 compliance testing web site<<footnote1>>.
 
