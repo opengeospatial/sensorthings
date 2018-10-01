@@ -219,9 +219,9 @@ If the property is single-valued and has the null value, the service SHALL respo
 [[usage-address-value-of-property]]
 ==== Usage 5: address to the value of an entity’s property
 
-To address the raw value of a primitive property, clients append a path segment containing the string ``$value`` to the property URL.
+To address the raw value of a primitive property, clients append a path segment containing the string `+$value+` to the property URL.
 
-The default format for TM_Object types is text/plain using the ISO8601 format, such as ``2014-03-01T13:00:00Z/2015-05-11T15:30:00Z`` for TM_Period and ``2014-03-01T13:00:00Z`` for TM_Instant.
+The default format for TM_Object types is text/plain using the ISO8601 format, such as `+2014-03-01T13:00:00Z/2015-05-11T15:30:00Z+` for TM_Period and `+2014-03-01T13:00:00Z+` for TM_Instant.
 
 **URI Pattern:** SERVICE_ROOT_URI/ENTITY_SET_NAME(ID_OF_THE_ENTITY)/PROPERTY_NAME/$value
 
@@ -772,72 +772,72 @@ The OGC SensorThings API supports a set of built-in filter operations, as descri
 
 |eq
 |Equal
-|/ObservedProperties?$filter=unitOfMeasurement/name eq 'degree Celsius'
+|`+/ObservedProperties?$filter=unitOfMeasurement/name eq 'degree Celsius'+`
 
 |ne
 |Not equal
-|/ObservedProperties?$filter=unitOfMeasurement/name ne 'degree Celsius'
+|`+/ObservedProperties?$filter=unitOfMeasurement/name ne 'degree Celsius'+`
 
 |gt
 |Greater than
-|/Observations?$filter=result gt 20.0
+|`+/Observations?$filter=result gt 20.0+`
 
 |ge
 |Greater than or equal
-|/Observations?$filter=result ge 20.0
+|`+/Observations?$filter=result ge 20.0+`
 
 |lt
 |Less than
-|/Observations?$filter=result lt 100
+|`+/Observations?$filter=result lt 100+`
 
 |le
 |Less than or equal
-|/Observations?$filter=result le 100
+|`+/Observations?$filter=result le 100+`
 
 
 3+|**Logical Operators**
 
 |and
 |Logical and
-|/Observations?$filter=result le 3.5 and FeatureOfInterest/id eq '1'
+|`+/Observations?$filter=result le 3.5 and FeatureOfInterest/id eq 1+`
 
 |or
 |Logical or
-|/Observations?$filter=result gt 20 or result le 3.5
+|`+/Observations?$filter=result gt 20 or result le 3.5+`
 
 |not
 |Logical negation
-|/Things?$filter=not startswith(description,'test')
+|`+/Things?$filter=not startswith(description,'test')+`
 
 
 3+|**Arithmetic Operators**
 
 |add
 |Addition
-|/Observations?$filter=result add 5 gt 10
+|`+/Observations?$filter=result add 5 gt 10+`
 
 |sub
 |Subtraction
-|/Observations?$filter=result sub 5 gt 10
+|`+/Observations?$filter=result sub 5 gt 10+`
 
 |mul
 |Multiplication
-|/Observations?$filter=result mul 2 gt 2000
+|`+/Observations?$filter=result mul 2 gt 2000+`
 
 |div
 |Division
-|/Observations?$filter=result div 2 gt 4
+|`+/Observations?$filter=result div 2 gt 4+`
 
 |mod
 |Modulo
-|/Observations?$filter=result mod 2 eq 0
+|`+/Observations?$filter=result mod 2 eq 0+`
 
 
 3+|**Grouping Operators**
 
 |( )
 |Precedence grouping
-|/Observations?$filter=(result sub 5) gt 10
+|`+/Observations?$filter=(result sub 5) gt 10+`
 |===
 
 
@@ -845,7 +845,7 @@ The OGC SensorThings API supports a set of built-in filter operations, as descri
 
 The OGC SensorThings API supports a set of functions that can be used with the $filter or $orderby query operations. The following table lists the available functions and they follows the OData Canonical function definitions listed in http://docs.oasis-open.org/odata/odata/v4.0/errata01/os/complete/part2-url-conventions/odata-v4.0-errata01-os-part2-url-conventions-complete.html#_Toc395267133[Section 5.1.1.4] of the [OData Version 4.0 Part 2: URL Conventions] and the syntax rules for these functions are defined in [http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/odata-abnf-construction-rules.txt[OData Version 4.0 ABNF]].
 
-In order to support spatial relationship functions, SensorThings API defines nine additional geospatial functions based on the spatial relationship between two geometry objects. The spatial relationship functions are defined in the OGC Simple Feature Access specification [OGC 06-104r4 part 1, clause 6.1.2.3]. The names of these nine functions start with a prefix ``st_`` following the OGC Simple Feature Access specification [OGC 06-104r4]. In addition, the Well-Known Text (WKT) format is the default input geometry for these nine functions.
+In order to support spatial relationship functions, SensorThings API defines nine additional geospatial functions based on the spatial relationship between two geometry objects. The spatial relationship functions are defined in the OGC Simple Feature Access specification [OGC 06-104r4 part 1, clause 6.1.2.3]. The names of these nine functions start with a prefix `+st_+` following the OGC Simple Feature Access specification [OGC 06-104r4]. In addition, the Well-Known Text (WKT) format is the default input geometry for these nine functions.
 
 
 [[req-be,{counter:req}]]
@@ -867,130 +867,130 @@ In order to support spatial relationship functions, SensorThings API defines nin
 2+|**String Functions**
 
 |bool substringof(string p0, string p1)
-|substringof('Sensor Things',description)
+|`+substringof('Sensor Things',description)+`
 
 |bool endswith(string p0, string p1)
-|endswith(description,'Things')
+|`+endswith(description,'Things')+`
 
 |bool startswith(string p0, string p1)
-|startswith(description,'Sensor')
+|`+startswith(description,'Sensor')+`
 
 |int length(string p0)
-|length(description) eq 13
+|`+length(description) eq 13+`
 
 |int indexof(string p0, string p1)
-|indexof(description,'Sensor') eq 1
+|`+indexof(description,'Sensor') eq 1+`
 
 |string substring(string p0, int p1)
-|substring(description,1) eq 'ensor Things'
+|`+substring(description,1) eq 'ensor Things'+`
 
 |string tolower(string p0)
-|tolower(description) eq 'sensor things'
+|`+tolower(description) eq 'sensor things'+`
 
 |string toupper(string p0)
-|toupper(description) eq 'SENSOR THINGS'
+|`+toupper(description) eq 'SENSOR THINGS'+`
 
 |string trim(string p0)
-|trim(description) eq 'Sensor Things'
+|`+trim(description) eq 'Sensor Things'+`
 
 |string concat(string p0, string p1)
-|concat(concat(unitOfMeasurement/symbol,', '), unitOfMeasurement/name) eq 'degree, Celsius'
+|`+concat(concat(unitOfMeasurement/symbol,', '), unitOfMeasurement/name) eq 'degree, Celsius'+`
 
 
 2+|**Date Functions**
 
 |int year
-|year(resultTime) eq 2015
+|`+year(resultTime) eq 2015+`
 
 |int month
-|month(resultTime) eq 12
+|`+month(resultTime) eq 12+`
 
 |int day
-|day(resultTime) eq 8
+|`+day(resultTime) eq 8+`
 
 |int hour
-|hour(resultTime) eq 1
+|`+hour(resultTime) eq 1+`
 
 |int minute
-|minute(resultTime) eq 0
+|`+minute(resultTime) eq 0+`
 
 |int second
-|second(resultTime) eq 0
+|`+second(resultTime) eq 0+`
 
 |int fractionalseconds
-|second(resultTime) eq 0
+|`+second(resultTime) eq 0+`
 
 |int date
-|date(resultTime) ne date(validTime)
+|`+date(resultTime) ne date(validTime)+`
 
 |time
-|time(resultTime) le validTime
+|`+time(resultTime) le validTime+`
 
 |int totaloffsetminutes
-|totaloffsetminutes(resultTime) eq 60
+|`+totaloffsetminutes(resultTime) eq 60+`
 
 |now
-|resultTime ge now()
+|`+resultTime ge now()+`
 
 |mindatetime
-|resultTime eq mindatetime()
+|`+resultTime eq mindatetime()+`
 
 |maxdatetime
-|resultTime eq maxdatetime()
+|`+resultTime eq maxdatetime()+`
 
 
 2+|**Math Functions**
 
 |round
-|round(result) eq 32
+|`+round(result) eq 32+`
 
 |floor
-|floor(result) eq 32
+|`+floor(result) eq 32+`
 
 |ceiling
-|ceiling(result) eq 33
+|`+ceiling(result) eq 33+`
 
 
 2+|**Geospatial Functions**
 
 |double geo.distance(Point p0, Point p1)
-|geo.distance(location, geography'POINT (30 10) ')
+|`+geo.distance(location, geography'POINT (30 10)')+`
 
 |double geo.length(LineString p0)
-|geo.length(geography'LINESTRING (30 10, 10 30, 40 40) ')
+|`+geo.length(geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
 |bool geo.intersects(Point p0, Polygon p1)
-|geo.intersects(location, geography'POLYGON \((30 10, 10 20, 20 40, 40 40, 30 10))')
+|`+geo.intersects(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
 
 2+|**Spatial Relationship Functions**
 
 |bool st_equals
-|st_equals(location, geography'POINT (30 10)')
+|`+st_equals(location, geography'POINT (30 10)')+`
 
 |bool st_disjoint
-|st_disjoint(location, geography'POLYGON \((30 10, 10 20, 20 40, 40 40, 30 10))')
+|`+st_disjoint(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
 |bool st_touches
-|st_touches(location, geography'LINESTRING (30 10, 10 30, 40 40)')
+|`+st_touches(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
 |bool st_within
-|st_within(location, geography'POLYGON \((30 10, 10 20, 20 40, 40 40, 30 10))')
+|`+st_within(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
 |bool st_overlaps
-|st_overlaps(location, geography'POLYGON \((30 10, 10 20, 20 40, 40 40, 30 10))')
+|`+st_overlaps(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
 |bool st_crosses
-|st_crosses(location, geography'LINESTRING (30 10, 10 30, 40 40)')
+|`+st_crosses(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
 |bool st_intersects
-|st_intersects(location, geography'LINESTRING (30 10, 10 30, 40 40)')
+|`+st_intersects(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
 |bool st_contains
-|st_contains(location, geography'POINT (30 10)')
+|`+st_contains(location, geography'POINT (30 10)')+`
 
 |bool st_relate
-|st_relate(location, geography'POLYGON \((30 10, 10 20, 20 40, 40 40, 30 10))', 'T********')
+|`+st_relate(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))', 'T********')+`
 |===
 
 

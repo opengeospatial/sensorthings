@@ -34,7 +34,7 @@
 
 When annotating a name/value pair for which the value is represented as a JSON object, each annotation is placed within the object and represented as a single name/value pair. In SensorThings the name always starts with the “at” sign (@), followed by the namespace iot, followed by a dot (.), followed by the name of the term (e.g., **"@iot.id":**1).
 
-When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair is placed next to the annotated name/value pair and represented as a single name/value pair. The name is the same as the name of the name/value pair being annotated, followed by the “at” sign (**@**), followed by the namespace iot, followed by a dot (.), followed by the name of the term.  (e.g., ``"Locations@iot.navigationLink":"http://example.org/v.1.0/Things(1)/Locations"``)
+When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair is placed next to the annotated name/value pair and represented as a single name/value pair. The name is the same as the name of the name/value pair being annotated, followed by the “at” sign (**@**), followed by the namespace iot, followed by a dot (.), followed by the name of the term.  (e.g., `+"Locations@iot.navigationLink":"http://example.org/v.1.0/Things(1)/Locations"+`)
 
 
 [[tab-common-control-information]]
@@ -893,7 +893,7 @@ An Observation is the act of measuring or otherwise determining the value of a p
 
 Note: Many resource-constrained sensing devices do not have a clock. As a result, a client may omit phenonmenonTime when POST new Observations, even though phenonmenonTime is a mandatory property. When a SensorThings service receives a POST Observations without phenonmenonTime, the service SHALL assign the current server time to the value of the phenomenonTime.
 
-|TM_Object (ISO 8601 Time string or Time Interval string (e.g., ``2010-12-23T10:20:00.00-07:00`` or ``2010-12-23T10:20:00.00-07:00/2010-12-23T12:20:00.00-07:00``))
+|TM_Object (ISO 8601 Time string or Time Interval string (e.g., `+2010-12-23T10:20:00.00-07:00+` or `+2010-12-23T10:20:00.00-07:00/2010-12-23T12:20:00.00-07:00+`))
 |One (mandatory)
 
 |result

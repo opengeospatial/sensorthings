@@ -35,8 +35,8 @@ In SensorThings services, users are able to request for multiple Observation ent
 
 ==== Request
 
-In order to request for dataArray, users must include the query option ``$resultFormat=dataArray``
-when requesting Observation entities. For example, ``http://example.org/v1.0/Observations?$resultFormat=dataArray``.
+In order to request for dataArray, users must include the query option `+$resultFormat=dataArray+`
+when requesting Observation entities. For example, `+http://example.org/v1.0/Observations?$resultFormat=dataArray+`.
 
 
 ==== Response
