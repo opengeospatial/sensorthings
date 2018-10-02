@@ -253,7 +253,7 @@ toc:
 toc_h1:
   font_style: bold
 toc_h2:
-  font_style: bold  
+  font_style: bold
 # NOTE in addition to footer, header is also supported
 footer:
   font_size: $base_font_size_small
@@ -298,4 +298,4 @@ footer:
 #      content: '(C) ACME -- v{revnumber}, {docdate}'
 #  verso:
 #    center:
-      content: $header_recto_center_content
+#      content: $header_recto_center_content
