@@ -1,2 +1,4 @@
-# sensorthings
-The official web site of the OGC SensorThings API standard specification.
+# documentBase
+
+This branch contains the base build-script for the documents.
+
