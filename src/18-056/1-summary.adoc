@@ -1,0 +1,35 @@
+== Summary
+
+This discussion paper offers descriptions and provides JSON examples of TaskingCapabilities and Tasks for the SensorThings Application Programming Interface (API).
+
+=== Requirements & Research Motivation
+
+The OGC SensorThings API Part II – Tasking Core (OGC 17-079r1) describes the standard and offers the compliance tests specifications. However, more descriptions and examples are needed in order to help users to explore what the SensorThings API (STA) Tasking can do. This discussion paper provides the needed JSON examples for different types of actuators.
+
+=== Recommendations for Future Work
+
+This discussion paper is intended to provide recommendations on creating TaskingCapabilities and Tasks in SensorThings. Thus, the recommendations on future work can be found at the end of each section.
+
+===	Document contributor contact points
+
+All questions regarding this document should be directed to the editor or the contributors:
+
+*Contacts*
+[width="80%",options="header",caption=""]
+|====================
+|Name |Organization
+|Steve Liang | University of Calgary, Canada / SensorUp Inc.
+|Tania Khalafbeigi | University of Calgary, Canada / SensorUp Inc.
+|Kan Luo| University of Calgary, Canada
+|Hylke van der Schaaf| Fraunhofer, Germany
+|====================
+
+
+// *****************************************************************************
+// Editors please do not change the Foreword.
+// *****************************************************************************
+=== Foreword
+
+Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
+
+Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.

@@ -1,0 +1,654 @@
+[[ExampleRequestResponse]]
+== Example Request/Response
+
+The taskingParameters property describes optional and mandatory tasking parameters. Clients use the definition to provide corresponding tasking parameter values. To ensure a common understanding between client and server, a standard exchange protocol is used to express both descriptions and tasking parameter values. SensorThings uses the JSON encoding defined in OGC 17-011r2 to define taskingParameters. However, to be consistency with SensorThings Part 1-Sensing, there are several differences between the OGC SWE common data model and Tasking (<<table_DifferencesBetweenSWECommonDataModelAndTasking>>).
+
+[#table_DifferencesBetweenSWECommonDataModelAndTasking,reftext='{table-caption} {counter:table-num}']
+.Differences between SWE Common Data Model and Tasking
+[cols="50e,^25m,>25s",width="75%",options="header",align="center"]
+|===
+|               | OGC SensorThings API Task Core | OGC SWE Common Data Model
+|Unit Reference
+| "unitOfMeasurement": {
+    "symbol": " °C",
+    "name": "degree Celsius",
+    "definition": "http://unitsofmeasure.org/ucum.html#para-30"
+}
+| "uom": {
+    "code": "°C "
+}
+|Time Reference Frame and Format| UTC in ISO format | Default frame is UTC, but can be the different time reference system
+|Location| GeoJSON | Not supported
+|===
+
+The examples of taskingParameters in TaskingCapabilities and Tasks can be divided into following types according to the parameter types:  Boolean, Text, Category, Count, Quantity, Time, Location, CategoryRange, CountRange, QuantityRange, and TimeRange.
+
+===	Boolean
+
+
+[[Example-1]]
+Example 1. Turn on/off a light
+
+a)	taskingParameters in TaskingCapability
+[source,json]
+----
+{
+  "type": "Boolean",
+  "name": "status",
+  "label": "light on/off status",
+  "description": "If set true, the light is on; Otherwise, the light is off"
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+  "status": true
+}
+----
+
+===	Text
+
+[[Example-2]]
+Example 2. Set text to display
+
+a)	taskingParameters in TaskingCapability
+
+[source,json]
+----
+{
+  "type": "Text",
+  "name": "display",
+  "label": "display text",
+  "description": "Set text to display",
+  "constraint": {
+    "type": "AllowedTokens",
+    "pattern": "^[a-zA-Z ]*$"
+  }
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+  "display": "SensorThings API Tasking"
+}
+----
+
+===	Category
+
+[[Example-3]]
+Example 3. Select washing machine program
+
+a)	taskingParameters in TaskCapability
+
+[source,json]
+----
+{
+  "type": "Category",
+  "name": "program",
+  "label": "washing machine program",
+  "description": "The washing program to use",
+  "constraint": {
+ "type": "AllowedTokens",
+ "value": ["Cotton", "Synthetics", "Wool"]
+  }
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+   "program": "Cotton"
+}
+----
+
+===	Count
+
+[[Example-4]]
+Example 4. Set the number of times that robotic vacuum will clean the house
+
+a)	taskingParameters in TaskingCapability
+
+[source,json]
+----
+{
+   "type": "Count",
+   "name": "clean_count",
+   "label": "total count to clean the house",
+   "description": "The total count of house cleaning",
+   "constraint": {
+  "type": "AllowedValues",
+  "interval": [0 10]
+}
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+   "clean_count": 2
+}
+----
+
+===	Quantity
+
+[[Example-5]]
+Example 5. Select water temperature for a washing machine
+
+a)	taskingParameters in TaskCapability
+
+[source,json]
+----
+{
+  "type": "Quantity",
+  "name": "temperature",
+  "label": "Washing temperature",
+  "description": "The temperature to wash on",
+  "unitOfMeasurement": {
+    "symbol": " °C",
+    "name": "degree Celsius",
+        "definition": "http://unitsofmeasure.org/ucum.html#para-30"
+  },
+  "constraint": {
+    "type": "AllowedValues",
+    "value": [30, 40, 60]
+  }
+}
+----
+
+b)	taskingParameters in Task
+[source,json]
+----
+{
+  "temperature": 30
+}
+----
+
+[[Example-6]]
+Example 6. Control the opening percentage of window
+
+a)	taskingParameters in TaskCapability
+
+[source,json]
+----
+{
+   "type": "Quantity",
+   "name": "open_percentage",
+   "label": "opening percentage",
+   "description": "How far the window has to open, in percentage",
+   "unitOfMeasurement": {
+  "symbol": "%",
+  "name": "percentage",
+  "definition": "http://unitsofmeasure.org/ucum.html#para-29"
+},
+"constraint": {
+   "type": "AllowedValues",
+   "interval": [0 100],
+   "significantFigures": 3
+}
+}
+----
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+  "open_percentage": 30.5
+}
+----
+
+
+
+===	Time
+
+Time and TimeRange are now focusing the time to display, not for the task scheduling purpose.
+
+[[Example-7]]
+Example 7. Set clock time
+
+a)	taskingParameters in TaskCapability
+
+[source,json]
+----
+{
+   "type": "Time",
+   "name": "time",
+   "label": "set clock time",
+   "description": "The time that set on clock"
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+   "time": "2018-05-02T23:45:32Z"
+}
+----
+
+===	Location
+
+[[Example-8]]
+Example 8. Set drone flight destination
+
+a)	taskingParameters in TaskCapability
+
+[source,json]
+----
+{
+   "type": "Location",
+   "name": "destination",
+   "label": "drone landing location",
+   "description": "The location that set to drone to land"
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+   "destination”: {
+     "type": "Point",
+     "coordinates": [-114.06,51.05]
+    }
+}
+----
+
+===	CategoryRange
+
+Configure (1) the condition for something to happen e.g., a light changes color based on the level of hurricanes; and (2) the behavior of light can be configured by the tasking. e.g., in country A, red might mean level 4~5, but in country B, red might mean level 3~5. This can be used when we deploy the light in different countries for their conventions.
+
+[[Example-9]]
+Example 9. Set light color for a hurricane
+
+a)	taskingParameters in TaskCapability
+
+[source,json]
+----
+{
+   "type": "CategoryRange",
+   "name": " red_levels",
+   "label": "turn on red light when the hurricane is in this range",
+   "description": "Set light color to red when the hurricane is in the range",
+   "constraint": {
+   "type": "AllowedTokens",
+   "value": ["level 1","level 2","level 3","level 4","level 5","level 6"]
+ }
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+   "red_levels": ["level 4" "level 6"]
+}
+----
+
+===	CountRange
+
+CountRange is similar to CategoryRange in that it configures the condition for something to happen and the behavior of the device being tasking.
+
+Set light color or a queue display based on the count of a queue.
+
+[[Example-10]]
+Example 10. Set elevator warning sound based on the number of people
+
+a)	taskingParameters in TaskCapability
+
+[source,json]
+----
+{
+  "type": "CountRange",
+  "name": "set_elevator_warning",
+  "label": "set elevator warning sound based on the number of people",
+  "description": "Set the elevator warning sound based on the number of people enter the elevator",
+  "constraint": {
+    "type": "AllowedValues",
+    "interval": [1 10]
+  }
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+  "set_elevator_warning": [6 9]
+}
+----
+
+===	QuantityRange
+
+QuantityRange is similar to CategoryRange in that it configures the condition for something to happen and the behavior of the device being tasking.
+
+[[Example-11]]
+Example 11. Set light color based on the indoor air quality
+
+a)	taskingParameters in TaskCapability
+
+[source,json]
+----
+{
+  "type": "QuantityRange",
+  "name": "good_air_quality_range",
+  "label": "Set light color to green if the air quality is good",
+  "description": "Set light color to green if the air quality is good",
+  "unitOfMeasurement": {
+    "symbol": "ug/m3",
+    "name": "microgram per cubic meter",
+    "definition": " http://www.ess.co.at/AIR-EIA/units.html"
+  },
+  "constraint": {
+    "type": "AllowedValues",
+    "interval": [0 500],
+    "significantFigures": 4
+  }
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+  "good_air_quality_light_color": [0.0 12.0]
+}
+----
+
+===	TimeRange
+
+[[Example-12]]
+Example 12. Set calendar to display time range
+
+a)	taskingParameters in TaskCapability
+[source,json]
+----
+{
+  "type": "TimeRange",
+  "name": "calendar_timerange",
+  "label": "Calendar display time range",
+  "description": "Set the time range to calendar"
+}
+----
+
+b)	taskingParameters in Task
+[source,json]
+----
+{
+  "calendar_range": ["2018-05-01T00:00:00Z" "2018-05-31T24:00:00Z"]
+}
+----
+
+
+===	Union of simple types
+
+The union are the combination of different simple types mentioned above.
+
+[[Example-13]]
+Example 13. Control the washing machine
+
+a)	taskingParameters in TaskCapability
+[source,json]
+----
+{
+  "type": "DataRecord",
+  "field": [{
+      "type": "Boolean",
+      "name": "status",
+      "label": "Washing machine on/off status",
+      "description": "If set true, the wash machine is on; Otherwise, the washing machine is off"
+    },
+    {
+      "type": "Category",
+      "name": "program",
+      "label": "Washing program",
+      "description": "The washing program to use",
+      "constraint": {
+        "type": "AllowedTokens",
+        "value": ["Cotton", "Synthetics", "Wool"]
+      }
+    },
+    {
+      "type": "Quantity",
+      "name": "temperature",
+      "label": "Washing temperature",
+      "description": "The washing temperature to wash on",
+      "unitOfMeasurement": {
+        "symbol": "°C",
+        "name": "degree Celsius",
+        "definition": "http://unitsofmeasure.org/ucum.html#para-30"
+      },
+      "constraint": {
+        "type": "AllowedValues",
+        "value": [30, 40, 60]
+      }
+    },
+    {
+      "type": "Boolean",
+      "name": "quick",
+      "label": "Speed program",
+      "description": "If set true, the washing time is halved"
+    }
+  ]
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+  "status": true,
+  "program": "Cotton",
+  "temperature": 30,
+  "quick": true
+}
+----
+
+[[Example-14]]
+Example 14. Task a harvester regarding the areas to harvest
+
+[source,json]
+----
+a)	taskingParameters in TaskCapability
+{
+  "type": "DataRecord",
+  "field": [{
+      "type": "Category",
+      "name": "mode",
+      "label": "Working mode",
+      "description": "The harvesting program to use",
+      "constraint": {
+        "type": "AllowedTokens",
+        "value": ["auto", "wheat", "canola", "corn"]
+      }
+    },
+    {
+      "type": "Location",
+      "name": "harvest_area",
+      "label": "Working area",
+      "description": "Set working area to the harvester"
+    },
+    {
+      "type": "Quantity",
+      "name": "fan_speed",
+      "label": "working fan speed",
+      "description": "Set fan speed to the harvester",
+      "unitOfMeasurement": {
+        "symbol": "rpm",
+        "name": "rotational speed",
+        "definition": " https://en.wikipedia.org/wiki/Rotational_speed"
+      },
+      "constraint": {
+        "type": "AllowedValues",
+        "Interval": [1050 1500],
+        "significantFigures": 4
+      }
+    }
+  ]
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+  "mode": "auto",
+  "clean_area": {
+    "type": "Polygon",
+    "coordinates": [
+      [100.0, 0.0],
+      [110.0, 0.0],
+      [110.0, 10.0],
+      [100.0, 10.0],
+      [100.0, 0.0]
+    ]
+  },
+  "fan_speed": 1200
+}
+----
+
+[[Example-15]]
+Example 15. Control the light
+
+
+a)	taskingParameters in TaskCapability
+
+
+[source,json]
+----
+{
+  "type": "DataRecord",
+  "field": [{
+      "type": "Boolean",
+      "name": "status",
+      "label": "On/Off status",
+      "description": "If true, the light is on; Otherwise, the light is off"
+    },
+    {
+      "type": "Text",
+      "name": "color",
+      "label": "Light color",
+      "description": "Specifies the light color in HEX format.",
+      "constraint": {
+        "type": "AllowedTokens",
+        "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+      }
+    },
+    {
+      "type": "Quantity",
+      "name": "brightness",
+      "label": "Light brightness",
+      "description": "Set the light brightness in percentage",
+      "unitOfMeasurement": {
+        "symbol": "%",
+        "name": "percentage",
+        "definition": "http://unitsofmeasure.org/ucum.html#para-29"
+      },
+      "constraint": {
+        "type": "AllowedValues",
+        "interval": [0 100],
+        "significantFigures": 2
+      }
+    }
+  ]
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+     "On/Off": true,
+     "color": "#0080FF",
+     "brightness": 80
+}
+----
+
+[[Example-16]]
+Example 16. Configure the light color based on air quality readings range
+
+a)	taskingParameters in TaskCapability
+
+[source,json]
+----
+{
+  "type": "DataRecord",
+  "field": [{
+      "type": "QuantityRange",
+      "name": "good_air_quality_range",
+      "label": "Set light color to green if the air quality is good",
+      "description": "Set light color to green if the air quality is good",
+      "unitOfMeasurement": {
+        "symbol": "ug/m3",
+        "name": "microgram per cubic meter",
+        "definition": " http://www.ess.co.at/AIR-EIA/units.html"
+      },
+      "constraint": {
+        "type": "AllowedValues",
+        "interval": [0 500],
+        "significantFigures": 4
+      }
+    },
+    {
+      "type": "QuantityRange",
+      "name": "medium_air_quality_range",
+      "label": "Set light color to yellow if the air quality is medium",
+      "description": "Set light color to yellow if the air quality is medium",
+      "unitOfMeasurement": {
+        "symbol": "ug/m3",
+        "name": "microgram per cubic meter",
+        "definition": " http://www.ess.co.at/AIR-EIA/units.html"
+      },
+      "constraint": {
+        "type": "AllowedValues",
+        "interval": [0 500],
+        "significantFigures": 4
+      }
+    },
+    {
+      "type": "QuantityRange",
+      "name": "bad_air_quality_range",
+      "label": "Set light color to red if the air quality is bad",
+      "description": "Set light color to red if the air quality is bad",
+      "unitOfMeasurement": {
+        "symbol": "ug/m3",
+        "name": "microgram per cubic meter",
+        "definition": " http://www.ess.co.at/AIR-EIA/units.html"
+      },
+      "constraint": {
+        "type": "AllowedValues",
+        "interval": [0 500],
+        "significantFigures": 4
+      }
+    }
+  ]
+}
+----
+
+b)	taskingParameters in Task
+
+[source,json]
+----
+{
+  "good_air_quality_light_color": [0 12.0],
+  "medium_air_quality_light_color": [12.1 55.4],
+  "bad_air_quality_light_color": [55.5 500]
+}
+----

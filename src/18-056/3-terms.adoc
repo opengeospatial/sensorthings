@@ -1,0 +1,25 @@
+== Terms and definitions
+
+For the purposes of this report, the definitions specified in Clause 4 of the OWS Common Implementation Standard https://portal.opengeospatial.org/files/?artifact_id=38867&version=2[OGC 06-121r9] shall apply. In addition, the following terms and definitions apply.
+
+* sensor
+
+ An entity capable of observing a phenomenon and returning an observed value. Type of observation procedure that provides the estimated value of an observed property at its output. [OGC 12-000]
+
+* task
+
+ (Conceptual) resource that represents a SPS assignment. It includes the (possibly empty) set of tasking parameters [OGC 09-000].
+
+* tasking
+
+ Parameterizing an asset; can be done by sending one or more tasking requests [OGC 09-000]
+
+===	Abbreviated terms
+
+* API	Application Programming Interface
+* IoT	Internet of Things
+* JSON JavaScript Object Notation
+* OGC Open Geospatial Consortium
+* SensorML Sensor Model Language
+* STA SensorThings API
+* SWE Sensor Web Enablement

@@ -1,0 +1,163 @@
+
+// *****************************************************************************
+// Editors: For background information, please visit the OGC ER process page at
+// "https://portal.opengeospatial.org/files/?artifact_id=73351".
+//
+// General ER Editorial Guidance can be found at
+// http://external.opengis.org/twiki_public/ERGuidance/WebHome.
+//
+// In general, please adhere to the following guidelines
+// (and ensure that all contributing authors follow them also):
+//
+// - Leave no empty sections.
+// - Author the document (including spelling) in idiomatic U.S. English.
+// - Start each section with a paragraph (not a figure, table, or list).
+// - Spell out each acronym on first use (with the acronym in parentheses).
+// - Avoid domain-specific buzzwords.
+// - Write in 3rd person voice; avoid using "we".
+// - Ensure correct Grammar and use direct language.
+// - Use a colon (:) to introduce bulleted lists.
+// - Avoid pronouns with ambiguous antecedents (the problem with "it").
+//
+// Please also ensure that all Figures have numbers and captions.
+// Here's an example to follow:
+//
+//  [#id_of_image,reftext='{figure-caption} {counter:figure-num}']
+//  .Image caption goes here
+//  image::images/overview.png[width=600]
+// *****************************************************************************
+
+// *****************************************************************************
+// Editors please provide the following front-matter elements:
+// *****************************************************************************
+
+// *****************************************************************************
+// Provide the document title (ER or user guide name) after the colon.
+// Do not alter the testbed-number prefix.
+// The title here should match the title on the first page.
+// *****************************************************************************
+
+:title: OGC SensorThings API Tasking Core Discussion Paper
+
+// *****************************************************************************
+// Document identifier, with format "OGC YY-nnn" (e.g., OGC 17-067).
+// An identifier can be obtained in the OGC Portal at:
+// https://portal.opengeospatial.org/?m=public&subtab=request&tab=1.
+// *****************************************************************************
+
+:docReference: OGC 18-056
+
+// *****************************************************************************
+// Date posted to OGC Portal>Pending Documents, with format: yyyy-mm-dd.
+// *****************************************************************************
+
+:submissionDate: YYYY-MM-DD
+
+// *****************************************************************************
+// Names of all editors, comma-separated (e.g., John Doe, Sue Smith)
+// *****************************************************************************
+
+:editor: Steve Liang, Tania Khalafbeigi, Kan Luo
+
+// *****************************************************************************
+// Proposed working group for review (e.g. Architecture DWG, WCS SWG)
+// *****************************************************************************
+
+:workingGroup: SWG/DWG for Review: SensorThings API SWG
+
+// *****************************************************************************
+// End of Editor's front-matter elements.
+// Editors please continue at "include::2-references.adoc[]" below.
+// *****************************************************************************
+
+// *****************************************************************************
+// Editors please do not alter the administrative front matter below.
+// *****************************************************************************
+:category: OGC Discussion Paper
+:publicationDate: YYYY-MM-DD
+:approvalDate: YYYY-MM-DD
+:referenceURLID: ID
+:copyrightYear: 2018
+//
+:titletext: {title}
+:doctype: book
+:encoding: utf-8
+:lang: en
+:toc: macro
+:toclevels: 3
+:numbered:
+:sectanchors:
+:source-highlighter: coderay
+// set media to output format print or screen for pdf export
+:media: print
+:bibtex-file: resources/bibtex-file.bib
+:bibtex-style: resources/lncs.csl
+
+= {title}
+
+Publication Date: {publicationDate}
+
+Approval Date: {approvalDate}
+
+Submission Date: {submissionDate}
+
+Reference number of this document: {docReference}
+
+Reference URL for this document: http://www.opengis.net/doc/PER/t14-{referenceURLID}
+
+Category: {category}
+
+Editor: {editor}
+
+Title: {titletext}
+
+// *****************************************************************************
+// End of Administrative front matter.
+// *****************************************************************************
+
+''''
+
+// *****************************************************************************
+// Editors please do not alter these first several included-file inputs.
+// *****************************************************************************
+
+include::0-preface.adoc[]
+
+include::1-summary.adoc[]
+
+include::2-references.adoc[]
+
+include::3-terms.adoc[]
+
+include::4-overview.adoc[]
+
+// *****************************************************************************
+// Editors organize included-file inputs as appropriate starting here.
+// *****************************************************************************
+
+include::5-examples.adoc[]
+
+// you may add any number of chapters as required here
+
+// *****************************************************************************
+// Editors add or remove annexes as necessary.
+// *****************************************************************************
+
+//include::annex-a.adoc[]
+
+//include::annex-b.adoc[]
+
+//include::annex-c.adoc[]
+
+// *****************************************************************************
+// Revision History should be the last annex before the Bibliography.
+// Bibliography should be the last annex.
+// *****************************************************************************
+
+include::annex-history.adoc[]
+
+
+// *****************************************************************************
+// Editors please proceed to edit the content of 2-references.adoc[],
+// 3-terms.adoc[], etc. for each of the included files.
+// *****************************************************************************
