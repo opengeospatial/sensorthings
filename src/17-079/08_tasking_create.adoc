@@ -1,0 +1,111 @@
+[[tasking_create]]
+== SensorThings Tasking Create
+
+The SensorThings API Tasking part SHALL support creating `Task` entities. The server checks the `taskingParamaters` to be compliant to the corresponding `TaskingCapability`. If the `taskingParameters` are correct, the `Task` will be created.
+This specification contains only the core functionalities for Tasking part. All other entities than `Task`, including `TaskingCapabilities`, `Actuators`, and `Things` are pre-provisioned to the Server and the client can only create `Tasks`.
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_tasking/1.0/req/create-tasks
+
+|Target Type
+|Web Service
+
+|Dependency
+|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398326
+
+|Requirement
+|[[req-create-tasks-task-creation,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-create-tasks-task-creation>>
+
+[[requirement-create-tasks-task-creation,create-tasks/task-creation]]
+__To create a `Task` in a collection, the client SHALL send a `HTTP POST` request to `Task` collection's URL. The `POST` body SHALL contain a single valid `Task` representation.__
+
+__When clients create `Tasks` in a SensorThings service, they SHALL follow the integrity constraints listed in <<tab-integrity-task>>.__
+ 
+__When a SensorThings service receives a create `Task` request, the service SHALL set the `createdTime` property of the entity to current server time.__
+ 
+__SensorThings API services SHALL support linking new `Task` entities to existing entities upon creation.__
+__To create a new `Task` with links to existing entities, the client SHALL include the unique identifiers of the related entities associated with the corresponding navigation properties in the request body.__
+
+|===
+
+
+
+
+[[tab-integrity-task]]
+.Integrity constraints when creating a `Task` entity
+[%autowidth,cols="a,a"]
+|===
+|Scenario |Integrity Constraints
+
+|Create a `Task` entity
+|SHALL link to a `TakingCapability` entity
+
+|===
+
+
+
+[[link_on_task_create]]
+=== Link to existing entities when creating a Task entity
+
+
+Each `Task` has one `TaksingCapability`. There are two approaches to create a `Task`. (1) The corresponding `TaskingCapability` is specified in the request with its `@iot.id`; and (2) The corresponding `TaskingCapability` is specified in the POST URL, __i.e.__, `/v1.0/TaskingCapabilities({id})/Tasks`.
+
+HTTP Method:: POST
+URI Pattern:: SERVICE_ROOT_URI/Tasks
+Header:: Content-Type: application/json
+Message Body:: A single valid `Task` entity representation.
+
+
+**Example {counter:examples}: create a `Task` entity, which links to an existing `TakingCapability` entity (whose id is 1).**
+
+[source]
+----
+POST /v1.0/Tasks HTTP/1.1
+
+Host: example.org/
+Content-Type: application/json
+
+{
+  "taskingParameters": {
+    "status": "on",
+    "color": "#FF0000"
+  },
+  "TaskingCapability": {
+    "@iot.id": 1
+  }
+}
+----
+
+
+HTTP Method:: POST
+URI Pattern:: SERVICE_ROOT_URI/TaskingCapabilities({id})/Tasks
+Header:: Content-Type: application/json
+Message Body:: A single valid `Task` entity representation.
+
+**Example {counter:examples}: create a `Task` entity, which links to an existing `TakingCapability` entity (whose id is 1) by specifying `TaskingCapability` id in URL.**
+
+[source]
+----
+POST /v1.0/TaskingCapabilities(1)/Tasks HTTP/1.1
+
+Host: example.org/
+Content-Type: application/json
+
+{
+  "taskingParameters": {
+    "status": "on",
+    "color": "#FF0000"
+  }
+}
+----
+
+
+
+
+
+

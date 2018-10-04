@@ -1,0 +1,51 @@
+[[conformance]]
+== Conformance
+
+Conformance with this standard shall be checked using all the relevant tests specified in Annex A (normative) of this document.
+All requirements-classes and conformance-classes described in this document are owned by the standard(s) identified.
+
+
+The following table list the requirements classes defined by this standard.
+
+
+NOTE: The text in the __Requirements__ column in the following table is the path fragment that, when appended to the URI: \http://www.opengis.net/spec/iot_tasking/1.0/, provides the URI that can be used to unambiguously identify the requirement and the conformance class.
+
+[cols="<2,4a,<2"]
+|===
+|Requirements class id |Requirements |Description
+
+|req/tasking-capability
+|
+* req/<<requirement-tasking-capability-properties>>
+* req/<<requirement-tasking-capability-relations>>
+|`TakingCapability` entity
+
+|req/task
+|
+* req/<<requirement-task-properties>>
+* req/<<requirement-task-relations>>
+|`Task` entity
+
+|req/actuator
+|
+* req/<<requirement-actuator-properties>>
+* req/<<requirement-actuator-relations>>
+|`Actuator` entity
+
+|req/create-tasks
+|
+* req/<<requirement-create-tasks-task-creation>>
+|creating `Task` entity
+
+|req/create-tasks-via-mqtt
+|
+* req/<<requirement-create-tasks-via-mqtt-task-creation>>
+|creating `Tasks` through MQTT
+
+|req/receive-updates-via-mqtt
+|
+* req/<<requirement-receive-updates-via-mqtt-receive-updated>>
+|Receiving `Tasks` updates through MQTT
+
+
+|===

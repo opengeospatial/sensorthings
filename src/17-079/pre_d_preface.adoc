@@ -1,0 +1,12 @@
+[preface]
+[[preface]]
+== Preface
+
+The OGC SensorThings API is an open standard. This means that  anyone can implement the standard on a non-discriminatory, royalty free basis. The standard is also platform independent.
+Although SensorThings is a new standard, the requirements build on a rich set of proven-working and widely-adopted open standards, such as Web protocols and the OGC Sensor Web Enablement (SWE) standards, including the ISO/OGC Observation and Measurement data model [OGC 10-004r3 and ISO 19156:2011].
+As a result, the OGC SensorThings API is extensible and can be applied to not only simple but also complex use cases. 
+
+
+__Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights.
+The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
+Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.__

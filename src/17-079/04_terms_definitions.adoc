@@ -1,0 +1,70 @@
+[[terms-definitions]]
+== Terms and Definitions
+
+This document uses the terms defined in Sub-clause 5.3 of [OGC 06-121r8], which is based on the ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards.
+In particular, the word “shall” (not “must”) is the verb form used to indicate a requirement to be strictly followed to conform to this standard.
+
+
+For the purposes of this document, the following additional terms and definitions apply.
+
+
+=== Actuator 
+A type of transducer that converts a signal to some real-world action or phenomenon. [OGC 12-000]
+
+
+=== Collection
+
+Sets of Resources, which can be retrieved in whole or in part. [http://tools.ietf.org/html/rfc5023#section-1[RFC5023]]
+
+
+=== Entity
+
+Entities are instances of entity types. [OASIS OData Version 4.0 Part 1: Protocol Plus Errata 02]
+
+__Note: Thing, Actuator, Task are some example entity types of the OGC SensorThings API.__
+
+
+=== Entity sets
+
+Entity sets are named collections of entities (e.g. Tasks is an entity set containing Task entities).
+An entity's key uniquely identifies the entity within an entity set.
+Entity sets provide entry points into an OGC SensorThings API service. [OASIS OData Version 4.0 Part 1: Protocol Plus Errata 02]
+
+
+=== (Internet of) Thing
+
+A thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks. [ITU-T Y.2060]
+
+
+=== Measurement
+
+A set of operations having the object of determining the value of a quantity [OGC 10-004r3 / ISO 19156:2011]
+
+
+=== Observation
+
+Act of measuring or otherwise determining the value of a property [OGC 10-004r3 /  ISO 19156:2011]
+
+
+=== Observation Result
+
+Estimate of the value of a property determined through a known observation procedure [OGC 10-004r3 / ISO 19156:2011]
+
+
+=== Resource
+
+A network-accessible data object or service identified by an URI, as defined in [RFC 2616]
+
+
+=== REST
+
+The Representational State Transfer (REST) style is an abstraction of the architectural elements within a distributed hypermedia system.
+REST focuses on the roles of components, the constraints upon their interaction with other components, and their interpretation of significant data elements.
+It encompasses the fundamental constraints upon components, connectors, and data that define the basis of the Web architecture, and thus the essence of its behavior as a network-based application.
+An API that conforms to the REST architectural principles/constraints is called a RESTful API. [OGC 15-078r6]
+
+
+=== Sensor
+
+An entity capable of observing a phenomenon and returning an observed value. Type of observation procedure that provides the estimated value of an observed property at its output. [OGC 12-000]
+

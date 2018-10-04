@@ -1,0 +1,96 @@
+[[mqtt]]
+== SensorThings Tasking MQTT Extension
+
+In addition to support HTTP protocol, a SensorThings service MAY support the Message Queuing Telemetry Transport (MQTT) protocol^[<<footnote-mqtt>>]^ to enhance the SensorThings service publish and subscribe capabilities.
+This section describes the SensorThings MQTT extension.
+
+
+
+[[mqtt_create_task]]
+=== Create a SensorThings Task with MQTT Publish
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_tasking/1.0/req/create-tasks-via-mqtt
+
+|Target Type
+|Web Service
+
+|Dependency
+|\http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
+
+|Requirement
+|[[req-create-tasks-via-mqtt-tasks-creation,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-create-tasks-via-mqtt-tasks-creation>>
+
+[[requirement-create-tasks-via-mqtt-tasks-creation,create-tasks-via-mqtt/tasks-creation]]
+__In order to allow clients to create `Tasks` with MQTT Publish, a service SHALL support the creation of `Tasks` with MQTT as defined in <<mqtt_create_task>>.__
+|===
+
+
+The SensorThings MQTT extension provides the capability of creating `Task` entity using MQTT protocol. 
+To create a `Task` entity in MQTT, the client sends a `MQTT Publish` request to the SensorThings service and the MQTT topic is the `Tasks` resource path.
+The MQTT application message contains a single valid `Task` entity representation.
+<<fig-mqtt-create-task>> contains the sequence diagram for creating `Task` using MQTT publish as well as MQTT sending notifications for `Task` creation.
+
+
+[[fig-mqtt-create-task]]
+[.text-center]
+.Creating `Tasks` using MQTT publish, and receive notifications for `Tasks` with MQTT
+image::CreateTaskMqtt.png[]
+
+
+If the MQTT topic for the `Task` is a `navigationLink` from `TaskingCapability`, the new `Task` entity is automatically linked to that `TaskingCapability` respectively.
+Similar to creating `Tasks` with `HTTP POST`, creating `Tasks` with `MQTT Publish` follows the integrity constraints for creating `Task` as listed in <<tab-integrity-task>>.
+
+
+[[link_task_mqtt]]
+==== Link to existing entities when creating a Task entity
+
+To link to existing entities when creating a `Task` entity with MQTT, the conditions specified in <<tasking_create>> are applied.
+
+
+
+[[mqtt_receive_updates]]
+=== Receive updates with MQTT Subscribe
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_tasking/1.0/req/receive-updates-via-mqtt
+
+|Target Type
+|Web Service
+
+|Dependency
+|\http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
+
+|Requirement
+|[[req-receive-updates-via-mqtt-receive-updates,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-receive-updates-via-mqtt-receive-updates>>
+
+[[requirement-receive-updates-via-mqtt-receive-updates,receive-updates-via-mqtt/receive-updates]]
+__To allow clients to receive notifications for the updates of SensorThings tasking entities with MQTT, a service SHALL support the receiving updates with MQTT Subscribe as defined in <<mqtt_receive_updates>>.__
+|===
+
+
+To receive notifications from a SensorThings service when some tasking entities are updated, a client can send a MQTT Subscribe request to the SensorThings service. The SensorThings API defines the following MQTT subscription use cases. +
+Receiving notifications from a SensorThings service follows the requirement http://www.opengis.net/spec/iot_sensing/1.0/req/receive-updates-via-mqtt of the Sensing part, but for entities the is the Tasking part. +
+When the SensorThings MQTT extension is being used for controlling an Actuator, the actuator (gateway) can subscribe to `Tasks` and whenever it receives a `Task` over MQTT, it can perform it. <<fig-actor-mqtt>> shows a sequence diagram of this process.
+
+
+[[fig-actor-mqtt]]
+[.text-center]
+.Actuator communication to SensorThings via MQTT
+image::ActorMqttCommunication.png[]
+
+
+
+---
+[[footnote-mqtt,{counter:footnotes}]][{footnotes}]MQTT version 3.1.1 is an OASIS Standard. http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html
+

@@ -1,0 +1,33 @@
+[appendix]
+== Revision history
+
+
+|===
+|Date |Release |Author |Paragraph modified |Description
+
+|2017-11-30
+|0.1.0
+|Steve Liang
+|
+|Initial draft of SensorThings: Tasking
+
+|2017-11-30
+|0.1.1
+|Steve Liang
+|
+|Fixed some typos, corrected some inconsistencies between UML and text­­­­
+
+|2018-01-18
+|0.1.2
+|Steve Liang
+|
+|Fixed some inconsistencies between this draft and SensorThings Sensing part.
+
+|2018-04-02
+|1.0r1
+|Tania Khalafbeigi
+|
+|Updated based on public comments.
+
+|===
+

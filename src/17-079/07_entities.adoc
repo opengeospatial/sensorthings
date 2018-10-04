@@ -1,0 +1,460 @@
+[[tasking-entities1]]
+== The SensorThings API Tasking Entities
+
+`TaskingCapability`, `Actuator`, and `Task` are the main entities for Tasking core. These entities SHALL be listed in the response to a GET request to the root URL as described Sensing part. In case the server implementation only has Tasking part, the index SHALL contain `Things`, `TaskingCapabilities`, `Tasks`, and `Actuators`.
+
+
+[[tasking-entities2]]
+=== The Tasking Entities
+The SensorThings API Tasking core’s Entities are depicted in <<fig-tasking-entities>>.
+
+[[fig-tasking-entities]]
+[.text-center]
+.Tasking Entities
+image::TaskingEntities.png[Tasking Entities]
+
+In this section, the properties for each entity types and the direct relation to the other entity types are explained. In addition, for each entity type we show an example of the associated JSON encoding.
+
+
+[[thing]]
+==== Thing
+
+This entity is from Sensing part. We add the information here to make this documentation complete in case a server is only implementing the Tasking core.
+Please note that if the server is implementing both Sensing and Tasking parts, the direct relationship for Thing entity is the combination of the relationship defined in this document with the relationships defined in the Sensing part.
+The OGC SensorThings API follows the ITU-T definition, __i.e.__, with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060]. 
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_tasking/1.0/req/thing
+
+|Target Type
+|Web Service
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/thing
+
+|Requirement
+|[[req-thing-properties,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-thing-properties>>
+
+[[requirement-thing-properties,thing/properties]]
+__Each `Thing` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-thing>>.__
+
+|Requirement
+|[[req-thing-relations,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-thing-relations>>
+
+[[requirement-thing-relations,thing/relations]]
+__Each `Thing` entity SHALL have the direct relation between a `Thing` entity and other entity types listed in <<tab-relations-thing>>.__
+|===
+
+
+
+
+[[tab-properties-thing]]
+.Properties of a `Thing` entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for `Thing` entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|This is a short description of the corresponding `Thing` entity.
+|CharacterString
+|One (mandatory)
+
+|properties
+|A JSON Object containing user-annotated properties as key-value pairs.
+|JSON Object
+|Zero-to-one
+|===
+
+
+
+
+[[tab-relations-thing]]
+.Direct relation between a `Thing` entity and other entity types
+[cols="25a,20a,55a"]
+|===
+|Entity type |Relation |Description
+
+|TaskingCapabilities
+|One mandatory to many optional
+|A `Thing` MAY have zero-to-many `TaskingCapabilities`.
+|===
+
+
+.Example {counter:examples} an example of a `Thing` entity implementing the Tasking core
+[source,json]
+----
+{
+  "@iot.id": 1,
+  "@iot.selfLink": "http://example.org/v1.0/Things(1)",
+  "TaskingCapabilities@iot.navigationLink": "Things(1)/TaskingCapabilities",
+  "name": "LinkitSmart with LED",
+  "description": "LinkitSmart device with the LED that can be turned on/off and the color can be changed."
+}
+----
+
+
+
+
+[[TaskingCapability]]
+==== TaskingCapability
+The `TaskingCapability` entity contains information about the capabilities of the taskable device.
+It contains all the parameters that can be used for controlling the device.
+SWE Common JSON encoding rules [OGC17-011r2] are used to define these parameters for `TaskingCapability`.
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_tasking/1.0/req/tasking-capability
+
+|Target Type
+|Web Service
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/entity-control-information/common-control-information
+
+|Dependency
+|\http://www.opengis.net/doc/BP/SWE-JSON/1.0/req
+
+|Dependency
+|\http://www.opengis.net/doc/IS/SWE/2.0
+
+|Requirement
+|[[req-tasking-capability-properties,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-tasking-capability-properties>>
+
+[[requirement-tasking-capability-properties,tasking-capability/properties]]
+__Each `TaskingCapability` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-tasking-capability>>.__
+
+|Requirement
+|[[req-tasking-capability-relations,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-tasking-capability-relations>>
+
+[[requirement-tasking-capability-relations,tasking-capability/relations]]
+__Each `TaskingCapability` entity SHALL have the direct relation between a `TaskingCapability` entity and other entity types listed in <<tab-relations-tasking-capability>>.__
+|===
+
+
+
+
+[[tab-properties-tasking-capability]]
+.Properties of a `TaskingCapability` entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for the entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|This is a short description of the corresponding entity.
+|CharacterString
+|One (mandatory)
+
+|taskingParameters
+|The `taskingParameters` property describes optional and mandatory tasking parameters.
+Clients use the definition to provide corresponding tasking parameter values.
+To ensure common understanding between client and server, a common exchange protocol is used to express both descriptions and tasking parameter values.
+
+SensorThings uses the JSON encoding defined in OGC 17-011r2 to define `taskingParameters`.
+|SWE Common JSON Object
+|One (mandatory)
+
+|properties
+|A JSON Object containing user-annotated properties as key-value pairs.
+|JSON Object
+|Zero-to-one
+|===
+
+
+
+
+[[tab-relations-tasking-capability]]
+.Direct relation between a `TaskingCapability` entity and other entity types
+[cols="25a,20a,55a"]
+|===
+|Entity type |Relation |Description
+
+|Task
+|One mandatory to many optional
+|A `TaskingCapability` has zero-to-many `Tasks`. A `Task` has one-and-only-one `TaskingCapability`.
+
+|Thing
+|Many optional to one mandatory
+|A `TaskingCapability` has one-and-only-one `Thing`. A `Thing` has zero-to-many `TaskingCapabilities`.
+
+|Actuator
+|Many optional to one mandatory
+|A `TaskingCapability` has one-and-only-one `Actuator`. An `Actuator` has zero-to-many `TaskingCapabilities`.
+|===
+
+
+.Example {counter:examples} an example of a `TaskCapability` entity
+[source,json]
+----
+{
+  "@iot.id": 1,
+  "@iot.selfLink": "http://example.org/v1.0/TaskingCapabilities(1)",
+  "Thing@iot.navigationLink": "TaskingCapabilities(1)/Thing",
+  "Actuator@iot.navigationLink": "TaskingCapabilities(1)/Actuator",
+  "Tasks@iot.navigationLink": "TaskingCapabilities(1)/Tasks",
+  "name": "Control Light",
+  "description": "Turn the light on and off, as well as specifying light color. ",
+  "taskingParameters": {
+    "type": "DataRecord",
+    "field": [
+      {
+        "name": "status",
+        "label": "On/Off status",
+        "description": "Specifies turning the light On or Off",
+        "type": "Category",
+        "constraint": {
+          "type": "AllowedTokens",
+          "value": [
+            "on","off"
+          ]
+        }
+      },
+      {
+        "name": "color",
+        "label": "Light Color",
+        "description": "Specifies the light color in RGB HEX format. Example: #FF11A0",
+        "type": "Text",
+        "constraint": {
+          "type": "AllowedTokens",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+        }
+      }
+    ]
+  }
+}
+----
+
+
+
+
+[[Task]]
+==== Task
+`Task` entity contains the parameter detail of the control action that should be run on the task-able device. 
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_tasking/1.0/req/task
+
+|Target Type
+|Web Service
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/entity-control-information/common-control-information
+
+|Dependency
+|\http://www.opengis.net/doc/BP/SWE-JSON/1.0/req
+
+|Dependency
+|\http://www.opengis.net/doc/IS/SWE/2.0
+
+|Requirement
+|[[req-task-properties,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-task-properties>>
+
+[[requirement-task-properties,task/properties]]
+__Each `Task` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-task>>.__
+
+|Requirement
+|[[req-task-relations,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-task-relations>>
+
+[[requirement-task-relations,task/relations]]
+__Each `Task` entity SHALL have the direct relation between a `Task` entity and other entity types listed in <<tab-relations-task>>.__
+|===
+
+
+
+
+[[tab-properties-task]]
+.Properties of a `Task` entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|taskingParameters
+|The `taskingParameters` property describes values for optional and mandatory tasking parameters. Clients use the definition to provide corresponding tasking parameter values. To ensure common understanding between client and server, a common exchange protocol is used to express both descriptions and tasking parameter values.
+
+SensorThings uses the JSON encoding for SWE Common data block defined in OGC 08-094r1 to define `taskingParameters`. `taskingParameters` is a SWE Common data block and MUST have key-value pairs in a JSON object. Key MUST be the name described in `TaskingCapablity`’s `taskingParamaters` and value MUST be the value of that parameter for this `Task`.
+|SWE Common JSON Object
+|One (mandatory)
+
+|creationTime
+|The time when the `Task` is created. This time SHALL only be added automatically by the service.
+|TM_Instant (ISO-8601 Time String)
+|One (mandatory)
+|===
+
+
+
+
+[[tab-relations-task]]
+.Direct relation between a `Task` entity and other entity types
+[cols="25a,20a,55a"]
+|===
+|Entity type |Relation |Description
+
+|TaskingCapability
+|Many optional to one mandatory
+|A `Task` has one-and-only-one `TaskingCapability`. A `TaskingCapability` has zero-to-many `Tasks`.
+|===
+
+
+.Example {counter:examples} an example of a `Task` entity
+[source,json]
+----
+{
+  "@iot.id": 2,
+  "@iot.selfLink": "http://example.org/v1.0/Tasks(1)",
+  "TaskingCapability@iot.navigationLink": "Tasks(2)/TaskingCapability",
+  "creationTime": "2017-01-01T00:00:00.000Z",
+  "taskingParameters": {
+    "status": "on",
+    "color": "#FF0000"
+  }
+}
+----
+
+
+
+[[Actuator]]
+==== Actuator
+An Actuator is a device that can be controlled/tasked. The `Actuator` entity contains information and metadata about taskable actuator. Each `TaskingCapability` has one `Actuator` and defines the parameters that can be set/tasked for the `Actuator`.
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_tasking/1.0/req/actuator
+
+|Target Type
+|Web Service
+
+|Dependency
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/entity-control-information/common-control-information
+
+|Requirement
+|[[req-actuator-properties,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-actuator-properties>>
+
+[[requirement-actuator-properties,actuator/properties]]
+__Each `Actuator` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-actuator>>.__
+
+|Requirement
+|[[req-actuator-relations,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-actuator-relations>>
+
+[[requirement-actuator-relations,actuator/relations]]
+__Each `Actuator` entity SHALL have the direct relation between a `Actuator` entity and other entity types listed in <<tab-relations-actuator>>.__
+|===
+
+
+
+
+[[tab-properties-actuator]]
+.Properties of a `Actuator` entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for the entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|The description of the Actuator entity.
+|CharacterString
+|One (mandatory)
+
+|encodingType
+|The encoding type of the `metadata` property. Its value is one of the ValueCode enumeration (see <<tab-encodingtypes-actuator>> for the available ValueCode).
+|Any (depending on the value of the `encodingType`)
+|One (mandatory)
+
+|metadata
+|The detailed description of the Actuator. The metadata type is defined by `encodingType`.
+|Any (depending on the value of the `encodingType`)
+|One (mandatory)
+
+|properties
+|A JSON Object containing user-annotated properties as key-value pairs.
+|JSON Object
+|Zero-to-one
+|===
+
+
+
+
+[[tab-relations-actuator]]
+.Direct relation between a `Actuator` entity and other entity types
+[cols="25a,20a,55a"]
+|===
+|Entity type |Relation |Description
+
+|TaskingCapabilities
+|One mandatory to many optional
+|An `Actuator` has zero-to-many `TaskingCapabilities`.  A `TaskingCapability` has one-and-only-one `Actuator`.
+|===
+
+
+
+
+[[tab-encodingtypes-actuator]]
+.List of some code values used for identifying types for the encodingType of the `Actuator` entity
+|===
+|Actuator encodingType |ValueCode Value
+
+|PDF
+|application/pdf
+
+|SensorML
+|\http://www.opengis.net/doc/IS/SensorML/2.0
+|===
+
+
+The `Actuator` `encodingType` allows clients to know how to interpret `metadata`’s value(s). Currently, the SensorThings API defines two common `Actuator` `metadata` `encodingTypes`. Most sensor manufacturers provide their sensor datasheets in a PDF format. As a result, PDF is a `Sensor` `encodingType` supported by SensorThings API. The second `Sensor` `encodingType` is SensorML.
+
+
+.Example {counter:examples} an example of a `Actuator` entity
+[source,json]
+----
+{
+  "@iot.id": 3,
+  "@iot.selfLink": "http://example.org/v1.0/Actuators(3)",
+  "TaskingCapabilities@iot.navigationLink": "Actuators(3)/TaskingCapabilities",
+  "name": "Linkit Smart 7688 Duo Board with LED",
+  "description": "Linkit Smart 7688 Duo Board that has an LED which can be tasked as on/off with different color.",
+  "encodingType": "application/pdf",
+  "metadata": "http://example.org/linkit_7688.pdf"
+}
+----
+
+
+
+
+
+

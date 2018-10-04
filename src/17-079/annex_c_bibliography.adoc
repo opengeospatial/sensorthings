@@ -1,0 +1,17 @@
+[appendix]
+[[bibliography]]
+== Bibliography
+
+ITU-T Y.2060 Overview of the Internet of Things, 2012. Available Online: https://www.itu.int/rec/T-REC-Y.2060-201206-I
+
+OGC and ISO 19156:2001, OGC and ISO 19156:2011(E), OGC Abstract Specification: Geographic information — Observations and Measurements. Available Online: http://portal.opengeospatial.org/files/?artifact_id=41579 
+
+OGC 12-000, OGC® SensorML: Model and XML Encoding Standard. Available Online: http://www.opengeospatial.org/standards/sensorml
+
+RFC 5023, The Atom Publishing Protocol. Available Online: https://www.ietf.org/rfc/rfc5023.txt
+
+RFC 6902, JavaScript Object Notation (JSON) Patch. Available Online: https://www.ietf.org/rfc/rfc6902.txt
+
+OGC 08-094r1, OGC® SWE Common Data Model Encoding Standard. Available Online: http://www.opengeospatial.org/standards/swecommon
+
+OGC 17-011r2, JSON Encoding Rules for SWE Common and SensorML. Available Online: http://docs.opengeospatial.org/bp/17-011r2/17-011r2.html

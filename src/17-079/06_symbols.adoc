@@ -1,0 +1,29 @@
+[[symbols]]
+== Symbols (and abbreviated terms)
+
+API::	Application Programming Interface
+CAV::	Connected and Autonomous Vehicles
+CS-W::	Catalog Service Web
+CRUD::	Create, Read, Update, and Delete
+GML::	Geography Markup Language
+HTML::	HyperText Markup Language
+HTTP::	Hypertext Transfer Protocol
+IoT::	Internet of Things
+ISO::	International Organization for Standardization
+JSON::	JavaScript Object Notation
+MQTT::	Message Queuing Telemetry Transport
+OData::	the Open Data Protocol
+OGC::	Open Geospatial Consortium
+OWS::	OGC Web Services
+O&M::	Observations and Measurements
+REST::	REpresentational State Transfer
+SensorML:: Sensor Model Language
+SOS::	Sensor Observation Service
+SPS::	Sensor Planning Service
+STA::	SensorThings API
+SWE::	Sensor Web Enablement
+UML::	Unified Modeling Language
+UxS::	Unmanned Systems (aerial, underwater, and other unmanned vehicle platforms)
+WoT::	Web of Things
+XML::	eXtensible Markup Language
+

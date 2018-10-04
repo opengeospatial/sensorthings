@@ -1,0 +1,31 @@
+[preface]
+[[submitters]]
+== Submitters
+
+All questions regarding this submission should be directed to the editor or the submitters:
+
+[%autowidth,cols="2*"]
+|===
+|name |representing
+
+|Steve Liang
+|University of Calgary, Canada / SensorUp Inc.
+
+|Tania Khalafbeigi
+|University of Calgary, Canada / SensorUp Inc.
+
+|Kan Luo
+|University of Calgary
+
+|Brian Miles
+|CGI Federal
+
+|Hylke van der Schaaf
+|Fraunhofer-Gesellschaft
+
+|Michael Jacoby
+|Fraunhofer-Gesellschaft
+
+|Marcus Alzona
+|Keys
+|===

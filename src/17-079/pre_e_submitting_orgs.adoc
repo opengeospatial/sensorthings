@@ -1,0 +1,11 @@
+[preface]
+[[submittingorganizations]]
+== Submitting organizations
+
+The following organizations submitted this document to the open geospatial consortium (ogc):
+
+[none]
+* SensorUp Inc., Canada
+* University of Calgary, Canada
+* Fraunhofer-Gesellschaft, Germany
+* CGI Federal, USA

@@ -1,0 +1,9 @@
+[preface]
+[[abstract]]
+== Abstract
+
+The OGC SensorThings API [OGC 15-078r6] provides an open, geospatial-enabled and unified way to interconnect the Internet of Things (IoT) devices, data, and applications over the Web.
+At a high level, the OGC SensorThings API provides two main functions and each function is handled by the Sensing part or the Tasking part.
+The Sensing part provides a standard way to manage and retrieve observations and metadata from heterogeneous IoT sensor systems.
+The Tasking part provides a standard way for parameterizing - also called tasking - of taskable IoT devices, such as individual sensors and actuators, composite consumer / commercial / industrial / smart cities _in-situ_ platforms, mobile and wearable devices, or even unmanned systems platforms such as drones, satellites, connected and autonomous vehicles, etc.
+This document specifies core of the SensorThings Tasking part.

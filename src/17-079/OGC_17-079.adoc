@@ -1,0 +1,121 @@
+:Title: OGC SensorThings API Part 2 – Tasking Core
+:titletext: OGC SensorThings API Part 2 – Tasking Core
+:doctype: book
+:encoding: utf-8
+:lang: en
+:toc:
+:toc-placement!:
+:toclevels: 5
+:sectnums:
+:sectnumlevels: 6
+:sectanchors:
+:appendix-caption: Annex
+:source-highlighter: pygments
+:figure-id: 0
+:table-id: 0
+:req-id: 0
+:rec-id: 0
+:per-id: 0
+:source-highlighter: pygments
+:pygments-style: borland
+:pygments-linenums-mode: table
+:xrefstyle: short
+:imagesdir: images/
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+= {title}
+
+<<<
+[cols = ">",frame = "none",grid = "none"]
+|===
+|{set:cellbgcolor:#FFFFFF}
+|[big]*Open Geospatial Consortium*
+|Submission Date:           2017-10-13
+|Approval Date:             YYYY-MM-DD
+|Publication Date:          YYYY-MM-DD
+|External identifier of this OGC(R) document:    http://www.opengis.net/doc/IS/iot_tasking/1.0
+|Internal reference number of this OGC(R) document:  17-079r1
+|Version:            1.0
+|Category:           OGC(R) Implementation Specification
+|Editor:             Steve Liang (SensorUp/University of Calgary)
+|Co-Editor:          Tania Khalafbeigi (SensorUp/University of Calgary)
+|===
+
+[cols = "^", frame = "none"]
+|===
+|[big]*{titletext}*
+|===
+
+[cols = "^", frame = "none", grid = "none"]
+|===
+|*Copyright notice*
+|Copyright (C) 2018 Open Geospatial Consortium
+|To obtain additional rights of use, visit http://www.opengeospatial.org/legal/
+|===
+
+[cols = "^", frame = "none"]
+|===
+|*Warning*
+|===
+
+This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.
+
+Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
+
+[width = "50%", grid = "none"]
+|===
+|Document type:      Candidate OGC® Standard
+|Document subtype:   Implementation Standard
+|Document stage:     Draft
+|Document language:  English
+|===
+
+<<<
+include::pre_a_license.adoc[]
+
+<<<
+toc::[]
+
+include::pre_0_tof.adoc[]
+
+include::pre_b_abstract.adoc[]
+
+include::pre_c_keywords.adoc[]
+
+include::pre_d_preface.adoc[]
+
+include::pre_e_submitting_orgs.adoc[]
+
+include::pre_f_submitters.adoc[]
+
+include::01_scope.adoc[]
+
+include::02_conformance.adoc[]
+
+include::03_references.adoc[]
+
+include::04_terms_definitions.adoc[]
+
+include::05_conventions.adoc[]
+
+include::06_symbols.adoc[]
+
+include::07_entities.adoc[]
+
+include::08_tasking_create.adoc[]
+
+include::09_mqtt.adoc[]
+
+include::annex_a_abstract_test_suite.adoc[]
+
+include::annex_b_revision_history.adoc[]
+
+include::annex_c_bibliography.adoc[]
+
+---

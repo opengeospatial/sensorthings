@@ -1,0 +1,132 @@
+[appendix]
+== Conformance Class Abstract Test Suite (Normative)
+
+=== SensorThings Tasking Core Tests
+
+
+
+[cols="20a,80a"]
+|===
+2+|A.1.1 Conformance class: SensorThings API TaskingCapability Entity
+
+2+|**Conformance class id:** \http://www.opengis.net/spec/iot_tasking/1.0/conf/tasking-capability
+
+2+|**Test: `TaskingCapability` Entity**
+
+|Requirements
+|<<req-tasking-capability-properties>>. \http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-tasking-capability-properties>> +
+<<req-tasking-capability-relations>>. \http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-tasking-capability-relations>>
+
+|Test purpose
+|Check if each `TaskingCapabilitiy` entity has the mandatory properties and mandatory relations as defined in this standard.
+
+|Test method
+|Inspect the full JSON object of the `TaskingCapability` entity sets (__i.e.__, without `$select`) to identify, if each entity has the mandatory properties defined in the corresponding requirement.
+
+Inspect the full JSON object of each `TaskingCapabilities` entity set (__i.e.__, without using the `$select` query option) to identify, if each entity has the mandatory relations (__i.e.__, `@iot.navigationLink`) defined in the corresponding requirement.
+|===
+
+
+
+[cols="20a,80a"]
+|===
+2+|A.1.2 Conformance class: SensorThings API Task Entity
+
+2+|**Conformance class id:** \http://www.opengis.net/spec/iot_tasking/1.0/conf/task
+
+2+|**Test: `Task` Entity**
+
+|Requirements
+|<<req-task-properties>>. \http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-task-properties>> +
+<<req-task-relations>>. \http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-task-relations>>
+
+|Test purpose
+|Check if each `Task` entity has the mandatory properties and mandatory relations as defined in this standard.
+
+|Test method
+|Inspect the full JSON object of the `Tasks` entity sets (__i.e.__, without `$select`) to identify, if each entity has the mandatory properties defined in the corresponding requirement.
+
+Inspect the full JSON object of each `Tasks` entity set (__i.e.__, without using the `$select` query option) to identify, if each entity has the mandatory relations (__i.e.__, `@iot.navigationLink`) defined in the corresponding requirement.
+|===
+
+
+
+[cols="20a,80a"]
+|===
+2+|A.1.3 Conformance class: SensorThings API Actuator Entity
+
+2+|**Conformance class id:** \http://www.opengis.net/spec/iot_tasking/1.0/conf/actuator
+
+2+|**Test: `Actuator` Entity**
+
+|Requirements
+|<<req-actuator-properties>>. \http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-actuator-properties>> +
+<<req-actuator-relations>>. \http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-actuator-relations>>
+
+|Test purpose
+|Check if each `Actuator` entity has the mandatory properties and mandatory relations as defined in this standard.
+
+|Test method
+|Inspect the full JSON object of the `Actuator` entity sets (__i.e.__, without `$select`) to identify, if each entity has the mandatory properties defined in the corresponding requirement.
+
+Inspect the full JSON object of each `Actuator` entity set (__i.e.__, without using the `$select` query option) to identify, if each entity has the mandatory relations (__i.e.__, `@iot.navigationLink`) defined in the corresponding requirement.
+|===
+
+
+
+[cols="20a,80a"]
+|===
+2+|A.1.4 Conformance class: SensorThings API Create `Task`
+
+2+|**Conformance class id:** \http://www.opengis.net/spec/iot_tasking/1.0/conf/create-entity
+
+2+|**Test: Create `Task` Entity**
+
+2+|**Dependencies:**
+
+* \http://www.opengis.net/spec/iot_tasking/1.0/conf/task
+* \http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path 
+
+|Requirements
+|<<req-create-tasks-task-creation>>. \http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-create-tasks-task-creation>>
+
+|Test purpose
+|Check if the service supports the creation of `Task` as defined in this specification.
+
+|Test method
+|Create a `Task` entity instance by following the integrity constraints and link to the existing related entities with a single request, check if the `Task` entity instance is successfully created and the server responds as defined in this specification.
+
+Issue a `Task` entity creation request that does not follow the integrity constraints, check if the service fails the request without creating the `Task` and responds the appropriate HTTP status code. 
+|===
+
+
+
+=== SensorThings Tasking MQTT Extension
+
+
+[cols="20a,80a"]
+|===
+2+|A.2.1 Conformance class: SensorThings API `Task` Creation via MQTT
+
+2+|**Conformance class id:** \http://www.opengis.net/spec/iot_tasking/1.0/conf/create-tasks-via-mqtt
+
+2+|**Test: SensorThings API `Task` Creation via MQTT**
+
+2+|**Dependencies:**
+
+* \http://www.opengis.net/spec/iot_tasking/1.0/conf/task 
+
+|Requirements
+|<<req-create-tasks-via-mqtt-task-creation>>. \http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-create-tasks-via-mqtt-task-creation>>
+
+|Test purpose
+|Check if the service supports the creation of `Task` entity via MQTT as defined in this standard.
+
+|Test method
+|Create a `Task` entity instance containing binding information for navigation properties using `MQTT Publish`, check if the server responds as defined in this standard.
+|===
+
+
+
+
+
