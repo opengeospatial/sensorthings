@@ -44,7 +44,7 @@ NOTE: The text in the __Requirements__ column in the following table is the path
 
 |req/receive-updates-via-mqtt
 |
-* req/<<requirement-receive-updates-via-mqtt-receive-updated>>
+* req/<<requirement-receive-updates-via-mqtt-receive-updates>>
 |Receiving `Tasks` updates through MQTT
 
 

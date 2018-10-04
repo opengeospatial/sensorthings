@@ -23,10 +23,10 @@ This section describes the SensorThings MQTT extension.
 |\http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
 
 |Requirement
-|[[req-create-tasks-via-mqtt-tasks-creation,{counter:req}]]
-\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-create-tasks-via-mqtt-tasks-creation>>
+|[[req-create-tasks-via-mqtt-task-creation,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-create-tasks-via-mqtt-task-creation>>
 
-[[requirement-create-tasks-via-mqtt-tasks-creation,create-tasks-via-mqtt/tasks-creation]]
+[[requirement-create-tasks-via-mqtt-task-creation,create-tasks-via-mqtt/tasks-creation]]
 __In order to allow clients to create `Tasks` with MQTT Publish, a service SHALL support the creation of `Tasks` with MQTT as defined in <<mqtt_create_task>>.__
 |===
 
