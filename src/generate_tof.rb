@@ -8,7 +8,7 @@ print "[preface]\n== Table of Figures\n\n"
 
 figs = doc.references[:ids].keys.find_all { |x| x.start_with? "fig-" }
 figs.each do |fig|
-    print "* <<" + fig + ">> - " + doc.references[:ids][fig] + "\n"
+    print "* <<" + fig + ">> - " + doc.references[:ids][fig].gsub("<code>","`").gsub("</code>","`") + "\n"
 end
 print "\n\n"
 
@@ -16,7 +16,7 @@ print "[preface]\n== Table of Tables\n\n"
 
 figs = doc.references[:ids].keys.find_all { |x| x.start_with? "tab-" }
 figs.each do |fig|
-    print "* <<" + fig + ">> - " + doc.references[:ids][fig] + "\n"
+    print "* <<" + fig + ">> - " + doc.references[:ids][fig].gsub("<code>","`").gsub("</code>","`") + "\n"
 end
 print "\n\n"
 
