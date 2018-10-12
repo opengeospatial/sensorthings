@@ -44,7 +44,7 @@ By attaching the resource path after the service root URI, clients can address t
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-as>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-resource-path-resource-path-to-entities>>
 
 |Dependency
 |
@@ -54,14 +54,14 @@ By attaching the resource path after the service root URI, clients can address t
 The resource path comes right after the service root URI and can be used to address to different resources. The following lists the usages of the resource path.
 
 
-[[req-as,{counter:req}]]
+[[req-resource-path-resource-path-to-entities,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-as,resource-path/resource-path-to-entities]]
-Req <<req-as>>: <<requirement-as>>
+|[[requirement-resource-path-resource-path-to-entities,resource-path/resource-path-to-entities]]
+Req <<req-resource-path-resource-path-to-entities>>: <<requirement-resource-path-resource-path-to-entities>>
 
 |An OGC SensorThings API service SHALL support all the resource path usages listed in <<resource-path>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-as>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-resource-path-resource-path-to-entities>>
 |===
 
 
@@ -330,34 +330,34 @@ returns the FeatureOfInterest entity of the specified Observation in the Datastr
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-av>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-order>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aw>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-expand>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ax>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-select>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-at>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-status-code>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-au>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-query-status-code>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ay>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-orderby>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-az>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-top>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ba>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-skip>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bb>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-count>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bc>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-filter>>
 
 |Dependency
 |\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398292
@@ -376,39 +376,39 @@ returns the FeatureOfInterest entity of the specified Observation in the Datastr
 Clients issue HTTP GET requests to OGC SensorThings API services for data. The resource path of the URL specifies the target of the request. Additional query operators can be specified through query options that are presented as follows. The query operators are prefixed with a dollar ($) character and specified as key-value pairs after the question symbol (?) in the request URI. Many of the OGC SensorThings API’s query options are adapted from OData’s query options. OData developers should be able to pick up SensorThings API query options very quickly.
 
 
-[[req-at,{counter:req}]]
+[[req-request-data-status-code,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-at,request-data/status-code]]
-Req <<req-at>>: <<requirement-at>>
+|[[requirement-request-data-status-code,request-data/status-code]]
+Req <<req-request-data-status-code>>: <<requirement-request-data-status-code>>
 
 |OGC SensorThings API services are hypermedia driven services that return URLs to the client. If a client subsequently requests the advertised resource and the URL has expired, then the service SHALL respond with 410 Gone. If this is not feasible, the service SHALL respond with 404 Not Found.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-at>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-status-code>>
 |===
 
 
-[[req-au,{counter:req}]]
+[[req-request-data-query-status-code,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-au,request-data/query-status-code]]
-Req <<req-au>>: <<requirement-au>>
+|[[requirement-request-data-query-status-code,request-data/query-status-code]]
+Req <<req-request-data-query-status-code>>: <<requirement-request-data-query-status-code>>
 
 |If a service does not support a system query option, it SHALL fail any request that contains the unsupported option and SHALL return 501 Not Implemented.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-au>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-query-status-code>>
 |===
 
 
 [[evaluating-system-query-options]]
 ==== Evaluating System Query Options
 
-[[req-av,{counter:req}]]
+[[req-request-data-order,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-av,request-data/order]]
-Req <<req-av>>: <<requirement-av>>
+|[[requirement-request-data-order,request-data/order]]
+Req <<req-request-data-order>>: <<requirement-request-data-order>>
 
 |An OGC SensorThings API service SHALL evaluate the system query options following the order specified in <<evaluating-system-query-options>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-av>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-order>>
 |===
 
 
@@ -438,14 +438,14 @@ The $select and $expand system query options enable the client to specify the se
 [[expand]]
 ===== $expand
 
-[[req-aw,{counter:req}]]
+[[req-request-data-expand,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-aw,request-data/expand]]
-Req <<req-aw>>: <<requirement-aw>>
+|[[requirement-request-data-expand,request-data/expand]]
+Req <<req-request-data-expand>>: <<requirement-request-data-expand>>
 
 |The $expand system query option indicates the related entities to be represented inline. The value of the $expand query option SHALL be a comma separated list of navigation property names. Additionally, each navigation property can be followed by a forward slash and another navigation property to enable identifying a multi-level relationship.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-aw>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-expand>>
 |===
 
 **Example {counter:examples}: examples of $expand query option**
@@ -525,17 +525,17 @@ returns the Datastream whose id is 1 as well as its Observations with a result e
 ===== $select
 
 
-[[req-ax,{counter:req}]]
+[[req-request-data-select,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-ax,request-data/select]]
-Req <<req-ax>>: <<requirement-ax>>
+|[[requirement-request-data-select,request-data/select]]
+Req <<req-request-data-select>>: <<requirement-request-data-select>>
 
 |The $select system query option requests the service to return only the properties explicitly requested by the client. The value of a $select query option SHALL be a comma-separated list of selection clauses. Each selection clause SHALL be a property name (including navigation property names). In the response, the service SHALL return the specified content, if available, along with any available expanded navigation properties.
 
  [Adapted from OData 4.0-Protocol 11.2.4.1]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ax>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-select>>
 |===
 
 **Example {counter:examples}: examples of $select query option**
@@ -566,11 +566,11 @@ returns the Datastream whose id is 1 as well as the result property of the entit
 ===== $orderby
 
 
-[[req-ay,{counter:req}]]
+[[req-request-data-orderby,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-ay,request-data/orderby]]
-Req <<req-ay>>: <<requirement-ay>>
+|[[requirement-request-data-orderby,request-data/orderby]]
+Req <<req-request-data-orderby>>: <<requirement-request-data-orderby>>
 
 |The $orderby system query option specifies the order in which items are returned from the service. The value of the $orderby system query option SHALL contain a comma-separated list of expressions whose primitive result values are used to sort the items. A special case of such an expression is a property path terminating on a primitive property. A type cast using the qualified entity type name SHALL be ordered by a property defined on a derived type.
 
@@ -582,7 +582,7 @@ Items SHALL be sorted by the result values of the first expression, and then ite
 
  [Note: Adapted from OData 4.0-Protocol 11.2.5.2]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ay>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-orderby>>
 |===
 
 **Example {counter:examples}: examples of $orderby query option**
@@ -603,11 +603,11 @@ returns all Observations ordered by the id property of the linked Datastream ent
 [[top]]
 ===== $top
 
-[[req-az,{counter:req}]]
+[[req-request-data-top,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-az,request-data/top]]
-Req <<req-az>>: <<requirement-az>>
+|[[requirement-request-data-top,request-data/top]]
+Req <<req-request-data-top>>: <<requirement-request-data-top>>
 
 |The $top system query option specifies the limit on the number of items returned from a collection of entities. The value of the $top system query option SHALL be a non-negative integer n. The service SHALL return the number of available items up to but not greater than the specified value n.
 
@@ -617,7 +617,7 @@ If no unique ordering is imposed through an $orderby query option, the service S
 
 In addition, if the $top value exceeds the service-driven pagination limitation (__i.e.__, the largest number of entities the service can return in a single response), the $top query option SHALL be discarded and the server-side pagination limitation SHALL be imposed.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-az>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-top>>
 |===
 
 
@@ -639,11 +639,11 @@ returns the first five Observation entries after sorted by the phenomenonTime pr
 [[skip]]
 ===== $skip
 
-[[req-ba,{counter:req}]]
+[[req-request-data-skip,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-ba,request-data/skip]]
-Req <<req-ba>>: <<requirement-ba>>
+|[[requirement-request-data-skip,request-data/skip]]
+Req <<req-request-data-skip>>: <<requirement-request-data-skip>>
 
 |The $skip system query option specifies the number for the items of the queried collection that SHALL be excluded from the result. The value of $skip system query option SHALL be a non-negative integer n. The service SHALL return items starting at position n+1.
 
@@ -653,7 +653,7 @@ If no unique ordering is imposed through an $orderby query option, the service S
 
  [Note: Adapted from OData 4.0-Protocol 11.2.5.4]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ba>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-skip>>
 |===
 
 
@@ -675,11 +675,11 @@ returns the third and fourth Observation entities from the collection of all Obs
 [[count]]
 ===== $count
 
-[[req-bb,{counter:req}]]
+[[req-request-data-count,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bb,request-data/count]]
-Req <<req-bb>>: <<requirement-bb>>
+|[[requirement-request-data-count,request-data/count]]
+Req <<req-request-data-count>>: <<requirement-request-data-count>>
 
 |The $count system query option with a value of true specifies that the total count of items within a collection matching the request SHALL be returned along with the result. A $count query option with a value of false (or not specified) hints that the service SHALL not return a count.
 
@@ -689,7 +689,7 @@ The $count system query option SHALL ignore any $top, $skip, or $expand query op
 
  [Adapted from OData 4.0-Protocol 11.2.5.5]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bb>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-count>>
 |===
 
 **Example {counter:examples}: examples of $count query option**
@@ -716,11 +716,11 @@ returns, along with the results, the total number of Things in the collection.
 [[filter]]
 ===== $filter
 
-[[req-bc,{counter:req}]]
+[[req-request-data-filter,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bc,request-data/filter]]
-Req <<req-bc>>: <<requirement-bc>>
+|[[requirement-request-data-filter,request-data/filter]]
+Req <<req-request-data-filter>>: <<requirement-request-data-filter>>
 
 |The $filter system query option allows clients to filter a collection of entities that are addressed by a request URL. The expression specified with $filter is evaluated for each entity in the collection, and only items where the expression evaluates to true SHALL be included in the response. Entities for which the expression evaluates to false or to null, or which reference properties that are unavailable due to permissions, SHALL be omitted from the response.
 
@@ -728,7 +728,7 @@ Req <<req-bc>>: <<requirement-bc>>
 
 The expression language that is used in $filter operators SHALL support references to properties and literals. The literal values SHALL be strings enclosed in single quotes, numbers and boolean values (true or false) or datetime values represented as ISO 8601 time string.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bc>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-filter>>
 |===
 
 **Example {counter:examples}: examples of $filter query option**
@@ -763,14 +763,14 @@ returns Things that have any observations of a feature of interest with a unique
 
 The OGC SensorThings API supports a set of built-in filter operations, as described in the following table. These built-in filter operator usages and definitions follow the [http://docs.oasis-open.org/odata/odata/v4.0/errata01/os/complete/part1-protocol/odata-v4.0-errata01-os-part1-protocol-complete.html#_Toc399426798[OData Specification Section 11.2.5.1.1]] and [http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/odata-abnf-construction-rules.txt[OData Version 4.0 ABNF]].
 
-[[req-bd,{counter:req}]]
+[[req-request-data-built-in-filter-operations,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bd,request-data/built-in-filter-operations]]
-Req <<req-bd>>: <<requirement-bd>>
+|[[requirement-request-data-built-in-filter-operations,request-data/built-in-filter-operations]]
+Req <<req-request-data-built-in-filter-operations>>: <<requirement-request-data-built-in-filter-operations>>
 
 |The built-in filter operators SHALL be as defined in Table 22.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bd>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-built-in-filter-operations>>
 |===
 
 
@@ -860,14 +860,14 @@ The OGC SensorThings API supports a set of functions that can be used with the $
 In order to support spatial relationship functions, SensorThings API defines nine additional geospatial functions based on the spatial relationship between two geometry objects. The spatial relationship functions are defined in the OGC Simple Feature Access specification [OGC 06-104r4 part 1, clause 6.1.2.3]. The names of these nine functions start with a prefix `+st_+` following the OGC Simple Feature Access specification [OGC 06-104r4]. In addition, the Well-Known Text (WKT) format is the default input geometry for these nine functions.
 
 
-[[req-be,{counter:req}]]
+[[req-request-data-built-in-query-functions,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-be,request-data/built-in-query-functions]]
-Req <<req-be>>: <<requirement-be>>
+|[[requirement-request-data-built-in-query-functions,request-data/built-in-query-functions]]
+Req <<req-request-data-built-in-query-functions>>: <<requirement-request-data-built-in-query-functions>>
 
 |The built-in query functions SHALL be as defined in Table 23.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-be>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-built-in-query-functions>>
 |===
 
 
@@ -1010,11 +1010,11 @@ Req <<req-be>>: <<requirement-be>>
 [[nextLink]]
 ===== Server-Driven Paging (nextLink)
 
-[[req-bf,{counter:req}]]
+[[req-request-data-pagination,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bf,request-data/pagination]]
-Req <<req-bf>>: <<requirement-bf>>
+|[[requirement-request-data-pagination,request-data/pagination]]
+Req <<req-request-data-pagination>>: <<requirement-request-data-pagination>>
 
 |Responses that include only a partial set of the items identified by the request URL SHALL contain a link that allows retrieving the next partial set of items. This link is called a nextLink;
 its representation is format-specific. The final partial set of items SHALL NOT contain a nextLink.
@@ -1025,7 +1025,7 @@ SensorThings clients SHALL treat the URL of the nextLink as opaque, and SHALL NO
 
  [Adapted from OData 4.0-Protocol 11.2.5.7]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bf>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-pagination>>
 |===
 
 **Example {counter:examples}:**

@@ -18,21 +18,21 @@ In addition to support HTTP protocol, a SensorThings service MAY support MQTT pr
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-br>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-observations-via-mqtt-observations-creation>>
 
 |Dependency
 |\http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
 |===
 
 
-[[req-br,{counter:req}]]
+[[req-create-observations-via-mqtt-observations-creation,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-br,create-observations-via-mqtt/observations-creation]]
-Req <<req-br>>: <<requirement-br>>
+|[[requirement-create-observations-via-mqtt-observations-creation,create-observations-via-mqtt/observations-creation]]
+Req <<req-create-observations-via-mqtt-observations-creation>>: <<requirement-create-observations-via-mqtt-observations-creation>>
 
 |To allow clients to create observations with MQTT Publish, a service SHALL support the creation of observations with MQTT as defined in <<create-mqtt-publish>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-br>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-observations-via-mqtt-observations-creation>>
 |===
 
 
@@ -76,21 +76,21 @@ To create related entities when creating an entity with MQTT, the condition in R
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bs>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-receive-updates-via-mqtt-receive-updates>>
 
 |Dependency
 |\http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
 |===
 
 
-[[req-bs,{counter:req}]]
+[[req-receive-updates-via-mqtt-receive-updates,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bs,receive-updates-via-mqtt/receive-updates]]
-Req <<req-bs>>: <<requirement-bs>>
+|[[requirement-receive-updates-via-mqtt-receive-updates,receive-updates-via-mqtt/receive-updates]]
+Req <<req-receive-updates-via-mqtt-receive-updates>>: <<requirement-receive-updates-via-mqtt-receive-updates>>
 
 |To allow clients to receive notifications for the updates of SensorThings entities with MQTT, a service SHALL support the receiving updates with MQTT Subscribe as defined in <<receive-mqtt-subscribe>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bs>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-receive-updates-via-mqtt-receive-updates>>
 |===
 
 

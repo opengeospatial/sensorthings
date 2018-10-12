@@ -20,114 +20,114 @@ NOTE: The text in the __Requirements__ column in the following table is the path
 
 |req/thing
 |
-* req/<<requirement-ab>>
-* req/<<requirement-ac>>
+* req/<<requirement-thing-properties>>
+* req/<<requirement-thing-relations>>
 |Thing entity
 
 |req/location
 |
-* req/<<requirement-ad>>
-* req/<<requirement-ae>>
+* req/<<requirement-location-properties>>
+* req/<<requirement-location-relations>>
 |Location entity
 
 |req/historical-location
 |
-* req/<<requirement-af>>
-* req/<<requirement-ag>>
+* req/<<requirement-historical-location-properties>>
+* req/<<requirement-historical-location-relations>>
 |HistoricalLocation entity
 
 |req/datastream
 |
-* req/<<requirement-ai>>
-* req/<<requirement-aj>>
+* req/<<requirement-datastream-properties>>
+* req/<<requirement-datastream-relations>>
 |Datastream entity
 
 |req/sensor
 |
-* req/<<requirement-ak>>
-* req/<<requirement-al>>
+* req/<<requirement-sensor-properties>>
+* req/<<requirement-sensor-relations>>
 |Sensor Entity
 
 |req/observed-property
 |
-* req/<<requirement-am>>
-* req/<<requirement-an>>
+* req/<<requirement-observed-property-properties>>
+* req/<<requirement-observed-property-relations>>
 |ObservedProperty entity
 
 |req/observation
 |
-* req/<<requirement-ao>>
-* req/<<requirement-ap>>
+* req/<<requirement-observation-properties>>
+* req/<<requirement-observation-relations>>
 |Observation entity
 
 |req/feature-of-interest
 |
-* req/<<requirement-aq>>
-* req/<<requirement-ar>>
+* req/<<requirement-feature-of-interest-properties>>
+* req/<<requirement-feature-of-interest-relations>>
 |FeatureOfInterest entity
 
 |req/entity-control-information
 |
-* req/<<requirement-aa>>
+* req/<<requirement-entity-control-information-common-control-information>>
 |Entities’ common control information
 
 |req/resource-path
 |
-* req/<<requirement-as>>
+* req/<<requirement-resource-path-resource-path-to-entities>>
 |Addressing to the entities of the SensorThings API service
 
 |req/request-data
 |
-* req/<<requirement-av>>
-* req/<<requirement-aw>>
-* req/<<requirement-ax>>
-* req/<<requirement-at>>
-* req/<<requirement-au>>
-* req/<<requirement-ay>>
-* req/<<requirement-az>>
-* req/<<requirement-ba>>
-* req/<<requirement-bb>>
-* req/<<requirement-bc>>
-* req/<<requirement-bd>>
-* req/<<requirement-be>>
-* req/<<requirement-bf>>
+* req/<<requirement-request-data-order>>
+* req/<<requirement-request-data-expand>>
+* req/<<requirement-request-data-select>>
+* req/<<requirement-request-data-status-code>>
+* req/<<requirement-request-data-query-status-code>>
+* req/<<requirement-request-data-orderby>>
+* req/<<requirement-request-data-top>>
+* req/<<requirement-request-data-skip>>
+* req/<<requirement-request-data-count>>
+* req/<<requirement-request-data-filter>>
+* req/<<requirement-request-data-built-in-filter-operations>>
+* req/<<requirement-request-data-built-in-query-functions>>
+* req/<<requirement-request-data-pagination>>
 |Requesting data with system query options
 
 |req/create-update-delete
 |
-* req/<<requirement-bg>>
-* req/<<requirement-bh>>
-* req/<<requirement-bi>>
-* req/<<requirement-bj>>
-* req/<<requirement-bk>>
-* req/<<requirement-bl>>
-* req/<<requirement-ah>>
+* req/<<requirement-create-update-delete-create-entity>>
+* req/<<requirement-create-update-delete-link-to-existing-entities>>
+* req/<<requirement-create-update-delete-deep-insert>>
+* req/<<requirement-create-update-delete-deep-insert-status-code>>
+* req/<<requirement-create-update-delete-update-entity>>
+* req/<<requirement-create-update-delete-delete-entity>>
+* req/<<requirement-create-update-delete-historical-location-auto-creation>>
 |Creating, updating, and deleting entities
 
 |req/batch-request
 |
-* req/<<requirement-bm>>
+* req/<<requirement-batch-request-batch-request>>
 |Processing multiple requests with a single request
 
 |req/multi-datastream
 |
-* req/<<requirement-bn>>
-* req/<<requirement-bo>>
-* req/<<requirement-bp>>
+* req/<<requirement-multi-datastream-properties>>
+* req/<<requirement-multi-datastream-relations>>
+* req/<<requirement-multi-datastream-constraints>>
 |Handling complex observations with complex results, especially when the result is an array.
 
 |req/data-array
 |
-* req/<<requirement-bq>>
+* req/<<requirement-data-array-data-array>>
 |Serving Observations with the efficient data array encoding
 
 |req/create-observations-via-mqtt
 |
-* req/<<requirement-br>>
+* req/<<requirement-create-observations-via-mqtt-observations-creation>>
 |creating observations through MQTT
 
 |req/receive-updates-via-mqtt
 |
-* req/<<requirement-bs>>
+* req/<<requirement-receive-updates-via-mqtt-receive-updates>>
 |Receiving updates through MQTT
 |===

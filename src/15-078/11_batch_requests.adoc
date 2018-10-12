@@ -11,21 +11,21 @@
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bm>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-batch-request-batch-request>>
 
 |Dependency
 |\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398359
 |===
 
 
-[[req-bm,{counter:req}]]
+[[req-batch-request-batch-request,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bm,batch-request/batch-request]]
-Req <<req-bm>>: <<requirement-bm>>
+|[[requirement-batch-request-batch-request,batch-request/batch-request]]
+Req <<req-batch-request-batch-request>>: <<requirement-batch-request-batch-request>>
 
 |The batch-processing of the SensorThings service SHALL be as defined in <<batch-requests>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bm>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-batch-request-batch-request>>
 |===
 
 

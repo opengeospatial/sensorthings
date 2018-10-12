@@ -11,18 +11,18 @@
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/ req/<<requirement-bq>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/ req/<<requirement-data-array-data-array>>
 |===
 
 
-[[req-bq,{counter:req}]]
+[[req-data-array-data-array,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bq,data-array/data-array]]
-Req <<req-bq>>: <<requirement-bq>>
+|[[requirement-data-array-data-array,data-array/data-array]]
+Req <<req-data-array-data-array>>: <<requirement-data-array-data-array>>
 
 |To support the SensorThings data array extension, a service SHALL support the retrieval and creation of observations as defined in <<data-array-extension>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bq>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-data-array-data-array>>
 |===
 
 Similar to the SWE DataArray in the OGC SOS, SensorThings API also provides the support of dataArray (in addition to formatting every observation entity as a JSON object) to aggregate multiple Observation entities and reduce the request (e.g., POST) and response (e.g., GET) size. SensorThings mainly use dataArray in two scenarios: (1) get Observation entities in dataArray, and (2) create Observation entities with dataArray.

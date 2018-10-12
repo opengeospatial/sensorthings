@@ -11,13 +11,13 @@
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bn>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-properties>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bo>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-relations>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bp>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-constraints>>
 |===
 
 
@@ -33,25 +33,25 @@ The MultiDatastream extension entities are depicted in <<fig-sensing-entities-mu
 image::SensingEntitiesMultiDatastream.png[MultiDatastream Extension Entities]
 
 
-[[req-bn,{counter:req}]]
+[[req-multi-datastream-properties,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bn,multi-datastream/properties]]
-Req <<req-bn>>: <<requirement-bn>>
+|[[requirement-multi-datastream-properties,multi-datastream/properties]]
+Req <<req-multi-datastream-properties>>: <<requirement-multi-datastream-properties>>
 
 |Each MultiDatastream entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-multidatastream>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bn>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-properties>>
 |===
 
 
-[[req-bo,{counter:req}]]
+[[req-multi-datastream-relations,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bo,multi-datastream/relations]]
-Req <<req-bo>>: <<requirement-bo>>
+|[[requirement-multi-datastream-relations,multi-datastream/relations]]
+Req <<req-multi-datastream-relations>>: <<requirement-multi-datastream-relations>>
 
 |Each MultiDatastream entity SHALL have the direct relation between a MultiDatastream entity and other entity types listed in <<tab-relation-multidatastream>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bo>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-relations>>
 |===
 
 
@@ -147,11 +147,11 @@ Note: It is possible an observation does not have a unit of measurement. For exa
 |===
 
 
-[[req-bp,{counter:req}]]
+[[req-multi-datastream-constraints,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bp,multi-datastream/constraints]]
-Req <<req-bp>>: <<requirement-bp>>
+|[[requirement-multi-datastream-constraints,multi-datastream/constraints]]
+Req <<req-multi-datastream-constraints>>: <<requirement-multi-datastream-constraints>>
 
 |The size and the order of each element of a MultiDatastream’s unitOfMeasurements array (__i.e.__, MultiDatastream(id)/unitOfMeasurements) SHALL match the size and the order of each element of the related ObservedProperties collection (__i.e.__, MultiDatastreams(id)/ObservedProperties).
 
@@ -161,7 +161,7 @@ The size and the order of each element of a MultiDatastream’s unitOfMeasuremen
 
 When a complex result’s element does not have a unit of measurement (e.g., a OM_TruthObservation type), the corresponding unitOfMeasurement element SHALL have null values.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bp>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-constraints>>
 |===
 
 

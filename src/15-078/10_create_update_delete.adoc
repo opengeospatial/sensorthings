@@ -11,25 +11,25 @@
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bg>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-create-entity>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bh>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-link-to-existing-entities>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bi>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bj>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert-status-code>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bk>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bl>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-delete-entity>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-ah>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-historical-location-auto-creation>>
 
 |Dependency
 |\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
@@ -48,11 +48,11 @@ As many IoT devices are resource-constrained, the SensorThings API adopts the ef
 [[create-entity]]
 === Create an entity
 
-[[req-bg,{counter:req}]]
+[[req-create-update-delete-create-entity,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bg,create-update-delete/create-entity]]
-Req <<req-bg>>: <<requirement-bg>>
+|[[requirement-create-update-delete-create-entity,create-update-delete/create-entity]]
+Req <<req-create-update-delete-create-entity>>: <<requirement-create-update-delete-create-entity>>
 
 |To create an entity in a collection, the client SHALL send a HTTP POST request to that collection's URL. The POST body SHALL contain a single valid entity representation.
 
@@ -74,7 +74,7 @@ In this case, when a client creates an Observation entity, the client SHOULD omi
 
 Special case #2: In the context of IoT, many Observations’ resultTime and phenomenonTime cannot be distinguished or the resultTime is not available. In this case, when a client creates an Observation entity, the client MAY omit the resultTime and the service SHOULD assign a null value to the resultTime.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bg>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-create-entity>>
 |===
 
 
@@ -140,11 +140,11 @@ Content-Type: application/json
 [[link-existing-entities-when-creating]]
 ===== Link to existing entities when creating an entity
 
-[[req-bh,{counter:req}]]
+[[req-create-update-delete-link-to-existing-entities,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bh,create-update-delete/link-to-existing-entities]]
-Req <<req-bh>>: <<requirement-bh>>
+|[[requirement-create-update-delete-link-to-existing-entities,create-update-delete/link-to-existing-entities]]
+Req <<req-create-update-delete-link-to-existing-entities>>: <<requirement-create-update-delete-link-to-existing-entities>>
 
 |A SensorThings API service, that supports entity creation, SHALL support linking new entities to existing entities upon creation. To create a new entity with links to existing entities in a single request, the client SHALL include the unique identifiers of the related entities associated with the corresponding navigation properties in the request body.
 
@@ -152,7 +152,7 @@ In the case of creating an Observation whose FeatureOfInterest is the Thing’s 
 
 In the complex use case of a Thing has multiple Location representations, the service SHOULD decide the default Location encoding when an Observation’s FeatureOfInterest is the Thing’s Location.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bh>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-link-to-existing-entities>>
 |===
 
 **Example {counter:examples}: create an Observation entity, which links to an existing Sensor entity (whose id is 1), an existing FeatureOfInterest entity (whose id is 2).**
@@ -179,11 +179,11 @@ Content-Type: application/json
 [[create-related-entities]]
 ===== Create related entities when creating an entity
 
-[[req-bi,{counter:req}]]
+[[req-create-update-delete-deep-insert,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bi,create-update-delete/deep-insert]]
-Req <<req-bi>>: <<requirement-bi>>
+|[[requirement-create-update-delete-deep-insert,create-update-delete/deep-insert]]
+Req <<req-create-update-delete-deep-insert>>: <<requirement-create-update-delete-deep-insert>>
 
 |A request to create an entity that includes related entities, represented using the appropriate inline representation, is referred to as a "deep insert". A SensorThings service that supports entity creation SHALL support deep insert.
 
@@ -193,7 +193,7 @@ On success, the service SHALL create all entities and relate them. On failure, t
 
  [Adapted from Data 4.0-Protocol 11.4.2.2]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bi>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert>>
 |===
 
 **Example {counter:examples}: create a Thing while creating two related Sensors and one related Observation (which links to an existing FeatureOfInterest entity and an existing ObservedProperty entity).**
@@ -279,15 +279,15 @@ Content-Type: application/json
 
 ==== Response
 
-[[req-bj,{counter:req}]]
+[[req-create-update-delete-deep-insert-status-code,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bj,create-update-delete/deep-insert-status-code]]
-Req <<req-bj>>: <<requirement-bj>>
+|[[requirement-create-update-delete-deep-insert-status-code,create-update-delete/deep-insert-status-code]]
+Req <<req-create-update-delete-deep-insert-status-code>>: <<requirement-create-update-delete-deep-insert-status-code>>
 
 |Upon successfully creating an entity, the service response SHALL contain a Location header that contains the URL of the created entity. Upon successful completion the service SHALL respond with 201 Created. Regarding all the HTTP status code, please refer to the HTTP Status Code section.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bj>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert-status-code>>
 |===
 
 
@@ -295,14 +295,14 @@ Req <<req-bj>>: <<requirement-bj>>
 === Update an entity
 
 
-[[req-bk,{counter:req}]]
+[[req-create-update-delete-update-entity,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bk,create-update-delete/update-entity]]
-Req <<req-bk>>: <<requirement-bk>>
+|[[requirement-create-update-delete-update-entity,create-update-delete/update-entity]]
+Req <<req-create-update-delete-update-entity>>: <<requirement-create-update-delete-update-entity>>
 
 |To update an entity in a collection a SensorThings service SHALL follow the requirements as defined in <<update-entity>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bk>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity>>
 |===
 
 
@@ -356,14 +356,14 @@ Upon successful completion, the service must respond with 200 OK or 204 No Conte
 === Delete an entity
 
 
-[[req-bl,{counter:req}]]
+[[req-create-update-delete-delete-entity,{counter:req}]]
 [cols="a"]
 |===
-|[[requirement-bl,create-update-delete/delete-entity]]
-Req <<req-bl>>: <<requirement-bl>>
+|[[requirement-create-update-delete-delete-entity,create-update-delete/delete-entity]]
+Req <<req-create-update-delete-delete-entity>>: <<requirement-create-update-delete-delete-entity>>
 
 |To delete an entity in a collection a SensorThings service SHALL follow the requirements as defined in <<delete-entity>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-bl>>
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-delete-entity>>
 |===
 
 
