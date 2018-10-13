@@ -1,0 +1,91 @@
+[[overview1]]
+== SensorThings API overview
+
+
+[[who-should-use]]
+=== Who should use the OGC SensorThings API
+
+
+Organizations that need web-based platforms to manage, store, share, analyze IoT-based sensor observation data should use the OGC SensorThings API. The OGC SensorThings API simplifies and accelerates the development of IoT applications. Application developers can use this open standard to connect to various IoT devices and create innovative applications without worrying the daunting heterogeneous protocols of the different IoT devices, gateways and services. IoT device manufacturers can also use OGC SensorThings API as the API can be embedded within various IoT hardware and software platforms, so that the various IoT devices can effortlessly connect with the OGC standard-compliant servers around the world. In summary, the OGC SensorThings API is transforming the numerous disjointed IoT systems into a fully connected platform where complex tasks can be synchronized and performed.
+
+
+[[benefits]]
+=== Benefits of the OGC SensorThings API
+
+In today’s world, most IoT devices (e.g., sensors and actuators) have proprietary software interfaces defined by their manufacturers and used selectively. New APIs are often required and developed on an as-needed basis, often in an environment with resource limitations and associated risks. This situation requires significant investment on the part of developers for each new sensor or project involving multiple systems and on the part of the providers of sensors, gateways and portals or services where observations and measurements are required.
+
+As a standardized data model and interface for sensors in the WoT and IoT<<footnote2>>, the OGC SensorThings API offers the following benefits: (1) it permits the proliferation of new high value services with lower overhead of development and wider reach, (2) it lowers the risks, time and cost across a full IoT product cycle, and (3) it simplifies the connections between devices-to-devices and devices-to-applications.
+
+
+[[overview2]]
+=== SensorThings API Overview
+
+The OGC SensorThings API data model consists of two parts: (1) the Sensing part and (2) the Tasking part. The Sensing part allows IoT devices and applications to CREATE, READ, UPDATE, and DELETE (__i.e.__, HTTP POST, GET, PATCH, and DELETE) IoT data and metadata in a SensorThings service.
+
+The Sensing part is designed based on the ISO/OGC Observation and Measurement (O&M) model [OGC 10-004r3 and ISO 19156:2011]. The key to the model is that an Observation is modeled as an act that produces a result whose value is an estimate of a property of the observation target or FeatureOfInterest. An Observation instance is classified by its event time (e.g., resultTime and phenonmenonTime), FeatureOfInterest, ObservedProperty, and the procedure used (often a Sensor). Moreover, Things are also modeled in the SensorThings API, and its definition follows the ITU-T definition: “__an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks__” [ITU-T Y.2060].
+
+The geographical Locations of Things are useful in almost every application and as a result are included as well. For the Things whose location changed, the HistoricalLocations entities offer the history of the Thing’s locations. A Thing also can have multiple Datastreams. A Datastream is a collection of Observations grouped by the same ObservedProperty and Sensor. An Observation is an event performed by a Sensor that produces a result whose value is an estimate of an ObservedProperty of the FeatureOfInterest. Details of each above described entity are provided in <<sensing-entities1>>.
+
+
+[[observations-measurements]]
+=== SensorThings API and ISO/OGC Observations and Measurements
+
+Managing and retrieving observations and metadata from IoT sensor systems is one of the most common use cases. As a result, SensorThings API’s sensing part is designed based on the ISO/OGC Observation and Measurement (O&M) model [OGC 10-004r3 and ISO 19156:2011]. O&M defines models for the exchange of information describing observation acts, their results as well as the feature involved in sampling when making observations.
+
+
+SensorThings API defines eight entities for the IoT sensing applications. <<sensingentities,base>> lists each component and its relationship with O&M. Low-cost and simple sensors are key enablers for the vision of IoT. As a result, SensorThings API uses the term of Sensor to describe the procedure that is used in making an Observation, instead of using O&M’s term of procedure.
+
+
+[[tab-sensing-entities]]
+.SensorThings API Sensing entities and equivalent concepts in O&amp;M 2.0
+|===
+|SensorThings API Entities |O&amp;M 2.0 Concepts
+
+|Thing (and Locations, HistoricalLocations)
+|-
+
+|Datastream
+|-
+
+|Sensor
+|Procedure
+
+|Observation
+|Observation
+
+|ObservedProperty
+|Observed Property
+
+|FeatureOfInterest
+|Feature-Of-Interest
+|===
+
+
+[[oasis-odata]]
+=== SensorThings API and OASIS OData
+
+
+SensorThings API follows OData’s specification for requesting entities. That means the entity control information, resource path usages, query options, the relevant JSON encodings, and batch-processing request follow OData 4.0. By using OData’s standard ways for requesting entities, developers who are familiar with OData can create SensorThings applications easily. However, SensorThings API does not follow the OData Common Schema Definition Language and as a result does not follow its metadata service entity model. Thus, SensorThings API should not be seen as an OData compliant API. SensorThings API’s future work will explore possible harmonization between SensorThings API and OData.
+
+
+[[key-value-pair-encodings]]
+=== SensorThings API and OGC Key-Value Pair (KVP) Encodings
+
+
+Please note that SensorThings API’s Key-Value Pair (KVP) encoding is different from many existing OGC service implementation standards, such as SOS or Web Map Service (WMS). The main reason is that OData offers a complete set of KVP encodings (see Clause 9.3.3.6) that is designed specifically for RESTful web services, while OGC baseline currently does not have common KVP encodings for the RESTful binding. As a result, OGC SensorThings API version 1.0 chooses to use OData KVP encodings only. It is our future work to support OGC KVP encodings as an extension once a common OGC RESTful binding is available.
+
+
+[[security]]
+=== SensorThings API and Security
+
+
+As things in the Internet of Things are connected to the network. Such ubiquitous network connectivity results in significant security threats. In the IoT reference model defined by ITU-T [ITU-T Y.2060] IoT security capabilities are not an independent layer but must be associated with all layers. The following figure show the ITU-T IoT reference model. The reference model has four layers, namely (1) Applications Layer, (2) Service Support and Application Support Layer, (3) Network Layer, and (4) Device Layer. And security capabilities are a cross-layer component that is associated with the four layers.
+
+
+Based on the IoT reference model, SensorThings API falls into the scope of the Service Support and Application Support Layer and the security issues should be addressed by the cross-cutting security capabilities. As a result, SensorThings API does not define specific security capabilities. Instead SensorThings API is designed to leverage the existing and future IoT security capabilities.
+
+[[fig-IotRefModel]]
+[.text-center]
+.IoT Reference Model (adapted from [ITU-T Y.2060])
+image::IotRefModel.png[IoT Reference Model (adapted from [ITU-T Y.2060])]
+

@@ -1,0 +1,425 @@
+[[create-update-delete]]
+== SensorThings Sensing Create-Update-Delete
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/create-update-delete
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-create-entity>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-link-to-existing-entities>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert-status-code>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-delete-entity>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-historical-location-auto-creation>>
+
+|Dependency
+|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
+
+|Dependency
+|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
+|===
+
+
+[[overview]]
+=== Overview
+
+As many IoT devices are resource-constrained, the SensorThings API adopts the efficient REST web service style. That means the Create, Update, Delete actions can be performed on the SensorThings entity types. The following subsection explains the Create, Update, and Delete protocol.
+
+
+[[create-entity]]
+=== Create an entity
+
+[[req-create-update-delete-create-entity,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-create-update-delete-create-entity,create-update-delete/create-entity]]
+Req <<req-create-update-delete-create-entity>>: <<requirement-create-update-delete-create-entity>>
+
+|To create an entity in a collection, the client SHALL send a HTTP POST request to that collection's URL. The POST body SHALL contain a single valid entity representation.
+
+If the target URL for the collection is a navigationLink, the new entity is automatically linked to the entity containing the navigationLink.
+
+Upon successful completion, the response SHALL contain a HTTP location header that contains the selfLink of the created entity.
+
+Upon successful completion the service SHALL respond with either 201 Created, or 204 No Content.
+
+ [Adapted from Data 4.0-Protocol, 11.4.2 Create an Entity]
+
+In addition, the link between entities SHALL be established upon creating an entity. Two use cases SHALL be considered: (1) link to existing entities when creating an entity, and (2) create related entities when creating an entity. The requests for these two use cases are described in the following subsection.
+
+When clients create resources in a SensorThings service, they SHALL follow the integrity constraints listed in Table 24. For example, a Datastream entity SHALL link to a Thing entity. When a client wants to create a Datastream entity, the client needs to either (1) create a linked Thing entity in the same request or (2) link to an already created Thing entity. The complete integrity constraints for creating resources are shown in the following table.
+
+Special case #1 - When creating an Observation entity that links to a FeatureOfInterest entity: Sometimes the FeatureOfInterest of an Observation is the Location of the Thing. For example, a wifi-connected thermostat’s temperature observation’s feature-of-interest can be the location of the smart thermostat, that is the room where the smart thermostat is located in.
+
+In this case, when a client creates an Observation entity, the client SHOULD omit the link to a FeatureOfInterest entity in the POST body message and SHOULD not create a related FeatureOfInterest entity with deep insert. And if the service detects that there is no link to a FeatureOfInterest entity in the POST body message that creates an Observation entity, the service SHALL either (1) create a FeatureOfInterest entity by using the location property from the Location of the Thing entity when there is no FeatureOfInterest whose location property is from the Location of the Thing entity or (2) link to the FeatureOfInterest whose location property is from the Location of the Thing entity.
+
+Special case #2: In the context of IoT, many Observations’ resultTime and phenomenonTime cannot be distinguished or the resultTime is not available. In this case, when a client creates an Observation entity, the client MAY omit the resultTime and the service SHOULD assign a null value to the resultTime.
+
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-create-entity>>
+|===
+
+
+[[tab-integrity-creating-entity]]
+.Integrity constraints when creating an entity
+[%autowidth,cols="a,a"]
+|===
+|Scenario |Integrity Constraints
+
+|**Create a** Thing **entity**
+|-
+
+|**Create a** Location **entity**
+|-
+
+
+.3+|**Create a** Datastream **entity**
+|SHALL link to a Thing entity.
+
+|SHALL link to a Sensor entity
+
+|SHALL link to an ObservedProperty entity.
+
+|**Create a** Sensor **entity**
+|-
+
+|**Create an** ObservedProperty **entity**
+|-
+
+.2+|**Create an** Observation **entity**
+|SHALL link to a Datastream entity.
+
+|SHALL link to a FeatureOfInterest entity. If no link specified, the service SHALL create a FeatureOfInterest entity from the content of the Location entities.
+
+|**Create a **FeatureOfInterest** entity**
+|-
+|===
+
+
+==== Request
+
+HTTP Method:: POST
+URI Pattern:: SERVICE_ROOT_URI/COLLECTION_NAME
+Header:: Content-Type: application/json
+Message Body:: A single valid entity representation for the specified collection.
+
+**Example {counter:examples}: create a Thing entity**
+
+[source]
+----
+POST /v1.0/Things HTTP/1.1
+
+Host: example.org/
+Content-Type: application/json
+
+{
+  "name": "thermostat",
+  "description":"This is a smart thermostat with WiFi communication capabilities."
+}
+----
+
+
+[[link-existing-entities-when-creating]]
+===== Link to existing entities when creating an entity
+
+[[req-create-update-delete-link-to-existing-entities,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-create-update-delete-link-to-existing-entities,create-update-delete/link-to-existing-entities]]
+Req <<req-create-update-delete-link-to-existing-entities>>: <<requirement-create-update-delete-link-to-existing-entities>>
+
+|A SensorThings API service, that supports entity creation, SHALL support linking new entities to existing entities upon creation. To create a new entity with links to existing entities in a single request, the client SHALL include the unique identifiers of the related entities associated with the corresponding navigation properties in the request body.
+
+In the case of creating an Observation whose FeatureOfInterest is the Thing’s Location (that means the Thing entity has a related Location entity), the request of creating the Observation SHOULD NOT include a link to a FeatureOfInterest entity. The service will first automatically create a FeatureOfInterest entity from the Location of the Thing and then link to the Observation.
+
+In the complex use case of a Thing has multiple Location representations, the service SHOULD decide the default Location encoding when an Observation’s FeatureOfInterest is the Thing’s Location.
+
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-link-to-existing-entities>>
+|===
+
+**Example {counter:examples}: create an Observation entity, which links to an existing Sensor entity (whose id is 1), an existing FeatureOfInterest entity (whose id is 2).**
+
+[source,json]
+----
+POST /v1.0/Observations HTTP/1.1
+Host: example.org
+Content-Type: application/json
+
+{
+  "Datastream": {
+    "@iot.id": 1
+  },
+  "phenomenonTime": "2013-04-18T16:15:00-07:00",
+  "result": 124,
+  "FeatureOfInterest": {
+    "@iot.id": 2
+  }
+}
+----
+
+
+[[create-related-entities]]
+===== Create related entities when creating an entity
+
+[[req-create-update-delete-deep-insert,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-create-update-delete-deep-insert,create-update-delete/deep-insert]]
+Req <<req-create-update-delete-deep-insert>>: <<requirement-create-update-delete-deep-insert>>
+
+|A request to create an entity that includes related entities, represented using the appropriate inline representation, is referred to as a "deep insert". A SensorThings service that supports entity creation SHALL support deep insert.
+
+If the inline representation contains a value for a computed property (__i.e.__, id), the service SHALL ignore that value when creating the related entity.
+
+On success, the service SHALL create all entities and relate them. On failure, the service SHALL NOT create any of the entities.
+
+ [Adapted from Data 4.0-Protocol 11.4.2.2]
+
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert>>
+|===
+
+**Example {counter:examples}: create a Thing while creating two related Sensors and one related Observation (which links to an existing FeatureOfInterest entity and an existing ObservedProperty entity).**
+
+[source,json]
+----
+POST /v1.0/Things HTTP1.1
+Host: example.org
+Content-Type: application/json
+
+{
+  "description": "This an oven with a temperature datastream.",
+  "name": "oven",
+  "Locations": [
+    {
+      "name": "CCIT",
+      "description": "Calgary Centre for Innovative Technologies",
+      "encodingType": "application/vnd.geo+json",
+      "location": {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [10,10]
+        }
+      }
+    }
+  ],
+  "Datastreams": [
+    {
+      "name": "oven temperature",
+      "description": "This is a datastream for an oven’s internal temperature.",
+      "unitOfMeasurement": {
+        "name": "degree Celsius",
+        "symbol": "°C",
+        "definition": "http://unitsofmeasure.org/ucum.html#para-30"
+      },
+      "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+      "observedArea": {
+        "type": "Polygon",
+        "coordinates": [[[100,0], [101,0], [101,1], [100,1], [100,0]]]
+      },
+      "phenomenonTime": "2009-01-11T16:22:25.00Z/2011-08-21T08:32:10.00Z",
+      "Observations": [
+        {
+          "phenomenonTime": "2012-06-26T03:42:02-0600",
+          "result": 70.4,
+          "FeatureOfInterest": {
+            "name": "CCIT #361",
+            "description": "This is CCIT #361, Noah’s dad’s office",
+            "encodingType": "application/vnd.geo+json",
+            "feature": {
+              "type": "Feature",
+              "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                  [[100,50], [10,9], [23,4], [100,50]], [[30,20], [10,4], [4,22], [30,20]]
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "ObservedProperty": {
+        "name": "DewPoint Temperature",
+        "definition": "http://sweet.jpl.nasa.gov/ontology/property.owl#DewPointTemperature",
+        "description": "The dewpoint temperature is the temperature to which the air
+                        must be cooled, at constant pressure, for dew to form. As
+                        the grass and other objects near the ground cool to the
+                        dewpoint, some of the water vapor in the atmosphere
+                        condenses into liquid water on the objects."
+      },
+      "Sensor": {
+        "name": "DS18B20",
+        "description": "DS18B20 is an air temperature sensor…",
+        "encodingType": "application/pdf",
+        "metadata": "http://datasheets.maxim-ic.com/en/ds/DS18B20.pdf"
+      }
+    }
+  ]
+}
+----
+
+
+==== Response
+
+[[req-create-update-delete-deep-insert-status-code,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-create-update-delete-deep-insert-status-code,create-update-delete/deep-insert-status-code]]
+Req <<req-create-update-delete-deep-insert-status-code>>: <<requirement-create-update-delete-deep-insert-status-code>>
+
+|Upon successfully creating an entity, the service response SHALL contain a Location header that contains the URL of the created entity. Upon successful completion the service SHALL respond with 201 Created. Regarding all the HTTP status code, please refer to the HTTP Status Code section.
+
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert-status-code>>
+|===
+
+
+[[update-entity]]
+=== Update an entity
+
+
+[[req-create-update-delete-update-entity,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-create-update-delete-update-entity,create-update-delete/update-entity]]
+Req <<req-create-update-delete-update-entity>>: <<requirement-create-update-delete-update-entity>>
+
+|To update an entity in a collection a SensorThings service SHALL follow the requirements as defined in <<update-entity>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity>>
+|===
+
+
+==== Request
+
+In SensorThings PATCH is the preferred means of updating an entity. PATCH provides more resiliency between clients and services by directly modifying only those values specified by the client.
+
+The semantics of PATCH, as defined in [http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#RFC5789[RFC5789]], are to merge the content in the request payload with the entity’s current state, applying the update only to those components specified in the request body. The properties provided in the payload corresponding to updatable properties SHALL replace the value of the corresponding property in the entity. Missing properties of the containing entity or complex property SHALL NOT be directly altered.
+
+Services MAY additionally support PUT, but should be aware of the potential for data-loss in round-tripping properties that the client may not know about in advance, such as open or added properties, or properties not specified in metadata. Services that support PUT SHALL replace all values of structural properties with those specified in the request body. Omitting a non-nullable property with no service-generated or default value from a PUT request results in a 400 Bad Request error.
+
+Key and other non-updatable properties that are not tied to key properties of the principal entity, can be omitted from the request. If the request contains a value for one of these properties, the service SHALL ignore that value when applying the update.
+
+The service ignores the entity id in the payload when applying the update.
+
+The entity SHALL NOT contain related entities as inline content. It MAY contain binding information for navigation properties. For single-valued navigation properties this replaces the relationship. For collection-valued navigation properties this adds to the relationship.
+
+On success, the response SHALL be a valid success response.
+
+Services MAY additionally support JSON PATCH format [RFC6902] to express a sequence of operations to apply to a SensorThings entity.
+
+ [Adapted from OData 4.0-Protocol 11.4.3]
+
+HTTP Method:: PATCH or PUT
+URI Pattern:: An URI addressing to a single entity.
+Header:: Content-Type: application/json
+Message Body:: A single entity representation including a subset of properties for the specified collection.
+
+**Example {counter:examples}: update the Thing whose id is 1.**
+
+[source]
+----
+PATCH /v1.0/Things(1) HTTP1.1
+Host: example.org
+Content-Type: application/json
+
+{
+  "description":"This thing is an oven."
+}
+----
+
+
+==== Response
+
+On success, the response SHALL be a valid success response. In addition, when the client sends an update request to a valid URL where an entity does not exist, the service SHALL fail the request.
+
+Upon successful completion, the service must respond with 200 OK or 204 No Content. Regarding all the HTTP status code, please refer to the HTTP Status Code section.
+
+
+[[delete-entity]]
+=== Delete an entity
+
+
+[[req-create-update-delete-delete-entity,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-create-update-delete-delete-entity,create-update-delete/delete-entity]]
+Req <<req-create-update-delete-delete-entity>>: <<requirement-create-update-delete-delete-entity>>
+
+|To delete an entity in a collection a SensorThings service SHALL follow the requirements as defined in <<delete-entity>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-delete-entity>>
+|===
+
+
+==== Request
+
+A successful DELETE request to an entity’s edit URL deletes the entity. The request body SHOULD be empty.
+
+
+Services SHALL implicitly remove relations to and from an entity when deleting it; clients need not delete the relations explicitly.
+
+
+Services MAY implicitly delete or modify related entities if required by integrity constraints. <<tab-integrity-deleting>> lists SensorThings API’s integrity constraints when deleting an entity.
+
+HTTP Method:: DELETE
+URI Pattern:: An URI addressing to a single entity.
+
+**Example {counter:examples}: delete the Thing with unique identifier equals to 1**
+
+[source]
+----
+DELETE http://example.org/v1.0/Things(1)
+----
+
+
+[[tab-integrity-deleting]]
+.Integrity constraints when deleting an entity
+[%autowidth,cols="a,a"]
+|===
+|Scenario |Integrity Constraints
+
+|**Delete a** Thing **entity**
+|Delete all the Datastream entities linked to the Thing entity.
+
+|**Delete a** Location **entity**
+|Delete all the HistoricalLocation entities linked to the Location entity
+
+|**Delete a** Datastream **entity**
+|Delete all the Observation entities linked to the Datastream entity.
+
+|**Delete a** Sensor **entity**
+|Delete all the Datastream entities linked to the Sensor entity.
+
+
+|**Delete an** ObservedProperty **entity**
+|Delete all the Datastream entities linked to the ObservedProperty entity.
+
+
+|**Delete an** Observation **entity**
+|-
+
+
+|**Delete a** FeatureOfInterest **entity**
+|Delete all the Observation entities linked to the FeatureOfInterest entity.
+
+
+|**Delete a** HistoricalLocation entity **entity**
+|-
+|===
+

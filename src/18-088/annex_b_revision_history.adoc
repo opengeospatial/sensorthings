@@ -1,0 +1,13 @@
+[appendix]
+== Revision history
+
+
+|===
+|Date |Release |Author |Paragraph modified |Description
+
+|2018-10-12
+|1.0.1
+|Steve Liang
+|Many.
+|Properties field is added to all the entities.
+|===

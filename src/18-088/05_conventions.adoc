@@ -1,0 +1,34 @@
+[[conventions]]
+== Conventions
+
+This sections provides details and examples for any conventions used in the document. Examples of conventions are symbols, abbreviations, use of XML schema, or special notes regarding how to read the document.
+
+
+[[presentation-requirements-recommendations]]
+=== Presentation of Requirements and Recommendations
+
+
+Requirements are presented using the following style:
+
+[cols="a"]
+|===
+|Req [number]
+
+|<requirement text>
+|[blue]#<requirement id>#
+|===
+
+<number> is a unique number within the document.
+
+<requirement text> is the requirement itself. Normative verbs like SHALL are written in capitals.
+
+The text at the bottom of the box <requirement id> is the path and it provides the URI of the requirement which can be used to unambiguously identify the requirement.
+
+[[identifiers]]
+=== Identifiers
+
+The normative provisions in this specification are denoted by the URI
+
+http://www.opengis.net/spec/iot_sensing/1.0/
+
+All requirements and conformance tests that appear in this document are denoted by partial URIs which are relative to this base.

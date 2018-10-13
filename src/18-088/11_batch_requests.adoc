@@ -1,0 +1,336 @@
+[[batch-requests]]
+== Batch Requests
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/batch-request
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-batch-request-batch-request>>
+
+|Dependency
+|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398359
+|===
+
+
+[[req-batch-request-batch-request,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-batch-request-batch-request,batch-request/batch-request]]
+Req <<req-batch-request-batch-request>>: <<requirement-batch-request-batch-request>>
+
+|The batch-processing of the SensorThings service SHALL be as defined in <<batch-requests>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-batch-request-batch-request>>
+|===
+
+
+[[introduction]]
+=== Introduction
+
+The SensorThings service interface provides interfaces for users to perform CRUD actions on resources through different HTTP methods. However, as many IoT devices are resource-constrained, handling a large number of communications may not be practical. This section describes how a SensorThings service can support executing multiple operations sent in a single HTTP request through the use of batch processing. This section covers both how batch operations are represented and processed. SensorThings batch request extension is adapted from [OData 4.0 Protocol 11.7]
+and all subsections. The only difference is that the OData-Version header SHOULD be omitted in SensorThings. Readers are encouraged to read the OData specification section 11.7 before reading the examples below.
+
+
+[[batch-processing]]
+=== Batch-processing request
+
+A batch request is represented as a Multipart MIME v1.0 message [RFC2046], a standard format allowing the representation of multiple parts, each of which may have a different content type, within a single request.
+
+The example below shows a GUID as a boundary and example.org/v1.0/ for the URI of the service.
+
+Batch requests are submitted as a single HTTP POST request to the batch endpoint of a service, located at the URL $batch relative to the service root (e.g., example.org/v1.0/$batch).
+
+Note: In the example, request bodies are excluded in favor of English descriptions inside `<>` brackets to simplify the example.
+
+**Example {counter:examples}-1:** A Batch Request header example
+
+[source]
+----
+POST /v1.0/$batch HTTP/1.1
+Host: example.org
+Content-Type: multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
+
+<BATCH_REQUEST_BODY>
+----
+
+Note: The batch request boundary must be quoted if it contains any of the following special characters:
+
+[source]
+----
+  ( ) < > @
+  , ; :  / " [ ] ? =
+----
+
+
+[[batch-request-example]]
+==== Batch request body example
+
+The following example shows a Batch Request that contains the following operations in the order listed
+
+* A query request
+* Change Set that contains the following requests:
+* Insert entity (with Content-ID = 1)
+* Update request (with Content-ID = 2)
+* A second query request
+
+Note: For brevity, in the example, request bodies are excluded in favor of English descriptions inside <> brackets.
+
+Note also that the two empty lines after the Host header of the GET request are necessary: the first is part of the GET request header; the second is the empty body of the GET request, followed by a CRLF according to [RFC2046].
+
+ [Adapted from OData 4.0 Protocol 11.7.2]
+
+**Example {examples}-2:** a Batch Request body example
+
+[source]
+----
+POST /v1.0/$batch HTTP/1.1
+Host: host
+Content-Type: multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Length: ###
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: application/http
+
+Content-Transfer-Encoding:binary
+
+GET /v1.0/Things(1)
+Host: host
+
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: multipart/mixed;boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
+
+Content-Type: application/http
+
+Content-Transfer-Encoding: binary
+Content-ID: 1
+
+POST /v1.0/Things HTTP/1.1
+Host: host
+Content-Type: application/json
+
+Content-Length: ###
+
+<JSON representation of a new Thing>
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
+
+Content-Type: application/http
+
+Content-Transfer-Encoding:binary
+Content-ID: 2
+
+PATCH /v1.0/Things(1) HTTP/1.1
+
+Host: host
+Content-Type: application/json
+
+If-Match: xxxxx
+Content-Length: ###
+
+<JSON representation of Things(1)>
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd--
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+
+Content-Type: application/http
+
+Content-Transfer-Encoding: binary
+
+GET /v1.0/Things(3) HTTP/1.1
+Host: host
+
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b--
+----
+
+[[referencing-new-entities-in-change-set]]
+==== Referencing new entities in a change set example
+
+**Example {examples}-3:** A Batch Request that contains the following operations in the order listed:
+
+A change set that contains the following requests:
+
+. Insert a new Datastream entity (with Content-ID = 1)
+. Insert a second new entity, a Sensor entity in this example (reference request with Content-ID = 1)
+
+
+[source]
+----
+POST /v1.0/$batch HTTP/1.1
+Host: host
+Content-Type:
+multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: multipart/mixed;boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+Content-ID: 1
+
+POST /v1.0/Datastreams HTTP/1.1
+Host: host
+Content-Type: application/json
+Content-Length: ###
+
+<JSON representation of a new Datastream>
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+Content-ID: 2
+
+POST /v1.0/Sensor HTTP/1.1
+Host: host
+Content-Type: application/json
+Content-Length: ###
+
+<JSON representation of a new Sensor>
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd--
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b--
+----
+
+
+[[batch-processing-response]]
+=== Batch-processing response
+
+**Example {examples}-4:** referencing the batch request Example {examples}-2 above, assume all the requests except the final query request succeed. In this case the response would be:
+
+[source,json]
+----
+HTTP/1.1
+200 Ok
+Content-Length: ####
+Content-Type: multipart/mixed;boundary=b_243234_25424_ef_892u748
+
+--b_243234_25424_ef_892u748
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 200 Ok
+Content-Type: application/json
+Content-Length: ###
+
+<JSON representation of the Thing entity with id = 1>
+--b_243234_25424_ef_892u748
+Content-Type: multipart/mixed;boundary=cs_12u7hdkin252452345eknd_383673037
+
+--cs_12u7hdkin252452345eknd_383673037
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+Content-ID: 1
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+Location: http://host/v1.0/Things(99)
+Content-Length: ###
+
+<JSON representation of a new Thing entity>
+
+--cs_12u7hdkin252452345eknd_383673037
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+Content-ID: 2
+
+HTTP/1.1 204 No Content
+Host: host
+
+
+--cs_12u7hdkin252452345eknd_383673037--
+--b_243234_25424_ef_892u748
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: ###
+
+<Error message>
+--b_243234_25424_ef_892u748--
+----
+
+
+[[asynchronous-batch-requests]]
+=== Asynchronous batch requests
+
+**Example {examples}-5:** referencing the Example {examples}-2 above again, assume that when interrogating the monitor URL for the first time only the first request in the batch finished processing and all the remaining requests except the final query request succeed. In this case the response would be:
+
+[source,json]
+----
+HTTP/1.1 200 Ok
+Content-Length: ####
+Content-Type: multipart/mixed;boundary=b_243234_25424_ef_892u748
+
+--b_243234_25424_ef_892u748
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 200 Ok
+Content-Type: application/json
+Content-Length: ###
+
+<JSON representation of the Thing entity with id = 1>
+--b_243234_25424_ef_892u748
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 202 Accepted
+Location: http://service-root/async-monitor
+Retry-After: ###
+
+
+--b_243234_25424_ef_892u748--
+----
+
+
+Client makes a second request using the returned monitor URL:
+
+
+[source,json]
+----
+HTTP/1.1 200 Ok
+Content-Length: ####
+Content-Type: multipart/mixed;boundary=b_243234_25424_ef_892u748
+
+--b_243234_25424_ef_892u748
+Content-Type: multipart/mixed;boundary=cs_12u7hdkin252452345eknd_383673037
+
+--cs_12u7hdkin252452345eknd_383673037
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+Content-ID: 1
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+Location: http://host/v1.0/Things(99)
+Content-Length: ###
+
+<JSON representation of a new Thing entity>
+--cs_12u7hdkin252452345eknd_383673037
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+Content-ID: 2
+
+HTTP/1.1 204 No Content
+Host: host
+
+
+--cs_12u7hdkin252452345eknd_383673037--
+--b_243234_25424_ef_892u748
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: ###
+
+<Error message>
+--b_243234_25424_ef_892u748—
+----
+
