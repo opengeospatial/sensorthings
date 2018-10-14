@@ -957,8 +957,8 @@ Note: Many resource-constrained sensing devices do not have a clock. As a result
 
 |parameters
 |Key-value pairs showing the environmental conditions during measurement.
-|NamedValues in a JSON Array
-|Zero-to-one
+|JSON Object
+|Zero-to-One
 |===
 
 
