@@ -859,6 +859,16 @@ The OGC SensorThings API supports a set of functions that can be used with the $
 
 In order to support spatial relationship functions, SensorThings API defines nine additional geospatial functions based on the spatial relationship between two geometry objects. The spatial relationship functions are defined in the OGC Simple Feature Access specification [OGC 06-104r4 part 1, clause 6.1.2.3]. The names of these nine functions start with a prefix `+st_+` following the OGC Simple Feature Access specification [OGC 06-104r4]. In addition, the Well-Known Text (WKT) format is the default input geometry for these nine functions.
 
+In order to support temporal relationship comparison, SensorThings API uses the Temporal operators defined in OGC 09-026r1: Filtering Encoding in chapter 7.9: Temporal operators.
+OGC 09-026r1 follows the operators defined in ISO 19108, which defines time to always be an interval.
+To also support time instants, intervals in SensorThings API are considered to be half-open: ``start \<= time < end``, meaning the end time of the interval is not part of the interval and two intervals with only one time point in common do not overlap.
+This mimics the behaviour in ISO 19108 as if time instants are infinitely short intervals, starting at the given time.
+
+When comparing time intervals, lt and gt map to before and after as defined in <<tab-built-in-query-functions>>.
+When comparing intervals using le en ge, ``X le Y`` means the start time of ``X`` is less than or equal to the start time of ``Y`` and the end time of ``X`` is less than or equal to the end time of ``Y``, while ``X ge Y`` means the start time of ``X`` is larger than or equal to that of ``Y`` and the end time of ``X`` is larger than or equal to the end time of ``Y``. 
+
+When comparing a time interval to a time instant using ``gt, lt, ge, le`` the time instant is treated as a time interval with the same start and end time.
+
 
 [[req-request-data-built-in-query-functions,{counter:req}]]
 [cols="a"]
@@ -873,7 +883,7 @@ Req <<req-request-data-built-in-query-functions>>: <<requirement-request-data-bu
 
 [[tab-built-in-query-functions]]
 .Built-in Query Functions
-[cols="<40,<60"]
+[cols="40a,60a"]
 |===
 |Function |Example
 
@@ -1004,6 +1014,161 @@ Req <<req-request-data-built-in-query-functions>>: <<requirement-request-data-bu
 
 |bool st_relate
 |`+st_relate(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))', 'T********')+`
+
+
+2+|**Temporal Relationship Functions**
+
+|bool after +
+(interval\|time i1, interval\|time i2)
+|True for:
+
+* __two intervals__: if the start point of the first is larger than or equal to the end point of the second.
+* __two times__: if the first is larger than the second.
+* __a time and an interval__: if the time is larger than or equal to the end of the interval.
+* __an interval and a time__: if the time is smaller than the start of the interval.
+
+`+after(2016-07-26T09:56:00Z, validTime)+` +
+`+after(2016-01-02T01:00:00Z/2016-01-02T02:00:00Z, validTime)+`
+
+
+|bool before +
+(interval\|time i1, interval\|time i2)
+|True for:
+
+* __two intervals__: if the end point of the first is smaller than or equal to the start point of the second.
+* __two times__: if the first is smaller than the second.
+* __a time and an interval__: if the time is smaller than the start of the interval.
+* __an interval and a time__: if the time is larger than or equal to the end of the interval.
+
+`+before(2016-07-26T09:56:00Z, validTime)+` +
+`+before(2016-01-02T01:00:00Z/2016-01-02T02:00:00Z, validTime)+`
+
+
+|bool begins +
+(interval\|time i1, interval i2)
+|True for:
+
+* __two intervals__: if the start points of the two intervals are equal and the end point of i1 is smaller than the end point of i2.
+* __a time and an interval__: if the time equals the start point of the interval.
+
+`+begins(validTime, 2016-01-02T01:00:00Z/2016-01-02T02:00:00Z)+`
+
+
+|bool begunby +
+(interval i1, interval\|time i2)
+|True for:
+
+* __two intervals__: if the start points of the two intervals are equal and the end point of i2 is smaller than the end point of i1.
+* __an interval and a time__: if the time equals the start point of the interval.
+
+`+begunby(2016-01-02T01:00:00Z/2016-01-02T02:00:00Z, validTime)+`
+
+
+|bool t_contains +
+(interval i1, interval\|time i2)
+|True for
+* __two intervals__: the start-point of i2 is greater or equal to the start-point of i1 and the end-point of i2 is less than or equal to the end-point of i1.
+* __a time and an interval__: If the time is greater or equal to the start-point of i1 and smaller than the end-point of i1.
+
+`+t_contains(validTime, 2016-07-26T09:56:00Z)+` +
+`+t_contains(validTime, 2016-01-02T01:00:00Z/2016-01-02T02:00:00Z)+`
+
+
+|bool during +
+(interval\|time i1, interval i2)
+|True for
+
+* __two intervals__: the start-point of i1 is greater or equal to the start-point of i2 and the end-point of i1 is less than or equal to the end-point of i2.
+* __a time and an interval__: If the time is greater or equal to the start-point of i2 and smaller than the end-point of i2.
+
+`+during(2016-07-26T09:56:00Z, validTime)+` +
+`+during(2016-01-02T01:00:00Z/2016-01-02T02:00:00Z, validTime)+`
+
+
+|bool ends +
+(interval\|time i1, interval i2)
+|True for:
+
+* __two intervals__: if the end points of the two intervals are equal and the start point of i1 is larger than the start point of i2
+* __a time and an interval__: if the time equals the end point of the interval.
+
+`+ends(validTime, 2016-01-02T01:00:00Z/2016-01-02T02:00:00Z)+`
+
+
+|bool endedby +
+(interval i1, interval\|time i2)
+|True for:
+
+* __two intervals__: if the end points of the two intervals are equal and the start point of i2 is larger than the start point of i1.
+* __an interval and a time__: if the time equals the end point of the interval.
+
+`+endedby(validTime, 2016-01-02T01:00:00Z/2016-01-02T02:00:00Z)+`
+
+
+|bool t_equals +
+(interval\|time i1, interval\|time i2)
+|True for:
+
+* __two intervals__: If their start times are the same and their end times are the same.
+* __two times__: If they are the same.
+
+`+t_equals(2016-01-02T01:00:00Z/2016-01-02T02:00:00Z, validTime)+` +
+`+t_equals(2016-01-02T01:00:00Z, resultTime)+`
+
+
+|bool t_overlaps +
+(interval i1, interval i2)
+|True if the start point of i1 is before i2 and the end point of i1 is during i2
+
+`+overlaps(2016-01-02T01:00:00Z/2016-01-02T02:00:00Z, validTime)+`
+
+
+|bool overlappedby +
+(interval i1, interval i2)
+|True if the end point of i1 is after i2 and the start point of i1 is during i2
+
+`+overlappedby(validTime, 2016-01-02T01:00:00Z/2016-01-02T02:00:00Z)+`
+
+
+|bool meets +
+(interval\|time i1, interval\|time i2)
+|True for:
+
+* __two intervals__: if the end-point of the first equals the start-point of the second.
+* __a time and an interval__: if the time equals the start point of the interval.
+* __an interval and a time__: if the time equals the end point of the interval.
+* __two times__: if they are equal.
+
+`+meets(2016-07-26T09:56:00Z, validTime)+` +
+`+meets(2016-01-02T01:00:00Z/2016-01-02T02:00:00Z, validTime)+`
+
+
+|bool metby +
+(interval\|time i1, interval\|time i2)
+|True for:
+
+* __two intervals__: if the start-point of the first equals the end-point of the second.
+* __a time and an interval__: if the time equals the end point of the interval.
+* __an interval and a time__: if the time equals the start point of the interval.
+* __two times__: if they are equal.
+
+`+metby(validTime, 2016-07-26T09:56:00Z)+` +
+`+metby(validTime, 2016-01-02T01:00:00Z/2016-01-02T02:00:00Z)+`
+
+
+
+|bool anyinteracts +
+(interval\|time i1, interval\|time i2)
+
+|True for:
+
+* __two intervals__: The end-point of i1 is greater than the start point of i2 and the start point of i1 is smaller than the end point of i2.
+* __a time and an interval__: If the time is during the interval.
+* __two times__: if they are equal.
+
+`+anyinteracts(validTime, 2016-07-26T09:56:00Z)+` +
+`+anyinteracts(validTime, 2016-01-02T01:00:00Z/2016-01-02T02:00:00Z)+`
+
 |===
 
 
