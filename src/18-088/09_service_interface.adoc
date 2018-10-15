@@ -894,8 +894,10 @@ Req <<req-request-data-built-in-query-functions>>: <<requirement-request-data-bu
 |int indexof(string p0, string p1)
 |`+indexof(description,'Sensor') eq 1+`
 
-|string substring(string p0, int p1)
-|`+substring(description,1) eq 'ensor Things'+`
+|string substring(string p0, int p1) +
+string substring(string p0, int p1, int p2)
+|`+substring(description,1) eq 'ensor Things'+` +
+`+substring(description,2,4) eq 'nsor'+`
 
 |string tolower(string p0)
 |`+tolower(description) eq 'sensor things'+`
