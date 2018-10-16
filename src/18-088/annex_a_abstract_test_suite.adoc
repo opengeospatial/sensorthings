@@ -431,12 +431,14 @@ Send a query with the $count query option, check if the server returns appropria
 <<req-request-data-built-in-query-functions>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-built-in-query-functions>>
 
 |Test purpose
-|Check if the service supports the $filter query option and the built-in filter operators and built-in filter functions as defined in this specification.
+|Check if the service supports the $filter query option, the built-in filter operators, the built-in filter functions and implements the correct operator precedence as defined in this specification.
 
 |Test method
 |Send a query with the $filter query option, check if the server returns appropriate result as defined in this specification.
 
 Send a query with the $filter query option for each built-in filter operator, check if the server returns appropriate result as defined in this specification.
+
+Send a query with the $filter query option for each combination of two built-in filter operators with adjacent operator precedence, check if the server returns appropriate result as defined in this specification.
 
 Send a query with the $filter query option for each built-in filter function, check if the server returns appropriate result as defined in this specification.
 |===
