@@ -89,3 +89,94 @@ Based on the IoT reference model, SensorThings API falls into the scope of the S
 .IoT Reference Model (adapted from [ITU-T Y.2060])
 image::IotRefModel.png[IoT Reference Model (adapted from [ITU-T Y.2060])]
 
+
+
+[[data-types]]
+=== SensorThings API and Data Types
+
+<<tab-data-types>> lists the data types that are used in the SensorThings API, and how these data types are encoded when they appear in the json representation of entities, or in the url when querying a service.
+
+[[tab-data-types]]
+.List of defined data types
+[cols="18a,<27,55a"]
+|===
+|Data Type |Definition |Encoding (JSON/URL)
+
+|CharacterString
+|A series of UTF-8 encoded characters
+|
+JSON:: as a normal string. +
+example: `+"This is a string value"+`
+URL:: Quoted with single quotes ('), url encoded +
+example: `+%27This%20is%20a%20string%20value%27+`
+
+
+|URI
+|Uniform Resource Identifier
+|
+JSON:: as a string.
+URL:: Quoted with single quotes ('), url encoded
+
+
+|ValueCode
+|One of a list of allowed string values.
+|
+JSON:: as a string.
+URL:: Quoted with single quotes ('), url encoded
+
+
+|JSON_Object
+|a valid JSON object
+|
+JSON:: as specified in the JSON specification
+URL:: Not allowed
+
+
+|TM_Instant
+| A single point in time.
+|
+JSON:: as a string, ISO 8601 Combined date and time with time-zone format. +
+example: `+"2016-09-19T13:52:31+00:00"+`
+URL:: ISO 8601 Combined date and time with time-zone. (Not quoted, url encoded) +
+example: `+2016-09-19T13%3A52%3A31%2B00%3A00+`
+
+
+|TM_Period
+|A time interval, consisting of a starting point and an end point.
+|
+JSON:: as a string, ISO 8601 time interval. +
+example: `+"2007-03-01T13:00:00Z/2008-05-11T15:30:00+00:00"+`
+URL:: ISO 8601 time interval. (Not quoted, url encoded) +
+example: `+2007-03-01T13%3A00%3A00Z%2F2008-05-11T15%3A30%3A00%2B00%3A00+`
+
+
+|GM_Envelope
+|GeoJSON Polygon
+|
+JSON:: as normal GeoJSON.
+URL:: Not allowed
+
+
+|DQ_Element
+|aspect of quantitative quality information.
+|
+JSON:: as string or JSON Object.
+URL:: Not allowed
+
+
+|Any
+|any valid JSON value, i.e. one of [string, number, object, array, true, false, null]
+|
+JSON:: as specified in the JSON specification
+URL:: _String_: quoted with single quotes and url encoded +
+_number, true, false, null_: unquoted, +
+_object, array_: not allowed.
+
+|===
+
+
+[[any-special]]
+==== Special Issues with Data Type Any
+
+A SensorThings API service MUST return values of properties of the data type Any using the same JSON data type used to set (insert/update) the value of the property.
+

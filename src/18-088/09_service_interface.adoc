@@ -728,6 +728,13 @@ Req <<req-request-data-filter>>: <<requirement-request-data-filter>>
 
 The expression language that is used in $filter operators SHALL support references to properties and literals. The literal values SHALL be strings enclosed in single quotes, numbers and boolean values (true or false) or datetime values represented as ISO 8601 time string.
 
+If one of the two operands of a built-in filter operator is a property of data type Any and the other is a literal or a property not of data type Any nor String,
+the service MUST include only the items whose values are of the same JSON data type as the literal/other property and fulfil the query.
+If one of the two operands is a literal or property of data type String and the other is a literal or a property not of data type string, the values of all items are
+cast to string before the operator is applied and all items that fulfil the query MUST be included in the result.
+If both operands of a built-in filter operator are properties of type Any, both operands shall be cast to string before the operator is applied and all items that fulfil the query MUST be included in the result.
+
+
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-filter>>
 |===
 
@@ -856,6 +863,16 @@ Req <<req-request-data-built-in-filter-operations>>: <<requirement-request-data-
 ====== Built-in query functions
 
 The OGC SensorThings API supports a set of functions that can be used with the $filter or $orderby query operations. The following table lists the available functions and they follows the OData Canonical function definitions listed in http://docs.oasis-open.org/odata/odata/v4.0/errata01/os/complete/part2-url-conventions/odata-v4.0-errata01-os-part2-url-conventions-complete.html#_Toc395267133[Section 5.1.1.4] of the [OData Version 4.0 Part 2: URL Conventions] and the syntax rules for these functions are defined in [http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/odata-abnf-construction-rules.txt[OData Version 4.0 ABNF]].
+
+If a property with data type Any is used as a parameter of a built-in function the service MUST act as follows:
+
+- If number or boolean is a valid data type for the parameter, call this version of the function, ignoring all records that do not have the type number/boolean,
+- otherwise, if string is a valid data type for the parameter cast the value to string
+- respond with 400 Bad Request.
+
+If a build-in function is passed an argument of the wrong type, but the function accepts the type string, then cast the value to string.
+If a build-in function is passed an argument of the wrong type, and the function does not accept the type string, then the service MUST respond with 400 Bad Request.
+
 
 In order to support spatial relationship functions, SensorThings API defines nine additional geospatial functions based on the spatial relationship between two geometry objects. The spatial relationship functions are defined in the OGC Simple Feature Access specification [OGC 06-104r4 part 1, clause 6.1.2.3]. The names of these nine functions start with a prefix `+st_+` following the OGC Simple Feature Access specification [OGC 06-104r4]. In addition, the Well-Known Text (WKT) format is the default input geometry for these nine functions.
 

@@ -439,6 +439,10 @@ Send a query with the $count query option, check if the server returns appropria
 Send a query with the $filter query option for each built-in filter operator, check if the server returns appropriate result as defined in this specification.
 
 Send a query with the $filter query option for each built-in filter function, check if the server returns appropriate result as defined in this specification.
+
+Send a query with a $filter query option that requires casting of non-string values to string values, check if the server returns the appropriate results as defined in this specification.
+
+Send queries with a $filter query option, that filters on a field of type Any that contains mixed data types, comparing against each data type. Check if the service returns the correct results.
 |===
 
 
@@ -544,6 +548,9 @@ Create an Observation entity and the Observation creation request does not inclu
 
 
 Create a Location for a Thing entity, check if the Thing has a HistoricalLocation created by the service according to the Location entity.
+
+
+For each field with datatype Any, create an entity with a value of each json data type allowed in fields of datatype any, and check if the value is returned correctly.
 |===
 
 
