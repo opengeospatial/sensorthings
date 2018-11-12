@@ -178,5 +178,5 @@ _object, array_: not allowed.
 [[any-special]]
 ==== Special Issues with Data Type Any
 
-A SensorThings API service MUST return values of properties of the data type Any using the same JSON data type used to set (insert/update) the value of the property.
+A SensorThings API service MUST return values of properties of the data type Any using the same JSON data type used to set (insert/update) the value of the property. If the service does not support the JSON data type of the value the user tries to set the property to, the service MUST return an error.
 

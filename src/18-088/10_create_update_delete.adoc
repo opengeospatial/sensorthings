@@ -74,6 +74,8 @@ In this case, when a client creates an Observation entity, the client SHOULD omi
 
 Special case #2: In the context of IoT, many Observations’ resultTime and phenomenonTime cannot be distinguished or the resultTime is not available. In this case, when a client creates an Observation entity, the client MAY omit the resultTime and the service SHOULD assign a null value to the resultTime.
 
+Special case #3: When the user tries to set a property of type Any to a value with a type the server does not support, the server must respond with HTTP status code 501 Not Implemented.
+
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-create-entity>>
 |===
 
