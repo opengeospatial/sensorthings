@@ -564,8 +564,6 @@ Create a Location for a Thing entity, check if the Thing has a HistoricalLocatio
 |Test method
 |For each SensorThings entity type send an update request with PATCH, check (1) if the properties provided in the payload corresponding to updatable properties replace the value of the corresponding property in the entity and (2) if the missing properties of the containing entity or complex property are not directly altered.
 
-(Where applicable) For each SensorThings entity type send an update request with PUT, check if the service responds as defined in <<update-entity>>.
-
 For each SensorThings entity type send an update request with PATCH that contains related entities as inline content, check if the service fails the request and returns appropriate HTTP status code.
 
 For each SensorThings entity type send an update request with PATCH that contains binding information for navigation properties, check if the service updates the navigationLink accordingly.
