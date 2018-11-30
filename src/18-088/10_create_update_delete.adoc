@@ -312,7 +312,9 @@ In SensorThings PATCH is the preferred means of updating an entity. PATCH provid
 
 The semantics of PATCH, as defined in [http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#RFC5789[RFC5789]], are to merge the content in the request payload with the entity’s current state, applying the update only to those components specified in the request body. The properties provided in the payload corresponding to updatable properties SHALL replace the value of the corresponding property in the entity. Missing properties of the containing entity or complex property SHALL NOT be directly altered.
 
-Services MAY additionally support PUT, but should be aware of the potential for data-loss in round-tripping properties that the client may not know about in advance, such as open or added properties, or properties not specified in metadata. Services that support PUT SHALL replace all values of structural properties with those specified in the request body. Omitting a non-nullable property with no service-generated or default value from a PUT request results in a 400 Bad Request error.
+Services MAY additionally support PUT, but should be aware of the potential for data-loss in round-tripping properties that the client may not know about in advance, such as open or added properties, or properties not specified in metadata. Services that do not support PUT SHALL respond with an HTTP code 501 Not Implemented. 
+
+Services that support PUT SHALL replace all values of structural properties with those specified in the request body. Omitting a non-nullable property with no service-generated or default value from a PUT request results in a 400 Bad Request error.
 
 Key and other non-updatable properties that are not tied to key properties of the principal entity, can be omitted from the request. If the request contains a value for one of these properties, the service SHALL ignore that value when applying the update.
 
