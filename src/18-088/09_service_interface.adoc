@@ -572,7 +572,7 @@ returns the Datastream whose id is 1 as well as the result property of the entit
 |[[requirement-request-data-orderby,request-data/orderby]]
 Req <<req-request-data-orderby>>: <<requirement-request-data-orderby>>
 
-|The $orderby system query option specifies the order in which items are returned from the service. The value of the $orderby system query option SHALL contain a comma-separated list of expressions whose primitive result values are used to sort the items. A special case of such an expression is a property path terminating on a primitive property. A type cast using the qualified entity type name SHALL be ordered by a property defined on a derived type.
+|The $orderby system query option specifies the order in which items are returned from the service. The value of the $orderby system query option SHALL contain a comma-separated list of expressions whose primitive result values are used to sort the items. A special case of such an expression is a property path terminating on a primitive property.
 
 The expression MAY include the suffix asc for ascending or desc for descending, separated from the property name by one or more spaces. If asc or desc is not specified, the service SHALL order by the specified property in ascending order.
 
