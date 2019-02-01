@@ -125,7 +125,7 @@ a)	taskingParameters in TaskingCapability
    "description": "The total count of house cleaning",
    "constraint": {
   "type": "AllowedValues",
-  "interval": [0 10]
+  "interval": [0, 10]
 }
 }
 ----
@@ -192,7 +192,7 @@ a)	taskingParameters in TaskCapability
 },
 "constraint": {
    "type": "AllowedValues",
-   "interval": [0 100],
+   "interval": [0, 100],
    "significantFigures": 3
 }
 }
@@ -260,7 +260,7 @@ b)	taskingParameters in Task
 {
    "destination”: {
      "type": "Point",
-     "coordinates": [-114.06,51.05]
+     "coordinates": [-114.06, 51.05]
     }
 }
 ----
@@ -283,7 +283,7 @@ a)	taskingParameters in TaskCapability
    "description": "Set light color to red when the hurricane is in the range",
    "constraint": {
    "type": "AllowedTokens",
-   "value": ["level 1","level 2","level 3","level 4","level 5","level 6"]
+   "value": ["level 1", "level 2", "level 3", "level 4", "level 5", "level 6"]
  }
 }
 ----
@@ -293,7 +293,7 @@ b)	taskingParameters in Task
 [source,json]
 ----
 {
-   "red_levels": ["level 4" "level 6"]
+   "red_levels": ["level 4", "level 6"]
 }
 ----
 
@@ -317,7 +317,7 @@ a)	taskingParameters in TaskCapability
   "description": "Set the elevator warning sound based on the number of people enter the elevator",
   "constraint": {
     "type": "AllowedValues",
-    "interval": [1 10]
+    "interval": [1, 10]
   }
 }
 ----
@@ -327,7 +327,7 @@ b)	taskingParameters in Task
 [source,json]
 ----
 {
-  "set_elevator_warning": [6 9]
+  "set_elevator_warning": [6, 9]
 }
 ----
 
@@ -354,7 +354,7 @@ a)	taskingParameters in TaskCapability
   },
   "constraint": {
     "type": "AllowedValues",
-    "interval": [0 500],
+    "interval": [0, 500],
     "significantFigures": 4
   }
 }
@@ -365,7 +365,7 @@ b)	taskingParameters in Task
 [source,json]
 ----
 {
-  "good_air_quality_light_color": [0.0 12.0]
+  "good_air_quality_light_color": [0.0, 12.0]
 }
 ----
 
@@ -389,7 +389,7 @@ b)	taskingParameters in Task
 [source,json]
 ----
 {
-  "calendar_range": ["2018-05-01T00:00:00Z" "2018-05-31T24:00:00Z"]
+  "calendar_range": ["2018-05-01T00:00:00Z", "2018-05-31T24:00:00Z"]
 }
 ----
 
@@ -495,7 +495,7 @@ a)	taskingParameters in TaskCapability
       },
       "constraint": {
         "type": "AllowedValues",
-        "Interval": [1050 1500],
+        "Interval": [1050, 1500],
         "significantFigures": 4
       }
     }
@@ -562,7 +562,7 @@ a)	taskingParameters in TaskCapability
       },
       "constraint": {
         "type": "AllowedValues",
-        "interval": [0 100],
+        "interval": [0, 100],
         "significantFigures": 2
       }
     }
@@ -602,7 +602,7 @@ a)	taskingParameters in TaskCapability
       },
       "constraint": {
         "type": "AllowedValues",
-        "interval": [0 500],
+        "interval": [0, 500],
         "significantFigures": 4
       }
     },
@@ -618,7 +618,7 @@ a)	taskingParameters in TaskCapability
       },
       "constraint": {
         "type": "AllowedValues",
-        "interval": [0 500],
+        "interval": [0, 500],
         "significantFigures": 4
       }
     },
@@ -634,7 +634,7 @@ a)	taskingParameters in TaskCapability
       },
       "constraint": {
         "type": "AllowedValues",
-        "interval": [0 500],
+        "interval": [0, 500],
         "significantFigures": 4
       }
     }
@@ -647,8 +647,8 @@ b)	taskingParameters in Task
 [source,json]
 ----
 {
-  "good_air_quality_light_color": [0 12.0],
-  "medium_air_quality_light_color": [12.1 55.4],
-  "bad_air_quality_light_color": [55.5 500]
+  "good_air_quality_light_color": [0, 12.0],
+  "medium_air_quality_light_color": [12.1, 55.4],
+  "bad_air_quality_light_color": [55.5, 500]
 }
 ----
