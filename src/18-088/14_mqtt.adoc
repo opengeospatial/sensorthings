@@ -1,7 +1,11 @@
 [[mqtt-extension]]
 == SensorThings Sensing MQTT Extension
 
-In addition to support HTTP protocol, a SensorThings service MAY support MQTT protocol to enhance the SensorThings service publish and subscribe capabilities. This section describes the SensorThings MQTT extension.
+In addition to support HTTP protocol, a SensorThings service MAY support MQTT protocol to enhance the SensorThings service publish and subscribe capabilities.
+This section describes the SensorThings MQTT extension.
+If the service supports the MQTT extension, then the `+extensions+` array of the `+serverSettings+` object shall contain the keyword `+MQTT+`.
+Furthermore, the `+serverSettings+` object SHALL contain a property named `+MQTT+` of type Object, containing a property named `+endpoints+` of type Array.
+The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the MQTT service, as seen in example 10 in <<usage-no-resource-path>>.
 
 
 [[create-mqtt-publish]]

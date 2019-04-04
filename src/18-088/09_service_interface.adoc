@@ -70,23 +70,43 @@ Req <<req-resource-path-resource-path-to-entities>>: <<requirement-resource-path
 
 **URI Pattern:** SERVICE_ROOT_URI
 
-**Response:** A JSON object with a property named `+value+` and optionally a property named `+capabilities+`. The value of the property named `+value+` SHALL be a JSON Array containing one element for each entity set of the SensorThings Service. The value of the property named `+capabilities+` SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
+**Response:** A JSON object with a property named `+value+` and, if the server implements any extensions, a property named `+serverSettings+`. The value of the property named `+value+` SHALL be a JSON Array containing one element for each entity set of the SensorThings Service. The value of the property named `+serverSettings+` SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
 
 Each element of the `+value+` array SHALL be a JSON object with at least two name/value pairs, one with name name containing the name of the entity set (e.g., Things, Locations, Datastreams, Observations, ObservedProperties and Sensors) and one with name url containing the URL of the entity set, which may be an absolute or a relative URL. +
  [Adapted from OData 4.0-JSON-Format section 5]
 
-If the service supports the MQTT extension, then the `+capabilities+` object SHALL contain a property named `+mqtt+` of type Object, containing a property named `+endpoints+` of type Array. The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the MQTT service. The Objects MAY contain additional properties.
+The `+serverSettings+` object SHALL contain the property `+extensions+` of the type Array, containing the case sensitive keywords of all extensions the service implements. The keywords for the extensions defined in this document are: `+BatchRequests+`, `+DataArray+`, `+JSON-Patch+`, `+MQTT+`, `+MultiDatastream+` and `+PUT+`. Future extensions MUST define additional keywords. Services implementing custom extensions MUST prefix their keywords with a `+vendor@+` prefix to avoid name collisions.
+
+Extensions that need to expose additional server settings may do so in a property of the `+serverSettings+` object that is named after their keyword. For example, the MQTT extension defines the property `+MQTT+`.
 
 Example {counter:examples}: a SensorThings request with no resource path
 
 **Example Request:**
 
-    http://example.org/v1.0/
+    http://example.org/v1.1/
 
 .Example Response:
 [source,json]
 ----
 {
+ "serverSettings": {
+    "extensions": [
+      "BatchRequests",
+      "DataArray",
+      "JSON-Patch",
+      "MQTT",
+      "MultiDatastream",
+      "PUT"
+    ],
+    "MQTT": {
+      "endpoints": [
+        "mqtt://server.example.com:1833",
+        "mqtts://server.example.com:8883",
+        "ws://server.example.com/sensorThings",
+        "wss://server.example.com:443/sensorThings"
+      ]
+    }
+  },
   "value": [
     {
       "name": "Things",
@@ -116,17 +136,7 @@ Example {counter:examples}: a SensorThings request with no resource path
       "name": "FeaturesOfInterest",
       "url": "http://example.org/v1.0/FeaturesOfInterest"
     }
-  ],
-  "capabilities": {
-    "mqtt": {
-      "endpoints": [
-        "mqtt://server.example.com:1833",
-        "mqtts://server.example.com:8883",
-        "ws://server.example.com/sensorThings",
-        "wss://server.example.com:443/sensorThings"
-      ]
-    }
-  }
+  ]
 }
 ----
 
