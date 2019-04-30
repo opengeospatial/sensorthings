@@ -395,7 +395,7 @@ DELETE http://example.org/v1.0/Things(1)
 |Scenario |Integrity Constraints
 
 |**Delete a** Thing **entity**
-|Delete all the Datastream entities linked to the Thing entity.
+|Delete all the Datastream and HistoricalLocation entities linked to the Thing entity.
 
 |**Delete a** Location **entity**
 |Delete all the HistoricalLocation entities linked to the Location entity
