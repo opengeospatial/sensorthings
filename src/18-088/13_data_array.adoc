@@ -77,6 +77,8 @@ Host: www.example.org
 Content-Type: application/json
 
 {
+  "@iot.nextLink": "http://example.org/v1.1/Datastreams(1)/Observations?$resultFormat=dataArray&$skip=3",
+  "@iot.count": 42,
   "value": [
     {
       "Datastream@iot.navigationLink": "../Datastreams(1)",
@@ -121,6 +123,8 @@ Host: www.example.org
 Content-Type: **application/json
 
 {
+  "@iot.nextLink": "http://example.org/v1.1/MultiDatastreams(1)/Observations?$resultFormat=dataArray&$skip=3",
+  "@iot.count": 42,
   "value": [
     {
       "MultiDatastream@iot.navigationLink": "MultiDatastreams(1)",
