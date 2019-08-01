@@ -79,7 +79,7 @@ Content-Type: application/json
 {
   "value": [
     {
-      "Datastream@iot.navigationLink": "Datastreams(1)",
+      "Datastream@iot.navigationLink": "../Datastreams(1)",
       "components": [
         "id",
         "phenomenonTime",
