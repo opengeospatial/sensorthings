@@ -127,7 +127,6 @@ PATCH /v1.0/Things(1) HTTP/1.1
 Host: host
 Content-Type: application/json
 
-If-Match: xxxxx
 Content-Length: ###
 
 <JSON representation of Things(1)>
