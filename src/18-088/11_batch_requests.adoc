@@ -96,8 +96,6 @@ Content-Length: ###
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
 Content-Type: application/http
 
-Content-Transfer-Encoding:binary
-
 GET /v1.0/Things(1)
 Host: host
 
@@ -109,7 +107,6 @@ Content-Type: multipart/mixed;boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efb
 
 Content-Type: application/http
 
-Content-Transfer-Encoding: binary
 Content-ID: 1
 
 POST /v1.0/Things HTTP/1.1
@@ -123,7 +120,6 @@ Content-Length: ###
 
 Content-Type: application/http
 
-Content-Transfer-Encoding:binary
 Content-ID: 2
 
 PATCH /v1.0/Things(1) HTTP/1.1
@@ -139,8 +135,6 @@ Content-Length: ###
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
 
 Content-Type: application/http
-
-Content-Transfer-Encoding: binary
 
 GET /v1.0/Things(3) HTTP/1.1
 Host: host
@@ -172,7 +166,6 @@ Content-Type: multipart/mixed;boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efb
 
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 1
 
 POST /v1.0/Datastreams HTTP/1.1
@@ -183,7 +176,6 @@ Content-Length: ###
 <JSON representation of a new Datastream>
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 2
 
 POST /v1.0/Sensor HTTP/1.1
@@ -211,7 +203,6 @@ Content-Type: multipart/mixed;boundary=b_243234_25424_ef_892u748
 
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 200 Ok
 Content-Type: application/json
@@ -223,7 +214,6 @@ Content-Type: multipart/mixed;boundary=cs_12u7hdkin252452345eknd_383673037
 
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 1
 
 HTTP/1.1 201 Created
@@ -235,7 +225,6 @@ Content-Length: ###
 
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 2
 
 HTTP/1.1 204 No Content
@@ -245,7 +234,6 @@ Host: host
 --cs_12u7hdkin252452345eknd_383673037--
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 404 Not Found
 Content-Type: application/json
@@ -269,7 +257,6 @@ Content-Type: multipart/mixed;boundary=b_243234_25424_ef_892u748
 
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 200 Ok
 Content-Type: application/json
@@ -278,7 +265,6 @@ Content-Length: ###
 <JSON representation of the Thing entity with id = 1>
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor
@@ -303,7 +289,6 @@ Content-Type: multipart/mixed;boundary=cs_12u7hdkin252452345eknd_383673037
 
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 1
 
 HTTP/1.1 201 Created
@@ -314,7 +299,6 @@ Content-Length: ###
 <JSON representation of a new Thing entity>
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 2
 
 HTTP/1.1 204 No Content
@@ -324,7 +308,6 @@ Host: host
 --cs_12u7hdkin252452345eknd_383673037--
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 404 Not Found
 Content-Type: application/json
