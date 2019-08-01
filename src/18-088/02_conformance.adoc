@@ -12,7 +12,7 @@ All requirements-classes and conformance-classes described in this document are 
 The following table list the requirements classes defined by this standard.
 
 
-NOTE: The text in the __Requirements__ column in the following table is the path fragment that, when appended to the URI: \http://www.opengis.net/spec/iot_sensing/1.0/, provides the URI that can be used to unambiguously identify the requirement and the conformance class.
+NOTE: The text in the __Requirements__ column in the following table is the path fragment that, when appended to the URI: \http://www.opengis.net/spec/iot_sensing/1.1/, provides the URI that can be used to unambiguously identify the requirement and the conformance class.
 
 [cols="<2,4a,<2"]
 |===

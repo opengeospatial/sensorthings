@@ -39,7 +39,7 @@ endif::[]
 |Submission Date:       <yyyy-mm-dd>
 |Approval Date:         <yyyy-mm-dd>
 |Publication Date:      <yyyy-mm-dd>
-|External identifier of this OGC(R) document:	http://www.opengis.net/doc/is/sensorthings/1.0
+|External identifier of this OGC(R) document:	http://www.opengis.net/doc/is/sensorthings/1.1
 |URL for this OGC(R) document:
 |Additional Formats (informative):
 |Please refer to the http://docs.opengeospatial.org/is/18-088/errata.html[errata] for this document, +

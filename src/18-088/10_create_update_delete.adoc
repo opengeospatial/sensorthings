@@ -5,31 +5,31 @@
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/create-update-delete
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/create-update-delete
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-create-entity>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-create-entity>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-link-to-existing-entities>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-link-to-existing-entities>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-deep-insert>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert-status-code>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-deep-insert-status-code>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-update-entity>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-delete-entity>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-delete-entity>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-historical-location-auto-creation>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-historical-location-auto-creation>>
 
 |Dependency
 |\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
@@ -74,7 +74,7 @@ In this case, when a client creates an Observation entity, the client SHOULD omi
 
 Special case #2: In the context of IoT, many Observations’ resultTime and phenomenonTime cannot be distinguished or the resultTime is not available. In this case, when a client creates an Observation entity, the client MAY omit the resultTime and the service SHOULD assign a null value to the resultTime.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-create-entity>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-create-entity>>
 |===
 
 
@@ -125,7 +125,7 @@ Message Body:: A single valid entity representation for the specified collection
 
 [source]
 ----
-POST /v1.0/Things HTTP/1.1
+POST /v1.1/Things HTTP/1.1
 
 Host: example.org/
 Content-Type: application/json
@@ -152,14 +152,14 @@ In the case of creating an Observation whose FeatureOfInterest is the Thing’s 
 
 In the complex use case of a Thing has multiple Location representations, the service SHOULD decide the default Location encoding when an Observation’s FeatureOfInterest is the Thing’s Location.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-link-to-existing-entities>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-link-to-existing-entities>>
 |===
 
 **Example {counter:examples}: create an Observation entity, which links to an existing Sensor entity (whose id is 1), an existing FeatureOfInterest entity (whose id is 2).**
 
 [source,json]
 ----
-POST /v1.0/Observations HTTP/1.1
+POST /v1.1/Observations HTTP/1.1
 Host: example.org
 Content-Type: application/json
 
@@ -193,14 +193,14 @@ On success, the service SHALL create all entities and relate them. On failure, t
 
  [Adapted from Data 4.0-Protocol 11.4.2.2]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-deep-insert>>
 |===
 
 **Example {counter:examples}: create a Thing while creating two related Sensors and one related Observation (which links to an existing FeatureOfInterest entity and an existing ObservedProperty entity).**
 
 [source,json]
 ----
-POST /v1.0/Things HTTP1.1
+POST /v1.1/Things HTTP1.1
 Host: example.org
 Content-Type: application/json
 
@@ -287,7 +287,7 @@ Req <<req-create-update-delete-deep-insert-status-code>>: <<requirement-create-u
 
 |Upon successfully creating an entity, the service response SHALL contain a Location header that contains the URL of the created entity. Upon successful completion the service SHALL respond with 201 Created. Regarding all the HTTP status code, please refer to the HTTP Status Code section.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert-status-code>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-deep-insert-status-code>>
 |===
 
 
@@ -302,7 +302,7 @@ Req <<req-create-update-delete-deep-insert-status-code>>: <<requirement-create-u
 Req <<req-create-update-delete-update-entity>>: <<requirement-create-update-delete-update-entity>>
 
 |To update an entity in a collection a SensorThings service SHALL follow the requirements as defined in <<update-entity>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-update-entity>>
 |===
 
 
@@ -335,7 +335,7 @@ Message Body:: A single entity representation including a subset of properties f
 
 [source]
 ----
-PATCH /v1.0/Things(1) HTTP1.1
+PATCH /v1.1/Things(1) HTTP1.1
 Host: example.org
 Content-Type: application/json
 
@@ -363,7 +363,7 @@ Upon successful completion, the service must respond with 200 OK or 204 No Conte
 Req <<req-create-update-delete-delete-entity>>: <<requirement-create-update-delete-delete-entity>>
 
 |To delete an entity in a collection a SensorThings service SHALL follow the requirements as defined in <<delete-entity>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-delete-entity>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-delete-entity>>
 |===
 
 
@@ -384,7 +384,7 @@ URI Pattern:: An URI addressing to a single entity.
 
 [source]
 ----
-DELETE http://example.org/v1.0/Things(1)
+DELETE http://example.org/v1.1/Things(1)
 ----
 
 

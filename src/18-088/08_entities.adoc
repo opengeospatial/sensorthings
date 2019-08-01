@@ -10,13 +10,13 @@
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/entity-control-information
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/entity-control-information
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 |===
 
 
@@ -27,7 +27,7 @@
 Req <<req-entity-control-information-common-control-information>>: <<requirement-entity-control-information-common-control-information>>
 
 |Each entity SHALL have the following common control information listed in Table 2.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 |===
 
 
@@ -35,7 +35,7 @@ Req <<req-entity-control-information-common-control-information>>: <<requirement
 
 When annotating a name/value pair for which the value is represented as a JSON object, each annotation is placed within the object and represented as a single name/value pair. In SensorThings the name always starts with the “at” sign (@), followed by the namespace iot, followed by a dot (.), followed by the name of the term (e.g., **"@iot.id":**1).
 
-When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair is placed next to the annotated name/value pair and represented as a single name/value pair. The name is the same as the name of the name/value pair being annotated, followed by the “at” sign (**@**), followed by the namespace iot, followed by a dot (.), followed by the name of the term.  (e.g., `+"Locations@iot.navigationLink":"http://example.org/v.1.0/Things(1)/Locations"+`)
+When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair is placed next to the annotated name/value pair and represented as a single name/value pair. The name is the same as the name of the name/value pair being annotated, followed by the “at” sign (**@**), followed by the namespace iot, followed by a dot (.), followed by the name of the term.  (e.g., `+"Locations@iot.navigationLink":"http://example.org/v1.1/Things(1)/Locations"+`)
 
 
 [[tab-common-control-information]]
@@ -82,19 +82,19 @@ In this section, we explain the properties in each entity type and the direct re
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/thing
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/thing
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-thing-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-thing-properties>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-thing-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-thing-relations>>
 
 |Dependency
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 |===
 
 The OGC SensorThings API follows the ITU-T definition, __i.e.__, with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060].
@@ -107,7 +107,7 @@ The OGC SensorThings API follows the ITU-T definition, __i.e.__, with regard to 
 Req <<req-thing-properties>>: <<requirement-thing-properties>>
 
 |Each Thing entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-thing>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-thing-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-thing-properties>>
 |===
 
 
@@ -141,7 +141,7 @@ Req <<req-thing-properties>>: <<requirement-thing-properties>>
 Req <<req-thing-relations>>: <<requirement-thing-relations>>
 
 |Each Thing entity SHALL have the direct relation between a Thing entity and other entity types listed in <<tab-relations-thing>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-thing-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-thing-relations>>
 |===
 
 
@@ -172,7 +172,7 @@ However, in some complex use cases, a Thing MAY have more than one Location repr
 ----
 {
   "@iot.id": 1,
-  "@iot.selfLink": "http://example.org/v1.0/Things(1)",
+  "@iot.selfLink": "http://example.org/v1.1/Things(1)",
   "Locations@iot.navigationLink": "Things(1)/Locations",
   "Datastreams@iot.navigationLink": "Things(1)/Datastreams",
   "HistoricalLocations@iot.navigationLink": "Things(1)/HistoricalLocations",
@@ -195,19 +195,19 @@ However, in some complex use cases, a Thing MAY have more than one Location repr
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/location
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/location
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-location-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-location-properties>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-location-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-location-relations>>
 
 |Dependency
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 |===
 
 
@@ -227,7 +227,7 @@ However, the ultimate location of interest of a Thing is not always the location
 Req <<req-location-properties>>: <<requirement-location-properties>>
 
 |Each Location entity SHALL have the mandatory properties listed in <<tab-properties-location>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-location-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-location-properties>>
 |===
 
 
@@ -271,7 +271,7 @@ Req <<req-location-properties>>: <<requirement-location-properties>>
 Req <<req-location-relations>>: <<requirement-location-relations>>
 
 |Each Location entity SHALL have the direct relation between a Location entity and other entity types listed in <<tab-relation-location>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-location-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-location-relations>>
 |===
 
 
@@ -296,7 +296,7 @@ Req <<req-location-relations>>: <<requirement-location-relations>>
 ----
 {
   "@iot.id": 1,
-  "@iot.selfLink": "http://example.org/v1.0/Locations(1)",
+  "@iot.selfLink": "http://example.org/v1.1/Locations(1)",
   "Things@iot.navigationLink": "Locations(1)/Things",
   "HistoricalLocations@iot.navigationLink": "Locations(1)/HistoricalLocations",
 
@@ -335,22 +335,22 @@ A thing can be geo-referenced in different spaces. For example, for some applica
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/historical-location
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/historical-location
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-historical-location-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-historical-location-properties>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-historical-location-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-historical-location-relations>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-historical-location-auto-creation>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-historical-location-auto-creation>>
 
 |Dependency
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 |===
 
 
@@ -364,7 +364,7 @@ A Thing’s HistoricalLocation entity set provides the times of the current (__i
 Req <<req-historical-location-properties>>: <<requirement-historical-location-properties>>
 
 |Each HistoricalLocation entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-historicallocation>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-historical-location-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-historical-location-properties>>
 |===
 
 
@@ -375,7 +375,7 @@ Req <<req-historical-location-properties>>: <<requirement-historical-location-pr
 Req <<req-historical-location-relations>>: <<requirement-historical-location-relations>>
 
 |Each HistoricalLocation entity SHALL have the direct relation between a HistoricalLocation entity and other entity types listed in <<tab-relation-historicallocation>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-historical-location-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-historical-location-relations>>
 |===
 
 
@@ -386,7 +386,7 @@ Req <<req-historical-location-relations>>: <<requirement-historical-location-rel
 Req <<req-create-update-delete-historical-location-auto-creation>>: <<requirement-create-update-delete-historical-location-auto-creation>>
 
 |When a Thing has a new Location, a new HistoricalLocation SHALL be created and added to the Thing automatically by the service. The current Location of the Thing SHALL only be added to HistoricalLocation automatically by the service, and SHALL not be created as HistoricalLocation directly by user.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-historical-location-auto-creation>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-historical-location-auto-creation>>
 |===
 
 
@@ -428,20 +428,20 @@ The HistoricalLocation can also be created, updated and deleted. One use case is
   "value": [
     {
       "@iot.id": 1,
-      "@iot.selfLink": "http://example.org/v1.0/HistoricalLocations(1)",
+      "@iot.selfLink": "http://example.org/v1.1/HistoricalLocations(1)",
       "Locations@iot.navigationLink": "HistoricalLocations(1)/Locations",
       "Thing@iot.navigationLink": "HistoricalLocations(1)/Thing",
       "time": "2015-01-25T12:00:00-07:00"
     },
     {
       "@iot.id": 2,
-      "@iot.selfLink": "http://example.org/v1.0/HistoricalLocations(2)",
+      "@iot.selfLink": "http://example.org/v1.1/HistoricalLocations(2)",
       "Locations@iot.navigationLink": "HistoricalLocations(2)/Locations",
       "Thing@iot.navigationLink": "HistoricalLocations(2)/Thing",
       "time": "2015-01-25T13:00:00-07:00"
     }
   ],
-  "@iot.nextLink":"http://example.org/v1.0/Things(1)/HistoricalLocations?$skip=2&$top=2"
+  "@iot.nextLink":"http://example.org/v1.1/Things(1)/HistoricalLocations?$skip=2&$top=2"
 }
 ----
 [[datastream]]
@@ -452,19 +452,19 @@ The HistoricalLocation can also be created, updated and deleted. One use case is
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/datastream
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/datastream
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-datastream-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-datastream-properties>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-datastream-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-datastream-relations>>
 
 |Dependency
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 
 |Dependency
 |urn:iso:dis:iso:19156:clause:8.2.2
@@ -481,7 +481,7 @@ A Datastream groups a collection of Observations measuring the same ObservedProp
 Req <<req-datastream-properties>>: <<requirement-datastream-properties>>
 
 |Each Datastream entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-datastream>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-datastream-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-datastream-properties>>
 |===
 
 
@@ -492,7 +492,7 @@ Req <<req-datastream-properties>>: <<requirement-datastream-properties>>
 Req <<req-datastream-relations>>: <<requirement-datastream-relations>>
 
 |Each Datastream entity SHALL have the direct relation between a Datastream entity and other entity types listed in <<tab-relation-datastream>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-datastream-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-datastream-relations>>
 |===
 
 
@@ -579,7 +579,7 @@ see <<tab-value-codes-obstypes>>.
 ----
 {
   "@iot.id": 1,
-  "@iot.selfLink": "http://example.org/v1.0/Datastreams(1)",
+  "@iot.selfLink": "http://example.org/v1.1/Datastreams(1)",
   "Thing@iot.navigationLink": "HistoricalLocations(1)/Thing",
   "Sensor@iot.navigationLink": "Datastreams(1)/Sensor",
   "ObservedProperty@iot.navigationLink": "Datastreams(1)/ObservedProperty",
@@ -642,19 +642,19 @@ The observationType defines the result types for specialized observations [OGC 1
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/sensor
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/sensor
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-sensor-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-sensor-properties>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-sensor-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-sensor-relations>>
 
 |Dependency
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 |===
 
 
@@ -667,7 +667,7 @@ A Sensor is an instrument that observes a property or phenomenon with the goal o
 Req <<req-sensor-properties>>: <<requirement-sensor-properties>>
 
 |Each Sensor entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-sensor>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-sensor-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-sensor-properties>>
 |===
 
 
@@ -678,7 +678,7 @@ Req <<req-sensor-properties>>: <<requirement-sensor-properties>>
 Req <<req-sensor-relations>>: <<requirement-sensor-relations>>
 
 |Each Sensor entity SHALL have the direct relation between a Sensor entity and other entity types listed in <<tab-relation-sensor>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-sensor-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-sensor-relations>>
 |===
 
 
@@ -748,7 +748,7 @@ The Sensor encodingType allows clients to know how to interpret metadata’s val
 ----
 {
   "@iot.id": 1,
-  "@iot.selfLink": "http://example.org/v1.0/Sensors(1)",
+  "@iot.selfLink": "http://example.org/v1.1/Sensors(1)",
   "Datastreams@iot.navigationLink": "Sensors(1)/Datastreams",
 
   "name": "TMP36",
@@ -767,19 +767,19 @@ The Sensor encodingType allows clients to know how to interpret metadata’s val
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/observed-property
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/observed-property
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observed-property-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observed-property-properties>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observed-property-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observed-property-relations>>
 
 |Dependency
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 |===
 
 
@@ -793,7 +793,7 @@ An ObservedProperty specifies the phenomenon of an Observation.
 Req <<req-observed-property-properties>>: <<requirement-observed-property-properties>>
 
 |Each ObservedProperty entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-observedproperty>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observed-property-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observed-property-properties>>
 |===
 
 
@@ -804,7 +804,7 @@ Req <<req-observed-property-properties>>: <<requirement-observed-property-proper
 Req <<req-observed-property-relations>>: <<requirement-observed-property-relations>>
 
 |Each ObservedProperty entity SHALL have the direct relation between a ObservedProperty entity and other entity types listed in <<tab-relation-observedproperty>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observed-property-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observed-property-relations>>
 |===
 
 
@@ -853,7 +853,7 @@ Req <<req-observed-property-relations>>: <<requirement-observed-property-relatio
 ----
 {
   "@iot.id": 1,
-  "@iot.selfLink": "http://example.org/v1.0/ObservedProperties(1)",
+  "@iot.selfLink": "http://example.org/v1.1/ObservedProperties(1)",
   "Datastreams@iot.navigationLink": "ObservedProperties(1)/Datastreams",
   "description": "The dewpoint temperature is the temperature to which the
                   air must be cooled, at constant pressure, for dew to form.
@@ -874,19 +874,19 @@ Req <<req-observed-property-relations>>: <<requirement-observed-property-relatio
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/observation
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/observation
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observation-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observation-properties>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observation-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observation-relations>>
 
 |Dependency
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 
 |Dependency
 |urn:iso:dis:iso:19156:clause:7.2.2
@@ -903,7 +903,7 @@ An Observation is the act of measuring or otherwise determining the value of a p
 Req <<req-observation-properties>>: <<requirement-observation-properties>>
 
 |Each Observation entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-observation>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observation-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observation-properties>>
 |===
 
 
@@ -914,7 +914,7 @@ Req <<req-observation-properties>>: <<requirement-observation-properties>>
 Req <<req-observation-relations>>: <<requirement-observation-relations>>
 
 |Each Observation entity SHALL have the direct relation between an Observation entity and other entity types listed in <<tab-relations-observation>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observation-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observation-relations>>
 |===
 
 
@@ -983,7 +983,7 @@ Note: Many resource-constrained sensing devices do not have a clock. As a result
 ----
 {
   "@iot.id": 1,
-  "@iot.selfLink": "http://example.org/v1.0/Observations(1)",
+  "@iot.selfLink": "http://example.org/v1.1/Observations(1)",
   "FeatureOfInterest@iot.navigationLink": "Observations(1)/FeatureOfInterest",
   "Datastream@iot.navigationLink":"Observations(1)/Datastream",
 
@@ -1002,19 +1002,19 @@ Note: Many resource-constrained sensing devices do not have a clock. As a result
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/feature-of-interest
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/feature-of-interest
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-feature-of-interest-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-feature-of-interest-properties>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-feature-of-interest-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-feature-of-interest-relations>>
 
 |Dependency
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 |===
 
 
@@ -1028,7 +1028,7 @@ An Observation results in a value being assigned to a phenomenon. The phenomenon
 Req <<req-feature-of-interest-properties>>: <<requirement-feature-of-interest-properties>>
 
 |Each FeatureOfInterest entity SHALL have the mandatory properties listed in <<tab-properties-featureofinterest>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-feature-of-interest-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-feature-of-interest-properties>>
 |===
 
 
@@ -1039,7 +1039,7 @@ Req <<req-feature-of-interest-properties>>: <<requirement-feature-of-interest-pr
 Req <<req-feature-of-interest-relations>>: <<requirement-feature-of-interest-relations>>
 
 |Each FeatureOfInterest entity SHALL have the direct relation between a FeatureOfInterest entity and other entity types listed in <<tab-relation-featureofinterest>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-feature-of-interest-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-feature-of-interest-relations>>
 |===
 
 
@@ -1096,7 +1096,7 @@ Its value is one of the ValueCode enumeration (see <<tab-encodingtype-codes>> fo
 ----
 {
   "@iot.id": 1,
-  "@iot.selfLink": "http://example.org/v1.0/FeaturesOfInterest(1)",
+  "@iot.selfLink": "http://example.org/v1.1/FeaturesOfInterest(1)",
   "Observations@iot.navigationLink": "FeaturesOfInterest(1)/Observations",
 
   "name": "Weather Station YYC.",

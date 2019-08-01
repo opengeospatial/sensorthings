@@ -5,13 +5,13 @@
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/batch-request
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/batch-request
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-batch-request-batch-request>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-batch-request-batch-request>>
 
 |Dependency
 |\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398359
@@ -25,7 +25,7 @@
 Req <<req-batch-request-batch-request>>: <<requirement-batch-request-batch-request>>
 
 |The batch-processing of the SensorThings service SHALL be as defined in <<batch-requests>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-batch-request-batch-request>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-batch-request-batch-request>>
 |===
 
 
@@ -41,9 +41,9 @@ and all subsections. The only difference is that the OData-Version header SHOULD
 
 A batch request is represented as a Multipart MIME v1.0 message [RFC2046], a standard format allowing the representation of multiple parts, each of which may have a different content type, within a single request.
 
-The example below shows a GUID as a boundary and example.org/v1.0/ for the URI of the service.
+The example below shows a GUID as a boundary and example.org/v1.1/ for the URI of the service.
 
-Batch requests are submitted as a single HTTP POST request to the batch endpoint of a service, located at the URL $batch relative to the service root (e.g., example.org/v1.0/$batch).
+Batch requests are submitted as a single HTTP POST request to the batch endpoint of a service, located at the URL $batch relative to the service root (e.g., example.org/v1.1/$batch).
 
 Note: In the example, request bodies are excluded in favor of English descriptions inside `<>` brackets to simplify the example.
 
@@ -51,7 +51,7 @@ Note: In the example, request bodies are excluded in favor of English descriptio
 
 [source]
 ----
-POST /v1.0/$batch HTTP/1.1
+POST /v1.1/$batch HTTP/1.1
 Host: example.org
 Content-Type: multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
 
@@ -88,7 +88,7 @@ Note also that the two empty lines after the Host header of the GET request are 
 
 [source]
 ----
-POST /v1.0/$batch HTTP/1.1
+POST /v1.1/$batch HTTP/1.1
 Host: host
 Content-Type: multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
 Content-Length: ###
@@ -98,7 +98,7 @@ Content-Type: application/http
 
 Content-Transfer-Encoding:binary
 
-GET /v1.0/Things(1)
+GET /v1.1/Things(1)
 Host: host
 
 
@@ -112,7 +112,7 @@ Content-Type: application/http
 Content-Transfer-Encoding: binary
 Content-ID: 1
 
-POST /v1.0/Things HTTP/1.1
+POST /v1.1/Things HTTP/1.1
 Host: host
 Content-Type: application/json
 
@@ -126,7 +126,7 @@ Content-Type: application/http
 Content-Transfer-Encoding:binary
 Content-ID: 2
 
-PATCH /v1.0/Things(1) HTTP/1.1
+PATCH /v1.1/Things(1) HTTP/1.1
 
 Host: host
 Content-Type: application/json
@@ -142,7 +142,7 @@ Content-Type: application/http
 
 Content-Transfer-Encoding: binary
 
-GET /v1.0/Things(3) HTTP/1.1
+GET /v1.1/Things(3) HTTP/1.1
 Host: host
 
 
@@ -162,10 +162,9 @@ A change set that contains the following requests:
 
 [source]
 ----
-POST /v1.0/$batch HTTP/1.1
+POST /v1.1/$batch HTTP/1.1
 Host: host
-Content-Type:
-multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
 
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
 Content-Type: multipart/mixed;boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
@@ -175,7 +174,7 @@ Content-Type: application/http
 Content-Transfer-Encoding: binary
 Content-ID: 1
 
-POST /v1.0/Datastreams HTTP/1.1
+POST /v1.1/Datastreams HTTP/1.1
 Host: host
 Content-Type: application/json
 Content-Length: ###
@@ -186,7 +185,7 @@ Content-Type: application/http
 Content-Transfer-Encoding: binary
 Content-ID: 2
 
-POST /v1.0/Sensor HTTP/1.1
+POST /v1.1/Sensor HTTP/1.1
 Host: host
 Content-Type: application/json
 Content-Length: ###
@@ -228,7 +227,7 @@ Content-ID: 1
 
 HTTP/1.1 201 Created
 Content-Type: application/json
-Location: http://host/v1.0/Things(99)
+Location: http://host/v1.1/Things(99)
 Content-Length: ###
 
 <JSON representation of a new Thing entity>
@@ -308,7 +307,7 @@ Content-ID: 1
 
 HTTP/1.1 201 Created
 Content-Type: application/json
-Location: http://host/v1.0/Things(99)
+Location: http://host/v1.1/Things(99)
 Content-Length: ###
 
 <JSON representation of a new Thing entity>
