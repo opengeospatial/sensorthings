@@ -211,7 +211,7 @@ Content-Type: application/json
     {
       "name": "CCIT",
       "description": "Calgary Centre for Innovative Technologies",
-      "encodingType": "application/vnd.geo+json",
+      "encodingType": "application/geo+json",
       "location": {
         "type": "Feature",
         "geometry": {
@@ -243,7 +243,7 @@ Content-Type: application/json
           "FeatureOfInterest": {
             "name": "CCIT #361",
             "description": "This is CCIT #361, Noah’s dad’s office",
-            "encodingType": "application/vnd.geo+json",
+            "encodingType": "application/geo+json",
             "feature": {
               "type": "Feature",
               "geometry": {
