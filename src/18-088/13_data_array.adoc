@@ -36,8 +36,11 @@ In SensorThings services, users are able to request for multiple Observation ent
 
 ==== Request
 
-In order to request for dataArray, users must include the query option `+$resultFormat=dataArray+`
-when requesting Observation entities. For example, `+http://example.org/v1.0/Observations?$resultFormat=dataArray+`.
+In order to request for dataArray, users must include the query option `+$resultFormat=dataArray+` when requesting Observation entities.
+For example, `+http://example.org/v1.0/Observations?$resultFormat=dataArray+`.
+The query options `+$select+`, `+$top+`, `+$skip+`, `+$count+` and `+$orderby+` work the same as they would with a non-dataArray request, only the formatting of the result is different, as the Observations are grouped by (Multi)Datastream.
+The result can contain `+@iot.count+` and `+@iot.nextLink+` fields just like with normal requests for Observations.
+The `+$expand+` query parameter is not allowed for dataArray requests.
 
 
 ==== Response
