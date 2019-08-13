@@ -102,6 +102,8 @@ NOTE: The text in the __Requirements__ column in the following table is the path
 * req/<<requirement-create-update-delete-update-entity>>
 * req/<<requirement-create-update-delete-delete-entity>>
 * req/<<requirement-create-update-delete-historical-location-auto-creation>>
+* req/<<requirement-create-update-delete-update-entity-put>>
+* req/<<requirement-create-update-delete-update-entity-jsonpatch>>
 |Creating, updating, and deleting entities
 
 |req/batch-request

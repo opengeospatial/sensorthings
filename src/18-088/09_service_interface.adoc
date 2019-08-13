@@ -70,14 +70,17 @@ Req <<req-resource-path-resource-path-to-entities>>: <<requirement-resource-path
 
 **URI Pattern:** SERVICE_ROOT_URI
 
-**Response:** A JSON object with a property named `+value+` and, if the server implements any extensions, a property named `+serverSettings+`. The value of the property named `+value+` SHALL be a JSON Array containing one element for each entity set of the SensorThings Service. The value of the property named `+serverSettings+` SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
+**Response:** A JSON object with a property named `+value+` and a property named `+serverSettings+`.
+The value of the property named `+value+` SHALL be a JSON Array containing one element for each entity set of the SensorThings Service.
+The value of the property named `+serverSettings+` SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
 
 Each element of the `+value+` array SHALL be a JSON object with at least two name/value pairs, one with name name containing the name of the entity set (e.g., Things, Locations, Datastreams, Observations, ObservedProperties and Sensors) and one with name url containing the URL of the entity set, which may be an absolute or a relative URL. +
  [Adapted from OData 4.0-JSON-Format section 5]
 
-The `+serverSettings+` object SHALL contain the property `+extensions+` of the type Array, containing the case sensitive keywords of all extensions the service implements. The keywords for the extensions defined in this document are: `+BatchRequests+`, `+DataArray+`, `+JSON-Patch+`, `+MQTT+`, `+MultiDatastream+` and `+PUT+`. Future extensions MUST define additional keywords. Services implementing custom extensions MUST prefix their keywords with a `+vendor@+` prefix to avoid name collisions.
+The `+serverSettings+` object SHALL contain the property `+conformance+` of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements.
+If a service implements all requirements from a requirements class, it only needs to list the requirements class id.
 
-Extensions that need to expose additional server settings may do so in a property of the `+serverSettings+` object that is named after their keyword. For example, the MQTT extension defines the property `+MQTT+`.
+Extensions that need to expose additional server settings may do so in a property of the `+serverSettings+` object that is named after the conformance class URI of the requirement that defines this setting.
 
 Example {counter:examples}: a SensorThings request with no resource path
 
@@ -90,19 +93,31 @@ Example {counter:examples}: a SensorThings request with no resource path
 ----
 {
  "serverSettings": {
-    "extensions": [
-      "BatchRequests",
-      "DataArray",
-      "JSON-Patch",
-      "MQTT",
-      "MultiDatastream",
-      "PUT"
+    "conformance": [
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/entity-control-information/common-control-information",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/thing",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/location",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/historical-location",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/datastream",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/sensor",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/observed-property",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/observation",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/feature-of-interest",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/resource-path/resource-path-to-entities",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/request-data",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/create-update-delete",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/create-observations-via-mqtt/observations-creation",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/receive-updates-via-mqtt/receive-updates"
     ],
-    "MQTT": {
+    "http://www.opengis.net/spec/iot_sensing/1.0/req/receive-updates-via-mqtt/receive-updates": {
       "endpoints": [
         "mqtt://server.example.com:1833",
-        "mqtts://server.example.com:8883",
         "ws://server.example.com/sensorThings",
+      ]
+    },
+    "http://www.opengis.net/spec/iot_sensing/1.0/req/create-observations-via-mqtt/observations-creation": {
+      "endpoints": [
+        "mqtts://server.example.com:8883",
         "wss://server.example.com:443/sensorThings"
       ]
     }

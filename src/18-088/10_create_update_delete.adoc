@@ -305,6 +305,26 @@ Req <<req-create-update-delete-update-entity>>: <<requirement-create-update-dele
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity>>
 |===
 
+[[req-create-update-delete-update-entity-put,{counter:req11}]]
+[cols="a"]
+|===
+|[[requirement-create-update-delete-update-entity-put,create-update-delete/update-entity-put]]
+Req <<req-create-update-delete-update-entity-put>>: <<requirement-create-update-delete-update-entity-put>>
+
+|A SensorThings service that supports updates with PUT SHALL follow the requirements as defined in <<update-entity>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity-put>>
+|===
+
+[[req-create-update-delete-update-entity-jsonpatch,{counter:req11}]]
+[cols="a"]
+|===
+|[[requirement-create-update-delete-update-entity-jsonpatch,create-update-delete/update-entity-jsonpatch]]
+Req <<req-create-update-delete-update-entity-jsonpatch>>: <<requirement-create-update-delete-update-entity-jsonpatch>>
+
+|A SensorThings service that supports updates with the JSON PATCH format SHALL follow the requirements as defined in <<update-entity>>.
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity-jsonpatch>>
+|===
+
 
 ==== Request
 

@@ -79,6 +79,11 @@ Recipients of this document are invited to submit, with their comments, notifica
 |Document language:  English
 |===
 
+// Initialise the counter for new requirements in V1.1
+// This needs to happen in a reference-definition, otherwise asciidoctor optimises the call away.
+[[reset-counter-req11,{counter2:req11:45}]]
+
+
 <<<
 include::pre_a_license.adoc[]
 
