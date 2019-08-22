@@ -94,18 +94,16 @@ Example {counter:examples}: a SensorThings request with no resource path
 {
  "serverSettings": {
     "conformance": [
-        "http://www.opengis.net/spec/iot_sensing/1.0/req/entity-control-information/common-control-information",
-        "http://www.opengis.net/spec/iot_sensing/1.0/req/thing",
-        "http://www.opengis.net/spec/iot_sensing/1.0/req/location",
-        "http://www.opengis.net/spec/iot_sensing/1.0/req/historical-location",
-        "http://www.opengis.net/spec/iot_sensing/1.0/req/datastream",
-        "http://www.opengis.net/spec/iot_sensing/1.0/req/sensor",
-        "http://www.opengis.net/spec/iot_sensing/1.0/req/observed-property",
-        "http://www.opengis.net/spec/iot_sensing/1.0/req/observation",
-        "http://www.opengis.net/spec/iot_sensing/1.0/req/feature-of-interest",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/datamodel",
         "http://www.opengis.net/spec/iot_sensing/1.0/req/resource-path/resource-path-to-entities",
         "http://www.opengis.net/spec/iot_sensing/1.0/req/request-data",
-        "http://www.opengis.net/spec/iot_sensing/1.0/req/create-update-delete",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/create-update-delete/create-entity",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/create-update-delete/link-to-existing-entities",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/create-update-delete/deep-insert",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/create-update-delete/deep-insert-status-code",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/create-update-delete/update-entity",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/create-update-delete/delete-entity",
+        "http://www.opengis.net/spec/iot_sensing/1.0/req/create-update-delete/historical-location-auto-creation",
         "http://www.opengis.net/spec/iot_sensing/1.0/req/create-observations-via-mqtt/observations-creation",
         "http://www.opengis.net/spec/iot_sensing/1.0/req/receive-updates-via-mqtt/receive-updates"
     ],

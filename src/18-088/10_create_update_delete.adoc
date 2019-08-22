@@ -26,6 +26,12 @@
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity>>
 
 |Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity-put>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity-jsonpatch>>
+
+|Requirement
 |\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-delete-entity>>
 
 |Requirement

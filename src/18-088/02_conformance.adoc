@@ -12,61 +12,61 @@ All requirements-classes and conformance-classes described in this document are 
 The following table list the requirements classes defined by this standard.
 
 
-NOTE: The text in the __Requirements__ column in the following table is the path fragment that, when appended to the URI: \http://www.opengis.net/spec/iot_sensing/1.0/, provides the URI that can be used to unambiguously identify the requirement and the conformance class.
+NOTE: The text in the __Requirements class id__ and __Requirements__ columns in the following table is the path fragment that, when appended to the URI: \http://www.opengis.net/spec/iot_sensing/1.0/, provides the URI that can be used to unambiguously identify the requirement and the conformance class.
 
 [cols="<2,4a,<2"]
 |===
 |Requirements class id |Requirements |Description
 
-|req/thing
+|req/datamodel/thing
 |
 * req/<<requirement-thing-properties>>
 * req/<<requirement-thing-relations>>
 |Thing entity
 
-|req/location
+|req/datamodel/location
 |
 * req/<<requirement-location-properties>>
 * req/<<requirement-location-relations>>
 |Location entity
 
-|req/historical-location
+|req/datamodel/historical-location
 |
 * req/<<requirement-historical-location-properties>>
 * req/<<requirement-historical-location-relations>>
 |HistoricalLocation entity
 
-|req/datastream
+|req/datamodel/datastream
 |
 * req/<<requirement-datastream-properties>>
 * req/<<requirement-datastream-relations>>
 |Datastream entity
 
-|req/sensor
+|req/datamodel/sensor
 |
 * req/<<requirement-sensor-properties>>
 * req/<<requirement-sensor-relations>>
 |Sensor Entity
 
-|req/observed-property
+|req/datamodel/observed-property
 |
 * req/<<requirement-observed-property-properties>>
 * req/<<requirement-observed-property-relations>>
 |ObservedProperty entity
 
-|req/observation
+|req/datamodel/observation
 |
 * req/<<requirement-observation-properties>>
 * req/<<requirement-observation-relations>>
 |Observation entity
 
-|req/feature-of-interest
+|req/datamodel/feature-of-interest
 |
 * req/<<requirement-feature-of-interest-properties>>
 * req/<<requirement-feature-of-interest-relations>>
 |FeatureOfInterest entity
 
-|req/entity-control-information
+|req/datamodel/entity-control-information
 |
 * req/<<requirement-entity-control-information-common-control-information>>
 |Entities’ common control information
