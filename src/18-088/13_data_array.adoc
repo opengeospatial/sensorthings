@@ -84,7 +84,7 @@ Content-Type: application/json
   "@iot.count": 42,
   "value": [
     {
-      "Datastream@iot.navigationLink": "../Datastreams(1)",
+      "Datastream@iot.navigationLink": "http://example.org/v1.1/Datastreams(1)",
       "components": [
         "id",
         "phenomenonTime",
@@ -130,7 +130,7 @@ Content-Type: **application/json
   "@iot.count": 42,
   "value": [
     {
-      "MultiDatastream@iot.navigationLink": "MultiDatastreams(1)",
+      "MultiDatastream@iot.navigationLink": "http://example.org/v1.1/MultiDatastreams(1)",
       "components": [
         "id",
         "phenomenonTime",
