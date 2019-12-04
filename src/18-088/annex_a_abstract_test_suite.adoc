@@ -10,12 +10,12 @@ This section contains the conformance classes for the SensorThings API Read (Cor
 2+|A.1.1 Conformance class: SensorThings API Entity Control Information
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/entity-control-information
 
 2+|**Test: Common Control Information**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information/common-control-information
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/entity-control-information/common-control-information
 
 
 |Requirements
@@ -36,12 +36,12 @@ This section contains the conformance classes for the SensorThings API Read (Cor
 2+|A.1.2 Conformance class: SensorThings API Thing Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/thing
 
 2+|**Test: Thing Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/thing/thing-valid
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/thing/thing-valid
 
 |Requirements
 |<<req-thing-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-thing-properties>> +
@@ -64,12 +64,12 @@ Inspect the full JSON object of each Thing entity set (__i.e.__, without using t
 2+|A.1.3 Conformance class: SensorThings API Location Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/location
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/location
 
 2+|**Test: Location Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/location/location-valid
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/location/location-valid
 
 |Requirements
 |<<req-location-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-location-properties>> +
@@ -92,12 +92,12 @@ Inspect the full JSON object of each Location entity set (__i.e.__, without usin
 2+|A.1.4 Conformance class: SensorThings API HistoricalLocation Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/historical-location
 
 2+|**Test: Historicalocation Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location/historical-location-valid
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/historical-location/historical-location-valid
 
 |Requirements
 |<<req-historical-location-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-historical-location-properties>> +
@@ -118,12 +118,12 @@ Inspect the full JSON object of each Historicalocation entity set (__i.e.__, wit
 2+|A.1.5 Conformance class: SensorThings API Datastream Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/datastream
 
 2+|**Test: Datastream Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream/datastream-valid
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/datastream/datastream-valid
 
 |Requirements
 |<<req-datastream-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-datastream-properties>> +
@@ -146,12 +146,12 @@ Inspect the full JSON object of each Datastream entity set (__i.e.__, without us
 2+|A.1.6 Conformance class: SensorThings API Sensor Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/sensor
 
 2+|**Test: Sensor Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor/sensor-valid
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/sensor/sensor-valid
 
 |Requirements
 |<<req-sensor-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-sensor-properties>> +
@@ -174,12 +174,12 @@ Inspect the full JSON object of each Sensor entity set (__i.e.__, without using 
 2+|A.1.7 Conformance class: SensorThings API ObservedProperty Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observed-property
 
 2+|**Test: ObservedProperty Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property/observed-property-valid
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observed-property/observed-property-valid
 
 |Requirements
 |<<req-observed-property-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observed-property-properties>> +
@@ -202,12 +202,12 @@ Inspect the full JSON object of each ObservedProperty entity set (__i.e.__, with
 2+|A.1.8 Conformance class: SensorThings API Observation Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observation
 
 2+|**Test: Observation Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/observation/observation-valid
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observation/observation-valid
 
 |Requirements
 |<<req-observation-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observation-properties>> +
@@ -230,12 +230,12 @@ Inspect the full JSON object of each Observation entity set (__i.e.__, without u
 2+|A.1.9 Conformance class: SensorThings API FeatureOfInterest Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/feature-of-interest
 
 2+|**Test: FeatureOfInterest Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest/feature-of-interest-valid
+|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/feature-of-interest/feature-of-interest-valid
 
 |Requirements
 |<<req-feature-of-interest-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-feature-of-interest-properties>> +
@@ -292,15 +292,15 @@ This section contains the conformance classes for the SensorThings API filtering
 
 2+|**Dependencies:**
 
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
+. \http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/entity-control-information
+. \http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/thing
+. \http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/location
+. \http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/historical-location
+. \http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/datastream
+. \http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/sensor
+. \http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observed-property
+. \http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observation
+. \http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/feature-of-interest
 . \http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
 |===
 
@@ -480,15 +480,15 @@ This section contains the conformance classes for the SensorThings API create-up
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/thing
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/datastream
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/sensor
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observation
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/feature-of-interest
 . http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
 
 |===
@@ -609,15 +609,15 @@ This section contains the conformance classes for the SensorThings API batch req
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/thing
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/datastream
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/sensor
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observation
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/feature-of-interest
 . http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
 
 |===
@@ -660,15 +660,15 @@ This section contains the conformance classes for the SensorThings API MultiData
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/thing
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/datastream
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/sensor
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observation
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/feature-of-interest
 . http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
 
 |===
@@ -718,15 +718,15 @@ This section contains the conformance classe for the SensorThings API data array
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/thing
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/datastream
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/sensor
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observation
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/feature-of-interest
 . http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
 
 |===
@@ -771,15 +771,15 @@ This section contains the conformance class for the SensorThings API Observation
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/thing
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/datastream
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/sensor
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observation
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/feature-of-interest
 . http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
 . http://www.opengis.net/spec/iot_sensing/1.0/conf/create-update-delete
 
@@ -822,15 +822,15 @@ This section contains the conformance class for the SensorThings API receiving u
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/thing
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/datastream
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/sensor
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/observation
+. http://www.opengis.net/spec/iot_sensing/1.0/conf/datamodel/feature-of-interest
 . http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
 . http://www.opengis.net/spec/iot_sensing/1.0/conf/create-update-delete
 
