@@ -10,19 +10,19 @@ This section contains the conformance classes for the SensorThings API Read (Cor
 2+|A.1.1 Conformance class: SensorThings API Entity Control Information
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/entity-control-information
 
 2+|**Test: Common Control Information**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information/common-control-information
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/entity-control-information/common-control-information
 
 
 |Requirements
-|<<req-entity-control-information-common-control-information>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>
+|<<req-entity-control-information-common-control-information>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 
 |Test purpose
-|Check if each entity has the common control information as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-entity-control-information-common-control-information>>.
+|Check if each entity has the common control information as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>.
 
 |Test method
 |Inspect the full JSON object of the entity sets (__i.e.__, without $select) to identify, if each entity has the common control information defined in the above requirement and the service sends appropriate responses as defined in this specification.
@@ -36,16 +36,16 @@ This section contains the conformance classes for the SensorThings API Read (Cor
 2+|A.1.2 Conformance class: SensorThings API Thing Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/thing
 
 2+|**Test: Thing Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/thing/thing-valid
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/thing/thing-valid
 
 |Requirements
-|<<req-thing-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-thing-properties>> +
-<<req-thing-relations>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-thing-relations>>
+|<<req-thing-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-thing-properties>> +
+<<req-thing-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-thing-relations>>
 
 |Test purpose
 |Check if each Thing entity has the mandatory properties and mandatory relations as defined in this specification.
@@ -64,16 +64,16 @@ Inspect the full JSON object of each Thing entity set (__i.e.__, without using t
 2+|A.1.3 Conformance class: SensorThings API Location Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/location
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/location
 
 2+|**Test: Location Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/location/location-valid
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/location/location-valid
 
 |Requirements
-|<<req-location-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-location-properties>> +
-<<req-location-relations>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-location-relations>>
+|<<req-location-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-location-properties>> +
+<<req-location-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-location-relations>>
 
 |Test purpose
 |Check if each Location entity has the mandatory properties and mandatory relations as defined in this specification.
@@ -92,16 +92,16 @@ Inspect the full JSON object of each Location entity set (__i.e.__, without usin
 2+|A.1.4 Conformance class: SensorThings API HistoricalLocation Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/historical-location
 
 2+|**Test: Historicalocation Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location/historical-location-valid
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/historical-location/historical-location-valid
 
 |Requirements
-|<<req-historical-location-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-historical-location-properties>> +
-<<req-historical-location-relations>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-historical-location-relations>>
+|<<req-historical-location-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-historical-location-properties>> +
+<<req-historical-location-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-historical-location-relations>>
 
 |Test purpose
 |Check if each Historicalocation entity has the mandatory properties and mandatory relations as defined in this specification.
@@ -118,16 +118,16 @@ Inspect the full JSON object of each Historicalocation entity set (__i.e.__, wit
 2+|A.1.5 Conformance class: SensorThings API Datastream Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/datastream
 
 2+|**Test: Datastream Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream/datastream-valid
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/datastream/datastream-valid
 
 |Requirements
-|<<req-datastream-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-datastream-properties>> +
-<<req-datastream-relations>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-datastream-relations>>
+|<<req-datastream-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-datastream-properties>> +
+<<req-datastream-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-datastream-relations>>
 
 |Test purpose
 |Check if each Datastream entity has the mandatory properties and mandatory relations as defined in this specification.
@@ -146,16 +146,16 @@ Inspect the full JSON object of each Datastream entity set (__i.e.__, without us
 2+|A.1.6 Conformance class: SensorThings API Sensor Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/sensor
 
 2+|**Test: Sensor Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor/sensor-valid
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/sensor/sensor-valid
 
 |Requirements
-|<<req-sensor-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-sensor-properties>> +
-<<req-sensor-relations>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-sensor-relations>>
+|<<req-sensor-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-sensor-properties>> +
+<<req-sensor-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-sensor-relations>>
 
 |Test purpose
 |Check if each Sensor entity has the mandatory properties and mandatory relations as defined in this specification.
@@ -174,16 +174,16 @@ Inspect the full JSON object of each Sensor entity set (__i.e.__, without using 
 2+|A.1.7 Conformance class: SensorThings API ObservedProperty Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/observed-property
 
 2+|**Test: ObservedProperty Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property/observed-property-valid
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/observed-property/observed-property-valid
 
 |Requirements
-|<<req-observed-property-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observed-property-properties>> +
-<<req-observed-property-relations>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observed-property-relations>>
+|<<req-observed-property-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observed-property-properties>> +
+<<req-observed-property-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observed-property-relations>>
 
 |Test purpose
 |Check if each ObservedProperty entity has the mandatory properties and mandatory relations as defined in this specification.
@@ -202,16 +202,16 @@ Inspect the full JSON object of each ObservedProperty entity set (__i.e.__, with
 2+|A.1.8 Conformance class: SensorThings API Observation Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/observation
 
 2+|**Test: Observation Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/observation/observation-valid
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/observation/observation-valid
 
 |Requirements
-|<<req-observation-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observation-properties>> +
-<<req-observation-relations>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-observation-relations>>
+|<<req-observation-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observation-properties>> +
+<<req-observation-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-observation-relations>>
 
 |Test purpose
 |Check if each Observation entity has the mandatory properties and mandatory relations as defined in this specification.
@@ -230,16 +230,16 @@ Inspect the full JSON object of each Observation entity set (__i.e.__, without u
 2+|A.1.9 Conformance class: SensorThings API FeatureOfInterest Entity
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/feature-of-interest
 
 2+|**Test: FeatureOfInterest Entity**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest/feature-of-interest-valid
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/feature-of-interest/feature-of-interest-valid
 
 |Requirements
-|<<req-feature-of-interest-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-feature-of-interest-properties>> +
-<<req-feature-of-interest-relations>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-feature-of-interest-relations>>
+|<<req-feature-of-interest-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-feature-of-interest-properties>> +
+<<req-feature-of-interest-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-feature-of-interest-relations>>
 
 |Test purpose
 |Check if each FeatureOfInterest entity has the mandatory properties and mandatory relations as defined in this specification.
@@ -258,18 +258,18 @@ Inspect the full JSON object of each FeatureOfInterest entity set (__i.e.__, wit
 2+|A.1.10   Conformance class: SensorThings API Resource Path
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/resource-path
 
 2+|**Test: Resource Path**
 
 |Test id
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path/resource-path-to-entities
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/resource-path/resource-path-to-entities
 
 |Requirements
-|<<req-resource-path-resource-path-to-entities>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-resource-path-resource-path-to-entities>>
+|<<req-resource-path-resource-path-to-entities>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-resource-path-resource-path-to-entities>>
 
 |Test purpose
-|Check if the service supports all the resource path usages as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-resource-path-resource-path-to-entities>>.
+|Check if the service supports all the resource path usages as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-resource-path-resource-path-to-entities>>.
 
 |Test method
 |Inspect the service to identify, if each resource path usage has been implemented property.
@@ -288,20 +288,20 @@ This section contains the conformance classes for the SensorThings API filtering
 2+|A.2.1  Conformance class: SensorThings API Request Data with Filters
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/request-data
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/request-data
 
 2+|**Dependencies:**
 
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
-. \http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/entity-control-information
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/thing
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/location
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/historical-location
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/datastream
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/sensor
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/observed-property
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/observation
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/feature-of-interest
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/resource-path
 |===
 
 
@@ -310,16 +310,16 @@ This section contains the conformance classes for the SensorThings API filtering
 |===
 2+|A.2.1.1 Test: Query Option Order
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/request-data/order
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/request-data/order
 
 |Requirements
-|<<req-request-data-order>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-order>>
+|<<req-request-data-order>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-order>>
 
 |Test purpose
 |Check if the results of the service requests are as if the system query options were evaluated in the order as defined in this specification.
 
 |Test method
-|Send a query includes the query options listed in requirement \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-order>>, and check if the results are evaluated according to the order defined in this specification.
+|Send a query includes the query options listed in requirement \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-order>>, and check if the results are evaluated according to the order defined in this specification.
 
 |===
 
@@ -330,19 +330,19 @@ This section contains the conformance classes for the SensorThings API filtering
 |===
 2+|A.2.1.2 Test: Request Data with $expand and $select
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/request-data/expand-and-select
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/request-data/expand-and-select
 
 |Requirements
-|<<req-request-data-expand>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-expand>> +
-<<req-request-data-select>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-select>>
+|<<req-request-data-expand>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-expand>> +
+<<req-request-data-select>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-select>>
 
 |Test purpose
 |Check if the service supports $expand and $select as defined in this specification.
 
 |Test method
-|Send requests with $expand following the different usages as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-expand>>, check if the server returns appropriate result as defined in this specification.
+|Send requests with $expand following the different usages as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-expand>>, check if the server returns appropriate result as defined in this specification.
 
-Send requests with the $select option following the different usages as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-select>>, check if the server returns appropriate result as defined in this specification.
+Send requests with the $select option following the different usages as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-select>>, check if the server returns appropriate result as defined in this specification.
 |===
 
 
@@ -352,16 +352,16 @@ Send requests with the $select option following the different usages as defined 
 |===
 2+|A.2.1.3 Test: Query Option Response Code
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/request-data/status-codes
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/request-data/status-codes
 
 |Requirements
-|<<req-request-data-status-code>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-status-code>> +
-<<req-request-data-query-status-code>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-query-status-code>>
+|<<req-request-data-status-code>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-status-code>> +
+<<req-request-data-query-status-code>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-query-status-code>>
 
 |Test purpose
-|Check when a client requests an entity that is not available in the service, if the service responds with 404 Not Found or 410 Gone as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-status-code>>
+|Check when a client requests an entity that is not available in the service, if the service responds with 404 Not Found or 410 Gone as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-status-code>>
 
-Check when a client use a query option that doesn't support by the service, if the service fails the request and responds with 501 NOT Implemented as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-query-status-code>>.
+Check when a client use a query option that doesn't support by the service, if the service fails the request and responds with 501 NOT Implemented as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-query-status-code>>.
 
 |Test method
 |Send a HTTP request for an entity that is not available in the service, check if the server returns 404 Not Found or 410 Gone.
@@ -378,10 +378,10 @@ Check when a client use a query option that doesn't support by the service, if t
 |===
 2+|A.2.1.4 Test: Sorting Query Option
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/request-data/sorting
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/request-data/sorting
 
 |Requirements
-|<<req-request-data-orderby>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-orderby>>
+|<<req-request-data-orderby>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-orderby>>
 
 |Test purpose
 |Check if the service supports the $orderby query option as defined in this specification.
@@ -398,12 +398,12 @@ Check when a client use a query option that doesn't support by the service, if t
 |===
 2+|A.2.1.5 Test: Client-driven Pagination Query Option
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/request-data/client-driven-pagination
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/request-data/client-driven-pagination
 
 |Requirements
-|<<req-request-data-top>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-top>>
-<<req-request-data-skip>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-skip>>
-<<req-request-data-count>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-count>>
+|<<req-request-data-top>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-top>>
+<<req-request-data-skip>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-skip>>
+<<req-request-data-count>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-count>>
 
 |Test purpose
 |Check if the service supports the $top, $skip and $count query option as defined in this specification.
@@ -423,12 +423,12 @@ Send a query with the $count query option, check if the server returns appropria
 |===
 2+|A.2.1.6 Test: Filter Query Option
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/request-data/filter-query-options
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/request-data/filter-query-options
 
 |Requirements
-|<<req-request-data-filter>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-filter>>
-<<req-request-data-built-in-filter-operations>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-built-in-filter-operations>>
-<<req-request-data-built-in-query-functions>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-built-in-query-functions>>
+|<<req-request-data-filter>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-filter>>
+<<req-request-data-built-in-filter-operations>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-built-in-filter-operations>>
+<<req-request-data-built-in-query-functions>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-built-in-query-functions>>
 
 |Test purpose
 |Check if the service supports the $filter query option and the built-in filter operators and built-in filter functions as defined in this specification.
@@ -448,13 +448,13 @@ Send a query with the $filter query option for each built-in filter function, ch
 |===
 2+|A.2.1.7 Test: Server-driven Pagination
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/request-data/server-driven-pagination
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/request-data/server-driven-pagination
 
 |Requirements
-|<<req-request-data-pagination>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-pagination>>
+|<<req-request-data-pagination>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-pagination>>
 
 |Test purpose
-|Check if the service supports the server-driven pagination as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-pagination>>.
+|Check if the service supports the server-driven pagination as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-pagination>>.
 
 |Test method
 |Send a query to list all entities of an entity set, check if the server returns a subset of the requested entities as defined in this specification.
@@ -476,20 +476,20 @@ This section contains the conformance classes for the SensorThings API create-up
 2+|A.3.1  Conformance class: SensorThings API Create-Update-Delete
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/create-update-delete
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/create-update-delete
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/thing
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/datastream
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/sensor
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observation
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/resource-path
 
 |===
 
@@ -499,22 +499,22 @@ This section contains the conformance classes for the SensorThings API create-up
 |===
 2+|A.3.1.1 Test: Sensing Entity Creation
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/create-update-delete/sensing-entity-creation
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/create-update-delete/sensing-entity-creation
 
 |Requirements
-|<<req-create-update-delete-create-entity>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-create-entity>>
+|<<req-create-update-delete-create-entity>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-create-entity>>
 
 
-<<req-create-update-delete-link-to-existing-entities>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-link-to-existing-entities>>
+<<req-create-update-delete-link-to-existing-entities>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-link-to-existing-entities>>
 
 
-<<req-create-update-delete-deep-insert>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert>>
+<<req-create-update-delete-deep-insert>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-deep-insert>>
 
 
-<<req-create-update-delete-deep-insert-status-code>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-deep-insert-status-code>>
+<<req-create-update-delete-deep-insert-status-code>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-deep-insert-status-code>>
 
 
-<<req-create-update-delete-historical-location-auto-creation>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-historical-location-auto-creation>>
+<<req-create-update-delete-historical-location-auto-creation>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-historical-location-auto-creation>>
 
 |Test purpose
 |Check if the service supports the creation of entities as defined in this specification.
@@ -553,10 +553,10 @@ Create a Location for a Thing entity, check if the Thing has a HistoricalLocatio
 |===
 2+|A.3.1.2 Test: Sensing Entity Update
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/create-update-delete/update-entity
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/create-update-delete/update-entity
 
 |Requirements
-|<<req-create-update-delete-update-entity>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-update-entity>>
+|<<req-create-update-delete-update-entity>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-update-entity>>
 
 |Test purpose
 |Check if the service supports the update of entities as defined in this specification.
@@ -578,10 +578,10 @@ For each SensorThings entity type send an update request with PATCH that contain
 |===
 2+|A.3.1.3 Test: Sensing Entity Deletion
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/create-update-delete/sensing-entity-deletion
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/create-update-delete/sensing-entity-deletion
 
 |Requirements
-|<<req-create-update-delete-delete-entity>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-delete-entity>>
+|<<req-create-update-delete-delete-entity>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-delete-entity>>
 
 |Test purpose
 |Check if the service supports the deletion of entities as defined in <<delete-entity>>.
@@ -605,20 +605,20 @@ This section contains the conformance classes for the SensorThings API batch req
 2+|A.4.1 Conformance class: SensorThings API Batch Request
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/batch-request
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/batch-request
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/thing
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/datastream
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/sensor
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observation
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/resource-path
 
 |===
 
@@ -628,10 +628,10 @@ This section contains the conformance classes for the SensorThings API batch req
 |===
 2+|A.4.1.1 Test: Batch Request
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/batch-request/batch-request
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/batch-request/batch-request
 
 |Requirements
-|<<req-batch-request-batch-request>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-batch-request-batch-request>>
+|<<req-batch-request-batch-request>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-batch-request-batch-request>>
 
 |Test purpose
 |Check if the service supports the batch request as defined in <<batch-requests>>.
@@ -656,20 +656,20 @@ This section contains the conformance classes for the SensorThings API MultiData
 2+|A.5.1   Conformance class: SensorThings API MultiDatastream
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/multi-datastream
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/multi-datastream
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/thing
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/datastream
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/sensor
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observation
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/resource-path
 
 |===
 
@@ -679,16 +679,16 @@ This section contains the conformance classes for the SensorThings API MultiData
 |===
 2+|A.5.1.1 Test: SensorThings API MultiDatastream
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/multi-datastream/multi-datastream-valid
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/multi-datastream/multi-datastream-valid
 
 |Requirements
-|<<req-multi-datastream-properties>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-properties>>
+|<<req-multi-datastream-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-multi-datastream-properties>>
 
 
-<<req-multi-datastream-relations>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-relations>>
+<<req-multi-datastream-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-multi-datastream-relations>>
 
 
-<<req-multi-datastream-constraints>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-constraints>>
+<<req-multi-datastream-constraints>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-multi-datastream-constraints>>
 
 |Test purpose
 |Check if the service's MultiDatastream entity has the mandatory properties and relations as defined in this specification.
@@ -714,20 +714,20 @@ This section contains the conformance classe for the SensorThings API data array
 2+|A.6.1  Conformance class: SensorThings API Data Array
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/data-array
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/data-array
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/thing
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/datastream
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/sensor
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observation
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/resource-path
 
 |===
 
@@ -737,10 +737,10 @@ This section contains the conformance classe for the SensorThings API data array
 |===
 2+|A.6.1.1 Test: SensorThings API Sensing Data Array
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/data-array/data-array-valid
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/data-array/data-array-valid
 
 |Requirements
-|<<req-data-array-data-array>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-data-array-data-array>>
+|<<req-data-array-data-array>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-data-array-data-array>>
 
 |Test purpose
 |Check if the service supports the data array extension as defined in <<data-array-extension>>.
@@ -767,21 +767,21 @@ This section contains the conformance class for the SensorThings API Observation
 2+|A.7.1  Conformance class: SensorThings API Observation Creation via MQTT
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/create-observations-via-mqtt
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/create-observations-via-mqtt
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/create-update-delete
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/thing
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/datastream
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/sensor
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observation
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/resource-path
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/create-update-delete
 
 |===
 
@@ -790,10 +790,10 @@ This section contains the conformance class for the SensorThings API Observation
 |===
 2+|A.7.1.1 Test: SensorThings API Observation Creation via MQTT
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/create-observations-via-mqtt/observation-creation
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/create-observations-via-mqtt/observation-creation
 
 |Requirements
-|<<req-create-observations-via-mqtt-observations-creation>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-observations-via-mqtt-observations-creation>>
+|<<req-create-observations-via-mqtt-observations-creation>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-observations-via-mqtt-observations-creation>>
 
 |Test purpose
 |Check if the service supports the creation and update of entities via MQTT as defined in <<create-mqtt-publish>>.
@@ -818,21 +818,21 @@ This section contains the conformance class for the SensorThings API receiving u
 2+|A.8.1   Conformance class: SensorThings API Receiving Updates via MQTT
 
 |**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.0/conf/receive-updates-via-mqtt
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/receive-updates-via-mqtt
 
 2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/entity-control-information
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/thing
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/historical-location
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/datastream
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/sensor
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observed-property
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/observation
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/feature-of-interest
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/resource-path
-. http://www.opengis.net/spec/iot_sensing/1.0/conf/create-update-delete
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/thing
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/historical-location
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/datastream
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/sensor
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observed-property
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/observation
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/feature-of-interest
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/resource-path
+. http://www.opengis.net/spec/iot_sensing/1.1/conf/create-update-delete
 
 |===
 
@@ -841,10 +841,10 @@ This section contains the conformance class for the SensorThings API receiving u
 |===
 2+|A.8.1.1 Test: SensorThings API Receiving Updates via MQTT
 |Test id
-|http://www.opengis.net/spec/iot_sensing/1.0/conf/receive-updates-via-mqtt/receive-updates
+|http://www.opengis.net/spec/iot_sensing/1.1/conf/receive-updates-via-mqtt/receive-updates
 
 |Requirements
-|<<req-receive-updates-via-mqtt-receive-updates>>. \http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-receive-updates-via-mqtt-receive-updates>>
+|<<req-receive-updates-via-mqtt-receive-updates>>. \http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-receive-updates-via-mqtt-receive-updates>>
 
 |Test purpose
 |Check if a client can receive notifications for the updates of a SensorThings entity set or an individual entity with MQTT.
