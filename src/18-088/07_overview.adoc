@@ -89,3 +89,6 @@ Based on the IoT reference model, SensorThings API falls into the scope of the S
 .IoT Reference Model (adapted from [ITU-T Y.2060])
 image::IotRefModel.png[IoT Reference Model (adapted from [ITU-T Y.2060])]
 
+
+A service instance that implements security related extensions can notify clients of this by way of the `+serverSettings+` section of the document returned at the service root URI, as described in section <<usage-no-resource-path>>. Security related extensions can also use this section to announce any security requirements to the clients.
+
