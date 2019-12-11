@@ -96,8 +96,6 @@ Content-Length: ###
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
 Content-Type: application/http
 
-Content-Transfer-Encoding:binary
-
 GET /v1.0/Things(1)
 Host: host
 
@@ -109,7 +107,6 @@ Content-Type: multipart/mixed;boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efb
 
 Content-Type: application/http
 
-Content-Transfer-Encoding: binary
 Content-ID: 1
 
 POST /v1.0/Things HTTP/1.1
@@ -123,7 +120,6 @@ Content-Length: ###
 
 Content-Type: application/http
 
-Content-Transfer-Encoding:binary
 Content-ID: 2
 
 PATCH /v1.0/Things(1) HTTP/1.1
@@ -131,7 +127,6 @@ PATCH /v1.0/Things(1) HTTP/1.1
 Host: host
 Content-Type: application/json
 
-If-Match: xxxxx
 Content-Length: ###
 
 <JSON representation of Things(1)>
@@ -139,8 +134,6 @@ Content-Length: ###
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
 
 Content-Type: application/http
-
-Content-Transfer-Encoding: binary
 
 GET /v1.0/Things(3) HTTP/1.1
 Host: host
@@ -152,46 +145,58 @@ Host: host
 [[referencing-new-entities-in-change-set]]
 ==== Referencing new entities in a change set example
 
+Create and update actions inside a change set can reference entities previously created inside the same change set.
+To make a created entity referenceable, the POST that creates the entity must have a Content-ID header, the content of which can be any string.
+Subsequent requests in the same change set can now use the value of this header, prefixed with a `+$+`, in places where the ID of the created entity is required.
+To ensure valid JSON, the resulting value will have to be encoded as a string.
+
+
 **Example {examples}-3:** A Batch Request that contains the following operations in the order listed:
 
-A change set that contains the following requests:
+A batch request, containing a single change set that contains the following requests:
 
-. Insert a new Datastream entity (with Content-ID = 1)
-. Insert a second new entity, a Sensor entity in this example (reference request with Content-ID = 1)
+. Insert a new Sensor entity (with `+Content-ID = sensor1+`)
+. Insert a new Datastream entity, referencing the previously created Sensor entity as `+"$sensor1"+`.
 
 
 [source]
 ----
 POST /v1.0/$batch HTTP/1.1
 Host: host
-Content-Type:
-multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
 
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
 Content-Type: multipart/mixed;boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
 
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
 Content-Type: application/http
-Content-Transfer-Encoding: binary
-Content-ID: 1
+Content-ID: sensor1
 
-POST /v1.0/Datastreams HTTP/1.1
+POST /v1.0/Sensors HTTP/1.1
 Host: host
 Content-Type: application/json
 Content-Length: ###
 
-<JSON representation of a new Datastream>
+{
+  "name": "DS18B20",
+  "description": "DS18B20 is an air temperature sensor",
+  "encodingType": "application/pdf",
+  "metadata": "http://datasheets.maxim-ic.com/en/ds/DS18B20.pdf"
+}
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
 Content-Type: application/http
-Content-Transfer-Encoding: binary
-Content-ID: 2
 
-POST /v1.0/Sensor HTTP/1.1
+POST /v1.0/Things(5)/Datastreams HTTP/1.1
 Host: host
 Content-Type: application/json
 Content-Length: ###
 
-<JSON representation of a new Sensor>
+{
+  "name": "Temperature Thing 5",
+  "description": "The temperature of thing 5",
+  "ObservedProperty: {"@iot.id": 12},
+  "Sensor": {"@iot.id": "$sensor1"}
+}
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd--
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b--
 ----
@@ -211,7 +216,6 @@ Content-Type: multipart/mixed;boundary=b_243234_25424_ef_892u748
 
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 200 Ok
 Content-Type: application/json
@@ -223,7 +227,6 @@ Content-Type: multipart/mixed;boundary=cs_12u7hdkin252452345eknd_383673037
 
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 1
 
 HTTP/1.1 201 Created
@@ -235,7 +238,6 @@ Content-Length: ###
 
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 2
 
 HTTP/1.1 204 No Content
@@ -245,7 +247,6 @@ Host: host
 --cs_12u7hdkin252452345eknd_383673037--
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 404 Not Found
 Content-Type: application/json
@@ -269,7 +270,6 @@ Content-Type: multipart/mixed;boundary=b_243234_25424_ef_892u748
 
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 200 Ok
 Content-Type: application/json
@@ -278,7 +278,6 @@ Content-Length: ###
 <JSON representation of the Thing entity with id = 1>
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor
@@ -303,7 +302,6 @@ Content-Type: multipart/mixed;boundary=cs_12u7hdkin252452345eknd_383673037
 
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 1
 
 HTTP/1.1 201 Created
@@ -314,7 +312,6 @@ Content-Length: ###
 <JSON representation of a new Thing entity>
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 2
 
 HTTP/1.1 204 No Content
@@ -324,7 +321,6 @@ Host: host
 --cs_12u7hdkin252452345eknd_383673037--
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 404 Not Found
 Content-Type: application/json
