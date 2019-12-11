@@ -36,8 +36,11 @@ In SensorThings services, users are able to request for multiple Observation ent
 
 ==== Request
 
-In order to request for dataArray, users must include the query option `+$resultFormat=dataArray+`
-when requesting Observation entities. For example, `+http://example.org/v1.0/Observations?$resultFormat=dataArray+`.
+In order to request for dataArray, users must include the query option `+$resultFormat=dataArray+` when requesting Observation entities.
+For example, `+http://example.org/v1.0/Observations?$resultFormat=dataArray+`.
+The query options `+$select+`, `+$top+`, `+$skip+`, `+$count+` and `+$orderby+` work the same as they would with a non-dataArray request, only the formatting of the result is different, as the Observations are grouped by (Multi)Datastream.
+The result can contain `+@iot.count+` and `+@iot.nextLink+` fields just like with normal requests for Observations.
+The `+$expand+` query parameter is not allowed for dataArray requests.
 
 
 ==== Response
@@ -77,16 +80,17 @@ Host: www.example.org
 Content-Type: application/json
 
 {
+  "@iot.nextLink": "http://example.org/v1.1/Datastreams(1)/Observations?$resultFormat=dataArray&$skip=3",
+  "@iot.count": 42,
   "value": [
     {
-      "Datastream@iot.navigationLink": "Datastreams(1)",
+      "Datastream@iot.navigationLink": "http://example.org/v1.1/Datastreams(1)",
       "components": [
         "id",
         "phenomenonTime",
         "resultTime",
         "result"
       ],
-      "dataArray@iot.count": 3,
       "dataArray": [
         [
           1,
@@ -122,16 +126,17 @@ Host: www.example.org
 Content-Type: **application/json
 
 {
+  "@iot.nextLink": "http://example.org/v1.1/MultiDatastreams(1)/Observations?$resultFormat=dataArray&$skip=3",
+  "@iot.count": 42,
   "value": [
     {
-      "MultiDatastream@iot.navigationLink": "MultiDatastreams(1)",
+      "MultiDatastream@iot.navigationLink": "http://example.org/v1.1/MultiDatastreams(1)",
       "components": [
         "id",
         "phenomenonTime",
         "resultTime",
         "result"
       ],
-      "dataArray@iot.count": 3,
       "dataArray": [
         [
           1,
@@ -228,7 +233,6 @@ Content-Type: application/json
       "result",
       "FeatureOfInterest/id"
     ],
-    "dataArray@iot.count": 2,
     "dataArray": [
       [
         "2010-12-23T10:20:00-0700",
@@ -251,7 +255,6 @@ Content-Type: application/json
       "result",
       "FeatureOfInterest/id"
     ],
-    "dataArray@iot.count": 2,
     "dataArray": [
       [
         "2010-12-23T10:20:00-0700",

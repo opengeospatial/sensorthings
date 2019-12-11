@@ -750,7 +750,7 @@ This section contains the conformance classe for the SensorThings API data array
 |Test method
 |Issue a GET request for Datastreams (and MultiDatastreams if applicable) that includes the query option "$resultFormat=dataArray", and then inspect the returned JSON to identify if it fulfills the data array format as defined in <<data-array-extension>>.
 
-Create at least two Datastreams by using the data array format as defined in <<data-array-extension>>. Inspect the response code and returned JSON to identify if it fulfills the response as defined in <<data-array-extension>>.
+Create Observations for at least two Datastreams by using the data array format as defined in <<data-array-extension>>. Inspect the response code and returned JSON to identify if it fulfills the response as defined in <<data-array-extension>>.
 
 |===
 
