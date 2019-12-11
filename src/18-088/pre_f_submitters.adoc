@@ -2,7 +2,7 @@
 [[submitters]]
 == Submitters
 
-All questions regarding this submission should be directed to the editor or the submitters:
+All questions regarding this submission should be directed to the editors or the submitters:
 
 [%autowidth,cols="3*"]
 |===
@@ -14,6 +14,10 @@ All questions regarding this submission should be directed to the editor or the 
 
 |Tania Khalafbeigi
 |University of Calgary, Canada / SensorUp Inc.
+|Yes
+
+|Hylke van der Schaaf
+|Fraunhofer, Germany
 |Yes
 
 |Kyoungsook Kim

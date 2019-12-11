@@ -17,8 +17,8 @@ Therefore, in order to perform CRUD actions on the resources, the first step is 
     "v"majorversionnumber + "." + minorversionnumber
 
 
-.Example {counter:examples}: complete URI example
-[source,json]
+**Example {counter:examples}: complete URI example**
+[source]
 ----
 http://example.org/v1.1/Observations?$orderby=ID&$top=10
 _______________________/___________/___________________/
@@ -173,9 +173,9 @@ When there is service-driven pagination imposed, the nextLink annotation is incl
 
  [Adapted from OData 4.0-JSON-Format section 12]
 
-Example {counter:examples} an example to address an entity set
+**Example {counter:examples} an example to address an entity set**
 
-**Example Request:**
+.Example Request:
 
     http://example.org/v1.1/ObservedProperties
 
@@ -222,7 +222,7 @@ Users can address to a specific entity in an entity set by place the unique iden
 
 **Example {counter:examples}: an example request that addresses to an entity in a collection**
 
-**Example Request:**
+.Example Request:
 
     http://example.org/v1.1/Things(1)
 
@@ -243,7 +243,7 @@ If the property is single-valued and has the null value, the service SHALL respo
 
 **Example {counter:examples}: an example to address to a property of an entity**
 
-**Example Request:**
+.Example Request:
 
     http://example.org/v1.1/Observations(1)/resultTime
 
@@ -307,7 +307,7 @@ As the entities in different entity sets may hold some relationships, users can 
 
 **Example {counter:examples}: an example of addressing to an association link**
 
-**Example Request:**
+.Example Request:
 
     http://example.org/v1.1/Datastreams(1)/Observations/$ref
 
