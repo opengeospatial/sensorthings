@@ -36,7 +36,7 @@ Req <<req-create-observations-via-mqtt-observations-creation>>: <<requirement-cr
 |===
 
 
-SensorThings MQTT extension provides the capability of creating Observation entity using MQTT protocol. To create an Observation entity in MQTT, the client sends a MQTT Publish request to the SensorThings service and the MQTT topic is the Observations resource path. The MQTT application message contains a single valid Observation entity representation. <<fig-mqtt-create>> contains the sequence diagram for creating Observation using MQTT publish as well as MQTT sending notifications for Observation creation.
+SensorThings MQTT extension provides the capability of creating Observation entity using MQTT protocol. To create an Observation entity in MQTT, the client sends a MQTT Publish request to the SensorThings service and the MQTT topic is the Observations resource path prefixed with the service version number (for example, `+v1.1/Observations+`). The MQTT application message contains a single valid Observation entity representation. <<fig-mqtt-create>> contains the sequence diagram for creating Observation using MQTT publish as well as MQTT sending notifications for Observation creation.
 
 
 [[fig-mqtt-create]]
@@ -108,9 +108,9 @@ image::mqtt-update.png[Sequence diagram for receiving updates using MQTT subscri
 
 **MQTT Control Packet:** Subscribe
 
-**Topic Pattern:** RESOURCE_PATH/COLLECTION_NAME
+**Topic Pattern:** SERVICE_VERSION/RESOURCE_PATH/COLLECTION_NAME
 
-**Example Topic:** Datastreams(1)/Observations
+**Example Topic:** v1.1/Datastreams(1)/Observations
 
 **Response:** When a new entity is added to the entity set (e.g., a new Observation created) or an existing entity of the entity set is updated, the service returns a complete JSON representation of the newly created or updated entity.
 
@@ -120,9 +120,9 @@ image::mqtt-update.png[Sequence diagram for receiving updates using MQTT subscri
 
 **MQTT Control Packet:** Subscribe
 
-**Topic Pattern:** RESOURCE_PATH_TO_AN_ENTITY
+**Topic Pattern:** SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY
 
-**Example Topic:** Datastreams(1)
+**Example Topic:** v1.1/Datastreams(1)
 
 **Response:**When a property of the subscribed entity is updated, the service returns a complete JSON representation of the updated entity.
 
@@ -132,13 +132,13 @@ image::mqtt-update.png[Sequence diagram for receiving updates using MQTT subscri
 
 **MQTT Control Packet:** Subscribe
 
-**Topic Pattern:** RESOURCE_PATH_TO_AN_ENTITY/PROPERTY_NAME
+**Topic Pattern:** SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY/PROPERTY_NAME
 
-**Example Topic:** Datastreams(1)/observedArea
+**Example Topic:** v1.1/Datastreams(1)/observedArea
 
 **Response:** When the value of the subscribed property is changed, the service returns a JSON object. The returned JSON object follows as defined in <<usage-address-property-of-entity>>.
 
-**Example {counter:examples}: an example response of receiving updates of an entity’s property with MQTT Subscribe.** The example shows a sample response of the following MQTT topic subscription: Datastreams(1)/description
+**Example {counter:examples}: an example response of receiving updates of an entity’s property with MQTT Subscribe.** The example shows a sample response of the following MQTT topic subscription: v1.1/Datastreams(1)/description
 
 
 [source,json]
@@ -154,14 +154,14 @@ image::mqtt-update.png[Sequence diagram for receiving updates using MQTT subscri
 
 **MQTT Control Packet:** Subscribe
 
-**Topic Pattern:** RESOURCE_PATH/COLLECTION_NAME?$select=PROPERTY_1,PROPERTY_2,…
+**Topic Pattern:** SERVICE_VERSION/RESOURCE_PATH/COLLECTION_NAME?$select=PROPERTY_1,PROPERTY_2,…
 
 **Response:** When a new entity is added to an entity set or an existing entity is updated (e.g., a new Observation created or an existing Observation is updated), the service returns a JSON representation of the selected properties of the newly created or updated entity.
 
 Note: In the case of an entity’s property is updated, it is possible that the selected properties are not the updated property, so that the returned JSON does not reflect the update.
 
 **Example {counter:examples}: an example response of receiving updates of the selected property of an entity set with MQTT Subscribe.**
-The example shows a sample response of the following MQTT topic subscription: Datastreams(1)/Observations?$select=phenomenonTime,result
+The example shows a sample response of the following MQTT topic subscription: v1.1/Datastreams(1)/Observations?$select=phenomenonTime,result
 
 [source,json]
 ----
