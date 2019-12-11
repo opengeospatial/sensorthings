@@ -302,7 +302,7 @@ Req <<req-location-relations>>: <<requirement-location-relations>>
 
   "name": "CCIT",
   "description": "Calgary Center for Innvative Technologies",
-  "encodingType": "application/vnd.geo+json",
+  "encodingType": "application/geo+json",
   "location": {
     "type": "Feature",
     "geometry":{
@@ -313,18 +313,17 @@ Req <<req-location-relations>>: <<requirement-location-relations>>
 }
 ----
 
-
 [[tab-encodingtype-codes]]
 .List of some code values used for identifying types for the encodingType of the Location and FeatureOfInterest entity
 |===
 |Location encodingType |ValueCode Value
 
 |GeoJSON
-|application/vnd.geo+json
+|application/geo+json
 |===
 
 
-A thing can be geo-referenced in different spaces. For example, for some applications it is more suitable to use a topological space model (e.g., IndoorGML) to describe an indoor things’ location rather than using a geometric space model (e.g., GeoJSON). Currently GeoJSON is the only Location encodingType of the SensorThings API. In the future we expect to extend SensorThings API’s capabilities by adding additional encodingType to the code values listed in the above table. For example, one potential new Location encodingType can be a JSON encoding for IndoorGML.
+A thing can be geo-referenced in different spaces. For example, for some applications it is more suitable to use a topological space model (e.g., IndoorGML) to describe an indoor things’ location rather than using a geographic space model (e.g., GeoJSON). Currently GeoJSON is the only Location encodingType of the SensorThings API. In the future we expect to extend SensorThings API’s capabilities by adding additional encodingType to the code values listed in the above table. For example, one potential new Location encodingType can be a JSON encoding for IndoorGML.
 
 
 [[historicallocation]]
@@ -1104,7 +1103,7 @@ Its value is one of the ValueCode enumeration (see <<tab-encodingtype-codes>> fo
 
   "name": "Weather Station YYC.",
   "description": "This is a weather station located at the Calgary Airport.",
-  "encodingType": "application/vnd.geo+json",
+  "encodingType": "application/geo+json",
   "feature": {
     "type": "Feature",
     "geometry":{
