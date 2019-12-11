@@ -433,8 +433,8 @@ If the Location of a Thing is changed at a later time, when a network connection
 To resolve this, the Location of a Thing can also be changed by adding a HistoricalLocation.
 If the time of a manually created HistoricalLocation is later than the time of all existing HistoricalLocations, then the Location of the Thing is updated to the Location of this manually created HistoricalLocation.
 
-// First occurrence of a new requirement for v1.1, start new counter.
-[[req-create-update-delete-historical-location-manual-creation,{counter:req11:46}]]
+
+[[req-create-update-delete-historical-location-manual-creation,{counter:req11}]]
 [cols="a"]
 |===
 |[[requirement-create-update-delete-historical-location-manual-creation,create-update-delete/historical-location-manual-creation]]
