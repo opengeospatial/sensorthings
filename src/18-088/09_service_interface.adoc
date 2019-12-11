@@ -762,6 +762,7 @@ returns Things that have any observations of a feature of interest with a unique
 ====== Built-in filter operations
 
 The OGC SensorThings API supports a set of built-in filter operations, as described in the following table. These built-in filter operator usages and definitions follow the [http://docs.oasis-open.org/odata/odata/v4.0/errata01/os/complete/part1-protocol/odata-v4.0-errata01-os-part1-protocol-complete.html#_Toc399426798[OData Specification Section 11.2.5.1.1]] and [http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/odata-abnf-construction-rules.txt[OData Version 4.0 ABNF]].
+The operator precedence is described in [http://docs.oasis-open.org/odata/odata/v4.0/csprd01/part2-url-conventions/odata-v4.0-csprd01-part2-url-conventions.html#_Toc355091904[OData Version 4.0 Part 2: URL Conventions Section 5.1.1.8]].
 
 [[req-request-data-built-in-filter-operations,{counter:req}]]
 [cols="a"]
