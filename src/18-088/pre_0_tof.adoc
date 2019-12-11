@@ -91,5 +91,6 @@
 * Requirement <<req-data-array-data-array>> - <<requirement-data-array-data-array>>
 * Requirement <<req-create-observations-via-mqtt-observations-creation>> - <<requirement-create-observations-via-mqtt-observations-creation>>
 * Requirement <<req-receive-updates-via-mqtt-receive-updates>> - <<requirement-receive-updates-via-mqtt-receive-updates>>
+* Requirement <<req-create-update-delete-historical-location-manual-creation>> - <<requirement-create-update-delete-historical-location-manual-creation>>
 
 
