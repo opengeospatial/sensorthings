@@ -264,7 +264,7 @@ As the entities in different entity sets may hold some relationships, users can 
 
 **URI Pattern:** SERVICE_ROOT_URI/ENTITY_SET_NAME(KEY_OF_THE_ENTITY)/LINK_NAME/$ref
 
-**Response:** A JSON object with a value property. The value of the value property is a JSON array containing one element for each associationLink. Each element is a JSON object with a name/value pairs. The name is url and the value is the selfLinks of the related entities.
+**Response:** A JSON object with a value property. The value of the value property is a JSON array containing one element for each associationLink. Each element is a JSON object with a name/value pairs. The name is @iot.selfLink and the value is the selfLink of the related entity.
 
 **Example {counter:examples}: an example of addressing to an association link**
 
@@ -280,10 +280,10 @@ returns all the selfLinks of the Observations of Datastream(1).
 {
   "value": [
     {
-      "@iot.selfLinks": "http://example.org/v1.0/Observations(1)"
+      "@iot.selfLink": "http://example.org/v1.0/Observations(1)"
     },
     {
-      "@iot.selfLinks": "http://example.org/v1.0/Observations(2)"
+      "@iot.selfLink": "http://example.org/v1.0/Observations(2)"
     }
   ]
 }
