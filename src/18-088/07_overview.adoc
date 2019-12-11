@@ -72,7 +72,7 @@ SensorThings API follows OData’s specification for requesting entities. That m
 === SensorThings API and OGC Key-Value Pair (KVP) Encodings
 
 
-Please note that SensorThings API’s Key-Value Pair (KVP) encoding is different from many existing OGC service implementation standards, such as SOS or Web Map Service (WMS). The main reason is that OData offers a complete set of KVP encodings (see Clause 9.3.3.6) that is designed specifically for RESTful web services, while OGC baseline currently does not have common KVP encodings for the RESTful binding. As a result, OGC SensorThings API version 1.0 chooses to use OData KVP encodings only. It is our future work to support OGC KVP encodings as an extension once a common OGC RESTful binding is available.
+Please note that SensorThings API’s Key-Value Pair (KVP) encoding is different from many existing OGC service implementation standards, such as SOS or Web Map Service (WMS). The main reason is that OData offers a complete set of KVP encodings (see Clause 9.3.3.6) that is designed specifically for RESTful web services, while OGC baseline currently does not have common KVP encodings for the RESTful binding. As a result, OGC SensorThings API version 1.1 chooses to use OData KVP encodings only. It is our future work to support OGC KVP encodings as an extension once a common OGC RESTful binding is available.
 
 
 [[security]]

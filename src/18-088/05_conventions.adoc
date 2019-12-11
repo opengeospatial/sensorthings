@@ -29,6 +29,6 @@ The text at the bottom of the box <requirement id> is the path and it provides t
 
 The normative provisions in this specification are denoted by the URI
 
-http://www.opengis.net/spec/iot_sensing/1.0/
+http://www.opengis.net/spec/iot_sensing/1.1/
 
 All requirements and conformance tests that appear in this document are denoted by partial URIs which are relative to this base.
