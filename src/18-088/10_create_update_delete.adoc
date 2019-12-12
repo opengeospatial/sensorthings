@@ -318,7 +318,26 @@ Key and other non-updatable properties that are not tied to key properties of th
 
 The service ignores the entity id in the payload when applying the update.
 
-The entity SHALL NOT contain related entities as inline content. It MAY contain binding information for navigation properties. For single-valued navigation properties this replaces the relationship. For collection-valued navigation properties this adds to the relationship.
+The entity SHALL NOT contain related entities as inline content. It MAY contain binding information for navigation properties for single-valued navigation properties in the form of
+[source]
+----
+"[navigation property name]":
+{
+	"@iot.id": [ID of entity to link to]
+}
+----
+and for collection-value navigation properties in the form of
+[source]
+----
+"[navigation property name]":
+[
+	{
+		"@iot.id": [ID of entity to link to]
+	}
+]
+----
+
+For single-valued navigation properties this replaces the relationship. For collection-valued navigation properties this adds to the relationship. Nested updates of navigation properties are not supported and SHALL result in a 400 Bad Request error.
 
 On success, the response SHALL be a valid success response.
 
