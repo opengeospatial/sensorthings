@@ -14,3 +14,28 @@ The sensing part provides functions similar to the ogc sensor observation servic
 Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The open geospatial consortium shall not be held responsible for identifying any or all such patent rights.
 
 __recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.__
+
+
+[preface]
+[[changes_v_11]]
+== Changes in version 1.1
+
+Version 1.1 of the SensorThings API is an update to version 1.0 that is (mostly) backwards compatible with version 1.0.
+Besides the many small clarifications, the main changes are:
+
+* All entities (except for HistoricalLocation) now have a field of the type JSON Object.
+  In version 1.0 such a field already existed for the Thing entity (named `+properties+`), and for the Observation entity (named `+parameters+`).
+  These fields proved to be extremely useful for storing additional structured meta data used in many domains, that could also be used in filters.
+  Now, all entities except for HistoricalLocation have such a very useful property, whereby in the Observation entity it retains the name `+parameters+`.
+* The service root page now shows the requirements that the server implements and allows extensions to expose additional settings.
+  This allows users to easily see exactly which extensions and optional features a server implements.
+  The MQTT extension can now list the MQTT endpoints on the root page, so that a user can discover those endpoints.
+* MQTT topics now must start with the version number of the specification.
+  There were differences between server implementations, with some requiring the version number prefix and others not.
+  This change will fix those incompatibilities from this version on.
+
+The first two changes add extra fields to the JSON returned by the server and should not influence clients made for version 1.0, as most client will ignore any fields they do not know.
+The second change may cause some minor issues for some clients that are not using the version prefix in MQTT topics, but those clients would already have issues connecting to any server that does use the version prefix in MQTT topics.
+
+
+
