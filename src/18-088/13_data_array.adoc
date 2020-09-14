@@ -5,13 +5,13 @@
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/data-array
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/data-array
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/ req/<<requirement-data-array-data-array>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-data-array-data-array>>
 |===
 
 
@@ -22,7 +22,7 @@
 Req <<req-data-array-data-array>>: <<requirement-data-array-data-array>>
 
 |To support the SensorThings data array extension, a service SHALL support the retrieval and creation of observations as defined in <<data-array-extension>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-data-array-data-array>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-data-array-data-array>>
 |===
 
 Similar to the SWE DataArray in the OGC SOS, SensorThings API also provides the support of dataArray (in addition to formatting every observation entity as a JSON object) to aggregate multiple Observation entities and reduce the request (e.g., POST) and response (e.g., GET) size. SensorThings mainly use dataArray in two scenarios: (1) get Observation entities in dataArray, and (2) create Observation entities with dataArray.
@@ -36,8 +36,11 @@ In SensorThings services, users are able to request for multiple Observation ent
 
 ==== Request
 
-In order to request for dataArray, users must include the query option `+$resultFormat=dataArray+`
-when requesting Observation entities. For example, `+http://example.org/v1.0/Observations?$resultFormat=dataArray+`.
+In order to request for dataArray, users must include the query option `+$resultFormat=dataArray+` when requesting Observation entities.
+For example, `+http://example.org/v1.1/Observations?$resultFormat=dataArray+`.
+The query options `+$select+`, `+$top+`, `+$skip+`, `+$count+` and `+$orderby+` work the same as they would with a non-dataArray request, only the formatting of the result is different, as the Observations are grouped by (Multi)Datastream.
+The result can contain `+@iot.count+` and `+@iot.nextLink+` fields just like with normal requests for Observations.
+The `+$expand+` query parameter is not allowed for dataArray requests.
 
 
 ==== Response
@@ -71,22 +74,23 @@ The response Observations in dataArray format contains the following properties.
 
 [source,json]
 ----
-GET /v1.0/Datastreams(1)/Observations?$resultFormat=dataArray
+GET /v1.1/Datastreams(1)/Observations?$resultFormat=dataArray
 HTTP/1.1 200 OK
 Host: www.example.org
 Content-Type: application/json
 
 {
+  "@iot.nextLink": "http://example.org/v1.1/Datastreams(1)/Observations?$resultFormat=dataArray&$skip=3",
+  "@iot.count": 42,
   "value": [
     {
-      "Datastream@iot.navigationLink": "Datastreams(1)",
+      "Datastream@iot.navigationLink": "http://example.org/v1.1/Datastreams(1)",
       "components": [
         "id",
         "phenomenonTime",
         "resultTime",
         "result"
       ],
-      "dataArray@iot.count": 3,
       "dataArray": [
         [
           1,
@@ -116,22 +120,23 @@ Content-Type: application/json
 
 [source,json]
 ----
-GET /v1.0/MultiDatastreams(1)/Observations?$resultFormat=dataArray
+GET /v1.1/MultiDatastreams(1)/Observations?$resultFormat=dataArray
 HTTP/1.1 200 OK
 Host: www.example.org
 Content-Type: **application/json
 
 {
+  "@iot.nextLink": "http://example.org/v1.1/MultiDatastreams(1)/Observations?$resultFormat=dataArray&$skip=3",
+  "@iot.count": 42,
   "value": [
     {
-      "MultiDatastream@iot.navigationLink": "MultiDatastreams(1)",
+      "MultiDatastream@iot.navigationLink": "http://example.org/v1.1/MultiDatastreams(1)",
       "components": [
         "id",
         "phenomenonTime",
         "resultTime",
         "result"
       ],
-      "dataArray@iot.count": 3,
       "dataArray": [
         [
           1,
@@ -180,7 +185,7 @@ Besides creating Observation entities one by one with multiple HTTP POST request
 
 Users can invoke the CreateObservations action by sending a HTTP POST request to the SERVICE_ROOT_URL/CreateObservations.
 
-For example, http://example.org/v1.0/CreateObservations.
+For example, http://example.org/v1.1/CreateObservations.
 
 The message body aggregates Observations by Datastreams, which means all the Observations linked to one Datastream SHALL be aggregated in one JSON object. The parameters of each JSON object are shown in the following table.
 
@@ -214,7 +219,7 @@ As an Observation links to one FeatureOfInterest, to establish the link between 
 
 [source]
 ----
-POST /v1.0/CreateObservations HTTP/1.1
+POST /v1.1/CreateObservations HTTP/1.1
 Host: example.org/
 Content-Type: application/json
 
@@ -228,7 +233,6 @@ Content-Type: application/json
       "result",
       "FeatureOfInterest/id"
     ],
-    "dataArray@iot.count": 2,
     "dataArray": [
       [
         "2010-12-23T10:20:00-0700",
@@ -251,7 +255,6 @@ Content-Type: application/json
       "result",
       "FeatureOfInterest/id"
     ],
-    "dataArray@iot.count": 2,
     "dataArray": [
       [
         "2010-12-23T10:20:00-0700",
@@ -277,15 +280,15 @@ Upon successful completion the service SHALL respond with 201 Created. The respo
 
 [source,json]
 ----
-POST /v1.0/CreateObservations HTTP/1.1
+POST /v1.1/CreateObservations HTTP/1.1
 201 Created
 Host: example.org
 Content-Type: application/json
 
 [
-  "http://examples.org/v1.0/Observations(1)",
+  "http://examples.org/v1.1/Observations(1)",
   "error",
-  "http://examples.org/v1.0/Observations(2)"
+  "http://examples.org/v1.1/Observations(2)"
 ]
 ----
 

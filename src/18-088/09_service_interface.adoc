@@ -17,10 +17,10 @@ Therefore, in order to perform CRUD actions on the resources, the first step is 
     "v"majorversionnumber + "." + minorversionnumber
 
 
-.Example {counter:examples}: complete URI example
-[source,json]
+**Example {counter:examples}: complete URI example**
+[source]
 ----
-http://example.org/v1.0/Observations?$orderby=ID&$top=10
+http://example.org/v1.1/Observations?$orderby=ID&$top=10
 _______________________/___________/___________________/
           |                 |               |
   service root URI     resource path   query options
@@ -38,13 +38,13 @@ By attaching the resource path after the service root URI, clients can address t
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/resource-path
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/resource-path
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-resource-path-resource-path-to-entities>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-resource-path-resource-path-to-entities>>
 
 |Dependency
 |
@@ -61,7 +61,7 @@ The resource path comes right after the service root URI and can be used to addr
 Req <<req-resource-path-resource-path-to-entities>>: <<requirement-resource-path-resource-path-to-entities>>
 
 |An OGC SensorThings API service SHALL support all the resource path usages listed in <<resource-path>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-resource-path-resource-path-to-entities>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-resource-path-resource-path-to-entities>>
 |===
 
 
@@ -70,49 +70,88 @@ Req <<req-resource-path-resource-path-to-entities>>: <<requirement-resource-path
 
 **URI Pattern:** SERVICE_ROOT_URI
 
-**Response:** A JSON object with a property named value. The value of the property SHALL be a JSON Array containing one element for each entity set of the SensorThings Service.
+**Response:** A JSON object with a property named `+value+` and a property named `+serverSettings+`.
+The value of the property named `+value+` SHALL be a JSON Array containing one element for each entity set of the SensorThings Service.
+The value of the property named `+serverSettings+` SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
 
-Each element SHALL be a JSON object with at least two name/value pairs, one with name name containing the name of the entity set (e.g., Things, Locations, Datastreams, Observations, ObservedProperties and Sensors) and one with name url containing the URL of the entity set, which may be an absolute or a relative URL. +
+Each element of the `+value+` array SHALL be a JSON object with at least two name/value pairs, one with name name containing the name of the entity set (e.g., Things, Locations, Datastreams, Observations, ObservedProperties and Sensors) and one with name url containing the URL of the entity set, which may be an absolute or a relative URL. +
  [Adapted from OData 4.0-JSON-Format section 5]
 
-Example {counter:examples}: a SensorThings request with no resource path
+The `+serverSettings+` object SHALL contain the property `+conformance+` of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements.
+If a service implements all requirements from a requirements class, it only needs to list the requirements class id.
 
-**Example Request:**
+Security extensions can modify the list of requirements to only show those requirements that the user is allowed to use.
+For example, if a user is not allowed to delete entities, the security extension can hide the <<requirement-create-update-delete-delete-entity>> requirement.
+In the most extreme case, a security extension would hide all requirements for a user that is not authenticated, except its own requirement and the instructions on how to authenticate.
 
-    http://example.org/v1.0/
+Extensions that need to expose additional server settings may do so in a property of the `+serverSettings+` object that is named after the conformance class URI of the requirement that defines this setting.
+
+**Example {counter:examples}: a SensorThings request with no resource path**
+
+.Example Request:
+
+    http://example.org/v1.1/
 
 .Example Response:
 [source,json]
 ----
 {
+ "serverSettings": {
+    "conformance": [
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel",
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/resource-path/resource-path-to-entities",
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/request-data",
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/create-update-delete/create-entity",
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/create-update-delete/link-to-existing-entities",
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/create-update-delete/deep-insert",
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/create-update-delete/deep-insert-status-code",
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/create-update-delete/update-entity",
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/create-update-delete/delete-entity",
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/create-update-delete/historical-location-auto-creation",
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/create-observations-via-mqtt/observations-creation",
+        "http://www.opengis.net/spec/iot_sensing/1.1/req/receive-updates-via-mqtt/receive-updates"
+    ],
+    "http://www.opengis.net/spec/iot_sensing/1.1/req/receive-updates-via-mqtt/receive-updates": {
+      "endpoints": [
+        "mqtt://server.example.com:1833",
+        "ws://server.example.com/sensorThings",
+      ]
+    },
+    "http://www.opengis.net/spec/iot_sensing/1.1/req/create-observations-via-mqtt/observations-creation": {
+      "endpoints": [
+        "mqtts://server.example.com:8883",
+        "wss://server.example.com:443/sensorThings"
+      ]
+    }
+  },
   "value": [
     {
       "name": "Things",
-      "url": "http://example.org/v1.0/Things"
+      "url": "http://example.org/v1.1/Things"
     },
     {
       "name": "Locations",
-      "url": "http://example.org/v1.0/Locations"
+      "url": "http://example.org/v1.1/Locations"
     },
     {
       "name": "Datastreams",
-      "url": "http://example.org/v1.0/Datastreams"
+      "url": "http://example.org/v1.1/Datastreams"
     },
     {
       "name": "Sensors",
-      "url": "http://example.org/v1.0/Sensors"
+      "url": "http://example.org/v1.1/Sensors"
     },
     {
       "name": "Observations",
-      "url": "http://example.org/v1.0/Observations"
+      "url": "http://example.org/v1.1/Observations"
     },
     {
       "name": "ObservedProperties",
-      "url": "http://example.org/v1.0/ObservedProperties"
+      "url": "http://example.org/v1.1/ObservedProperties"
     },
     {
       "name": "FeaturesOfInterest",
-      "url": "http://example.org/v1.0/FeaturesOfInterest"
+      "url": "http://example.org/v1.1/FeaturesOfInterest"
     }
   ]
 }
@@ -134,11 +173,11 @@ When there is service-driven pagination imposed, the nextLink annotation is incl
 
  [Adapted from OData 4.0-JSON-Format section 12]
 
-Example {counter:examples} an example to address an entity set
+**Example {counter:examples} an example to address an entity set**
 
-**Example Request:**
+.Example Request:
 
-    http://example.org/v1.0/ObservedProperties
+    http://example.org/v1.1/ObservedProperties
 
 .Example Response:
 [source,json]
@@ -148,7 +187,7 @@ Example {counter:examples} an example to address an entity set
   "value": [
     {
       "@iot.id": 1,
-      "@iot.selfLink": "http://example.org/v1.0/ObservedProperties(1)",
+      "@iot.selfLink": "http://example.org/v1.1/ObservedProperties(1)",
       "Datastreams@iot.navigationLink": "ObservedProperties(1)/Datastreams",
       "description": "The dew point is the temperature at which the water
                       vapor in air at constant barometric pressure condenses
@@ -158,7 +197,7 @@ Example {counter:examples} an example to address an entity set
     },
     {
       "@iot.id ": 2,
-      "@iot.selfLink": "http://example.org/v1.0/ObservedProperties(2)",
+      "@iot.selfLink": "http://example.org/v1.1/ObservedProperties(2)",
       "Datastreams@iot.navigationLink": "ObservedProperties(2)/Datastreams",
       "description": "Relative humidity is the ratio of the partial pressure
                       of water vapor in an air-water mixture to the saturated
@@ -167,7 +206,7 @@ Example {counter:examples} an example to address an entity set
       "definition": "http://dbpedia.org/page/Relative_humidity"
     },{…},{…},{…}
   ],
-  "@iot.nextLink":"http://example.org/v1.0/ObservedProperties?$top=5&$skip=5"
+  "@iot.nextLink":"http://example.org/v1.1/ObservedProperties?$top=5&$skip=5"
 }
 ----
 
@@ -183,9 +222,9 @@ Users can address to a specific entity in an entity set by place the unique iden
 
 **Example {counter:examples}: an example request that addresses to an entity in a collection**
 
-**Example Request:**
+.Example Request:
 
-    http://example.org/v1.0/Things(1)
+    http://example.org/v1.1/Things(1)
 
 
 [[usage-address-property-of-entity]]
@@ -204,9 +243,9 @@ If the property is single-valued and has the null value, the service SHALL respo
 
 **Example {counter:examples}: an example to address to a property of an entity**
 
-**Example Request:**
+.Example Request:
 
-    http://example.org/v1.0/Observations(1)/resultTime
+    http://example.org/v1.1/Observations(1)/resultTime
 
 .Example Response:
 [source,json]
@@ -232,7 +271,7 @@ The default format for TM_Object types is text/plain using the ISO8601 format, s
 
 **Example:**
 
-    http://example.org/v1.0/Observations(1)/resultTime/$value
+    http://example.org/v1.1/Observations(1)/resultTime/$value
 
 .Example Response:
 [source,json]
@@ -252,7 +291,7 @@ As the entities in different entity sets may hold some relationships, users can 
 
 **Example {counter:examples}: an example request addressing to a navigational property**
 
-     http://example.org/v1.0/Datastreams(1)/Observations
+     http://example.org/v1.1/Datastreams(1)/Observations
 
  returns all the Observations in the Datastream that holds the id 1.
 
@@ -264,13 +303,13 @@ As the entities in different entity sets may hold some relationships, users can 
 
 **URI Pattern:** SERVICE_ROOT_URI/ENTITY_SET_NAME(KEY_OF_THE_ENTITY)/LINK_NAME/$ref
 
-**Response:** A JSON object with a value property. The value of the value property is a JSON array containing one element for each associationLink. Each element is a JSON object with a name/value pairs. The name is url and the value is the selfLinks of the related entities.
+**Response:** A JSON object with a value property. The value of the value property is a JSON array containing one element for each associationLink. Each element is a JSON object with a name/value pairs. The name is @iot.selfLink and the value is the selfLink of the related entity.
 
 **Example {counter:examples}: an example of addressing to an association link**
 
-**Example Request:**
+.Example Request:
 
-    http://example.org/v1.0/Datastreams(1)/Observations/$ref
+    http://example.org/v1.1/Datastreams(1)/Observations/$ref
 
 returns all the selfLinks of the Observations of Datastream(1).
 
@@ -280,10 +319,10 @@ returns all the selfLinks of the Observations of Datastream(1).
 {
   "value": [
     {
-      "@iot.selfLinks": "http://example.org/v1.0/Observations(1)"
+      "@iot.selfLink": "http://example.org/v1.1/Observations(1)"
     },
     {
-      "@iot.selfLinks": "http://example.org/v1.0/Observations(2)"
+      "@iot.selfLink": "http://example.org/v1.1/Observations(2)"
     }
   ]
 }
@@ -299,19 +338,19 @@ As users can use navigation properties to link from one entity set to another, u
 
 **Example Request 1:**
 
-    http://example.org/v1.0/Datastreams(1)/Observations(1)
+    http://example.org/v1.1/Datastreams(1)/Observations(1)
 
 returns a specific Observation entity in the Datastream.
 
 **Example Request 2:**
 
-    http://example.org/v1.0/Datastreams(1)/Observations(1)/resultTime
+    http://example.org/v1.1/Datastreams(1)/Observations(1)/resultTime
 
 turns the resultTime property of the specified Observation in the Datastream.
 
 **Example Request 3:**
 
-    http://example.org/v1.0/Datastreams(1)/Observations(1)/FeatureOfInterest
+    http://example.org/v1.1/Datastreams(1)/Observations(1)/FeatureOfInterest
 
 returns the FeatureOfInterest entity of the specified Observation in the Datastream.
 
@@ -324,40 +363,40 @@ returns the FeatureOfInterest entity of the specified Observation in the Datastr
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/request-data
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/request-data
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-order>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-order>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-expand>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-expand>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-select>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-select>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-status-code>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-status-code>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-query-status-code>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-query-status-code>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-orderby>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-orderby>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-top>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-top>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-skip>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-skip>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-count>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-count>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-filter>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-filter>>
 
 |Dependency
 |\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398292
@@ -383,7 +422,7 @@ Clients issue HTTP GET requests to OGC SensorThings API services for data. The r
 Req <<req-request-data-status-code>>: <<requirement-request-data-status-code>>
 
 |OGC SensorThings API services are hypermedia driven services that return URLs to the client. If a client subsequently requests the advertised resource and the URL has expired, then the service SHALL respond with 410 Gone. If this is not feasible, the service SHALL respond with 404 Not Found.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-status-code>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-status-code>>
 |===
 
 
@@ -394,7 +433,7 @@ Req <<req-request-data-status-code>>: <<requirement-request-data-status-code>>
 Req <<req-request-data-query-status-code>>: <<requirement-request-data-query-status-code>>
 
 |If a service does not support a system query option, it SHALL fail any request that contains the unsupported option and SHALL return 501 Not Implemented.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-query-status-code>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-query-status-code>>
 |===
 
 
@@ -408,7 +447,7 @@ Req <<req-request-data-query-status-code>>: <<requirement-request-data-query-sta
 Req <<req-request-data-order>>: <<requirement-request-data-order>>
 
 |An OGC SensorThings API service SHALL evaluate the system query options following the order specified in <<evaluating-system-query-options>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-order>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-order>>
 |===
 
 
@@ -445,14 +484,14 @@ The $select and $expand system query options enable the client to specify the se
 Req <<req-request-data-expand>>: <<requirement-request-data-expand>>
 
 |The $expand system query option indicates the related entities to be represented inline. The value of the $expand query option SHALL be a comma separated list of navigation property names. Additionally, each navigation property can be followed by a forward slash and another navigation property to enable identifying a multi-level relationship.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-expand>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-expand>>
 |===
 
 **Example {counter:examples}: examples of $expand query option**
 
 **Example Request 1:**
 
-    http://example.org/v1.0/Things?$expand=Datastreams
+    http://example.org/v1.1/Things?$expand=Datastreams
 
 returns the entity set of Things as well as each of the Datastreams associated with each Thing entity.
 
@@ -464,13 +503,13 @@ Example Request 1 Response:
   "values": [
     {
       "@iot.id": 1,
-      "@iot.selfLink": "http://example.org/v1.0/Things(1)",
+      "@iot.selfLink": "http://example.org/v1.1/Things(1)",
       "Locations@iot.navigationLink": "Things(1)/Locations",
       "Datastreams@iot.count":1,
       "Datastreams": [
         {
           "@iot.id": 1,
-          "@iot.selfLink": "http://example.org/v1.0/Datastreams(1)",
+          "@iot.selfLink": "http://example.org/v1.1/Datastreams(1)",
           "name": "oven temperature",
           "description": "This is a datastream measuring the air temperature in an oven.",
           "unitOfMeasurement": {
@@ -501,13 +540,13 @@ Example Request 1 Response:
 
 **Example Request 2:**
 
-    http://example.org/v1.0/Things?$expand=Datastreams/ObservedProperty
+    http://example.org/v1.1/Things?$expand=Datastreams/ObservedProperty
 
 returns the collection of Things, the Datastreams associated with each Thing, and the ObservedProperty associated with each Datastream.
 
 **Example Request 3:**
 
-    http://example.org/v1.0/Datastreams(1)?$expand=Observations,ObservedProperty
+    http://example.org/v1.1/Datastreams(1)?$expand=Observations,ObservedProperty
 
 returns the Datastream whose id is 1 as well as the Observations and ObservedProperty associated with this Datastream.
 
@@ -517,7 +556,7 @@ Query options can be applied to the expanded navigation property by appending a 
 
 **Example Request 4:**
 
-    http://example.org/v1.0/Datastreams(1)?$expand=Observations($filter=result eq 1)
+    http://example.org/v1.1/Datastreams(1)?$expand=Observations($filter=result eq 1)
 
 returns the Datastream whose id is 1 as well as its Observations with a result equal to 1.
 
@@ -535,26 +574,26 @@ Req <<req-request-data-select>>: <<requirement-request-data-select>>
 
  [Adapted from OData 4.0-Protocol 11.2.4.1]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-select>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-select>>
 |===
 
 **Example {counter:examples}: examples of $select query option**
 
 **Example Request 1:**
 
-    http://example.org/v1.0/Observations?$select=result,resultTime
+    http://example.org/v1.1/Observations?$select=result,resultTime
 
 returns only the result and resultTime properties for each Observation entity.
 
 **Example Request 2:**
 
-    http://example.org/v1.0/Datastreams(1)?$select=id,Observations&$expand=Observations/FeatureOfInterest
+    http://example.org/v1.1/Datastreams(1)?$select=id,Observations&$expand=Observations/FeatureOfInterest
 
 returns the id property of the Datastream entity, and all the properties of the entity identified by the Observations and FeatureOfInterest navigation properties.
 
 **Example Request 3:**
 
-    http://example.org/v1.0/Datastreams(1)?$expand=Observations($select=result)
+    http://example.org/v1.1/Datastreams(1)?$expand=Observations($select=result)
 
 returns the Datastream whose id is 1 as well as the result property of the entity identified by the Observations navigation property.
 
@@ -572,7 +611,7 @@ returns the Datastream whose id is 1 as well as the result property of the entit
 |[[requirement-request-data-orderby,request-data/orderby]]
 Req <<req-request-data-orderby>>: <<requirement-request-data-orderby>>
 
-|The $orderby system query option specifies the order in which items are returned from the service. The value of the $orderby system query option SHALL contain a comma-separated list of expressions whose primitive result values are used to sort the items. A special case of such an expression is a property path terminating on a primitive property. A type cast using the qualified entity type name SHALL be ordered by a property defined on a derived type.
+|The $orderby system query option specifies the order in which items are returned from the service. The value of the $orderby system query option SHALL contain a comma-separated list of expressions whose primitive result values are used to sort the items. A special case of such an expression is a property path terminating on a primitive property.
 
 The expression MAY include the suffix asc for ascending or desc for descending, separated from the property name by one or more spaces. If asc or desc is not specified, the service SHALL order by the specified property in ascending order.
 
@@ -582,20 +621,20 @@ Items SHALL be sorted by the result values of the first expression, and then ite
 
  [Note: Adapted from OData 4.0-Protocol 11.2.5.2]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-orderby>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-orderby>>
 |===
 
 **Example {counter:examples}: examples of $orderby query option**
 
 **Example Request 1:**
 
-    http://example.org/v1.0/Observations?$orderby=result
+    http://example.org/v1.1/Observations?$orderby=result
 
 returns all Observations ordered by the result property in ascending order.
 
 **Example Request 2:**
 
-    http://example.org/v1.0/Observations?$expand=Datastream&$orderby=Datastreams/id desc, phenomenonTime
+    http://example.org/v1.1/Observations?$expand=Datastream&$orderby=Datastreams/id desc, phenomenonTime
 
 returns all Observations ordered by the id property of the linked Datastream entry in descending order, then by the phenomenonTime property of Observations in ascending order.
 
@@ -617,7 +656,7 @@ If no unique ordering is imposed through an $orderby query option, the service S
 
 In addition, if the $top value exceeds the service-driven pagination limitation (__i.e.__, the largest number of entities the service can return in a single response), the $top query option SHALL be discarded and the server-side pagination limitation SHALL be imposed.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-top>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-top>>
 |===
 
 
@@ -625,13 +664,13 @@ In addition, if the $top value exceeds the service-driven pagination limitation 
 
 **Example Request 1:**
 
-    http://example.org/v1.0/Things?$top=5
+    http://example.org/v1.1/Things?$top=5
 
 returns only the first five entities in the Things collection.
 
 **Example Request 2:**
 
-    http://example.org/v1.0/Observations?$top=5&$orderby=phenomenonTime%20desc
+    http://example.org/v1.1/Observations?$top=5&$orderby=phenomenonTime%20desc
 
 returns the first five Observation entries after sorted by the phenomenonTime property in descending order.
 
@@ -653,7 +692,7 @@ If no unique ordering is imposed through an $orderby query option, the service S
 
  [Note: Adapted from OData 4.0-Protocol 11.2.5.4]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-skip>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-skip>>
 |===
 
 
@@ -661,13 +700,13 @@ If no unique ordering is imposed through an $orderby query option, the service S
 
 **Example Request 1:**
 
-    http://example.org/v1.0/Things?$skip=5
+    http://example.org/v1.1/Things?$skip=5
 
 returns Thing entities starting with the sixth Thing entity in the Things collection.
 
 **Example Request 2:**
 
-    http://example.org/v1.0/Observations?$skip=2&$top=2&$orderby=resultTime
+    http://example.org/v1.1/Observations?$skip=2&$top=2&$orderby=resultTime
 
 returns the third and fourth Observation entities from the collection of all Observation entities when the collection is sorted by the resultTime property in ascending order.
 
@@ -689,14 +728,14 @@ The $count system query option SHALL ignore any $top, $skip, or $expand query op
 
  [Adapted from OData 4.0-Protocol 11.2.5.5]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-count>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-count>>
 |===
 
 **Example {counter:examples}: examples of $count query option**
 
 **Example Request 1:**
 
-    http://example.org/v1.0/Things?$count=true
+    http://example.org/v1.1/Things?$count=true
 
 returns, along with the results, the total number of Things in the collection.
 
@@ -728,14 +767,14 @@ Req <<req-request-data-filter>>: <<requirement-request-data-filter>>
 
 The expression language that is used in $filter operators SHALL support references to properties and literals. The literal values SHALL be strings enclosed in single quotes, numbers and boolean values (true or false) or datetime values represented as ISO 8601 time string.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-filter>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-filter>>
 |===
 
 **Example {counter:examples}: examples of $filter query option**
 
 **Example Request 1:**
 
-    http://example.org/v1.0/Observations?$filter=result lt 10.00
+    http://example.org/v1.1/Observations?$filter=result lt 10.00
 
 returns all Observations whose result is less than 10.00.
 
@@ -743,25 +782,26 @@ In addition, clients can choose to use the properties of linked entities in the 
 
 **Example Request 2:**
 
-    http://example.org/v1.0/Observations?$filter=Datastream/id eq ‘1’
+    http://example.org/v1.1/Observations?$filter=Datastream/id eq ‘1’
 
 returns all Observations whose Datastream’s id is 1.
 
 **Example Request 3:**
 
-    http://example.org/v1.0/Things?$filter=geo.distance(Locations/location, geography’POINT(-122, 43)’) gt 1
+    http://example.org/v1.1/Things?$filter=geo.distance(Locations/location, geography’POINT(-122, 43)’) gt 1
 
 returns Things that the distance between their last known locations and POINT(-122 43) is greater than 1.
 
 **Example Request 4:**
 
-    http://example.org/v1.0/Things?$expand=Datastreams/Observations/FeatureOfInterest&$filter=Datastreams/Observations/FeatureOfInterest/id eq ‘FOI_1’ and Datastreams/Observations/resultTime ge 2010-06-01T00:00:00Z and Datastreams/Observations/resultTime le 2010-07-01T00:00:00Z
+    http://example.org/v1.1/Things?$expand=Datastreams/Observations/FeatureOfInterest&$filter=Datastreams/Observations/FeatureOfInterest/id eq ‘FOI_1’ and Datastreams/Observations/resultTime ge 2010-06-01T00:00:00Z and Datastreams/Observations/resultTime le 2010-07-01T00:00:00Z
 
 returns Things that have any observations of a feature of interest with a unique identifier equals to ’FOI_1’ in June 2010.
 
 ====== Built-in filter operations
 
 The OGC SensorThings API supports a set of built-in filter operations, as described in the following table. These built-in filter operator usages and definitions follow the [http://docs.oasis-open.org/odata/odata/v4.0/errata01/os/complete/part1-protocol/odata-v4.0-errata01-os-part1-protocol-complete.html#_Toc399426798[OData Specification Section 11.2.5.1.1]] and [http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/odata-abnf-construction-rules.txt[OData Version 4.0 ABNF]].
+The operator precedence is described in [http://docs.oasis-open.org/odata/odata/v4.0/csprd01/part2-url-conventions/odata-v4.0-csprd01-part2-url-conventions.html#_Toc355091904[OData Version 4.0 Part 2: URL Conventions Section 5.1.1.8]].
 
 [[req-request-data-built-in-filter-operations,{counter:req}]]
 [cols="a"]
@@ -770,7 +810,7 @@ The OGC SensorThings API supports a set of built-in filter operations, as descri
 Req <<req-request-data-built-in-filter-operations>>: <<requirement-request-data-built-in-filter-operations>>
 
 |The built-in filter operators SHALL be as defined in Table 22.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-built-in-filter-operations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-built-in-filter-operations>>
 |===
 
 
@@ -867,7 +907,7 @@ In order to support spatial relationship functions, SensorThings API defines nin
 Req <<req-request-data-built-in-query-functions>>: <<requirement-request-data-built-in-query-functions>>
 
 |The built-in query functions SHALL be as defined in Table 23.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-built-in-query-functions>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-built-in-query-functions>>
 |===
 
 
@@ -894,8 +934,10 @@ Req <<req-request-data-built-in-query-functions>>: <<requirement-request-data-bu
 |int indexof(string p0, string p1)
 |`+indexof(description,'Sensor') eq 1+`
 
-|string substring(string p0, int p1)
-|`+substring(description,1) eq 'ensor Things'+`
+|string substring(string p0, int p1) +
+string substring(string p0, int p1, int p2)
+|`+substring(description,1) eq 'ensor Things'+` +
+`+substring(description,2,4) eq 'nsor'+`
 
 |string tolower(string p0)
 |`+tolower(description) eq 'sensor things'+`
@@ -1025,12 +1067,12 @@ SensorThings clients SHALL treat the URL of the nextLink as opaque, and SHALL NO
 
  [Adapted from OData 4.0-Protocol 11.2.5.7]
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-request-data-pagination>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-pagination>>
 |===
 
 **Example {counter:examples}:**
 
-    http://example.org/v1.0/Things
+    http://example.org/v1.1/Things
 
 returns a subset of the Thing entities of requested collection of Things. The nextLink contains a link allowing retrieving the next partial set of items.
 
@@ -1042,7 +1084,7 @@ returns a subset of the Thing entities of requested collection of Things. The ne
     {…},
     {…}
   ],
-  "@iot.nextLink": "http://examples.org/v1.0/Things?$top=100&$skip=100"
+  "@iot.nextLink": "http://examples.org/v1.1/Things?$top=100&$skip=100"
 }
 ----
 

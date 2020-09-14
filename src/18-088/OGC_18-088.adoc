@@ -39,7 +39,7 @@ endif::[]
 |Submission Date:       <yyyy-mm-dd>
 |Approval Date:         <yyyy-mm-dd>
 |Publication Date:      <yyyy-mm-dd>
-|External identifier of this OGC(R) document:	http://www.opengis.net/doc/is/sensorthings/1.0
+|External identifier of this OGC(R) document:	http://www.opengis.net/doc/is/sensorthings/1.1
 |URL for this OGC(R) document:
 |Additional Formats (informative):
 |Please refer to the http://docs.opengeospatial.org/is/18-088/errata.html[errata] for this document, +
@@ -47,7 +47,7 @@ which may include some normative corrections.
 |Internal reference number of this OGC(R) document:  18-088
 |Version:       1.1
 |Category:      OGC(R) Implementation Specification
-|Editors:       Steve Liang, Tania Khalafbeigi
+|Editors:       Steve Liang, Tania Khalafbeigi, Hylke van der Schaaf
 |===
 
 [cols = "^", frame = "none"]
@@ -58,7 +58,7 @@ which may include some normative corrections.
 [cols = "^", frame = "none", grid = "none"]
 |===
 |*Copyright notice*
-|Copyright (C) 2018 Open Geospatial Consortium
+|Copyright (C) 2019 Open Geospatial Consortium
 |To obtain additional rights of use, visit http://www.opengeospatial.org/legal/
 |===
 
@@ -78,6 +78,11 @@ Recipients of this document are invited to submit, with their comments, notifica
 |Document stage:     Draft
 |Document language:  English
 |===
+
+// Initialise the counter for new requirements in V1.1
+// This needs to happen in a reference-definition, otherwise asciidoctor optimises the call away.
+[[reset-counter-req11,{counter2:req11:45}]]
+
 
 <<<
 include::pre_a_license.adoc[]

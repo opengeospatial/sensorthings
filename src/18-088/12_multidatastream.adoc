@@ -5,19 +5,19 @@
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/multi-datastream
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/multi-datastream
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-multi-datastream-properties>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-multi-datastream-relations>>
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-constraints>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-multi-datastream-constraints>>
 |===
 
 
@@ -40,7 +40,7 @@ image::SensingEntitiesMultiDatastream.png[MultiDatastream Extension Entities]
 Req <<req-multi-datastream-properties>>: <<requirement-multi-datastream-properties>>
 
 |Each MultiDatastream entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-multidatastream>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-properties>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-multi-datastream-properties>>
 |===
 
 
@@ -51,7 +51,7 @@ Req <<req-multi-datastream-properties>>: <<requirement-multi-datastream-properti
 Req <<req-multi-datastream-relations>>: <<requirement-multi-datastream-relations>>
 
 |Each MultiDatastream entity SHALL have the direct relation between a MultiDatastream entity and other entity types listed in <<tab-relation-multidatastream>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-relations>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-multi-datastream-relations>>
 |===
 
 
@@ -166,7 +166,7 @@ The size and the order of each element of a MultiDatastream’s unitOfMeasuremen
 
 When a complex result’s element does not have a unit of measurement (e.g., a OM_TruthObservation type), the corresponding unitOfMeasurement element SHALL have null values.
 
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-multi-datastream-constraints>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-multi-datastream-constraints>>
 |===
 
 
@@ -176,7 +176,7 @@ When a complex result’s element does not have a unit of measurement (e.g., a O
 ----
  {
   "@iot.id": 1,
-  "@iot.selfLink": "http://example.org/v1.0/MultiDatastreams(1)",
+  "@iot.selfLink": "http://example.org/v1.1/MultiDatastreams(1)",
   "Thing@iot.navigationLink": "MultiDatastreams(1)/Thing",
   "Sensor@iot.navigationLink": "MultiDatastreams(1)/Sensor",
   "ObservedProperty@iot.navigationLink": "MultiDatastreams(1)/ObservedProperties",
@@ -227,7 +227,7 @@ When a complex result’s element does not have a unit of measurement (e.g., a O
   "value": [
     {
       "@iot.id": 1,
-      "@iot.selfLink": "http://example.org/v1.0/ObservedProperties(1)",
+      "@iot.selfLink": "http://example.org/v1.1/ObservedProperties(1)",
       "Datastreams@iot.navigationLink": "ObservedProperties(1)/Datastreams",
       "MultiDatastreams@iot.navigationLink": "ObservedProperties(1)/ MultiDatastreams",
       "description": "The dew point is the temperature at which the water vapor in a sample
@@ -238,7 +238,7 @@ When a complex result’s element does not have a unit of measurement (e.g., a O
     },
     {
       "@iot.id ": 2,
-      "@iot.selfLink": "http://example.org/v1.0/ObservedProperties(2)",
+      "@iot.selfLink": "http://example.org/v1.1/ObservedProperties(2)",
       "Datastreams@iot.navigationLink": "ObservedProperties(2)/Datastreams",
       "MultiDatastreams@iot.navigationLink": "ObservedProperties(2)/ MultiDatastreams",
       "description": "Relative humidity (abbreviated RH) is the ratio of the partial pressure
@@ -248,7 +248,7 @@ When a complex result’s element does not have a unit of measurement (e.g., a O
     },
     {
       "@iot.id": 3,
-      "@iot.selfLink": "http://example.org/v1.0/ObservedProperties(3)",
+      "@iot.selfLink": "http://example.org/v1.1/ObservedProperties(3)",
       "Datastreams@iot.navigationLink": "ObservedProperties(3)/Datastreams",
       "MultiDatastreams@iot.navigationLink": "ObservedProperties(3)/MultiDatastreams",
       "description": "Visibility is a measure of the distance at which an object or light can
@@ -265,7 +265,7 @@ When a complex result’s element does not have a unit of measurement (e.g., a O
 ----
 {
   "@iot.id": 1,
-  "@iot.selfLink": "http://example.org/v1.0/Observations(1)",
+  "@iot.selfLink": "http://example.org/v1.1/Observations(1)",
   "FeatureOfInterest@iot.navigationLink": "Observations(1)/FeatureOfInterest",
   "MultiDatastream@iot.navigationLink": "Observations(1)/MultiDatastream",
   "phenomenonTime": "2014-12-31T11:59:59.00+08:00",

@@ -6,8 +6,104 @@
 |Date |Release |Author |Paragraph modified |Description
 
 |2018-10-12
-|1.0.1
+|1.1
 |Steve Liang
-|Many.
+|Many
 |Properties field is added to all the entities.
+
+|2018-10-15
+|1.1
+|Hylke van der Schaaf
+|9.3.3.5.2 Built-in query functions
+|Added three-parameter substring function.
+
+|2018-10-16
+|1.1
+|Hylke van der Schaaf
+|9.3.3.5.1. Built-in filter operations; A.2.1.6 Test: Filter Query Option
+|Specify operator precedence
+
+|2018-12-07
+|1.1
+|Hylke van der Schaaf
+|9.3.3.1 $orderby
+|Removed reference to ordering by a "type cast".
+
+|2019-04-11
+|1.1
+|Hylke van der Schaaf
+|9.2.1 Usage 1: no resource path
+|Add `+serverSettings+` property in response of SERVICE_ROOT_URI requests.
+
+|2019-04-29
+|1.1
+|Brian Miles
+|10.4. Delete an entity
+|Add integrity contraint between Things and HistoricalLocations removal.
+
+|2019-04-29
+|1.1
+|Brian Miles
+|9.2.7. Usage 7: address to an associationLink
+|Fix inconsistencies in definition of @iot.selfLink property.
+
+|2019-05-02
+|1.1
+|Hylke van der Schaaf
+|8.2.3. HistoricalLocation
+|Location of a Thing can not be updated 'in the past'.
+
+|2019-08-01
+|1.1
+|Brian Miles
+|8.2.2. Location; 8.2.8 FeatureOfInterest
+|Update GeoJSON MIME type to application/geo+json.
+
+|2019-08-01
+|1.1
+|Brian Miles
+|8.2.2. Location
+|Correct the description of GeoJSON as using a 'geographic space model' rather then the more generic 'geometric space model'.
+
+|2019-08-01
+|1.1
+|Hylke van der Schaaf
+|Chapter 14. SensorThings Sensing MQTT Extension
+|Add version prefix to MQTT topics.
+
+|2019-08-22
+|1.1
+|Hylke van der Schaaf
+|Many
+|Update version number in text and URIs from 1.0 to 1.1.
+
+|2019-08-22
+|1.1
+|Hylke van der Schaaf
+|Chapter 13. SensorThings Data Array Extension
+|Explain query parameters when used with dataArray extension; Changed examples to use absolute navigation links; Add @iot.nextLink and @iot.count to the examples; Fixed wording of test method; Fixed incorrect relative navigation link; Removed unexplained dataArray@iot.count elements from examples.
+
+|2019-08-22
+|1.1
+|Hylke van der Schaaf
+|Chapter 2. Conformance
+|Grouped data model related requirements and conformance classes into a datamodel class
+
+|2019-09-09
+|1.1
+|Brian Miles
+|8.2.5. Sensor
+|Expand the Sensor encodingType with a ValueCode for webpages/URLs.
+
+|2019-10-22
+|1.1
+|Hylke van der Schaaf
+|Chapter 11. Batch Requests
+|Clarified batch-processing referencing mechanisms; Remove example request headers: If-Match, Content-Transfer-Encoding
+
+|2019-12-04
+|1.1
+|Hylke van der Schaaf
+|7.7. SensorThings API and Security
+|Added implications of conformance class list for security extensions
 |===

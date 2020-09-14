@@ -5,13 +5,13 @@
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/batch-request
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/batch-request
 
 |Target Type
 |Web Service
 
 |Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-batch-request-batch-request>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-batch-request-batch-request>>
 
 |Dependency
 |\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398359
@@ -25,7 +25,7 @@
 Req <<req-batch-request-batch-request>>: <<requirement-batch-request-batch-request>>
 
 |The batch-processing of the SensorThings service SHALL be as defined in <<batch-requests>>.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-batch-request-batch-request>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-batch-request-batch-request>>
 |===
 
 
@@ -41,9 +41,9 @@ and all subsections. The only difference is that the OData-Version header SHOULD
 
 A batch request is represented as a Multipart MIME v1.0 message [RFC2046], a standard format allowing the representation of multiple parts, each of which may have a different content type, within a single request.
 
-The example below shows a GUID as a boundary and example.org/v1.0/ for the URI of the service.
+The example below shows a GUID as a boundary and example.org/v1.1/ for the URI of the service.
 
-Batch requests are submitted as a single HTTP POST request to the batch endpoint of a service, located at the URL $batch relative to the service root (e.g., example.org/v1.0/$batch).
+Batch requests are submitted as a single HTTP POST request to the batch endpoint of a service, located at the URL $batch relative to the service root (e.g., example.org/v1.1/$batch).
 
 Note: In the example, request bodies are excluded in favor of English descriptions inside `<>` brackets to simplify the example.
 
@@ -51,7 +51,7 @@ Note: In the example, request bodies are excluded in favor of English descriptio
 
 [source]
 ----
-POST /v1.0/$batch HTTP/1.1
+POST /v1.1/$batch HTTP/1.1
 Host: example.org
 Content-Type: multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
 
@@ -88,7 +88,7 @@ Note also that the two empty lines after the Host header of the GET request are 
 
 [source]
 ----
-POST /v1.0/$batch HTTP/1.1
+POST /v1.1/$batch HTTP/1.1
 Host: host
 Content-Type: multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
 Content-Length: ###
@@ -96,9 +96,7 @@ Content-Length: ###
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
 Content-Type: application/http
 
-Content-Transfer-Encoding:binary
-
-GET /v1.0/Things(1)
+GET /v1.1/Things(1)
 Host: host
 
 
@@ -109,10 +107,9 @@ Content-Type: multipart/mixed;boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efb
 
 Content-Type: application/http
 
-Content-Transfer-Encoding: binary
 Content-ID: 1
 
-POST /v1.0/Things HTTP/1.1
+POST /v1.1/Things HTTP/1.1
 Host: host
 Content-Type: application/json
 
@@ -123,15 +120,13 @@ Content-Length: ###
 
 Content-Type: application/http
 
-Content-Transfer-Encoding:binary
 Content-ID: 2
 
-PATCH /v1.0/Things(1) HTTP/1.1
+PATCH /v1.1/Things(1) HTTP/1.1
 
 Host: host
 Content-Type: application/json
 
-If-Match: xxxxx
 Content-Length: ###
 
 <JSON representation of Things(1)>
@@ -140,9 +135,7 @@ Content-Length: ###
 
 Content-Type: application/http
 
-Content-Transfer-Encoding: binary
-
-GET /v1.0/Things(3) HTTP/1.1
+GET /v1.1/Things(3) HTTP/1.1
 Host: host
 
 
@@ -152,46 +145,58 @@ Host: host
 [[referencing-new-entities-in-change-set]]
 ==== Referencing new entities in a change set example
 
+Create and update actions inside a change set can reference entities previously created inside the same change set.
+To make a created entity referenceable, the POST that creates the entity must have a Content-ID header, the content of which can be any string.
+Subsequent requests in the same change set can now use the value of this header, prefixed with a `+$+`, in places where the ID of the created entity is required.
+To ensure valid JSON, the resulting value will have to be encoded as a string.
+
+
 **Example {examples}-3:** A Batch Request that contains the following operations in the order listed:
 
-A change set that contains the following requests:
+A batch request, containing a single change set that contains the following requests:
 
-. Insert a new Datastream entity (with Content-ID = 1)
-. Insert a second new entity, a Sensor entity in this example (reference request with Content-ID = 1)
+. Insert a new Sensor entity (with `+Content-ID = sensor1+`)
+. Insert a new Datastream entity, referencing the previously created Sensor entity as `+"$sensor1"+`.
 
 
 [source]
 ----
-POST /v1.0/$batch HTTP/1.1
+POST /v1.1/$batch HTTP/1.1
 Host: host
-Content-Type:
-multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
 
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
 Content-Type: multipart/mixed;boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
 
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
 Content-Type: application/http
-Content-Transfer-Encoding: binary
-Content-ID: 1
+Content-ID: sensor1
 
-POST /v1.0/Datastreams HTTP/1.1
+POST /v1.1/Sensors HTTP/1.1
 Host: host
 Content-Type: application/json
 Content-Length: ###
 
-<JSON representation of a new Datastream>
+{
+  "name": "DS18B20",
+  "description": "DS18B20 is an air temperature sensor",
+  "encodingType": "application/pdf",
+  "metadata": "http://datasheets.maxim-ic.com/en/ds/DS18B20.pdf"
+}
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
 Content-Type: application/http
-Content-Transfer-Encoding: binary
-Content-ID: 2
 
-POST /v1.0/Sensor HTTP/1.1
+POST /v1.1/Things(5)/Datastreams HTTP/1.1
 Host: host
 Content-Type: application/json
 Content-Length: ###
 
-<JSON representation of a new Sensor>
+{
+  "name": "Temperature Thing 5",
+  "description": "The temperature of thing 5",
+  "ObservedProperty: {"@iot.id": 12},
+  "Sensor": {"@iot.id": "$sensor1"}
+}
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd--
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b--
 ----
@@ -211,7 +216,6 @@ Content-Type: multipart/mixed;boundary=b_243234_25424_ef_892u748
 
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 200 Ok
 Content-Type: application/json
@@ -223,19 +227,17 @@ Content-Type: multipart/mixed;boundary=cs_12u7hdkin252452345eknd_383673037
 
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 1
 
 HTTP/1.1 201 Created
 Content-Type: application/json
-Location: http://host/v1.0/Things(99)
+Location: http://host/v1.1/Things(99)
 Content-Length: ###
 
 <JSON representation of a new Thing entity>
 
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 2
 
 HTTP/1.1 204 No Content
@@ -245,7 +247,6 @@ Host: host
 --cs_12u7hdkin252452345eknd_383673037--
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 404 Not Found
 Content-Type: application/json
@@ -269,7 +270,6 @@ Content-Type: multipart/mixed;boundary=b_243234_25424_ef_892u748
 
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 200 Ok
 Content-Type: application/json
@@ -278,7 +278,6 @@ Content-Length: ###
 <JSON representation of the Thing entity with id = 1>
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor
@@ -303,18 +302,16 @@ Content-Type: multipart/mixed;boundary=cs_12u7hdkin252452345eknd_383673037
 
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 1
 
 HTTP/1.1 201 Created
 Content-Type: application/json
-Location: http://host/v1.0/Things(99)
+Location: http://host/v1.1/Things(99)
 Content-Length: ###
 
 <JSON representation of a new Thing entity>
 --cs_12u7hdkin252452345eknd_383673037
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 Content-ID: 2
 
 HTTP/1.1 204 No Content
@@ -324,7 +321,6 @@ Host: host
 --cs_12u7hdkin252452345eknd_383673037--
 --b_243234_25424_ef_892u748
 Content-Type: application/http
-Content-Transfer-Encoding: binary
 
 HTTP/1.1 404 Not Found
 Content-Type: application/json
