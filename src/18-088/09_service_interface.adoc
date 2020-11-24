@@ -465,8 +465,8 @@ Prior to applying any server-driven pagination:
 
 After applying any server-driven pagination:
 
-* $expand
 * $select
+* $expand
 
 
 [[select3]]
@@ -570,7 +570,10 @@ returns the Datastream whose id is 1 as well as its Observations with a result e
 |[[requirement-request-data-select,request-data/select]]
 Req <<req-request-data-select>>: <<requirement-request-data-select>>
 
-|The $select system query option requests the service to return only the properties explicitly requested by the client. The value of a $select query option SHALL be a comma-separated list of selection clauses. Each selection clause SHALL be a property name (including navigation property names). In the response, the service SHALL return the specified content, if available, along with any available expanded navigation properties.
+|The $select system query option requests the service to return only the properties explicitly requested by the client.
+ The value of a $select query option SHALL be a comma-separated list of selection clauses.
+ Each selection clause SHALL be a property name (including navigation property names).
+ In the response, the service SHALL return the specified content, if available, along with any available expanded navigation properties.
 
  [Adapted from OData 4.0-Protocol 11.2.4.1]
 
@@ -587,9 +590,10 @@ returns only the result and resultTime properties for each Observation entity.
 
 **Example Request 2:**
 
-    http://example.org/v1.1/Datastreams(1)?$select=id,Observations&$expand=Observations/FeatureOfInterest
+    http://example.org/v1.1/Datastreams(1)?$select=id&$expand=Observations/FeatureOfInterest
 
-returns the id property of the Datastream entity, and all the properties of the entity identified by the Observations and FeatureOfInterest navigation properties.
+returns the id property of the Datastream entity, and all the properties of the entity identified by the Observations and FeatureOfInterest navigation properties
+(Expanded items are implicitly selected).
 
 **Example Request 3:**
 
