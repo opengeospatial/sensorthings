@@ -786,13 +786,13 @@ In addition, clients can choose to use the properties of linked entities in the 
 
 **Example Request 2:**
 
-    http://example.org/v1.1/Observations?$filter=Datastream/id eq ‘1’
+    http://example.org/v1.1/Observations?$filter=Datastream/id eq 1
 
 returns all Observations whose Datastream’s id is 1.
 
 **Example Request 3:**
 
-    http://example.org/v1.1/Things?$filter=geo.distance(Locations/location, geography’POINT(-122, 43)’) gt 1
+    http://example.org/v1.1/Things?$filter=geo.distance(Locations/location, geography'POINT(-122 43)') gt 1
 
 returns Things that the distance between their last known locations and POINT(-122 43) is greater than 1.
 
