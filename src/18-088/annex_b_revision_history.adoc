@@ -2,6 +2,7 @@
 == Revision history
 
 
+[cols="1,1,1,2,3"]
 |===
 |Date |Release |Author |Paragraph modified |Description
 
@@ -21,7 +22,7 @@
 |1.1
 |Hylke van der Schaaf
 |9.3.3.5.1. Built-in filter operations; A.2.1.6 Test: Filter Query Option
-|Specify operator precedence
+|Specify operator precedence.
 
 |2018-12-07
 |1.1
@@ -68,7 +69,7 @@
 |2019-08-01
 |1.1
 |Hylke van der Schaaf
-|Chapter 14. SensorThings Sensing MQTT Extension
+|14. SensorThings Sensing MQTT Extension
 |Add version prefix to MQTT topics.
 
 |2019-08-22
@@ -80,14 +81,14 @@
 |2019-08-22
 |1.1
 |Hylke van der Schaaf
-|Chapter 13. SensorThings Data Array Extension
+|13. SensorThings Data Array Extension
 |Explain query parameters when used with dataArray extension; Changed examples to use absolute navigation links; Add @iot.nextLink and @iot.count to the examples; Fixed wording of test method; Fixed incorrect relative navigation link; Removed unexplained dataArray@iot.count elements from examples.
 
 |2019-08-22
 |1.1
 |Hylke van der Schaaf
-|Chapter 2. Conformance
-|Grouped data model related requirements and conformance classes into a datamodel class
+|2. Conformance
+|Grouped data model related requirements and conformance classes into a datamodel class.
 
 |2019-09-09
 |1.1
@@ -98,12 +99,25 @@
 |2019-10-22
 |1.1
 |Hylke van der Schaaf
-|Chapter 11. Batch Requests
-|Clarified batch-processing referencing mechanisms; Remove example request headers: If-Match, Content-Transfer-Encoding
+|11. Batch Requests
+|Clarified batch-processing referencing mechanisms; Remove example request headers: If-Match, Content-Transfer-Encoding.
 
 |2019-12-04
 |1.1
 |Hylke van der Schaaf
 |7.7. SensorThings API and Security
-|Added implications of conformance class list for security extensions
+|Added implications of conformance class list for security extensions.
+
+|2020-11-03
+|1.1
+|Hylke van der Schaaf
+|8.2. The Sensing Entities; 12. SensorThings MultiDatastream extension
+|Fixed images; HistoricalLocation -> Thing relation name should be singular.
+
+|2020-11-11
+|1.1
+|Hylke van der Schaaf
+|9.3. Requesting Data
+|Corrected order of system query options; Expanded items are implicitly selected.
 |===
+
