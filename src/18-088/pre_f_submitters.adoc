@@ -20,19 +20,23 @@ All questions regarding this submission should be directed to the editors or the
 |Fraunhofer, Germany
 |Yes
 
-|Kyoungsook Kim
-|AIST, Japan
+|Brian Miles
+|CGI Federal
 |Yes
 
-|Thomas Schwab
-|Lockheed Martin
+|Katharina Schleidt
+|DataCove e.U.
 |Yes
 
-|Jean Brodeur
-|NRCan/Canadian Geospatial Data Infrastructure
+|Sylvain Grellet
+|BRGM, France
+|Yes
+
+|Mickael Beaufils
+|BRGM, France
 |Yes
 
 |Marcus Alzona
-|Noblis
+|Keys
 |Yes
 |===

@@ -6,11 +6,9 @@ The following organizations submitted this document to the open geospatial conso
 
 [none]
 * University of Calgary, Canada
-* National Central University, Taiwan
-* Lockheed Martin, USA
-* AIST, Japan
-* FCU.GIS, Taiwan
-* ITRI, Taiwan
-* GeoConnections, Canada
-* Noblis, USA
-* Fraunhofer, Germany
+* SensorUp Inc., Canada
+* CGI Group Inc., USA
+* Keys, USA
+* DataCove e.U., Austria
+* Fraunhofer-Gesellschaft, Germany
+
