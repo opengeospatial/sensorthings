@@ -23,7 +23,7 @@ __recipients of this document are requested to submit, with their comments, noti
 Version 1.1 of the SensorThings API is an update to version 1.0 that is (mostly) backwards compatible with version 1.0.
 Besides the many small clarifications, the main changes are:
 
-* All entities (except for HistoricalLocation) now have a field of the type JSON Object.
+* All entities (except for HistoricalLocation) now have a field of the type JSON Object, named properties or parameters.
   In version 1.0 such a field already existed for the Thing entity (named `+properties+`), and for the Observation entity (named `+parameters+`).
   These fields proved to be extremely useful for storing additional structured meta data used in many domains, that could also be used in filters.
   Now, all entities except for HistoricalLocation have such a very useful property, whereby in the Observation entity it retains the name `+parameters+`.
