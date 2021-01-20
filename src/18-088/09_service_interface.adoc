@@ -828,11 +828,11 @@ Req <<req-request-data-built-in-filter-operations>>: <<requirement-request-data-
 
 |eq
 |Equal
-|`+/ObservedProperties?$filter=unitOfMeasurement/name eq 'degree Celsius'+`
+|`+/Datastreams?$filter=unitOfMeasurement/name eq 'degree Celsius'+`
 
 |ne
 |Not equal
-|`+/ObservedProperties?$filter=unitOfMeasurement/name ne 'degree Celsius'+`
+|`+/Datastreams?$filter=unitOfMeasurement/name ne 'degree Celsius'+`
 
 |gt
 |Greater than
