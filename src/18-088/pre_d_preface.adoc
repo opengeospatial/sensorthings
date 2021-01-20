@@ -37,5 +37,5 @@ Besides the many small clarifications, the main changes are:
 The first two changes add extra fields to the JSON returned by the server and should not influence clients made for version 1.0, as most client will ignore any fields they do not know.
 The second change may cause some minor issues for some clients that are not using the version prefix in MQTT topics, but those clients would already have issues connecting to any server that does use the version prefix in MQTT topics.
 
-
+This version supercedes the previous version of the OGC SensorThings API Part 1: Sensing (OGC 15-078r6).
 
