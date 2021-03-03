@@ -6,21 +6,24 @@ The OGC SensorThings API is an OGC standard specification for providing an open 
 ## Standard Specification
 
 
-## Using the standard
+## 
 
-The standard is on the OGC website:
+The standard is on [OGC SensorThings API page](https://www.ogc.org/standards/sensorthings):
 
-* [OGC SensorThings API - OGC 15-078r6](http://docs.opengeospatial.org/is/15-078r6/15-078r6.html)
+* [SensorThings API Part 1: Sensing 1.0](http://docs.opengeospatial.org/is/15-078r6/15-078r6.html) ([PDF version](https://portal.opengeospatial.org/files/15-078r6))
+* [SensorThings API Part 2: Tasking Core 1.0](http://docs.opengeospatial.org/is/17-079r1/17-079r1.html) ([PDF version](https://portal.opengeospatial.org/files/17-079r1))
 
-A [PDF version](https://portal.opengeospatial.org/files/15-078r6) is available, too.
+Implementating and certified servers are also listed on OGC website:
 
-Those who want to just see the endpoints and responses can explore 
+* [OGC SensorThings API Part 1: Sensing 1.0](https://www.ogc.org/resource/products/byspec/?specid=772)
+** [OGC SensorThings API Sensing Core 1.0](https://www.ogc.org/resource/products/byspec/?specid=773)
+** [OGC SensorThings API Filtering Extension 1.0](https://www.ogc.org/resource/products/byspec/?specid=774)
+** [OGC SensorThings API Create-Update-Delete 1.0](https://www.ogc.org/resource/products/byspec/?specid=775)
+* [OGC SensorThings API Part 2 – Tasking Core 1.0](https://www.ogc.org/resource/products/byspec/?specid=971)
 
-* T.B.D. 
-
-Several implementations of the standard exist:
-
-* [Implementations of the draft specification / demo services](implementations.md)
+Some client implementations exist:
+* [FROST-Client](https://github.com/FraunhoferIOSB/FROST-Client) is a Java client library for communicating with a SensorThings API compatible server.
+* [Geodan SensorThings .NET SDK](https://github.com/gost/sensorthings-net-sdk)  makes it easy to add OGC SensorThings support to your .NET application.
 
 ## How to Cite OGC SensorThings API
 Liang, Steve H.L., Chih-Yuan Huang, and Tania Khalafbeigi. "OGC SensorThings API Part I:Sensing" OGC® Implementation Standard (2016)
