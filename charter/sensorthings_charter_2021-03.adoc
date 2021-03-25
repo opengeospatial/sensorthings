@@ -1,0 +1,240 @@
+:Title: OGC (add title text)
+:titletext: {Title}
+:doctype: book
+:encoding: utf-8
+:lang: en
+:toc:
+:toc-placement!:
+:toclevels: 4
+:numbered:
+:sectanchors:
+:source-highlighter: pygments
+
+<<<
+[cols = ">",frame = "none",grid = "none"]
+|===
+|{set:cellbgcolor:#FFFFFF}
+|[big]*Open Geospatial Consortium*
+|Submission Date: 2021-03-24
+|Approval Date:   <yyyy-mm-dd>
+|Internal reference number of this OGC(R) document:    21-015
+|Category: OGC(R) Standards Working Group Charter
+|Authors:   Steve Liang, Hylke van der Schaaf
+|===
+
+[cols = "^", frame = "none"]
+|===
+|[big]*OGC SensorThings API Standards Working Group Charter (Amendment)*
+|===
+
+[cols = "^", frame = "none", grid = "none"]
+|===
+|*Copyright notice*
+|Copyright (C) 2021 Open Geospatial Consortium
+|To obtain additional rights of use, visit http://www.opengeospatial.org/legal/
+|===
+
+<<<
+
+////
+Version of 2018-12-12
+Some Instructions
+This document is the template to be used for proposing the formation of a new Standards Working Group (SWG).
+
+The first step is to complete the SWG Charter for the proposed new SWG.
+
+The next step is to email the draft SWG charter to the Technical Committee Chair (TCC).  The TCC will review the draft charter and make any necessary comments and provide guidance.
+
+Finally, once the Charter is ready, the SWG charter will be posted to the OGC Pending Documents and the vote process in the Technical Committee Policies and Procedures will start.
+
+Any questions, please contact OGC staff.
+////
+
+To: OGC members & interested parties
+
+The OGC SensorThings API Standards Working Group charter is being amended. The OGC members listed below have proposed to update the charter.  The SWG charter amendment provided in this document meets the requirements of the OGC Technical Committee (TC) Policies and Procedures.
+
+The SWG name, statement of purpose, scope, list of deliverables, audience, and language specified in the proposal will constitute the SWG's official charter. Technical discussions may occur no sooner than the SWG's first meeting.
+
+This SWG will operate under the OGC IPR Policy. The eligibility requirements for becoming a participant in the SWG at the first meeting (see details below) are that:
+
+* You must be an employee of an OGC member organization or an individual
+member of OGC;
+
+* The OGC member must have signed the OGC Membership agreement;
+
+* You must notify the SWG chair of your intent to participate to the first meeting. Members may do so by logging onto the OGC Portal and navigating to the Observer page and clicking on the link for the SWG they wish to join and;
+
+* You must attend meetings of the SWG. The first meeting of this SWG is at the time and date fixed below. Attendance may be by teleconference.
+
+Of course, participants also may join the SWG at any time. The OGC and the SWG welcomes all interested parties.
+
+Non-OGC members who wish to participate may contact us about joining the OGC. In addition, the public may access some of the resources maintained for each SWG: the SWG public description, the SWG Charter, Change Requests, and public comments, which will be linked from the SWG’s page.
+
+Please feel free to forward this announcement to any other appropriate lists. The OGC is an open standards organization; we encourage your feedback.
+
+== Purpose of the Standards Working Group
+The purpose of the SensorThings API SWG is to
+
+* develop new and maintain existing parts of the OGC SensorThings API multipart standard. In particular, we are proposing a new task for the version 2.0 of the OGC SensorThings API Part 1 - Sensing;
+* develop new and maintain discussion papers and best practices of the OGC SensorThings API multipart standard;
+* review draft Engineering Reports from the OGC Innovation Programme related to OGC SensorThings API.
+
+== Business Value Proposition
+The Internet of Things (IoT) represents the next evolution of the Internet. It’s estimated that by 2025, more than 20 billion sensors and actuators will be embedded in real-world objects. All of these objects will be connected to the Internet and generating data at a high velocity continuously. The majority of these objects will be Industrial IoT devices used by industries, not consumers. The IoT represents a significant business opportunity, providing organizations with strategic insights and operational efficiencies in real time. But harvesting the benefits of a sensor-rich world presents many data management challenges. One of the biggest challenges is to enable the IoT interoperability, i.e., the ability to interoperate heterogeneous IoT systems so that collectively they become a coherent system-of-systems. The OGC SensorThings API is designed to address the IoT interoperability challenge on the Web.
+
+Since the publication of v1.0 of the OGC SensorThings API, it has received a wide adoption. As of today (March 24 2021), there are more than 9 independent server implementations, more than 100 GitHub open source repositories, and more than 500 research papers found on Google Scholar. The OGC SensorThings API has also become an official ITU-T standard (ITU-T Y.4473), and an official INSPIRE download service good practice. The OGC SensorThings API has created tremendous business value.
+
+== Scope of Work
+The following activities are in scope of the working group.
+
+*1. Maintain existing parts of the OGC SensorThings API multipart standard*
+
+One important activity of the SWG is to incorporate the learned lessons, feature requests, and latest technology trends, and develop new versions of the standard. When the SWG would like to develop a new version of the standard, the OGC SWG Task approval process will be followed. The SWG will collect all outstanding Change Request Proposals (CRPs), evaluate each of the proposals, and make edits to the Standard based on CRPs and related decisions of the SWG membership. The SWG may also ask the membership for any additional change requests that have not been previous submitted. The final deliverable of this Scope of Work (SOW) will be a revision of the candidate standard for consideration by the membership for adoption.
+
+More specifically the SWG plan to develop the next version (v2.0). 
+
+The development of sensing v2.0 will consider the following:
+
+* *Lessons learned from developing v1.0 and v1.1:* Details can be accessed here: https://github.com/opengeospatial/sensorthings/issues
+* *Pub-sub first:* In sensing v1.1, the publish-subscribe pattern using MQTT is an extension, and the compliance classes are dependent with the RESTful request-response pattern. The SWG learned that many IoT use cases are in fact publish-subscribe first and request-response second. An re-organizataion of the compliance classes will be considered.
+* *The OGC Observations and Measurements (O&M) v3.0:* O&M has been updated to v3.0. As it is the underlying data mode of the SensorThings API, a new version of the sensing should be developed based on the latest version of O&M.
+* *Harmonization of SensorThings API and the OGC API:* The OGC SensorThings API Part 1 - Sensing was published in 2016, and that was three years before the publication date of the OGC API - Features - Part 1:Core [17-069r3]. The SWG has done prelimenary work demonstrating that SensorThings API can be compatible with the OGC API. When the SWG start developing the sensing v2.0, the OGC API pattern will be considered in the design.
+* *Considering OData v4.0.1, MQTT v5.0, Security, and JSON-LD*
+
+The tentative timeline is as follows:
+
+* first draft in Q1 2022
+* public review by Q3 2022
+* submission to TC for approval vote by Q4 2022
+
+*2. Develop new parts of the OGC SensorThings API multipart standard*
+
+Currently SensorThings API has two parts: 1. Part 1 - Sensing, and 2. Part 2 - Tasking Core. In the SWG roadmap, two additional parts are planned, namely 3. Part 3 - Rules Engine, and Part 4 - Tasking Extensions. When the SWG decide to start working on the new parts of the standad, the OGC SWG Task approval process will be followed.
+
+*3. Develop new and maintain existing discussion papers and best practices of the OGC SensorThings API multipart standard*
+
+Discussion papers and best practice standards are very useful in order to promote the standard and demonstrate the best practices of using the OGC SensorThings API in a more specific domain. The SWG will keep developing and maintaining OGC SensorThings API discussion papers and best practices standards.
+
+*4. Review draft Engineering Reports*
+
+The SWG also reviews the draft Engineering Reports from the OGC Innovation Program when the Engineering Reports are relevant to the OGC SensorThings API.
+
+=== Statement of relationship of planned work to the current OGC Standards baseline
+
+The planned work will rely upon the existing OGC Abstract Specification Topics. More specifically the following OGC standards will be taken account into the planned activities.
+
+* Topic 20 - OGC Abstract Specification Geographic information - Observations and measurements [OGC 20-082r2 and ISO 19156:2020]
+* OGC SensorML: Model and XML Encoding Standard	v2.0 [12-000r2]
+* OGC API - Features - Part 1: Core [OGC 17-069r3]
+* ongoing OGC API standards
+
+=== What is Out of Scope?
+
+The following activities are out of scope for the OGC SensorThings API SWG:
+
+* Develop new transport protocols;
+* Develop new wireless communication protocols.
+
+=== Specific Existing Work Used as Starting Point
+
+* OGC SensorThings API - Part 1 Sensing v1.1 [OGC 18-088]
+* OGC SensorThings API - Part 2 Tasking Core [OGC 17-079r1]
+* Topic 20 - OGC Abstract Specification Geographic information - Observations and measurements [OGC 20-082r2 and ISO 19156:2020]
+
+=== Is This a Persistent SWG
+
+[x] YES
+
+[ ] NO
+
+=== When can the SWG be Inactivated
+
+The SWG can be inactivated once the final multipart standard has been developed, and there are no more change requests.
+
+== Description of deliverables
+
+The SWG has the following deliverables:
+
+* The OGC SensorThings API Part 1 - Sensing version 2.0 (note: timeline can be found in the Scope of Work section.)
+* Best Practice of the OGC SensorThings API - Methane Emissions (draft ready - Q2 2021, submission to TC for approval vote - Q3 2021 )
+
+=== Initial Deliverables
+
+N/A
+
+=== Additional SWG Tasks
+
+* The OGC SensorThings API Part 1 - Sensing version 2.0 (note: timeline can be found in the Scope of Work section.)
+* Best Practice of the OGC SensorThings API - Methane Emissions (draft ready - Q2 2021, submission to TC for approval vote - Q3 2021 )
+
+== IPR Policy for this SWG
+
+[x] RAND-Royalty Free
+
+[ ] RAND for fee
+
+== Anticipated Audience / Participants
+
+The following list is some of the users of the OGC SensorThings API, and they are also the anticipated audience / participants of the SWG and its product:
+
+* Organizations and developers that use spatio-temporal observations from one or more systems;
+* Organizations that run mission-critical complex physical operations and have the need to establish an IoT-enabled Common Operating Picture. Examples include but not limited to:
+ ** public safety agencies 
+ ** smart cities & communities
+ ** industrial logistics
+ ** airports and ports
+ ** oil and gas
+ ** mining
+ ** agriculture
+ ** defence and intelligence agencies
+ ** insurance
+ ** construction
+ ** manufacturing
+* Internet of Things service providers and developers;
+* Internet of Things and sensing device manufacturers;
+* System integrators;
+* Telecommunication service providers;
+* Researchers that use spatio-temporal observations, apply AI/ML, and make predictions;
+
+== Domain Working Group Endorsement
+The OGC SensorThings API is part of the SWE standards. The SWE DWG endorsed the SensorThings API SWG since its inception.
+
+== Other informative information about the work of this SWG
+
+=== Collaboration
+
+The SWG is using GitHub (https://github.com/opengeospatial/sensorthings) as the collaboration environment. Discussions can be found here: https://github.com/opengeospatial/sensorthings/issues
+
+=== Similar or Applicable Standards Work (OGC and Elsewhere)
+
+The SWG is also working with ITU-T SG 20 Internet of things (IoT) and smart cities and communities (SC&C). For example, the OGC SensorThings API Part 1 - Sensing v1.0 is also an official ITU-T Recommendation (Y.4473).
+
+=== Details of first meeting
+
+N/A
+
+=== Projected on-going meeting schedule
+
+In addition to the quarterly TC meetings, the SWG also has bi-weekly telecons.
+
+=== Supporters of this Charter
+
+The following people support this proposal and are committed to the Charter and projected meeting schedule. These members are known as SWG Founding or Charter members. The charter members agree to the SoW and IPR terms as defined in this charter. The charter members have voting rights beginning the day the SWG is officially formed. Charter Members are shown on the public SWG page. Extend the table as necessary.
+
+|===
+|Name |Organization
+|Steve Liang |SensorUp/University of Calgary
+|Tania Khalafbeigi |SensorUp
+|Hylke van der Schaff |Fraunhofer iosb
+|Marcus Alzona |Keys
+|Kathi Schleidt |Datacove
+|Simon Jirka |52North
+|===
+
+=== Conveners
+
+* Steve Liang, SensorUp
+* Hylke van der Schaff, Fraunhofer iosb
+
+
