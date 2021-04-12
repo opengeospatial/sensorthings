@@ -122,7 +122,7 @@ The SWG also reviews the draft Engineering Reports from the OGC Innovation Progr
 
 === Statement of relationship of planned work to the current OGC Standards baseline
 
-The planned work will rely upon the existing OGC Abstract Specification Topics. More specifically the following OGC standards will be taken account into the planned activities.
+The planned work will rely upon the existing OGC Abstract Specification Topics. More specifically the following OGC standards will be taken into account in the planned activities.
 
 * Topic 20 - OGC Abstract Specification Geographic information - Observations and measurements [OGC 20-082r2 and ISO 19156:2020]
 * OGC SensorML: Model and XML Encoding Standard	v2.0 [12-000r2]
@@ -226,7 +226,7 @@ The following people support this proposal and are committed to the Charter and 
 |Name |Organization
 |Steve Liang |SensorUp/University of Calgary
 |Tania Khalafbeigi |SensorUp
-|Hylke van der Schaff |Fraunhofer iosb
+|Hylke van der Schaaf |Fraunhofer IOSB
 |Marcus Alzona |Keys
 |Kathi Schleidt |Datacove
 |Simon Jirka |52North
