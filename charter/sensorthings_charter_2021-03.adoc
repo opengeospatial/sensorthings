@@ -235,6 +235,6 @@ The following people support this proposal and are committed to the Charter and 
 === Conveners
 
 * Steve Liang, SensorUp
-* Hylke van der Schaff, Fraunhofer iosb
+* Hylke van der Schaaf, Fraunhofer IOSB
 
 
