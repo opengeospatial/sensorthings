@@ -1,19 +1,14 @@
 [[mqtt-extension]]
 == SensorThings Sensing MQTT Extension
 
-In addition to support HTTP protocol, a SensorThings service MAY support MQTT protocol to enhance the SensorThings service publish and subscribe capabilities.
-This section describes the SensorThings MQTT extension.
-To help a client find the MQTT endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the landing page described in <<usage-no-resource-path>>.
-If the service supports the MQTT extension, then the `+serverSettings+` object SHALL contain properties of type Object, with the names
+In addition to support HTTP protocol, a SensorThings service MAY support MQTT protocol to enhance the SensorThings service publish and subscribe capabilities. This section describes the SensorThings MQTT extension. To help a client find the MQTT endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the landing page described in <<usage-no-resource-path>>. If the service supports the MQTT extension, then the `+serverSettings+` object SHALL contain properties of type Object, with the names
 
 ----
 http://www.opengis.net/spec/iot_sensing/1.0/req/receive-updates-via-mqtt/receive-updates
 http://www.opengis.net/spec/iot_sensing/1.0/req/create-observations-via-mqtt/observations-creation
 ----
 
-These Objects SHALL contain a property named `+endpoints+` of type Array.
-The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the MQTT service, as seen in example 10 in <<usage-no-resource-path>>.
-If the service supports both update-notification and observation-creation over MQTT, it may use different endpoints for the two services.
+These Objects SHALL contain a property named `+endpoints+` of type Array. The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the MQTT service, as seen in example 10 in <<usage-no-resource-path>>. If the service supports both update-notification and observation-creation over MQTT, it may use different endpoints for the two services.
 
 [[create-mqtt-publish]]
 === Create a SensorThings Observation with MQTT Publish
@@ -181,4 +176,3 @@ The example shows a sample response of the following MQTT topic subscription: v1
   "phenonmenonTime": "2015-02-05T17:00:00Z"
 }
 ----
-

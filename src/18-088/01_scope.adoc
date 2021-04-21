@@ -1,4 +1,4 @@
 [[scope]]
 == Scope
 
-The OGC SensorThings API provides an open standard-based and geospatial-enabled framework to interconnect the internet of things devices, data, and applications over the web.
+The OGC SensorThings API provides an open Standard-based and geospatial-enabled framework to interconnect the Internet of Things devices, data, and applications over the web.

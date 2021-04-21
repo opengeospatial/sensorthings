@@ -6,7 +6,7 @@ All questions regarding this submission should be directed to the editors or the
 
 [%autowidth,cols="3*"]
 |===
-|name |representing |ogc member
+|Name |Representing |OGC Member
 
 |Steve Liang
 |University of Calgary, Canada / SensorUp Inc.

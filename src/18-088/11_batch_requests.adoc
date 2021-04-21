@@ -32,8 +32,7 @@ Req <<req-batch-request-batch-request>>: <<requirement-batch-request-batch-reque
 [[introduction]]
 === Introduction
 
-The SensorThings service interface provides interfaces for users to perform CRUD actions on resources through different HTTP methods. However, as many IoT devices are resource-constrained, handling a large number of communications may not be practical. This section describes how a SensorThings service can support executing multiple operations sent in a single HTTP request through the use of batch processing. This section covers both how batch operations are represented and processed. SensorThings batch request extension is adapted from [OData 4.0 Protocol 11.7]
-and all subsections. The only difference is that the OData-Version header SHOULD be omitted in SensorThings. Readers are encouraged to read the OData specification section 11.7 before reading the examples below.
+The SensorThings service interface provides interfaces for users to perform CRUD actions on resources through different HTTP methods. However, as many IoT devices are resource-constrained, handling a large number of communications may not be practical. This section describes how a SensorThings service can support executing multiple operations sent in a single HTTP request through the use of batch processing. This section covers both how batch operations are represented and processed. SensorThings batch request extension is adapted from [OData 4.0 Protocol 11.7] and all subsections. The only difference is that the OData-Version header SHOULD be omitted in SensorThings. Readers are encouraged to read the OData specification section 11.7 before reading the examples below.
 
 
 [[batch-processing]]
@@ -70,7 +69,7 @@ Note: The batch request boundary must be quoted if it contains any of the follow
 [[batch-request-example]]
 ==== Batch request body example
 
-The following example shows a Batch Request that contains the following operations in the order listed
+The following example shows a Batch Request that contains the following operations in the order listed:
 
 * A query request
 * Change Set that contains the following requests:
@@ -82,7 +81,7 @@ Note: For brevity, in the example, request bodies are excluded in favor of Engli
 
 Note also that the two empty lines after the Host header of the GET request are necessary: the first is part of the GET request header; the second is the empty body of the GET request, followed by a CRLF according to [RFC2046].
 
- [Adapted from OData 4.0 Protocol 11.7.2]
+[Adapted from OData 4.0 Protocol 11.7.2]
 
 **Example {examples}-2:** a Batch Request body example
 
@@ -145,10 +144,7 @@ Host: host
 [[referencing-new-entities-in-change-set]]
 ==== Referencing new entities in a change set example
 
-Create and update actions inside a change set can reference entities previously created inside the same change set.
-To make a created entity referenceable, the POST that creates the entity must have a Content-ID header, the content of which can be any string.
-Subsequent requests in the same change set can now use the value of this header, prefixed with a `+$+`, in places where the ID of the created entity is required.
-To ensure valid JSON, the resulting value will have to be encoded as a string.
+Create and update actions inside a change set can reference entities previously created inside the same change set. To make a created entity referenceable, the POST that creates the entity must have a Content-ID header, the content of which can be any string. Subsequent requests in the same change set can now use the value of this header, prefixed with a `+$+`, in places where the ID of the created entity is required. To ensure valid JSON, the resulting value will have to be encoded as a string.
 
 
 **Example {examples}-3:** A Batch Request that contains the following operations in the order listed:
@@ -329,4 +325,3 @@ Content-Length: ###
 <Error message>
 --b_243234_25424_ef_892u748—
 ----
-
