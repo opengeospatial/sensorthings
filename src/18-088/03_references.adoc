@@ -3,8 +3,8 @@
 
 The following normative documents contain provisions that, through reference in this text, constitute provisions of this document. For dated references, subsequent amendments to, or revisions of, any of these publications do not apply. For undated references, the latest edition of the normative document referred to applies.
 
-* ISO 8601:2004 Data elements and interchange formats – Information interchange - Representation of dates and times.
-* OGC 10-004r3 and ISO 19156:2011(E), OGC Abstract Specification Topic 20: Geographic information — Observations and Measurements
+* ISO 8601:2004 Data elements and interchange formats – Information interchange - Representation of dates and times, 2004
+* OGC 10-004r3 and ISO 19156:2011(E), OGC Abstract Specification Topic 20: Geographic information — Observations and Measurements, 2011
 * OASIS OData Version 4.0 Part 1: Protocol Plus Errata 02
 * OASIS OData Version 4.0 Part 2: URL Conventions Plus Errata 02
 * OASIS OData JSON Format Version 4.0 Plus Errata 02

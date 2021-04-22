@@ -3,7 +3,7 @@
 
 API:: Application Programming Interface
 CS-W:: Catalog Service Web
-CRUD::Create, Read, Update, and Delete
+CRUD:: Create, Read, Update, and Delete
 GML:: Geography Markup Language
 HTML:: HyperText Markup Language
 HTTP:: Hypertext Transfer Protocol

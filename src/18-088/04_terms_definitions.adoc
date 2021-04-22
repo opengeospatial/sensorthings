@@ -3,13 +3,11 @@
 
 This document uses the terms defined in Sub-clause 5.3 of [OGC 06-121r8], which is based on the ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards. In particular, the word “shall” (not “must”) is the verb form used to indicate a requirement to be strictly followed to conform to this standard.
 
-
 For the purposes of this document, the following additional terms and definitions apply.
 
 === Collection
 
 Sets of Resources, which can be retrieved in whole or in part. [http://tools.ietf.org/html/rfc5023#section-1[RFC5023]]
-
 
 === Entity
 
@@ -17,11 +15,9 @@ Entities are instances of entity types. [OASIS OData Version 4.0 Part 1: Protoco
 
 __Note: Thing, Sensor, Datastream, Observation are some example entity types of the OGC SensorThings API.__
 
-
 === Entity sets
 
-Entity sets are named collections of entities (e.g. Sensors is an entity set containing Sensor entities). An entity’s key uniquely identifies the entity within an entity set. Entity sets provide entry points into an OGC SensorThings API service. [OASIS OData Version 4.0 Part 1: Protocol Plus Errata 02]
-
+Entity sets are named collections of entities (e.g., Sensors is an entity set containing Sensor entities). An entity’s key uniquely identifies the entity within an entity set. Entity sets provide entry points into an OGC SensorThings API service. [OASIS OData Version 4.0 Part 1: Protocol Plus Errata 02]
 
 === (Internet of) Thing
 
@@ -30,17 +26,17 @@ A thing is an object of the physical world (physical things) or the information 
 
 === Measurement
 
-A set of operations having the object of determining the value of a quantity [OGC 10-004r3 / ISO 19156:2011]
+A set of operations having the object of determining the value of a quantity. [OGC 10-004r3 / ISO 19156:2011]
 
 
 === Observation
 
-Act of measuring or otherwise determining the value of a property [OGC 10-004r3 /  ISO 19156:2011]
+Act of measuring or otherwise determining the value of a property. [OGC 10-004r3 /  ISO 19156:2011]
 
 
 === Observation Result
 
-Estimate of the value of a property determined through a known observation procedure [OGC 10-004r3 / ISO 19156:2011]
+Estimate of the value of a property determined through a known observation procedure. [OGC 10-004r3 / ISO 19156:2011]
 
 
 === Resource

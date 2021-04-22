@@ -2,7 +2,7 @@
 [[submittingorganizations]]
 == Submitting organizations
 
-The following organizations submitted this document to the open geospatial consortium (ogc):
+The following organizations submitted this document to the Open Geospatial Consortium (OGC):
 
 [none]
 * University of Calgary, Canada
@@ -11,4 +11,3 @@ The following organizations submitted this document to the open geospatial conso
 * Keys, USA
 * DataCove e.U., Austria
 * Fraunhofer-Gesellschaft, Germany
-

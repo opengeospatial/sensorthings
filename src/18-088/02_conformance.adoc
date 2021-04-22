@@ -1,15 +1,15 @@
 [[conformance]]
 == Conformance
 
-Conformance with this standard shall be checked using all the relevant tests specified in annex a (normative)
+Conformance with this Standard shall be checked using all the relevant tests specified in annex a (normative)
 of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved
-to claim conformance are specified in the ogc compliance testing policies and procedures and the ogc
-compliance testing web site<<footnote1>>.
+to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC
+Compliance Testing web site<<footnote1>>.
 
 All requirements-classes and conformance-classes described in this document are owned by the standard(s) identified.
 
 
-The following table list the requirements classes defined by this standard.
+The following table list the requirements classes defined by this Standard.
 
 
 NOTE: The text in the __Requirements class id__ and __Requirements__ columns in the following table is the path fragment that, when appended to the URI: \http://www.opengis.net/spec/iot_sensing/1.1/, provides the URI that can be used to unambiguously identify the requirement and the conformance class.

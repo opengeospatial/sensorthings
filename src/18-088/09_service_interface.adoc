@@ -77,12 +77,9 @@ The value of the property named `+serverSettings+` SHALL be a JSON Object descri
 Each element of the `+value+` array SHALL be a JSON object with at least two name/value pairs, one with name name containing the name of the entity set (e.g., Things, Locations, Datastreams, Observations, ObservedProperties and Sensors) and one with name url containing the URL of the entity set, which may be an absolute or a relative URL. +
  [Adapted from OData 4.0-JSON-Format section 5]
 
-The `+serverSettings+` object SHALL contain the property `+conformance+` of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements.
-If a service implements all requirements from a requirements class, it only needs to list the requirements class id.
+The `+serverSettings+` object SHALL contain the property `+conformance+` of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements. If a service implements all requirements from a requirements class, it only needs to list the requirements class id.
 
-Security extensions can modify the list of requirements to only show those requirements that the user is allowed to use.
-For example, if a user is not allowed to delete entities, the security extension can hide the <<requirement-create-update-delete-delete-entity>> requirement.
-In the most extreme case, a security extension would hide all requirements for a user that is not authenticated, except its own requirement and the instructions on how to authenticate.
+Security extensions can modify the list of requirements to only show those requirements that the user is allowed to use. For example, if a user is not allowed to delete entities, the security extension can hide the <<requirement-create-update-delete-delete-entity>> requirement. In the most extreme case, a security extension would hide all requirements for a user that is not authenticated, except its own requirement and the instructions on how to authenticate.
 
 Extensions that need to expose additional server settings may do so in a property of the `+serverSettings+` object that is named after the conformance class URI of the requirement that defines this setting.
 
@@ -1091,4 +1088,3 @@ returns a subset of the Thing entities of requested collection of Things. The ne
   "@iot.nextLink": "http://examples.org/v1.1/Things?$top=100&$skip=100"
 }
 ----
-

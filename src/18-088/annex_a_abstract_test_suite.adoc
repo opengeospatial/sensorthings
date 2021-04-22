@@ -549,8 +549,6 @@ Create a Location for a Thing entity, check if the Thing has a HistoricalLocatio
 |===
 
 
-
-
 [cols="25a,75a"]
 |===
 2+|A.3.1.2 Test: Sensing Entity Update
@@ -598,8 +596,6 @@ For each SensorThings entity type send an update request with PATCH that contain
 === SensorThings API Batch Request Extension Tests
 
 This section contains the conformance classes for the SensorThings API batch request extension. That means a SensorThings API service that allows clients to send a single HTTP request that groups multiple requests needs to pass the conformance tests defined in this section.
-
-
 
 
 [cols="25a,75a"]
@@ -863,5 +859,3 @@ Subscribe to multiple properties of an entity set with MQTT Subscribe. Then crea
 Subscribe to multiple properties of an entity set with MQTT Subscribe. Then update an existing entity of the entity set with PATCH. Check if a JSON object of the subscribed properties is received.
 
 |===
-
-

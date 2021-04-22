@@ -6,13 +6,13 @@
 === Who should use the OGC SensorThings API
 
 
-Organizations that need web-based platforms to manage, store, share, analyze IoT-based sensor observation data should use the OGC SensorThings API. The OGC SensorThings API simplifies and accelerates the development of IoT applications. Application developers can use this open standard to connect to various IoT devices and create innovative applications without worrying the daunting heterogeneous protocols of the different IoT devices, gateways and services. IoT device manufacturers can also use OGC SensorThings API as the API can be embedded within various IoT hardware and software platforms, so that the various IoT devices can effortlessly connect with the OGC standard-compliant servers around the world. In summary, the OGC SensorThings API is transforming the numerous disjointed IoT systems into a fully connected platform where complex tasks can be synchronized and performed.
+Organizations that need web-based platforms to manage, store, share, and analyze IoT-based sensor observation data should use the OGC SensorThings API. The OGC SensorThings API simplifies and accelerates the development of IoT applications. Application developers can use this open Standard to connect to various IoT devices and create innovative applications without worrying the daunting heterogeneous protocols of the different IoT devices, gateways and services. IoT device manufacturers can also use OGC SensorThings API as the API can be embedded within various IoT hardware and software platforms, so that the various IoT devices can effortlessly connect with the OGC Standard-compliant servers around the world. In summary, the OGC SensorThings API is transforming the numerous disjointed IoT systems into a fully connected platform where complex tasks can be synchronized and performed.
 
 
 [[benefits]]
 === Benefits of the OGC SensorThings API
 
-In today’s world, most IoT devices (e.g., sensors and actuators) have proprietary software interfaces defined by their manufacturers and used selectively. New APIs are often required and developed on an as-needed basis, often in an environment with resource limitations and associated risks. This situation requires significant investment on the part of developers for each new sensor or project involving multiple systems and on the part of the providers of sensors, gateways and portals or services where observations and measurements are required.
+In today’s world, most IoT devices (e.g., sensors and actuators) have proprietary software interfaces defined by their manufacturers and used selectively. New APIs are often required and developed on an as-needed basis, often in an environment with resource limitations and associated risks. This situation requires significant investment on the part of developers for each new sensor or project involving multiple systems and on the part of the providers of sensors, gateways, and portals or services where observations and measurements are required.
 
 As a standardized data model and interface for sensors in the WoT and IoT<<footnote2>>, the OGC SensorThings API offers the following benefits: (1) it permits the proliferation of new high value services with lower overhead of development and wider reach, (2) it lowers the risks, time and cost across a full IoT product cycle, and (3) it simplifies the connections between devices-to-devices and devices-to-applications.
 
@@ -22,7 +22,7 @@ As a standardized data model and interface for sensors in the WoT and IoT<<footn
 
 The OGC SensorThings API data model consists of two parts: (1) the Sensing part and (2) the Tasking part. The Sensing part allows IoT devices and applications to CREATE, READ, UPDATE, and DELETE (__i.e.__, HTTP POST, GET, PATCH, and DELETE) IoT data and metadata in a SensorThings service.
 
-The Sensing part is designed based on the ISO/OGC Observation and Measurement (O&M) model [OGC 10-004r3 and ISO 19156:2011]. The key to the model is that an Observation is modeled as an act that produces a result whose value is an estimate of a property of the observation target or FeatureOfInterest. An Observation instance is classified by its event time (e.g., resultTime and phenonmenonTime), FeatureOfInterest, ObservedProperty, and the procedure used (often a Sensor). Moreover, Things are also modeled in the SensorThings API, and its definition follows the ITU-T definition: “__an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks__” [ITU-T Y.2060].
+The Sensing part is designed based on the OGC/ISO Observation and Measurement (O&M) model [OGC 10-004r3 and ISO 19156:2011]. The key to the model is that an Observation is modeled as an act that produces a result whose value is an estimate of a property of the observation target or FeatureOfInterest. An Observation instance is classified by its event time (e.g., resultTime and phenonmenonTime), FeatureOfInterest, ObservedProperty, and the procedure used (often a Sensor). Moreover, Things are also modeled in the SensorThings API, and its definition follows the ITU-T definition: “__an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks__” [ITU-T Y.2060].
 
 The geographical Locations of Things are useful in almost every application and as a result are included as well. For the Things whose location changed, the HistoricalLocations entities offer the history of the Thing’s locations. A Thing also can have multiple Datastreams. A Datastream is a collection of Observations grouped by the same ObservedProperty and Sensor. An Observation is an event performed by a Sensor that produces a result whose value is an estimate of an ObservedProperty of the FeatureOfInterest. Details of each above described entity are provided in <<sensing-entities1>>.
 
@@ -30,7 +30,7 @@ The geographical Locations of Things are useful in almost every application and 
 [[observations-measurements]]
 === SensorThings API and ISO/OGC Observations and Measurements
 
-Managing and retrieving observations and metadata from IoT sensor systems is one of the most common use cases. As a result, SensorThings API’s sensing part is designed based on the ISO/OGC Observation and Measurement (O&M) model [OGC 10-004r3 and ISO 19156:2011]. O&M defines models for the exchange of information describing observation acts, their results as well as the feature involved in sampling when making observations.
+Managing and retrieving observations and metadata from IoT sensor systems is one of the most common use cases. As a result, SensorThings API’s sensing part is designed based on the O&M model. O&M defines models for the exchange of information describing observation acts, their results as well as the feature involved in sampling when making observations.
 
 
 SensorThings API defines eight entities for the IoT sensing applications. <<sensingentities,base>> lists each component and its relationship with O&M. Low-cost and simple sensors are key enablers for the vision of IoT. As a result, SensorThings API uses the term of Sensor to describe the procedure that is used in making an Observation, instead of using O&M’s term of procedure.
@@ -79,7 +79,7 @@ Please note that SensorThings API’s Key-Value Pair (KVP) encoding is different
 === SensorThings API and Security
 
 
-As things in the Internet of Things are connected to the network. Such ubiquitous network connectivity results in significant security threats. In the IoT reference model defined by ITU-T [ITU-T Y.2060] IoT security capabilities are not an independent layer but must be associated with all layers. The following figure show the ITU-T IoT reference model. The reference model has four layers, namely (1) Applications Layer, (2) Service Support and Application Support Layer, (3) Network Layer, and (4) Device Layer. And security capabilities are a cross-layer component that is associated with the four layers.
+Things in the Internet of Things are connected to the network. Such ubiquitous network connectivity results in significant security threats. In the IoT reference model defined by ITU-T [ITU-T Y.2060] IoT security capabilities are not an independent layer but must be associated with all layers. The following figure shows the ITU-T IoT reference model. The reference model has four layers, namely (1) Applications Layer, (2) Service Support and Application Support Layer, (3) Network Layer, and (4) Device Layer. And security capabilities are a cross-layer component that is associated with the four layers.
 
 
 Based on the IoT reference model, SensorThings API falls into the scope of the Service Support and Application Support Layer and the security issues should be addressed by the cross-cutting security capabilities. As a result, SensorThings API does not define specific security capabilities. Instead SensorThings API is designed to leverage the existing and future IoT security capabilities.
@@ -91,4 +91,3 @@ image::IotRefModel.png[IoT Reference Model (adapted from [ITU-T Y.2060])]
 
 
 A service instance that implements security related extensions can notify clients of this by way of the `+serverSettings+` section of the document returned at the service root URI, as described in section <<usage-no-resource-path>>. Security related extensions can also use this section to announce any security requirements to the clients.
-
