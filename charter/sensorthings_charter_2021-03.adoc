@@ -128,6 +128,7 @@ The planned work will rely upon the existing OGC Abstract Specification Topics. 
 * OGC SensorML: Model and XML Encoding Standard	v2.0 [12-000r2]
 * OGC API - Features - Part 1: Core [OGC 17-069r3]
 * ongoing OGC API standards
+* W3C/OGC SSN vocabulary (https://www.w3.org/TR/vocab-ssn/)
 
 === What is Out of Scope?
 
