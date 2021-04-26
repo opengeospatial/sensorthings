@@ -182,6 +182,7 @@ The following list is some of the users of the OGC SensorThings API, and they ar
 * Organizations that run mission-critical complex physical operations and have the need to establish an IoT-enabled Common Operating Picture. Examples include but not limited to:
  ** public safety agencies 
  ** smart cities & communities
+ ** Organizations serving data about the state of the environment
  ** industrial logistics
  ** airports and ports
  ** oil and gas
@@ -230,6 +231,7 @@ The following people support this proposal and are committed to the Charter and 
 |Marcus Alzona |Keys
 |Kathi Schleidt |Datacove
 |Simon Jirka |52North
+|Sylvain Grellet |BRGM
 |===
 
 === Conveners
