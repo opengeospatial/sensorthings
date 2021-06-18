@@ -100,7 +100,7 @@ The development of sensing v2.0 will consider the following:
 * *Pub-sub first:* In sensing v1.1, the publish-subscribe pattern using MQTT is an extension, and the compliance classes are dependent with the RESTful request-response pattern. The SWG learned that many IoT use cases are in fact publish-subscribe first and request-response second. An re-organizataion of the compliance classes will be considered.
 * *The OGC Observations and Measurements (O&M) v3.0:* O&M has been updated to v3.0. As it is the underlying data mode of the SensorThings API, a new version of the sensing should be developed based on the latest version of O&M.
 * *Harmonization of SensorThings API and the OGC API:* The OGC SensorThings API Part 1 - Sensing was published in 2016, and that was three years before the publication date of the OGC API - Features - Part 1:Core [17-069r3]. The SWG has done prelimenary work demonstrating that SensorThings API can be compatible with the OGC API. When the SWG start developing the sensing v2.0, the OGC API pattern will be considered in the design.
-* *Considering OData v4.0.1, MQTT v5.0, Security, and JSON-LD*
+* *OData v4.0.1, MQTT v5.0, Security, and JSON-LD*
 
 The tentative timeline is as follows:
 
@@ -128,6 +128,7 @@ The planned work will rely upon the existing OGC Abstract Specification Topics. 
 * OGC SensorML: Model and XML Encoding Standard	v2.0 [12-000r2]
 * OGC API - Features - Part 1: Core [OGC 17-069r3]
 * ongoing OGC API standards
+* W3C/OGC SSN vocabulary (https://www.w3.org/TR/vocab-ssn/)
 
 === What is Out of Scope?
 
@@ -182,6 +183,7 @@ The following list is some of the users of the OGC SensorThings API, and they ar
 * Organizations that run mission-critical complex physical operations and have the need to establish an IoT-enabled Common Operating Picture. Examples include but not limited to:
  ** public safety agencies 
  ** smart cities & communities
+ ** Organizations serving data about the state of the environment
  ** industrial logistics
  ** airports and ports
  ** oil and gas
@@ -230,6 +232,7 @@ The following people support this proposal and are committed to the Charter and 
 |Marcus Alzona |Keys
 |Kathi Schleidt |Datacove
 |Simon Jirka |52North
+|Sylvain Grellet |BRGM
 |===
 
 === Conveners
