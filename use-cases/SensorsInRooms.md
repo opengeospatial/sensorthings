@@ -1,12 +1,17 @@
 # Use Case title
 
-**Contributed by:** @Name - Organisation
+**Contributed by:** hylkevds - Fraunhofer IOSB
 
 ## Typical user scenario:
 
 Building management: Battery driven sensors measure temperature in the room they are in, and the charge level of the internal battery
 
-Imagine an old office building, and the residents have started complaining that it is too hot in summer and too cold in winter. To get some hard data on room climate, management decides to install some battery-powered sensors that communicate over LoRa to measure temperature and humidity in certain rooms. Since the budget is limited, not all rooms can be permanently equipped with sensors, and thus the sensors will occasionally be moved to a different room. Since the sensors are battery powered, the battery level is also tracked. The three main questions that arise in this use case are: “What was the temperature in Room 123 during a given period”, “What is the battery level of sensor XYZ” and “In which room is sensor XYZ?”.
+Imagine an old office building, and the residents have started complaining that it is too hot in summer and too cold in winter. To get some hard data on room climate, management decides to install some battery-powered sensors that communicate over LoRa to measure temperature and humidity in certain rooms. Since the budget is limited, not all rooms can be permanently equipped with sensors, and thus the sensors will occasionally be moved to a different room. Since the sensors are battery powered, the battery level is also tracked.
+
+The three main questions that arise in this use case are:
+* What was the temperature in Room 123 during a given period
+* What is the battery level of sensor XYZ
+* In which room is sensor XYZ?
 
 The first question ist easiest answered when each room is a Thing, with a Datastream for the Temperature in this room. This Datasteam is linked to the sensor that has made the measurements. If the sensor is moved to a new room, a new Datastream is made, for the measurements in that room. Each room has a Location entity that can use the same name as the Thing entity of the room.
 

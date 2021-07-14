@@ -1,6 +1,6 @@
 # Use Case title
 
-**Contributed by:** @hylkevds - Fraunhofer IOSB
+**Contributed by:** hylkevds - Fraunhofer IOSB
 
 ## Typical user scenario:
 
@@ -9,6 +9,25 @@ The water quality in a water body is monitored. Water samples are taken regularl
 - Some pollutants are measured directly in the water.
 - Some pollutants are measured in the sediments after centrifugation/filtration
 - Some pollutants are measured in certain organs of certain fish-spiecies living in the water body.
+
+The tricky thing is how to model ObservedProperty, Thing and FeatureOfInterest.
+
+Ways to model:
+* A long list of complex ObservedProperties
+  * Lead in Liver of Cod
+  * Lead in Kidney of Cod
+  * Lead in Liver of Salmon (same Salmon, where to put that?)
+  * Lead in Kidney of Salmon (same Salmon, where to put that?)
+  Leads to many OPs
+* ObservableProperty (A model behind ObservedProperty)
+  * Same number of ObservedProperties
+  * Better filtering options for clients that understand the model
+* Samples in O&M V3
+  * Sample 1: Cod-42
+    * Sub-Sample: Liver
+      * Observation ObservedProperty: Lead
+    * Sub-Sample: Kidney
+      * Observation ObservedProperty: Lead
 
 
 
