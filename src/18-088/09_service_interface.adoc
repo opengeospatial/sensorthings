@@ -390,10 +390,19 @@ returns the FeatureOfInterest entity of the specified Observation in the Datastr
 |\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-skip>>
 
 |Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-pagination>>
+
+|Requirement
 |\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-count>>
 
 |Requirement
 |\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-filter>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-built-in-filter-operations>>
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-request-data-built-in-query-functions>>
 
 |Dependency
 |\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398292

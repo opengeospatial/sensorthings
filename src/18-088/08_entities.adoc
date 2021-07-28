@@ -386,6 +386,9 @@ A thing can be geo-referenced in different spaces. For example, for some applica
 |Requirement
 |\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-historical-location-auto-creation>>
 
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-historical-location-manual-creation>>
+
 |Dependency
 |\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-entity-control-information-common-control-information>>
 |===
