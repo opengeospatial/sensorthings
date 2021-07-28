@@ -6,37 +6,37 @@ This chapter describes the SensorThings API data model. All data model requireme
 |===
 2+|Requirements Class
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.0/req/datamodel
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel
 
 |Target Type
 |Web Service
 
 |Requirements class
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/datamodel/entity-control-information
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel/entity-control-information
 
 |Requirements class
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/datamodel/thing
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel/thing
 
 |Requirements class
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/datamodel/location
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel/location
 
 |Requirements class
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/datamodel/historical-location
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel/historical-location
 
 |Requirements class
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/datamodel/datastream
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel/datastream
 
 |Requirements class
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/datamodel/sensor
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel/sensor
 
 |Requirements class
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/datamodel/observed-property
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel/observed-property
 
 |Requirements class
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/datamodel/observation
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel/observation
 
 |Requirements class
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/datamodel/feature-of-interest
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel/feature-of-interest
 |===
 
 
@@ -437,7 +437,7 @@ The HistoricalLocation can also be created, updated and deleted. One use case is
 Req <<req-create-update-delete-historical-location-manual-creation>>: <<requirement-create-update-delete-historical-location-manual-creation>>
 
 |When a user directly adds new HistoricalLocation, and the time of this new HistoricalLocation is later than the latest HistoricalLocation for the Thing, then the Locations of the Thing are changed to the Locations of this new HistoricalLocation.
-|\http://www.opengis.net/spec/iot_sensing/1.0/req/<<requirement-create-update-delete-historical-location-manual-creation>>
+|\http://www.opengis.net/spec/iot_sensing/1.1/req/<<requirement-create-update-delete-historical-location-manual-creation>>
 |===
 
 
