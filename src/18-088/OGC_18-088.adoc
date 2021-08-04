@@ -38,10 +38,10 @@ endif::[]
 |[big]*Open Geospatial Consortium*
 |Submission Date:       2020-04-01
 |Approval Date:         2020-11-26
-|Publication Date:      <yyyy-mm-dd>
+|Publication Date:      2021-08-04
 |External identifier of this OGC(R) document:	http://www.opengis.net/doc/is/sensorthings/1.1
-|URL for this OGC(R) document:
-|Additional Formats (informative):
+|URL for this OGC(R) document: https://docs.ogc.org/is/18-088/18-088.html
+|Additional Formats (informative): image:https://portal.ogc.org/images//fileicons/pdf.gif[link=https://docs.ogc.org/is/18-088/18-088.pdf]
 |Please refer to the http://docs.opengeospatial.org/is/18-088/errata.html[errata] for this document, +
 which may include some normative corrections.
 |Internal reference number of this OGC(R) document:  18-088
