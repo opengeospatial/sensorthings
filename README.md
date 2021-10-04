@@ -11,6 +11,7 @@ The OGC SensorThings API is an OGC standard specification for providing an open 
 The standard is on [OGC SensorThings API page](https://www.ogc.org/standards/sensorthings):
 
 * [SensorThings API Part 1: Sensing 1.0](http://docs.opengeospatial.org/is/15-078r6/15-078r6.html) ([PDF version](https://portal.opengeospatial.org/files/15-078r6))
+* [SensorThings API Part 1: Sensing 1.1](https://docs.ogc.org/is/18-088/18-088.html) ([PDF version](https://docs.ogc.org/is/18-088/18-088.pdf))
 * [SensorThings API Part 2: Tasking Core 1.0](http://docs.opengeospatial.org/is/17-079r1/17-079r1.html) ([PDF version](https://portal.opengeospatial.org/files/17-079r1))
 
 Implementating and certified servers are also listed on OGC website:
@@ -19,7 +20,9 @@ Implementating and certified servers are also listed on OGC website:
     * [OGC SensorThings API Sensing Core 1.0](https://www.ogc.org/resource/products/byspec/?specid=773)
     * [OGC SensorThings API Filtering Extension 1.0](https://www.ogc.org/resource/products/byspec/?specid=774)
     * [OGC SensorThings API Create-Update-Delete 1.0](https://www.ogc.org/resource/products/byspec/?specid=775)
+* [OGC SensorThings API Part 1: Sensing 1.1](https://www.ogc.org/resource/products/byspec/?specid=1183)
 * [OGC SensorThings API Part 2: Tasking Core 1.0](https://www.ogc.org/resource/products/byspec/?specid=971)
+
 
 Some client implementations exist:
 * [FROST-Client](https://github.com/FraunhoferIOSB/FROST-Client) is a Java client library for communicating with a SensorThings API compatible server.
