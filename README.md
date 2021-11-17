@@ -29,7 +29,8 @@ Some client implementations exist:
 * [Geodan SensorThings .NET SDK](https://github.com/gost/sensorthings-net-sdk)  makes it easy to add OGC SensorThings support to your .NET application.
 
 ## How to Cite OGC SensorThings API
-Liang, Steve H.L., Chih-Yuan Huang, and Tania Khalafbeigi. "OGC SensorThings API Part I:Sensing" OGC® Implementation Standard (2016)
+* Version 1.0: Liang, Steve H.L., Chih-Yuan Huang, and Tania Khalafbeigi. "OGC SensorThings API Part I:Sensing" OGC® Implementation Standard (2016)
+* Version 1.1: Liang, Steve H.L., Tania Khalafbeigi and Hylke van der Schaaf. "OGC SensorThings API Part 1: Sensing Version 1.1" OGC® Implementation Standard (2021)
 
 ## About
 * Editor: Dr. [Steve Liang](http://www.sensorup.com)
