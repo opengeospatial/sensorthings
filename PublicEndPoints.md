@@ -37,4 +37,5 @@ If you maintain a SensorThings service and would like to add it to the list, let
 | France | BRGM | Surface water quality | [info](https://www.sandre.eaufrance.fr/) | https://sensorthings-wq.brgm-rec.fr/FROST-Server/v1.0 |
 | France | BRGM | Surface water quantity | [info](https://www.sandre.eaufrance.fr/) | https://sta4hydrometry.brgm-rec.fr/FROST-Server/v1.1/ |
 | France | BRGM | Ground water quantity | [info](https://www.sandre.eaufrance.fr/) | https://sensorthings.brgm-rec.fr/SensorThingsGroundWater/v1.1/ |
+| USA | USGS | Surface, Atmospheric, and Groundwater data | [info](https://waterdata.usgs.gov/blog/api_catalog/) | https://labs.waterdata.usgs.gov/sta/v1.1/ |
 
