@@ -12,6 +12,12 @@ If you maintain a SensorThings service and would like to add it to the list, let
 | SensorUp | CRUD | 1.0 | http://scratchpad.sensorup.com/OGCSensorThings/v1.0 |
 
 
+## Air
+| County | Owner | Domain | Info | Endpoint URL |
+| --- | --- | --- | --- | --- |
+|Europe | Fraunhofer IOSB | Air Quality | [info](https://datacoveeu.github.io/API4INSPIRE/datanests/ad-hoc.html) | https://airquality-frost.k8s.ilt-dmz.iosb.fraunhofer.de/v1.1/ |
+
+
 ## Smart Cities
 | County | Owner | Domain | Info | Endpoint URL |
 | --- | --- | --- | --- | --- |
