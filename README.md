@@ -28,6 +28,9 @@ Some client implementations exist:
 * [FROST-Client](https://github.com/FraunhoferIOSB/FROST-Client) is a Java client library for communicating with a SensorThings API compatible server.
 * [Geodan SensorThings .NET SDK](https://github.com/gost/sensorthings-net-sdk)  makes it easy to add OGC SensorThings support to your .NET application.
 
+If you want to see the standard in action, check out our [list of public end points](PublicEndPoints.md)
+
+
 ## How to Cite OGC SensorThings API
 * Version 1.0: Liang, Steve H.L., Chih-Yuan Huang, and Tania Khalafbeigi. "OGC SensorThings API Part I:Sensing" OGC® Implementation Standard (2016)
 * Version 1.1: Liang, Steve H.L., Tania Khalafbeigi and Hylke van der Schaaf. "OGC SensorThings API Part 1: Sensing Version 1.1" OGC® Implementation Standard (2021)
