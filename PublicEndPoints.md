@@ -29,4 +29,6 @@ If you maintain a SensorThings service and would like to add it to the list, let
 | --- | --- | --- | --- | --- |
 | UK | British Geological Survey | Ground water | [info](https://sensors.bgs.ac.uk/) | https://sensors.bgs.ac.uk/FROST-Server/v1.1 |
 | France | BRGM | Surface water quality | [info](https://www.sandre.eaufrance.fr/) | https://sensorthings-wq.brgm-rec.fr/FROST-Server/v1.0 |
+| France | BRGM | Surface water quantity | [info](https://www.sandre.eaufrance.fr/) | https://sta4hydrometry.brgm-rec.fr/FROST-Server/v1.1/ |
+| France | BRGM | Ground water quantity | [info](https://www.sandre.eaufrance.fr/) | https://sensorthings.brgm-rec.fr/SensorThingsGroundWater/v1.1/ |
 
