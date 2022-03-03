@@ -38,4 +38,6 @@ If you maintain a SensorThings service and would like to add it to the list, let
 | France | BRGM | Surface water quantity | [info](https://www.sandre.eaufrance.fr/) | https://sta4hydrometry.brgm-rec.fr/FROST-Server/v1.1/ |
 | France | BRGM | Ground water quantity | [info](https://www.sandre.eaufrance.fr/) | https://sensorthings.brgm-rec.fr/SensorThingsGroundWater/v1.1/ |
 | USA | USGS | Surface, Atmospheric, and Groundwater data | [info](https://waterdata.usgs.gov/blog/api_catalog/) | https://labs.waterdata.usgs.gov/sta/v1.1/ |
+| USA | New Mexico Bureau of Geology and Mineral Resources | Groundwater quantity and quality | [info](https://catalog.newmexicowaterdata.org/dataset/collaborative-groundwater-monitoring-network) | https://st2.newmexicowaterdata.org/FROST-Server/v1.1 |
+| USA | New Mexico Environment Department | Drinking water quality | [info](https://dww.water.net.env.nm.gov/NMDWW/) | https://nmenv.newmexicowaterdata.org/FROST-Server/v1.1 |
 
