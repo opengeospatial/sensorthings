@@ -10,31 +10,58 @@ To enable complex querying it would be best to have the relations between those 
 
 An example domain data model:
 
-![Building data model](images/BuildingManagement.png)
+![Building data model](images/Datamodel-Building-Base.drawio.png)
 
 
 
 ### Option 1
 
-Squeeze everything into things. Makes linking between different items difficult
+Squeeze everything into things. 
+
+Advantage: 
+- 100% SensorThings API.
+
+Disadvantages:
+- Makes linking between different items difficult.
+- Everything is in Things, not ideal for domain clients.
 
 ### Option 2
 
 Expose the model, mirroring each entity as a Thing:
 
-![Model next to Thing](images/SensorThings-SensingV1.1-BuildingManagement-1.png)
+Advantage: 
+- 100% SensorThings API.
+- Domain clients get the full querying flexibility.
+
+Disadvantages:
+- All domain entities are duplicated, need to be maintained twice.
+- There is a Thing between domain entities and their Datastreams.
+
+![Model next to Thing](images/Datamodel-Building-SensorThings-1.drawio.png)
 
 ### Option 3
 
 Replace Things with entities from the model:
 
-![Model Instead of Things](images/SensorThings-SensingV1.1-BuildingManagement-2.png)
+Advantage: 
+- Perfect model for domain clients.
+- Domain clients get the full querying flexibility.
+
+Disadvantages:
+- Breaks SensorThings API clients.
+
+![Model Instead of Things](images/Datamodel-Building-SensorThings-2.drawio.png)
 
 ### Option 4
 
-Replace Things and Locations with entities from the model:
+Mirror Things from domain entities, using a database view with unions.
 
-![Model Instead of Things and Locations](images/SensorThings-SensingV1.1-BuildingManagement-3.png)
+Advantage: 
+- 100% SensorThings API.
+- Domain clients get the full querying flexibility.
+- No data duplication.
+
+![Model Instead of Things and Locations](images/Datamodel-Building-SensorThings-3.drawio.png)
 
 
 
