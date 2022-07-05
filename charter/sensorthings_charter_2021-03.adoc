@@ -168,6 +168,7 @@ N/A
 
 * The OGC SensorThings API Part 1 - Sensing version 2.0 (note: timeline can be found in the Scope of Work section.)
 * Best Practice of the OGC SensorThings API - Methane Emissions (draft ready - Q2 2021, submission to TC for approval vote - Q3 2021 )
+* Create an extension (_22-022 SensortThings API - PLUS Extension_) from _21-068 OGC Best Practice for using Sensor Things API with Citizen Science_.
 
 == IPR Policy for this SWG
 
