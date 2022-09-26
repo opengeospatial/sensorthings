@@ -1,0 +1,408 @@
+[appendix,obligation="normative"]
+== Abstract Test Suite
+
+The entities of the STAplus data model extension are all optional. An implementation can support a set (one or many) of these classes. To support this selective behavior, each STAplus entity defines a major conformance class.
+
+The SensorThings API provides CRUD access to the entities of the data model. As the minimum conformance, an implementation must support Read-access. Optional support for Create-, Update-, Delete-access is possible. To support this selective behavior, each access mode defines a seperate conformance class.
+
+[NOTE]
+A STAplus compliant implementation must also be compliant with the SensorThings API conformance as defined in OGC #18-088.
+
+=== STAplus Core (Read) Conformance
+
+This section contains the conformance classes for the STAplus Read (Core). The STAplus implementation needs to pass all the conformance tests defined in this section.
+
+[cols="25a,75a"]
+|===
+2+|A.1.1 Conformance class: STAplus Entity Control Information
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/entity-control-information
+
+2+|**Dependencies:**
+
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/datamodel/entity-control-information
+
+2+|**Test: Common Control Information**
+
+|Test id
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/entity-control-information/common-control-information
+
+
+|Requirements
+|<<req-entity-control-information-common-control-information>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-entity-control-information-common-control-information>>
+
+|Test purpose
+|Check if each entity has the common control information as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-entity-control-information-common-control-information>>.
+
+|Test method
+|Inspect the full JSON object of the entity sets (__i.e.__, without $select) to identify, if each entity has the common control information defined in the above requirement and the service sends appropriate responses as defined in this specification.
+|===
+
+
+[cols="25a,75a"]
+|===
+2+|A.1.2 Conformance class: STAplus Party Entity
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/party
+
+2+|**Test: Party Entity**
+
+|Test id
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/party/party-valid
+
+|Requirements
+|<<req-party-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-party-properties>> +
+<<req-party-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-party-relations>>
+
+|Test purpose
+|Check if each Party entity has the mandatory properties and mandatory relations as defined in this specification.
+
+|Test method
+|Inspect the full JSON object of the Party entity sets (__i.e.__, without $select) to identify, if each entity has the mandatory properties defined in the corresponding requirement.
+
+Inspect the full JSON object of each Party entity set (__i.e.__, without using the $select query option) to identify, if each entity has the mandatory relations (__i.e.__, @iot.navigationLink) defined in the corresponding requirement.
+|===
+
+[cols="25a,75a"]
+|===
+2+|A.1.3 Conformance class: STAplus License Entity
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/license
+
+2+|**Test: License Entity**
+
+|Test id
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/license/license-valid
+
+|Requirements
+|<<req-license-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-license-properties>> +
+<<req-license-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-license-relations>>
+
+|Test purpose
+|Check if each License entity has the mandatory properties and mandatory relations as defined in this specification.
+
+|Test method
+|Inspect the full JSON object of the License entity sets (__i.e.__, without $select) to identify, if each entity has the mandatory properties defined in the corresponding requirement.
+
+Inspect the full JSON object of each License entity set (__i.e.__, without using the $select query option) to identify, if each entity has the mandatory relations (__i.e.__, @iot.navigationLink) defined in the corresponding requirement.
+|===
+
+[cols="25a,75a"]
+|===
+2+|A.1.4 Conformance class: STAplus Group Entity
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/group
+
+2+|**Test: Group Entity**
+
+|Test id
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/group/group-valid
+
+|Requirements
+|<<req-group-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-group-properties>> +
+<<req-group-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-group-relations>>
+
+|Test purpose
+|Check if each Group entity has the mandatory properties and mandatory relations as defined in this specification.
+
+|Test method
+|Inspect the full JSON object of the Group entity sets (__i.e.__, without $select) to identify, if each entity has the mandatory properties defined in the corresponding requirement.
+
+Inspect the full JSON object of each Group entity set (__i.e.__, without using the $select query option) to identify, if each entity has the mandatory relations (__i.e.__, @iot.navigationLink) defined in the corresponding requirement.
+|===
+
+[cols="25a,75a"]
+|===
+2+|A.1.5 Conformance class: STAplus Relation Entity
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/relation
+
+2+|**Test: Relation Entity**
+
+|Test id
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/relation/relation-valid
+
+|Requirements
+|<<req-relation-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-relation-properties>> +
+<<req-relation-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-relation-relations>>
+
+|Test purpose
+|Check if each Relation entity has the mandatory properties and mandatory relations as defined in this specification.
+
+|Test method
+|Inspect the full JSON object of the Relation entity sets (__i.e.__, without $select) to identify, if each entity has the mandatory properties defined in the corresponding requirement.
+
+Inspect the full JSON object of each Relation entity set (__i.e.__, without using the $select query option) to identify, if each entity has the mandatory relations (__i.e.__, @iot.navigationLink) defined in the corresponding requirement.
+|===
+
+[cols="25a,75a"]
+|===
+2+|A.1.6 Conformance class: STAplus Project Entity
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/project
+
+2+|**Test: Project Entity**
+
+|Test id
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/project/project-valid
+
+|Requirements
+|<<req-project-properties>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-project-properties>> +
+<<req-project-relations>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-project-relations>>
+
+|Test purpose
+|Check if each Project entity has the mandatory properties and mandatory relations as defined in this specification.
+
+|Test method
+|Inspect the full JSON object of the Project entity sets (__i.e.__, without $select) to identify, if each entity has the mandatory properties defined in the corresponding requirement.
+
+Inspect the full JSON object of each Project entity set (__i.e.__, without using the $select query option) to identify, if each entity has the mandatory relations (__i.e.__, @iot.navigationLink) defined in the corresponding requirement.
+|===
+
+
+[cols="25a,75a"]
+|===
+2+|A.1.10   Conformance class: STAplus Resource Path
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/resource-path
+
+2+|**Dependencies:**
+
+. \http://www.opengis.net/spec/iot_sensing/1.1/conf/resource-path
+
+2+|**Test: Resource Path**
+
+|Test id
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/resource-path/resource-path-to-entities
+
+|Requirements
+|<<req-resource-path-resource-path-to-entities>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-resource-path-resource-path-to-entities>>
+
+|Test purpose
+|Check if the implementation supports all the resource path usages as defined in the requirement \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-resource-path-resource-path-to-entities>>.
+
+|Test method
+|Inspect the implementation to identify, if each resource path usage has been implemented property.
+
+|===
+
+
+
+=== STAplus Create Conformance
+
+This section contains the conformance classes for the STAplus create support. A service implementation that allows clients to create STAplus entities (using HTTP) needs to pass the conformance tests defined in this section.
+
+
+
+
+[cols="25a,75a"]
+|===
+2+|A.3.1  Conformance class: STAplus Create
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/staplus-entity-create
+
+2+|**Dependencies:**
+
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/party
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/license
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/group
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/relation
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/project
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/resource-path
+
+|===
+
+
+
+[cols="25a,75a"]
+|===
+2+|A.3.1.1 Test: Staplus Entity Creation
+|Test id
+|http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/create/staplus-entity-creation
+
+|Requirements
+|<<req-create-entity>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-create-entity>>
+
+
+<<req-create-link-to-existing-entities>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-create-link-to-existing-entities>>
+
+
+<<req-create-deep-insert>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-create-deep-insert>>
+
+
+<<req-create-deep-insert-status-code>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-create-deep-insert-status-code>>
+
+
+
+|Test purpose
+|Check if the service implementation supports the creation of entities as defined in this specification.
+
+|Test method
+|For each STAplus entity type create an entity instance by following the integrity constraints of Table [red]#todo# and creating the related entities with a single request (__i.e.__, deep insert), check if the entity instance is successfully created and the implementation responds as defined in this specification.
+
+Create an entity instance and its related entities with a deep insert request that does not conform to the specification (e.g., missing a mandatory property), check if the service fails the request without creating any entity within the deep insert request and responds the appropriate HTTP status code.
+
+
+For each STAplus entity type issue an entity creation request that does not follow the integrity constraints of Table [red]#todo#  with deep insert, check if the service fails the request without creating any entity within the deep insert request and responds the appropriate HTTP status code.
+
+
+For each STAplus entity type creates an entity instance by linking to existing entities with a single request, check if the server responds as defined in this specification.
+
+
+For each STAplus entity type creates an entity instance that does not follow the integrity constraints of Table [red]#todo#  by linking to existing entities with a single request, check if the server responds as defined in this specification.
+|===
+
+=== STAplus Update Conformance
+
+This section contains the conformance classes for the STAplus update support. A service implementation that allows clients to update STAplus entities (using HTTP) needs to pass the conformance tests defined in this section.
+
+
+
+
+[cols="25a,75a"]
+|===
+2+|A.4.1  Conformance class: STAplus Update
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/conf/staplus-entity-update
+
+2+|**Dependencies:**
+
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/party
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/license
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/group
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/relation
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/project
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/resource-path
+
+|===
+
+[cols="25a,75a"]
+|===
+2+|A.4.1.1 Test: STAplus Entity Update
+|Test id
+|http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/update/staplus-update-entity
+
+|Requirements
+|<<req-update-entity>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-update-entity>>
+
+|Test purpose
+|Check if the service implementation supports the update of entities as defined in this specification.
+
+|Test method
+|For each STAplus entity type send an update request with PATCH, check (1) if the properties provided in the payload corresponding to updatable properties replace the value of the corresponding property in the entity and (2) if the missing properties of the containing entity or complex property are not directly altered.
+
+(Where applicable) For each STAplus entity type send an update request with PUT, check if the service responds as defined in <<update-entity>>.
+
+For each STAplus entity type send an update request with PATCH that contains related entities as inline content, check if the service fails the request and returns appropriate HTTP status code.
+
+For each STAplus entity type send an update request with PATCH that contains binding information for navigation properties, check if the service updates the navigationLink accordingly.
+|===
+
+
+=== STAplus Delete Conformance
+
+This section contains the conformance classes for the STAplus delete support. A service implementation that allows clients to delete STAplus entities (using HTTP) needs to pass the conformance tests defined in this section.
+
+
+[cols="25a,75a"]
+|===
+2+|A.5.1  Conformance class: STAplus Delete
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-entity-delete
+
+2+|**Dependencies:**
+
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/party
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/license
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/group
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/relation
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/project
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/resource-path
+
+|===
+
+
+[cols="25a,75a"]
+|===
+2+|A.5.1.1 Test: STAplus Entity Deletion
+|Test id
+|http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/delete/staplus-entity-deletion
+
+|Requirements
+|<<req-delete-entity>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-delete-entity>>
+
+|Test purpose
+|Check if the service implementation supports the deletion of entities as defined in <<delete-entity>>.
+
+|Test method
+|Delete an entity instance, and check if the service responds as defined in <<delete-entity>>.
+|===
+
+
+=== STAplus MQTT Conformance
+
+This section contains the conformance class for the STAplus service implementation supporting the receiving of updates via MQTT. A compliant service implementation that allows clients to receive notifications regarding updates of entities via MQTT needs to pass the conformance tests defined in this section.
+
+
+
+
+[cols="25a,75a"]
+|===
+2+|A.6.1   Conformance class: STAplus Receiving Updates via MQTT
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/receive-updates-via-mqtt
+
+2+|**Dependencies:**
+
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/entity-control-information
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/party
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/license
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/group
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/relation
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/project
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/resource-path
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-create
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-update
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-delete
+
+|===
+
+
+[cols="25a,75a"]
+|===
+2+|A.6.1.1 Test: SensorThings API Receiving Updates via MQTT
+|Test id
+|http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/receive-updates-via-mqtt/receive-updates
+
+|Requirements
+|<<req-receive-updates-via-mqtt>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-receive-updates-via-mqtt>>
+
+|Test purpose
+|Check if a client can receive notifications for the updates of a STAplus entity set or an individual entity with MQTT.
+
+|Test method
+|Subscribe to an entity set with MQTT Subscribe. Then create a new entity of the subscribed entity set. Check if a complete JSON representation of the newly created entity through MQTT is received.
+
+Subscribe to an entity set with MQTT Subscribe. Then update an existing entity of the subscribed entity set. Check if a complete JSON representation of the updated entity through MQTT is received.
+
+Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
+
+Subscribe to multiple properties of an entity set with MQTT Subscribe. Then create a new entity of the entity set.  Check if a JSON object of the subscribed properties is received.
+
+Subscribe to multiple properties of an entity set with MQTT Subscribe. Then update an existing entity of the entity set with PATCH. Check if a JSON object of the subscribed properties is received.
+
+|===

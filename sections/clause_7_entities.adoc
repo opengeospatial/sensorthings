@@ -1,0 +1,364 @@
+[[staplus-entities]]
+== STAplus Entity Types Requirements
+
+`Party`, `License`, `Group`, `Relation` and `Project` are the entity types for STAplus. The implemented entities SHALL be listed in the response to a GET request to the root URL as described in Sensing part. 
+
+An implementation can implement just a single STAplus entity or multiple STAplus entities as required by the use case: Assuming a STAplus service wants to define licensing conditions for observations, then the `License` entity would be implemented. In case that a STAplus service would not only support anonymous read access but also like to support multiple user interactions with full CRUD support, the implementation of `Party` and appropriate business logic is recommended.
+
+The STAplus entities are depicted in <<fig-staplus-datastream-entities>> and <<fig-staplus-multidatastream-entities>>.
+
+[[fig-staplus-datastream-entities]]
+[.text-center]
+.STAplus Entities (Datastream)
+image::./figures/STAplusSensingEntities.png[STAplus Entities connected to Datastream]
+
+[[fig-staplus-multidatastream-entities]]
+[.text-center]
+.STAplus Entities (MultiDatastream)
+image::./figures/STAplusMultiDatastreamExtensionEntities.png[STAplus Entities connected to MultiDatastream]
+
+In this section, the properties for each entity type and the direct relation to the other entity types are explained. [red]#In addition, for each entity type we show an example of the associated JSON encoding.#
+
+
+[[party]]
+=== Party
+
+This entity can be used to represent acting users and to model ownership. One example for ownership is that a satellite `Thing` is owned by a space agency. This ownership may entitle the space agency to be the only party that can update the thing's location. Other parties can then mount their sensor on the statellite and provide `Datastream` or `MultiDatastream` instances to upload observations. Via the association to the `Datastream` resp. `MultiDatastream` their ownership of the observations is guaranteed. By associating a licence to the (multi)datastream, they could also define re-use conditions. 
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/party
+
+|Target Type
+|Web Service
+
+|Requirement
+|[[req-party-properties,{counter:req}]]
+\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-party-properties>>
+
+[[requirement-party-properties,party/properties]]
+__Each `Party` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-party>>.__
+
+|Requirement
+|[[req-party-relations,{counter:req}]]
+\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-party-relations>>
+
+[[requirement-party-relations,party/relations]]
+__Each `Party` entity MAY have direct relations to other entity types listed in <<tab-relations-party>>.__
+|===
+
+[[tab-properties-party]]
+.Properties of a `Party` entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for `Party` entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|This is a short description of the corresponding `Party` entity.
+|CharacterString
+|One (mandatory)
+
+|===
+
+[[tab-relations-party]]
+.Direct relation between a `Party` entity and other entity types
+[cols="25a,20a,55a"]
+|===
+|Entity type |Relation |Description
+
+|Datastream
+|One optional to many optional
+|A `Party` MAY have zero-to-many `Datastreams`.
+
+|MultiDatastream
+|One optional to many optional
+|A `Party` MAY have zero-to-many `MultiDatastreams`.
+
+|Group
+|One optional to many optional
+|A `Party` MAY have zero-to-many `Groups`.
+
+|Project
+|One optional to many optional
+|A `Party` MAY have zero-to-many `Projects`.
+|===
+
+[[license]]
+=== License
+
+This entity can be used to associate a re-use condition to observations via a `Datastream` or `MultiDatastream`. It can also be used to express re-use confitions for a group (a set of observations).
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/license
+
+|Target Type
+|Web Service
+
+|Requirement
+|[[req-license-properties,{counter:req}]]
+\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-license-properties>>
+
+[[requirement-license-properties,license/properties]]
+__Each `License` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-license>>.__
+
+|Requirement
+|[[req-license-relations,{counter:req}]]
+\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-license-relations>>
+
+[[requirement-license-relations,license/relations]]
+__Each `License` entity MAY have direct relations to other entity types listed in <<tab-relations-license>>.__
+|===
+
+[[tab-properties-license]]
+.Properties of a `License` entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for `License` entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|This is a short description of the corresponding `License` entity.
+|CharacterString
+|One (mandatory)
+
+|===
+
+[[tab-relations-license]]
+.Direct relation between a `License` entity and other entity types
+[cols="25a,20a,55a"]
+|===
+|Entity type |Relation |Description
+
+|Datastream
+|One optional to many optional
+|A `License` MAY have zero-to-many `Datastreams`.
+
+|MultiDatastream
+|One optional to many optional
+|A `License` MAY have zero-to-many `MultiDatastreams`.
+
+|Group
+|One optional to many optional
+|A `License` MAY have zero-to-many `Groups`.
+|===
+
+[[group]]
+=== Group
+
+This entity can be used to create a bag of observations and/or relations that can be shared and re-used.
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/group
+
+|Target Type
+|Web Service
+
+|Requirement
+|[[req-group-properties,{counter:req}]]
+\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-group-properties>>
+
+[[requirement-group-properties,group/properties]]
+__Each `Group` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-group>>.__
+
+|Requirement
+|[[req-group-relations,{counter:req}]]
+\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-group-relations>>
+
+[[requirement-group-relations,group/relations]]
+__Each `Group` entity MAY have direct relations to other entity types listed in <<tab-relations-group>>.__
+|===
+
+[[tab-properties-group]]
+.Properties of a `Group` entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for `Group` entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|This is a short description of the corresponding `Group` entity.
+|CharacterString
+|One (mandatory)
+
+|===
+
+[[tab-relations-group]]
+.Direct relation between a `Group` entity and other entity types
+[cols="25a,20a,55a"]
+|===
+|Entity type |Relation |Description
+
+|License
+|One optional to one optional
+|A `Group` MAY have zero-to-one `License`.
+
+|Observation
+|Many optional to many optional
+|A `Group` MAY have zero-to-many `Observations`.
+
+|Relation
+|Many optional to many optional
+|A `Group` MAY have zero-to-many `Relations`.
+
+|Party
+|Many optional to one optional
+|A `Group` MAY have zero-to-one `Party`.
+|===
+
+[[relation]]
+=== Relation
+
+This entity can be used to describe relationships between (1) two observations, or (2) one observation and a resolveable external object identified by a URI.
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/relation
+
+|Target Type
+|Web Service
+
+|Requirement
+|[[req-relation-properties,{counter:req}]]
+\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-relation-properties>>
+
+[[requirement-relation-properties,relation/properties]]
+__Each `Relation` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-relation>>.__
+
+|Requirement
+|[[req-relation-relations,{counter:req}]]
+\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-relation-relations>>
+
+[[requirement-relation-relations,relation/relations]]
+__Each `Relation` entity MAY have direct relations to other entity types listed in <<tab-relations-relation>>.__
+|===
+
+[[tab-properties-relation]]
+.Properties of a `Relation` entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for `Relation` entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|This is a short description of the corresponding `Relation` entity.
+|CharacterString
+|One (mandatory)
+
+|===
+
+[[tab-relations-relation]]
+.Direct relation between a `Relation` entity and other entity types
+[cols="25a,20a,55a"]
+|===
+|Entity type |Relation |Description
+
+|Observation
+|One mandatory to one optional
+|A `Relation` SHALL have one `Subject`.
+
+|Observation
+|One optional to one optional
+|A `Relation` MAY have zero-to-one `Object` XOR `externalObject`.
+
+|Relation
+|Many optional to many optional
+|A `Relation` MAY have zero-to-many `Groups`.
+|===
+
+[[project]]
+=== Project
+
+This entity can be used to create a container of `Datastream` or `MultiDatastream` entities. A Project can have a particalur purpose and a managing party.
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/project
+
+|Target Type
+|Web Service
+
+|Requirement
+|[[req-project-properties,{counter:req}]]
+\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-project-properties>>
+
+[[requirement-project-properties,project/properties]]
+__Each `Project` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-project>>.__
+
+|Requirement
+|[[req-project-relations,{counter:req}]]
+\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-relaprojecttion-relations>>
+
+[[requirement-project-relations,project/relations]]
+__Each `Project` entity MAY have direct relations to other entity types listed in <<tab-relations-project>>.__
+|===
+
+[[tab-properties-project]]
+.Properties of a `Project` entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|name
+|A property provides a label for `Project` entity, commonly a descriptive name.
+|CharacterString
+|One (mandatory)
+
+|description
+|This is a short description of the corresponding `Project` entity.
+|CharacterString
+|One (mandatory)
+
+|===
+
+[[tab-relations-project]]
+.Direct relation between a `Project` entity and other entity types
+[cols="25a,20a,55a"]
+|===
+|Entity type |Relation |Description
+
+|Datastream
+|Many optional to many optional
+|A `Project` MAY have zero-to-many `Datastreams`.
+
+|MultiDatastream
+|Many optional to many optional
+|A `Project` MAY have zero-to-many `MultiDatastreams`.
+
+|Party
+|Many optional to one optional
+|A `Project` MAY have zero-to-one `Party`.
+|===

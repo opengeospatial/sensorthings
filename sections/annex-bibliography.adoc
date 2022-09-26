@@ -1,0 +1,6 @@
+[bibliography]
+[[Bibliography]]
+== Bibliography
+
+* [[[OGC21-068,OGC 21-068]]], _Best Practice for using 
+SensorThings API with Citizen Science_ (2022).

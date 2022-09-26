@@ -1,0 +1,76 @@
+== Conformance
+Conformance with this standard shall be checked using all the relevant tests specified in Annex A (normative) of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC Compliance Testing web site.
+
+In order to conform to this OGC® interface standard, a software implementation shall choose to implement:
+
+* Any one of the conformance levels specified in Annex A (normative).
+* Any one of the Distributed Computing Platform profiles specified in Annexes TBD through TBD (normative).
+
+All requirements-classes and conformance-classes described in this document are owned by the standard(s) identified.
+
+The following table list the requirements classes defined by this standard.
+
+
+NOTE: The text in the __Requirements__ column in the following table is the path fragment that, when appended to the URI: \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus, provides the URI that can be used to unambiguously identify the requirement and the conformance class.
+
+[cols="<2,4a,<2"]
+|===
+|Requirements class id |Requirements |Description
+
+|req/party
+|
+* req/<<requirement-party-properties>>
+* req/<<requirement-party-relations>>
+|Party entity
+
+|req/license
+|
+* req/<<requirement-license-properties>>
+* req/<<requirement-license-relations>>
+|License entity
+
+|req/group
+|
+* req/<<requirement-group-properties>>
+* req/<<requirement-group-relations>>
+|Group entity
+
+|req/relation
+|
+* req/<<requirement-relation-properties>>
+* req/<<requirement-relation-relations>>
+|Relation entity
+
+|req/project
+|
+* req/<<requirement-project-properties>>
+* req/<<requirement-project-relations>>
+|Project entity
+
+|req/staplus-create
+|
+* req/<<requirement-create-entity>>
+* req/<<requirement-link-to-existing-entities>>
+* req/<<requirement-deep-insert>>
+* req/<<requirement-deep-insert-status-code>>
+|Creating a STAplus entity
+
+|req/staplus-update
+|
+* req/<<requirement-update-entity>>
+* req/<<requirement-update-entity-put>>
+* req/<<requirement-update-entity-jsonpatch>>
+|Updating a STAplus entity
+
+|req/staplus-delete
+|
+* req/<<requirement-delete-entity>>
+| Deleting a STAplus entity
+
+|req/receive-updates
+|
+* req/<<requirement-receive-updates-via-mqtt>>
+| Receiving STAplus entity updates via MQTT
+|===
+
+

@@ -1,0 +1,16 @@
+== Scope
+
+The OGC STAplus provides an open standard-based and backwards-compatible data model extension to SensorThings API v1.1 by introducing ownership and licensing. Additional features like grouping and relations can be used for enriching the re-use and linking of sensor data with semantical concepts to improve the FAIR principles.
+
+=== Security Considerations
+A STAplus service implementation that supports the Create, Update or Delete of STAplus entities should also implement authentication and a "fit-for-purpose" business logic that enforces the required access conditions to ensure ownership of all entities (including SensorThings core entities) over all.
+
+It is also the Business Logic that makes the full power of STAplus useful! For example sealed (closed) Groups - aka set of observations that may include relations - could be used for interdisciplinary reasearch by simply exchanging the group's URL. But, it is essential to trust such a group which requires a verifyable group author and the business logic to support integrity of such a closed group. 
+
+As each business logic may be different from service to service deployment, the operator of the service should describe the business logic and make it available to developer that intend to use the STAplus deployment. The specification of a conformance class `Business Logic`, reflecting the semantics of the logic in a standardized fashion, is out of scope for this document but could be defined in an extention to STAplus.
+
+Without an appropriate business logic, enforcing ownerhip and ensuring integrity in a multi-user scenario, it is possible that "junk" or "spam" is associated to a party without their knowledge. In such a multi-user CRUD access secnario, it would also be possible to "steal" an entire datastream by simply updating the `Party` on the datastream. Or, observations could be modified or even deleted without the creating user. But not specific to STAplus, this the Business Logic considerations and concenrs are identical for any SensorThings API service in the first place. 
+
+The STAplus datamodel does not support to record provenance. If the business logic allows the update or even deletion of entities, there is no history of who did what and when. The data served from a service implementation is a snapshot in time which even makes pagination to produce unexpected results.
+
+For implementations of the `Create`, `Update` and `Delete` conformance class it is paramount to check all user upload towards malicious code. Typical SQL injection checks are mandatory but also JavaScript code injection must be tackled. For example, it is likely that the value of an observation will be displayed at some HTML page. And to prevent malicious code or virus injection, similar to cross-site-scripting attacks, pattern checking on any uploaded data should be accomplished.

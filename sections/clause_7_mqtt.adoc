@@ -1,0 +1,29 @@
+[[staplus-mqtt]]
+== STAplus Receive Entity Updates via MQTT Requirements
+
+=== Overview
+
+STAplus entity updates can be received via MQTT.
+
+[[mqtt_receive_updates]]
+=== Receive updates with MQTT Subscribe
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_tasking/1.0/req/receive-updates-via-mqtt
+
+|Target Type
+|Web Service
+
+|Dependency
+|\http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
+
+|Requirement
+|[[req-receive-updates-via-mqtt-receive-updates,{counter:req}]]
+\http://www.opengis.net/spec/iot_tasking/1.0/req/<<requirement-receive-updates-via-mqtt-receive-updates>>
+
+[[requirement-receive-updates-via-mqtt-receive-updates,receive-updates-via-mqtt/receive-updates]]
+__To allow clients to receive notifications for the updates of STAplus entities with MQTT, a service SHALL support the receiving updates with MQTT Subscribe as defined in <<mqtt_receive_updates>>.__
+|===
