@@ -1,9 +1,9 @@
 [[staplus-entities]]
-== STAplus Entity Types Requirements
+== STAplus Entity Type Requirements
 
 `Party`, `License`, `Group`, `Relation` and `Project` are the entity types for STAplus. The implemented entities SHALL be listed in the response to a GET request to the root URL as described in Sensing part. 
 
-An implementation can implement just a single STAplus entity or multiple STAplus entities as required by the use case: Assuming a STAplus service wants to define licensing conditions for observations, then the `License` entity would be implemented. In case that a STAplus service would not only support anonymous read access but also like to support multiple user interactions with full CRUD support, the implementation of `Party` and appropriate business logic is recommended.
+An implementation SHALL implement all STAplus entities (with read access) as defined in the Core conformance class.
 
 The STAplus entities are depicted in <<fig-staplus-datastream-entities>> and <<fig-staplus-multidatastream-entities>>.
 
@@ -17,7 +17,66 @@ image::./figures/STAplusSensingEntities.png[STAplus Entities connected to Datast
 .STAplus Entities (MultiDatastream)
 image::./figures/STAplusMultiDatastreamExtensionEntities.png[STAplus Entities connected to MultiDatastream]
 
-In this section, the properties for each entity type and the direct relation to the other entity types are explained. [red]#In addition, for each entity type we show an example of the associated JSON encoding.#
+In this section, the properties for each entity type and the direct relation to the other entity types are explained. 
+
+[[common-control-information]]
+=== Common Control Information
+
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/entity-control-information/common-control-information
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-entity-control-information-common-control-information>>
+|===
+
+
+[[req-entity-control-information-common-control-information,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-entity-control-information-common-control-information,datamodel/entity-control-information/common-control-information]]
+Req <<req-entity-control-information-common-control-information>>: <<requirement-entity-control-information-common-control-information>>
+
+|Each entity SHALL have the following common control information listed in Table 1.
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-entity-control-information-common-control-information>>
+|===
+
+
+**In SensorThings control information is represented as annotations whose names start with iot followed by a dot ( . ). Annotations are name/value pairs that have a dot ( . ) as part of the name.**
+
+When annotating a name/value pair for which the value is represented as a JSON object, each annotation is placed within the object and represented as a single name/value pair. In SensorThings the name always starts with the “at” sign (@), followed by the namespace iot, followed by a dot (.), followed by the name of the term (e.g., **"@iot.id":**1).
+
+When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair is placed next to the annotated name/value pair and represented as a single name/value pair. The name is the same as the name of the name/value pair being annotated, followed by the “at” sign (**@**), followed by the namespace iot, followed by a dot (.), followed by the name of the term.  (e.g., `+"Locations@iot.navigationLink":"http://example.org/v1.1/Things(1)/Locations"+`)
+
+
+[[tab-common-control-information]]
+.Common control information
+[cols="20a,50a,15a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|id
+|id is the system-generated identifier of an entity. id is unique among the entities of the same entity type in a SensorThings service.
+|Any
+|One (mandatory)
+
+|selfLink
+|selfLink is the absolute URL of an entity that is unique among all other entities.
+|URL
+|One (mandatory)
+
+|navigationLink
+|navigationLink is the relative or absolute URL that retrieves content of related entities.
+|URL
+|One-to-many +
+(mandatory)
+|===
 
 
 [[party]]
@@ -56,17 +115,34 @@ __Each `Party` entity MAY have direct relations to other entity types listed in 
 |===
 |Name |Definition |Data type |Multiplicity and use
 
-|name
-|A property provides a label for `Party` entity, commonly a descriptive name.
-|CharacterString
+|role
+|This is the role of the party
+|CharacterString ['individual', 'institutional']
 |One (mandatory)
 
 |description
-|This is a short description of the corresponding `Party` entity.
+|This is a short description of the party
 |CharacterString
-|One (mandatory)
+|One (optional)
+
+|displayName
+|A property commonly used for saluting the party
+|CharacterString
+|One (optional)
+
+|authId
+|A system wide unique property (e.g. `REMOTE_USER` or `SUB` from authentication) to identify the party
+|CharacterString
+|One (optional)
+
+|personalData
+|A property to store personal data of the party
+|JSON Object
+|One (optional)
 
 |===
+
+NOTE: The `personalData` property has private visibility. An implementation must ensure GDPR compliance when allow CRUD access.
 
 [[tab-relations-party]]
 .Direct relation between a `Party` entity and other entity types
@@ -81,6 +157,10 @@ __Each `Party` entity MAY have direct relations to other entity types listed in 
 |MultiDatastream
 |One optional to many optional
 |A `Party` MAY have zero-to-many `MultiDatastreams`.
+
+|Thing
+|One optional to many optional
+|A `Party` MAY have zero-to-many `Things`.
 
 |Group
 |One optional to many optional
@@ -137,6 +217,20 @@ __Each `License` entity MAY have direct relations to other entity types listed i
 |CharacterString
 |One (mandatory)
 
+|definition
+|This is a URI referencing the `License` entity.
+|URI
+|One (mandatory)
+
+|logo
+|This is the data URI encoding of the logo for the `License` entity.
+|CharacterString
+|One (optional)
+
+|propeties
+|The SensorThings API definition applies
+|JSON Object
+|One (optional)
 |===
 
 [[tab-relations-license]]
@@ -152,6 +246,10 @@ __Each `License` entity MAY have direct relations to other entity types listed i
 |MultiDatastream
 |One optional to many optional
 |A `License` MAY have zero-to-many `MultiDatastreams`.
+
+|Project
+|One optional to many optional
+|A `License` MAY have zero-to-many `Projects`.
 
 |Group
 |One optional to many optional
@@ -204,6 +302,35 @@ __Each `Group` entity MAY have direct relations to other entity types listed in 
 |CharacterString
 |One (mandatory)
 
+|purpose
+|This is a short description of the purpose for the `Group` entity.
+|CharacterString
+|One (optional)
+
+|creationTime
+|This is the starting time of the `Group` entity. Depending on the business logic, after this time it could be possible to add observations or relations to the Group.
+|TM Instant
+|One (optional)
+
+|endTime
+|This is the end time of the `Group` entity. Depending on the business logic, after this time it is no longer possible to add observations or relations to the Group. 
+|TM Instant
+|One (optional)
+
+|termsOfUse
+|This allows to express the term of use for the `Group` entity.
+|CharacterString
+|One (optional)
+
+|privacyPolicy
+|This allows to express the term of use for personal data that are contained in the `Group` entity.
+|CharacterString
+|One (optional)
+
+|propeties
+|The SensorThings API definition applies
+|JSON Object
+|One (optional)
 |===
 
 [[tab-relations-group]]
@@ -227,6 +354,10 @@ __Each `Group` entity MAY have direct relations to other entity types listed in 
 |Party
 |Many optional to one optional
 |A `Group` MAY have zero-to-one `Party`.
+
+|Project
+|Many optional to many optional
+|A `Group` MAY have zero-to-more `Project`.
 |===
 
 [[relation]]
@@ -265,17 +396,28 @@ __Each `Relation` entity MAY have direct relations to other entity types listed 
 |===
 |Name |Definition |Data type |Multiplicity and use
 
-|name
-|A property provides a label for `Relation` entity, commonly a descriptive name.
+|externalObject
+|This URI references the external object for the `Relation` entity.
 |CharacterString
-|One (mandatory)
+|One (optional)
 
 |description
 |This is a short description of the corresponding `Relation` entity.
 |CharacterString
+|One (optional)
+
+|role
+|This URI references the definition of `Relation` entity.
+|URI
 |One (mandatory)
 
+|propeties
+|The SensorThings API definition applies
+|JSON Object
+|One (optional)
 |===
+
+NOTE: The subjct of a realtion entitpy is always an observation. For expressing the object of a relation, the `object` relation XOR `externalObject` property must be used.
 
 [[tab-relations-relation]]
 .Direct relation between a `Relation` entity and other entity types
@@ -291,7 +433,7 @@ __Each `Relation` entity MAY have direct relations to other entity types listed 
 |One optional to one optional
 |A `Relation` MAY have zero-to-one `Object` XOR `externalObject`.
 
-|Relation
+|Group
 |Many optional to many optional
 |A `Relation` MAY have zero-to-many `Groups`.
 |===
@@ -342,6 +484,45 @@ __Each `Project` entity MAY have direct relations to other entity types listed i
 |CharacterString
 |One (mandatory)
 
+|classification
+|Determines if the datastream(s), multidatastream(s) or group(s) of the `Project` entity contain sensitive information
+|ValueCode
+|One (optional)
+
+|description
+|This is a short description of the corresponding `Project` entity.
+|CharacterString
+|One (mandatory)
+
+|creationTime
+|This is the starting time of the `Project` entity. Depending on the business logic, after this time it could be possible to add observations or relations to the Group.
+|TM Instant
+|One (optional)
+
+|endTime
+|This is the end time of the `Project` entity. Depending on the business logic, after this time it is no longer possible to add observations or relations to the Group. 
+|TM Instant
+|One (optional)
+
+|termsOfUse
+|This allows to express the term of use for the `Project` entity.
+|CharacterString
+|One (optional)
+
+|privacyPolicy
+|This allows to express the term of use for personal data that are contained in the `Project` entity.
+|CharacterString
+|One (optional)
+
+|url
+|This is the URL for the `Project` entity that provides additional information that cannot be captured in this entity alone.
+|URL
+|One (optional)
+
+|propeties
+|The SensorThings API definition applies
+|JSON Object
+One (optional)
 |===
 
 [[tab-relations-project]]
@@ -361,4 +542,13 @@ __Each `Project` entity MAY have direct relations to other entity types listed i
 |Party
 |Many optional to one optional
 |A `Project` MAY have zero-to-one `Party`.
+
+|Group
+|Many optional to many optional
+|A `Project` MAY have zero-to-many `Group`.
+
+|License
+|Many optional to one optional
+|A `Project` MAY have zero-to-one `License`.
+
 |===

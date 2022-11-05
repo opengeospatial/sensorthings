@@ -4,5 +4,8 @@
 [width="90%",options="header"]
 |===
 |Date |Release |Editor | Primary clauses modified |Description
-|2022-09-21 |0.1 |Andreas Matheus |all |initial version
+|2022-09-21 |0.1 |Andreas Matheus |all |Initial version
+|2022-10-21 |0.2 |Andreas Matheus |mainly Annex A, B |Updating conformance class structure and abstrct test site
+|2022-11-03 |0.3 |Andreas Matheus |section Business Logic, Annex A, B |Section added for Business Logic, Control Information and Authentication, Updating conformance class structure and abstract test site to include Business Logic, Adding Requirements and Tests for accessing personal data
+
 |===

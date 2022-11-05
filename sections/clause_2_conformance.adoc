@@ -3,8 +3,9 @@ Conformance with this standard shall be checked using all the relevant tests spe
 
 In order to conform to this OGC® interface standard, a software implementation shall choose to implement:
 
-* Any one of the conformance levels specified in Annex A (normative).
-* Any one of the Distributed Computing Platform profiles specified in Annexes TBD through TBD (normative).
+* The one mandatory conformance class specified in Annex A (normative).
+* Any one of the optional conformance classes specified in Annex A (normative).
+* Pass all applicable tests as defined in Annex B (normative)
 
 All requirements-classes and conformance-classes described in this document are owned by the standard(s) identified.
 
@@ -16,6 +17,11 @@ NOTE: The text in the __Requirements__ column in the following table is the path
 [cols="<2,4a,<2"]
 |===
 |Requirements class id |Requirements |Description
+
+|req/entity-control-information-common-control-information
+|
+* req/<<requirement-entity-control-information-common-control-information>>
+|STAplus entities’ common control information
 
 |req/party
 |
@@ -47,6 +53,12 @@ NOTE: The text in the __Requirements__ column in the following table is the path
 * req/<<requirement-project-relations>>
 |Project entity
 
+|req/staplus-read
+|
+* req/<<requirement-read-entity>>
+* req/<<requirement-link-to-existing-entities>>
+|Reading a STAplus entity
+
 |req/staplus-create
 |
 * req/<<requirement-create-entity>>
@@ -71,6 +83,14 @@ NOTE: The text in the __Requirements__ column in the following table is the path
 |
 * req/<<requirement-receive-updates-via-mqtt>>
 | Receiving STAplus entity updates via MQTT
+
+|req/staplus-business-logic
+|
+* req/<<requirement-staplus-business-logic>>
+| Describe the business logic that controls the create, update and delete on STA and STAplus Entities
+
+|req/staplus-auth
+|
+* req/<<requirement-staplus-auth>>
+| User authentication
 |===
-
-

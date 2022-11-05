@@ -31,7 +31,7 @@ Attention is drawn to the possibility that some of the elements of this document
 
 This document specifies a backwards-compatible extension to the OGC SensorThings data model.
 
-The motivation for the introduced extension STAplus has been developed during the European Commission H2020 project Cos4Cloud and is based on requirements from Citizen Science. 
+The motivation for the introduced extension STAplus is based on requirements from Citizen Science. 
 
 Whereas the dominant use of the OGC SensorThings data model (and API) can be coined with the use case “single authority provides sensor readings to consumers”, in Citizen Science there are many contributors (citizens) that – together – create the big “picture” with their observations.
 
@@ -42,3 +42,5 @@ The submitters believe that the introduced extension is an important contributio
 The STAplus Data Model and Business Logic also enriches existing deployments as the extension can be seamlessly added and thereby offer new capabilities to create and manage the “big picture” with multi-user capabilities.
 
 Two implementations exist by 52°North and Secure Dimensions.
+
+The writing of this standard and the supporting work presented in this document was undertaken within the Cos4Cloud project, which has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement no 863463. Testing of this extension was also done with data from the Framework biodiversity project, which has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement no 862731.

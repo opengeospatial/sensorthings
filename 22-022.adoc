@@ -12,7 +12,7 @@
 :published-date: 2029-03-30
 :fullname: Andreas Matheus
 :fullname_2: 
-:docsubtype: Interface
+:docsubtype: Implementation
 :keywords: ogcdoc, OGC document, API, SensorThings, STAplus
 :submitting-organizations: Secure Dimensions, CREAF, Fraunhofer
 :mn-document-class: ogc
@@ -22,7 +22,7 @@
 :pdf-uri: ./document.pdf
 :xml-uri: ./document.xml
 :doc-uri: ./document.doc
-:edition: 1.0
+:edition: 0.2
 
 ////
 Make sure to complete each included document
@@ -42,7 +42,10 @@ include::sections/clause_5_conventions.adoc[]
 include::sections/clause_6_informative_text.adoc[]
 
 include::sections/clause_7_entities.adoc[]
-include::sections/clause_7_create_update_delete.adoc[]
+include::sections/clause_7_read_create_update_delete.adoc[]
+include::sections/clause_7_mqtt.adoc[]
+include::sections/clause_7_business_logic.adoc[]
+include::sections/clause_7_auth.adoc[]
 
 include::sections/clause_8_media_types.adoc[]
 
@@ -51,7 +54,7 @@ add or remove annexes after "A" as necessary
 ////
 include::sections/annex-a.adoc[]
 
-include::sections/annex-n.adoc[]
+include::sections/annex-b.adoc[]
 
 ////
 Revision History should be the last annex before the Bibliography
