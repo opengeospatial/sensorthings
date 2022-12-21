@@ -26,10 +26,10 @@ As a machine readable and understandable description of the implemented business
 
 |===
 
-[[req-usiness-logic,{counter:req}]]
+[[req-business-logic,{counter:req}]]
 [cols="a"]
 |===
-|[[rrequirement-business-logic,business-logic]]
+|[[requirement-business-logic,business-logic]]
 Req <<req-business-logic>>: <<requirement-business-logic>>
 
 |The implementation's business logic shall be described in English text.

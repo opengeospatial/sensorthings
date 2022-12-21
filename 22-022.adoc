@@ -4,17 +4,16 @@
 :lang: en
 :status: draft
 :committee: technical
-:draft: 3.0
+:draft: 1.0
 :external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
 :docnumber: 22-022
 :received-date: 2029-03-30
 :issued-date: 2029-03-30
 :published-date: 2029-03-30
 :fullname: Andreas Matheus
-:fullname_2: 
 :docsubtype: Implementation
 :keywords: ogcdoc, OGC document, API, SensorThings, STAplus
-:submitting-organizations: Secure Dimensions, CREAF, Fraunhofer
+:submitting-organizations: Secure Dimensions, CREAF, Fraunhofer Gesellschaft
 :mn-document-class: ogc
 :mn-output-extensions: xml,html,doc,pdf
 :local-cache-only:
@@ -22,7 +21,7 @@
 :pdf-uri: ./document.pdf
 :xml-uri: ./document.xml
 :doc-uri: ./document.doc
-:edition: 0.2
+:edition: 0.3
 
 ////
 Make sure to complete each included document
@@ -46,6 +45,7 @@ include::sections/clause_7_read_create_update_delete.adoc[]
 include::sections/clause_7_mqtt.adoc[]
 include::sections/clause_7_business_logic.adoc[]
 include::sections/clause_7_auth.adoc[]
+include::sections/clause_7_feature_of_interest_location.adoc[]
 
 include::sections/clause_8_media_types.adoc[]
 

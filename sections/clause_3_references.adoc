@@ -5,3 +5,5 @@ The following normative documents contain provisions that, through reference in 
 
 
 * [[[OGC18-088,OGC 18-088]]], _OGC SensorThings API Part 1: Sensing Version 1.1_ (2020)
+* [[[GeoJSON, RFC 7946]]], _The GeoJSON Format_, IETF (2016)
+* [[[FG, OGC 21-045]]], _OGC Features and Geometries JSON - Part 1: Core, (2021) footnote:[draft OGC Standard at the time of writing: https://docs.ogc.org/DRAFTS/21-045.html]

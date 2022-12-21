@@ -93,4 +93,15 @@ NOTE: The text in the __Requirements__ column in the following table is the path
 |
 * req/<<requirement-staplus-auth>>
 | User authentication
+
+|req/staplus-geometry
+|
+* req/<<requirement-staplus-geometry>>
+| Encoding of geometry information in the `<Feature>` and `<Location>` entities.
+
+|req/staplus-crs
+|
+* req/<<requirement-staplus-crs>>
+| Support of CRS different from the default-CRS to encode geometry information in the `<Feature>` and `<Location>` entities.
+
 |===

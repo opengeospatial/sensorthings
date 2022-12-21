@@ -102,3 +102,40 @@ A STAplus compliant implementation must also be compliant with the SensorThings 
 
 . http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-busienss-logic
 |===
+
+=== STAplus *FeatureOfInterest and Location Encoding Requirements* Conformance Class
+
+[cols="25a,75a"]
+|===
+2+|A.3  Conformance class: STAplus FeatureOfInterest and Location Encoding 
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-foi
+
+2+|**Dependencies:**
+
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-geometry-geojson
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-geometry-fg
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-geometry-wkt
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-geometry-out
+|===
+
+=== STAplus *Coordinate Reference System * Conformance Class
+
+[cols="25a,75a"]
+|===
+2+|A.3  Conformance class: STAplus Coordinate Reference System 
+
+|**Conformance class id:**
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-crs
+
+2+|**Dependencies:**
+
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-storage-crs>>
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-list-crs>>
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-entities>>
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-default>>
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-other>>
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-transform>>
+. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-error>>
+|===
