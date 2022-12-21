@@ -1,0 +1,161 @@
+[[staplus-foi-location]]
+== STAplus Feature and Location Encoding Requirements
+
+
+=== Overview
+The `<Location>` and `<FeatureOfInterest>` entities allow to store unspecified data objects. Both objects potentially store geometry information. The STAplus extension supports multi-user interactions including the creation, updating, reading and deletion of information. In Citizen Science for example, one service endpoint could accept that users can upload data using different applications. These applications might be developed by different organizations and serve different purposes, though use different geometry structures and CRS to encode the coordinates of the geometries. This can result in the situation where the interoperability of uploaded `<Location>` and `<FeatureOfInterest>` entities geometry encodings might become an interoperability issue. 
+
+For an implementation of STAplus, this situation becomes complicated when a `$filter` is leveraged that includes spatial conditions like `ST_Within`. The filter expression does not carry any CRS information. So, how to apply a spatial filter to geometries stored in `Feature` and `Location`? Because the SensorThings data model does not mandate how to store CRS information inside the `Feature` and `Location`, it becomes almost impossible for the implementation to apply the spatial filter. This introduces two problems: First, the CRS data would need to be stored in a standardized location inside `Feature` and `Location`, and second, the implementation would need to do coordinate transformation 'on the fly' when processing the spatial filter condition in case the stored geometries are encoded in different CRS. The first aspect will cause interoperability issues and the later will unevitably cause slow performance.
+
+To get out of this impractical situation, the STAplus Standard defines a default storage-CRS based on WGS84 with longitutde/latitude as defined in GeoJSON. Any geometry data uploaded in the storage-CRS will be stored as-is. 
+
+To indicate that the default storage-CRS and GeoJSON geometry encoding is used, the `encodingType` property of the `FeatureOfInterest` and `Location` entity is to be used with the value `application/geo+json`. 
+
+In addition, the STAplus extension supports other (commonly used) encodings via the `Geometry Encoding` Requirements Class. 
+
+
+[[GeometryEncoding]]
+=== Geometry Encoding Requirements
+
+To ensure interoperability with alternative geometry encodings, involving the use of non default CRS and Geometry Encodings, this Standard defines two additional alternative options.
+
+[[req-geometry-geojson,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-geometry-geojson,geometry-geojson]]
+Req <<req-geometry-geojson>>: <<requirement-geometry-geojson>>
+
+|The implementation SHALL advertise the media-type `encodingType=application/geo+json` to indicate that the structuring of the `Feature` and `Location` entities shall be compliant with the RFC <<GeoJSON>>.
+
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-geometry-geojson>>
+|===
+
+
+[[req-geometry-fg,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-geometry-fg,geometry-fg]]
+Req <<req-geometry-fg>>: <<requirement-geometry-fg>>
+
+|The implementation SHALL advertise the media-type `encodingType=application/vnd.ogc.fg+json` to indicate that the structuring of the `Feature` and `Location` entities shall be compliant with the OGC Standard _OGC Features and Geometries JSON - Part 1: Core_ footnote:[draft OGC Standard at the time of writing: https://docs.ogc.org/DRAFTS/21-045.html]
+
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-geometry-fg>>
+|===
+
+[[req-geometry-wkt,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-geometry-wkt,geometry-wkt]]
+Req <<req-geometry-wkt>>: <<requirement-geometry-wkt>>
+
+|The implementation SHALL advertise the media-type `encodingType=wkt`: This defines that the WKT encoded geometry shall be the value of the `Feature` or `Location` class (the type Any is a String). The CRS definition shall be put into a property `crs` or the CRS identifier (number) shall be put into the `srid` property of the `FeatureOfInterest` or `Location` class. This case does not allow to store additional information and is therefore limited to very simple use cases where the `Feature` or `Location` really is only about geometry.
+
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-geometry-wkt>>
+|===
+
+[[req-geometry-out,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-geometry-out,geometry-out]]
+Req <<req-geometry-out>>: <<requirement-geometry-out>>
+
+|The implementation SHALL use the GeoJSON defintion to encode the <Feature> and <Location> geometries in the response as defined in <<req-geometry-geojson>>.
+
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-geometry-out>>
+|===
+
+[[CRS]]
+=== Coordinate Reference System Requirements
+
+[cols="25a,75a"]
+|===
+2+|Requirements Class *Coordinate Reference System*
+
+2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-crs
+
+|Target Type
+|Web Service
+
+|Requirement
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-storage-crs>>
+
+|===
+
+[[req-storage-crs,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-storage-crs,storage-crs]]
+Req <<req-storage-crs>>: <<requirement-crs>>
+
+|The implementation SHALL provide the storage-CRS.
+
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-storage-crs>>
+|===
+
+[[req-list-crs,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-list-crs,list-crs]]
+Req <<req-list-crs>>: <<requirement-list-crs>>
+
+|The implementation SHALL provide the list of the supported CRS when supporting requirement <<requirement-geometry-fg>> or <<requirement-geometry-wkt>>.
+
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-list-crs>>
+|===
+
+[[req-crs-entities,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-crs-entities,crs-entities]]
+Req <<req-crs-entities>>: <<requirement-crs-entities>>
+
+|The implementation SHALL enforce the `storage-CRS` to any geometry information contained in the `Feature` and `Location` entity.
+
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-entities>>
+|===
+
+
+[[req-crs-default,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-crs-default,crs-default]]
+Req <<req-crs-default>>: <<requirement-crs-default>>
+
+|The implementation SHALL store geometry encoded in the `default-CRS` without further processing.
+
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-default>>
+|===
+
+[[req-crs-other,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-crs-other,crs-other]]
+Req <<req-crs-other>>: <<requirement-crs-other>>
+
+|The implementation SHALL accept a geometry encoded in a CRS from the list of supported CRS when supporting requirement <<requirement-geometry-fg>> or <<requirement-geometry-wkt>>.
+
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-other>>
+|===
+
+
+[[req-crs-transform,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-crs-trnasform,crs-transform]]
+Req <<req-crs-transform>>: <<requirement-crs-transform>>
+
+|The implementation SHALL transform any geometry to the `storage-CRS` before storage when the media-type from <<requirement-geometry-fg>> or <<requirement-geometry-wkt>> is used.
+
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-transform>>
+|===
+
+[[req-crs-error,{counter:req}]]
+[cols="a"]
+|===
+|[[requirement-crs-error,crs-error]]
+Req <<req-crs-error>>: <<requirement-crs-error>>
+
+|The implementation SHALL return an error if the geometry data inside `Feature` or `Location` is encoded in an unsupported CRS.
+
+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-error>>
+|===
