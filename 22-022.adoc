@@ -13,7 +13,7 @@
 :fullname: Andreas Matheus
 :docsubtype: Implementation
 :keywords: ogcdoc, OGC document, API, SensorThings, STAplus
-:submitting-organizations: Secure Dimensions, CREAF, Fraunhofer Gesellschaft
+:submitting-organizations: Secure Dimensions; CREAF; Fraunhofer Gesellschaft
 :mn-document-class: ogc
 :mn-output-extensions: xml,html,doc,pdf
 :local-cache-only:
