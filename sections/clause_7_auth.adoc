@@ -5,87 +5,73 @@
 === Overview
 To regulate access to entities using CRUD operations, implementations may wish to use information from user / client application authentication to make access control decisions. 
 
-In addition, some implementations may wish to link the authentication identifier (e.g. `REMOTE_USER`) with the `Party.authId`. Therefore, the STAplus authentiction must provide deployment-wide unique user identifiers.
+In addition, some implementations may wish to link the authentication identifier (e.g. `REMOTE_USER`) with the `Party.authId`. Therefore, the STAplus authentication must provide deployment-wide unique user identifiers.
 
 [[auth]]
-=== Authentication
+=== Requirements Class *Authentication*
 
-[cols="25a,75a"]
-|===
-2+|Requirements Class
+[requirements_class]
+.Authentication
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-auth
+====
+[%metadata]
+identifier:: /req-class/authentication
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: /req-class/party
+requirement:: /req/authentication/id
+requirement:: /req/authentication/anon-personal-data-crud
+requirement:: /req/authentication/own-personal-data-r
+requirement:: /req/authentication/own-personal-data-cud
+requirement:: /req/authentication/other-personal-data-r
+requirement:: /req/authentication/other-personal-data-cud
+====
 
-|Target Type
-|Web Service
+[requirement]
+====
+[%metadata]
+identifier:: /req/authentication/id
 
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-auth-id>>
+The STAplus authentication SHALL provide a user identifier permanent for same user but different for each user.
+====
 
-|===
+[requirement]
+====
+[%metadata]
+identifier:: /req/authentication/anon-personal-data-crud
 
-[[req-auth-id,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-auth-id,req-auth-id]]
-Req <<req-auth-id>>: <<requirement-auth-id>>
+The STAplus implementation SHALL prevent any anonymous user access (read, create, update, and delete) to personal data stored in `Party.personalData`.
+====
 
-|The STAplus authentication SHALL provide a user identifier permanent for same user but different for each user.
+[requirement]
+====
+[%metadata]
+identifier:: /req/authentication/own-personal-data-r
 
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-auth-id>>
-|===
+The STAplus implementation SHALL entitle a user to read own personal data via a HTTP GET request to own `Party` entity.
+====
 
-[[req-auth-anon-personal-data-crud,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-auth-anon-personal-data-crud,req-auth-anon-personal-data-crud]]
-Req <<req-auth-anon-personal-data-crud>>: <<requirement-auth-anon-personal-data-crud>>
+[requirement]
+====
+[%metadata]
+identifier:: /req/authentication/own-personal-data-cud
 
-|The STAplus implementation SHALL prevent any anonymous user access (read, create, update, and delete) to personal data stored in `Party.personalData`.
+The STAplus implementation SHALL entitle a user to create, update or delete own personal data via a HTTP POST, PATCH, and DELETE request to own `Party` entity.
+====
 
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-auth-anon-personal-data-crud>>
-|===
+[requirement]
+====
+[%metadata]
+identifier:: /req/authentication/other-personal-data-r
 
-[[req-auth-own-personal-data-r,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-auth-own-personal-data-r,req-auth-own-personal-data-r]]
-Req <<req-auth-own-personal-data-r>>: <<requirement-auth-own-personal-data-r>>
+The STAplus implementation SHALL prevent that a user can read other user's personal data via a HTTP GET request to other `Party` entity.
+====
 
-|The STAplus implementation SHALL entitle a user to read own personal data via a HTTP GET request to own `Party` entity.
 
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-auth-own-personal-data-r>>
-|===
+[requirement]
+====
+[%metadata]
+identifier:: /req/authentication/other-personal-data-cud
 
-[[req-auth-own-personal-data-cud,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-auth-own-personal-data-cud,auth-own-personal-data-own-personal-data-cud]]
-Req <<req-auth-own-personal-data-cud>>: <<requirement-auth-own-personal-data-cud>>
-
-|The STAplus implementation SHALL entitle a user to create, update or delete own personal data via a HTTP POST, PATCH, and DELETE request to own `Party` entity.
-
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-auth-own-personal-data-cud>>
-|===
-
-[[req-auth-other-personal-data-r,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-auth-other-personal-data-r,req-auth-other-personal-data-r]]
-Req <<req-auth-other-personal-data-r>>: <<requirement-auth-other-personal-data-r>>
-
-|The STAplus implementation SHALL prevent that a user can read other user's personal data via a HTTP GET request to other `Party` entity.
-
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-auth-other-personal-data-r>>
-|===
-
-[[req-auth-other-personal-data-cud,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-auth-other-personal-data-cud,auth-other-personal-data-other-personal-data-cud]]
-Req <<req-auth-other-personal-data-cud>>: <<requirement-auth-other-personal-data-cud>>
-
-|The STAplus implementation SHALL prevent that a user can create, update or delete other user's personal data via a HTTP POST, PATCH, and DELETE request to other `Party` entity.
-
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-auth-other-personal-data-cud>>
-|===
+The STAplus implementation SHALL prevent that a user can create, update or delete other user's personal data via a HTTP POST, PATCH, and DELETE request to other `Party` entity.
+====

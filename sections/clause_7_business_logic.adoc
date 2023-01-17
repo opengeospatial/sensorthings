@@ -1,38 +1,33 @@
 [[staplus-business-logic]]
-== STAplus Busienss Logic Requirements
+== STAplus Business Logic Requirements
 
 
 === Overview
-The STAplus extension is defined based on requirements from Citizen Science. One major requirement from Citizen Science is that an implementation of STAplus can be used by many users simulaniously to create, update and delete observations. To ensure integrity of the entities and to prevent inconsitencies in the data, it is important that an implementation is not only compliant with this standard but has also functionality that ensures entity consistency. 
+The STAplus extension is defined based on requirements from Citizen Science. One major requirement from Citizen Science is that an implementation of STAplus can be used by many users simultaneously to create, update and delete observations. To ensure integrity of the entities and to prevent inconsistencies in the data, it is important that an implementation is not only compliant with this standard but has also functionality that ensures entity consistency. 
 
 Even though the business logic can be very complex and most likely depend on very many factors, it should be possible to hint developers and guide end users of the implementation in case a request results in an unexpected response.
 
 As a machine readable and understandable description of the implemented business logic is preferred, the idea of the business logic requirements class defined here is to describe the business logic in English text.
 
 [[business-logic]]
-=== Business Logic
+=== Requirements Class *Business Logic*
 
-[cols="25a,75a"]
-|===
-2+|Requirements Class
+[requirements_class]
+.Business Logic
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-business-logic
+====
+[%metadata]
+identifier:: /req-class/business-logic
+obligation:: requirement
+subject:: Target Type: Web Service
+requirement:: /req/business-logic/definition
+====
 
-|Target Type
-|Web Service
 
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-business-logic>>
+[requirement]
+====
+[%metadata]
+identifier:: /req/business-logic/definition
 
-|===
-
-[[req-business-logic,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-business-logic,business-logic]]
-Req <<req-business-logic>>: <<requirement-business-logic>>
-
-|The implementation's business logic shall be described in English text.
-
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-business-logic>>
-|===
+The implementation's business logic shall be described in English text.
+====

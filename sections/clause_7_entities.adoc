@@ -20,40 +20,34 @@ image::./figures/STAplusMultiDatastreamExtensionEntities.png[STAplus Entities co
 In this section, the properties for each entity type and the direct relation to the other entity types are explained. 
 
 [[common-control-information]]
-=== Common Control Information
+=== Requirements Class *Entity Control Information*
 
-
-[cols="25a,75a"]
-|===
-2+|Requirements Class
-
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/entity-control-information/common-control-information
-
-|Target Type
-|Web Service
-
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-entity-control-information-common-control-information>>
-|===
-
-
-[[req-entity-control-information-common-control-information,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-entity-control-information-common-control-information,datamodel/entity-control-information/common-control-information]]
-Req <<req-entity-control-information-common-control-information>>: <<requirement-entity-control-information-common-control-information>>
-
-|Each entity SHALL have the following common control information listed in Table 1.
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-entity-control-information-common-control-information>>
-|===
-
-
-**In SensorThings control information is represented as annotations whose names start with iot followed by a dot ( . ). Annotations are name/value pairs that have a dot ( . ) as part of the name.**
+NOTE: In SensorThings control information is represented as annotations whose names start with iot followed by a dot ( . ). Annotations are name/value pairs that have a dot ( . ) as part of the name.
 
 When annotating a name/value pair for which the value is represented as a JSON object, each annotation is placed within the object and represented as a single name/value pair. In SensorThings the name always starts with the “at” sign (@), followed by the namespace iot, followed by a dot (.), followed by the name of the term (e.g., **"@iot.id":**1).
 
 When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair is placed next to the annotated name/value pair and represented as a single name/value pair. The name is the same as the name of the name/value pair being annotated, followed by the “at” sign (**@**), followed by the namespace iot, followed by a dot (.), followed by the name of the term.  (e.g., `+"Locations@iot.navigationLink":"http://example.org/v1.1/Things(1)/Locations"+`)
 
+[requirements_class]
+.Entity Control Information
+
+====
+[%metadata]
+identifier:: /req-class/entity-control-information
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: <<OGC18-088>>
+requirement:: /req/common-control-information
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/common-control-information
+
+Each entity SHALL have the following common control information listed in Table <<tab-common-control-information>>.
+====
 
 [[tab-common-control-information]]
 .Common control information
@@ -62,17 +56,17 @@ When annotating a name/value pair for which the value is represented as a JSON a
 |Name |Definition |Data type |Multiplicity and use
 
 |id
-|id is the system-generated identifier of an entity. id is unique among the entities of the same entity type in a SensorThings service.
+|`id` is the system-generated identifier of an entity that is unique among the entities of the same entity type in a SensorThings service instance.
 |Any
 |One (mandatory)
 
 |selfLink
-|selfLink is the absolute URL of an entity that is unique among all other entities.
+|`selfLink` is the absolute URL of an entity that is unique among all other entities.
 |URL
 |One (mandatory)
 
 |navigationLink
-|navigationLink is the relative or absolute URL that retrieves content of related entities.
+|`navigationLink` is the relative or absolute URL that retrieves content of related entities.
 |URL
 |One-to-many +
 (mandatory)
@@ -80,34 +74,31 @@ When annotating a name/value pair for which the value is represented as a JSON a
 
 
 [[party]]
-=== Party
+=== Requirements Class *Party*
 
-This entity can be used to represent acting users and to model ownership. One example for ownership is that a satellite `Thing` is owned by a space agency. This ownership may entitle the space agency to be the only party that can update the thing's location. Other parties can then mount their sensor on the statellite and provide `Datastream` or `MultiDatastream` instances to upload observations. Via the association to the `Datastream` resp. `MultiDatastream` their ownership of the observations is guaranteed. By associating a licence to the (multi)datastream, they could also define re-use conditions. 
+This entity can be used to represent acting users and to model ownership. One example for ownership is that a satellite `Thing` is owned by a space agency. This ownership may entitle the space agency to be the only party that can update the thing's location. Other parties can then mount their sensor on the satellite and provide `Datastream` or `MultiDatastream` instances to upload observations. Via the association to the `Datastream` resp. `MultiDatastream` their ownership of the observations is guaranteed. By associating a license to the (multi)datastream, they could also define re-use conditions. 
+
+[requirements_class]
+.Party
+
+====
+[%metadata]
+identifier:: /req-class/party
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: /req-class/entity-control-information
+requirement:: /req/party/properties
+requirement:: /req/party/relations
+====
 
 
-[cols="25a,75a"]
-|===
-2+|Requirements Class
+[requirement]
+====
+[%metadata]
+identifier:: /req/party/properties
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/party
-
-|Target Type
-|Web Service
-
-|Requirement
-|[[req-party-properties,{counter:req}]]
-\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-party-properties>>
-
-[[requirement-party-properties,party/properties]]
-__Each `Party` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-party>>.__
-
-|Requirement
-|[[req-party-relations,{counter:req}]]
-\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-party-relations>>
-
-[[requirement-party-relations,party/relations]]
-__Each `Party` entity MAY have direct relations to other entity types listed in <<tab-relations-party>>.__
-|===
+Each `Party` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-party>>.
+====
 
 [[tab-properties-party]]
 .Properties of a `Party` entity
@@ -142,7 +133,15 @@ __Each `Party` entity MAY have direct relations to other entity types listed in 
 
 |===
 
-NOTE: The `personalData` property has private visibility. An implementation must ensure GDPR compliance when allow CRUD access.
+[requirement]
+====
+[%metadata]
+identifier:: /req/party/relations
+
+Each `Party` entity MAY have direct relations to other entity types listed in <<tab-relations-party>>.
+====
+
+NOTE: The `personalData` property has private visibility. An implementation must ensure GDPR compliance when allowing CRUD access.
 
 [[tab-relations-party]]
 .Direct relation between a `Party` entity and other entity types
@@ -171,35 +170,34 @@ NOTE: The `personalData` property has private visibility. An implementation must
 |A `Party` MAY have zero-to-many `Projects`.
 |===
 
+
 [[license]]
-=== License
+=== Requirements Class *License*
 
-This entity can be used to associate a re-use condition to observations via a `Datastream` or `MultiDatastream`. It can also be used to express re-use confitions for a group (a set of observations).
+This entity can be used to associate a re-use condition to observations via a `Datastream` or `MultiDatastream`. It can also be used to express re-use conditions for a group (a set of observations).
+
+[requirements_class]
+.License
+
+====
+[%metadata]
+identifier:: /req-class/license
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: /req-class/entity-control-information
+requirement:: /req/license/properties
+requirement:: /req/license/relations
+====
 
 
-[cols="25a,75a"]
-|===
-2+|Requirements Class
+[requirement]
+====
+[%metadata]
+identifier:: /req/license/properties
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/license
+Each `License` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-license>>.
+====
 
-|Target Type
-|Web Service
-
-|Requirement
-|[[req-license-properties,{counter:req}]]
-\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-license-properties>>
-
-[[requirement-license-properties,license/properties]]
-__Each `License` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-license>>.__
-
-|Requirement
-|[[req-license-relations,{counter:req}]]
-\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-license-relations>>
-
-[[requirement-license-relations,license/relations]]
-__Each `License` entity MAY have direct relations to other entity types listed in <<tab-relations-license>>.__
-|===
 
 [[tab-properties-license]]
 .Properties of a `License` entity
@@ -233,6 +231,14 @@ __Each `License` entity MAY have direct relations to other entity types listed i
 |One (optional)
 |===
 
+[requirement]
+====
+[%metadata]
+identifier:: /req/license/relations
+
+Each `License` entity MAY have direct relations to other entity types listed in <<tab-relations-license>>.
+====
+
 [[tab-relations-license]]
 .Direct relation between a `License` entity and other entity types
 [cols="25a,20a,55a"]
@@ -256,35 +262,33 @@ __Each `License` entity MAY have direct relations to other entity types listed i
 |A `License` MAY have zero-to-many `Groups`.
 |===
 
+
 [[group]]
-=== Group
+=== Requirements Class *Group*
 
 This entity can be used to create a bag of observations and/or relations that can be shared and re-used.
 
+[requirements_class]
+.Group
 
-[cols="25a,75a"]
-|===
-2+|Requirements Class
+====
+[%metadata]
+identifier:: /req-class/group
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: /req-class/entity-control-information
+requirement:: /req/group/properties
+requirement:: /req/group/relations
+====
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/group
 
-|Target Type
-|Web Service
+[requirement]
+====
+[%metadata]
+identifier:: /req/group/properties
 
-|Requirement
-|[[req-group-properties,{counter:req}]]
-\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-group-properties>>
-
-[[requirement-group-properties,group/properties]]
-__Each `Group` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-group>>.__
-
-|Requirement
-|[[req-group-relations,{counter:req}]]
-\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-group-relations>>
-
-[[requirement-group-relations,group/relations]]
-__Each `Group` entity MAY have direct relations to other entity types listed in <<tab-relations-group>>.__
-|===
+Each `Group` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-group>>.
+====
 
 [[tab-properties-group]]
 .Properties of a `Group` entity
@@ -333,6 +337,14 @@ __Each `Group` entity MAY have direct relations to other entity types listed in 
 |One (optional)
 |===
 
+[requirement]
+====
+[%metadata]
+identifier:: /req/group/relations
+
+Each `Group` entity MAY have direct relations to other entity types listed in <<tab-relations-group>>.
+====
+
 [[tab-relations-group]]
 .Direct relation between a `Group` entity and other entity types
 [cols="25a,20a,55a"]
@@ -361,34 +373,32 @@ __Each `Group` entity MAY have direct relations to other entity types listed in 
 |===
 
 [[relation]]
-=== Relation
+=== Requirements Class *Relation*
 
-This entity can be used to describe relationships between (1) two observations, or (2) one observation and a resolveable external object identified by a URI.
+This entity can be used to describe relationships between (1) two observations, or (2) one observation and a resolvable external object identified by a URI.
+
+[requirements_class]
+.Group
+
+====
+[%metadata]
+identifier:: /req-class/relation
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: /req-class/entity-control-information
+requirement:: /req/relation/properties
+requirement:: /req/relation/relations
+====
 
 
-[cols="25a,75a"]
-|===
-2+|Requirements Class
+[requirement]
+====
+[%metadata]
+identifier:: /req/relation/properties
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/relation
+Each `Relation` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-relation>>.
+====
 
-|Target Type
-|Web Service
-
-|Requirement
-|[[req-relation-properties,{counter:req}]]
-\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-relation-properties>>
-
-[[requirement-relation-properties,relation/properties]]
-__Each `Relation` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-relation>>.__
-
-|Requirement
-|[[req-relation-relations,{counter:req}]]
-\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-relation-relations>>
-
-[[requirement-relation-relations,relation/relations]]
-__Each `Relation` entity MAY have direct relations to other entity types listed in <<tab-relations-relation>>.__
-|===
 
 [[tab-properties-relation]]
 .Properties of a `Relation` entity
@@ -411,13 +421,21 @@ __Each `Relation` entity MAY have direct relations to other entity types listed 
 |URI
 |One (mandatory)
 
-|propeties
+|properties
 |The SensorThings API definition applies
 |JSON Object
 |One (optional)
 |===
 
-NOTE: The subjct of a realtion entitpy is always an observation. For expressing the object of a relation, the `object` relation XOR `externalObject` property must be used.
+NOTE: The subject of a relation entity is always an observation. For expressing the object of a relation, the `object` relation XOR `externalObject` property must be used.
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/relation/relations
+
+Each `Relation` entity MAY have direct relations to other entity types listed in <<tab-relations-relation>>.
+====
 
 [[tab-relations-relation]]
 .Direct relation between a `Relation` entity and other entity types
@@ -439,34 +457,31 @@ NOTE: The subjct of a realtion entitpy is always an observation. For expressing 
 |===
 
 [[project]]
-=== Project
+=== Requirements Class *Project*
 
-This entity can be used to create a container of `Datastream` or `MultiDatastream` entities. A Project can have a particalur purpose and a managing party.
+This entity can be used to create a container of `Datastream` or `MultiDatastream` entities. A Project can have a particular purpose and a managing party.
+
+[requirements_class]
+.Project
+
+====
+[%metadata]
+identifier:: /req-class/project
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: /req-class/entity-control-information
+requirement:: /req/project/properties
+requirement:: /req/project/relations
+====
 
 
-[cols="25a,75a"]
-|===
-2+|Requirements Class
+[requirement]
+====
+[%metadata]
+identifier:: /req/project/properties
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/project
-
-|Target Type
-|Web Service
-
-|Requirement
-|[[req-project-properties,{counter:req}]]
-\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-project-properties>>
-
-[[requirement-project-properties,project/properties]]
-__Each `Project` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-project>>.__
-
-|Requirement
-|[[req-project-relations,{counter:req}]]
-\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-relaprojecttion-relations>>
-
-[[requirement-project-relations,project/relations]]
-__Each `Project` entity MAY have direct relations to other entity types listed in <<tab-relations-project>>.__
-|===
+Each `Project` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-project>>.
+====
 
 [[tab-properties-project]]
 .Properties of a `Project` entity
@@ -519,11 +534,19 @@ __Each `Project` entity MAY have direct relations to other entity types listed i
 |URL
 |One (optional)
 
-|propeties
+|properties
 |The SensorThings API definition applies
 |JSON Object
 One (optional)
 |===
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/project/relations
+
+Each `Project` entity MAY have direct relations to other entity types listed in <<tab-relations-project>>.
+====
 
 [[tab-relations-project]]
 .Direct relation between a `Project` entity and other entity types

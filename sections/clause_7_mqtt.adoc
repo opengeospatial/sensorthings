@@ -1,33 +1,34 @@
 [[staplus-mqtt]]
 == STAplus MQTT Extension Requirements
 
+The MQTT capabilities allows that a client can receive changes to STAplus entities via MQTT. 
+
+NOTE: The publishing of observations as defined in <<OGC18-088>> via MQTT does not apply to STAplus entities.
+
 === Overview
 
-STAplus entity updates can be received via MQTT.
+NOTE: In the context of MQTT, all STAplus entities as defined in this Standard are equivalent to the STA entities. Therefore, the implementation of MQTT capabilities must be compliant with the SensorThings API v1.1 Standard.
 
-NOTE: This extension does not specify the creation of entities specified in <<staplus-entities>> with MQTT Publish.
+[[mqtt-subscribe]]
+=== Requirements Class *MQTT Subscribe*
 
-[[mqtt_receive_updates]]
-=== Receive updates with MQTT Subscribe
-
-[cols="25a,75a"]
-|===
-2+|Requirements Class
-
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/receive-updates-via-mqtt
-
-|Target Type
-|Web Service
-
-|Dependency
-|\http://www.opengis.net/spec/iot_sensing/1.1/req/receive-updates-via-mqtt/receive-updates
-
-|Requirement
-|[[req-receive-updates-via-mqtt-receive-updates,{counter:req}]]
-\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-receive-updates-via-mqtt-receive-updates>>
-
-[[requirement-receive-updates-via-mqtt-receive-updates,receive-updates-via-mqtt/receive-updates]]
-__To allow clients to receive notifications for the updates of STAplus entities with MQTT, an implementation SHALL consider STAplus entities in the same way as SensorThings entities.__
-|===
+[requirements_class]
+.MQTT Subscribe
 
 
+====
+[%metadata]
+identifier:: /req-class/mqtt-subscribe
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: http://www.opengis.net/spec/iot_sensing/1.1/req/receive-updates-via-mqtt
+requirement:: /req/mqtt-subscribe
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/mqtt-subscribe
+
+A STAplus implementation SHALL support the receiving of STAplus entity updates with MQTT Subscribe as defined in http://www.opengis.net/spec/iot_sensing/1.1/req/receive-updates-via-mqtt.
+====

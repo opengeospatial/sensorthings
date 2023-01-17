@@ -1,141 +1,544 @@
 [appendix,obligation="normative"]
-== Conformance Classes
+== Conformance Class Abstract Test Suite
 
-The entities of the STAplus data model extension are grouped into the STAplus Core Conformance Class.
-
-The SensorThings API provides CRUD access to the entities of the data model. As the minimum conformance, an implementation must support Read-access.
-
-Optional support for Create-, Update-, Delete-access is possible. To support this selective behavior, each access mode defines a seperate conformance class.
+This normative section defines the STAplus 1.0 conformance classes tests.
 
 [NOTE]
 A STAplus compliant implementation must also be compliant with the SensorThings API conformance as defined in OGC #18-088.
 
-=== STAplus *Core* Conformance Class
+=== STAplus *Core* Conformance Class Tests
 
-[cols="25a,75a"]
-|===
-2+|A.1  Conformance class: STAplus Core
 
-|**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-core
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/core/common-control-information
+target:: /conf/core
 
-2+|**Dependencies:**
+target:: /req/common-control-information
 
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/datamodel/entity-control-information/common-control-information
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/party
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/license
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/group
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/relation
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/project
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-read
-|===
+test-purpose:: To verify that the common control information as defined in the requirement.
+test-method-type:: Manually Inspect
+test-method:: Inspect the full JSON object of the entity sets (__i.e.__, without $select) to identify, if each entity has the common control information defined in the above requirement and the service sends appropriate responses as defined in this specification.
+====
 
-=== STAplus *Create* Conformance Class
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/core/entities
+inherit:: /conf/core/common-control-information
+target:: /conf/core
 
-[cols="25a,75a"]
-|===
-2+|A.2  Conformance class: STAplus Create
+target:: /req/party/properties
+target:: /req/party/relations
 
-|**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-create
+target:: /req/license/properties
+target:: /req/license/relations
 
-2+|**Dependencies:**
+target:: /req/group/properties
+target:: /req/group/relations
 
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-core
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-create
-|===
+target:: /req/relation/properties
+target:: /req/relation/relations
 
-=== STAplus *Update* Conformance Class
+target:: /req/project/properties
+target:: /req/project/relations
 
-[cols="25a,75a"]
-|===
-2+|A.3  Conformance class: STAplus Update
+test-purpose:: Verify that each STAplus entity has the mandatory properties and mandatory relations as defined in this specification.
+test-method-type:: Manually Inspect
+test-method:: Evaluate for each STAplus entity:
 
-|**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-update
+part:: Inspect the full JSON object of the entity sets (__i.e.__, without $select) to identify, if each entity has the mandatory properties defined in the corresponding requirement.
 
-2+|**Dependencies:**
+part:: Inspect the full JSON object of each entity set (__i.e.__, without using the $select query option) to identify, if each entity has the mandatory relations (__i.e.__, @iot.navigationLink) defined in the corresponding requirement.
+====
 
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-core
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-update
-|===
 
-=== STAplus *Delete* Conformance Class
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/core/read
+inherit:: /conf/core/entities
+target:: /conf/core
 
-[cols="25a,75a"]
-|===
-2+|A.3  Conformance class: STAplus Delete
+target:: /req/read/entity
 
-|**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-delete
 
-2+|**Dependencies:**
+test-purpose:: Verify that the implementation supports to read STAplus entities via HTTP GET.
+test-method-type:: Manually Inspect
+test-method:: Evaluate that the implementation accepts a Sensor Things API compliant HTTP Get request to the STAplus entities:
 
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-core
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-delete
-|===
+part:: Construct a URL to the `Party` entity and verify the response.
+part:: Construct a URL to the `License` entity and verify the response.
+part:: Construct a URL to the `Group` entity and verify the response.
+part:: Construct a URL to the `Relation` entity and verify the response.
+part:: Construct a URL to the `Project` entity and verify the response.
+====
 
-=== STAplus *Authentication* Conformance Class
 
-[cols="25a,75a"]
-|===
-2+|A.3  Conformance class: STAplus Authentication
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/core/storage-crs/crs-definition
+target:: /conf/core
 
-|**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-auth
+target:: /req/storage-crs/crs-definition
 
-2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-auth
-|===
+test-purpose:: Verify that the implementation supports and uses the default CRS.
+test-method:: Evaluate that the implementation uses the default CRS.
 
-=== STAplus *Business Logic* Conformance Class
+part:: Construct a `Location` entity that contains a `Location` property whose geometry is encoded using the default CRS and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
+part:: Construct a `FeatureOfInterst` entity that contains a `Feature` property whose geometry is encoded using the default CRS and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
+====
 
-[cols="25a,75a"]
-|===
-2+|A.3  Conformance class: STAplus Business Logic
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/core/storage-crs/axis-order
+target:: /conf/core
 
-|**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-business-logic
+target:: /req/storage-crs/axis-order
 
-2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-busienss-logic
-|===
+test-purpose:: Verify that the implementation supports and uses the default axis-order.
+test-method:: Evaluate that the implementation uses the default axis-order.
 
-=== STAplus *FeatureOfInterest and Location Encoding Requirements* Conformance Class
+part:: Construct a `Location` entity that contains a `Location` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
+part:: Construct a `FeatureOfInterst` entity that contains a `Feature` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
+====
 
-[cols="25a,75a"]
-|===
-2+|A.3  Conformance class: STAplus FeatureOfInterest and Location Encoding 
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/core/storage-crs/media-type
+target:: /conf/core
 
-|**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-foi
+target:: /req/storage-crs/media-type
 
-2+|**Dependencies:**
 
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-geometry-geojson
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-geometry-fg
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-geometry-wkt
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-geometry-out
-|===
+test-purpose:: Verify that the implementation supports and uses the default media-type.
+test-method:: Evaluate that the implementation uses the default media-type.
 
-=== STAplus *Coordinate Reference System * Conformance Class
+part:: Construct a `Location` entity that contains a `Location` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS and axis-order.
+part:: Construct a `FeatureOfInterst` entity that contains a `Feature` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS and axis-order.
+====
 
-[cols="25a,75a"]
-|===
-2+|A.3  Conformance class: STAplus Coordinate Reference System 
 
-|**Conformance class id:**
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/staplus-crs
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/core/storage-crs/processing
+target:: /conf/core
 
-2+|**Dependencies:**
+target:: /req/storage-crs/processing
 
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-storage-crs>>
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-list-crs>>
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-entities>>
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-default>>
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-other>>
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-transform>>
-. http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-crs-error>>
-|===
+
+test-purpose:: Verify that the implementation stores geometry that is encoded in the default CRS and axis-order without processing.
+test-method:: Evaluate that the implementation stores geometry that is encoded in the default CRS and axis-order without processing.
+
+part:: Construct a `Location` entity that contains a `Location` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is stores the geometry data without processing.
+part:: Construct a `FeatureOfInterst` entity that contains a `Feature` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is stores the geometry data without processing.
+====
+
+
+
+
+
+
+
+
+=== STAplus *Create* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/create/http
+target:: /conf/create
+
+target:: /req/create/entity
+target:: /req/create/link-to-existing-entities
+target:: /req/create/deep-insert
+target:: /req/create/deep-insert-status-code
+
+
+test-purpose:: To verify that the service implementation supports the creation of entities as defined in this specification.
+test-method:: For each STAplus entity:
+
+part:: Create an entity instance by following the integrity constraints and creating the related entities with a single request (__i.e.__, deep insert), check if the entity instance is successfully created and the implementation responds as defined in this specification.
+
+part:: Create an entity instance and its related entities with a deep insert request that does not conform to the specification (e.g., missing a mandatory property), check if the service fails the request without creating any entity within the deep insert request and responds the appropriate HTTP status code.
+
+
+part:: Issue an entity creation request that does not follow the integrity constraints with deep insert, check if the service fails the request without creating any entity within the deep insert request and responds the appropriate HTTP status code.
+
+
+part:: Create an entity instance by linking to existing entities with a single request, check if the server responds as defined in this specification.
+
+
+part:: Create an entity instance that does not follow the integrity constraints by linking to existing entities with a single request, check if the server responds as defined in this specification.
+====
+
+
+=== STAplus *Update* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/update/put
+target:: /conf/update
+
+target:: /req/update/entity
+target:: /req/update/entity-put
+
+
+test-purpose:: To verify that the service implementation supports the update of entities as defined in this specification.
+test-method:: For each STAplus entity:
+
+part:: Send an update request with HTTP PUT and check if the service responds as defined.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/update/patch
+target:: /conf/update
+
+target:: /req/update/entity
+target:: /req/update/entity-jsonpatch
+
+
+test-purpose:: To verify that the service implementation supports the update of entities as defined in this specification.
+test-method:: For each STAplus entity:
+
+part:: Send an update request with PATCH, check (1) if the properties provided in the payload corresponding to updatable properties replace the value of the corresponding property in the entity and (2) if the missing properties of the containing entity or complex property are not directly altered.
+
+part:: Send an update request with PATCH that contains related entities as inline content, check if the service fails the request and returns appropriate HTTP status code.
+
+part:: Send an update request with PATCH that contains binding information for navigation properties, check if the service updates the navigationLink accordingly.
+====
+
+
+
+=== STAplus *Delete* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/delete/entity
+target:: /conf/delete
+
+target:: /req/delete/entity
+
+
+test-purpose:: To verify that the service implementation supports the deletion of entities as defined
+test-method:: For each STAplus entity:
+
+part:: Delete an entity instance, and check if the service responds as defined
+====
+
+
+
+=== STAplus *Authentication* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/authentication/id
+target:: /conf/authentication
+
+target:: /req/authentication/id
+
+
+test-purpose:: To verify that the user's identifier is permanent and unique.
+test-method:: Verify the following:
+
+part:: Compare the user identifier after repeated login of the same user and verify that the identifier is identical.
+part:: Compare the user identifier for different users and verify that the identifiers are different.
+====
+
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/authentication/anon-personal-data-crud
+target:: /conf/core
+
+target:: /req/authentication/anon-personal-data-crud
+
+
+test-purpose:: To verify that an anonymous user cannot read, create, update or delete personal data stored in any `Party.personalData`.
+test-method:: For an existing `Party` entity:
+
+part:: Submit a HTTP GET request to any (all) `Party` entity(ies) and check that the response does not contain the `personalData` property.
+part:: Submit a HTTP POST, PATCH, and DELETE request to any (all) `Party` entity(ies) and check that the response is compliant with the business logic.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/authentication/own-personal-data-crud
+target:: /conf/authentication
+
+target:: /req/authentication/own-personal-data-r
+target:: /req/authentication/own-personal-data-cud
+
+
+test-purpose:: To verify that a user can read, create, update and delete the own personal data stored in `Party.personalData`.
+test-method:: Verify that access to the own personal data is possible for an authenticated user by sending HTTP requests with different methods to the `Party` entity that represents the user:
+
+part:: Have the user authenticate and identify the corresponding `Party` entity.
+part:: Construct a HTTP POST request to create a `Party` entity including personal data and verify that the entity is stored.
+part:: Construct a HTTP GET request to the corresponding `Party` entity and verify that the personal data is contained in the response.
+part:: Construct a HTTP PATCH request to update the personal data of the corresponding `Party`entity. Verify that the update was successful.
+part:: Construct a HTTP PATCH request to delete the personal data (set values to `null`) of the corresponding `Party` entity. Verify that the erasure of the personal data was successful.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/authentication/other-personal-data-crud
+target:: /conf/authentication
+
+target:: /req/authentication/other-personal-data-r
+target:: /req/authentication/other-personal-data-cud
+
+test-purpose:: To verify that a user can *not* read, create, update and delete *other user's* personal data stored in `Party.personalData`.
+test-method:: Verify that access to other personal data is *not* possible for an authenticated user by sending HTTP requests with different methods to the `Party` entity that represents *another* user:
+
+part:: Have the user authenticate and identify a `Party` entity of another user.
+part:: Construct a HTTP POST request to create a `Party` entity including personal data using a `partyId` value for another user. Verify that the response is compliant with the business logic.
+part:: Construct a HTTP GET request to `Party` entity of another user and verify that the response is compliant with the business logic.
+part:: Construct a HTTP PATCH request to update the personal data of another `Party`entity. Verify that  the response is compliant with the business logic.
+part:: Construct a HTTP PATCH request to delete the personal data (set values to `null`) of *another* `Party` entity. Verify that the response is compliant with the business logic.
+====
+
+
+=== STAplus *Business Logic* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/business-logic/definition
+target:: /conf/business-logic
+
+target:: /req/business-logic/definition
+
+test-purpose:: To verify that the description of the business logic is human readable and in English.
+test-method:: Follow the link for this conformance class from the STAplus landing page and verify that the conformance page (JSON and HTML) contains the description of the business logic in English language.
+====
+
+
+=== STAplus *Geometry FG* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-fg//media-type
+target:: /conf/geometry-fg
+
+target:: /req/geometry-fg/media-type
+
+test-purpose:: To verify that the implementation accepts media-type for Geometry-FG.
+test-method:: Verify that the implementation supports the use of the media-type for Geometry-FG.
+====
+
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-fg/default-crs
+target:: /conf/geometry-fg
+
+target:: /req/geometry-fg/default-crs
+
+test-purpose:: To verify that the default-CRS is used for processing geometry data from `Feature` and `Location`.
+test-method:: Verify that the implementation applies the default CRS advertized in the conformance page to the geometry data from `Feature` and `Location`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-fg/supported-crs
+target:: /conf/geometry-fg
+
+target:: /req/geometry-fg/supported-crs
+
+test-purpose:: To verify that all CRS, advertized as supported in the conformance page are accepted.
+test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location`. For each supported CRS:
+
+part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted by the implementation.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-fg/crs-error
+target:: /conf/geometry-fg
+
+target:: /req/geometry-fg/crs-error
+
+test-purpose:: To verify that no additional CRS, as advertized as supported in the conformance page are accepted.
+test-method:: Verify that the implementation *does not* accept geometry encodings for `Feature` and `Location` that are not listed as supported. For a CRS *not* listed as supported:
+
+part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is *rejected* by the implementation.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-fg/processing
+target:: /conf/geometry-fg
+
+target:: /req/geometry-fg/processing
+
+test-purpose:: To verify that a geometry not encoded in the storage-CRS is transformed before storage.
+test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location` that use a supported CRS:
+
+part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted and transformed to the storage-CRS before processed and stored by the implementation.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-fg/out
+target:: /conf/geometry-fg
+
+target:: /req/geometry-fg/out
+
+test-purpose:: To verify that a geometry included in a response is encoded in the storage-CRS.
+test-method:: Verify that the geometry data for a `Feature` and `Location` is using storage-CRS, independent from the geometry CRS used with the creation or updating of the entity.
+====
+
+
+=== STAplus *Geometry WKT* Conformance Class Tests
+
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-wkt/media-type
+target:: /conf/geometry-wkt
+
+target:: /req/geometry-wkt/media-type
+
+test-purpose:: To verify that the implementation accepts media-type for WKT.
+test-method:: Verify that the implementation supports the use of the media-type for WKT.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-wkt/crs-definition
+target:: /conf/geometry-wkt
+
+target:: /req/geometry-wkt/crs-definition
+
+test-purpose:: To verify that the implementation accepts CRS definition provided in the associated property.
+test-method:: Verify that the implementation supports the use of the CRS property.
+====
+
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-wkt/default-crs
+target:: /conf/geometry-wkt
+
+target:: /req/geometry-wkt/default-crs
+
+test-purpose:: To verify that the default-CRS is used for processing geometry data from `Feature` and `Location`.
+test-method:: Verify that the implementation applies the default CRS advertized in the conformance page to the geometry data from `Feature` and `Location`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-wkt/supported-crs
+target:: /conf/geometry-wkt
+
+target:: /req/geometry-wkt/supported-crs
+
+test-purpose:: To verify that all CRS, advertized as supported in the conformance page are accepted.
+test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location`. For each supported CRS:
+
+part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted by the implementation.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-wkt/crs-error
+target:: /conf/geometry-wkt
+
+target:: /req/geometry-wkt/crs-error
+
+test-purpose:: To verify that no additional CRS, as advertized as supported in the conformance page are accepted.
+test-method:: Verify that the implementation *does not* accept geometry encodings for `Feature` and `Location` that are not listed as supported. For a CRS *not* listed as supported:
+
+part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is *rejected* by the implementation.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-wkt/value
+target:: /conf/geometry-wkt
+
+target:: /req/geometry-wkt/value
+
+test-purpose:: To verify that the geometry value, compliant to WKT is accepted as value for the `Feature` and `Location` property.
+test-method:: Verify that the implementation accepts WKT geometry values for `Feature` and `Location`.
+====
+
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-wkt/processing
+target:: /conf/geometry-wkt
+
+target:: /req/geometry-wkt/processing
+
+test-purpose:: To verify that a geometry not encoded in the storage-CRS is transformed before storage.
+test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location` that use a supported CRS:
+
+part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted and transformed to the storage-CRS before processed and stored by the implementation.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/geometry-wkt/out
+target:: /conf/geometry-wkt
+
+target:: /req/geometry-wkt/out
+
+test-purpose:: To verify that a geometry included in a response is encoded in the storage-CRS.
+test-method:: Verify that the geometry data for a `Feature` and `Location` is using storage-CRS, independent from the geometry CRS used with the creation or updating of the entity.
+====
+
+
+=== STAplus *MQTT Subscribe* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/mqtt-subscribe/definition
+target:: /conf/mqtt-subscribe
+
+target:: /req/mqtt-subscribe
+
+test-purpose:: To verify that a client can receive notifications for the updates of a STAplus entity set or an individual entity with MQTT.
+test-method:: For each STAplus entity:
+
+part:: Subscribe to an entity set with MQTT Subscribe. Then create a new entity of the subscribed entity set. Check if a complete JSON representation of the newly created entity through MQTT is received.
+
+part:: Subscribe to an entity set with MQTT Subscribe. Then update an existing entity of the subscribed entity set. Check if a complete JSON representation of the updated entity through MQTT is received.
+
+part:: part:: Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
+
+Subscribe to multiple properties of an entity set with MQTT Subscribe. Then create a new entity of the entity set.  Check if a JSON object of the subscribed properties is received.
+
+part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then update an existing entity of the entity set with PATCH. Check if a JSON object of the subscribed properties is received.
+====

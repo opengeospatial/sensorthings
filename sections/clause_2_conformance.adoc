@@ -1,107 +1,190 @@
 == Conformance
+
+All requirements-classes and conformance-classes described in this document are owned by the standard(s) identified.
+
+=== Introduction
+
+STAplus 1.0 defines an extension to the <<OGC18-088>> standard by adding additional entities via the Data Model. Access to the STAplus entities via HTTP is defined in the Read, Update and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTT Requirements Class. A default storage-CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometry FG and Geometry WKT Requirements Class. The Authentication Requirements Class supports the unique identification of acting users. The Business Requirements Class supports the textual description of the implemented business logic.
+
+=== STAplus 1.0 Conformance Classes
+This OGC Standard defines one mandatory and optional conformance classes.
+
 Conformance with this standard shall be checked using all the relevant tests specified in Annex A (normative) of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC Compliance Testing web site.
 
 In order to conform to this OGC® interface standard, a software implementation shall choose to implement:
 
-* The one mandatory conformance class specified in Annex A (normative).
-* Any one of the optional conformance classes specified in Annex A (normative).
-* Pass all applicable tests as defined in Annex B (normative)
+* The one mandatory conformance class.
+* Any one of the optional conformance classes.
+* Pass all applicable tests as defined in Annex A (normative)
 
-All requirements-classes and conformance-classes described in this document are owned by the standard(s) identified.
+In order to conform to this OGC® Standard, a software implementation SHALL implement the mandatory conformance class specified:
 
-The following table list the requirements classes defined by this standard.
+* *Core* (mandatory): This Conformance Class incorporates the capabilities to support the Read of STAplus entities via HTTP. It also includes the Storage-CRS Requirements Class to ensure interoperability with geometry encodings in the `Feature` and `Location` properties.
 
+* *Update* (optional): This Conformance Class supports to update STAplus entities via HTTP.
 
-NOTE: The text in the __Requirements__ column in the following table is the path fragment that, when appended to the URI: \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus, provides the URI that can be used to unambiguously identify the requirement and the conformance class.
+* *Delete* (optional): This Conformance Class supports to delete STAplus entities via HTTP.
 
-[cols="<2,4a,<2"]
-|===
-|Requirements class id |Requirements |Description
+* *Authentication* (optional): This Conformance Class supports user authentication and their unique identification.
 
-|req/entity-control-information-common-control-information
-|
-* req/<<requirement-entity-control-information-common-control-information>>
-|STAplus entities’ common control information
+* *Geometry-FG* (optional): This Conformance Class supports the alternative geometry encoding for the `Feature` and `Location` properties based on Features and their Geometries.
 
-|req/party
-|
-* req/<<requirement-party-properties>>
-* req/<<requirement-party-relations>>
-|Party entity
+* *Geometry-WKT* (optional): This Conformance Class supports the alternative geometry encoding for the `Feature` and `Location` properties based on Well-Known-Text as defined in <<ISO19125-1>>.
 
-|req/license
-|
-* req/<<requirement-license-properties>>
-* req/<<requirement-license-relations>>
-|License entity
+* *MQTT Subscribe* (optional): This Conformance Class supports a client to receive STAplus entity changes via MQTT.
 
-|req/group
-|
-* req/<<requirement-group-properties>>
-* req/<<requirement-group-relations>>
-|Group entity
+* *Business Logic* (optional): This Conformance Class supports that the implementation business logic is described in English text to help developers understand the details of CRUD access.
 
-|req/relation
-|
-* req/<<requirement-relation-properties>>
-* req/<<requirement-relation-relations>>
-|Relation entity
+==== Conformance Class *Core*
+The `Core` Conformance Class is defined as follows:
+[conformance_class]
+.Core
+====
+[%metadata]
+identifier:: /conf/core
+target:: /req-class/entity-control-information
+target:: /req-class/party
+target:: /req-class/license
+target:: /req-class/group
+target:: /req-class/relation
+target:: /req-class/project
+target:: /req-class/read
+target:: /req-class/storage-crs
 
-|req/project
-|
-* req/<<requirement-project-properties>>
-* req/<<requirement-project-relations>>
-|Project entity
+classification:: Target Type: Implementation
+conformance-test:: /conf/core/common-control-information
+conformance-test:: /conf/core/entities
+conformance-test:: /conf/core/read
+conformance-test:: /conf/core/storage-crs/crs-definition
+conformance-test:: /conf/core/storage-crs/axis-order
+conformance-test:: /conf/core/storage-crs/media-type
+conformance-test:: /conf/core/storage-crs/processing
+====
 
-|req/staplus-read
-|
-* req/<<requirement-read-entity>>
-* req/<<requirement-link-to-existing-entities>>
-|Reading a STAplus entity
+==== Conformance Class *Create*
+The `Create` Conformance Class is defined as follows:
+[conformance_class]
+.Update
+====
+[%metadata]
+identifier:: /conf/create
+inherit:: /conf/core
+target:: /req-class/create
 
-|req/staplus-create
-|
-* req/<<requirement-create-entity>>
-* req/<<requirement-link-to-existing-entities>>
-* req/<<requirement-deep-insert>>
-* req/<<requirement-deep-insert-status-code>>
-|Creating a STAplus entity
+classification:: Target Type: Implementation
+conformance-test:: /conf/create/http
+====
 
-|req/staplus-update
-|
-* req/<<requirement-update-entity>>
-* req/<<requirement-update-entity-put>>
-* req/<<requirement-update-entity-jsonpatch>>
-|Updating a STAplus entity
+==== Conformance Class *Update*
+The `Update` Conformance Class is defined as follows:
+[conformance_class]
+.Update
+====
+[%metadata]
+identifier:: /conf/update
+inherit:: /conf/core
+target:: /req-class/update
 
-|req/staplus-delete
-|
-* req/<<requirement-delete-entity>>
-| Deleting a STAplus entity
+classification:: Target Type: Implementation
+conformance-test:: /conf/update/put
+conformance-test:: /conf/update/patch
+====
 
-|req/receive-updates
-|
-* req/<<requirement-receive-updates-via-mqtt>>
-| Receiving STAplus entity updates via MQTT
+==== Conformance Class *Delete*
+The `Delete` Conformance Class is defined as follows:
+[conformance_class]
+.Delete
+====
+[%metadata]
+identifier:: /conf/delete
+inherit:: /conf/core
+target:: /req-class/delete
 
-|req/staplus-business-logic
-|
-* req/<<requirement-staplus-business-logic>>
-| Describe the business logic that controls the create, update and delete on STA and STAplus Entities
+classification:: Target Type: Implementation
+conformance-test:: /conf/delete/entity
+====
 
-|req/staplus-auth
-|
-* req/<<requirement-staplus-auth>>
-| User authentication
+==== Conformance Class *Authentication*
+The `Authentication` Conformance Class is defined as follows:
+[conformance_class]
+.Authentication
+====
+[%metadata]
+identifier:: /conf/authentication
+inherit:: /conf/core
+target:: /req-class/authentication
 
-|req/staplus-geometry
-|
-* req/<<requirement-staplus-geometry>>
-| Encoding of geometry information in the `<Feature>` and `<Location>` entities.
+classification:: Target Type: Implementation
+conformance-test:: /conf/authentication/id
+conformance-test:: /conf/authentication/anon-personal-data-crud
+conformance-test:: /conf/authentication/own-personal-data-crud
+conformance-test:: /conf/authentication/other-personal-data-crud
+====
 
-|req/staplus-crs
-|
-* req/<<requirement-staplus-crs>>
-| Support of CRS different from the default-CRS to encode geometry information in the `<Feature>` and `<Location>` entities.
+==== Conformance Class *Geometry FG*
+The `Geometry FG` Conformance Class is defined as follows:
+[conformance_class]
+.Geometry FG
+====
+[%metadata]
+identifier:: /conf/geometry-fg
+inherit:: /conf/core
+target:: /req-class/geometry-fg
 
-|===
+classification:: Target Type: Implementation
+conformance-test:: /conf/geometry-fg//media-type
+conformance-test:: /conf/geometry-fg/default-crs
+conformance-test:: /conf/geometry-fg/supported-crs
+conformance-test:: /conf/geometry-fg/crs-error
+conformance-test:: /conf/geometry-fg/processing
+conformance-test:: /conf/geometry-fg/out
+====
+
+==== Conformance Class *Geometry WKT*
+The `Geometry WKT` Conformance Class is defined as follows:
+[conformance_class]
+.Geoemtry WKT
+====
+[%metadata]
+identifier:: /conf/geometry-wkt
+inherit:: /conf/core
+target:: /req-class/geometry-wkt
+
+classification:: Target Type: Implementation
+conformance-test:: /conf/geometry-wkt/media-type
+conformance-test:: /conf/geometry-wkt/crs-definition
+conformance-test:: /conf/geometry-wkt/default-crs
+conformance-test:: /conf/geometry-wkt/supported-crs
+conformance-test:: /conf/geometry-wkt/crs-error
+conformance-test:: /conf/geometry-wkt/value
+conformance-test:: /conf/geometry-wkt/processing
+conformance-test:: /conf/geometry-wkt/out
+====
+
+==== Conformance Class *MQTT Subscribe*
+The `MQTT Subscribe` Conformance Class is defined as follows:
+[conformance_class]
+.MQTT Subscribe
+====
+[%metadata]
+identifier:: /conf/mqtt-subscribe
+inherit:: /conf/core
+target:: /req-class/mqtt-subscribe
+
+classification:: Target Type: Implementation
+conformance-test:: /conf/mqtt-subscribe/definition
+====
+
+==== Conformance Class *Business Logic*
+The `Business Logic` Conformance Class is defined as follows:
+[conformance_class]
+.Business Logic
+====
+[%metadata]
+identifier:: /conf/business-logic
+inherit:: /conf/core
+target:: /req-class/business-logic
+
+classification:: Target Type: Implementation
+conformance-test:: /conf/business-logic/definition
+====

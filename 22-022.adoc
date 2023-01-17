@@ -1,4 +1,4 @@
-= OGC SensorThings API Extension: STAplus
+= OGC SensorThings API Extension: STAplus 1.0
 :doctype: standard
 :encoding: utf-8
 :lang: en
@@ -7,7 +7,7 @@
 :draft: 1.0
 :external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
 :docnumber: 22-022
-:received-date: 2029-03-30
+:received-date: 2023-01-17
 :issued-date: 2029-03-30
 :published-date: 2029-03-30
 :fullname: Andreas Matheus
@@ -21,7 +21,10 @@
 :pdf-uri: ./document.pdf
 :xml-uri: ./document.xml
 :doc-uri: ./document.doc
-:edition: 0.3
+:edition: 0.5
+
+:CRS84: urn:ogc:def:crs:OGC::CRS84
+:identifier: http://www.opengis.net/doc/is/sensorthings/1.1/staplus/1.0
 
 ////
 Make sure to complete each included document
@@ -53,8 +56,6 @@ include::sections/clause_8_media_types.adoc[]
 add or remove annexes after "A" as necessary
 ////
 include::sections/annex-a.adoc[]
-
-include::sections/annex-b.adoc[]
 
 ////
 Revision History should be the last annex before the Bibliography

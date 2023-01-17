@@ -7,79 +7,58 @@
 As many IoT devices are resource-constrained, the SensorThings API adopts the efficient REST web service style. That means the Read, Create, Update, Delete actions can be performed on the STAplus entity types. 
 
 [[read-entity]]
-=== Read an entity
+=== Requirements Class *Read*
 
-[cols="25a,75a"]
-|===
-2+|Requirements Class
+[requirements_class]
+.Read
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-read
+====
+[%metadata]
+identifier:: /req-class/read
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: /req-class/entity-control-information
+requirement:: /req/read/entity
+====
 
-|Target Type
-|Web Service
 
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-read-entity>>
+[requirement]
+====
+[%metadata]
+identifier:: /req/read/entity
 
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-link-to-existing-entities>>
-
-|===
-
-[[req-read-entity,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-read-entity,read/read-entity]]
-Req <<req-read-entity>>: <<requirement-read-entity>>
-
-|To read an entity or a collection or entities, the client SHALL send a HTTP GET request to that entity or a collection's URL. 
+To read an entity or a collection of entities, the client SHALL send a HTTP GET request to that entity or a collection's URL. 
 
 If the target URL for the collection is a navigationLink, the entity is automatically linked to the entity or entities represented by the navigationLink.
 
-Upon successful completion, the response SHALL contain the representation of the entity or entities.
+Upon successful completion, the response SHALL contain the representation of the entity or entities.====
+====
 
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-read-entity>>
-|===
 
 [[create-entity]]
-=== Create an entity
-The following subsections explain the Create protocol.
+=== Requirements Class *Create*
 
-[cols="25a,75a"]
-|===
-2+|Requirements Class
+[requirements_class]
+.Create
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-create
+====
+[%metadata]
+identifier:: /req-class/create
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: /req-class/entity-control-information
+requirement:: /req/create/entity
+requirement:: /req/create/link-to-existing-entities
+requirement:: /req/create/deep-insert
+requirement:: /req/create/deep-insert-status-code
+====
 
-|Target Type
-|Web Service
+[requirement]
+====
+[%metadata]
+identifier:: /req/create/entity
 
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-create-entity>>
-
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-link-to-existing-entities>>
-
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-deep-insert>>
-
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-deep-insert-status-code>>
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
-|===
-
-[[req-create-entity,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-create-entity,create/create-entity]]
-Req <<req-create-entity>>: <<requirement-create-entity>>
-
-|To create an entity in a collection, the client SHALL send a HTTP POST request to that collection's URL. The POST body SHALL contain a single valid entity representation.
+To create an entity in a collection, the client SHALL send a HTTP POST request to that collection's URL. The POST body SHALL contain a single valid entity representation.
 
 If the target URL for the collection is a navigationLink, the new entity is automatically linked to the entity containing the navigationLink.
 
@@ -90,161 +69,111 @@ Upon successful completion the service SHALL respond with either 201 Created, or
  [Adapted from Data 4.0-Protocol, 11.4.2 Create an Entity]
 
 In addition, the link between entities SHALL be established upon creating an entity. Two use cases SHALL be considered: (1) link to existing entities when creating an entity, and (2) create related entities when creating an entity. The requests for these two use cases are described in the following subsection.
+====
 
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-create-entity>>
-|===
+[requirement]
+====
+[%metadata]
+identifier:: /req/create/link-to-existing-entities
 
+A STAplus implementation that supports entity creation, SHALL support linking new entities to existing entities upon creation. To create a new entity with links to existing entities in a single request, the client SHALL include the unique identifiers of the related entities associated with the corresponding navigation properties in the request body.
+====
 
-[[req-link-to-existing-entities,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-link-to-existing-entities,create/link-to-existing-entities]]
-Req <<req-link-to-existing-entities>>: <<requirement-link-to-existing-entities>>
+[requirement]
+====
+[%metadata]
+identifier:: /req/create/deep-insert
 
-|A STAplus implementation that supports entity creation, SHALL support linking new entities to existing entities upon creation. To create a new entity with links to existing entities in a single request, the client SHALL include the unique identifiers of the related entities associated with the corresponding navigation properties in the request body.
-
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-link-to-existing-entities>>
-|===
-
-
-[[req-deep-insert,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-deep-insert,create/deep-insert]]
-Req <<req-deep-insert>>: <<requirement-deep-insert>>
-
-|A request to create an entity that includes related entities, represented using the appropriate inline representation, is referred to as a "deep insert". A STAplus implementation that supports entity creation SHALL support deep insert.
+A request to create an entity that includes related entities, represented using the appropriate inline representation, is referred to as a "deep insert". A STAplus implementation that supports entity creation SHALL support deep insert.
 
 If the inline representation contains a value for a computed property (__i.e.__, id), the service SHALL ignore that value when creating the related entity.
 
 On success, the service SHALL create all entities and relate them. On failure, the service SHALL NOT create any of the entities.
 
  [Adapted from Data 4.0-Protocol 11.4.2.2]
+====
 
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-deep-insert>>
-|===
+[requirement]
+====
+[%metadata]
+identifier:: /req/create/deep-insert-status-code
 
-
-[[req-deep-insert-status-code,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-deep-insert-status-code,create/deep-insert-status-code]]
-Req <<req-deep-insert-status-code>>: <<requirement-deep-insert-status-code>>
-
-|Upon successfully creating an entity, the service response SHALL contain a Location header that contains the URL of the created entity. Upon successful completion the service SHALL respond with 201 Created. Regarding all the HTTP status code, please refer to the HTTP Status Code section.
-
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-deep-insert-status-code>>
-|===
-
-
-
-
-
-
-
+Upon successfully creating an entity, the service response SHALL contain a Location header that contains the URL of the created entity. Upon successful completion the service SHALL respond with 201 Created. Regarding all the HTTP status code, please refer to the HTTP Status Code section.
+====
 
 [[staplus-update]]
-== STAplus Update Requirements
+=== Requirements Class *Update*
 
-=== Overview
-The following subsections explain the Update protocol.
+[requirements_class]
+.Update
 
-[[update-entity]]
-=== Update an entity
-
-[cols="25a,75a"]
-|===
-2+|Requirements Class
-
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-update
-
-|Target Type
-|Web Service
-
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-update-entity>>
-
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-update-entity-put>>
-
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-update-entity-jsonpatch>>
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
-|===
+====
+[%metadata]
+identifier:: /req-class/update
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: /req-class/entity-control-information
+inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
+inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
+inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity
+inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-put
+inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-jsonpatch
+requirement:: /req/update/entity
+requirement:: /req/update/entity-put
+requirement:: /req/update/entity-jsonpatch
+====
 
 
-[[req-update-entity,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-update-entity,update/update-entity]]
-Req <<req-update-entity>>: <<requirement-update-entity>>
+[requirement]
+====
+[%metadata]
+identifier:: /req/update/entity
 
-|To update an entity in a collection a STAplus implementation SHALL follow the requirements as defined in <<update-entity>>.
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-update-entity>>
-|===
+To update an entity in a collection a STAplus implementation SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity.
+====
 
-[[req-update-entity-put,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-update-entity-put,update/update-entity-put]]
-Req <<req-update-entity-put>>: <<requirement-update-entity-put>>
 
-|A STAplus implementation that supports updates with PUT SHALL follow the requirements as defined in <<update-entity>>.
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-update-entity-put>>
-|===
+[requirement]
+====
+[%metadata]
+identifier:: /req/update/entity-put
 
-[[req-update-entity-jsonpatch,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-update-entity-jsonpatch,update/update-entity-jsonpatch]]
-Req <<req-update-entity-jsonpatch>>: <<requirement-update-entity-jsonpatch>>
+A STAplus implementation that supports updates with PUT SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity.
+====
 
-|A STAplus implementation that supports updates with the JSON PATCH format SHALL follow the requirements as defined in <<update-entity>>.
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-entity-jsonpatch>>
-|===
+[requirement]
+====
+[%metadata]
+identifier:: /req/update/entity-jsonpatch
+
+A STAplus implementation that supports updates with the JSON PATCH format SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-jsonpatch
+====
 
 
 [[staplus-delete]]
-== STAplus Delete Requirements
+=== Requirements Class *Delete*
 
-=== Overview
-The following subsections explain the Delete protocol.
+[requirements_class]
+.Delete
 
-[[delete-entity]]
-=== Delete an entity
+====
+[%metadata]
+identifier:: /req-class/delete
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: /req-class/entity-control-information
+inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
+inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
+inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-delete-entity
+requirement:: /req/delete/entity
+====
 
-[cols="25a,75a"]
-|===
-2+|Requirements Class
+[requirement]
+====
+[%metadata]
+identifier:: /req/delete/entity
 
-2+|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/staplus-delete
+To delete an entity in a collection a STAplus implementation SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-delete-entity.
+====
 
-|Target Type
-|Web Service
-
-|Requirement
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-delete-entity>>
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
-|===
-
-
-[[req-delete-entity,{counter:req}]]
-[cols="a"]
-|===
-|[[requirement-delete-entity,delete/delete-entity]]
-Req <<req-delete-entity>>: <<requirement-delete-entity>>
-
-|To delete an entity in a collection a STAplus implementation SHALL follow the requirements as defined in <<delete-entity>>.
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-delete-entity>>
-|===
 
