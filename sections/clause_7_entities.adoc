@@ -225,7 +225,7 @@ Each `License` entity SHALL have the mandatory properties and MAY have the optio
 |CharacterString
 |One (optional)
 
-|propeties
+|properties
 |The SensorThings API definition applies
 |JSON Object
 |One (optional)
