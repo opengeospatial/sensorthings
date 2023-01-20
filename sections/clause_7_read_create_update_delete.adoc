@@ -114,8 +114,6 @@ identifier:: /req-class/update
 obligation:: requirement
 subject:: Target Type: Web Service
 inherit:: /req-class/entity-control-information
-inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
-inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-put
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-jsonpatch
@@ -163,8 +161,6 @@ identifier:: /req-class/delete
 obligation:: requirement
 subject:: Target Type: Web Service
 inherit:: /req-class/entity-control-information
-inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
-inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-delete-entity
 requirement:: /req/delete/entity
 ====

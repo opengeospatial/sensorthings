@@ -30,12 +30,6 @@ As many IoT devices are resource-constrained, the SensorThings API adopts the ef
 
 |Requirement
 |\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-deep-insert-status-code>>
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
 |===
 
 [[req-create-entity,{counter:req}]]
@@ -135,12 +129,6 @@ As many IoT devices are resource-constrained, the SensorThings API adopts the ef
 
 |Requirement
 |\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-update-entity-jsonpatch>>
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
 |===
 
 
@@ -196,12 +184,6 @@ As many IoT devices are resource-constrained, the SensorThings API adopts the ef
 
 |Requirement
 |\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-delete-entity>>
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
-
-|Dependency
-|\http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
 |===
 
 
