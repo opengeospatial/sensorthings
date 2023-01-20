@@ -31,7 +31,7 @@ To read an entity or a collection of entities, the client SHALL send a HTTP GET 
 
 If the target URL for the collection is a navigationLink, the entity is automatically linked to the entity or entities represented by the navigationLink.
 
-Upon successful completion, the response SHALL contain the representation of the entity or entities.====
+Upon successful completion, the response SHALL contain the representation of the entity or entities.
 ====
 
 
@@ -66,7 +66,7 @@ Upon successful completion, the response SHALL contain a HTTP location header th
 
 Upon successful completion the service SHALL respond with either 201 Created, or 204 No Content.
 
- [Adapted from Data 4.0-Protocol, 11.4.2 Create an Entity]
+Adapted from <<ODATA, OData Version 4.01. Part 1: Protocol, §11.4.2 Create an Entity>>
 
 In addition, the link between entities SHALL be established upon creating an entity. Two use cases SHALL be considered: (1) link to existing entities when creating an entity, and (2) create related entities when creating an entity. The requests for these two use cases are described in the following subsection.
 ====
@@ -90,7 +90,8 @@ If the inline representation contains a value for a computed property (__i.e.__,
 
 On success, the service SHALL create all entities and relate them. On failure, the service SHALL NOT create any of the entities.
 
- [Adapted from Data 4.0-Protocol 11.4.2.2]
+Adapted from <<ODATA, OData Version 4.01. Part 1: Protocol, §11.4.2.2 Create Related Entities When Creating an Entity>>
+
 ====
 
 [requirement]
@@ -113,8 +114,6 @@ identifier:: /req-class/update
 obligation:: requirement
 subject:: Target Type: Web Service
 inherit:: /req-class/entity-control-information
-inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
-inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-put
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-jsonpatch
@@ -162,8 +161,6 @@ identifier:: /req-class/delete
 obligation:: requirement
 subject:: Target Type: Web Service
 inherit:: /req-class/entity-control-information
-inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398328
-inherit:: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398329
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-delete-entity
 requirement:: /req/delete/entity
 ====

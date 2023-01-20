@@ -7,7 +7,7 @@ All requirements-classes and conformance-classes described in this document are 
 STAplus 1.0 defines an extension to the <<OGC18-088>> standard by adding additional entities via the Data Model. Access to the STAplus entities via HTTP is defined in the Read, Update and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTT Requirements Class. A default storage-CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometry FG and Geometry WKT Requirements Class. The Authentication Requirements Class supports the unique identification of acting users. The Business Requirements Class supports the textual description of the implemented business logic.
 
 === STAplus 1.0 Conformance Classes
-This OGC Standard defines one mandatory and optional conformance classes.
+This OGC Standard defines one mandatory and several optional conformance classes.
 
 Conformance with this standard shall be checked using all the relevant tests specified in Annex A (normative) of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC Compliance Testing web site.
 
@@ -19,7 +19,9 @@ In order to conform to this OGC® interface standard, a software implementation 
 
 In order to conform to this OGC® Standard, a software implementation SHALL implement the mandatory conformance class specified:
 
-* *Core* (mandatory): This Conformance Class incorporates the capabilities to support the Read of STAplus entities via HTTP. It also includes the Storage-CRS Requirements Class to ensure interoperability with geometry encodings in the `Feature` and `Location` properties.
+* *Core* (mandatory): This Conformance Class incorporates the capabilities to support the Read of STAplus entities via HTTP. It also includes the Storage-CRS Requirements Class to ensure interoperability with geometry encodings in the `feature` and `location` properties.
+
+* *Create* (optional): This Conformance Class supports to create STAplus entities via HTTP.
 
 * *Update* (optional): This Conformance Class supports to update STAplus entities via HTTP.
 
@@ -27,9 +29,9 @@ In order to conform to this OGC® Standard, a software implementation SHALL impl
 
 * *Authentication* (optional): This Conformance Class supports user authentication and their unique identification.
 
-* *Geometry-FG* (optional): This Conformance Class supports the alternative geometry encoding for the `Feature` and `Location` properties based on Features and their Geometries.
+* *Geometry-FG* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Features and their Geometries.
 
-* *Geometry-WKT* (optional): This Conformance Class supports the alternative geometry encoding for the `Feature` and `Location` properties based on Well-Known-Text as defined in <<ISO19125-1>>.
+* *Geometry-WKT* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Well-Known-Text as defined in <<ISO19125-1>>.
 
 * *MQTT Subscribe* (optional): This Conformance Class supports a client to receive STAplus entity changes via MQTT.
 

@@ -3,7 +3,7 @@
 
 
 === Overview
-The STAplus extension is defined based on requirements from Citizen Science. One major requirement from Citizen Science is that an implementation of STAplus can be used by many users simultaneously to create, update and delete observations. To ensure integrity of the entities and to prevent inconsistencies in the data, it is important that an implementation is not only compliant with this standard but has also functionality that ensures entity consistency. 
+The STAplus extension is defined based on requirements from Citizen Science. One major requirement from Citizen Science is that an implementation of STAplus can be used by many users simultaneously to create, update and delete observations. To ensure integrity of the entities and to prevent inconsistencies in the data, it is important that an implementation is not only compliant with this standard but also has functionality that ensures entity consistency. 
 
 Even though the business logic can be very complex and most likely depend on very many factors, it should be possible to hint developers and guide end users of the implementation in case a request results in an unexpected response.
 

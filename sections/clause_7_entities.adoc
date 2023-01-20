@@ -46,7 +46,7 @@ requirement:: /req/common-control-information
 [%metadata]
 identifier:: /req/common-control-information
 
-Each entity SHALL have the following common control information listed in Table <<tab-common-control-information>>.
+Each entity SHALL have the following common control information listed in <<tab-common-control-information>>.
 ====
 
 [[tab-common-control-information]]
@@ -225,7 +225,7 @@ Each `License` entity SHALL have the mandatory properties and MAY have the optio
 |CharacterString
 |One (optional)
 
-|propeties
+|properties
 |The SensorThings API definition applies
 |JSON Object
 |One (optional)
