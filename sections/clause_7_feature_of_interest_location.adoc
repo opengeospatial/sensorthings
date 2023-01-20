@@ -189,7 +189,7 @@ If a non-default CRS is used then either the CRS identifier shall be put into a 
 [%metadata]
 identifier:: /req/geometry-wkt/default-crs
 
-The implementation SHALL advertize the default CRS on the conformance page.
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page with the name `{identifier}/conf/geometry-wkt` that contains a property `default-crs` which value represents the default CRS identifier.
 ====
 
 [requirement]
@@ -197,7 +197,7 @@ The implementation SHALL advertize the default CRS on the conformance page.
 [%metadata]
 identifier:: /req/geometry-wkt/supported-crs
 
-The implementation SHALL advertize the list of the supported CRS on the conformance page.
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page with the name `{identifier}/conf/geometry-wkt` that contains a property `supported-crs` of type Array which values represent the supported CRS identifiers.
 ====
 
 [requirement]

@@ -104,8 +104,8 @@ target:: /req/storage-crs/axis-order
 test-purpose:: Verify that the implementation supports and uses the default axis-order.
 test-method:: Evaluate that the implementation uses the default axis-order.
 
-part:: Construct a `Location` entity that contains a `Location` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
-part:: Construct a `FeatureOfInterst` entity that contains a `Feature` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
+part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
+part:: Construct a `FeatureOfInterst` entity that contains a `feature` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
 ====
 
 [conformance_test]
@@ -120,8 +120,8 @@ target:: /req/storage-crs/media-type
 test-purpose:: Verify that the implementation supports and uses the default media-type.
 test-method:: Evaluate that the implementation uses the default media-type.
 
-part:: Construct a `Location` entity that contains a `Location` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS and axis-order.
-part:: Construct a `FeatureOfInterst` entity that contains a `Feature` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS and axis-order.
+part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS and axis-order.
+part:: Construct a `FeatureOfInterst` entity that contains a `feature` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS and axis-order.
 ====
 
 
@@ -137,8 +137,8 @@ target:: /req/storage-crs/processing
 test-purpose:: Verify that the implementation stores geometry that is encoded in the default CRS and axis-order without processing.
 test-method:: Evaluate that the implementation stores geometry that is encoded in the default CRS and axis-order without processing.
 
-part:: Construct a `Location` entity that contains a `Location` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is stores the geometry data without processing.
-part:: Construct a `FeatureOfInterst` entity that contains a `Feature` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is stores the geometry data without processing.
+part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is stores the geometry data without processing.
+part:: Construct a `FeatureOfInterst` entity that contains a `feature` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is stores the geometry data without processing.
 ====
 
 
@@ -325,8 +325,22 @@ target:: /conf/business-logic
 target:: /req/business-logic/definition
 
 test-purpose:: To verify that the description of the business logic is human readable and in English.
-test-method:: Follow the link for this conformance class from the STAplus landing page and verify that the conformance page (JSON and HTML) contains the description of the business logic in English language.
+test-method:: Verify that the HTML page for the business logic is in English language.
 ====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: /conf/business-logic/location
+target:: /conf/business-logic
+
+target:: /req/business-logic/location
+
+test-purpose:: To verify that the business logic is available from the provided URL.
+test-method:: On the landing page, find the JSON object with name `{identifier}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page contains the description of the business logic.
+====
+
+
 
 
 === STAplus *Geometry FG* Conformance Class Tests
@@ -436,6 +450,12 @@ target:: /req/geometry-wkt/crs-definition
 
 test-purpose:: To verify that the implementation accepts CRS definition provided in the associated property.
 test-method:: Verify that the implementation supports the use of the CRS property.
+
+part:: Construct a WKT geometry in a CRS different from the `default-crs`.
+part:: Set the `crs` property to the CRS identifier.
+part:: Verify that the implementation processes the geometry honoring the CRS identified by the `crs` value.
+part:: Set the `srid` property to the CRS identifier number.
+part:: Verify that the implementation processes the geometry honoring the CRS identified by the `srid` value.
 ====
 
 
@@ -447,8 +467,11 @@ target:: /conf/geometry-wkt
 
 target:: /req/geometry-wkt/default-crs
 
-test-purpose:: To verify that the default-CRS is used for processing geometry data from `Feature` and `Location`.
-test-method:: Verify that the implementation applies the default CRS advertized in the conformance page to the geometry data from `Feature` and `Location`.
+test-purpose:: To verify that the default-CRS is used for processing geometry data from `feature` and `location` property.
+test-method:: Verify that the implementation defines and applies the default CRS to the geometry data from `feature` and `location` property.
+
+part:: Find the JSON object in the `serverSettings` object on the landing page with the name `{identifier}/conf/geometry-wkt` and check the value of the property `default-crs`.
+part:: Verify that the `default-crs` is applied to a WKT geometry if no `crs` or `srid` property is used.
 ====
 
 [conformance_test]
@@ -459,10 +482,10 @@ target:: /conf/geometry-wkt
 
 target:: /req/geometry-wkt/supported-crs
 
-test-purpose:: To verify that all CRS, advertized as supported in the conformance page are accepted.
-test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location`. For each supported CRS:
+test-purpose:: To verify that all supported CRS are accepted.
+test-method:: Verify that the implementation accepts geometry encodings for `feature` and `location` properties. For each supported CRS:
 
-part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted by the implementation.
+part:: Execute test /conf/geometry-wkt/crs-definition and verify that the implementation processes the geometry correctly.
 ====
 
 [conformance_test]
@@ -473,10 +496,10 @@ target:: /conf/geometry-wkt
 
 target:: /req/geometry-wkt/crs-error
 
-test-purpose:: To verify that no additional CRS, as advertized as supported in the conformance page are accepted.
-test-method:: Verify that the implementation *does not* accept geometry encodings for `Feature` and `Location` that are not listed as supported. For a CRS *not* listed as supported:
+test-purpose:: To verify that only supported CRSs are accepted.
+test-method:: Verify that the implementation *does not* accept geometry encodings for `feature` and `location` properties that are not listed as supported. For a CRS *not* listed as supported:
 
-part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is *rejected* by the implementation.
+part:: Execute test /conf/geometry-wkt/crs-definition and verify that the geometry data is *rejected* by the implementation.
 ====
 
 [conformance_test]
@@ -487,8 +510,8 @@ target:: /conf/geometry-wkt
 
 target:: /req/geometry-wkt/value
 
-test-purpose:: To verify that the geometry value, compliant to WKT is accepted as value for the `Feature` and `Location` property.
-test-method:: Verify that the implementation accepts WKT geometry values for `Feature` and `Location`.
+test-purpose:: To verify that the geometry value, compliant to WKT is accepted as value for the `feature` and `location` property.
+test-method:: Verify that the implementation accepts WKT geometry values for `feature` and `location` properties.
 ====
 
 
@@ -503,7 +526,7 @@ target:: /req/geometry-wkt/processing
 test-purpose:: To verify that a geometry not encoded in the storage-CRS is transformed before storage.
 test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location` that use a supported CRS:
 
-part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted and transformed to the storage-CRS before processed and stored by the implementation.
+part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data in the `location` and `feature` properties is accepted and transformed to the storage-CRS before processed and stored by the implementation.
 ====
 
 [conformance_test]
@@ -515,7 +538,7 @@ target:: /conf/geometry-wkt
 target:: /req/geometry-wkt/out
 
 test-purpose:: To verify that a geometry included in a response is encoded in the storage-CRS.
-test-method:: Verify that the geometry data for a `Feature` and `Location` is using storage-CRS, independent from the geometry CRS used with the creation or updating of the entity.
+test-method:: Verify that the geometry data for a `feature` and `location` properties is using storage-CRS, independent from the geometry CRS used with the creation or updating of the entity.
 ====
 
 

@@ -9,4 +9,5 @@
 |2022-11-03 |0.3 |Andreas Matheus |section Business Logic, Annex A, B |Section added for Business Logic, Control Information and Authentication, Updating conformance class structure and abstract test site to include Business Logic, Adding Requirements and Tests for accessing personal data
 |2022-12-19|0.4|Andreas Matheus|STAplus Feature and Location Encoding, Annex A, Annex B, Conformance|incorporating requirements for encoding Feature and Location entities reflecting results from SensorThings SWG session on 7 December 2022
 |2023-01-17 |0.5 |Andreas Matheus | Mainly normative sections and Annex A, B| Applied OGC NA-Policy using Metanorma annotations, Annex-B merged into Annex-A, Conformance Class definition now in section Conformance
+|2023-01-20 |0.6 |Andreas Matheus | All sections| Title adopted to include versions, updated requirements for Business Logic and CRS conformance classes, incorporated proof read from Hylke van der Schaaf
 |===

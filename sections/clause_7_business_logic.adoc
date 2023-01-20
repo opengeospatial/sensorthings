@@ -7,7 +7,7 @@ The STAplus extension is defined based on requirements from Citizen Science. One
 
 Even though the business logic can be very complex and most likely depend on very many factors, it should be possible to hint developers and guide end users of the implementation in case a request results in an unexpected response.
 
-As a machine readable and understandable description of the implemented business logic is preferred, the idea of the business logic requirements class defined here is to describe the business logic in English text.
+As a machine readable and understandable description of the implemented business logic is preferred, the idea of the business logic requirements class is to provide a URL where the business logic in defined in English text.
 
 [[business-logic]]
 === Requirements Class *Business Logic*
@@ -21,6 +21,7 @@ identifier:: /req-class/business-logic
 obligation:: requirement
 subject:: Target Type: Web Service
 requirement:: /req/business-logic/definition
+requirement:: /req/business-logic/location
 ====
 
 
@@ -30,4 +31,12 @@ requirement:: /req/business-logic/definition
 identifier:: /req/business-logic/definition
 
 The implementation's business logic shall be described in English text.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/business-logic/location
+
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page with the name `{identifier}/conf/business-logic` that contains a property `href` which value is the URL of the HTML page describing the business logic.
 ====

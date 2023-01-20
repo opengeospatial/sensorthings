@@ -189,4 +189,5 @@ target:: /req-class/business-logic
 
 classification:: Target Type: Implementation
 conformance-test:: /conf/business-logic/definition
+conformance-test:: /conf/business-logic/location
 ====
