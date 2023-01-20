@@ -46,7 +46,7 @@ requirement:: /req/common-control-information
 [%metadata]
 identifier:: /req/common-control-information
 
-Each entity SHALL have the following common control information listed in Table <<tab-common-control-information>>.
+Each entity SHALL have the following common control information listed in <<tab-common-control-information>>.
 ====
 
 [[tab-common-control-information]]

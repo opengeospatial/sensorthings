@@ -31,7 +31,7 @@ To read an entity or a collection of entities, the client SHALL send a HTTP GET 
 
 If the target URL for the collection is a navigationLink, the entity is automatically linked to the entity or entities represented by the navigationLink.
 
-Upon successful completion, the response SHALL contain the representation of the entity or entities.====
+Upon successful completion, the response SHALL contain the representation of the entity or entities.
 ====
 
 
