@@ -48,7 +48,7 @@ The STAplus implementation SHALL prevent any anonymous user access (read, create
 [%metadata]
 identifier:: /req/authentication/own-personal-data-r
 
-The STAplus implementation SHALL entitle a user to read own personal data via a HTTP GET request to own `Party` entity.
+The STAplus implementation SHALL entitle a user to read their own personal data via a HTTP GET request to their own `Party` entity.
 ====
 
 [requirement]
@@ -56,7 +56,7 @@ The STAplus implementation SHALL entitle a user to read own personal data via a 
 [%metadata]
 identifier:: /req/authentication/own-personal-data-cud
 
-The STAplus implementation SHALL entitle a user to create, update or delete own personal data via a HTTP POST, PATCH, and DELETE request to own `Party` entity.
+The STAplus implementation SHALL entitle a user to create, update or delete their own personal data via a HTTP POST, PATCH, and DELETE request to their own `Party` entity.
 ====
 
 [requirement]
@@ -64,7 +64,7 @@ The STAplus implementation SHALL entitle a user to create, update or delete own 
 [%metadata]
 identifier:: /req/authentication/other-personal-data-r
 
-The STAplus implementation SHALL prevent that a user can read other user's personal data via a HTTP GET request to other `Party` entity.
+The STAplus implementation SHALL prevent that a user can read personal data of other users via a HTTP GET request to `Party` entites of other users.
 ====
 
 
@@ -73,5 +73,5 @@ The STAplus implementation SHALL prevent that a user can read other user's perso
 [%metadata]
 identifier:: /req/authentication/other-personal-data-cud
 
-The STAplus implementation SHALL prevent that a user can create, update or delete other user's personal data via a HTTP POST, PATCH, and DELETE request to other `Party` entity.
+The STAplus implementation SHALL prevent that a user can create, update or delete personal data of other users via a HTTP POST, PATCH, and DELETE request to `Party` entities of other users.
 ====
