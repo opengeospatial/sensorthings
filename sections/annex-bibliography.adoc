@@ -4,4 +4,4 @@
 
 * [[[OGC21-068,OGC 21-068]]], _Best Practice for using SensorThings API with Citizen Science_ (2022).
 
-* [[[ODATA, ]]], OASIs, _OData Version 4.01. Part 1: Protocol_, (2020), http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html.
+* [[[ODATA, ]]], OASIS, _OData Version 4.01. Part 1: Protocol_, (2020), http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html.
