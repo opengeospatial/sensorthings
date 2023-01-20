@@ -66,7 +66,7 @@ Upon successful completion, the response SHALL contain a HTTP location header th
 
 Upon successful completion the service SHALL respond with either 201 Created, or 204 No Content.
 
- [Adapted from Data 4.0-Protocol, 11.4.2 Create an Entity]
+Adapted from <<ODATA, OData Version 4.01. Part 1: Protocol, §11.4.2 Create an Entity>>
 
 In addition, the link between entities SHALL be established upon creating an entity. Two use cases SHALL be considered: (1) link to existing entities when creating an entity, and (2) create related entities when creating an entity. The requests for these two use cases are described in the following subsection.
 ====
@@ -90,7 +90,8 @@ If the inline representation contains a value for a computed property (__i.e.__,
 
 On success, the service SHALL create all entities and relate them. On failure, the service SHALL NOT create any of the entities.
 
- [Adapted from Data 4.0-Protocol 11.4.2.2]
+Adapted from <<ODATA, OData Version 4.01. Part 1: Protocol, §11.4.2.2 Create Related Entities When Creating an Entity>>
+
 ====
 
 [requirement]
