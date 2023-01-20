@@ -181,7 +181,7 @@ The implementation SHALL accept the media-type `wkt` as value to the `encodingTy
 [%metadata]
 identifier:: /req/geometry-wkt/crs-definition
 
-If a non-default CRS is used then either the CRS definition shall be put into a property `crs`, or the CRS identifier (number) SHALL be put into a property `srid` of the `properties` property of the `FeatureOfInterest` or `Location` entity.
+If a non-default CRS is used then either the CRS identifier shall be put into a property `crs`, or the CRS identifier (number) SHALL be put into a property `srid` of the `properties` property of the `FeatureOfInterest` or `Location` entity.
 ====
 
 [requirement]
