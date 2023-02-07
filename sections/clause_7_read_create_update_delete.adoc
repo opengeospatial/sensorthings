@@ -76,7 +76,7 @@ In addition, the link between entities SHALL be established upon creating an ent
 [%metadata]
 identifier:: /req/create/link-to-existing-entities
 
-A STAplus implementation that supports entity creation, SHALL support linking new entities to existing entities upon creation. To create a new entity with links to existing entities in a single request, the client SHALL include the unique identifiers of the related entities associated with the corresponding navigation properties in the request body.
+A STAplus implementation that supports entity creation SHALL support linking new entities to existing entities upon creation. To create a new entity with links to existing entities in a single request, the client SHALL include the unique identifiers of the related entities associated with the corresponding navigation properties in the request body.
 ====
 
 [requirement]

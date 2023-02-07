@@ -6,24 +6,24 @@ For the purposes of this document, the following additional terms and definition
 
 === Party
 
-The entity in the data model that represents a user. A party can be associated to other entities of the datamodel to express ownership.
+The entity in the data model that represents a user. A party can be associated to other entities of the data model to express ownership.
 
 === License
 
-The entity in the data model that represents a well defined licence. Associating a license with a Multi/Datastream expresses re-use conditions for all observations associated with that Multi/Datastream.
+The entity in the data model that represents a well-defined license. Associating a license with a `Multi/Datastream` entity expresses re-use conditions for all observations associated with that `Multi/Datastream` entity.
 
 === Group
 
-The entity in the data model that allows to create a collection of observations for a particular purpose.
+The entity in the data model that allows creation a collection of observations for a particular purpose.
 
 === Relation
 
-The entity in the data model that allows to express relationships between two observations or an observtion and an external object.
+The entity in the data model that allows expressing relationships between two observations or an observation and an external object.
 
 === Project
 
-The entity in the data model that allows to put Multi/Datastream(s) together that are required to achieve the objective represented by the project.
+The entity in the data model that allows merging `Multi/Datastream` entities together that are required to achieve the objective represented by the project.
 
 === Ownership
 
-The Party entitiy in the data model allows to express the right of possession over entity instances. This is the requirement to operate STAplus with multi-user CRUD access. 
+The `Party` entity in the data model allows expressing the right of possession over entity instances. This is the requirement to operate STAplus with multi-user CRUD access. 

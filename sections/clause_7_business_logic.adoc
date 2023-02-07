@@ -3,9 +3,10 @@
 
 
 === Overview
-The STAplus extension is defined based on requirements from Citizen Science. One major requirement from Citizen Science is that an implementation of STAplus can be used by many users simultaneously to create, update and delete observations. To ensure integrity of the entities and to prevent inconsistencies in the data, it is important that an implementation is not only compliant with this standard but also has functionality that ensures entity consistency. 
+The STAplus extension is defined based on requirements from the Citizen Science community. One major requirement from the Citizen Science community is that an implementation of STAplus can be used by many users simultaneously to create, update and delete observations. To ensure integrity of the entities and to prevent inconsistencies in the data, it is important that an implementation is not only compliant with this Standard but also has functionality that ensures entity consistency.
 
-Even though the business logic can be very complex and most likely depend on very many factors, it should be possible to hint developers and guide end users of the implementation in case a request results in an unexpected response.
+Even though the business logic can be very complex and most likely depend on many factors, providing a hint to developers and guiding end users of the implementation in case a request results in an unexpected response should be possible.
+
 
 As a machine readable and understandable description of the implemented business logic is preferred, the idea of the business logic requirements class is to provide a URL where the business logic in defined in English text.
 
@@ -30,7 +31,7 @@ requirement:: /req/business-logic/location
 [%metadata]
 identifier:: /req/business-logic/definition
 
-The implementation's business logic shall be described in English text.
+The implementation's business logic SHALL be described in English text.
 ====
 
 [requirement]

@@ -1,7 +1,7 @@
 [[staplus-entities]]
 == STAplus Entity Type Requirements
 
-`Party`, `License`, `Group`, `Relation` and `Project` are the entity types for STAplus. The implemented entities SHALL be listed in the response to a GET request to the root URL as described in Sensing part. 
+`Party`, `License`, `Group`, `Relation` and `Project` are the STAplus entity types. The implemented entities SHALL be listed in the response to a GET request to the root URL as described in Sensing part. 
 
 An implementation SHALL implement all STAplus entities (with read access) as defined in the Core conformance class.
 
@@ -22,9 +22,9 @@ In this section, the properties for each entity type and the direct relation to 
 [[common-control-information]]
 === Requirements Class *Entity Control Information*
 
-NOTE: In SensorThings control information is represented as annotations whose names start with iot followed by a dot ( . ). Annotations are name/value pairs that have a dot ( . ) as part of the name.
+NOTE: In STA control information is represented as annotations whose names start with iot followed by a dot ( . ). Annotations are name/value pairs that have a dot ( . ) as part of the name.
 
-When annotating a name/value pair for which the value is represented as a JSON object, each annotation is placed within the object and represented as a single name/value pair. In SensorThings the name always starts with the “at” sign (@), followed by the namespace iot, followed by a dot (.), followed by the name of the term (e.g., **"@iot.id":**1).
+When annotating a name/value pair for which the value is represented as a JSON object, each annotation is placed within the object and represented as a single name/value pair. In STA, the name always starts with the “at” sign (@), followed by the namespace iot, followed by a dot (.), followed by the name of the term (e.g., **"@iot.id":**1).
 
 When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair is placed next to the annotated name/value pair and represented as a single name/value pair. The name is the same as the name of the name/value pair being annotated, followed by the “at” sign (**@**), followed by the namespace iot, followed by a dot (.), followed by the name of the term.  (e.g., `+"Locations@iot.navigationLink":"http://example.org/v1.1/Things(1)/Locations"+`)
 
@@ -56,7 +56,7 @@ Each entity SHALL have the following common control information listed in <<tab-
 |Name |Definition |Data type |Multiplicity and use
 
 |id
-|`id` is the system-generated identifier of an entity that is unique among the entities of the same entity type in a SensorThings service instance.
+|`id` is the system-generated identifier of an entity that is unique among the entities of the same entity type in a SensorThings API service instance.
 |Any
 |One (mandatory)
 
@@ -76,7 +76,7 @@ Each entity SHALL have the following common control information listed in <<tab-
 [[party]]
 === Requirements Class *Party*
 
-This entity can be used to represent acting users and to model ownership. One example for ownership is that a satellite `Thing` is owned by a space agency. This ownership may entitle the space agency to be the only party that can update the thing's location. Other parties can then mount their sensor on the satellite and provide `Datastream` or `MultiDatastream` instances to upload observations. Via the association to the `Datastream` resp. `MultiDatastream` their ownership of the observations is guaranteed. By associating a license to the (multi)datastream, they could also define re-use conditions. 
+The `Party` entity can be used to represent acting users and to model ownership. One example for ownership is that a satellite `Thing` is owned by a space agency. This ownership may entitle the space agency to be the only party that can update the thing's location. Other parties can then mount their sensor on the satellite and provide `Datastream` or `MultiDatastream` instances to upload observations. Via the association to the `Datastream` resp. `MultiDatastream` their ownership of the observations is guaranteed. By associating a license to the (multi)datastream, they could also define re-use conditions. 
 
 [requirements_class]
 .Party
@@ -174,7 +174,7 @@ NOTE: The `personalData` property has private visibility. An implementation must
 [[license]]
 === Requirements Class *License*
 
-This entity can be used to associate a re-use condition to observations via a `Datastream` or `MultiDatastream`. It can also be used to express re-use conditions for a group (a set of observations).
+The `License` entity can be used to associate a re-use condition to observations via a `Datastream` or `MultiDatastream`. It can also be used to express re-use conditions for a group (a set of observations).
 
 [requirements_class]
 .License
@@ -266,7 +266,7 @@ Each `License` entity MAY have direct relations to other entity types listed in 
 [[group]]
 === Requirements Class *Group*
 
-This entity can be used to create a bag of observations and/or relations that can be shared and re-used.
+The `Group` entity can be used to create a bag of observations and/or relations that can be shared and re-used.
 
 [requirements_class]
 .Group
@@ -322,16 +322,16 @@ Each `Group` entity SHALL have the mandatory properties and MAY have the optiona
 |One (optional)
 
 |termsOfUse
-|This allows to express the term of use for the `Group` entity.
+|Express the term of use for the `Group` entity.
 |CharacterString
 |One (optional)
 
 |privacyPolicy
-|This allows to express the term of use for personal data that are contained in the `Group` entity.
+|Express the term of use for personal data that are contained in the `Group` entity.
 |CharacterString
 |One (optional)
 
-|propeties
+|properties
 |The SensorThings API definition applies
 |JSON Object
 |One (optional)
@@ -375,7 +375,7 @@ Each `Group` entity MAY have direct relations to other entity types listed in <<
 [[relation]]
 === Requirements Class *Relation*
 
-This entity can be used to describe relationships between (1) two observations, or (2) one observation and a resolvable external object identified by a URI.
+The `Relation` entity can be used to describe relationships between (1) two observations, or (2) one observation and a resolvable external object identified by a URI.
 
 [requirements_class]
 .Group
@@ -459,7 +459,7 @@ Each `Relation` entity MAY have direct relations to other entity types listed in
 [[project]]
 === Requirements Class *Project*
 
-This entity can be used to create a container of `Datastream` or `MultiDatastream` entities. A Project can have a particular purpose and a managing party.
+The `Project` entity can be used to create a container of `Datastream` or `MultiDatastream` entities. A Project can have a particular purpose and a managing party.
 
 [requirements_class]
 .Project
@@ -500,7 +500,7 @@ Each `Project` entity SHALL have the mandatory properties and MAY have the optio
 |One (mandatory)
 
 |classification
-|Determines if the datastream(s), multidatastream(s) or group(s) of the `Project` entity contain sensitive information
+|Determines if the data stream(s), multi data stream(s) or group(s) of the `Project` entity contain sensitive information
 |ValueCode
 |One (optional)
 
@@ -520,12 +520,12 @@ Each `Project` entity SHALL have the mandatory properties and MAY have the optio
 |One (optional)
 
 |termsOfUse
-|This allows to express the term of use for the `Project` entity.
+|Express the term of use for the `Project` entity.
 |CharacterString
 |One (optional)
 
 |privacyPolicy
-|This allows to express the term of use for personal data that are contained in the `Project` entity.
+|Express the term of use for personal data that are contained in the `Project` entity.
 |CharacterString
 |One (optional)
 

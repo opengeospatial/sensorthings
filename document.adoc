@@ -1,17 +1,18 @@
-= OGC SensorThings API 1.1 Extension: STAplus 1.0
+= OGC SensorThings API Extension: STAplus
 :doctype: standard
 :encoding: utf-8
 :lang: en
 :status: draft
 :committee: technical
-:draft: 1.0
+:draft: 3.0
 :external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
 :docnumber: 22-022
-:received-date: 2023-02-06
+:received-date: 2029-03-30
 :issued-date: 2029-03-30
 :published-date: 2029-03-30
 :fullname: Andreas Matheus
-:docsubtype: Implementation
+:fullname_2: Editor Two
+:docsubtype: Interface
 :keywords: ogcdoc, OGC document, API, SensorThings, STAplus
 :submitting-organizations: Secure Dimensions; CREAF; Fraunhofer Gesellschaft
 :mn-document-class: ogc
@@ -21,10 +22,7 @@
 :pdf-uri: ./document.pdf
 :xml-uri: ./document.xml
 :doc-uri: ./document.doc
-:edition: 0.7
-
-:CRS84: urn:ogc:def:crs:OGC::CRS84
-:identifier: http://www.opengis.net/doc/is/sensorthings/1.1/staplus/1.0
+:edition: 1.0
 
 ////
 Make sure to complete each included document
@@ -43,12 +41,7 @@ include::sections/clause_5_conventions.adoc[]
 
 include::sections/clause_6_informative_text.adoc[]
 
-include::sections/clause_7_entities.adoc[]
-include::sections/clause_7_read_create_update_delete.adoc[]
-include::sections/clause_7_mqtt.adoc[]
-include::sections/clause_7_business_logic.adoc[]
-include::sections/clause_7_auth.adoc[]
-include::sections/clause_7_feature_of_interest_location.adoc[]
+include::sections/clause_7_normative_text.adoc[]
 
 include::sections/clause_8_media_types.adoc[]
 

@@ -1,13 +1,13 @@
 [[staplus-mqtt]]
 == STAplus MQTT Extension Requirements
 
-The MQTT capabilities allows that a client can receive changes to STAplus entities via MQTT. 
+The MQTT capabilities allows that a client to receive changes to STAplus entities via MQTT. 
 
 NOTE: The publishing of observations as defined in <<OGC18-088>> via MQTT does not apply to STAplus entities.
 
 === Overview
 
-NOTE: In the context of MQTT, all STAplus entities as defined in this Standard are equivalent to the STA entities. Therefore, the implementation of MQTT capabilities must be compliant with the SensorThings API v1.1 Standard.
+NOTE: In the context of MQTT, all STAplus entities as defined in this Standard are equivalent to the STA entities. Therefore, the implementation of MQTT capabilities must be compliant with the SensorThings API Part 1: Sensing v1.1 Standard.
 
 [[mqtt-subscribe]]
 === Requirements Class *MQTT Subscribe*

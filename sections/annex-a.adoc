@@ -19,7 +19,7 @@ target:: /req/common-control-information
 
 test-purpose:: To verify that the common control information as defined in the requirement.
 test-method-type:: Manually Inspect
-test-method:: Inspect the full JSON object of the entity sets (__i.e.__, without $select) to identify, if each entity has the common control information defined in the above requirement and the service sends appropriate responses as defined in this specification.
+test-method:: Inspect the full JSON object of the entity sets (__i.e.__, without $select) to identify, if each entity has the common control information defined in the above requirement and the service sends appropriate responses as defined in this Standard.
 ====
 
 [conformance_test]
@@ -64,7 +64,7 @@ target:: /conf/core
 target:: /req/read/entity
 
 
-test-purpose:: Verify that the implementation supports to read STAplus entities via HTTP GET.
+test-purpose:: Verify that the implementation supports reading STAplus entities via HTTP GET.
 test-method-type:: Manually Inspect
 test-method:: Evaluate that the implementation accepts a Sensor Things API compliant HTTP Get request to the STAplus entities:
 
@@ -138,7 +138,7 @@ test-purpose:: Verify that the implementation stores geometry that is encoded in
 test-method:: Evaluate that the implementation stores geometry that is encoded in the default CRS and axis-order without processing.
 
 part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is stores the geometry data without processing.
-part:: Construct a `FeatureOfInterst` entity that contains a `feature` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is stores the geometry data without processing.
+part:: Construct a `FeatureOfInterst` entity that contains a `feature` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is storing the geometry data without a CRS transformation.
 ====
 
 
@@ -162,18 +162,18 @@ target:: /req/create/deep-insert
 target:: /req/create/deep-insert-status-code
 
 
-test-purpose:: To verify that the service implementation supports the creation of entities as defined in this specification.
+test-purpose:: To verify that the service implementation supports the creation of entities as defined in this Standard.
 test-method:: For each STAplus entity:
 
-part:: Create an entity instance by following the integrity constraints and creating the related entities with a single request (__i.e.__, deep insert), check if the entity instance is successfully created and the implementation responds as defined in this specification.
+part:: Create an entity instance by following the integrity constraints and creating the related entities with a single request (__i.e.__, deep insert), check if the entity instance is successfully created and the implementation responds as defined in this Standard.
 
-part:: Create an entity instance and its related entities with a deep insert request that does not conform to the specification (e.g., missing a mandatory property), check if the service fails the request without creating any entity within the deep insert request and responds the appropriate HTTP status code.
+part:: Create an entity instance and its related entities with a deep insert request that does not conform to the Standard (e.g., missing a mandatory property), check if the service fails the request without creating any entity within the deep insert request and responds the appropriate HTTP status code.
 
 
 part:: Issue an entity creation request that does not follow the integrity constraints with deep insert, check if the service fails the request without creating any entity within the deep insert request and responds the appropriate HTTP status code.
 
 
-part:: Create an entity instance by linking to existing entities with a single request, check if the server responds as defined in this specification.
+part:: Create an entity instance by linking to existing entities with a single request, check if the server responds as defined in this Standard.
 
 
 part:: Create an entity instance that does not follow the integrity constraints by linking to existing entities with a single request, check if the server responds as defined in this specification.
@@ -208,7 +208,7 @@ target:: /req/update/entity
 target:: /req/update/entity-jsonpatch
 
 
-test-purpose:: To verify that the service implementation supports the update of entities as defined in this specification.
+test-purpose:: To verify that the service implementation supports the update of entities as defined in this Standard.
 test-method:: For each STAplus entity:
 
 part:: Send an update request with PATCH, check (1) if the properties provided in the payload corresponding to updatable properties replace the value of the corresponding property in the entity and (2) if the missing properties of the containing entity or complex property are not directly altered.
@@ -367,7 +367,7 @@ target:: /conf/geometry-fg
 target:: /req/geometry-fg/default-crs
 
 test-purpose:: To verify that the default-CRS is used for processing geometry data from `Feature` and `Location`.
-test-method:: Verify that the implementation applies the default CRS advertized in the conformance page to the geometry data from `Feature` and `Location`.
+test-method:: Verify that the implementation applies the default CRS advertised in the conformance page to the geometry data from `Feature` and `Location`.
 ====
 
 [conformance_test]
@@ -378,7 +378,7 @@ target:: /conf/geometry-fg
 
 target:: /req/geometry-fg/supported-crs
 
-test-purpose:: To verify that all CRS, advertized as supported in the conformance page are accepted.
+test-purpose:: To verify that all CRS, advertised as supported in the conformance page are accepted.
 test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location`. For each supported CRS:
 
 part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted by the implementation.
@@ -392,7 +392,7 @@ target:: /conf/geometry-fg
 
 target:: /req/geometry-fg/crs-error
 
-test-purpose:: To verify that no additional CRS, as advertized as supported in the conformance page are accepted.
+test-purpose:: To verify that no additional CRS, as advertised as supported in the conformance page are accepted.
 test-method:: Verify that the implementation *does not* accept geometry encodings for `Feature` and `Location` that are not listed as supported. For a CRS *not* listed as supported:
 
 part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is *rejected* by the implementation.
