@@ -1,0 +1,13 @@
+.DS_Store
+.swp
+.tmp.xml
+relaton
+iev
+document.err
+document.doc
+document.html
+document.xml
+document.presentation.xml
+
+# Deploy key
+deploy_key

@@ -1,0 +1,6 @@
+---
+metanorma:
+  source:
+    files:
+      - document.adoc
+
