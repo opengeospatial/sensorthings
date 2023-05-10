@@ -1,19 +1,20 @@
-= OGC (add title text)
+= OGC SensorThings API
 :doctype: standard
+:standard: sensorthings
 :encoding: utf-8
 :lang: en
 :status: draft
 :committee: technical
-:draft: 3.0
-:external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
+:draft: 2.0
+:external-id: http://www.opengis.net/doc/{doctype}/{standard}/2.0
 :docnumber: YY-999
 :received-date: 2029-03-30
 :issued-date: 2029-03-30
 :published-date: 2029-03-30
-:fullname: Editor One
-:fullname_2: Editor Two
+:fullname: Hylke van der Schaaf
+:fullname_2: Steve Liang
 :docsubtype: Interface
-:keywords: ogcdoc, OGC document, API, openapi, html
+:keywords: ogcdoc, OGC document, API, OData, openapi, html
 :submitting-organizations: Organization One; Organization Two
 :mn-document-class: ogc
 :mn-output-extensions: xml,html,doc,pdf
@@ -27,23 +28,35 @@
 ////
 Make sure to complete each included document
 ////
-include::sections/clause_0_front_material.adoc[]
+include::sections/clause_00_front_material.adoc[]
 
-include::sections/clause_1_scope.adoc[]
+include::sections/clause_01_scope.adoc[]
 
-include::sections/clause_2_conformance.adoc[]
+include::sections/clause_02_conformance.adoc[]
 
-include::sections/clause_3_references.adoc[]
+include::sections/clause_03_references.adoc[]
 
-include::sections/clause_4_terms_and_definitions.adoc[]
+include::sections/clause_04_terms_and_definitions.adoc[]
 
-include::sections/clause_5_conventions.adoc[]
+include::sections/clause_05_conventions.adoc[]
 
-include::sections/clause_6_informative_text.adoc[]
+include::sections/clause_06_overview.adoc[]
 
-include::sections/clause_7_normative_text.adoc[]
+include::sections/clause_07_data_model.adoc[]
 
-include::sections/clause_8_media_types.adoc[]
+include::sections/clause_08_read.adoc[]
+
+include::sections/clause_09_create_update_delete.adoc[]
+
+include::sections/clause_10_batch_requests.adoc[]
+
+include::sections/clause_11_data_array.adoc[]
+
+include::sections/clause_12_http.adoc[]
+
+include::sections/clause_13_mqtt.adoc[]
+
+include::sections/clause_14_media_types.adoc[]
 
 ////
 add or remove annexes after "A" as necessary

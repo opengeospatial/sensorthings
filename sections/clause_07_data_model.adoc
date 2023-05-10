@@ -1,0 +1,62 @@
+[[data-model1]]
+== Data Model
+
+This chapter describes the SensorThings API data model.
+
+All data model requirements classes are grouped in the following requirements class:
+
+[requirement,type="class",id="http://www.opengis.net/spec/sensorthings/2.0/req/datamodel",obligation="requirement"]
+====
+Requirements Class
+[dependency]
+--
+* http://www.example.org/req/blah
+* urn:iso:ts:iso:19139:clause:6
+--
+
+[requirement,type="general",label="/req/datamodel/entity-control-information"]
+======
+======
+
+[requirement,type="general",label="/req/datamodel/thing"]
+======
+======
+====
+
+
+[[common-control-information]]
+=== Common Control Information
+
+
+==== Requirement 1
+
+[requirement,type="general",id="/req/datamodel/entity-control-information",label="/req/datamodel/entity-control-information",obligation="requirement"]
+====
+Each entity SHALL have the following common control information listed in Table XX.
+====
+
+
+
+[[sensing-entities]]
+=== Sensing Entities
+
+==== Requirement Class: Thing
+
+All data model requirements classes are grouped in the following requirements class:
+
+[requirement,type="class",id="http://www.opengis.net/spec/sensorthings/2.0/req/datamodel/thing",obligation="requirement"]
+====
+Requirements Class
+[dependency]
+--
+/req/datamodel/entity-control-information
+--
+
+[requirement,type="general",label="/req/datamodel/thing/properties"]
+======
+======
+
+[requirement,type="general",label="/req/datamodel/thing/relations"]
+======
+======
+====

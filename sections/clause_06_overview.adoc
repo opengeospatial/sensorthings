@@ -1,5 +1,7 @@
 [obligation=informative]
-== Clauses not Containing Normative Material
+== SensorThings API overview
+
+Clauses not Containing Normative Material
 
 Paragraph
 

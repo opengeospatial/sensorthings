@@ -1,4 +1,4 @@
-== Clause containing normative material
+== HTTP Interface Bindings
 
 Paragraph
 
@@ -8,7 +8,6 @@ Paragraph – intro text for the requirement class.
 
 Use the following table for Requirements Classes.
 
-include::../requirements/requirements_class.adoc[]
 
 ==== Requirement 1
 
@@ -16,7 +15,6 @@ Paragraph - intro text for the requirement.
 
 Use the following table for Requirements, number sequentially.
 
-include::../requirements/requirement001.adoc[]
 
 Dictionary tables for requirements can be added as necessary. Modify the following example as needed.
 
@@ -35,4 +33,3 @@ Paragraph - intro text for the requirement.
 
 Use the following table for Requirements, number sequentially.
 
-include::../requirements/requirement002.adoc[]
