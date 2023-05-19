@@ -18,18 +18,18 @@ As a machine readable and understandable description of the implemented business
 
 ====
 [%metadata]
-identifier:: /req-class/business-logic
+identifier:: {identifier}/req-class/business-logic
 obligation:: requirement
 subject:: Target Type: Web Service
-requirement:: /req/business-logic/definition
-requirement:: /req/business-logic/location
+requirement:: {identifier}/req/business-logic/definition
+requirement:: {identifier}/req/business-logic/location
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/business-logic/definition
+identifier:: {identifier}/req/business-logic/definition
 
 The implementation's business logic SHALL be described in English text.
 ====
@@ -37,7 +37,7 @@ The implementation's business logic SHALL be described in English text.
 [requirement]
 ====
 [%metadata]
-identifier:: /req/business-logic/location
+identifier:: {identifier}/req/business-logic/location
 
 The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page with the name `{identifier}/conf/business-logic` that contains a property `href` which value is the URL of the HTML page describing the business logic.
 ====

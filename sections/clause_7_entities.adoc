@@ -5,18 +5,6 @@
 
 An implementation SHALL implement all STAplus entities (with read access) as defined in the Core conformance class.
 
-The STAplus entities are depicted in <<fig-staplus-datastream-entities>> and <<fig-staplus-multidatastream-entities>>.
-
-[[fig-staplus-datastream-entities]]
-[.text-center]
-.STAplus Entities (Datastream)
-image::./figures/STAplusSensingEntities.png[STAplus Entities connected to Datastream]
-
-[[fig-staplus-multidatastream-entities]]
-[.text-center]
-.STAplus Entities (MultiDatastream)
-image::./figures/STAplusMultiDatastreamExtensionEntities.png[STAplus Entities connected to MultiDatastream]
-
 In this section, the properties for each entity type and the direct relation to the other entity types are explained. 
 
 [[common-control-information]]
@@ -26,25 +14,25 @@ NOTE: In STA control information is represented as annotations whose names start
 
 When annotating a name/value pair for which the value is represented as a JSON object, each annotation is placed within the object and represented as a single name/value pair. In STA, the name always starts with the “at” sign (@), followed by the namespace iot, followed by a dot (.), followed by the name of the term (e.g., **"@iot.id":**1).
 
-When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair is placed next to the annotated name/value pair and represented as a single name/value pair. The name is the same as the name of the name/value pair being annotated, followed by the “at” sign (**@**), followed by the namespace iot, followed by a dot (.), followed by the name of the term.  (e.g., `+"Locations@iot.navigationLink":"http://example.org/v1.1/Things(1)/Locations"+`)
+When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair is placed next to the annotated name/value pair and represented as a single name/value pair. The name is the same as the name of the name/value pair being annotated, followed by the “at” sign (**@**), followed by the namespace iot, followed by a dot (.), followed by the name of the term.  (e.g., `+"Locations@iot.navigationLink":"http://example.org/v1.0/Things(1)/Locations"+` or `+"Locations@iot.navigationLink":"http://example.org/v1.1/Things(1)/Locations"+`)
 
 [requirements_class]
 .Entity Control Information
 
 ====
 [%metadata]
-identifier:: /req-class/entity-control-information
+identifier:: {identifier}/req-class/entity-control-information
 obligation:: requirement
 subject:: Target Type: Web Service
-inherit:: <<OGC18-088>>
-requirement:: /req/common-control-information
+inherit:: <<OGC15-078r6>> or <<OGC18-088>>
+requirement:: {identifier}/req/common-control-information
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/common-control-information
+identifier:: {identifier}/req/common-control-information
 
 Each entity SHALL have the following common control information listed in <<tab-common-control-information>>.
 ====
@@ -83,19 +71,19 @@ The `Party` entity can be used to represent acting users and to model ownership.
 
 ====
 [%metadata]
-identifier:: /req-class/party
+identifier:: {identifier}/req-class/party
 obligation:: requirement
 subject:: Target Type: Web Service
-inherit:: /req-class/entity-control-information
-requirement:: /req/party/properties
-requirement:: /req/party/relations
+inherit:: {identifier}/req-class/entity-control-information
+requirement:: {identifier}/req/party/properties
+requirement:: {identifier}/req/party/relations
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/party/properties
+identifier:: {identifier}/req/party/properties
 
 Each `Party` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-party>>.
 ====
@@ -114,34 +102,27 @@ Each `Party` entity SHALL have the mandatory properties and MAY have the optiona
 |description
 |This is a short description of the party
 |CharacterString
-|One (optional)
+|Zero or One (optional)
 
 |displayName
 |A property commonly used for saluting the party
 |CharacterString
-|One (optional)
+|Zero or One (optional)
 
 |authId
 |A system wide unique property (e.g. `REMOTE_USER` or `SUB` from authentication) to identify the party
 |CharacterString
-|One (optional)
-
-|personalData
-|A property to store personal data of the party
-|JSON Object
-|One (optional)
+|Zero or One (optional)
 
 |===
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/party/relations
+identifier:: {identifier}/req/party/relations
 
 Each `Party` entity MAY have direct relations to other entity types listed in <<tab-relations-party>>.
 ====
-
-NOTE: The `personalData` property has private visibility. An implementation must ensure GDPR compliance when allowing CRUD access.
 
 [[tab-relations-party]]
 .Direct relation between a `Party` entity and other entity types
@@ -150,23 +131,23 @@ NOTE: The `personalData` property has private visibility. An implementation must
 |Entity type |Relation |Description
 
 |Datastream
-|One optional to many optional
+|Zero to One (optional) to Zero to Many (optional)
 |A `Party` MAY have zero-to-many `Datastreams`.
 
 |MultiDatastream
-|One optional to many optional
+|Zero to One (optional) to Zero to Many (optional)
 |A `Party` MAY have zero-to-many `MultiDatastreams`.
 
 |Thing
-|One optional to many optional
+|Zero to One (optional) to Zero to Many (optional)
 |A `Party` MAY have zero-to-many `Things`.
 
 |Group
-|One optional to many optional
+|Zero to One (optional) to Zero to Many (optional)
 |A `Party` MAY have zero-to-many `Groups`.
 
 |Project
-|One optional to many optional
+|Zero to One (optional) to Zero to Many (optional)
 |A `Party` MAY have zero-to-many `Projects`.
 |===
 
@@ -181,19 +162,19 @@ The `License` entity can be used to associate a re-use condition to observations
 
 ====
 [%metadata]
-identifier:: /req-class/license
+identifier:: {identifier}/req-class/license
 obligation:: requirement
 subject:: Target Type: Web Service
-inherit:: /req-class/entity-control-information
-requirement:: /req/license/properties
-requirement:: /req/license/relations
+inherit:: {identifier}/req-class/entity-control-information
+requirement:: {identifier}/req/license/properties
+requirement:: {identifier}/req/license/relations
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/license/properties
+identifier:: {identifier}/req/license/properties
 
 Each `License` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-license>>.
 ====
@@ -213,7 +194,7 @@ Each `License` entity SHALL have the mandatory properties and MAY have the optio
 |description
 |This is a short description of the corresponding `License` entity.
 |CharacterString
-|One (mandatory)
+|Zero or One (optional)
 
 |definition
 |This is a URI referencing the `License` entity.
@@ -223,18 +204,18 @@ Each `License` entity SHALL have the mandatory properties and MAY have the optio
 |logo
 |This is the data URI encoding of the logo for the `License` entity.
 |CharacterString
-|One (optional)
+|Zero or One (optional)
 
-|properties
-|The SensorThings API definition applies
-|JSON Object
-|One (optional)
+|attributionText
+|The text to be used as attribution when mandated by the license.
+|CharacterString
+|Zero or One (optional)
 |===
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/license/relations
+identifier:: {identifier}/req/license/relations
 
 Each `License` entity MAY have direct relations to other entity types listed in <<tab-relations-license>>.
 ====
@@ -246,19 +227,19 @@ Each `License` entity MAY have direct relations to other entity types listed in 
 |Entity type |Relation |Description
 
 |Datastream
-|One optional to many optional
+|Zero to One (optional) to Zero to Many (optional)
 |A `License` MAY have zero-to-many `Datastreams`.
 
 |MultiDatastream
-|One optional to many optional
+|Zero to One (optional) to Zero to Many (optional)
 |A `License` MAY have zero-to-many `MultiDatastreams`.
 
 |Project
-|One optional to many optional
+|Zero to One (optional) to Zero to Many (optional)
 |A `License` MAY have zero-to-many `Projects`.
 
 |Group
-|One optional to many optional
+|Zero to One (optional) to Zero to Many (optional)
 |A `License` MAY have zero-to-many `Groups`.
 |===
 
@@ -273,19 +254,19 @@ The `Group` entity can be used to create a bag of observations and/or relations 
 
 ====
 [%metadata]
-identifier:: /req-class/group
+identifier:: {identifier}/req-class/group
 obligation:: requirement
 subject:: Target Type: Web Service
-inherit:: /req-class/entity-control-information
-requirement:: /req/group/properties
-requirement:: /req/group/relations
+inherit:: {identifier}/req-class/entity-control-information
+requirement:: {identifier}/req/group/properties
+requirement:: {identifier}/req/group/relations
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/group/properties
+identifier:: {identifier}/req/group/properties
 
 Each `Group` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-group>>.
 ====
@@ -309,38 +290,43 @@ Each `Group` entity SHALL have the mandatory properties and MAY have the optiona
 |purpose
 |This is a short description of the purpose for the `Group` entity.
 |CharacterString
-|One (optional)
+|Zero or One (optional)
 
 |creationTime
 |This is the starting time of the `Group` entity. Depending on the business logic, after this time it could be possible to add observations or relations to the Group.
 |TM Instant
-|One (optional)
+|One (mandatory)
 
 |endTime
 |This is the end time of the `Group` entity. Depending on the business logic, after this time it is no longer possible to add observations or relations to the Group. 
 |TM Instant
-|One (optional)
+|Zero or One (optional)
 
 |termsOfUse
 |Express the term of use for the `Group` entity.
 |CharacterString
-|One (optional)
+|Zero or One (optional)
 
 |privacyPolicy
 |Express the term of use for personal data that are contained in the `Group` entity.
 |CharacterString
-|One (optional)
+|Zero or One (optional)
 
 |properties
 |The SensorThings API definition applies
 |JSON Object
-|One (optional)
+|Zero or One (optional)
+
+|dataQuality
+|The quality information of the observations in the group
+|JSON Object
+|Zero or One (optional)
 |===
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/group/relations
+identifier:: {identifier}/req/group/relations
 
 Each `Group` entity MAY have direct relations to other entity types listed in <<tab-relations-group>>.
 ====
@@ -382,19 +368,19 @@ The `Relation` entity can be used to describe relationships between (1) two obse
 
 ====
 [%metadata]
-identifier:: /req-class/relation
+identifier:: {identifier}/req-class/relation
 obligation:: requirement
 subject:: Target Type: Web Service
-inherit:: /req-class/entity-control-information
-requirement:: /req/relation/properties
-requirement:: /req/relation/relations
+inherit:: {identifier}/req-class/entity-control-information
+requirement:: {identifier}/req/relation/properties
+requirement:: {identifier}/req/relation/relations
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/relation/properties
+identifier:: {identifier}/req/relation/properties
 
 Each `Relation` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-relation>>.
 ====
@@ -409,12 +395,12 @@ Each `Relation` entity SHALL have the mandatory properties and MAY have the opti
 |externalObject
 |This URI references the external object for the `Relation` entity.
 |CharacterString
-|One (optional)
+|Zero or One (optional)
 
 |description
 |This is a short description of the corresponding `Relation` entity.
 |CharacterString
-|One (optional)
+|Zero or One (optional)
 
 |role
 |This URI references the definition of `Relation` entity.
@@ -424,7 +410,7 @@ Each `Relation` entity SHALL have the mandatory properties and MAY have the opti
 |properties
 |The SensorThings API definition applies
 |JSON Object
-|One (optional)
+|Zero or One (optional)
 |===
 
 NOTE: The subject of a relation entity is always an observation. For expressing the object of a relation, the `object` relation XOR `externalObject` property must be used.
@@ -432,7 +418,7 @@ NOTE: The subject of a relation entity is always an observation. For expressing 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/relation/relations
+identifier:: {identifier}/req/relation/relations
 
 Each `Relation` entity MAY have direct relations to other entity types listed in <<tab-relations-relation>>.
 ====
@@ -466,19 +452,19 @@ The `Project` entity can be used to create a container of `Datastream` or `Multi
 
 ====
 [%metadata]
-identifier:: /req-class/project
+identifier:: {identifier}/req-class/project
 obligation:: requirement
 subject:: Target Type: Web Service
-inherit:: /req-class/entity-control-information
-requirement:: /req/project/properties
-requirement:: /req/project/relations
+inherit:: {identifier}/req-class/entity-control-information
+requirement:: {identifier}/req/project/properties
+requirement:: {identifier}/req/project/relations
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/project/properties
+identifier:: {identifier}/req/project/properties
 
 Each `Project` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-project>>.
 ====
@@ -502,7 +488,7 @@ Each `Project` entity SHALL have the mandatory properties and MAY have the optio
 |classification
 |Determines if the data stream(s), multi data stream(s) or group(s) of the `Project` entity contain sensitive information
 |ValueCode
-|One (optional)
+|Zero or One (optional)
 
 |description
 |This is a short description of the corresponding `Project` entity.
@@ -512,38 +498,43 @@ Each `Project` entity SHALL have the mandatory properties and MAY have the optio
 |creationTime
 |This is the starting time of the `Project` entity. Depending on the business logic, after this time it could be possible to add observations or relations to the Group.
 |TM Instant
-|One (optional)
+|One (mandatory)
+
+|startTime
+|This is the starting time of the `Project` entity. Depending on the business logic, before this time it is not possible to add observations or relations to the Group. 
+|TM Instant
+|Zero or One (optional)
 
 |endTime
-|This is the end time of the `Project` entity. Depending on the business logic, after this time it is no longer possible to add observations or relations to the Group. 
+|This is the ending time of the `Project` entity. Depending on the business logic, after this time it is no longer possible to add observations or relations to the Group. 
 |TM Instant
-|One (optional)
+|Zero or One (optional)
 
 |termsOfUse
 |Express the term of use for the `Project` entity.
 |CharacterString
-|One (optional)
+|One (mandatory)
 
 |privacyPolicy
 |Express the term of use for personal data that are contained in the `Project` entity.
 |CharacterString
-|One (optional)
+|Zero or One (optional)
 
 |url
 |This is the URL for the `Project` entity that provides additional information that cannot be captured in this entity alone.
 |URL
-|One (optional)
+|Zero or One (optional)
 
 |properties
 |The SensorThings API definition applies
 |JSON Object
-One (optional)
+Zero or One (optional)
 |===
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/project/relations
+identifier:: {identifier}/req/project/relations
 
 Each `Project` entity MAY have direct relations to other entity types listed in <<tab-relations-project>>.
 ====

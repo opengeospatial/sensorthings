@@ -25,21 +25,21 @@ This Requirements Class defines the default CRS with axis-order and its media-ty
 
 ====
 [%metadata]
-identifier:: /req-class/storage-crs
+identifier:: {identifier}/req-class/storage-crs
 obligation:: requirement
 subject:: Target Type: Web Service
 inherit:: <<GeoJSON>>
-requirement:: /req/storage-crs/crs-definition
-requirement:: /req/storage-crs/axis-order
-requirement:: /req/storage-crs/media-type
-requirement:: /req/storage-crs/processing
+requirement:: {identifier}/req/storage-crs/crs-definition
+requirement:: {identifier}/req/storage-crs/axis-order
+requirement:: {identifier}/req/storage-crs/media-type
+requirement:: {identifier}/req/storage-crs/processing
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/storage-crs/crs-definition
+identifier:: {identifier}/req/storage-crs/crs-definition
 
 The implementation SHALL use the <<GeoJSON>> CRS `{CRS84}` as the storage-CRS.
 ====
@@ -47,7 +47,7 @@ The implementation SHALL use the <<GeoJSON>> CRS `{CRS84}` as the storage-CRS.
 [requirement]
 ====
 [%metadata]
-identifier:: /req/storage-crs/axis-order
+identifier:: {identifier}/req/storage-crs/axis-order
 
 The implementation SHALL use the <<GeoJSON>> axis-order with the storage-CRS.
 ====
@@ -55,7 +55,7 @@ The implementation SHALL use the <<GeoJSON>> axis-order with the storage-CRS.
 [requirement]
 ====
 [%metadata]
-identifier:: /req/storage-crs/media-type
+identifier:: {identifier}/req/storage-crs/media-type
 
 The implementation SHALL accept the media-type `encodingType=application/geo+json` to indicate that the structuring of the `FeatureOfInterest` and `Location` entities geometry encoding is compliant with the RFC <<GeoJSON>>.
 ====
@@ -64,7 +64,7 @@ The implementation SHALL accept the media-type `encodingType=application/geo+jso
 [requirement]
 ====
 [%metadata]
-identifier:: /req/storage-crs/processing
+identifier:: {identifier}/req/storage-crs/processing
 
 The implementation SHALL enforce the `storage-CRS` to any geometry data contained in the `FeatureOfInterest` and `Location` entity. The implementation SHALL store geometry encoded in the `default-CRS` without further processing.
 ====
@@ -80,23 +80,23 @@ This Requirements Class defines the use of geometry encoding compliant with the 
 
 ====
 [%metadata]
-identifier:: /req-class/geometry-fg
+identifier:: {identifier}/req-class/geometry-fg
 obligation:: requirement
 subject:: Target Type: Web Service
 inherit:: <<FG>>
-requirement:: /req/geometry-fg/media-type
-requirement:: /req/geometry-fg/default-crs
-requirement:: /req/geometry-fg/supported-crs
-requirement:: /req/geometry-fg/crs-error
-requirement:: /req/geometry-fg/processing
-requirement:: /req/geometry-fg/out
+requirement:: {identifier}/req/geometry-fg/media-type
+requirement:: {identifier}/req/geometry-fg/default-crs
+requirement:: {identifier}/req/geometry-fg/supported-crs
+requirement:: {identifier}/req/geometry-fg/crs-error
+requirement:: {identifier}/req/geometry-fg/processing
+requirement:: {identifier}/req/geometry-fg/out
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-fg/media-type
+identifier:: {identifier}/req/geometry-fg/media-type
 
 The implementation SHALL accept the media-type `application/vnd.ogc.fg+json` as value to the `encodingType` property of the `FeatureOfInterest` and `Location` entities to indicate that the structuring of the geometry is be compliant with the OGC Draft Standard _OGC Features and Geometries JSON - Part 1: Core_ footnote:[draft OGC Standard at the time of writing: https://docs.ogc.org/DRAFTS/21-045.html].
 ====
@@ -104,7 +104,7 @@ The implementation SHALL accept the media-type `application/vnd.ogc.fg+json` as 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-fg/default-crs
+identifier:: {identifier}/req/geometry-fg/default-crs
 
 The implementation SHALL advertise the default CRS on the conformance page.
 ====
@@ -112,7 +112,7 @@ The implementation SHALL advertise the default CRS on the conformance page.
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-fg/supported-crs
+identifier:: {identifier}/req/geometry-fg/supported-crs
 
 The implementation SHALL advertise the list of the supported CRS on the conformance page.
 ====
@@ -120,7 +120,7 @@ The implementation SHALL advertise the list of the supported CRS on the conforma
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-fg/crs-error
+identifier:: {identifier}/req/geometry-fg/crs-error
 
 The implementation SHALL return an error if the geometry data inside `feature` or `location` properties is encoded in an unsupported CRS.
 ====
@@ -128,7 +128,7 @@ The implementation SHALL return an error if the geometry data inside `feature` o
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-fg/processing
+identifier:: {identifier}/req/geometry-fg/processing
 
 If necessary, the implementation SHALL apply a CRS transformation to the `default-CRS` if necessary before further processing or storing the geometry data.
 ====
@@ -136,7 +136,7 @@ If necessary, the implementation SHALL apply a CRS transformation to the `defaul
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-fg/out
+identifier:: {identifier}/req/geometry-fg/out
 
 The implementation SHALL use the storage-CRS to encode the `feature` and `location` geometries in a response.
 ====
@@ -152,25 +152,25 @@ This Requirements Class defines the use of geometry encoding compliant with Well
 
 ====
 [%metadata]
-identifier:: /req-class/geometry-wkt
+identifier:: {identifier}/req-class/geometry-wkt
 obligation:: requirement
 subject:: Target Type: Web Service
 inherit:: <<ISO19125-1>>
-requirement:: /req/geometry-wkt/media-type
-requirement:: /req/geometry-wkt/crs-defintion
-requirement:: /req/geometry-wkt/default-crs
-requirement:: /req/geometry-wkt/supported-crs
-requirement:: /req/geometry-wkt/crs-error
-requirement:: /req/geometry-wkt/value
-requirement:: /req/geometry-wkt/processing
-requirement:: /req/geometry-wkt/out
+requirement:: {identifier}/req/geometry-wkt/media-type
+requirement:: {identifier}/req/geometry-wkt/crs-defintion
+requirement:: {identifier}/req/geometry-wkt/default-crs
+requirement:: {identifier}/req/geometry-wkt/supported-crs
+requirement:: {identifier}/req/geometry-wkt/crs-error
+requirement:: {identifier}/req/geometry-wkt/value
+requirement:: {identifier}/req/geometry-wkt/processing
+requirement:: {identifier}/req/geometry-wkt/out
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-wkt/media-type
+identifier:: {identifier}/req/geometry-wkt/media-type
 
 The implementation SHALL accept the media-type `wkt` as value for the `encodingType` property of the `FeatureOfInterest` and `Location` entities.
 ====
@@ -179,7 +179,7 @@ The implementation SHALL accept the media-type `wkt` as value for the `encodingT
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-wkt/crs-definition
+identifier:: {identifier}/req/geometry-wkt/crs-definition
 
 If a non-default CRS is used then either the CRS identifier SHALL be put into a property `crs`, or the CRS identifier (number) SHALL be put into a property `srid` of the `properties` property of the `FeatureOfInterest` or `Location` entity.
 ====
@@ -187,7 +187,7 @@ If a non-default CRS is used then either the CRS identifier SHALL be put into a 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-wkt/default-crs
+identifier:: {identifier}/req/geometry-wkt/default-crs
 
 The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page with the name `{identifier}/conf/geometry-wkt` that contains a property `default-crs` whose value represents the default CRS identifier.
 ====
@@ -195,7 +195,7 @@ The implementation SHALL provide a JSON object in the `serverSettings` object on
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-wkt/supported-crs
+identifier:: {identifier}/req/geometry-wkt/supported-crs
 
 The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page with the name `{identifier}/conf/geometry-wkt` that contains a property `supported-crs` of type Array which values represent the supported CRS identifiers.
 ====
@@ -203,7 +203,7 @@ The implementation SHALL provide a JSON object in the `serverSettings` object on
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-wkt/crs-error
+identifier:: {identifier}/req/geometry-wkt/crs-error
 
 The implementation SHALL return an error if the geometry data inside the `FeatureOfInterest` or `Location`  is encoded in an unsupported CRS.
 ====
@@ -211,7 +211,7 @@ The implementation SHALL return an error if the geometry data inside the `Featur
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-wkt/value
+identifier:: {identifier}/req/geometry-wkt/value
 
 The WKT encoded geometry SHALL be the value of the `feature` or `location` property (the type Any is a String).
 ====
@@ -220,7 +220,7 @@ The WKT encoded geometry SHALL be the value of the `feature` or `location` prope
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-wkt/processing
+identifier:: {identifier}/req/geometry-wkt/processing
 
 The implementation SHALL apply CRS transformation to the `storage-CRS` if necessary before further processing or storing the geometry data.
 ====
@@ -228,7 +228,7 @@ The implementation SHALL apply CRS transformation to the `storage-CRS` if necess
 [requirement]
 ====
 [%metadata]
-identifier:: /req/geometry-wkt/out
+identifier:: {identifier}/req/geometry-wkt/out
 
 The implementation SHALL use the storage-CRS to encode the `feature` and `location` geometries in a response.
 ====

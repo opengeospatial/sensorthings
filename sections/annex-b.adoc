@@ -1,148 +1,15 @@
-[appendix,obligation="normative"]
-== Abstract Test Suite
+[appendix,obligation="informative"]
+== STAplus Data Model
 
-This appendix contains the normative test suite. Any implementation claiming compliance with this standard must pass the appropriate tests.
+This appendix contains the Data Model UML diagrams in large for improved readability.
 
-=== STAplus Core (Read) Tests
+=== STAplus Data Model connected to `Datastream`
+[[fig-staplus-datastream-entities-landscape]]
+[.text-center]
+image::./figures/STAplusSensingEntities.png[STAplus Entities connected to Datastream,scale=90%]
 
-This section contains the conformance tests for the STAplus Core (Read). The STAplus implementation needs to pass all the conformance tests defined in this section.
 
-[cols="25a,75a"]
-|===
-2+|B.1.0 Test: SensorThings API 
-
-|Test id
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/sta-core
-
-
-|Requirements
-|https://docs.ogc.org/is/18-088/18-088.html#_sensorthings_read_core_tests
-
-|Test purpose
-|Check compliance with <<OGC18-088>>.
-
-|Test method
-|Execute all tests and assert compliance.
-|===
-
-
-
-
-
-
-=== STAplus Create Tests
-
-This section contains the conformance tests for the STAplus create support. A service implementation that allows clients to create STAplus entities (using HTTP) needs to pass the conformance tests defined in this section.
-
-
-
-
-
-
-
-
-
-=== STAplus Update Tests
-
-This section contains the conformance tests for the STAplus update support. A service implementation that allows clients to update STAplus entities (using HTTP) needs to pass the conformance tests defined in this section.
-
-
-
-
-
-
-
-=== STAplus MQTT Tests
-
-This section contains the conformance tests for the STAplus service implementation supporting the receiving of updates via MQTT. A compliant service implementation that allows clients to receive notifications regarding updates of entities via MQTT needs to pass the conformance tests defined in this section.
-
-
-
-
-
-
-
-
-
-=== STAplus Feature and Location Encoding Tests
-
-This section contains the conformance tests for the STAplus Feature and Location Encoding. The STAplus implementation needs to pass all the conformance tests defined in this section.
-
-[cols="25a,75a"]
-|===
-2+|B.7.1 Test: Default Geometry encoding and storage CRS
-
-|Test id
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/sta-geometry-geojson
-
-
-|Requirements
-|<<req-geometry-geojson>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-geometry-geojson>>
-
-|Test purpose
-|Assert that the implementation supports the default geometry encoding and CRS for the entities `Feature` and `Location`.
-
-|Test method
-|Submit a HTTP POST request to create a `<Feature>` and a `<Location>` entity compliant with the GeoJSON encoding using the `encodingType` property with value `application/geo+json`. 
-|===
-
-[cols="25a,75a"]
-|===
-2+|B.7.2 Test: Geometry FG encoding and CRS
-
-|Test id
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/sta-geometry-fg
-
-
-|Requirements
-|<<req-geometry-fg>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-geometry-fg>>
-
-|Test purpose
-|Assert that the implementation supports the geometry encoding defined in <<FG>> and the advertized CRS for encoding geometries of the entities `Feature` and `Location`.
-
-|Test method
-|Submit a HTTP GET request to the conformance page and determine the support for <<requirement-geometry-fg>> and to obtain the default (storage-) CRS as well as a list of supported CRS.
-||Submit a HTTP POST request for each (storage and supported) CRS to create a `<Feature` and `<Location>` entity where the structure and the geometry encoding is compliant with <<requirement-geometry-fg>>.
-||Verify that the created entities got created and got stored by using individual HTTP GET requests to fetch these `Feature` and `Location` entities.
-|===
-
-[cols="25a,75a"]
-|===
-2+|B.7.3 Test: Geometry WKT encoding and CRS
-
-|Test id
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/sta-geometry-wkt
-
-
-|Requirements
-|<<req-geometry-wkt>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-geometry-wkt>>
-
-|Test purpose
-|Assert that the implementation supports the geometry encoding defined in <<requirement-geometry-wkt>> and the advertized CRS for encoding geometries of the entities `Feature` and `Location`.
-
-|Test method
-|Submit a HTTP GET request to the conformance page and determine the support for <<requirement-geometry-wkt>> and to obtain the default (storage-) CRS as well as a list of supported CRS.
-||Submit a HTTP POST request for each (storage and supported) CRS to create a `<Feature>` and `<Location>` entity where the structure and the geometry encoding is compliant with <<requirement-geometry-wkt>>.
-||Verify that the POSTed entities got created and got stored by using individual HTTP GET requests to fetch these `Feature` and `Location` entities.
-|===
-
-[cols="25a,75a"]
-|===
-2+|B.7.3 Test: Geometry Encoding in Responses
-
-|Test id
-|\http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/conf/sta-geometry-out
-
-
-|Requirements
-|<<req-geometry-wkt>>. \http://www.opengis.net/spec/iot_sensing/1.1/extension/staplus/req/<<requirement-geometry-out>>
-
-|Test purpose
-|Assert that the implementation supports the geometry encoding defined in <<requirement-geometry-out>> and the advertized CRS for encoding geometries of the entities `Feature` and `Location`.
-
-|Test method
-|Submit a HTTP GET request to the conformance page and determine the support for <<requirement-geometry-wkt>> and to obtain the default (storage-) CRS as well as a list of supported CRS.
-||Submit a HTTP POST request using the storage-CRS and GeoJSON encoding to create a `<Feature>` and `<Location>` entity.
-||Submit a HTTP POST request for each supported CRS and use the supported geometry encoding (<<requirement-geometry-fg>> and <<requirement-geometry-wkt>>) to create a `<Feature>` and `<Location>` entity.
-||Submit a HTTP GET request for the POSTed entities and verify that the Geometry encoding is compliant to GeoJSON.
-|===
+=== STAplus Data Model connected to `MultiDatastream`
+[[fig-staplus-multidatastream-entities-landscape]]
+[.text-center]
+image::./figures/STAplusMultiDatastreamExtensionEntities.png[STAplus Entities connected to MultiDatastream,scale=90%]

@@ -1,9 +1,5 @@
 == Terms and definitions
 
-This document uses the terms defined in Sub-clause 5.3 of <<OGC06-121r9>>, which is based on the ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards. In particular, the word "`shall`" (not "`must`") is the verb form used to indicate a requirement to be strictly followed to conform to this standard.
-
-For the purposes of this document, the following additional terms and definitions apply.
-
 === Party
 
 The entity in the data model that represents a user. A party can be associated to other entities of the data model to express ownership.
@@ -27,3 +23,14 @@ The entity in the data model that allows merging `Multi/Datastream` entities tog
 === Ownership
 
 The `Party` entity in the data model allows expressing the right of possession over entity instances. This is the requirement to operate STAplus with multi-user CRUD access. 
+
+=== Abbreviations
+
+API:: Application Programming Interface
+CC:: Creative Commons
+CRUD:: Create Read Update Delete
+DID:: Decentralized Identifier
+GDPR:: European General Data Protection Regulation
+MQTT:: Message Queuing Telemetry Transport
+STA:: Sensor Things API
+STAplus:: Sensor Things API "plus" extension

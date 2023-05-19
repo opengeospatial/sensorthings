@@ -1,6 +1,6 @@
 == Scope
 
-OGC STAplus provides an open standard-based and backwards-compatible data model extension to SensorThings API v1.1 by introducing ownership and licensing. Additional features such as grouping and relations can be used for enriching the re-use and linking of sensor data with semantical concepts to improve the FAIR principles.
+OGC STAplus provides an open standard-based and backwards-compatible data model extension to SensorThings API by introducing ownership and licensing. Additional features such as grouping and relations can be used for enriching the re-use and linking of sensor data with semantic concepts to improve the FAIR principles.
 
 === Security Considerations
 A STAplus service implementation that supports the Create, Update or Delete of STAplus entities should also implement authentication and a "fit-for-purpose" business logic that enforces the required access conditions to ensure ownership of all entities, including SensorThings core entities.
@@ -13,4 +13,20 @@ Without an appropriate business logic, enforcing ownership and ensuring integrit
 
 The STAplus data model does not support to record provenance. If the business logic allows the update or even deletion of entities, there is no history of who did what and when. The data served from a service implementation is a snapshot in time which may cause pagination to produce unexpected results.
 
-For implementations of the `Create`, `Update` and `Delete` conformance class it is paramount to check all user uploads for malicious code. Typical SQL injection checks are mandatory but also JavaScript code injection must be tackled. For example, it is likely that the value of an observation will be displayed on some HTML page. To prevent malicious code or virus injection, similar to cross-site-scripting attacks, pattern checking on any uploaded data should be accomplished.
+For implementations of the `Create`, `Update` and `Delete` conformance class it is paramount to check all user uploads for malicious content. Typical SQL injection checks are mandatory but also JavaScript code injection must be tackled. For example, it is likely that the value of an observation will be displayed on some HTML page. To prevent malicious code or virus injection, similar to cross-site-scripting attacks, pattern checking on any uploaded data should be accomplished.
+
+The STAplus data model does *not* support the storage of personal data with a `Party` entity. Neither offers the `Party` entity the usual `properties` property to ensure personal data is not stored there. As a result, any requirement for accessing and sharing of personal data must take place with another system. Such a system is likely connected to the same authentication as the STAplus service to ensure alignment between the `authId` within STAplus and the management of personal data stored at _the other system_. 
+
+The use of a unique `authId` is mandatory to ensure integrity and confidentiality of data when STAplus is used as a multi-user service. In case that multiple authentication system are to be supported, it must be ensured that the resulting `authId` is unique in the service. One possibility would be to require that acceptable authentication systems support the <<W3C-DID>>. The use of W3C DIDs guarantee by the DID structure that identifiers of each system are globally unique.
+
+To filter on entities that belong to a particular user, the `authId` or the `displayName` can be used in `$filter` or `$select`. However, it is important to recognize that the `authId` will not change but the `displayName` may.
+
+The STAplus data model does not support the direct storage of personal data. However, in a wider eco-system it could be possible that personal data can be linked with user identifiers from STAplus. 
+
+To ensure that personal data gets associated with STAplus user identifiers, it is recommended to operate a system that controls the exchange of personal information. Such a system could be designed on an opt-in basis: A user is asking another user via the identifier to provide personal data to be used in a particular context. Once a user has approved the use of the personal data for the given context, the data received from STAplus can be linked with the personal data from that system based on the user's identifier. 
+
+Even though not a direct feature of STAplus, storage of location and time is possible as inherited from STA. An implementation's business logic may obfuscate the location of a sensor or observations based on internal logic. It is also possible that the user's application that uploads the time/location values obfuscates values according to user's discretion. This would ensure disconnect between location of observations and tracking location of people.
+
+The exposure of time/location may become sensitive information in certain cases. The business logic should implement certain conditions that at least ensure compliance with the law. 
+
+The upload of binary data or graphical language must be sanitized in compliance with the law. In particular, ethical considerations must be considered to ensure that observation values for examples are not misused to result into personal harassment.

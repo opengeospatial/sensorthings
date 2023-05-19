@@ -12,10 +12,10 @@ A STAplus compliant implementation must also be compliant with the SensorThings 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/core/common-control-information
-target:: /conf/core
+identifier:: {identifier}/conf/core/common-control-information
+target:: {identifier}/conf/core
 
-target:: /req/common-control-information
+target:: {identifier}/req/common-control-information
 
 test-purpose:: To verify that the common control information as defined in the requirement.
 test-method-type:: Manually Inspect
@@ -25,24 +25,24 @@ test-method:: Inspect the full JSON object of the entity sets (__i.e.__, without
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/core/entities
-inherit:: /conf/core/common-control-information
-target:: /conf/core
+identifier:: {identifier}/conf/core/entities
+inherit:: {identifier}/conf/core/common-control-information
+target:: {identifier}/conf/core
 
-target:: /req/party/properties
-target:: /req/party/relations
+target:: {identifier}/req/party/properties
+target:: {identifier}/req/party/relations
 
-target:: /req/license/properties
-target:: /req/license/relations
+target:: {identifier}/req/license/properties
+target:: {identifier}/req/license/relations
 
-target:: /req/group/properties
-target:: /req/group/relations
+target:: {identifier}/req/group/properties
+target:: {identifier}/req/group/relations
 
-target:: /req/relation/properties
-target:: /req/relation/relations
+target:: {identifier}/req/relation/properties
+target:: {identifier}/req/relation/relations
 
-target:: /req/project/properties
-target:: /req/project/relations
+target:: {identifier}/req/project/properties
+target:: {identifier}/req/project/relations
 
 test-purpose:: Verify that each STAplus entity has the mandatory properties and mandatory relations as defined in this specification.
 test-method-type:: Manually Inspect
@@ -57,11 +57,11 @@ part:: Inspect the full JSON object of each entity set (__i.e.__, without using 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/core/read
-inherit:: /conf/core/entities
-target:: /conf/core
+identifier:: {identifier}/conf/core/read
+inherit:: {identifier}/conf/core/entities
+target:: {identifier}/conf/core
 
-target:: /req/read/entity
+target:: {identifier}/req/read/entity
 
 
 test-purpose:: Verify that the implementation supports reading STAplus entities via HTTP GET.
@@ -79,10 +79,10 @@ part:: Construct a URL to the `Project` entity and verify the response.
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/core/storage-crs/crs-definition
-target:: /conf/core
+identifier:: {identifier}/conf/core/storage-crs/crs-definition
+target:: {identifier}/conf/core
 
-target:: /req/storage-crs/crs-definition
+target:: {identifier}/req/storage-crs/crs-definition
 
 
 test-purpose:: Verify that the implementation supports and uses the default CRS.
@@ -95,10 +95,10 @@ part:: Construct a `FeatureOfInterst` entity that contains a `Feature` property 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/core/storage-crs/axis-order
-target:: /conf/core
+identifier:: {identifier}/conf/core/storage-crs/axis-order
+target:: {identifier}/conf/core
 
-target:: /req/storage-crs/axis-order
+target:: {identifier}/req/storage-crs/axis-order
 
 
 test-purpose:: Verify that the implementation supports and uses the default axis-order.
@@ -111,10 +111,10 @@ part:: Construct a `FeatureOfInterst` entity that contains a `feature` property 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/core/storage-crs/media-type
-target:: /conf/core
+identifier:: {identifier}/conf/core/storage-crs/media-type
+target:: {identifier}/conf/core
 
-target:: /req/storage-crs/media-type
+target:: {identifier}/req/storage-crs/media-type
 
 
 test-purpose:: Verify that the implementation supports and uses the default media-type.
@@ -128,10 +128,10 @@ part:: Construct a `FeatureOfInterst` entity that contains a `feature` property 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/core/storage-crs/processing
-target:: /conf/core
+identifier:: {identifier}/conf/core/storage-crs/processing
+target:: {identifier}/conf/core
 
-target:: /req/storage-crs/processing
+target:: {identifier}/req/storage-crs/processing
 
 
 test-purpose:: Verify that the implementation stores geometry that is encoded in the default CRS and axis-order without processing.
@@ -153,13 +153,13 @@ part:: Construct a `FeatureOfInterst` entity that contains a `feature` property 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/create/http
-target:: /conf/create
+identifier:: {identifier}/conf/create/http
+target:: {identifier}/conf/create
 
-target:: /req/create/entity
-target:: /req/create/link-to-existing-entities
-target:: /req/create/deep-insert
-target:: /req/create/deep-insert-status-code
+target:: {identifier}/req/create/entity
+target:: {identifier}/req/create/link-to-existing-entities
+target:: {identifier}/req/create/deep-insert
+target:: {identifier}/req/create/deep-insert-status-code
 
 
 test-purpose:: To verify that the service implementation supports the creation of entities as defined in this Standard.
@@ -185,11 +185,11 @@ part:: Create an entity instance that does not follow the integrity constraints 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/update/put
-target:: /conf/update
+identifier:: {identifier}/conf/update/put
+target:: {identifier}/conf/update
 
-target:: /req/update/entity
-target:: /req/update/entity-put
+target:: {identifier}/req/update/entity
+target:: {identifier}/req/update/entity-put
 
 
 test-purpose:: To verify that the service implementation supports the update of entities as defined in this specification.
@@ -201,11 +201,11 @@ part:: Send an update request with HTTP PUT and check if the service responds as
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/update/patch
-target:: /conf/update
+identifier:: {identifier}/conf/update/patch
+target:: {identifier}/conf/update
 
-target:: /req/update/entity
-target:: /req/update/entity-jsonpatch
+target:: {identifier}/req/update/entity
+target:: {identifier}/req/update/entity-jsonpatch
 
 
 test-purpose:: To verify that the service implementation supports the update of entities as defined in this Standard.
@@ -225,10 +225,10 @@ part:: Send an update request with PATCH that contains binding information for n
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/delete/entity
-target:: /conf/delete
+identifier:: {identifier}/conf/delete/entity
+target:: {identifier}/conf/delete
 
-target:: /req/delete/entity
+target:: {identifier}/req/delete/entity
 
 
 test-purpose:: To verify that the service implementation supports the deletion of entities as defined
@@ -244,10 +244,10 @@ part:: Delete an entity instance, and check if the service responds as defined
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/authentication/id
-target:: /conf/authentication
+identifier:: {identifier}/conf/authentication/id
+target:: {identifier}/conf/authentication
 
-target:: /req/authentication/id
+target:: {identifier}/req/authentication/id
 
 
 test-purpose:: To verify that the user's identifier is permanent and unique.
@@ -261,56 +261,82 @@ part:: Compare the user identifier for different users and verify that the ident
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/authentication/anon-personal-data-crud
-target:: /conf/core
+identifier:: {identifier}/conf/authentication/id-create
+target:: {identifier}/conf/core
 
-target:: /req/authentication/anon-personal-data-crud
+target:: {identifier}/req/authentication/id-create
 
 
-test-purpose:: To verify that an anonymous user cannot read, create, update or delete personal data stored in any `Party.personalData`.
-test-method:: For an existing `Party` entity:
+test-purpose:: To verify that the identifier value stored in `Party.authId` is set by the implementation.
+test-method:: For a non-existing `Party` entity:
 
-part:: Submit a HTTP GET request to any (all) `Party` entity(ies) and check that the response does not contain the `personalData` property.
-part:: Submit a HTTP POST, PATCH, and DELETE request to any (all) `Party` entity(ies) and check that the response is compliant with the business logic.
+part:: Submit a HTTP POST request to create a `Party` entity where the `authId` is not set.
+part:: Observe the response to find the location URI for the created `Party` entity.
+part:: Issue a HTTP GET request to the location URI and verify that the `Party.authId` is set with the unique identifier that represents the user.
+
+part:: Submit a HTTP POST request to create a `Party` entity where the `authId` is set with some value.
+part:: Observe the response to find the location URI for the created `Party` entity.
+part:: Issue a HTTP GET request to the location URI and verify that the `Party.authId` is set with the unique identifier that represents the user. In other words, the initial value for `authId` during upload was replaced by the implementation with the identifier of the user.
+
 ====
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/authentication/own-personal-data-crud
-target:: /conf/authentication
+identifier:: {identifier}/conf/authentication/id-read
+target:: {identifier}/conf/authentication
 
-target:: /req/authentication/own-personal-data-r
-target:: /req/authentication/own-personal-data-cud
+target:: {identifier}/req/authentication/id-read
 
 
-test-purpose:: To verify that a user can read, create, update and delete the own personal data stored in `Party.personalData`.
-test-method:: Verify that access to the own personal data is possible for an authenticated user by sending HTTP requests with different methods to the `Party` entity that represents the user:
+test-purpose:: To verify that the `Party.authId` is exposed in a response.
+test-method:: Verify that response from any `Party` entity includes the `authId`:
 
-part:: Have the user authenticate and identify the corresponding `Party` entity.
-part:: Construct a HTTP POST request to create a `Party` entity including personal data and verify that the entity is stored.
-part:: Construct a HTTP GET request to the corresponding `Party` entity and verify that the personal data is contained in the response.
-part:: Construct a HTTP PATCH request to update the personal data of the corresponding `Party`entity. Verify that the update was successful.
-part:: Construct a HTTP PATCH request to delete the personal data (set values to `null`) of the corresponding `Party` entity. Verify that the erasure of the personal data was successful.
+part:: Construct a HTTP GET request to some `Party` entity and verify that the `authId` is contained in the response.
 ====
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/authentication/other-personal-data-crud
-target:: /conf/authentication
+identifier:: {identifier}/conf/authentication/id-update
+target:: {identifier}/conf/authentication
 
-target:: /req/authentication/other-personal-data-r
-target:: /req/authentication/other-personal-data-cud
+target:: {identifier}/req/authentication/id-update
 
-test-purpose:: To verify that a user can *not* read, create, update and delete *other user's* personal data stored in `Party.personalData`.
-test-method:: Verify that access to other personal data is *not* possible for an authenticated user by sending HTTP requests with different methods to the `Party` entity that represents *another* user:
+test-purpose:: To verify that a user can *not* update the identifier stored in `Party.authId`.
+test-method:: Verify that changing the `authId` is not possible for the user itself:
 
-part:: Have the user authenticate and identify a `Party` entity of another user.
-part:: Construct a HTTP POST request to create a `Party` entity including personal data using a `partyId` value for another user. Verify that the response is compliant with the business logic.
-part:: Construct a HTTP GET request to `Party` entity of another user and verify that the response is compliant with the business logic.
-part:: Construct a HTTP PATCH request to update the personal data of another `Party`entity. Verify that  the response is compliant with the business logic.
-part:: Construct a HTTP PATCH request to delete the personal data (set values to `null`) of *another* `Party` entity. Verify that the response is compliant with the business logic.
+part:: Have the user authenticate and identify the corresponding `Party`.
+part:: Construct a HTTP PATCH request to that `Party` entity where the `authId` is set with some value.
+part:: Issue a HTTP GET request to that `Party` and verify that the value of the `authId` has not changed.
+
+test-method:: Verify that changing the `authId` is not possible for any other user:
+
+part:: Have the user authenticate and identify the corresponding `Party`.
+part:: Construct a HTTP PATCH request to *another* existing `Party` entity where the `authId` is set with some value.
+part:: Issue a HTTP GET request to that other `Party` and verify that the value of the `authId` has not changed.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/authentication/id-delete
+target:: {identifier}/conf/authentication
+
+target:: {identifier}/req/authentication/id-delete
+
+test-purpose:: To verify that a user can *not* delete the identifier stored in `Party.authId`.
+test-method:: Verify that deleting the `authId` is not possible for the user itself:
+
+part:: Have the user authenticate and identify the corresponding `Party`.
+part:: Construct a HTTP DELETE request to that `Party` entity.
+part:: Issue a HTTP GET request to that `Party` and verify that the value of the `authId` has not changed.
+
+test-method:: Verify that deleting the `authId` is not possible for any other user:
+
+part:: Have the user authenticate and identify the corresponding `Party`.
+part:: Construct a HTTP DELETE request to *another* existing `Party`.
+part:: Issue a HTTP GET request to that other `Party` and verify that the value of the `authId` has not changed.
 ====
 
 
@@ -319,10 +345,10 @@ part:: Construct a HTTP PATCH request to delete the personal data (set values to
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/business-logic/definition
-target:: /conf/business-logic
+identifier:: {identifier}/conf/business-logic/definition
+target:: {identifier}/conf/business-logic
 
-target:: /req/business-logic/definition
+target:: {identifier}/req/business-logic/definition
 
 test-purpose:: To verify that the description of the business logic is human readable and in English.
 test-method:: Verify that the HTML page for the business logic is in English language.
@@ -331,10 +357,10 @@ test-method:: Verify that the HTML page for the business logic is in English lan
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/business-logic/location
-target:: /conf/business-logic
+identifier:: {identifier}/conf/business-logic/location
+target:: {identifier}/conf/business-logic
 
-target:: /req/business-logic/location
+target:: {identifier}/req/business-logic/location
 
 test-purpose:: To verify that the business logic is available from the provided URL.
 test-method:: On the landing page, find the JSON object with name `{identifier}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page contains the description of the business logic.
@@ -348,10 +374,10 @@ test-method:: On the landing page, find the JSON object with name `{identifier}/
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-fg//media-type
-target:: /conf/geometry-fg
+identifier:: {identifier}/conf/geometry-fg//media-type
+target:: {identifier}/conf/geometry-fg
 
-target:: /req/geometry-fg/media-type
+target:: {identifier}/req/geometry-fg/media-type
 
 test-purpose:: To verify that the implementation accepts media-type for Geometry-FG.
 test-method:: Verify that the implementation supports the use of the media-type for Geometry-FG.
@@ -361,10 +387,10 @@ test-method:: Verify that the implementation supports the use of the media-type 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-fg/default-crs
-target:: /conf/geometry-fg
+identifier:: {identifier}/conf/geometry-fg/default-crs
+target:: {identifier}/conf/geometry-fg
 
-target:: /req/geometry-fg/default-crs
+target:: {identifier}/req/geometry-fg/default-crs
 
 test-purpose:: To verify that the default-CRS is used for processing geometry data from `Feature` and `Location`.
 test-method:: Verify that the implementation applies the default CRS advertised in the conformance page to the geometry data from `Feature` and `Location`.
@@ -373,10 +399,10 @@ test-method:: Verify that the implementation applies the default CRS advertised 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-fg/supported-crs
-target:: /conf/geometry-fg
+identifier:: {identifier}/conf/geometry-fg/supported-crs
+target:: {identifier}/conf/geometry-fg
 
-target:: /req/geometry-fg/supported-crs
+target:: {identifier}/req/geometry-fg/supported-crs
 
 test-purpose:: To verify that all CRS, advertised as supported in the conformance page are accepted.
 test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location`. For each supported CRS:
@@ -387,10 +413,10 @@ part:: Construct a geometry and create a `Location` and `FeatureOfInterest` enti
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-fg/crs-error
-target:: /conf/geometry-fg
+identifier:: {identifier}/conf/geometry-fg/crs-error
+target:: {identifier}/conf/geometry-fg
 
-target:: /req/geometry-fg/crs-error
+target:: {identifier}/req/geometry-fg/crs-error
 
 test-purpose:: To verify that no additional CRS, as advertised as supported in the conformance page are accepted.
 test-method:: Verify that the implementation *does not* accept geometry encodings for `Feature` and `Location` that are not listed as supported. For a CRS *not* listed as supported:
@@ -401,10 +427,10 @@ part:: Construct a geometry and create a `Location` and `FeatureOfInterest` enti
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-fg/processing
-target:: /conf/geometry-fg
+identifier:: {identifier}/conf/geometry-fg/processing
+target:: {identifier}/conf/geometry-fg
 
-target:: /req/geometry-fg/processing
+target:: {identifier}/req/geometry-fg/processing
 
 test-purpose:: To verify that a geometry not encoded in the storage-CRS is transformed before storage.
 test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location` that use a supported CRS:
@@ -415,10 +441,10 @@ part:: Construct a geometry and create a `Location` and `FeatureOfInterest` enti
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-fg/out
-target:: /conf/geometry-fg
+identifier:: {identifier}/conf/geometry-fg/out
+target:: {identifier}/conf/geometry-fg
 
-target:: /req/geometry-fg/out
+target:: {identifier}/req/geometry-fg/out
 
 test-purpose:: To verify that a geometry included in a response is encoded in the storage-CRS.
 test-method:: Verify that the geometry data for a `Feature` and `Location` is using storage-CRS, independent from the geometry CRS used with the creation or updating of the entity.
@@ -431,10 +457,10 @@ test-method:: Verify that the geometry data for a `Feature` and `Location` is us
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-wkt/media-type
-target:: /conf/geometry-wkt
+identifier:: {identifier}/conf/geometry-wkt/media-type
+target:: {identifier}/conf/geometry-wkt
 
-target:: /req/geometry-wkt/media-type
+target:: {identifier}/req/geometry-wkt/media-type
 
 test-purpose:: To verify that the implementation accepts media-type for WKT.
 test-method:: Verify that the implementation supports the use of the media-type for WKT.
@@ -443,10 +469,10 @@ test-method:: Verify that the implementation supports the use of the media-type 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-wkt/crs-definition
-target:: /conf/geometry-wkt
+identifier:: {identifier}/conf/geometry-wkt/crs-definition
+target:: {identifier}/conf/geometry-wkt
 
-target:: /req/geometry-wkt/crs-definition
+target:: {identifier}/req/geometry-wkt/crs-definition
 
 test-purpose:: To verify that the implementation accepts CRS definition provided in the associated property.
 test-method:: Verify that the implementation supports the use of the CRS property.
@@ -462,10 +488,10 @@ part:: Verify that the implementation processes the geometry honoring the CRS id
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-wkt/default-crs
-target:: /conf/geometry-wkt
+identifier:: {identifier}/conf/geometry-wkt/default-crs
+target:: {identifier}/conf/geometry-wkt
 
-target:: /req/geometry-wkt/default-crs
+target:: {identifier}/req/geometry-wkt/default-crs
 
 test-purpose:: To verify that the default-CRS is used for processing geometry data from `feature` and `location` property.
 test-method:: Verify that the implementation defines and applies the default CRS to the geometry data from `feature` and `location` property.
@@ -477,38 +503,38 @@ part:: Verify that the `default-crs` is applied to a WKT geometry if no `crs` or
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-wkt/supported-crs
-target:: /conf/geometry-wkt
+identifier:: {identifier}/conf/geometry-wkt/supported-crs
+target:: {identifier}/conf/geometry-wkt
 
-target:: /req/geometry-wkt/supported-crs
+target:: {identifier}/req/geometry-wkt/supported-crs
 
 test-purpose:: To verify that all supported CRS are accepted.
 test-method:: Verify that the implementation accepts geometry encodings for `feature` and `location` properties. For each supported CRS:
 
-part:: Execute test /conf/geometry-wkt/crs-definition and verify that the implementation processes the geometry correctly.
+part:: Execute test {identifier}/conf/geometry-wkt/crs-definition and verify that the implementation processes the geometry correctly.
 ====
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-wkt/crs-error
-target:: /conf/geometry-wkt
+identifier:: {identifier}/conf/geometry-wkt/crs-error
+target:: {identifier}/conf/geometry-wkt
 
-target:: /req/geometry-wkt/crs-error
+target:: {identifier}/req/geometry-wkt/crs-error
 
 test-purpose:: To verify that only supported CRSs are accepted.
 test-method:: Verify that the implementation *does not* accept geometry encodings for `feature` and `location` properties that are not listed as supported. For a CRS *not* listed as supported:
 
-part:: Execute test /conf/geometry-wkt/crs-definition and verify that the geometry data is *rejected* by the implementation.
+part:: Execute test {identifier}/conf/geometry-wkt/crs-definition and verify that the geometry data is *rejected* by the implementation.
 ====
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-wkt/value
-target:: /conf/geometry-wkt
+identifier:: {identifier}/conf/geometry-wkt/value
+target:: {identifier}/conf/geometry-wkt
 
-target:: /req/geometry-wkt/value
+target:: {identifier}/req/geometry-wkt/value
 
 test-purpose:: To verify that the geometry value, compliant to WKT is accepted as value for the `feature` and `location` property.
 test-method:: Verify that the implementation accepts WKT geometry values for `feature` and `location` properties.
@@ -518,10 +544,10 @@ test-method:: Verify that the implementation accepts WKT geometry values for `fe
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-wkt/processing
-target:: /conf/geometry-wkt
+identifier:: {identifier}/conf/geometry-wkt/processing
+target:: {identifier}/conf/geometry-wkt
 
-target:: /req/geometry-wkt/processing
+target:: {identifier}/req/geometry-wkt/processing
 
 test-purpose:: To verify that a geometry not encoded in the storage-CRS is transformed before storage.
 test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location` that use a supported CRS:
@@ -532,25 +558,47 @@ part:: Construct a geometry and create a `Location` and `FeatureOfInterest` enti
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/geometry-wkt/out
-target:: /conf/geometry-wkt
+identifier:: {identifier}/conf/geometry-wkt/out
+target:: {identifier}/conf/geometry-wkt
 
-target:: /req/geometry-wkt/out
+target:: {identifier}/req/geometry-wkt/out
 
 test-purpose:: To verify that a geometry included in a response is encoded in the storage-CRS.
 test-method:: Verify that the geometry data for a `feature` and `location` properties is using storage-CRS, independent from the geometry CRS used with the creation or updating of the entity.
 ====
 
 
-=== STAplus *MQTT Subscribe* Conformance Class Tests
+=== STAplus *MQTT Subscribe* STA v1.0 Conformance Class Tests
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: /conf/mqtt-subscribe/definition
-target:: /conf/mqtt-subscribe
+identifier:: {identifier}/conf/mqtt-subscribe-sta-10/definition
+target:: {identifier}/conf/mqtt-subscribe-sta-10
+target:: {identifier}/req/mqtt-subscribe-sta-10
 
-target:: /req/mqtt-subscribe
+test-purpose:: To verify that a client can receive notifications for the updates of a STAplus entity set or an individual entity with MQTT.
+test-method:: For each STAplus entity:
+
+part:: Subscribe to an entity set with MQTT Subscribe. Then create a new entity of the subscribed entity set. Check if a complete JSON representation of the newly created entity through MQTT is received.
+
+part:: Subscribe to an entity set with MQTT Subscribe. Then update an existing entity of the subscribed entity set. Check if a complete JSON representation of the updated entity through MQTT is received.
+
+part:: part:: Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
+
+Subscribe to multiple properties of an entity set with MQTT Subscribe. Then create a new entity of the entity set.  Check if a JSON object of the subscribed properties is received.
+
+part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then update an existing entity of the entity set with PATCH. Check if a JSON object of the subscribed properties is received.
+====
+
+=== STAplus *MQTT Subscribe* STA v1.1 Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/mqtt-subscribe-sta-11/definition
+target:: {identifier}/conf/mqtt-subscribe-sta-11
+target:: {identifier}/req/mqtt-subscribe-sta-11
 
 test-purpose:: To verify that a client can receive notifications for the updates of a STAplus entity set or an individual entity with MQTT.
 test-method:: For each STAplus entity:

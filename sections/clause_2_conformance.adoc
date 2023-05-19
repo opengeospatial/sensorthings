@@ -4,7 +4,7 @@ All requirements-classes and conformance-classes described in this document are 
 
 === Introduction
 
-The STAplus 1.0 standard defines an extension to the <<OGC18-088>> Standard by adding additional entities via the Data Model. Access to the STAplus entities via HTTP is defined in the Read, Update and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTTfootnote:[MQTT is an OASIS standard messaging protocol for the Internet of Things (IoT).] Requirements Class. A default storage-CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometry FG and Geometry WKT Requirements Class. The Authentication Requirements Class supports the unique identification of acting users. The Business Requirements Class supports the textual description of the implemented business logic.
+The STAplus 1.0 standard defines an extension to the <<OGC18-088>> Standard by adding additional entities via the Data Model. Access to the STAplus entities via HTTP is defined in the Read, Update and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTTfootnote:[MQTT is an OASIS standard messaging protocol for the Internet of Things (IoT).] Requirements Class. A default storage-CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometry FG and Geometry WKT Requirements Class. The Authentication Requirements Class supports the unique identification of acting users. The Business Logic Requirements Class supports the textual description of the implemented business logic. An example of such a Business Logic is described in the <<OGC21-068>>.
 
 === STAplus 1.0 Conformance Classes
 This OGC Standard defines one mandatory and several optional conformance classes.
@@ -33,7 +33,9 @@ In order to conform to this OGC® Standard, a software implementation SHALL impl
 
 * *Geometry-WKT* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Well Known Text (WKT) as defined in <<ISO19125-1>>.
 
-* *MQTT Subscribe* (optional): This Conformance Class supports a client to receive STAplus entity changes via MQTT.
+* *MQTT Subscribe STA v1.0* (optional): This Conformance Class supports a client to receive STAplus entity changes via MQTT as defined in <<OGC15-078r6>>.
+
+* *MQTT Subscribe STA v1.1* (optional): This Conformance Class supports a client to receive STAplus entity changes via MQTT as defined in <<OGC18-088>>.
 
 * *Business Logic* (optional): This Conformance Class supports that the implementation business logic is described in English text to help developers understand the details of CRUD access.
 
@@ -43,38 +45,38 @@ The `Core` Conformance Class is defined as follows:
 .Core
 ====
 [%metadata]
-identifier:: /conf/core
-target:: /req-class/entity-control-information
-target:: /req-class/party
-target:: /req-class/license
-target:: /req-class/group
-target:: /req-class/relation
-target:: /req-class/project
-target:: /req-class/read
-target:: /req-class/storage-crs
+identifier:: {identifier}/conf/core
+target:: {identifier}/req-class/entity-control-information
+target:: {identifier}/req-class/party
+target:: {identifier}/req-class/license
+target:: {identifier}/req-class/group
+target:: {identifier}/req-class/relation
+target:: {identifier}/req-class/project
+target:: {identifier}/req-class/read
+target:: {identifier}/req-class/storage-crs
 
 classification:: Target Type: Implementation
-conformance-test:: /conf/core/common-control-information
-conformance-test:: /conf/core/entities
-conformance-test:: /conf/core/read
-conformance-test:: /conf/core/storage-crs/crs-definition
-conformance-test:: /conf/core/storage-crs/axis-order
-conformance-test:: /conf/core/storage-crs/media-type
-conformance-test:: /conf/core/storage-crs/processing
+conformance-test:: {identifier}/conf/core/common-control-information
+conformance-test:: {identifier}/conf/core/entities
+conformance-test:: {identifier}/conf/core/read
+conformance-test:: {identifier}/conf/core/storage-crs/crs-definition
+conformance-test:: {identifier}/conf/core/storage-crs/axis-order
+conformance-test:: {identifier}/conf/core/storage-crs/media-type
+conformance-test:: {identifier}/conf/core/storage-crs/processing
 ====
 
 ==== Conformance Class *Create*
 The `Create` Conformance Class is defined as follows:
 [conformance_class]
-.Update
+.Create
 ====
 [%metadata]
-identifier:: /conf/create
-inherit:: /conf/core
-target:: /req-class/create
+identifier:: {identifier}/conf/create
+inherit:: {identifier}/conf/core
+target:: {identifier}/req-class/create
 
 classification:: Target Type: Implementation
-conformance-test:: /conf/create/http
+conformance-test:: {identifier}/conf/create/http
 ====
 
 ==== Conformance Class *Update*
@@ -83,13 +85,13 @@ The `Update` Conformance Class is defined as follows:
 .Update
 ====
 [%metadata]
-identifier:: /conf/update
-inherit:: /conf/core
-target:: /req-class/update
+identifier:: {identifier}/conf/update
+inherit:: {identifier}/conf/core
+target:: {identifier}/req-class/update
 
 classification:: Target Type: Implementation
-conformance-test:: /conf/update/put
-conformance-test:: /conf/update/patch
+conformance-test:: {identifier}/conf/update/put
+conformance-test:: {identifier}/conf/update/patch
 ====
 
 ==== Conformance Class *Delete*
@@ -98,12 +100,12 @@ The `Delete` Conformance Class is defined as follows:
 .Delete
 ====
 [%metadata]
-identifier:: /conf/delete
-inherit:: /conf/core
-target:: /req-class/delete
+identifier:: {identifier}/conf/delete
+inherit:: {identifier}/conf/core
+target:: {identifier}/req-class/delete
 
 classification:: Target Type: Implementation
-conformance-test:: /conf/delete/entity
+conformance-test:: {identifier}/conf/delete/entity
 ====
 
 ==== Conformance Class *Authentication*
@@ -112,15 +114,16 @@ The `Authentication` Conformance Class is defined as follows:
 .Authentication
 ====
 [%metadata]
-identifier:: /conf/authentication
-inherit:: /conf/core
-target:: /req-class/authentication
+identifier:: {identifier}/conf/authentication
+inherit:: {identifier}/conf/core
+target:: {identifier}/req-class/authentication
 
 classification:: Target Type: Implementation
-conformance-test:: /conf/authentication/id
-conformance-test:: /conf/authentication/anon-personal-data-crud
-conformance-test:: /conf/authentication/own-personal-data-crud
-conformance-test:: /conf/authentication/other-personal-data-crud
+conformance-test:: {identifier}/conf/authentication/id
+conformance-test:: {identifier}/conf/authentication/id-create
+conformance-test:: {identifier}/conf/authentication/id-read
+conformance-test:: {identifier}/conf/authentication/id-update
+conformance-test:: {identifier}/conf/authentication/id-delete
 ====
 
 ==== Conformance Class *Geometry FG*
@@ -129,52 +132,68 @@ The `Geometry FG` Conformance Class is defined as follows:
 .Geometry FG
 ====
 [%metadata]
-identifier:: /conf/geometry-fg
-inherit:: /conf/core
-target:: /req-class/geometry-fg
+identifier:: {identifier}/conf/geometry-fg
+inherit:: {identifier}/conf/core
+target:: {identifier}/req-class/geometry-fg
 
 classification:: Target Type: Implementation
-conformance-test:: /conf/geometry-fg//media-type
-conformance-test:: /conf/geometry-fg/default-crs
-conformance-test:: /conf/geometry-fg/supported-crs
-conformance-test:: /conf/geometry-fg/crs-error
-conformance-test:: /conf/geometry-fg/processing
-conformance-test:: /conf/geometry-fg/out
+conformance-test:: {identifier}/conf/geometry-fg//media-type
+conformance-test:: {identifier}/conf/geometry-fg/default-crs
+conformance-test:: {identifier}/conf/geometry-fg/supported-crs
+conformance-test:: {identifier}/conf/geometry-fg/crs-error
+conformance-test:: {identifier}/conf/geometry-fg/processing
+conformance-test:: {identifier}/conf/geometry-fg/out
 ====
 
 ==== Conformance Class *Geometry WKT*
 The `Geometry WKT` Conformance Class is defined as follows:
 [conformance_class]
-.Geoemtry WKT
+.Geometry WKT
 ====
 [%metadata]
-identifier:: /conf/geometry-wkt
-inherit:: /conf/core
-target:: /req-class/geometry-wkt
+identifier:: {identifier}/conf/geometry-wkt
+inherit:: {identifier}/conf/core
+target:: {identifier}/req-class/geometry-wkt
 
 classification:: Target Type: Implementation
-conformance-test:: /conf/geometry-wkt/media-type
-conformance-test:: /conf/geometry-wkt/crs-definition
-conformance-test:: /conf/geometry-wkt/default-crs
-conformance-test:: /conf/geometry-wkt/supported-crs
-conformance-test:: /conf/geometry-wkt/crs-error
-conformance-test:: /conf/geometry-wkt/value
-conformance-test:: /conf/geometry-wkt/processing
-conformance-test:: /conf/geometry-wkt/out
+conformance-test:: {identifier}/conf/geometry-wkt/media-type
+conformance-test:: {identifier}/conf/geometry-wkt/crs-definition
+conformance-test:: {identifier}/conf/geometry-wkt/default-crs
+conformance-test:: {identifier}/conf/geometry-wkt/supported-crs
+conformance-test:: {identifier}/conf/geometry-wkt/crs-error
+conformance-test:: {identifier}/conf/geometry-wkt/value
+conformance-test:: {identifier}/conf/geometry-wkt/processing
+conformance-test:: {identifier}/conf/geometry-wkt/out
 ====
 
-==== Conformance Class *MQTT Subscribe*
-The `MQTT Subscribe` Conformance Class is defined as follows:
+==== Conformance Class *MQTT Subscribe* STA v1.0
+The `MQTT Subscribe` STA v1.0 Conformance Class is defined as follows:
 [conformance_class]
-.MQTT Subscribe
+.MQTT Subscribe STA v1.0
 ====
 [%metadata]
-identifier:: /conf/mqtt-subscribe
-inherit:: /conf/core
-target:: /req-class/mqtt-subscribe
+identifier:: {identifier}/conf/mqtt-subscribe-sta-10
+inherit:: {identifier}/conf/core
+target:: {identifier}/req-class/mqtt-subscribe-sta-10
 
 classification:: Target Type: Implementation
-conformance-test:: /conf/mqtt-subscribe/definition
+conformance-test:: {identifier}/conf/mqtt-subscribe-sta-10/definition
+conformance-test:: {identifier}/conf/mqtt-subscribe-sta-10
+====
+
+==== Conformance Class *MQTT Subscribe* STA v1.1
+The `MQTT Subscribe` STA v1.1 Conformance Class is defined as follows:
+[conformance_class]
+.MQTT Subscribe STA v1.1
+====
+[%metadata]
+identifier:: {identifier}/conf/mqtt-subscribe-sta-11
+inherit:: {identifier}/conf/core
+target:: {identifier}/req-class/mqtt-subscribe-sta-11
+
+classification:: Target Type: Implementation
+conformance-test:: {identifier}/conf/mqtt-subscribe-sta-11/definition
+conformance-test:: {identifier}/conf/mqtt-subscribe-sta-11
 ====
 
 ==== Conformance Class *Business Logic*
@@ -183,11 +202,11 @@ The `Business Logic` Conformance Class is defined as follows:
 .Business Logic
 ====
 [%metadata]
-identifier:: /conf/business-logic
-inherit:: /conf/core
-target:: /req-class/business-logic
+identifier:: {identifier}/conf/business-logic
+inherit:: {identifier}/conf/core
+target:: {identifier}/req-class/business-logic
 
 classification:: Target Type: Implementation
-conformance-test:: /conf/business-logic/definition
-conformance-test:: /conf/business-logic/location
+conformance-test:: {identifier}/conf/business-logic/definition
+conformance-test:: {identifier}/conf/business-logic/location
 ====

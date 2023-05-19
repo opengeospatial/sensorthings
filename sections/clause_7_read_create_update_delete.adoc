@@ -14,18 +14,18 @@ As many IoT devices are resource-constrained, the SensorThings API adopts the ef
 
 ====
 [%metadata]
-identifier:: /req-class/read
+identifier:: {identifier}/req-class/read
 obligation:: requirement
 subject:: Target Type: Web Service
-inherit:: /req-class/entity-control-information
-requirement:: /req/read/entity
+inherit:: {identifier}/req-class/entity-control-information
+requirement:: {identifier}/req/read/entity
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/read/entity
+identifier:: {identifier}/req/read/entity
 
 To read an entity or a collection of entities, the client SHALL send a HTTP GET request to that entity or a collection's URL. 
 
@@ -43,20 +43,20 @@ Upon successful completion, the response SHALL contain the representation of the
 
 ====
 [%metadata]
-identifier:: /req-class/create
+identifier:: {identifier}/req-class/create
 obligation:: requirement
 subject:: Target Type: Web Service
-inherit:: /req-class/entity-control-information
-requirement:: /req/create/entity
-requirement:: /req/create/link-to-existing-entities
-requirement:: /req/create/deep-insert
-requirement:: /req/create/deep-insert-status-code
+inherit:: {identifier}/req-class/entity-control-information
+requirement:: {identifier}/req/create/entity
+requirement:: {identifier}/req/create/link-to-existing-entities
+requirement:: {identifier}/req/create/deep-insert
+requirement:: {identifier}/req/create/deep-insert-status-code
 ====
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/create/entity
+identifier:: {identifier}/req/create/entity
 
 To create an entity in a collection, the client SHALL send a HTTP POST request to that collection's URL. The POST body SHALL contain a single valid entity representation.
 
@@ -74,7 +74,7 @@ In addition, the link between entities SHALL be established upon creating an ent
 [requirement]
 ====
 [%metadata]
-identifier:: /req/create/link-to-existing-entities
+identifier:: {identifier}/req/create/link-to-existing-entities
 
 A STAplus implementation that supports entity creation SHALL support linking new entities to existing entities upon creation. To create a new entity with links to existing entities in a single request, the client SHALL include the unique identifiers of the related entities associated with the corresponding navigation properties in the request body.
 ====
@@ -82,7 +82,7 @@ A STAplus implementation that supports entity creation SHALL support linking new
 [requirement]
 ====
 [%metadata]
-identifier:: /req/create/deep-insert
+identifier:: {identifier}/req/create/deep-insert
 
 A request to create an entity that includes related entities, represented using the appropriate inline representation, is referred to as a "deep insert". A STAplus implementation that supports entity creation SHALL support deep insert.
 
@@ -97,7 +97,7 @@ Adapted from <<ODATA, OData Version 4.01. Part 1: Protocol, §11.4.2.2 Create Re
 [requirement]
 ====
 [%metadata]
-identifier:: /req/create/deep-insert-status-code
+identifier:: {identifier}/req/create/deep-insert-status-code
 
 Upon successfully creating an entity, the service response SHALL contain a Location header that contains the URL of the created entity. Upon successful completion the service SHALL respond with 201 Created. Regarding all the HTTP status code, please refer to the HTTP Status Code section.
 ====
@@ -110,23 +110,23 @@ Upon successfully creating an entity, the service response SHALL contain a Locat
 
 ====
 [%metadata]
-identifier:: /req-class/update
+identifier:: {identifier}/req-class/update
 obligation:: requirement
 subject:: Target Type: Web Service
-inherit:: /req-class/entity-control-information
+inherit:: {identifier}/req-class/entity-control-information
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-put
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-jsonpatch
-requirement:: /req/update/entity
-requirement:: /req/update/entity-put
-requirement:: /req/update/entity-jsonpatch
+requirement:: {identifier}/req/update/entity
+requirement:: {identifier}/req/update/entity-put
+requirement:: {identifier}/req/update/entity-jsonpatch
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/update/entity
+identifier:: {identifier}/req/update/entity
 
 To update an entity in a collection a STAplus implementation SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity.
 ====
@@ -135,7 +135,7 @@ To update an entity in a collection a STAplus implementation SHALL follow the re
 [requirement]
 ====
 [%metadata]
-identifier:: /req/update/entity-put
+identifier:: {identifier}/req/update/entity-put
 
 A STAplus implementation that supports updates with PUT SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity.
 ====
@@ -143,7 +143,7 @@ A STAplus implementation that supports updates with PUT SHALL follow the require
 [requirement]
 ====
 [%metadata]
-identifier:: /req/update/entity-jsonpatch
+identifier:: {identifier}/req/update/entity-jsonpatch
 
 A STAplus implementation that supports updates with the JSON PATCH format SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-jsonpatch
 ====
@@ -157,18 +157,18 @@ A STAplus implementation that supports updates with the JSON PATCH format SHALL 
 
 ====
 [%metadata]
-identifier:: /req-class/delete
+identifier:: {identifier}/req-class/delete
 obligation:: requirement
 subject:: Target Type: Web Service
-inherit:: /req-class/entity-control-information
+inherit:: {identifier}/req-class/entity-control-information
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-delete-entity
-requirement:: /req/delete/entity
+requirement:: {identifier}/req/delete/entity
 ====
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/delete/entity
+identifier:: {identifier}/req/delete/entity
 
 To delete an entity in a collection a STAplus implementation SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-delete-entity.
 ====

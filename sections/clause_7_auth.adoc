@@ -15,22 +15,21 @@ In addition, some implementations may wish to link the authentication identifier
 
 ====
 [%metadata]
-identifier:: /req-class/authentication
+identifier:: {identifier}/req-class/authentication
 obligation:: requirement
 subject:: Target Type: Web Service
-inherit:: /req-class/party
-requirement:: /req/authentication/id
-requirement:: /req/authentication/anon-personal-data-crud
-requirement:: /req/authentication/own-personal-data-r
-requirement:: /req/authentication/own-personal-data-cud
-requirement:: /req/authentication/other-personal-data-r
-requirement:: /req/authentication/other-personal-data-cud
+inherit:: {identifier}/req-class/party
+requirement:: {identifier}/req/authentication/id
+requirement:: {identifier}/req/authentication/id-create
+requirement:: {identifier}/req/authentication/id-read
+requirement:: {identifier}/req/authentication/id-update
+requirement:: {identifier}/req/authentication/id-delete
 ====
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/authentication/id
+identifier:: {identifier}/req/authentication/id
 
 The STAplus authentication SHALL provide a user identifier permanent for same user but different for each user.
 ====
@@ -38,40 +37,31 @@ The STAplus authentication SHALL provide a user identifier permanent for same us
 [requirement]
 ====
 [%metadata]
-identifier:: /req/authentication/anon-personal-data-crud
+identifier:: {identifier}/req/authentication/id-read
 
-The STAplus implementation SHALL prevent any anonymous user access (read, create, update, and delete) to personal data stored in `Party.personalData`.
+The implementation SHALL ensure that the `Party.authId` property is exposed in any response and can be used in STA operators such as `$filter` or `$select`.
 ====
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/authentication/own-personal-data-r
+identifier:: {identifier}/req/authentication/id-create
 
-The STAplus implementation SHALL entitle a user to read their own personal data via a HTTP GET request to their own `Party` entity.
+The implementation SHALL overwrite any existing value and SHALL set the `Party.authId` property with the value of the authentication identifier (e.g. `REMOTE_USER`). 
 ====
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/authentication/own-personal-data-cud
+identifier:: {identifier}/req/authentication/id-update
 
-The STAplus implementation SHALL entitle a user to create, update or delete their own personal data via a HTTP POST, PATCH, and DELETE request to their own `Party` entity.
+The implementation SHALL ensure that the `Party.authId` property cannot be changed (ensure read-only).
 ====
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/authentication/other-personal-data-r
+identifier:: {identifier}/req/authentication/id-delete
 
-The STAplus implementation SHALL prevent that a user can read personal data of other users via a HTTP GET request to `Party` entites of other users.
-====
-
-
-[requirement]
-====
-[%metadata]
-identifier:: /req/authentication/other-personal-data-cud
-
-The STAplus implementation SHALL prevent that a user can create, update or delete personal data of other users via a HTTP POST, PATCH, and DELETE request to `Party` entities of other users.
+The implementation SHALL ensure that the `Party.authId` property cannot be deleted.
 ====

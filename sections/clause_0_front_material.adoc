@@ -2,7 +2,7 @@
 
 STAplus - SensorThings API extension PLUS - defines a SensorThings data model extension to improve FAIR principles when exchanging sensor data including licensing and ownership information. 
 
-The STAplus extension is fully backwards compatible to the existing OGC OGC SensorThings API Part 1: Sensing Version 1.1 and thereby offers existing deployments to easily upgrade to STAplus.
+The STAplus extension is fully backwards compatible to the existing OGC OGC SensorThings API Part 1: Sensing Version 1.0 and 1.1 and thereby offers existing deployments to easily upgrade to STAplus.
 Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
 
 Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
@@ -11,7 +11,7 @@ Recipients of this document are requested to submit, with their comments, notifi
 [abstract]
 == Abstract
 
-The  OGC SensorThings API 1.1 Extension: STAplus 1.0 Standard specifies a backwards-compatible extension to the OGC SensorThings API Part 1: Sensing Version 1.1 (STA) Standard data model.
+The  OGC SensorThings API Extension: STAplus 1.0 Standard specifies a backwards-compatible extension to the OGC SensorThings API Part 1: Sensing Version 1.0 and 1.1 (STA) Standard data model.
 
 The motivation for specifying this STAplus extension is based on requirements from the Citizen Science community.
 
@@ -23,4 +23,4 @@ The STAplus extension is believed to be an  important contribution towards the r
 
 The STAplus Data Model and Business Logic also enriches existing deployments as the extension can be seamlessly added and thereby offer new capabilities to create and manage the “big picture” with multi-user capabilities.
 
-The key work for crafting this OGC Standard was undertaken in the Co-designed Citizen Observatories Services for the EOS-Cloud (Cos4Cloud) project, which received funding from the European Union’s Horizon 2020 research and innovation program under grant agreement number 863463. Testing of this extension was done with data from the Framework biodiversity project, which received funding from the European Union’s Horizon 2020 research and innovation program under grant agreement number 862731.
+The key work for crafting this OGC Standard was undertaken in the _Co-designed Citizen Observatories Services for the EOS-Cloud_ (Cos4Cloud) project, which received funding from the European Union’s Horizon 2020 research and innovation program under grant agreement number 863463 and the _Enhancing Citizen Observatories for healthy, sustainable, resilient and inclusive cities_ (CitiObs) project, which received funding from the European Union’s Horizon Europe research and innovation program under grant agreement number 101086421. Testing of this extension was done with data from the Framework biodiversity project, which received funding from the European Union’s Horizon 2020 research and innovation program under grant agreement number 862731.
