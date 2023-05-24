@@ -1,0 +1,24 @@
+== MQTT Interface Bindings
+
+The MQTT Bindings specify how access the SensorThings API using the MQTT 5 protocol.
+
+=== Requirement Class A or Requirement A Example
+
+intro text for the requirement class.
+
+Use the following table for Requirements Classes.
+
+
+==== Requirement 1
+
+intro text for the requirement.
+
+Use the following table for Requirements, number sequentially.
+
+
+==== Requirement 2
+
+intro text for the requirement.
+
+Use the following table for Requirements, number sequentially.
+

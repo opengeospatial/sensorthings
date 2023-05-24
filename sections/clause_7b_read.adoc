@@ -1,0 +1,27 @@
+== Requesting Data
+
+This section describes how to request data from a SensorThings API compatible service.
+Details on how to send GET requests and how to receive responses are described in the protocol bindings sections.
+https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
+https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html
+
+=== Requirement Class A or Requirement A Example
+
+intro text for the requirement class.
+
+Use the following table for Requirements Classes.
+
+
+==== Requirement 1
+
+intro text for the requirement.
+
+Use the following table for Requirements, number sequentially.
+
+
+==== Requirement 2
+
+intro text for the requirement.
+
+Use the following table for Requirements, number sequentially.
+

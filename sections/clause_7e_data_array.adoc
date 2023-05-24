@@ -1,0 +1,24 @@
+== Data Array Extension
+
+The Data Array Extension describes a resultformat that allows a more compact representation of data.
+It also describes an interface that allows for more efficient upload of observations.
+
+=== Requirement Class A or Requirement A Example
+
+intro text for the requirement class.
+
+Use the following table for Requirements Classes.
+
+
+==== Requirement 1
+
+intro text for the requirement.
+
+Use the following table for Requirements, number sequentially.
+
+==== Requirement 2
+
+intro text for the requirement.
+
+Use the following table for Requirements, number sequentially.
+

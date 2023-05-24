@@ -17,6 +17,57 @@ requirement description
 |===
 ////
 
+////
+
+-=> this is the requirements class <=-
+[requirements_class]
+.Entity Control Information
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/entity-control-information
+obligation:: requirement
+subject:: Target Type: Web Service
+inherit:: <<OGC15-078r6>> or <<OGC18-088>>
+requirement:: {identifier}/req/common-control-information
+====
+
+-=> this is the requirement <=-
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/common-control-information
+
+Each entity SHALL have the following common control information listed in <<tab-common-control-information>>.
+====
+
+
+-=> this is the table below the requirement <=-
+[[tab-common-control-information]]
+.Common control information
+[cols="20a,50a,15a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|id
+|`id` is the system-generated identifier of an entity that is unique among the entities of the same entity type in a SensorThings API service instance.
+|Any
+|One (mandatory)
+
+|selfLink
+|`selfLink` is the absolute URL of an entity that is unique among all other entities.
+|URL
+|One (mandatory)
+
+|navigationLink
+|`navigationLink` is the relative or absolute URL that retrieves content of related entities.
+|URL
+|One-to-many +
+(mandatory)
+|===
+
+
+////
 
 [requirement,type="class",id="http://www.opengis.net/spec/ABCD/m.n/req/req-class-a",obligation="requirement"]
 ====

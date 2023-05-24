@@ -1,0 +1,118 @@
+[[data-model1]]
+== Data Model
+
+This chapter describes the SensorThings API data model.
+
+EDITOR: Explain EntityTypes, Entities, EntitySet, Relations, Properties
+
+All data model requirements classes are grouped in the following requirements class:
+
+
+[requirements_class]
+.Entity Control Information
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/entity-control-information
+requirement:: {identifier}/req-class/datamodel/thing
+====
+
+
+EDITOR: Say something about the meaning of optional. Is this stil relevant if we have a CSDL definition?
+
+
+[[entity-control-information]]
+=== Entity Control Information
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/entity-control-information
+
+Each entity SHALL have the following common control information listed in Table <<tab-common-control-information>>.
+
+====
+
+Properties with names that contain an at sign (`@`) are annotations.
+If the annotation starts with the (`@`) the annotation pertains the object containing the annotation.
+If the annotation has a property name before the (`@`) the annotation pertains the property with that name.
+Annotations are server-generated additional information that a client can use when processing the data.
+A client can ignore any annotations it does not understand.
+
+EDITOR: Say something about `id`, primary keys, extensions and server-generated/user-supplied.
+
+EDITOR: Say something about absolute / relative URLs. Relative to what!
+
+[[tab-common-control-information]]
+.Common control information
+[cols="20a,50a,15a,15a"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|id
+|`id` is the primary key of an Entity. It is unique among the Entities of the same entity type in a SensorThings service. The data type of `id` may differ between different Entity Types in the same service but must be the same for all Entities of the same Entity Type.
+|Any
+|One (mandatory)
+
+|@id
+|The annotation `@id` is the absolute URL of an entity that uniquely resolves to this entity.
+|URL
+|One (mandatory, generated)
+
+|linkName@navigationLink
+|Annotations of the form `linkName@navigationLink` are the relative or absolute URL that retrieves content of related entities.
+|URL
+|Zero-to-many +
+(mandatory, generated)
+|===
+
+
+[[OData-CSDL]]
+=== OData Common Schema Definition Language
+
+The data model is described in a machine-readable way using the OData Common Schema Definition Language.
+https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html
+
+[[sensing-entities]]
+=== Sensing Entities
+
+==== Requirement Class: Thing
+
+[requirements_class]
+.thing
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/thing
+obligation:: requirement
+subject:: Target Type: Data Model
+inherit:: {identifier}/req-class/datamodel/entity-control-information
+requirement:: {identifier}/req/datamodel/thing/properties
+requirement:: {identifier}/req/datamodel/thing/relations
+====
+
+The Thing is a cool Entity that can be anything.
+Say something about OMS-Host, OMS-Deployment, FeatureOfInterest and Locations
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/thing/properties
+
+Each Thing entity SHALL have the mandatory properties and MAY have the optional properties listed in Table XX.
+====
+
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/thing/relations
+
+Each Thing entity SHALL have the direct relation between a Thing entity and other entity types listed in Table XX.
+====
+
+

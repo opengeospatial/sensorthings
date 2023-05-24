@@ -1,0 +1,10 @@
+[obligation=informative]
+== SensorThings API overview
+
+Clauses not Containing Normative Material
+
+Paragraph
+
+=== Relation to OASIS-OData
+
+The OGC SensorThings API v2 interface is not an OData interface. It specifies a subset of the OData interface, and extends it at the same time.

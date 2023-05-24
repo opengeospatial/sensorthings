@@ -1,0 +1,27 @@
+== Batch Request Extension
+
+Batch requests are a way to combine multiple requests into one.
+https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_BatchRequests
+https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html#sec_BatchRequestsandResponses
+
+
+=== Requirement Class A or Requirement A Example
+
+intro text for the requirement class.
+
+Use the following table for Requirements Classes.
+
+
+==== Requirement 1
+
+intro text for the requirement.
+
+Use the following table for Requirements, number sequentially.
+
+
+==== Requirement 2
+
+intro text for the requirement.
+
+Use the following table for Requirements, number sequentially.
+

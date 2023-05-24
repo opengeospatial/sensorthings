@@ -2,7 +2,8 @@
 == Revision History
 
 [width="90%",options="header"]
+.Revision History
 |===
 |Date |Release |Editor | Primary clauses modified |Description
-|2016-04-28 |0.1 |G. Editor |all |initial version
+| 2023-05-09 | 0.1 | Hylke van der Schaaf | all | initial version
 |===

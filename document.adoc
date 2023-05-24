@@ -1,21 +1,20 @@
-= OGC SensorThings API
+= OGC SensorThings API 2.0
 :doctype: standard
-:standard: sensorthings
 :encoding: utf-8
 :lang: en
 :status: draft
 :committee: technical
 :draft: 2.0
-:external-id: http://www.opengis.net/doc/{doctype}/{standard}/2.0
-:docnumber: YY-999
+:external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
+:docnumber: 23-019
 :received-date: 2029-03-30
 :issued-date: 2029-03-30
 :published-date: 2029-03-30
 :fullname: Hylke van der Schaaf
 :fullname_2: Steve Liang
-:docsubtype: Interface
-:keywords: ogcdoc, OGC document, API, OData, openapi, html
-:submitting-organizations: Organization One; Organization Two
+:docsubtype: implementation
+:keywords: ogcdoc, OGC document, API, OData, openapi, html, MQTT
+:submitting-organizations: Fraunhofer-Gesellschaft, Germany; University of Calgary, Canada; SensorUp Inc., Canada; Keys, USA; DataCove e.U., Austria
 :mn-document-class: ogc
 :mn-output-extensions: xml,html,doc,pdf
 :local-cache-only:
@@ -23,40 +22,43 @@
 :pdf-uri: ./document.pdf
 :xml-uri: ./document.xml
 :doc-uri: ./document.doc
-:edition: 1.0
+:edition: 0.1
+
+:identifier: http://www.opengis.net/spec/sensorthings/2.0
+
 
 ////
 Make sure to complete each included document
 ////
-include::sections/clause_00_front_material.adoc[]
+include::sections/clause_0_front_material.adoc[]
 
-include::sections/clause_01_scope.adoc[]
+include::sections/clause_1_scope.adoc[]
 
-include::sections/clause_02_conformance.adoc[]
+include::sections/clause_2_conformance.adoc[]
 
-include::sections/clause_03_references.adoc[]
+include::sections/clause_3_references.adoc[]
 
-include::sections/clause_04_terms_and_definitions.adoc[]
+include::sections/clause_4_terms_and_definitions.adoc[]
 
-include::sections/clause_05_conventions.adoc[]
+include::sections/clause_5_conventions.adoc[]
 
-include::sections/clause_06_overview.adoc[]
+include::sections/clause_6_overview.adoc[]
 
-include::sections/clause_07_data_model.adoc[]
+include::sections/clause_7a_data_model.adoc[]
 
-include::sections/clause_08_read.adoc[]
+include::sections/clause_7b_read.adoc[]
 
-include::sections/clause_09_create_update_delete.adoc[]
+include::sections/clause_7c_create_update_delete.adoc[]
 
-include::sections/clause_10_batch_requests.adoc[]
+include::sections/clause_7d_batch_requests.adoc[]
 
-include::sections/clause_11_data_array.adoc[]
+include::sections/clause_7e_data_array.adoc[]
 
-include::sections/clause_12_http.adoc[]
+include::sections/clause_7f_http.adoc[]
 
-include::sections/clause_13_mqtt.adoc[]
+include::sections/clause_7g_mqtt.adoc[]
 
-include::sections/clause_14_media_types.adoc[]
+include::sections/clause_8_media_types.adoc[]
 
 ////
 add or remove annexes after "A" as necessary
