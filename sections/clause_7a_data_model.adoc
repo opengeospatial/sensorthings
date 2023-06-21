@@ -44,7 +44,8 @@ A client can ignore any annotations it does not understand.
 
 EDITOR: Say something about `id`, primary keys, extensions and server-generated/user-supplied.
 
-EDITOR: Say something about absolute / relative URLs. Relative to what!
+EDITOR: Say something about absolute / relative URLs. Relative to what! https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html#sec_RelativeURLs
+
 
 [[tab-common-control-information]]
 .Common control information
@@ -53,7 +54,9 @@ EDITOR: Say something about absolute / relative URLs. Relative to what!
 |Name |Definition |Data type |Multiplicity and use
 
 |id
-|`id` is the primary key of an Entity. It is unique among the Entities of the same entity type in a SensorThings service. The data type of `id` may differ between different Entity Types in the same service but must be the same for all Entities of the same Entity Type.
+|`id` is the primary key of the EntityTypes in the SensorThings API data model.
+  It is unique among the Entities of the same entity type in a SensorThings service.
+  The data type of `id` may differ between different Entity Types in the same service but must be the same for all Entities of the same Entity Type.
 |Any
 |One (mandatory)
 

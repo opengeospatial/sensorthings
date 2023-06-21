@@ -5,7 +5,11 @@ Details on how to send GET requests and how to receive responses are described i
 https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
 https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html
 
-=== Requirement Class A or Requirement A Example
+=== Basic Requests
+
+=== Request Options
+
+=== Response Formatting
 
 intro text for the requirement class.
 

@@ -2,11 +2,17 @@
 
 The HTTP Bindings specify how access the SensorThings API using the HTTP protocol.
 
-=== Requirement Class A or Requirement A Example
+=== Read
 
 intro text for the requirement class.
 
 Use the following table for Requirements Classes.
+
+=== Create
+
+=== Update
+
+=== Delete
 
 
 ==== Requirement 1
