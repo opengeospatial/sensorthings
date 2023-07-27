@@ -41,8 +41,8 @@ target:: {identifier}/req/group/relations
 target:: {identifier}/req/relation/properties
 target:: {identifier}/req/relation/relations
 
-target:: {identifier}/req/project/properties
-target:: {identifier}/req/project/relations
+target:: {identifier}/req/campaign/properties
+target:: {identifier}/req/campaign/relations
 
 test-purpose:: Verify that each STAplus entity has the mandatory properties and mandatory relations as defined in this specification.
 test-method-type:: Manually Inspect
@@ -70,9 +70,9 @@ test-method:: Evaluate that the implementation accepts a Sensor Things API compl
 
 part:: Construct a URL to the `Party` entity and verify the response.
 part:: Construct a URL to the `License` entity and verify the response.
-part:: Construct a URL to the `Group` entity and verify the response.
+part:: Construct a URL to the `ObservationGroup` entity and verify the response.
 part:: Construct a URL to the `Relation` entity and verify the response.
-part:: Construct a URL to the `Project` entity and verify the response.
+part:: Construct a URL to the `Campaign` entity and verify the response.
 ====
 
 
@@ -370,6 +370,8 @@ test-method:: On the landing page, find the JSON object with name `{identifier}/
 
 
 === STAplus *Geometry FG* Conformance Class Tests
+
+NOTE: These Conformance Class Tests remain informative until <<FG>> is an adopted OGC Standard.
 
 [conformance_test]
 ====

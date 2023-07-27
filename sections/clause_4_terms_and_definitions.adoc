@@ -1,30 +1,33 @@
-== Terms and definitions
+[[terms-and-definitions]]
+== Terms, definitions and abbreviated terms
 
-=== Party
+=== Terms and definitions
+
+==== Party
 
 The entity in the data model that represents a user. A party can be associated to other entities of the data model to express ownership.
 
-=== License
+==== License
 
 The entity in the data model that represents a well-defined license. Associating a license with a `Multi/Datastream` entity expresses re-use conditions for all observations associated with that `Multi/Datastream` entity.
 
-=== Group
+==== ObservationGroup
 
 The entity in the data model that allows creation a collection of observations for a particular purpose.
 
-=== Relation
+==== Relation
 
 The entity in the data model that allows expressing relationships between two observations or an observation and an external object.
 
-=== Project
+==== Campaign
 
-The entity in the data model that allows merging `Multi/Datastream` entities together that are required to achieve the objective represented by the project.
+The entity in the data model that allows merging `Multi/Datastream` entities together that are required to achieve the objective represented by the activity.
 
-=== Ownership
+==== Ownership
 
-The `Party` entity in the data model allows expressing the right of possession over entity instances. This is the requirement to operate STAplus with multi-user CRUD access. 
+The `Party` entity in the data model allows expressing the right of possession over entity instances. This is the requirement to operate STAplus with multi-user CRUD access.
 
-=== Abbreviations
+=== Abbreviated terms
 
 API:: Application Programming Interface
 CC:: Creative Commons

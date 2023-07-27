@@ -3,5 +3,5 @@
 This Standard offers support for different structuring of the `FeatureOfInterest` and `Location` entities. To indicate the support for a particular structure, an implementation can use one of the following media-types:
 
 * `application/geo+json` 
-* `application/vnd.ogc.fg+json`
-* `wkt` (there is no standard media type definition for WKT)
+* `application/vnd.ogc.fg+json` footnote:[Informative until <<FG>> is an adopted OGC Standard.]
+* `application/wkt` footnote:[Depending approval by IANA.]

@@ -1,7 +1,7 @@
 [[staplus-entities]]
 == STAplus Entity Type Requirements
 
-`Party`, `License`, `Group`, `Relation` and `Project` are the STAplus entity types. The implemented entities SHALL be listed in the response to a GET request to the root URL as described in Sensing part. 
+`Party`, `License`, `ObservationGroup`, `Relation` and `Campaign` are the STAplus entity types. The implemented entities SHALL be listed in the response to a GET request to the root URL as described in Sensing part. 
 
 An implementation SHALL implement all STAplus entities (with read access) as defined in the Core conformance class.
 
@@ -92,7 +92,7 @@ Each `Party` entity SHALL have the mandatory properties and MAY have the optiona
 .Properties of a `Party` entity
 [cols="20a,45a,20a,15a"]
 |===
-|Name |Definition |Data type |Multiplicity and use
+|Name |Definition |Data type |Cardinality and use
 
 |role
 |This is the role of the party
@@ -121,36 +121,63 @@ Each `Party` entity SHALL have the mandatory properties and MAY have the optiona
 [%metadata]
 identifier:: {identifier}/req/party/relations
 
-Each `Party` entity MAY have direct relations to other entity types listed in <<tab-relations-party>>.
+Each `Party` entity MAY have direct relations to other entity types listed in <<tab-relations-from-party>> and <<tab-relations-to-party>>.
 ====
 
-[[tab-relations-party]]
-.Direct relation between a `Party` entity and other entity types
-[cols="25a,20a,55a"]
+[[tab-relations-from-party]]
+.Direct relation from a `Party` entity to other entity types
+[cols="25a,25a,20a,30a"]
 |===
-|Entity type |Relation |Description
+|Relation name| Entity type |Cardinality |Description
 
+|Datastreams
 |Datastream
-|Zero to One (optional) to Zero to Many (optional)
+|Zero to Many (optional)
 |A `Party` MAY have zero-to-many `Datastreams`.
 
+|MultiDatastreams
 |MultiDatastream
-|Zero to One (optional) to Zero to Many (optional)
+|Zero to Many (optional)
 |A `Party` MAY have zero-to-many `MultiDatastreams`.
 
+|Things
 |Thing
-|Zero to One (optional) to Zero to Many (optional)
+|Zero to Many (optional)
 |A `Party` MAY have zero-to-many `Things`.
 
-|Group
-|Zero to One (optional) to Zero to Many (optional)
-|A `Party` MAY have zero-to-many `Groups`.
+|ObservationGroups
+|ObservationGroup
+|Zero to Many (optional)
+|A `Party` MAY have zero-to-many `ObservationGroups`.
 
-|Project
-|Zero to One (optional) to Zero to Many (optional)
-|A `Party` MAY have zero-to-many `Projects`.
+|Campaigns
+|Campaign
+|Zero to Many (optional)
+|A `Party` MAY have zero-to-many `Campaigns`.
 |===
 
+[[tab-relations-to-party]]
+.Direct relation from a SensorThings entity type to `Party`
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Source Entity type |Cardinality |Description
+
+|Party
+|Datastream
+|Zero to One (optional)
+|A `Datastream` MAY have zero-to-one `Party`.
+
+|Party
+|MultiDatastream
+|Zero to One (optional)
+|A `MultiDatastream` MAY have zero-to-one `Party`.
+
+|Party
+|Thing
+|Zero to One (optional)
+|A `Thing` MAY have zero-to-one `Party`.
+
+|===
 
 [[license]]
 === Requirements Class *License*
@@ -184,7 +211,7 @@ Each `License` entity SHALL have the mandatory properties and MAY have the optio
 .Properties of a `License` entity
 [cols="20a,45a,20a,15a"]
 |===
-|Name |Definition |Data type |Multiplicity and use
+|Name |Definition |Data type |Cardinality and use
 
 |name
 |A property provides a label for `License` entity, commonly a descriptive name.
@@ -217,40 +244,61 @@ Each `License` entity SHALL have the mandatory properties and MAY have the optio
 [%metadata]
 identifier:: {identifier}/req/license/relations
 
-Each `License` entity MAY have direct relations to other entity types listed in <<tab-relations-license>>.
+Each `License` entity MAY have direct relations to other entity types listed in <<tab-relations-from-license>> and <<tab-relations-to-license>>.
 ====
 
-[[tab-relations-license]]
-.Direct relation between a `License` entity and other entity types
-[cols="25a,20a,55a"]
+[[tab-relations-from-license]]
+.Direct relation from a `License` entity to other entity types
+[cols="25a,25a,20a,30a"]
 |===
-|Entity type |Relation |Description
+|Relation name| Entity type |Cardinality |Description
 
+|Datastreams
 |Datastream
-|Zero to One (optional) to Zero to Many (optional)
+|Zero to Many (optional)
 |A `License` MAY have zero-to-many `Datastreams`.
 
+|MultiDatastreams
 |MultiDatastream
-|Zero to One (optional) to Zero to Many (optional)
+|Zero to Many (optional)
 |A `License` MAY have zero-to-many `MultiDatastreams`.
 
-|Project
-|Zero to One (optional) to Zero to Many (optional)
-|A `License` MAY have zero-to-many `Projects`.
+|Campaigns
+|Campaign
+|Zero to Many (optional)
+|A `License` MAY have zero-to-many `Campaigns`.
 
-|Group
-|Zero to One (optional) to Zero to Many (optional)
-|A `License` MAY have zero-to-many `Groups`.
+|ObservationGroups
+|ObservationGroup
+|Zero to Many (optional)
+|A `License` MAY have zero-to-many `ObservationGroups`.
 |===
 
+[[tab-relations-to-license]]
+.Direct relation from a SensorThings entity type to `License`
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Source Entity type |Cardinality |Description
+
+|License
+|Datastream
+|Zero to One (optional)
+|A `Datastream` MAY have zero-to-one `License`.
+
+|License
+|MultiDatastream
+|Zero to One (optional)
+|A `MultiDatastream` MAY have zero-to-one `License`.
+
+|===
 
 [[group]]
-=== Requirements Class *Group*
+=== Requirements Class *ObservationGroup*
 
-The `Group` entity can be used to create a bag of observations and/or relations that can be shared and re-used.
+The `ObservationGroup` entity can be used to create a bag of observations and/or relations that can be shared and re-used.
 
 [requirements_class]
-.Group
+.ObservationGroup
 
 ====
 [%metadata]
@@ -268,57 +316,57 @@ requirement:: {identifier}/req/group/relations
 [%metadata]
 identifier:: {identifier}/req/group/properties
 
-Each `Group` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-group>>.
+Each `ObservationGroup` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-group>>.
 ====
 
 [[tab-properties-group]]
-.Properties of a `Group` entity
+.Properties of a `ObservationGroup` entity
 [cols="20a,45a,20a,15a"]
 |===
-|Name |Definition |Data type |Multiplicity and use
+|Name |Definition |Data type |Cardinality and use
 
 |name
-|A property provides a label for `Group` entity, commonly a descriptive name.
+|A property provides a label for `ObservationGroup` entity, commonly a descriptive name.
 |CharacterString
 |One (mandatory)
 
 |description
-|This is a short description of the corresponding `Group` entity.
+|This is a short description of the corresponding `ObservationGroup` entity.
 |CharacterString
 |One (mandatory)
 
 |purpose
-|This is a short description of the purpose for the `Group` entity.
+|This is a short description of the purpose for the `ObservationGroup` entity.
 |CharacterString
 |Zero or One (optional)
 
 |creationTime
-|This is the starting time of the `Group` entity. Depending on the business logic, after this time it could be possible to add observations or relations to the Group.
+|This is the starting time of the `ObservationGroup` entity. Depending on the business logic, after this time it could be possible to add observations or relations to the ObservationGroup.
 |TM Instant
 |One (mandatory)
 
 |endTime
-|This is the end time of the `Group` entity. Depending on the business logic, after this time it is no longer possible to add observations or relations to the Group. 
+|This is the end time of the `ObservationGroup` entity. Depending on the business logic, after this time it is no longer possible to add observations or relations to the ObservationGroup. 
 |TM Instant
 |Zero or One (optional)
 
 |termsOfUse
-|Express the term of use for the `Group` entity.
+|Express the term of use for the `ObservationGroup` entity.
 |CharacterString
 |Zero or One (optional)
 
 |privacyPolicy
-|Express the term of use for personal data that are contained in the `Group` entity.
+|Express the term of use for personal data that are contained in the `ObservationGroup` entity.
 |CharacterString
-|Zero or One (optional)
-
-|properties
-|The SensorThings API definition applies
-|JSON Object
 |Zero or One (optional)
 
 |dataQuality
 |The quality information of the observations in the group
+|JSON Object
+|Zero or One (optional)
+
+|properties
+|The SensorThings API definition applies
 |JSON Object
 |Zero or One (optional)
 |===
@@ -328,34 +376,52 @@ Each `Group` entity SHALL have the mandatory properties and MAY have the optiona
 [%metadata]
 identifier:: {identifier}/req/group/relations
 
-Each `Group` entity MAY have direct relations to other entity types listed in <<tab-relations-group>>.
+Each `ObservationGroup` entity MAY have direct relations to other entity types listed in <<tab-relations-from-group>> and <<tab-relations-to-group>>.
 ====
 
-[[tab-relations-group]]
-.Direct relation between a `Group` entity and other entity types
-[cols="25a,20a,55a"]
+[[tab-relations-from-group]]
+.Direct relation from a `ObservationGroup` entity to other entity types
+[cols="25a,25a,20a,30a"]
 |===
-|Entity type |Relation |Description
+|Relation name| Entity type |Cardinality |Description
 
 |License
-|One optional to one optional
-|A `Group` MAY have zero-to-one `License`.
+|License
+|Zero to One (optional)
+|A `ObservationGroup` MAY have zero-to-one `License`.
 
+|Observations
 |Observation
-|Many optional to many optional
-|A `Group` MAY have zero-to-many `Observations`.
+|Zero to Many (optional)
+|A `ObservationGroup` MAY have zero-to-many `Observations`.
 
+|Relations
 |Relation
-|Many optional to many optional
-|A `Group` MAY have zero-to-many `Relations`.
+|Zero to Many (optional)
+|A `ObservationGroup` MAY have zero-to-many `Relations`.
 
 |Party
-|Many optional to one optional
-|A `Group` MAY have zero-to-one `Party`.
+|Party
+|Zero to One (optional)
+|A `ObservationGroup` MAY have zero-to-one `Party`.
 
-|Project
-|Many optional to many optional
-|A `Group` MAY have zero-to-more `Project`.
+|Campaigns
+|Campaign
+|Zero to Many (optional)
+|A `ObservationGroup` MAY have zero-to-more `Campaign`.
+|===
+
+[[tab-relations-to-group]]
+.Direct relation from a SensorThings entity type to `ObservationGroup`
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Source Entity type |Cardinality |Description
+
+|ObservationGroups
+|Observation
+|Zero to Many (optional)
+|An `Observation` MAY have zero-to-many `ObservationGroups`.
+
 |===
 
 [[relation]]
@@ -364,7 +430,7 @@ Each `Group` entity MAY have direct relations to other entity types listed in <<
 The `Relation` entity can be used to describe relationships between (1) two observations, or (2) one observation and a resolvable external object identified by a URI.
 
 [requirements_class]
-.Group
+.Relation
 
 ====
 [%metadata]
@@ -390,11 +456,11 @@ Each `Relation` entity SHALL have the mandatory properties and MAY have the opti
 .Properties of a `Relation` entity
 [cols="20a,45a,20a,15a"]
 |===
-|Name |Definition |Data type |Multiplicity and use
+|Name |Definition |Data type |Cardinality and use
 
-|externalObject
-|This URI references the external object for the `Relation` entity.
-|CharacterString
+|externalResource
+|This URI references the external resource for the `Relation` entity.
+|URI
 |Zero or One (optional)
 
 |description
@@ -413,115 +479,140 @@ Each `Relation` entity SHALL have the mandatory properties and MAY have the opti
 |Zero or One (optional)
 |===
 
-NOTE: The subject of a relation entity is always an observation. For expressing the object of a relation, the `object` relation XOR `externalObject` property must be used.
+NOTE: The subject of a relation entity is always an observation. For expressing the object of a relation, the `Object` relation XOR `externalResource` property must be used.
 
 [requirement]
 ====
 [%metadata]
 identifier:: {identifier}/req/relation/relations
 
-Each `Relation` entity MAY have direct relations to other entity types listed in <<tab-relations-relation>>.
+Each `Relation` entity MAY have direct relations to other entity types listed in <<tab-relations-from-relation>>.
 ====
 
-[[tab-relations-relation]]
-.Direct relation between a `Relation` entity and other entity types
-[cols="25a,20a,55a"]
+[[tab-relations-from-relation]]
+.Direct relation from a `Relation` entity to other entity types
+[cols="25a,25a,20a,30a"]
 |===
-|Entity type |Relation |Description
+|Relation name| Entity type |Cardinality |Description
 
+|Subject
 |Observation
-|One mandatory to one optional
+|Zero to One (optional)
 |A `Relation` SHALL have one `Subject`.
 
+|Object
 |Observation
-|One optional to one optional
-|A `Relation` MAY have zero-to-one `Object` XOR `externalObject`.
+|Zero to One (optional)
+|A `Relation` MAY have zero-to-one `Object`.
 
-|Group
-|Many optional to many optional
-|A `Relation` MAY have zero-to-many `Groups`.
+|ObservationGroups
+|ObservationGroup
+|Zero to Many (optional)
+|A `Relation` MAY have zero-to-many `ObservationGroups`.
 |===
 
-[[project]]
-=== Requirements Class *Project*
+NOTE: For expressing the object of a relation, the following constrain applies: `Object` relation XOR `externalResource` property.
 
-The `Project` entity can be used to create a container of `Datastream` or `MultiDatastream` entities. A Project can have a particular purpose and a managing party.
+[[tab-relations-to-relation]]
+.Direct relation from a SensorThings entity type to `Relation`
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Source Entity type |Cardinality |Description
+
+|Objects
+|Observation
+|Zero to Many (optional)
+|An `Observation/Subject`  MAY have zero-to-many `Relation/Objects`.
+
+|Subjects
+|Observation
+|Zero to Many (optional)
+|An `Observation/Object` MAY have zero-to-many `Relation/Subjects`.
+
+|===
+
+
+
+[[campaign]]
+=== Requirements Class *Campaign*
+
+The `Campaign` entity can be used to create a container of `Datastream` or `MultiDatastream` entities. A Campaign can have a particular purpose and a managing party.
 
 [requirements_class]
-.Project
+.Campaign
 
 ====
 [%metadata]
-identifier:: {identifier}/req-class/project
+identifier:: {identifier}/req-class/campaign
 obligation:: requirement
 subject:: Target Type: Web Service
 inherit:: {identifier}/req-class/entity-control-information
-requirement:: {identifier}/req/project/properties
-requirement:: {identifier}/req/project/relations
+requirement:: {identifier}/req/campaign/properties
+requirement:: {identifier}/req/campaign/relations
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/project/properties
+identifier:: {identifier}/req/campaign/properties
 
-Each `Project` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-project>>.
+Each `Campaign` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-campaign>>.
 ====
 
-[[tab-properties-project]]
-.Properties of a `Project` entity
+[[tab-properties-campaign]]
+.Properties of a `Campaign` entity
 [cols="20a,45a,20a,15a"]
 |===
-|Name |Definition |Data type |Multiplicity and use
+|Name |Definition |Data type |Cardinality and use
 
 |name
-|A property provides a label for `Project` entity, commonly a descriptive name.
+|A property provides a label for `Campaign` entity, commonly a descriptive name.
 |CharacterString
 |One (mandatory)
 
 |description
-|This is a short description of the corresponding `Project` entity.
+|This is a short description of the corresponding `Campaign` entity.
 |CharacterString
 |One (mandatory)
 
 |classification
-|Determines if the data stream(s), multi data stream(s) or group(s) of the `Project` entity contain sensitive information
+|Determines if the data stream(s), multi data stream(s) or group(s) of the `Campaign` entity contain sensitive information
 |ValueCode
 |Zero or One (optional)
 
 |description
-|This is a short description of the corresponding `Project` entity.
+|This is a short description of the corresponding `Campaign` entity.
 |CharacterString
 |One (mandatory)
 
 |creationTime
-|This is the starting time of the `Project` entity. Depending on the business logic, after this time it could be possible to add observations or relations to the Group.
+|This is the starting time of the `Campaign` entity. Depending on the business logic, after this time it could be possible to add observations or relations to the ObservationGroup.
 |TM Instant
 |One (mandatory)
 
 |startTime
-|This is the starting time of the `Project` entity. Depending on the business logic, before this time it is not possible to add observations or relations to the Group. 
+|This is the starting time of the `Campaign` entity. Depending on the business logic, before this time it is not possible to add observations or relations to the ObservationGroup. 
 |TM Instant
 |Zero or One (optional)
 
 |endTime
-|This is the ending time of the `Project` entity. Depending on the business logic, after this time it is no longer possible to add observations or relations to the Group. 
+|This is the ending time of the `Campaign` entity. Depending on the business logic, after this time it is no longer possible to add observations or relations to the ObservationGroup. 
 |TM Instant
 |Zero or One (optional)
 
 |termsOfUse
-|Express the term of use for the `Project` entity.
+|Express the term of use for the `Campaign` entity.
 |CharacterString
 |One (mandatory)
 
 |privacyPolicy
-|Express the term of use for personal data that are contained in the `Project` entity.
+|Express the term of use for personal data that are contained in the `Campaign` entity.
 |CharacterString
 |Zero or One (optional)
 
 |url
-|This is the URL for the `Project` entity that provides additional information that cannot be captured in this entity alone.
+|This is the URL for the `Campaign` entity that provides additional information that cannot be captured in this entity alone.
 |URL
 |Zero or One (optional)
 
@@ -534,35 +625,58 @@ Zero or One (optional)
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/project/relations
+identifier:: {identifier}/req/campaign/relations
 
-Each `Project` entity MAY have direct relations to other entity types listed in <<tab-relations-project>>.
+Each `Campaign` entity MAY have direct relations to other entity types listed in <<tab-relations-from-campaign>> and <<tab-relations-to-campaign>>.
 ====
 
-[[tab-relations-project]]
-.Direct relation between a `Project` entity and other entity types
-[cols="25a,20a,55a"]
+[[tab-relations-from-campaign]]
+.Direct relation from a `Campaign` entity to other entity types
+[cols="25a,25a,20a,30a"]
 |===
-|Entity type |Relation |Description
+|Relation name| Entity type |Cardinality |Description
 
+|Datastreams
 |Datastream
-|Many optional to many optional
-|A `Project` MAY have zero-to-many `Datastreams`.
+|Zero to Many (optional)
+|A `Campaign` MAY have zero-to-many `Datastreams`.
 
+|MultiDatastreams
 |MultiDatastream
-|Many optional to many optional
-|A `Project` MAY have zero-to-many `MultiDatastreams`.
+|Zero to Many (optional)
+|A `Campaign` MAY have zero-to-many `MultiDatastreams`.
 
 |Party
-|Many optional to one optional
-|A `Project` MAY have zero-to-one `Party`.
+|Party
+|Zero to One (optional)
+|A `Campaign` MAY have zero-to-one `Party`.
 
-|Group
-|Many optional to many optional
-|A `Project` MAY have zero-to-many `Group`.
+|ObservationGroups
+|ObservationGroup
+|Zero to Many (optional)
+|A `Campaign` MAY have zero-to-many `ObservationGroup`.
 
 |License
-|Many optional to one optional
-|A `Project` MAY have zero-to-one `License`.
+|License
+|Zero to One (optional)
+|A `Campaign` MAY have zero-to-one `License`.
+
+|===
+
+[[tab-relations-to-campaign]]
+.Direct relation from a SensorThings entity type to `Campaign`
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Source Entity type |Cardinality |Description
+
+|Campaigns
+|Datastream
+|Zero to Many (optional)
+|A `Datastream`  MAY have zero-to-many `Campaigns`.
+
+|Campaigns
+|MultiDatastream
+|Zero to Many (optional)
+|A `MultiDatastream` MAY have zero-to-many `Campaigns`.
 
 |===

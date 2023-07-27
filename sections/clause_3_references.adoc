@@ -3,7 +3,7 @@
 
 The following normative documents contain provisions that, through reference in this text, constitute provisions of this document. For dated references, subsequent amendments to, or revisions of, any of these publications do not apply. For undated references, the latest edition of the normative document referred to applies.
 
-* [[[OGC15-078r6,OGC SensorThings API Part 1: Sensing]]], _OGC SensorThings API Part 1: Sensing_ (2016)
-* [[[OGC18-088,OGC SensorThings API Part 1: Sensing Version 1.1]]], _OGC SensorThings API Part 1: Sensing Version 1.1_ (2020)
-* [[[GeoJSON, GeoJSON]]], _The GeoJSON Format_, IETF (2016)
-* [[[ISO19125-1,  Geographic information - Simple features access - Part 1: Common architecture]]], _Geographic information - Simple features access - Part 1: Common architecture_, ISO, 2004, https://portal.opengeospatial.org/files/?artifact_id=25355
+* [[[OGC15-078r6,OGC SensorThings API Part 1: Sensing]]], OGC, _OGC SensorThings API Part 1: Sensing_, OGC (2016), https://docs.ogc.org/is/15-078r6/15-078r6.html
+* [[[OGC18-088,OGC SensorThings API Part 1: Sensing Version 1.1]]], OGC, _OGC SensorThings API Part 1: Sensing Version 1.1_, OGC (2020), https://docs.ogc.org/is/18-088/18-088.html
+* [[[GeoJSON, GeoJSON]]], IETF, _The GeoJSON Format_, (2016), https://www.rfc-editor.org/rfc/rfc7946.html
+* [[[ISO19125-1,  Geographic information - Simple features access - Part 1: Common architecture]]], ISO, _Geographic information - Simple features access - Part 1: Common architecture_, 2004, https://portal.opengeospatial.org/files/?artifact_id=25355

@@ -11,13 +11,13 @@ Recipients of this document are requested to submit, with their comments, notifi
 [abstract]
 == Abstract
 
-The  OGC SensorThings API Extension: STAplus 1.0 Standard specifies a backwards-compatible extension to the OGC SensorThings API Part 1: Sensing Version 1.0 and 1.1 (STA) Standard data model.
+The  OGC SensorThings API Extension: STAplus 1.0 Standard specifies a backwards-compatible extension to the OGC Standard SensorThings API Part 1: Sensing 1.0 and 1.1 data model.
 
 The motivation for specifying this STAplus extension is based on requirements from the Citizen Science community.
 
 The dominant use for the OGC SensorThings API (STA) data model (and API) can be coined with the use case “single authority provides sensor readings to consumers”. However, in Citizen Science there are many contributors (citizens) that – together – create the big “picture” with their observations.
 
-The STAplus extension is designed to support a model in which observations are owned by (different) users that may express the license for re-use. This part of the contribution is called the ownership concept. In addition to the ownership and license abilities, the extension supports expressing explicit relations between observations and creating group(s) of observations to containerize observations that belong together. Relations can be created among any individual observations or observations of a group to support performant Linked Data extraction and semantic queries, for example expressed in SPARQL.
+The STAplus extension is designed to support a model in which observations are owned by (different) users. This part of the contribution is called the ownership concept. In addition to the ownership, users may express a license for ensuring proper re-use of their observations. The STAplus extension also supports expressing explicit relations between observations and creating group(s) of observations to containerize observations that belong together. Relations can be created among any individual observation or observation group to support performance for Linked Data extraction and semantic queries, for example expressed in SPARQL.
 
 The STAplus extension is believed to be an  important contribution towards the realization of the FAIR principles as STAplus strengthens the “I” (Interoperability) through a common data model and API as well as the “R” (Re-usability) by allowing expressing standards-based queries that may consider licensing conditions which is relevant for reuse of other users’ observations. 
 

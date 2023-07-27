@@ -7,13 +7,13 @@
 :draft: 1.0
 :external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
 :docnumber: 22-022r1
-:received-date: 2023-05-10
+:received-date: 2023-07-27
 :issued-date: 2029-03-30
 :published-date: 2029-03-30
 :fullname: Andreas Matheus
 :docsubtype: Implementation
-:keywords: ogcdoc, OGC document, API, SensorThings, STAplus
-:submitting-organizations: Secure Dimensions; CREAF; Fraunhofer Gesellschaft
+:keywords: OGC Standard, API, SensorThings, STAplus
+:submitting-organizations: Secure Dimensions GmbH; Centre de Recerca Ecològica i Aplicacions Forestals (CREAF); Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
 :mn-document-class: ogc
 :mn-output-extensions: xml,html,doc,pdf
 :local-cache-only:
@@ -21,7 +21,7 @@
 :pdf-uri: ./document.pdf
 :xml-uri: ./document.xml
 :doc-uri: ./document.doc
-:edition: 0.8
+:edition: 0.9
 
 :CRS84: urn:ogc:def:crs:OGC::CRS84
 :identifier: http://www.opengis.net/spec/sensorthings-staplus/1.0

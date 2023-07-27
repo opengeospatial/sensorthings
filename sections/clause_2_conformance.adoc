@@ -4,20 +4,20 @@ All requirements-classes and conformance-classes described in this document are 
 
 === Introduction
 
-The STAplus 1.0 standard defines an extension to the <<OGC18-088>> Standard by adding additional entities via the Data Model. Access to the STAplus entities via HTTP is defined in the Read, Update and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTTfootnote:[MQTT is an OASIS standard messaging protocol for the Internet of Things (IoT).] Requirements Class. A default storage-CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometry FG and Geometry WKT Requirements Class. The Authentication Requirements Class supports the unique identification of acting users. The Business Logic Requirements Class supports the textual description of the implemented business logic. An example of such a Business Logic is described in the <<OGC21-068>>.
+The STAplus 1.0 standard defines an extension to the OGC Standards <<OGC15-078r6>> (SensorThings API v1.0) and <<OGC18-088>> (SensorThings API v1.1) by adding additional entity types to the data model. Access to the STAplus entities via HTTP is defined in the Read, Update and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTT Requirements Class. A default storage-CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometry FG and Geometry WKT Requirements Class. The Authentication Requirements Class supports the unique identification of acting users. The Business Logic Requirements Class supports the textual description of the implemented business logic. An example of such a Business Logic is described in the <<OGC21-068>>.
 
 === STAplus 1.0 Conformance Classes
 This OGC Standard defines one mandatory and several optional conformance classes.
 
 Conformance with this Standard shall be checked using all the relevant tests specified in Annex A (normative) of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC Compliance Testing web site.
 
-In order to conform to this OGC® interface standard, a software implementation shall choose to implement:
+In order to conform to this OGC Standard, a software implementation shall choose to implement:
 
 * The one mandatory conformance class.
 * Any one of the optional conformance classes.
 * Pass all applicable tests as defined in Annex A (normative)
 
-In order to conform to this OGC® Standard, a software implementation SHALL implement the mandatory conformance class specified:
+In order to conform to this OGC Standard, a software implementation SHALL implement the mandatory conformance class specified:
 
 * *Core* (mandatory): This Conformance Class incorporates the capabilities to support the Read of STAplus entities via HTTP. It also includes the Storage-CRS Requirements Class to ensure interoperability with geometry encodings in the `feature` and `location` properties.
 
@@ -30,6 +30,8 @@ In order to conform to this OGC® Standard, a software implementation SHALL impl
 * *Authentication* (optional): This Conformance Class supports user authentication and their unique identification.
 
 * *Geometry-FG* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Features and their Geometries.
+
+NOTE: This Conformance Class remains informative until <<FG>> is an adopted OGC Standard.
 
 * *Geometry-WKT* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Well Known Text (WKT) as defined in <<ISO19125-1>>.
 
@@ -51,7 +53,7 @@ target:: {identifier}/req-class/party
 target:: {identifier}/req-class/license
 target:: {identifier}/req-class/group
 target:: {identifier}/req-class/relation
-target:: {identifier}/req-class/project
+target:: {identifier}/req-class/campaign
 target:: {identifier}/req-class/read
 target:: {identifier}/req-class/storage-crs
 
@@ -127,6 +129,9 @@ conformance-test:: {identifier}/conf/authentication/id-delete
 ====
 
 ==== Conformance Class *Geometry FG*
+
+NOTE: This Conformance Class remains informative until <<FG>> is an adopted OGC Standard.
+
 The `Geometry FG` Conformance Class is defined as follows:
 [conformance_class]
 .Geometry FG

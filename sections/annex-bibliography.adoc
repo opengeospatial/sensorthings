@@ -2,10 +2,10 @@
 [[Bibliography]]
 == Bibliography
 
-* [[[OGC21-068, Best Practice for using SensorThings API with Citizen Science]]], _Best Practice for using SensorThings API with Citizen Science_ (2022).
+* [[[OGC21-068, Best Practice for using SensorThings API with Citizen Science]]], OGC, _Best Practice for using SensorThings API with Citizen Science_, (2022), https://docs.ogc.org/bp/21-068.pdf
 
 * [[[ODATA, OData Version 4.01. Part 1: Protocol]]], OASIS, _OData Version 4.01. Part 1: Protocol_, (2020), http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html.
 
-* [[[FG, OGC Features and Geometries JSON - Part 1: Core]]], _OGC Features and Geometries JSON - Part 1: Core_, (2021) footnote:[draft OGC Standard at the time of writing: https://docs.ogc.org/DRAFTS/21-045.html]
+* [[[FG, OGC Features and Geometries JSON - Part 1: Core]]], OGC, _OGC Features and Geometries JSON - Part 1: Core_, (2021), https://docs.ogc.org/DRAFTS/21-045.html footnote:[draft OGC Standard at the time of writing]
 
 * [[[W3C-DID, Decentralized Identifiers (DIDs) v1.0]]], W3C, _Decentralized Identifiers (DIDs) v1.0_, (2022), https://www.w3.org/TR/did-core/
