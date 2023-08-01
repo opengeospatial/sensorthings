@@ -1,10 +1,10 @@
 [appendix,obligation="normative"]
 == Conformance Class Abstract Test Suite
 
-This normative section defines the STAplus 1.0 conformance classes tests.
+This normative section defines the STAplus 1.0 Conformance Class tests.
 
 [NOTE]
-A STAplus compliant implementation must also be compliant with the SensorThings API conformance as defined in OGC #18-088.
+A STAplus compliant implementation must also be compliant with the SensorThings API conformance as defined in <<OGC15-078r6>>, respectively <<OGC18-088>>.
 
 === STAplus *Core* Conformance Class Tests
 
@@ -17,9 +17,9 @@ target:: {identifier}/conf/core
 
 target:: {identifier}/req/common-control-information
 
-test-purpose:: To verify that the common control information as defined in the requirement.
+test-purpose:: To verify that the common control information is available as defined in the requirement.
 test-method-type:: Manually Inspect
-test-method:: Inspect the full JSON object of the entity sets (__i.e.__, without $select) to identify, if each entity has the common control information defined in the above requirement and the service sends appropriate responses as defined in this Standard.
+test-method:: Inspect the full JSON object of the entity sets (__i.e.__, without $select) to identify, if each entity has the common control information defined in Requirement Class <<common-control-information>> and the service sends appropriate responses as defined in this Standard.
 ====
 
 [conformance_test]
@@ -44,7 +44,7 @@ target:: {identifier}/req/relation/relations
 target:: {identifier}/req/campaign/properties
 target:: {identifier}/req/campaign/relations
 
-test-purpose:: Verify that each STAplus entity has the mandatory properties and mandatory relations as defined in this specification.
+test-purpose:: Verify that each STAplus entity has the mandatory properties and mandatory relations as defined in this Standard.
 test-method-type:: Manually Inspect
 test-method:: Evaluate for each STAplus entity:
 
@@ -79,66 +79,66 @@ part:: Construct a URL to the `Campaign` entity and verify the response.
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/storage-crs/crs-definition
+identifier:: {identifier}/conf/core/default-crs/crs-definition
 target:: {identifier}/conf/core
 
-target:: {identifier}/req/storage-crs/crs-definition
+target:: {identifier}/req/default-crs/crs-definition
 
 
-test-purpose:: Verify that the implementation supports and uses the default CRS.
-test-method:: Evaluate that the implementation uses the default CRS.
+test-purpose:: Verify that the implementation supports and uses the default-CRS.
+test-method:: Evaluate that the implementation uses the default-CRS.
 
-part:: Construct a `Location` entity that contains a `Location` property whose geometry is encoded using the default CRS and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
-part:: Construct a `FeatureOfInterst` entity that contains a `Feature` property whose geometry is encoded using the default CRS and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
+part:: Construct a `Location` entity that contains a `Location` property whose geometry is encoded using the default-CRS and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS.
+part:: Construct a `FeatureOfInterest` entity that contains a `Feature` property whose geometry is encoded using the default-CRS and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS.
 ====
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/storage-crs/axis-order
+identifier:: {identifier}/conf/core/default-crs/axis-order
 target:: {identifier}/conf/core
 
-target:: {identifier}/req/storage-crs/axis-order
+target:: {identifier}/req/default-crs/axis-order
 
 
 test-purpose:: Verify that the implementation supports and uses the default axis-order.
 test-method:: Evaluate that the implementation uses the default axis-order.
 
-part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
-part:: Construct a `FeatureOfInterst` entity that contains a `feature` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS.
+part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS.
+part:: Construct a `FeatureOfInterest` entity that contains a `feature` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS.
 ====
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/storage-crs/media-type
+identifier:: {identifier}/conf/core/default-crs/media-type
 target:: {identifier}/conf/core
 
-target:: {identifier}/req/storage-crs/media-type
+target:: {identifier}/req/default-crs/media-type
 
 
 test-purpose:: Verify that the implementation supports and uses the default media-type.
 test-method:: Evaluate that the implementation uses the default media-type.
 
-part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS and axis-order.
-part:: Construct a `FeatureOfInterst` entity that contains a `feature` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default CRS and axis-order.
+part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS and axis-order.
+part:: Construct a `FeatureOfInterest` entity that contains a `feature` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS and axis-order.
 ====
 
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/storage-crs/processing
+identifier:: {identifier}/conf/core/default-crs/processing
 target:: {identifier}/conf/core
 
-target:: {identifier}/req/storage-crs/processing
+target:: {identifier}/req/default-crs/processing
 
 
-test-purpose:: Verify that the implementation stores geometry that is encoded in the default CRS and axis-order without processing.
-test-method:: Evaluate that the implementation stores geometry that is encoded in the default CRS and axis-order without processing.
+test-purpose:: Verify that the implementation stores geometry that is encoded in the default-CRS and axis-order without processing.
+test-method:: Evaluate that the implementation stores geometry that is encoded in the default-CRS and axis-order without processing.
 
-part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is stores the geometry data without processing.
-part:: Construct a `FeatureOfInterst` entity that contains a `feature` property whose geometry is encoded using the default CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is storing the geometry data without a CRS transformation.
+part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is stores the geometry data without processing.
+part:: Construct a `FeatureOfInterest` entity that contains a `feature` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is storing the geometry data without a CRS transformation.
 ====
 
 
@@ -176,7 +176,7 @@ part:: Issue an entity creation request that does not follow the integrity const
 part:: Create an entity instance by linking to existing entities with a single request, check if the server responds as defined in this Standard.
 
 
-part:: Create an entity instance that does not follow the integrity constraints by linking to existing entities with a single request, check if the server responds as defined in this specification.
+part:: Create an entity instance that does not follow the integrity constraints by linking to existing entities with a single request, check if the server responds as defined in this Standard.
 ====
 
 
@@ -192,10 +192,10 @@ target:: {identifier}/req/update/entity
 target:: {identifier}/req/update/entity-put
 
 
-test-purpose:: To verify that the service implementation supports the update of entities as defined in this specification.
+test-purpose:: To verify that the service implementation supports the update of entities as defined in this Standard.
 test-method:: For each STAplus entity:
 
-part:: Send an update request with HTTP PUT and check if the service responds as defined.
+part:: Send an update request with HTTP PATCH and check if the service responds as defined.
 ====
 
 [conformance_test]
@@ -231,10 +231,10 @@ target:: {identifier}/conf/delete
 target:: {identifier}/req/delete/entity
 
 
-test-purpose:: To verify that the service implementation supports the deletion of entities as defined
+test-purpose:: To verify that the service implementation supports the deletion of entities as defined.
 test-method:: For each STAplus entity:
 
-part:: Delete an entity instance, and check if the service responds as defined
+part:: Delete an entity instance, and check if the service responds as defined.
 ====
 
 
@@ -267,16 +267,15 @@ target:: {identifier}/conf/core
 target:: {identifier}/req/authentication/id-create
 
 
-test-purpose:: To verify that the identifier value stored in `Party.authId` is set by the implementation.
+test-purpose:: To verify that the identifier value stored in `Party/authId` is the value set by the authentication.
 test-method:: For a non-existing `Party` entity:
 
 part:: Submit a HTTP POST request to create a `Party` entity where the `authId` is not set.
 part:: Observe the response to find the location URI for the created `Party` entity.
-part:: Issue a HTTP GET request to the location URI and verify that the `Party.authId` is set with the unique identifier that represents the user.
+part:: Issue a HTTP GET request to the location URI and verify that the `Party/authId` is set with the unique identifier that represents the user.
 
 part:: Submit a HTTP POST request to create a `Party` entity where the `authId` is set with some value.
-part:: Observe the response to find the location URI for the created `Party` entity.
-part:: Issue a HTTP GET request to the location URI and verify that the `Party.authId` is set with the unique identifier that represents the user. In other words, the initial value for `authId` during upload was replaced by the implementation with the identifier of the user.
+part:: Observe the response status code and verify it is 400.
 
 ====
 
@@ -289,7 +288,7 @@ target:: {identifier}/conf/authentication
 target:: {identifier}/req/authentication/id-read
 
 
-test-purpose:: To verify that the `Party.authId` is exposed in a response.
+test-purpose:: To verify that the `Party/authId` is exposed in a response.
 test-method:: Verify that response from any `Party` entity includes the `authId`:
 
 part:: Construct a HTTP GET request to some `Party` entity and verify that the `authId` is contained in the response.
@@ -303,11 +302,11 @@ target:: {identifier}/conf/authentication
 
 target:: {identifier}/req/authentication/id-update
 
-test-purpose:: To verify that a user can *not* update the identifier stored in `Party.authId`.
+test-purpose:: To verify that a user can *not* update the identifier stored in `Party/authId`.
 test-method:: Verify that changing the `authId` is not possible for the user itself:
 
 part:: Have the user authenticate and identify the corresponding `Party`.
-part:: Construct a HTTP PATCH request to that `Party` entity where the `authId` is set with some value.
+part:: Construct a HTTP PATCH request to that **same** `Party` entity where the `authId` is set with some value.
 part:: Issue a HTTP GET request to that `Party` and verify that the value of the `authId` has not changed.
 
 test-method:: Verify that changing the `authId` is not possible for any other user:
@@ -325,18 +324,18 @@ target:: {identifier}/conf/authentication
 
 target:: {identifier}/req/authentication/id-delete
 
-test-purpose:: To verify that a user can *not* delete the identifier stored in `Party.authId`.
+test-purpose:: To verify that a user can *not* delete the identifier stored in `Party/authId`.
 test-method:: Verify that deleting the `authId` is not possible for the user itself:
 
 part:: Have the user authenticate and identify the corresponding `Party`.
 part:: Construct a HTTP DELETE request to that `Party` entity.
-part:: Issue a HTTP GET request to that `Party` and verify that the value of the `authId` has not changed.
+part:: Issue a HTTP GET request to that `Party` and verify that the entity still exists.
 
 test-method:: Verify that deleting the `authId` is not possible for any other user:
 
 part:: Have the user authenticate and identify the corresponding `Party`.
 part:: Construct a HTTP DELETE request to *another* existing `Party`.
-part:: Issue a HTTP GET request to that other `Party` and verify that the value of the `authId` has not changed.
+part:: Issue a HTTP GET request to that other `Party` and verify that the entity still exists.
 ====
 
 
@@ -363,7 +362,7 @@ target:: {identifier}/conf/business-logic
 target:: {identifier}/req/business-logic/location
 
 test-purpose:: To verify that the business logic is available from the provided URL.
-test-method:: On the landing page, find the JSON object with name `{identifier}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page contains the description of the business logic.
+test-method:: On the service root URI, find the JSON object with name `{identifier}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page contains the description of the business logic.
 ====
 
 
@@ -395,7 +394,7 @@ target:: {identifier}/conf/geometry-fg
 target:: {identifier}/req/geometry-fg/default-crs
 
 test-purpose:: To verify that the default-CRS is used for processing geometry data from `Feature` and `Location`.
-test-method:: Verify that the implementation applies the default CRS advertised in the conformance page to the geometry data from `Feature` and `Location`.
+test-method:: Verify that the implementation applies the default-CRS advertised in the conformance page to the geometry data from `Feature` and `Location`.
 ====
 
 [conformance_test]
@@ -420,7 +419,8 @@ target:: {identifier}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/crs-error
 
-test-purpose:: To verify that no additional CRS, as advertised as supported in the conformance page are accepted.
+test-purpose:: To verify that no additional CRS, as advertised in the conformance page, 
+are accepted.
 test-method:: Verify that the implementation *does not* accept geometry encodings for `Feature` and `Location` that are not listed as supported. For a CRS *not* listed as supported:
 
 part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is *rejected* by the implementation.
@@ -434,10 +434,10 @@ target:: {identifier}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/processing
 
-test-purpose:: To verify that a geometry not encoded in the storage-CRS is transformed before storage.
+test-purpose:: To verify that a geometry not encoded in the default-CRS is transformed before storage.
 test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location` that use a supported CRS:
 
-part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted and transformed to the storage-CRS before processed and stored by the implementation.
+part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted and transformed to the default-CRS before processed and stored by the implementation.
 ====
 
 [conformance_test]
@@ -448,8 +448,8 @@ target:: {identifier}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/out
 
-test-purpose:: To verify that a geometry included in a response is encoded in the storage-CRS.
-test-method:: Verify that the geometry data for a `Feature` and `Location` is using storage-CRS, independent from the geometry CRS used with the creation or updating of the entity.
+test-purpose:: To verify that a geometry included in a response is encoded in the default-CRS.
+test-method:: Verify that the geometry data for a `Feature` and `Location` is using default-CRS, independent from the geometry CRS used with the creation or updating of the entity.
 ====
 
 
@@ -496,9 +496,9 @@ target:: {identifier}/conf/geometry-wkt
 target:: {identifier}/req/geometry-wkt/default-crs
 
 test-purpose:: To verify that the default-CRS is used for processing geometry data from `feature` and `location` property.
-test-method:: Verify that the implementation defines and applies the default CRS to the geometry data from `feature` and `location` property.
+test-method:: Verify that the implementation defines and applies the default-CRS to the geometry data from `feature` and `location` property.
 
-part:: Find the JSON object in the `serverSettings` object on the landing page with the name `{identifier}/conf/geometry-wkt` and check the value of the property `default-crs`.
+part:: Find the JSON object in the `serverSettings` object on the root URI with the name `{identifier}/conf/geometry-wkt` and check the value of the property `default-crs`.
 part:: Verify that the `default-crs` is applied to a WKT geometry if no `crs` or `srid` property is used.
 ====
 
@@ -551,10 +551,10 @@ target:: {identifier}/conf/geometry-wkt
 
 target:: {identifier}/req/geometry-wkt/processing
 
-test-purpose:: To verify that a geometry not encoded in the storage-CRS is transformed before storage.
+test-purpose:: To verify that a geometry not encoded in the default-CRS is transformed before storage.
 test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location` that use a supported CRS:
 
-part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data in the `location` and `feature` properties is accepted and transformed to the storage-CRS before processed and stored by the implementation.
+part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data in the `location` and `feature` properties is accepted and transformed to the default-CRS before processed and stored by the implementation.
 ====
 
 [conformance_test]
@@ -565,8 +565,8 @@ target:: {identifier}/conf/geometry-wkt
 
 target:: {identifier}/req/geometry-wkt/out
 
-test-purpose:: To verify that a geometry included in a response is encoded in the storage-CRS.
-test-method:: Verify that the geometry data for a `feature` and `location` properties is using storage-CRS, independent from the geometry CRS used with the creation or updating of the entity.
+test-purpose:: To verify that a geometry included in a response is encoded in the default-CRS.
+test-method:: Verify that the geometry data for a `feature` and `location` properties is using default-CRS, independent from the geometry CRS used with the creation or updating of the entity.
 ====
 
 
@@ -586,7 +586,7 @@ part:: Subscribe to an entity set with MQTT Subscribe. Then create a new entity 
 
 part:: Subscribe to an entity set with MQTT Subscribe. Then update an existing entity of the subscribed entity set. Check if a complete JSON representation of the updated entity through MQTT is received.
 
-part:: part:: Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
+part::  Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
 
 Subscribe to multiple properties of an entity set with MQTT Subscribe. Then create a new entity of the entity set.  Check if a JSON object of the subscribed properties is received.
 
@@ -609,7 +609,7 @@ part:: Subscribe to an entity set with MQTT Subscribe. Then create a new entity 
 
 part:: Subscribe to an entity set with MQTT Subscribe. Then update an existing entity of the subscribed entity set. Check if a complete JSON representation of the updated entity through MQTT is received.
 
-part:: part:: Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
+part:: Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
 
 Subscribe to multiple properties of an entity set with MQTT Subscribe. Then create a new entity of the entity set.  Check if a JSON object of the subscribed properties is received.
 

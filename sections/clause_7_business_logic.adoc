@@ -3,12 +3,12 @@
 
 
 === Overview
-The STAplus extension is defined based on requirements from the Citizen Science community. One major requirement from the Citizen Science community is that an implementation of STAplus can be used by many users simultaneously to create, update and delete observations. To ensure integrity of the entities and to prevent inconsistencies in the data, it is important that an implementation is not only compliant with this Standard but also has functionality that ensures entity consistency.
+The STAplus extension is defined based on requirements from the Citizen Science community. One major requirement from the Citizen Science community is that an implementation of STAplus can be used by many users simultaneously to read, create, update and delete observations. To ensure integrity of all entities and to prevent inconsistencies in the observations, it is important that an implementation is not only compliant with this Standard but also has functionality that ensures entity consistency.
 
-Even though the business logic can be very complex and most likely depend on many factors, providing a hint to developers and guiding end users of the implementation in case a request results in an unexpected response should be possible.
+Even though the business logic can be very complex and most likely depend on many factors, it should be possible providing a hint to developers and guiding end users of the implementation in case a request results in an unexpected response.
 
 
-As a machine readable and understandable description of the implemented business logic is preferred, the idea of the business logic requirements class is to provide a URL where the business logic in defined in English text.
+As a machine readable and understandable description of the implemented business logic is preferred, the idea of the business logic requirements class is to allow the description of the logic in English text.
 
 [[business-logic]]
 === Requirements Class *Business Logic*
@@ -20,7 +20,7 @@ As a machine readable and understandable description of the implemented business
 [%metadata]
 identifier:: {identifier}/req-class/business-logic
 obligation:: requirement
-subject:: Target Type: Web Service
+subject:: Target Type: Implementation
 requirement:: {identifier}/req/business-logic/definition
 requirement:: {identifier}/req/business-logic/location
 ====
@@ -39,5 +39,5 @@ The implementation's business logic SHALL be described in English text.
 [%metadata]
 identifier:: {identifier}/req/business-logic/location
 
-The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page with the name `{identifier}/conf/business-logic` that contains a property `href` which value is the URL of the HTML page describing the business logic.
+The STAplus implementation SHALL provide a JSON object in the `serverSettings` object on the root URI with the name `{identifier}/conf/business-logic` that contains a property `href` which value is the URL of the HTML page describing the business logic.
 ====

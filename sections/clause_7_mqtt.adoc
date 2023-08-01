@@ -1,11 +1,13 @@
 [[staplus-mqtt]]
-== STAplus MQTT Extension Requirements
+== STAplus MQTT Requirements
 
-The MQTT capabilities allows that a client to receive changes to STAplus entities via MQTT. 
+The MQTT capability defined in this Standard allows that a client receives changes on STAplus entities via MQTT. 
+
+NOTE: The ability for the creation of observations via MQTT is inherited from the SensorThings API Part 1: Sensing and Sensing v1.1 Standard.
 
 === Overview
 
-NOTE: In the context of MQTT, all STAplus entities as defined in this Standard are equivalent to the STA entities. Therefore, the implementation of MQTT capabilities must be compliant with the SensorThings API Part 1: Sensing v1.0 and v1.1 Standard.
+In the context of MQTT, all STAplus entities as defined in this Standard are equivalent to the STA entities. Therefore, the implementation of MQTT capabilities must be compliant with the SensorThings API Part 1: Sensing and Sensing v1.1 Standard. 
 
 [[mqtt-subscribe-10]]
 === Requirements Class *MQTT Subscribe* STA v1.0
@@ -18,7 +20,7 @@ NOTE: In the context of MQTT, all STAplus entities as defined in this Standard a
 [%metadata]
 identifier:: {identifier}/req-class/mqtt-subscribe-sta-10
 obligation:: requirement
-subject:: Target Type: Web Service
+subject:: Target Type: Implementation
 inherit:: http://www.opengis.net/spec/iot_sensing/1.0/req/receive-updates-via-mqtt
 requirement:: {identifier}/req/mqtt-subscribe-sta-10
 ====
@@ -28,7 +30,7 @@ requirement:: {identifier}/req/mqtt-subscribe-sta-10
 [%metadata]
 identifier:: {identifier}/req/mqtt-subscribe-sta-10
 
-A STAplus implementation SHALL support the receiving of STAplus entity updates with MQTT Subscribe as defined in  http://www.opengis.net/spec/iot_sensing/1.0/req/receive-updates-via-mqtt.
+For the entities defined in STAplus, a STAplus implementation SHALL support the receiving of entity updates with MQTT Subscribe as defined in  http://www.opengis.net/spec/iot_sensing/1.0/req/receive-updates-via-mqtt.
 ====
 
 [[mqtt-subscribe-11]]
@@ -41,7 +43,7 @@ A STAplus implementation SHALL support the receiving of STAplus entity updates w
 [%metadata]
 identifier:: {identifier}/req-class/mqtt-subscribe-sta-11
 obligation:: requirement
-subject:: Target Type: Web Service
+subject:: Target Type: Implementation
 inherit:: http://www.opengis.net/spec/iot_sensing/1.1/req/receive-updates-via-mqtt
 requirement:: {identifier}/req/mqtt-subscribe-sta-11
 ====
@@ -51,5 +53,5 @@ requirement:: {identifier}/req/mqtt-subscribe-sta-11
 [%metadata]
 identifier:: {identifier}/req/mqtt-subscribe-sta-11
 
-A STAplus implementation SHALL support the receiving of STAplus entity updates with MQTT Subscribe as defined in http://www.opengis.net/spec/iot_sensing/1.1/req/receive-updates-via-mqtt.
+For the entities defined in STAplus, a STAplus implementation SHALL support the receiving of entity updates with MQTT Subscribe as defined in http://www.opengis.net/spec/iot_sensing/1.1/req/receive-updates-via-mqtt.
 ====

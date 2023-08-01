@@ -3,29 +3,27 @@
 
 === Terms and definitions
 
-==== Party
-
-The entity in the data model that represents a user. A party can be associated to other entities of the data model to express ownership.
-
-==== License
-
-The entity in the data model that represents a well-defined license. Associating a license with a `Multi/Datastream` entity expresses re-use conditions for all observations associated with that `Multi/Datastream` entity.
-
-==== ObservationGroup
-
-The entity in the data model that allows creation a collection of observations for a particular purpose.
-
-==== Relation
-
-The entity in the data model that allows expressing relationships between two observations or an observation and an external object.
 
 ==== Campaign
+An event or an activity that results in or is linked to a collection of `MultiDatastream`, `Datastream` and/or `ObservationGroup`. A campaign is commonly limited in space and time and can be managed by one party.
 
-The entity in the data model that allows merging `Multi/Datastream` entities together that are required to achieve the objective represented by the activity.
+==== License
+An agreement between a party and other parties to gain access and use primarily observations but also groups of observations and campaigns. The agreement can include, among others, clauses about how to share data with others not involved in the licensing agreement, the capability to execute commercial activities, the authorization to share modified versions of the data and the need for attributing the original authors. Associating a license with a `MultiDatastream`, `Datastream` expresses re-use conditions for all associated observations. Associating a license to an `ObservationGroup` or a `Campaign` expresses their re-use conditions.
+
+==== ObservationGroup
+A collection of observations that are grouped together for a particular purpose.
 
 ==== Ownership
+The right of possession over entities such as things, campaigns, observation groups and other entities related to them. Ownership is required to properly manage create, update and delete operations in a multi-user environment. 
 
-The `Party` entity in the data model allows expressing the right of possession over entity instances. This is the requirement to operate STAplus with multi-user CRUD access.
+
+==== Party
+A user, interacting with the service facilitating the creation of observations and managing owned resources. A party can own a thing, decide on the license of a datastream of observations, manage a campaign, be responsible of an observation group, etc 
+
+
+
+==== Relation
+A relationship established between two observations or an observation and an external resource for a particular reason.
 
 === Abbreviated terms
 
@@ -36,4 +34,4 @@ DID:: Decentralized Identifier
 GDPR:: European General Data Protection Regulation
 MQTT:: Message Queuing Telemetry Transport
 STA:: Sensor Things API
-STAplus:: Sensor Things API "plus" extension
+STAplus:: Sensor Things API PLUS extension

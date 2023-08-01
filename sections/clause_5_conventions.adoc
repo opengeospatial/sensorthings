@@ -7,4 +7,4 @@ The normative provisions in this standard are denoted by the URI
 
 `{identifier}`
 
-All requirements and conformance tests that appear in this document are denoted by partial URIs which are appended to this base.
+All requirements and conformance tests that appear in this document are denoted by absolute URIs which are compliant to this base.

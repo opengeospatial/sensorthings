@@ -4,22 +4,22 @@ All requirements-classes and conformance-classes described in this document are 
 
 === Introduction
 
-The STAplus 1.0 standard defines an extension to the OGC Standards <<OGC15-078r6>> (SensorThings API v1.0) and <<OGC18-088>> (SensorThings API v1.1) by adding additional entity types to the data model. Access to the STAplus entities via HTTP is defined in the Read, Update and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTT Requirements Class. A default storage-CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometry FG and Geometry WKT Requirements Class. The Authentication Requirements Class supports the unique identification of acting users. The Business Logic Requirements Class supports the textual description of the implemented business logic. An example of such a Business Logic is described in the <<OGC21-068>>.
+The STAplus 1.0 standard defines an extension to the OGC Standards <<OGC15-078r6>> (SensorThings API v1.0) and <<OGC18-088>> (SensorThings API v1.1) by adding additional entity types to the data model. Access to the STAplus entities via HTTP is defined in the Read, Create, Update and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTT Requirements Class. A default default-CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometry FG and Geometry WKT Requirements Class. The Authentication Requirements Class supports the unique identification of acting users. The Business Logic Requirements Class supports the textual description of the implemented business logic. An example of such a Business Logic is described in the <<OGC21-068>>.
 
 === STAplus 1.0 Conformance Classes
 This OGC Standard defines one mandatory and several optional conformance classes.
 
-Conformance with this Standard shall be checked using all the relevant tests specified in Annex A (normative) of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC Compliance Testing web site.
+Conformance with this Standard shall be checked using all the relevant tests specified in Annex A of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC Compliance Testing web site.
 
 In order to conform to this OGC Standard, a software implementation shall choose to implement:
 
-* The one mandatory conformance class.
+* The one mandatory conformance class `Core`.
 * Any one of the optional conformance classes.
-* Pass all applicable tests as defined in Annex A (normative)
+* Pass all applicable tests as defined in Annex A.
 
-In order to conform to this OGC Standard, a software implementation SHALL implement the mandatory conformance class specified:
+This is the list of STAplus Conformance Classes:
 
-* *Core* (mandatory): This Conformance Class incorporates the capabilities to support the Read of STAplus entities via HTTP. It also includes the Storage-CRS Requirements Class to ensure interoperability with geometry encodings in the `feature` and `location` properties.
+* *Core* (mandatory): This Conformance Class incorporates the capabilities to support the Read of STAplus entities via HTTP. It also includes the Default-CRS Requirements Class to ensure interoperability with geometry encodings in the `feature` and `location` properties.
 
 * *Create* (optional): This Conformance Class supports to create STAplus entities via HTTP.
 
@@ -39,8 +39,9 @@ NOTE: This Conformance Class remains informative until <<FG>> is an adopted OGC 
 
 * *MQTT Subscribe STA v1.1* (optional): This Conformance Class supports a client to receive STAplus entity changes via MQTT as defined in <<OGC18-088>>.
 
-* *Business Logic* (optional): This Conformance Class supports that the implementation business logic is described in English text to help developers understand the details of CRUD access.
+* *Business Logic* (optional): This Conformance Class supports that the implementation's business logic is described in English text to help developers understand the details of CRUD access.
 
+[[conformance_class_core]]
 ==== Conformance Class *Core*
 The `Core` Conformance Class is defined as follows:
 [conformance_class]
@@ -55,16 +56,16 @@ target:: {identifier}/req-class/group
 target:: {identifier}/req-class/relation
 target:: {identifier}/req-class/campaign
 target:: {identifier}/req-class/read
-target:: {identifier}/req-class/storage-crs
+target:: {identifier}/req-class/default-crs
 
 classification:: Target Type: Implementation
 conformance-test:: {identifier}/conf/core/common-control-information
 conformance-test:: {identifier}/conf/core/entities
 conformance-test:: {identifier}/conf/core/read
-conformance-test:: {identifier}/conf/core/storage-crs/crs-definition
-conformance-test:: {identifier}/conf/core/storage-crs/axis-order
-conformance-test:: {identifier}/conf/core/storage-crs/media-type
-conformance-test:: {identifier}/conf/core/storage-crs/processing
+conformance-test:: {identifier}/conf/core/default-crs/crs-definition
+conformance-test:: {identifier}/conf/core/default-crs/axis-order
+conformance-test:: {identifier}/conf/core/default-crs/media-type
+conformance-test:: {identifier}/conf/core/default-crs/processing
 ====
 
 ==== Conformance Class *Create*

@@ -4,4 +4,4 @@ This Standard offers support for different structuring of the `FeatureOfInterest
 
 * `application/geo+json` 
 * `application/vnd.ogc.fg+json` footnote:[Informative until <<FG>> is an adopted OGC Standard.]
-* `application/wkt` footnote:[Depending approval by IANA.]
+* `application/wkt` footnote:[Pending approval by IANA.]

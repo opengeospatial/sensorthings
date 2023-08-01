@@ -12,6 +12,6 @@
 |2023-01-20 |0.6 |Andreas Matheus | All sections| Title adopted to include versions, updated requirements for Business Logic and CRS conformance classes, incorporated proof read from Hylke van der Schaaf
 |2023-02-06 |0.7 |Andreas Matheus | All sections| Carl Reed comments incorporated
 |2023-05-10 |0.8 |Andreas Matheus | All sections| Results from RFC incorporated, `Party` entity property `personalData` removed, Authentication class requirements and conformance tests adopted accordingly, security considerations section extended
-|2023-07-26 |0.9 |Andreas Matheus | All sections| Final edits to adopt the motion of the STA SWG from 19th July; adding tables to improve association definitions from STA to STAplus entity types
+|2023-07-26 |0.9 |Andreas Matheus | All sections| Final edits to adopt the motion of the STA SWG from 19th July (changes in data model: Project into Campaign, Group into ObservationGroup, fixed Subject and Object associations); adding tables to improve association definitions from STA to STAplus entity types, improved wording
 
 |===

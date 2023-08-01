@@ -5,7 +5,7 @@
 === Overview
 To regulate access to entities using CRUD operations, implementations may wish to use information from user / client application authentication to make access control decisions. 
 
-In addition, some implementations may wish to link the authentication identifier (e.g. `REMOTE_USER`) with the `Party.authId`. Therefore, the STAplus authentication must provide deployment-wide unique user identifiers.
+In addition, some implementations may wish to link the authentication identifier (e.g. `REMOTE_USER`) with the `Party/authId`. Therefore, the STAplus authentication must provide service-wide unique user identifiers.
 
 [[auth]]
 === Requirements Class *Authentication*
@@ -17,7 +17,7 @@ In addition, some implementations may wish to link the authentication identifier
 [%metadata]
 identifier:: {identifier}/req-class/authentication
 obligation:: requirement
-subject:: Target Type: Web Service
+subject:: Target Type: Implementation
 inherit:: {identifier}/req-class/party
 requirement:: {identifier}/req/authentication/id
 requirement:: {identifier}/req/authentication/id-create
@@ -39,7 +39,7 @@ The STAplus authentication SHALL provide a user identifier permanent for same us
 [%metadata]
 identifier:: {identifier}/req/authentication/id-read
 
-The implementation SHALL ensure that the `Party.authId` property is exposed in any response and can be used in STA operators such as `$filter` or `$select`.
+The STAplus implementation SHALL ensure that the `Party/authId` property is exposed in any response and can be used in STA operators such as `$filter` or `$select`.
 ====
 
 [requirement]
@@ -47,7 +47,7 @@ The implementation SHALL ensure that the `Party.authId` property is exposed in a
 [%metadata]
 identifier:: {identifier}/req/authentication/id-create
 
-The implementation SHALL overwrite any existing value and SHALL set the `Party.authId` property with the value of the authentication identifier (e.g. `REMOTE_USER`). 
+The STAplus implementation SHALL overwrite any existing value and SHALL set the `Party/authId` property with the user's identification value provided by the authentication (e.g. `REMOTE_USER`). 
 ====
 
 [requirement]
@@ -55,7 +55,7 @@ The implementation SHALL overwrite any existing value and SHALL set the `Party.a
 [%metadata]
 identifier:: {identifier}/req/authentication/id-update
 
-The implementation SHALL ensure that the `Party.authId` property cannot be changed (ensure read-only).
+The STAplus implementation SHALL ensure that the `Party/authId` property cannot be changed (ensure read-only).
 ====
 
 [requirement]
@@ -63,5 +63,5 @@ The implementation SHALL ensure that the `Party.authId` property cannot be chang
 [%metadata]
 identifier:: {identifier}/req/authentication/id-delete
 
-The implementation SHALL ensure that the `Party.authId` property cannot be deleted.
+The STAplus implementation SHALL ensure that the `Party/authId` property cannot be deleted.
 ====

@@ -5,68 +5,66 @@
 === Overview
 The `Location` and `FeatureOfInterest` entities enable storing data objects with unspecified structure. Both entities potentially store geometry information. The STAplus extension supports multi-user interactions including the creation, updating, reading and deletion of information. For example in Citizen Science, one service endpoint could accept that users can upload data using different applications. These applications might be developed by different parties and serve different purposes, and thus use different geometry structures and coordinate reference systems (CRS) to encode the coordinates of the geometries. This can result in the situation where the interoperability of uploaded geometry in the `Location` and `FeatureOfInterest` entities might become an issue. 
 
-For an implementation of STAplus, this situation becomes complicated when a `$filter` is leveraged that includes spatial conditions such as `ST_Within`. The filter expression does not carry any CRS information. Therefore, how does the implementation “know” how to apply a spatial filter to geometries stored in `feature` and `location` properties uploaded by different applications? Because the SensorThings data model does not define how to store CRS information inside the `feature` and `location`, it only recommends using GeoJSON. However, applying the `$filter` with spatial operators introduces two problems. First, the CRS data would need to be stored in a standardized location inside `feature` and `location` properties. Second, the implementation would need to apply coordinate transformation 'on the fly' when processing a spatial filter condition and stored geometries are encoded in different CRS. The first problem causes interoperability issues and the later inevitably causes performance issues.
+For an implementation of STAplus, this situation becomes complicated when a `$filter` is leveraged that includes spatial conditions such as `ST_Within`. The filter expression does not carry any CRS information. Therefore, how does the implementation “know” how to apply a spatial filter to geometries stored in `feature` and `location` properties uploaded by different applications? Because the SensorThings data model does not define how to store CRS information inside the `feature` and `location`, it only recommends using GeoJSON. So, applying the `$filter` with spatial operators introduces two problems. First, the CRS data would need to be stored in a standardized location inside `feature` and `location` properties. Second, the implementation would need to apply coordinate transformation 'on the fly' when processing a spatial filter condition and stored geometries are encoded in different CRS. The first problem causes interoperability issues and the later inevitably causes performance issues.
 
-To get out of this situation, the STAplus Standard defines a default storage-CRS based on WGS84 with axis-order longitude/latitude as defined in <<GeoJSON>>. Any uploaded geometry data encoded in the storage-CRS will be stored as-is. Any uploaded geometry data encoded differently will be transformed into the storage-CRS and then stored.
+To get out of this situation, the STAplus Standard defines a default-CRS based on WGS84 with axis-order longitude/latitude as defined in <<GeoJSON>>. Any uploaded geometry data encoded in the default-CRS will be stored as-is. Any uploaded geometry data encoded differently will be rejected.
 
-To indicate that the default storage-CRS and GeoJSON geometry encoding is used, the `encodingType` property of the `FeatureOfInterest` and `Location` entity is to be used with the value `application/geo+json`. 
+To indicate that the default-CRS and GeoJSON geometry encoding is used, the `encodingType` property of the `FeatureOfInterest` and `Location` entity is to be used with the value `application/geo+json`. 
 
 In addition, the STAplus extension supports other (commonly used) encodings via the `Geometry Encoding` Requirements Class. 
 
-
-
 [[CRS]]
-=== Storage-CRS Requirements Class
+=== Default-CRS Requirements Class
 
-This Requirements Class defines the default CRS with axis-order and its media-type.
+This Requirements Class defines the default-CRS with axis-order and its media-type.
 
 [requirements_class]
-.Storage-CRS
+.Defaul-CRS
 
 ====
 [%metadata]
-identifier:: {identifier}/req-class/storage-crs
+identifier:: {identifier}/req-class/default-crs
 obligation:: requirement
-subject:: Target Type: Web Service
+subject:: Target Type: Implementation
 inherit:: <<GeoJSON>>
-requirement:: {identifier}/req/storage-crs/crs-definition
-requirement:: {identifier}/req/storage-crs/axis-order
-requirement:: {identifier}/req/storage-crs/media-type
-requirement:: {identifier}/req/storage-crs/processing
+requirement:: {identifier}/req/default-crs/crs-definition
+requirement:: {identifier}/req/default-crs/axis-order
+requirement:: {identifier}/req/default-crs/media-type
+requirement:: {identifier}/req/default-crs/processing
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/storage-crs/crs-definition
+identifier:: {identifier}/req/default-crs/crs-definition
 
-The implementation SHALL use the <<GeoJSON>> CRS `{CRS84}` as the storage-CRS.
+The STAplus implementation SHALL use the <<GeoJSON>> CRS `{CRS84}` as the default-CRS.
 ====
 
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/storage-crs/axis-order
+identifier:: {identifier}/req/default-crs/axis-order
 
-The implementation SHALL use the <<GeoJSON>> axis-order with the storage-CRS.
+The STAplus implementation SHALL use the <<GeoJSON>> axis-order with the default-CRS.
 ====
 
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/storage-crs/media-type
+identifier:: {identifier}/req/default-crs/media-type
 
-The implementation SHALL accept the media-type `encodingType=application/geo+json` to indicate that the structuring of the `FeatureOfInterest` and `Location` entities geometry encoding is compliant with the RFC <<GeoJSON>>.
+The STAplus implementation SHALL accept the media-type `application/geo+json` value for the `encodingType` property to indicate that the structuring of the `FeatureOfInterest` and `Location` entities geometry encoding is compliant with the RFC <<GeoJSON>>.
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/storage-crs/processing
+identifier:: {identifier}/req/default-crs/processing
 
-The implementation SHALL enforce the `storage-CRS` to any geometry data contained in the `FeatureOfInterest` and `Location` entity. The implementation SHALL store geometry encoded in the `default-CRS` without further processing.
+The STAplus implementation SHALL enforce the `default-CRS` to any geometry data contained in the `FeatureOfInterest` and `Location` entity. The STAplus implementation SHALL reject any geometry **not** encoded in the `default-CRS` without further processing.
 ====
 
 
@@ -84,7 +82,7 @@ This Requirements Class defines the use of geometry encoding compliant with the 
 [%metadata]
 identifier:: {identifier}/req-class/geometry-fg
 obligation:: requirement
-subject:: Target Type: Web Service
+subject:: Target Type: Implementation
 inherit:: <<FG>>
 requirement:: {identifier}/req/geometry-fg/media-type
 requirement:: {identifier}/req/geometry-fg/default-crs
@@ -100,7 +98,7 @@ requirement:: {identifier}/req/geometry-fg/out
 [%metadata]
 identifier:: {identifier}/req/geometry-fg/media-type
 
-The implementation SHALL accept the media-type `application/vnd.ogc.fg+json` as value to the `encodingType` property of the `FeatureOfInterest` and `Location` entities to indicate that the structuring of the geometry is be compliant with <<FG>>
+The STAplus implementation SHALL accept the media-type `application/vnd.ogc.fg+json` as value to the `encodingType` property of the `FeatureOfInterest` and `Location` entities to indicate that the structuring of the geometry is be compliant with <<FG>>
 ====
 
 [requirement]
@@ -108,7 +106,7 @@ The implementation SHALL accept the media-type `application/vnd.ogc.fg+json` as 
 [%metadata]
 identifier:: {identifier}/req/geometry-fg/default-crs
 
-The implementation SHALL advertise the default CRS on the conformance page.
+The STAplus implementation SHALL advertise the default-CRS on the conformance page.
 ====
 
 [requirement]
@@ -116,7 +114,7 @@ The implementation SHALL advertise the default CRS on the conformance page.
 [%metadata]
 identifier:: {identifier}/req/geometry-fg/supported-crs
 
-The implementation SHALL advertise the list of the supported CRS on the conformance page.
+The STAplus implementation SHALL advertise the list of the supported CRS on the conformance page.
 ====
 
 [requirement]
@@ -124,7 +122,7 @@ The implementation SHALL advertise the list of the supported CRS on the conforma
 [%metadata]
 identifier:: {identifier}/req/geometry-fg/crs-error
 
-The implementation SHALL return an error if the geometry data inside `feature` or `location` properties is encoded in an unsupported CRS.
+The STAplus implementation SHALL return an error if the geometry data inside `feature` or `location` properties is encoded in an unsupported CRS.
 ====
 
 [requirement]
@@ -140,7 +138,7 @@ If necessary, the implementation SHALL apply a CRS transformation to the `defaul
 [%metadata]
 identifier:: {identifier}/req/geometry-fg/out
 
-The implementation SHALL use the storage-CRS to encode the `feature` and `location` geometries in a response.
+The STAplus implementation SHALL use the default-CRS to encode the `feature` and `location` geometries in a response.
 ====
 
 
@@ -156,7 +154,7 @@ This Requirements Class defines the use of geometry encoding compliant with Well
 [%metadata]
 identifier:: {identifier}/req-class/geometry-wkt
 obligation:: requirement
-subject:: Target Type: Web Service
+subject:: Target Type: Implementation
 inherit:: <<ISO19125-1>>
 requirement:: {identifier}/req/geometry-wkt/media-type
 requirement:: {identifier}/req/geometry-wkt/crs-defintion
@@ -174,7 +172,10 @@ requirement:: {identifier}/req/geometry-wkt/out
 [%metadata]
 identifier:: {identifier}/req/geometry-wkt/media-type
 
-The implementation SHALL accept the media-type `wkt` as value for the `encodingType` property of the `FeatureOfInterest` and `Location` entities.
+The STAplus implementation SHALL accept the media-type `application/wkt` as value for the `encodingType` property of the `FeatureOfInterest` and `Location` entities.
+
+NOTE: Media type `application/wkt` is currently pending approval by IANA.
+
 ====
 
 
@@ -183,7 +184,7 @@ The implementation SHALL accept the media-type `wkt` as value for the `encodingT
 [%metadata]
 identifier:: {identifier}/req/geometry-wkt/crs-definition
 
-If a non-default CRS is used then either the CRS identifier SHALL be put into a property `crs`, or the CRS identifier (number) SHALL be put into a property `srid` of the `properties` property of the `FeatureOfInterest` or `Location` entity.
+If a non-default-CRS is used then either the CRS identifier SHALL be put into a property `crs`, or the CRS identifier (number) SHALL be put into a property `srid` of the `properties` property of the `FeatureOfInterest` or `Location` entity.
 ====
 
 [requirement]
@@ -191,7 +192,7 @@ If a non-default CRS is used then either the CRS identifier SHALL be put into a 
 [%metadata]
 identifier:: {identifier}/req/geometry-wkt/default-crs
 
-The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page with the name `{identifier}/conf/geometry-wkt` that contains a property `default-crs` whose value represents the default CRS identifier.
+The STAplus implementation SHALL provide a JSON object in the `serverSettings` object on the root URI with the name `{identifier}/conf/geometry-wkt` that contains a property `default-crs` whose value represents the default-CRS identifier.
 ====
 
 [requirement]
@@ -199,7 +200,7 @@ The implementation SHALL provide a JSON object in the `serverSettings` object on
 [%metadata]
 identifier:: {identifier}/req/geometry-wkt/supported-crs
 
-The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page with the name `{identifier}/conf/geometry-wkt` that contains a property `supported-crs` of type Array which values represent the supported CRS identifiers.
+The STAplus implementation SHALL provide a JSON object in the `serverSettings` object on the root URI with the name `{identifier}/conf/geometry-wkt` that contains a property `supported-crs` of type Array which values represent the supported CRS identifiers.
 ====
 
 [requirement]
@@ -207,7 +208,7 @@ The implementation SHALL provide a JSON object in the `serverSettings` object on
 [%metadata]
 identifier:: {identifier}/req/geometry-wkt/crs-error
 
-The implementation SHALL return an error if the geometry data inside the `FeatureOfInterest` or `Location`  is encoded in an unsupported CRS.
+The STAplus implementation SHALL return an error if the geometry data inside the `FeatureOfInterest` or `Location`  is encoded in an unsupported CRS.
 ====
 
 [requirement]
@@ -224,7 +225,7 @@ The WKT encoded geometry SHALL be the value of the `feature` or `location` prope
 [%metadata]
 identifier:: {identifier}/req/geometry-wkt/processing
 
-The implementation SHALL apply CRS transformation to the `storage-CRS` if necessary before further processing or storing the geometry data.
+The STAplus implementation SHALL apply CRS transformation to the `default-CRS` if necessary before further processing or storing the geometry data.
 ====
 
 [requirement]
@@ -232,5 +233,5 @@ The implementation SHALL apply CRS transformation to the `storage-CRS` if necess
 [%metadata]
 identifier:: {identifier}/req/geometry-wkt/out
 
-The implementation SHALL use the storage-CRS to encode the `feature` and `location` geometries in a response.
+The STAplus implementation SHALL use the default-CRS to encode the `feature` and `location` geometries in a response.
 ====

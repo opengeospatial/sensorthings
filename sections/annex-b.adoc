@@ -1,5 +1,5 @@
 [appendix,obligation="informative"]
-== STAplus Data Model
+== STAplus Data Model (informative)
 
 This appendix contains the Data Model UML diagrams in large for improved readability.
 

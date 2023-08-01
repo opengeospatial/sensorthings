@@ -2,7 +2,8 @@
 
 STAplus - SensorThings API extension PLUS - defines a SensorThings data model extension to improve FAIR principles when exchanging sensor data including licensing and ownership information. 
 
-The STAplus extension is fully backwards compatible to the existing OGC OGC SensorThings API Part 1: Sensing Version 1.0 and 1.1 and thereby offers existing deployments to easily upgrade to STAplus.
+The STAplus extension is fully backwards compatible to the existing OGC SensorThings API Part 1: Sensing as well as Sensing Version 1.1 and thereby offers existing deployments an easy upgrade to STAplus.
+
 Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
 
 Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
@@ -11,16 +12,39 @@ Recipients of this document are requested to submit, with their comments, notifi
 [abstract]
 == Abstract
 
-The  OGC SensorThings API Extension: STAplus 1.0 Standard specifies a backwards-compatible extension to the OGC Standard SensorThings API Part 1: Sensing 1.0 and 1.1 data model.
+The  OGC SensorThings API Extension: STAplus 1.0 Standard specifies a backwards-compatible extension to the OGC Standard SensorThings API Part 1: Sensing and Sensing 1.1 data model.
 
 The motivation for specifying this STAplus extension is based on requirements from the Citizen Science community.
 
-The dominant use for the OGC SensorThings API (STA) data model (and API) can be coined with the use case “single authority provides sensor readings to consumers”. However, in Citizen Science there are many contributors (citizens) that – together – create the big “picture” with their observations.
+The dominant use for the OGC SensorThings API data model and API can be coined with the use case “single authority provides sensor readings to consumers”. However, in Citizen Science there are many contributors (citizens) who – together – create the big picture with their observations.
 
-The STAplus extension is designed to support a model in which observations are owned by (different) users. This part of the contribution is called the ownership concept. In addition to the ownership, users may express a license for ensuring proper re-use of their observations. The STAplus extension also supports expressing explicit relations between observations and creating group(s) of observations to containerize observations that belong together. Relations can be created among any individual observation or observation group to support performance for Linked Data extraction and semantic queries, for example expressed in SPARQL.
+The STAplus extension is designed to support a model in which observations are owned by different users. This results in requirements for the ownership concept. In addition to the ownership, users may express a license for ensuring proper re-use of their observations. The STAplus extension also supports expressing explicit relations between observations as well as between observations and external resources. Relations can enrich observations to enable future extensions supporting Linked Data, RDF and SPARQL. Observation group(s) allow the grouping of observations that belong together. 
 
 The STAplus extension is believed to be an  important contribution towards the realization of the FAIR principles as STAplus strengthens the “I” (Interoperability) through a common data model and API as well as the “R” (Re-usability) by allowing expressing standards-based queries that may consider licensing conditions which is relevant for reuse of other users’ observations. 
 
-The STAplus Data Model and Business Logic also enriches existing deployments as the extension can be seamlessly added and thereby offer new capabilities to create and manage the “big picture” with multi-user capabilities.
+The STAplus Data Model and Business Logic also enriches existing deployments as the extension can be seamlessly added and thereby offers new capabilities to create and manage the “big picture” with multi-user capabilities.
 
-The key work for crafting this OGC Standard was undertaken in the _Co-designed Citizen Observatories Services for the EOS-Cloud_ (Cos4Cloud) project, which received funding from the European Union’s Horizon 2020 research and innovation program under grant agreement number 863463 and the _Enhancing Citizen Observatories for healthy, sustainable, resilient and inclusive cities_ (CitiObs) project, which received funding from the European Union’s Horizon Europe research and innovation program under grant agreement number 101086421. Testing of this extension was done with data from the Framework biodiversity project, which received funding from the European Union’s Horizon 2020 research and innovation program under grant agreement number 862731.
+The key work for crafting this OGC Standard was undertaken in the _Co-designed Citizen Observatories Services for the EOS-Cloud_ (Cos4Cloud) project, which received funding from the European Union’s Horizon 2020 research and innovation program and the _Enhancing Citizen Observatories for healthy, sustainable, resilient and inclusive cities_ (CitiObs) project, which received funding from the European Union’s Horizon Europe research and innovation program. Testing of this extension was done with data from the Framework biodiversity project, which received funding from the European Union’s Horizon 2020 research and innovation program.
+
+[[submitters]]
+== Submitters
+
+All questions regarding this submission should be directed to the editors or the submitters:
+
+[%autowidth,cols="3*"]
+|===
+|Name |Representing |OGC Member
+
+|Andreas Matheus
+|Secure Dimensions GmbH
+|Yes
+
+|Joan Maso
+|Centre de Recerca Ecològica i Aplicacions Forestals (CREAF)
+|Yes
+
+|Hylke van der Schaaf
+|Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+|Yes
+
+|===
