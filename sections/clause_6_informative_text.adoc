@@ -1,7 +1,7 @@
 [obligation=informative]
 == Introduction
 
-The STAplus 1.0 Standard defines an extension to the OGC SensorThings API. This STAplus extension originally started with motivations and requirements from the Citizen Science community. However, the STAplus extension has wider applicability than just Citizen Science.
+The STAplus 1.0 Standard defines an extension to the OGC SensorThings API (STA). This STAplus extension originally started with motivations and requirements from the Citizen Science community. However, the STAplus extension has wider applicability than just Citizen Science.
 
 STAplus is a 100% backwards compatible extension to the STA data model of version 1.0 and 1.1 and as such can be added to existing STA deployments.
 
@@ -11,9 +11,9 @@ In addition to the data model extension, this Standard defines different concept
 ===	Concept of Ownership
 In Citizen Science, users participate in campaigns or projects, offered by different Citizen Science portals. These portals, typically operated by different organizations, have one feature in common: Contributions, uploaded by users are associated with the user and the ownership does not change. There is an explicit relationship between the observation (resource) and the user. Expressed as ownership, users can undertake certain actions on their resources.
 
-With the SensorThings API (STA), observations are linked to a data stream that is linked to a sensor which belongs to a thing. The data model does not provide a class that supports explicitly linking a user (party) to an observation. This limits the use of the STA data model (and API) to a simple use case: One operator can create data objects and all other users have read-only access. This limits the options for applications to interact with the API.
+With the SensorThings API, observations are linked to a data stream that is linked to a sensor which belongs to a thing. The data model does not provide a class that supports explicitly linking a user to an observation. This limits the use of the STA data model and API to a simple use case: One operator can create data objects and all other users have read-only access. This limits the options for applications to interact with the API.
 
-Even though the STA v1.1 data model offers the generic use of `properties`, expressing ownership (user association) buried in properties is not wise. Storing personal data in those `properties` makes compliance with the European General Data Protection Regulation (GDPR) difficult. This is because it is unclear if properties store personal data and therefore fall under GDPR. Also, this  decreases interoperability tremendously as an application developer would need to know which attribute can be used to express ownership. Lastly, querying observations based on unstructured properties is extremely complex and difficult.
+Even though the STA v1.1 data model offers the generic use of `properties`, expressing ownership buried in properties is not wise. Storing personal data in those `properties` makes compliance with the European General Data Protection Regulation (GDPR) difficult. This is because it is unclear if properties store personal data and therefore fall under GDPR. Also, this  decreases interoperability tremendously as an application developer would need to know which attribute can be used to express ownership. Lastly, querying observations based on unstructured properties is extremely complex and difficult.
 
 Therefore, the STAplus extension defines the class Party for expressing the association from a `Datastream` or `MultiDatastream` to a user. All uploaded observations, associated to a `Datastream` instance belong to the party associated to the `Datastream`. Parties can also own Things and ObservationGroups, and participate in Campaigns.
 
