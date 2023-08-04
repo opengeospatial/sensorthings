@@ -339,12 +339,12 @@ Each `ObservationGroup` entity SHALL have the mandatory properties and MAY have 
 |Zero or One (optional)
 
 |creationTime
-|This is the starting time of the `ObservationGroup` entity. Depending on the business logic, after this time it could be possible to add observations or relations to the ObservationGroup.
+|This is the time when the `ObservationGroup` was created.
 |TM Instant
 |One (mandatory)
 
 |endTime
-|This is the end time of the `ObservationGroup` entity. Depending on the business logic, after this time it may no longer possible to add observations or relations to the ObservationGroup. 
+|This is the end time of the `ObservationGroup` entity. The exact semantics depend on the business logic. 
 |TM Instant
 |Zero or One (optional)
 
@@ -595,17 +595,17 @@ Each `Campaign` entity SHALL have the mandatory properties and MAY have the opti
 |Zero or One (optional)
 
 |creationTime
-|This is the starting time of the `Campaign` entity. Depending on the business logic, after this time it could be possible to add `Datastreams`, `MultiDatstreams` or `ObservationGroups`.
+|This is the time when the `Campaign` entity was created. 
 |TM Instant
 |One (mandatory)
 
 |startTime
-|This is the starting time of the `Campaign` entity. Depending on the business logic, before this time it is not possible to add `Datastreams`, `MultiDatstreams` or `ObservationGroups`. 
+|This is the starting time of the `Campaign` entity. The exact semantics depend on the business logic. 
 |TM Instant
 |Zero or One (optional)
 
 |endTime
-|This is the ending time of the `Campaign` entity. Depending on the business logic, after this time it is no longer possible to add `Datastreams`, `MultiDatstreams` or `ObservationGroups`. 
+|This is the ending time of the `Campaign` entity. The exact semantics depend on the business logic. 
 |TM Instant
 |Zero or One (optional)
 
