@@ -575,7 +575,7 @@ Each `Campaign` entity SHALL have the mandatory properties and MAY have the opti
 |One (mandatory)
 
 |classification
-|Determines if the data stream(s), multi data stream(s) or group(s) of the `Campaign` entity contain sensitive information
+|Determines if the data stream(s), multi data stream(s) or group(s) of the `Campaign` entity contain sensitive information.
 |ValueCode
 |Zero or One (optional)
 
