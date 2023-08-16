@@ -1,0 +1,40 @@
+[[sensing-entities]]
+=== Sensing Entities
+
+==== Requirement Class: Thing
+
+[requirements_class]
+.thing
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sensing/thing
+obligation:: requirement
+subject:: Target Type: Data Model
+inherit:: {identifier}/req-class/datamodel/entity-control-information
+requirement:: {identifier}/req/datamodel/sensing/thing/properties
+requirement:: {identifier}/req/datamodel/sensing/thing/relations
+====
+
+The Thing is a cool Entity that can be anything.
+Say something about OMS-Host, OMS-Deployment, FeatureOfInterest and Locations
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/thing/properties
+
+Each Thing entity SHALL have the mandatory properties and MAY have the optional properties listed in Table XX.
+====
+
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/thing/relations
+
+Each Thing entity SHALL have the direct relation between a Thing entity and other entity types listed in Table XX.
+====
+
+

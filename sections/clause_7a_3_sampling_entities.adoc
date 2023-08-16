@@ -1,0 +1,39 @@
+[[sampling-entities]]
+=== Sampling Entities
+
+==== Requirement Class: Sampler
+
+[requirements_class]
+.sampler
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sampling/sampler
+obligation:: requirement
+subject:: Target Type: Data Model
+inherit:: {identifier}/req-class/datamodel/entity-control-information
+requirement:: {identifier}/req/datamodel/sampling/sampler/properties
+requirement:: {identifier}/req/datamodel/sampling/sampler/relations
+====
+
+The Sampler describes the machine, device, human or other entity that executed the sampling procedure to produce a sample.
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/sampler/properties
+
+Each Sampler entity SHALL have the mandatory properties and MAY have the optional properties listed in Table XX.
+====
+
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/sampler/relations
+
+Each Sampler entity SHALL have the direct relation between a Sampler entity and other entity types listed in Table XX.
+====
+
+

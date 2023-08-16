@@ -44,7 +44,13 @@ include::sections/clause_5_conventions.adoc[]
 
 include::sections/clause_6_overview.adoc[]
 
-include::sections/clause_7a_data_model.adoc[]
+include::sections/clause_7a_1_data_model.adoc[]
+
+include::sections/clause_7a_2_sensing_entities.adoc[]
+
+include::sections/clause_7a_3_sampling_entities.adoc[]
+
+include::sections/clause_7a_4_actuation_entities.adoc[]
 
 include::sections/clause_7b_read.adoc[]
 

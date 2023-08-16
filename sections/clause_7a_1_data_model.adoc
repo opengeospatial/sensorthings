@@ -44,6 +44,8 @@ A client can ignore any annotations it does not understand.
 
 EDITOR: Say something about `id`, primary keys, extensions and server-generated/user-supplied.
 
+EDITOR: Move `id` to each entity. 
+
 EDITOR: Say something about absolute / relative URLs. Relative to what! https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html#sec_RelativeURLs
 
 
@@ -63,7 +65,7 @@ EDITOR: Say something about absolute / relative URLs. Relative to what! https://
 |@id
 |The annotation `@id` is the absolute URL of an entity that uniquely resolves to this entity.
 |URL
-|One (mandatory, generated)
+|One (mandatory, generated or client-supplied)
 
 |linkName@navigationLink
 |Annotations of the form `linkName@navigationLink` are the relative or absolute URL that retrieves content of related entities.
@@ -78,44 +80,5 @@ EDITOR: Say something about absolute / relative URLs. Relative to what! https://
 
 The data model is described in a machine-readable way using the OData Common Schema Definition Language.
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html
-
-[[sensing-entities]]
-=== Sensing Entities
-
-==== Requirement Class: Thing
-
-[requirements_class]
-.thing
-
-====
-[%metadata]
-identifier:: {identifier}/req-class/datamodel/thing
-obligation:: requirement
-subject:: Target Type: Data Model
-inherit:: {identifier}/req-class/datamodel/entity-control-information
-requirement:: {identifier}/req/datamodel/thing/properties
-requirement:: {identifier}/req/datamodel/thing/relations
-====
-
-The Thing is a cool Entity that can be anything.
-Say something about OMS-Host, OMS-Deployment, FeatureOfInterest and Locations
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/datamodel/thing/properties
-
-Each Thing entity SHALL have the mandatory properties and MAY have the optional properties listed in Table XX.
-====
-
-
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/datamodel/thing/relations
-
-Each Thing entity SHALL have the direct relation between a Thing entity and other entity types listed in Table XX.
-====
 
 

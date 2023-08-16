@@ -8,3 +8,8 @@ Paragraph
 === Relation to OASIS-OData
 
 The OGC SensorThings API v2 interface is not an OData interface. It specifies a subset of the OData interface, and extends it at the same time.
+
+An SensorThings API Server implementation can implement the full OData specification.
+An OData client can access a SensorThings API service.
+
+EDIOR: Verify this is true.
