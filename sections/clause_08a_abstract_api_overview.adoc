@@ -1,14 +1,16 @@
-== MQTT Interface Bindings
+== Abstract API
 
-The MQTT Bindings specify how access the SensorThings API using the MQTT 5 protocol.
+This section describes the abstract API.
 
-=== Request / Response
+=== Basic Requests
+
+=== Request Options
+
+=== Response Formatting
 
 intro text for the requirement class.
 
 Use the following table for Requirements Classes.
-
-=== Publish / Subscribe
 
 
 ==== Requirement 1

@@ -30,41 +30,49 @@
 ////
 Make sure to complete each included document
 ////
-include::sections/clause_0_front_material.adoc[]
+include::sections/clause_00_front_material.adoc[]
 
-include::sections/clause_1_scope.adoc[]
+include::sections/clause_01_scope.adoc[]
 
-include::sections/clause_2_conformance.adoc[]
+include::sections/clause_02_conformance.adoc[]
 
-include::sections/clause_3_references.adoc[]
+include::sections/clause_03_references.adoc[]
 
-include::sections/clause_4_terms_and_definitions.adoc[]
+include::sections/clause_04_terms_and_definitions.adoc[]
 
-include::sections/clause_5_conventions.adoc[]
+include::sections/clause_05_conventions.adoc[]
 
-include::sections/clause_6_overview.adoc[]
+include::sections/clause_06_overview.adoc[]
 
-include::sections/clause_7a_1_data_model.adoc[]
+include::sections/clause_07a_meta_model.adoc[]
 
-include::sections/clause_7a_2_sensing_entities.adoc[]
+include::sections/clause_07b_sensing_entities.adoc[]
 
-include::sections/clause_7a_3_sampling_entities.adoc[]
+include::sections/clause_07c_sampling_entities.adoc[]
 
-include::sections/clause_7a_4_actuation_entities.adoc[]
+include::sections/clause_07d_actuation_entities.adoc[]
 
-include::sections/clause_7b_read.adoc[]
+include::sections/clause_08a_abstract_api_overview.adoc[]
 
-include::sections/clause_7c_create_update_delete.adoc[]
+include::sections/clause_08b_rest_api_read.adoc[]
 
-include::sections/clause_7d_batch_requests.adoc[]
+include::sections/clause_08c_rest_api_create_update_delete.adoc[]
 
-include::sections/clause_7e_data_array.adoc[]
+include::sections/clause_08d_rest_api_batch_requests.adoc[]
 
-include::sections/clause_7f_http.adoc[]
+include::sections/clause_08e_rest_api_data_array.adoc[]
 
-include::sections/clause_7g_mqtt.adoc[]
+include::sections/clause_08f_pubsub_api.adoc[]
 
-include::sections/clause_8_media_types.adoc[]
+include::sections/clause_09a_bindings_http.adoc[]
+
+include::sections/clause_09b_bindings_mqtt.adoc[]
+
+include::sections/clause_09c_bindings_amqp.adoc[]
+
+include::sections/clause_09d_bindings_ogc_api_common.adoc[]
+
+include::sections/clause_10_media_types.adoc[]
 
 ////
 add or remove annexes after "A" as necessary
