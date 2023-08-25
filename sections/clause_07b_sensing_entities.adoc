@@ -1,6 +1,23 @@
 [[sensing-entities]]
 === Sensing Entities
 
+
+All data model requirements classes are grouped in the following requirements class:
+
+
+[requirements_class]
+.Sensing Entities
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sensing
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req-class/datamodel/sensing/thing
+requirement:: {identifier}/req-class/datamodel/sensing/sensor
+====
+
+
 ==== Requirement Class: Thing
 
 [requirements_class]
@@ -11,7 +28,6 @@
 identifier:: {identifier}/req-class/datamodel/sensing/thing
 obligation:: requirement
 subject:: Target Type: Data Model
-inherit:: {identifier}/req-class/datamodel/entity-control-information
 requirement:: {identifier}/req/datamodel/sensing/thing/properties
 requirement:: {identifier}/req/datamodel/sensing/thing/relations
 ====

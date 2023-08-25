@@ -1,77 +1,66 @@
-[[data-model1]]
-== Data Model
+[[meta-data-model]]
+== Meta Data Model
 
-This chapter describes the SensorThings API data model.
+This chapter describes the SensorThings API meta model that is used to describe the SensorThings API data model and its data model extensions.
+The meta model is also used to specify the rest and pub-sub apis.
+It is based on the ODATA Meta Model 
 
-EDITOR: Explain EntityTypes, Entities, EntitySet, Relations, Properties
-
-All data model requirements classes are grouped in the following requirements class:
-
-
-[requirements_class]
-.Entity Control Information
-
-====
-[%metadata]
-identifier:: {identifier}/req-class/datamodel
-obligation:: requirement
-subject:: Target Type: Data Model
-requirement:: {identifier}/req/datamodel/entity-control-information
-requirement:: {identifier}/req-class/datamodel/thing
-====
+* https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_DataModel 
+* https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_EntityModel
 
 
-EDITOR: Say something about the meaning of optional. Is this stil relevant if we have a CSDL definition?
+The meta model consists of the following elements:
 
+* `Entity Type`: named, structured, keyed element that defines the properties and relations of Entities.
+  The key of an Entity Type consists of one or more primitive properties of the Entity Type. 
+* `Entity`: instance of an `Entity Type`. An Entity can have only one Entity Type.
+* `Primitive Type`: unnamed, unstructured type, such as String, Integer or DateTime.
+  https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_PrimitiveTypes
+* `Complex Type`: named, structured, keyless, element consisting of a set of named properties. Instances of Complex Types can not be accessed outside of the Entity they are contained in.
+  A property with a Primitive Type is called a primitive property.
+* `Relation`: named connections between Entities. Relations defined as `navigation properties` in Entity Types. Relations have a cardinality.
+* `Properties`: named elements that are part of structured types (Entity Types and Complex Types).
+  Properties can be Primitive-, Complex- or navigation properties.
+  Properties defined as part of a structured type (Entity/Complex Type) are `declared properties`.
+  A structured type can allow properties that are added dynamically, as long as these `dynamic properties` do not have the same name as a declared property.
+  Structured types that allow dynamic properties are called `Open Types`.
+* `Entity Set`: a named collection of Entities of the same `Entity Type`.
+  Each Entity is uniquely identified among other Entities in the same Entity Set, by its key.
+  Entity Sets are the entry points into the data model.
+* `Annotation`: additional information attached to model or instance elements.
+  annotations can be identified by the `@` character.
+  If the annotation starts with `@` the annotation pertains the object containing the annotation.
+  If the annotation has a property name before the (`@`) the annotation pertains the property with that name.
+  Annotations are server-generated additional information that a client can use when processing the data.
+  A client can ignore any annotations it does not understand.
+  The default annotations can be found in <<tab-common-control-annotations>>.
+  Additional annotations may be defined in the service metadata.
+* `EntityId`: a globally unique identifier for an Entity.
+  If present in Entity representations, the EntityId is specified in the `@id` annotation.
 
-[[entity-control-information]]
-=== Entity Control Information
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/datamodel/entity-control-information
-
-Each entity SHALL have the following common control information listed in Table <<tab-common-control-information>>.
-
-====
-
-Properties with names that contain an at sign (`@`) are annotations.
-If the annotation starts with the (`@`) the annotation pertains the object containing the annotation.
-If the annotation has a property name before the (`@`) the annotation pertains the property with that name.
-Annotations are server-generated additional information that a client can use when processing the data.
-A client can ignore any annotations it does not understand.
 
 EDITOR: Say something about `id`, primary keys, extensions and server-generated/user-supplied.
 
-EDITOR: Move `id` to each entity. 
-
-EDITOR: Say something about absolute / relative URLs. Relative to what! https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html#sec_RelativeURLs
+EDITOR: Say something about absolute / relative URLs. Relative to what, and how is this done in MQTT? See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html#sec_RelativeURLs
 
 
-[[tab-common-control-information]]
-.Common control information
-[cols="20a,50a,15a,15a"]
+[[tab-common-control-annotations]]
+.Common control annotations
+[cols="2a,7a,1a"]
 |===
-|Name |Definition |Data type |Multiplicity and use
+|Name |Definition |Data Type
 
-|id
-|`id` is the primary key of the EntityTypes in the SensorThings API data model.
-  It is unique among the Entities of the same entity type in a SensorThings service.
-  The data type of `id` may differ between different Entity Types in the same service but must be the same for all Entities of the same Entity Type.
-|Any
-|One (mandatory)
+|@context
+|The context url contains the metadata document that describes the context of a payload. 
+|URL
 
 |@id
-|The annotation `@id` is the absolute URL of an entity that uniquely resolves to this entity.
+|The annotation `@id` is the absolute or relative URL of an entity that uniquely resolves to this entity.
 |URL
-|One (mandatory, generated or client-supplied)
 
 |linkName@navigationLink
-|Annotations of the form `linkName@navigationLink` are the relative or absolute URL that retrieves content of related entities.
+|Annotations of the form `linkName@navigationLink` are the relative or absolute URL that retrieves content of related entities for the navigation property `linkName`.
 |URL
-|Zero-to-many +
-(mandatory, generated)
 |===
 
 
@@ -80,5 +69,7 @@ EDITOR: Say something about absolute / relative URLs. Relative to what! https://
 
 The data model is described in a machine-readable way using the OData Common Schema Definition Language.
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html
+The data model is specified in the metadata document that can be retrieved from the context url.
+
 
 
