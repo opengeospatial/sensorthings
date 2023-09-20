@@ -2,14 +2,14 @@
 :doctype: standard
 :encoding: utf-8
 :lang: en
-:status: draft
+:status: approved
 :committee: technical
 :draft: 1.0
 :external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
 :docnumber: 22-022r1
-:received-date: 2023-08-01
-:issued-date: 2029-03-30
-:published-date: 2029-03-30
+:received-date: 2023-02-14
+:issued-date: 2023-08-29
+:published-date: yyyy-mm-dd
 :fullname: Andreas Matheus
 :docsubtype: Implementation
 :keywords: OGC Standard, API, SensorThings, STAplus

@@ -3,7 +3,7 @@
 
 
 === Overview
-The `Location` and `FeatureOfInterest` entities enable storing data objects with unspecified structure. Both entities potentially store geometry information. The STAplus extension supports multi-user interactions including the creation, updating, reading and deletion of information. For example in Citizen Science, one service endpoint could accept that users can upload data using different applications. These applications might be developed by different parties and serve different purposes, and thus use different geometry structures and coordinate reference systems (CRS) to encode the coordinates of the geometries. This can result in the situation where the interoperability of uploaded geometry in the `Location` and `FeatureOfInterest` entities might become an issue. 
+The `Location` and `FeatureOfInterest` entities enable storing data objects with unspecified structure. Both entities potentially store geometry information. The STAplus extension supports multi-user interactions including the creation, updating, reading, and deletion of information. For example in Citizen Science, one service endpoint could accept that users can upload data using different applications. These applications might be developed by different parties and serve different purposes, and thus use different geometry structures and coordinate reference systems (CRS) to encode the coordinates of the geometries. This can result in the situation where the interoperability of uploaded geometry in the `Location` and `FeatureOfInterest` entities might become an issue. 
 
 For an implementation of STAplus, this situation becomes complicated when a `$filter` is leveraged that includes spatial conditions such as `ST_Within`. The filter expression does not carry any CRS information. Therefore, how does the implementation “know” how to apply a spatial filter to geometries stored in `feature` and `location` properties uploaded by different applications? Because the SensorThings data model does not define how to store CRS information inside the `feature` and `location`, it only recommends using GeoJSON. So, applying the `$filter` with spatial operators introduces two problems. First, the CRS data would need to be stored in a standardized location inside `feature` and `location` properties. Second, the implementation would need to apply coordinate transformation 'on the fly' when processing a spatial filter condition and stored geometries are encoded in different CRS. The first problem causes interoperability issues and the later inevitably causes performance issues.
 
@@ -58,7 +58,6 @@ identifier:: {identifier}/req/default-crs/media-type
 The STAplus implementation SHALL accept the media-type `application/geo+json` value for the `encodingType` property to indicate that the structuring of the `FeatureOfInterest` and `Location` entities geometry encoding is compliant with the RFC <<GeoJSON>>.
 ====
 
-
 [requirement]
 ====
 [%metadata]
@@ -66,7 +65,6 @@ identifier:: {identifier}/req/default-crs/processing
 
 The STAplus implementation SHALL enforce the `default-CRS` to any geometry data contained in the `FeatureOfInterest` and `Location` entity. The STAplus implementation SHALL reject any geometry **not** encoded in the `default-CRS` without further processing.
 ====
-
 
 [[GeometryFG]]
 === Geometry-FG Requirements Class
@@ -91,7 +89,6 @@ requirement:: {identifier}/req/geometry-fg/crs-error
 requirement:: {identifier}/req/geometry-fg/processing
 requirement:: {identifier}/req/geometry-fg/out
 ====
-
 
 [requirement]
 ====
@@ -166,7 +163,6 @@ requirement:: {identifier}/req/geometry-wkt/processing
 requirement:: {identifier}/req/geometry-wkt/out
 ====
 
-
 [requirement]
 ====
 [%metadata]
@@ -177,7 +173,6 @@ The STAplus implementation SHALL accept the media-type `application/wkt` as valu
 NOTE: Media type `application/wkt` is currently pending approval by IANA.
 
 ====
-
 
 [requirement]
 ====

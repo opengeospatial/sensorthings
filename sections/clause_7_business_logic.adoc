@@ -1,12 +1,11 @@
 [[staplus-business-logic]]
 == STAplus Business Logic Requirements
 
-
 === Overview
-The STAplus extension is defined based on requirements from the Citizen Science community. One major requirement from the Citizen Science community is that an implementation of STAplus can be used by many users simultaneously to read, create, update and delete observations. To ensure integrity of all entities and to prevent inconsistencies in the observations, it is important that an implementation is not only compliant with this Standard but also has functionality that ensures entity consistency.
+
+The STAplus extension is defined based on requirements from the Citizen Science community. One major requirement from the Citizen Science community is that an implementation of STAplus can be used by many users simultaneously to read, create, update, and delete observations. To ensure integrity of all entities and to prevent inconsistencies in the observations, it is important that an implementation is not only compliant with this Standard but also has functionality that ensures entity consistency.
 
 Even though the business logic can be very complex and most likely depend on many factors, it should be possible providing a hint to developers and guiding end users of the implementation in case a request results in an unexpected response.
-
 
 As a machine readable and understandable description of the implemented business logic is preferred, the idea of the business logic requirements class is to allow the description of the logic in English text.
 
