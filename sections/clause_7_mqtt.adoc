@@ -15,7 +15,6 @@ In the context of MQTT, all STAplus entities as defined in this Standard are equ
 [requirements_class]
 .MQTT Subscribe STA v1.0
 
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/mqtt-subscribe-sta-10

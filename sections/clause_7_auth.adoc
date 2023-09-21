@@ -3,9 +3,10 @@
 
 
 === Overview
+
 To regulate access to entities using CRUD operations, implementations may wish to use information from user / client application authentication to make access control decisions. 
 
-In addition, some implementations may wish to link the authentication identifier (e.g. `REMOTE_USER`) with the `Party/authId`. Therefore, the STAplus authentication must provide service-wide unique user identifiers.
+In addition, some implementations may wish to link the authentication identifier (e.g., `REMOTE_USER`) with the `Party/authId`. Therefore, the STAplus authentication must provide service-wide unique user identifiers.
 
 [[auth]]
 === Requirements Class *Authentication*
@@ -47,7 +48,7 @@ The STAplus implementation SHALL ensure that the `Party/authId` property is expo
 [%metadata]
 identifier:: {identifier}/req/authentication/id-create
 
-The STAplus implementation SHALL overwrite any existing value and SHALL set the `Party/authId` property with the user's identification value provided by the authentication (e.g. `REMOTE_USER`). 
+The STAplus implementation SHALL overwrite any existing value and SHALL set the `Party/authId` property with the user's identification value provided by the authentication (e.g., `REMOTE_USER`). 
 ====
 
 [requirement]

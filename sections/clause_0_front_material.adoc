@@ -1,6 +1,6 @@
 .Preface
 
-STAplus - SensorThings API extension PLUS - defines a SensorThings data model extension to improve FAIR principles when exchanging sensor data including licensing and ownership information. 
+STAplus - OGC SensorThings API Extension: STAplus 1.0 - defines a SensorThings data model extension to improve FAIR principles when exchanging sensor data including licensing and ownership information. 
 
 The STAplus extension is fully backwards compatible to the existing OGC SensorThings API Part 1: Sensing as well as Sensing Version 1.1 and thereby offers existing deployments an easy upgrade to STAplus.
 
@@ -16,7 +16,7 @@ The  OGC SensorThings API Extension: STAplus 1.0 Standard specifies a backwards-
 
 The motivation for specifying this STAplus extension is based on requirements from the Citizen Science community.
 
-The dominant use for the OGC SensorThings API data model and API can be coined with the use case “single authority provides sensor readings to consumers”. However, in Citizen Science there are many contributors (citizens) who – together – create the big picture with their observations.
+The dominant use for the OGC SensorThings API data model and API can be coined with the use case “single authority provides sensor readings to consumers.” However, in Citizen Science there are many contributors (citizens) who – together – create the big picture with their observations.
 
 The STAplus extension is designed to support a model in which observations are owned by different users. This results in requirements for the ownership concept. In addition to the ownership, users may express a license for ensuring proper re-use of their observations. The STAplus extension also supports expressing explicit relations between observations as well as between observations and external resources. Relations can enrich observations to enable future extensions supporting Linked Data, RDF and SPARQL. Observation group(s) allow the grouping of observations that belong together. 
 

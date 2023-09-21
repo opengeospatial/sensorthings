@@ -4,20 +4,21 @@ All requirements-classes and conformance-classes described in this document are 
 
 === Introduction
 
-The STAplus 1.0 standard defines an extension to the OGC Standards <<OGC15-078r6>> (SensorThings API v1.0) and <<OGC18-088>> (SensorThings API v1.1) by adding additional entity types to the data model. Access to the STAplus entities via HTTP is defined in the Read, Create, Update and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTT Requirements Class. A default default-CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometry FG and Geometry WKT Requirements Class. The Authentication Requirements Class supports the unique identification of acting users. The Business Logic Requirements Class supports the textual description of the implemented business logic. An example of such a Business Logic is described in the <<OGC21-068>>.
+The STAplus 1.0 standard defines an extension to the OGC Standards <<OGC15-078r6>> (SensorThings API v1.0) and <<OGC18-088>> (SensorThings API v1.1) by adding additional entity types to the data model. Access to the STAplus entities via HTTP is defined in the Read, Create, Update, and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTT Requirements Class. A default default-CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometry FG and Geometry WKT Requirements Class. The Authentication Requirements Class supports the unique identification of acting users. The Business Logic Requirements Class supports the textual description of the implemented business logic. An example of such a Business Logic is described in the <<OGC21-068>>.
 
 === STAplus 1.0 Conformance Classes
+
 This OGC Standard defines one mandatory and several optional conformance classes.
 
 Conformance with this Standard shall be checked using all the relevant tests specified in Annex A of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC Compliance Testing web site.
 
 In order to conform to this OGC Standard, a software implementation shall choose to implement:
 
-* The one mandatory conformance class `Core`.
-* Any one of the optional conformance classes.
+* The one mandatory conformance class `Core`;
+* Any one of the optional conformance classes; and
 * Pass all applicable tests as defined in Annex A.
 
-This is the list of STAplus Conformance Classes:
+This is the list of STAplus Conformance Classes.
 
 * *Core* (mandatory): This Conformance Class incorporates the capabilities to support the Read of STAplus entities via HTTP. It also includes the Default-CRS Requirements Class to ensure interoperability with geometry encodings in the `feature` and `location` properties.
 
@@ -43,6 +44,7 @@ NOTE: This Conformance Class remains informative until <<FG>> is an adopted OGC 
 
 [[conformance_class_core]]
 ==== Conformance Class *Core*
+
 The `Core` Conformance Class is defined as follows:
 [conformance_class]
 .Core
@@ -69,6 +71,7 @@ conformance-test:: {identifier}/conf/core/default-crs/processing
 ====
 
 ==== Conformance Class *Create*
+
 The `Create` Conformance Class is defined as follows:
 [conformance_class]
 .Create
@@ -83,6 +86,7 @@ conformance-test:: {identifier}/conf/create/http
 ====
 
 ==== Conformance Class *Update*
+
 The `Update` Conformance Class is defined as follows:
 [conformance_class]
 .Update
@@ -98,6 +102,7 @@ conformance-test:: {identifier}/conf/update/patch
 ====
 
 ==== Conformance Class *Delete*
+
 The `Delete` Conformance Class is defined as follows:
 [conformance_class]
 .Delete
@@ -112,6 +117,7 @@ conformance-test:: {identifier}/conf/delete/entity
 ====
 
 ==== Conformance Class *Authentication*
+
 The `Authentication` Conformance Class is defined as follows:
 [conformance_class]
 .Authentication
@@ -152,6 +158,7 @@ conformance-test:: {identifier}/conf/geometry-fg/out
 ====
 
 ==== Conformance Class *Geometry WKT*
+
 The `Geometry WKT` Conformance Class is defined as follows:
 [conformance_class]
 .Geometry WKT
@@ -173,6 +180,7 @@ conformance-test:: {identifier}/conf/geometry-wkt/out
 ====
 
 ==== Conformance Class *MQTT Subscribe* STA v1.0
+
 The `MQTT Subscribe` STA v1.0 Conformance Class is defined as follows:
 [conformance_class]
 .MQTT Subscribe STA v1.0
@@ -188,6 +196,7 @@ conformance-test:: {identifier}/conf/mqtt-subscribe-sta-10
 ====
 
 ==== Conformance Class *MQTT Subscribe* STA v1.1
+
 The `MQTT Subscribe` STA v1.1 Conformance Class is defined as follows:
 [conformance_class]
 .MQTT Subscribe STA v1.1
@@ -203,6 +212,7 @@ conformance-test:: {identifier}/conf/mqtt-subscribe-sta-11
 ====
 
 ==== Conformance Class *Business Logic*
+
 The `Business Logic` Conformance Class is defined as follows:
 [conformance_class]
 .Business Logic

@@ -21,7 +21,6 @@ inherit:: {identifier}/req-class/entity-control-information
 requirement:: {identifier}/req/read/entity
 ====
 
-
 [requirement]
 ====
 [%metadata]
@@ -33,7 +32,6 @@ If the target URL for the collection is a navigationLink, the entity is automati
 
 Upon successful completion, the response SHALL contain the representation of the entity or entities.
 ====
-
 
 [[create-entity]]
 === Requirements Class *Create*
@@ -145,7 +143,6 @@ identifier:: {identifier}/req/update/entity-jsonpatch
 
 A STAplus implementation that supports updates with the JSON PATCH format SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-jsonpatch
 ====
-
 
 [[staplus-delete]]
 === Requirements Class *Delete*
