@@ -1,22 +1,37 @@
 [[sensing-entities]]
-=== Sensing Entities
-
+=== The SensorThings API (2.0) Sensing Entities  
 
 All data model requirements classes are grouped in the following requirements class:
+
+
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sensing
+obligation:: requirement
+
+subject:: Target Type: Data Model
+requirement:: {identifier}/req-class/datamodel/sensing/thing
+requirement:: {identifier}/req-class/datamodel/sensing/location
+requirement:: {identifier}/req-class/datamodel/sensing/historical-location
+requirement:: {identifier}/req-class/datamodel/sensing/datastream
+requirement:: {identifier}/req-class/datamodel/sensing/sensor
+requirement:: {identifier}/req-class/datamodel/sensing/observed-property
+requirement:: {identifier}/req-class/datamodel/sensing/observation
+requirement:: {identifier}/req-class/datamodel/sensing/feature
+
+====
+
+The OGC SensorThings API (2.0) standard depicts the CORE Sensing entities in Figure 1
+
+![alt text](https://github.com/opengeospatial/sensorthings/blob/23-019_HK/images/GRP0001.png "STA Core").  
+*Figure 1*
+
+In this section, we define each entity depicted in Figure 1 and its relationships with other entities. Additionally, we also provide examples to model the entities in different contexts.  
 
 
 [requirements_class]
 .Sensing Entities
 
 ====
-[%metadata]
-identifier:: {identifier}/req-class/datamodel/sensing
-obligation:: requirement
-subject:: Target Type: Data Model
-requirement:: {identifier}/req-class/datamodel/sensing/thing
-requirement:: {identifier}/req-class/datamodel/sensing/sensor
-====
-
 
 ==== Requirement Class: Thing
 
@@ -32,9 +47,7 @@ requirement:: {identifier}/req/datamodel/sensing/thing/properties
 requirement:: {identifier}/req/datamodel/sensing/thing/relations
 ====
 
-The Thing is a cool Entity that can be anything.
-Say something about OMS-Host, OMS-Deployment, FeatureOfInterest and Locations
-
+The OGC SensorThings API follows the ITU-T definition, i.e., with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060].
 [requirement]
 ====
 [%metadata]
