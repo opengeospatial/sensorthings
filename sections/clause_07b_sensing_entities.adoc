@@ -24,7 +24,7 @@ requirement:: {identifier}/req-class/datamodel/sensing/feature
 
 The OGC SensorThings API (2.0) standard depicts the Core Sensing entities in Figure 1  
 [#img-sta-core,link=../images/GRP0001.png]
-image::../images/GRP0001.png[Sensing Core]  
+image::/images/GRP0001.png[Sensing Core]  
 [.text-center]  
 .Figure 1. Sensing Core
 
@@ -73,10 +73,10 @@ Each Thing entity SHALL have the mandatory properties and MAY have the optional 
 .Properties of a Thing entity
 [width="100%",cols="5,17,3,3,3",options="header"]
 |====
-| *Name*               | *Definition* | *Data Type* | *Usage* | Multiplicity
-| `name`               | A property provides a label for Thing entity, commonly a descriptive name. | String | Required | One
-| `description`        | This is a short description of the corresponding Thing entity. | String | Required | One
-| `properties`         | A JSON Object containing user-annotated properties as key-value pairs. | JSON Object | Optional | Zero to One
+| *Name*               | *Definition*                                                               | *Data Type*      | *Usage* | Multiplicity
+| `name`               | A property provides a label for Thing entity, commonly a descriptive name. | String           | Required | One
+| `description`        | This is a short description of the corresponding Thing entity.             | String           | Required | One
+| `properties`         | A JSON Object containing user-annotated properties as key-value pairs.     | JSON Object      | Optional | Zero to One
 |====
 
 
@@ -91,8 +91,8 @@ Each Thing entity SHALL have the direct relation between a Thing entity and othe
 .Direct relation between a Thing entity and other entity types
 [width="100%",cols="5,5,10,10",options="header"]
 |====
-| *Entity Name*              | *Role* | *Multiplicity* | *Description*
-| `Location`         | Locations | Many optional to many optional | The Location entity locates the Thing. Multiple Things MAY be located at the same Location. A Thing MAY not have a Location. A Thing SHOULD have only one Location.
+| *Entity Name*| *Role* | *Multiplicity* | *Description*
+| `Location`| Locations | Many optional to many optional | The Location entity locates the Thing. Multiple Things MAY be located at the same Location. A Thing MAY not have a Location. A Thing SHOULD have only one Location.
 However, in some complex use cases, a Thing MAY have more than one Location representations. In such case, the Thing MAY have more than one Locations. These Locations SHALL have different encodingTypes and the encodingTypes SHOULD be in different spaces (e.g., one encodingType in Geometrical space and one encodingType in Topological space).
 | `HistoricalLocation`        | HistoricalLocations | One mandatory to many optional | A Thing has zero-to-many HistoricalLocations. A HistoricalLocation has one-and-only-one Thing.
 | `Datastream`  | Datastreams | One mandatory to many optional | A Thing MAY have zero-to-many Datastreams.
