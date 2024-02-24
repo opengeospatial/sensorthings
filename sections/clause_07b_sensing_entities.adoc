@@ -23,7 +23,7 @@ requirement:: {identifier}/req-class/datamodel/sensing/feature
 
 
 The OGC SensorThings API (2.0) standard depicts the Core Sensing entities in Figure 1  
-[#img-sta-core,link=../images/GRP0001.png]
+[#img-sta-core,link=/images/GRP0001.png]
 image::/images/GRP0001.png[Sensing Core]  
 [.text-center]  
 .Figure 1. Sensing Core
@@ -73,7 +73,7 @@ Each Thing entity SHALL have the mandatory properties and MAY have the optional 
 .Properties of a Thing entity
 [width="100%",cols="5,17,3,3,3",options="header"]
 |====
-| *Name*               | *Definition*                                                               | *Data Type*      | *Usage* | Multiplicity
+| *Name*               | *Definition*                                                               | *Data Type*      | *Usage*  | Multiplicity
 | `name`               | A property provides a label for Thing entity, commonly a descriptive name. | String           | Required | One
 | `description`        | This is a short description of the corresponding Thing entity.             | String           | Required | One
 | `properties`         | A JSON Object containing user-annotated properties as key-value pairs.     | JSON Object      | Optional | Zero to One
@@ -91,9 +91,73 @@ Each Thing entity SHALL have the direct relation between a Thing entity and othe
 .Direct relation between a Thing entity and other entity types
 [width="100%",cols="5,5,10,10",options="header"]
 |====
-| *Entity Name*| *Role* | *Multiplicity* | *Description*
-| `Location`| Locations | Many optional to many optional | The Location entity locates the Thing. Multiple Things MAY be located at the same Location. A Thing MAY not have a Location. A Thing SHOULD have only one Location.
-However, in some complex use cases, a Thing MAY have more than one Location representations. In such case, the Thing MAY have more than one Locations. These Locations SHALL have different encodingTypes and the encodingTypes SHOULD be in different spaces (e.g., one encodingType in Geometrical space and one encodingType in Topological space).
-| `HistoricalLocation`        | HistoricalLocations | One mandatory to many optional | A Thing has zero-to-many HistoricalLocations. A HistoricalLocation has one-and-only-one Thing.
-| `Datastream`  | Datastreams | One mandatory to many optional | A Thing MAY have zero-to-many Datastreams.
+| *Entity Name*               | *Role*               | *Multiplicity*                   | *Description*
+| `Location`                  | Locations            | Many optional to many optional   | The Location entity locates the Thing. Multiple Things MAY be located at the same Location. A Thing MAY not have a Location. A Thing SHOULD have only one Location.
+
+                                                                                          However, in some complex use cases, a Thing MAY have more than one Location representations. In such case, the Thing MAY have more than one Locations. These Locations SHALL have different encodingTypes and the encodingTypes SHOULD be in different spaces (e.g., one encodingType in Geometrical space and one encodingType in Topological space).
+| `HistoricalLocation`        | HistoricalLocations  | One mandatory to many optional   | A Thing has zero-to-many HistoricalLocations. A HistoricalLocation has one-and-only-one Thing.
+| `Datastream`                | Datastreams          | One mandatory to many optional   | A Thing MAY have zero-to-many Datastreams.
 |====
+
+
+
+
+
+
+==== Requirement Class: Location
+
+[requirements_class]
+.Location
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sensing/location
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/sensing/location/properties
+requirement:: {identifier}/req/datamodel/sensing/location/relations
+====
+
+The Location entity locates the Thing or the Things it associated with. A Thing’s Location entity is defined as the last known location of the Thing.
+
+A Thing’s Location is no longer identical to the Thing’s Observations’ Feature (earlier FeatureofInterest). The Feature can be either a proximate feature of interest or the ultimate feature of interest depedning upon the context of the Observation. 
+For in-situ sensing applications, the Location should describe the coordinates of where the Thing is located and the Feature over which the Observation is made should be the physical envelope around the Sensor which is an approximation of the larger observedArea.
+Whereas for ex-situ sensing applications, the Location is the physical location of where the Thing is located and the Feature should be the actual feature observed.
+
+Section 7.1.4 of [OGC 20-082r4 and ISO 19156:2023] provides a detailed explanation of observation location.
+
+[example%unnumbered]
+====
+*Location Examples*
+
+- A weather forecasting facility's Location should be the physical location where the facility is situated, but the Feature that is observed by the Observation is the air envelope around the Sensor
+- A drone that mounts a LiDAR Sensor may have its Location as the geo-referenced area over which the drone is scheduled to fly, whereas the Feature should be the individual objects mapped by the Sensor.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/thing/properties
+
+Each Location entity SHALL have the mandatory properties and MAY have the optional properties listed in Table 3.
+====
+[#location-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a Location entity
+[width="100%",cols="5,17,3,3,3",options="header"]
+|====
+| *Name*               | *Definition*                                                                    | *Data Type*      | *Usage*  | Multiplicity
+| `name`               | A property provides a label for Location entity, commonly a descriptive name.   | String           | Required | One
+| `encodingType`       | The encoding type of the Location property.                                     | String           | Required | One
+| `location`           | The identifiable location of the Thing                                          | Geometry         | Required | One
+| `description`        | The description about the Location                                              | String           | Optional | One
+| `properties`         | A JSON Object containing user-annotated properties as key-value pairs.          | JSON Object      | Optional | Zero to One
+|====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/location/relations
+Each Location entity SHALL have the direct relation between a Location entity and other entity types listed in Table 4.
+====
