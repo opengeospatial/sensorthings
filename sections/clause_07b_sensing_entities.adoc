@@ -23,8 +23,8 @@ requirement:: {identifier}/req-class/datamodel/sensing/feature
 
 
 The OGC SensorThings API (2.0) standard depicts the Core Sensing entities in Figure 1  
-[#img-sta-core,link=/images/GRP0001.png]
-image::/images/GRP0001.png[Sensing Core]  
+[#img-sta-core,link=images/GRP0001.png]
+image::images/GRP0001.png[Sensing Core]  
 [.text-center]  
 .Figure 1. Sensing Core
 
@@ -45,7 +45,7 @@ requirement:: {identifier}/req/datamodel/sensing/thing/properties
 requirement:: {identifier}/req/datamodel/sensing/thing/relations
 ====
 
-The SensorThings API follows the ITU-T definition, i.e., with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060].
+The SensorThings API follows the ITU-T definition, i.e., with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060]. A Thing is related to the Platform entity as described in Section 4.9.2.1 of [OGC 16-079] in a way that any entity that can be modelled as a Thing MAY be subsequently translated to a Platform and vice versa.
 
 [example%unnumbered]
 ====
@@ -56,24 +56,18 @@ The SensorThings API follows the ITU-T definition, i.e., with regard to the Inte
 - An upstream oil well that is equipped with compound gas detection devices
 ====
 
-[additional-notes]
-====
-*NOTE*: The Thing entity draws from the Host interface from the Conceptual Observation Schema in OMS
-
-====
-
 [requirement]
 ====
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/thing/properties
 
-Each Thing entity SHALL have the mandatory properties and MAY have the optional properties listed in Table 1.
+Each Thing entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
 ====
 [#thing-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Thing entity
 [width="100%",cols="5,17,3,3,3",options="header"]
 |====
-| *Name*               | *Definition*                                                               | *Data Type*      | *Usage*  | Multiplicity
+| *Name*               | *Definition*                                                               | *Data Type*      | *Usage*  | *Multiplicity*
 | `name`               | A property provides a label for Thing entity, commonly a descriptive name. | String           | Required | One
 | `description`        | This is a short description of the corresponding Thing entity.             | String           | Required | One
 | `properties`         | A JSON Object containing user-annotated properties as key-value pairs.     | JSON Object      | Optional | Zero to One
@@ -84,7 +78,7 @@ Each Thing entity SHALL have the mandatory properties and MAY have the optional 
 ====
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/thing/relations
-Each Thing entity SHALL have the direct relation between a Thing entity and other entity types listed in Table 2.
+Each Thing entity SHALL have the direct relation between a Thing entity and other entity types listed in Table {counter:table-num}.
 ====
 
 [#thing-relations,reftext='{table-caption} {counter:table-num}']
@@ -118,11 +112,11 @@ requirement:: {identifier}/req/datamodel/sensing/location/properties
 requirement:: {identifier}/req/datamodel/sensing/location/relations
 ====
 
-The Location entity locates the Thing or the Things it associated with. A Thing’s Location entity is defined as the last known location of the Thing.
+The Location entity geo-locates the Thing or the Things it associated with. A Thing’s Location entity is defined as the last known location of the Thing.
 
 A Thing’s Location is no longer identical to the Thing’s Observations’ Feature (earlier FeatureofInterest). The Feature can be either a proximate feature of interest or the ultimate feature of interest depedning upon the context of the Observation. 
-For in-situ sensing applications, the Location should describe the coordinates of where the Thing is located and the Feature over which the Observation is made should be the physical envelope around the Sensor which is an approximation of the larger observedArea.
-Whereas for ex-situ sensing applications, the Location is the physical location of where the Thing is located and the Feature should be the actual feature observed.
+For __in-situ__ sensing applications, the Location should describe the coordinates of where the Thing is located whereas the Feature over which the Observation is made should be the physical envelope around the Sensor which is an approximation of the larger observedArea.
+For __ex-situ__ sensing applications, the Location should describe the coordinates of where the Thing is located whereas the Feature should be the actual feature observed.
 
 Section 7.1.4 of [OGC 20-082r4 and ISO 19156:2023] provides a detailed explanation of observation location.
 
@@ -130,23 +124,23 @@ Section 7.1.4 of [OGC 20-082r4 and ISO 19156:2023] provides a detailed explanati
 ====
 *Location Examples*
 
-- A weather forecasting facility's Location should be the physical location where the facility is situated, but the Feature that is observed by the Observation is the air envelope around the Sensor
-- A drone that mounts a LiDAR Sensor may have its Location as the geo-referenced area over which the drone is scheduled to fly, whereas the Feature should be the individual objects mapped by the Sensor.
+- A weather forecasting facility's Location should be the physical location where the facility is situated, but the (proximate) Feature that is observed by the Observation is the air envelope around the Sensor
+- A drone that mounts a LiDAR Sensor may have its Location as the geo-referenced area over which the drone is scheduled to fly, whereas the Feature should be the individual objects mapped by the Sensor within that geo-referenced area
 ====
 
 
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/thing/properties
+identifier:: {identifier}/req/datamodel/sensing/location/properties
 
-Each Location entity SHALL have the mandatory properties and MAY have the optional properties listed in Table 3.
+Each Location entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
 ====
 [#location-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Location entity
 [width="100%",cols="5,17,3,3,3",options="header"]
 |====
-| *Name*               | *Definition*                                                                    | *Data Type*      | *Usage*  | Multiplicity
+| *Name*               | *Definition*                                                                    | *Data Type*      | *Usage*  | *Multiplicity*
 | `name`               | A property provides a label for Location entity, commonly a descriptive name.   | String           | Required | One
 | `encodingType`       | The encoding type of the Location property.                                     | String           | Required | One
 | `location`           | The identifiable location of the Thing                                          | Geometry         | Required | One
@@ -159,5 +153,305 @@ Each Location entity SHALL have the mandatory properties and MAY have the option
 ====
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/location/relations
-Each Location entity SHALL have the direct relation between a Location entity and other entity types listed in Table 4.
+Each Location entity SHALL have the direct relation between a Location entity and other entity types listed in Table {counter:table-num}.
 ====
+
+[#location-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a Location entity and other entity types
+[width="100%",cols="5,5,10,10",options="header"]
+|====
+| *Entity Name*               | *Role*               | *Multiplicity*                   | *Description*
+| `Thing`                     | Things               | Many optional to many optional   | Multiple Things MAY locate at the same Location. A Thing MAY not have a Location.
+| `HistoricalLocation`        | HistoricalLocations  | Many optional to many optional   | A Location can have zero-to-many HistoricalLocations. One HistoricalLocation SHALL have one or many Locations.
+|====
+
+
+
+
+
+==== Requirement Class: HistoricalLocation
+
+[requirements_class]
+.HistoricalLocation
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sensing/historical-location
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/sensing/historical-location/properties
+requirement:: {identifier}/req/datamodel/sensing/historical-location/relations
+requirement:: {identifier}/req/datamodel/sensing/historical-location/create-update-delete/historical-location-auto-creation
+requirement:: {identifier}/req/datamodel/sensing/historical-location/create-update-delete/historical-location-manual-creation
+====
+
+A Thing’s HistoricalLocation entity set provides the times of the current (i.e., last known) and previous locations of the Thing. It can be used to model the path observed by a moving Thing.
+
+[example%unnumbered]
+====
+*HistoricalLocation Examples*
+
+- A drone that measures methane leaks over a large basin may want to record the trajectory through which it flies. HistoricalLocation should then record the individual Locations of the drone over time 
+
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/historical-location/properties
+
+Each HistoricalLocation entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/historical-location/relations
+
+Each HistoricalLocation entity SHALL have the direct relation between a HistoricalLocation entity and other entity types listed in Table {counter:table-num}.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/historical-location/create-update-delete/historical-location-auto-creation
+
+When a Thing has a new Location, a new HistoricalLocation SHALL be created and added to the Thing automatically by the service. The current Location of the Thing SHALL only be added to this autogenerated HistoricalLocation automatically by the service, and SHALL not be created as HistoricalLocation directly by user.
+====
+
+The HistoricalLocation can also be created, updated and deleted. One use case is to migrate historical observation data from an existing observation data management system to a SensorThings API system. Another use case is to track the Location of a Thing, when a permanent network connection is not available. If the Location of a Thing is changed at a later time, when a network connection is available again, then the auto-generated Time of the HistoricalLocation entity would not reflect the time when the Thing was actually at the set Location, but only the time at which the change was sent to the server. To resolve this, the Location of a Thing can also be changed by adding a HistoricalLocation. If the time of a manually created HistoricalLocation is later than the time of all existing HistoricalLocations, then the Location of the Thing is updated to the Location of this manually created HistoricalLocation.
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/historical-location/create-update-delete/historical-location-manual-creation
+
+When a user directly adds new HistoricalLocation, and the time of this new HistoricalLocation is later than the latest HistoricalLocation for the Thing, then the Locations of the Thing are changed to the Locations of this new HistoricalLocation.
+====
+
+[#historical-location-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a HistoricalLocation entity
+[width="100%",cols="5,17,3,3,3",options="header"]
+|====
+| *Name*               | *Definition*                                                                    | *Data Type*                                 | *Usage*  | *Multiplicity*
+| `time`               | The time when the Thing is known at the Location.                               | TM_Instant (ISO-8601 Time String)           | Required | One
+|====
+
+
+[#historical-location-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a HistoricalLocation entity and other entity types
+[width="100%",cols="5,5,10,10",options="header"]
+|====
+| *Entity Name*               | *Role*               | *Multiplicity*                   | *Description*
+| `Location`                  | Locations            | Many optional to many mandatory  | A Location can have zero-to-many HistoricalLocations. One HistoricalLocation SHALL have one or many Locations.
+| `Thing`                     | Thing                | Many optional to one mandatory   | A HistoricalLocation has one-and-only-one Thing. One Thing MAY have zero-to-many HistoricalLocations.
+|====
+
+
+
+
+
+==== Requirement Class: Datastream
+
+[requirements_class]
+.Datastream
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sensing/datastream
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/sensing/historical-location/properties
+requirement:: {identifier}/req/datamodel/sensing/historical-location/relations
+====
+
+A Datastream groups a collection of Observations into a time series measuring the same ObservedProperty by the same Sensor for the same Feature.
+
+[example%unnumbered]
+====
+*Datastream Examples*
+
+- An air quality monitoring station may have multiple Datastreams each recording a specific pollutant measured by the sensors
+- A sensor that measures multiple ObservedProperties can generate a single Datastream of composite observationTypes 
+
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/historical-location/properties
+
+Each Datastream entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/historical-location/relations
+
+Each Datastream entity SHALL have the direct relation between a HistoricalLocation entity and other entity types listed in Table {counter:table-num}.
+====
+
+
+[#datastream-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a Datastream entity
+[width="100%",cols="5,17,3,3,3",options="header"]
+|====
+| *Name*               | *Definition*                                                                    | *Data Type*                                  | *Usage*  | *Multiplicity*
+| `name`               | A property provides a label for Datastream entity, commonly a descriptive name  | TM_Instant (ISO-8601 Time String)            | Required | One
+| `description`        | The description of the Datastream entity.                                       | String                                       | Optional | Zero-to-one
+| `observationType`    | The type of Observation (with unit of measurement AND unique result type), which is used by the service to encode observations | ValueCode
+(see <<datastream-value-codes>>)                                                                                                                          | Required | One
+| `observedArea`       | The spatial bounding box of the spatial extent of the Feature that belong to the Observations associated with this Datastream  | Geometry | Optional | Zero-to-one
+| `phenomenonTime`     | The temporal interval of the phenomenon times of all observations belonging to this Datastream                                 | TM_Period | Optional | Zero-to-one
+| `resultTime`         | The temporal interval of the result times of all observations belonging to this Datastream                                     | TM_Period | Optional | Zero-to-one
+| `properties`         | A JSON Object containing user-annotated properties as key-value pairs                                                          | JSON Object | Optional | Zero-to-one
+|====
+
+
+[#datastream-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a Datastream entity and other entity types
+[width="100%",cols="5,5,10,10",options="header"]
+|====
+| *Entity Name*               | *Role*                                 | *Multiplicity*                   | *Description*
+| `Thing`                     | Thing                                  | Many optional to one mandatory   | A Thing has zero-to-many Datastreams. A Datastream entity SHALL only link to a Thing as a collection of Observations
+| `Sensor`                    | Sensor                                 | Many optional to one mandatory   | The Observations in a Datastream are performed by one-and-only-one Sensor. One Sensor MAY produce zero-to-many Observations in different Datastreams
+| `ObservedProperty`          | ObservedProperty                       | Many optional to one mandatory   | The Observations of a Datastream SHALL observe the same ObservedProperty. The Observations of different Datastreams MAY observe the same ObservedProperty
+| `Observation`               | Observations                           | One mandatory to many optional   | A Datastream has zero-to-many Observations. One Observation SHALL occur in one-and-only-one Datastream
+| `Feature`                   | UltimateFeatureOfInterest              | Many optional to zero-to-one     | The Observations in a Datastream SHALL be observed for the same Feature. 
+
+The Feature has the role UltimateFeatureOfInterest so that all the Observations in a Datastream belong only to the same linked Feature 
+|====
+
+
+The observationType defines the result types for specialized both single and multi observations based on the JSON encoding of the SWE Common Data Model [OGC 08-094r1 and OGC 17-011r2]. This also obsoletes MultiDatastreams as the same information can be described using the SWE Common definition types.
+
+.Example {counter:examples}: A Datastream observationType example measuring multiple observedProperties
+[source,json]
+----
+{
+  "type": "DataArray",
+  "label": "Measurement Table",
+  "elementType": {
+    "name": "measurement",
+    "type": "DataRecord",
+    "fields": [
+      {
+        "name": "time",
+        "type": "Time",
+        "definition": "http://www.opengis.net/def/property/OGC/0/SamplingTime",
+        "referenceFrame": "http://www.opengis.net/def/trs/BIPM/0/UTC",
+        "label": "Sampling Time",
+        "uom": { "href": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" }
+      },
+      {
+        "name": "temp",
+        "type": "Quantity",
+        "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
+        "label": "Air Temperature",
+        "uom": { "code": "Cel" }
+      },
+      {
+        "name": "press",
+        "type": "Quantity",
+        "definition": "http://mmisw.org/ont/cf/parameter/air_pressure_at_mean_sea_level",
+        "label": "Air Pressure",
+        "uom": { "code": "mbar" }
+      }
+    ]
+  }
+}
+----
+
+
+[additional-notes]
+====
+*NOTE*: unitOfMeasurement SHALL be embedded within the observedType property and does not exist as an independent property within the Datastream entity
+
+====
+
+[#datastream-value-codes,reftext='{table-caption} {counter:table-num}']
+.List of some code values for identifying observationTypes based on the UML classes in SWE Common Data Model  (OGC 08-094r1 and OGC 17-011r2)
+[width="100%",cols="15,5",options="header"]
+|====
+| *SWE Common*                | *Value Code*              
+| `SWE:DataRecordType`        | DataRecord                                  
+| `SWE:DataArrayType`         | DataArray                                 
+| `SWE:VectorType`            | Vector                       
+| `SWE:CategoryRangeType`     | CategoryRange
+|====
+
+
+
+==== Requirement Class: Sensor
+
+[requirements_class]
+.Sensor
+
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sensing/sensor
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/sensing/sensor/properties
+requirement:: {identifier}/req/datamodel/sensing/sensor/relations
+====
+
+A Sensor is an instrument that observes a property or phenomenon with the goal of producing an estimate of the value of the property
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/sensor/properties
+
+Each Sensor entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/sensor/relations
+
+Each Sensor entity SHALL have the direct relation between a Sensor entity and other entity types listed in Table {counter:table-num}.
+====
+
+
+[#sensor-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a Sensor entity
+[width="100%",cols="5,17,3,3,3",options="header"]
+|====
+| *Name*               | *Definition*                                                                    | *Data Type*                                  | *Usage*  | *Multiplicity*
+| `name`               | A property provides a label for Sensor entity, commonly a descriptive name.     | String                                       | Required | One
+| `description`        | The description of the Sensor entity.                                           | String                                       | Optional | Zero-to-one
+| `encodingType`       | The encoding type of the metadata property. Its value is one of the ValueCode enumeration (see <<sensor-encodingType-value-codes>> for the available ValueCode)                                                                                               | ValueCode                                    | Required | One
+| `metadata`           | The detailed description of the Sensor or system. The metadata type is defined by encodingType  | String                       | Optional | Zero-to-one
+| `properties`         | A JSON Object containing user-annotated properties as key-value pairs           | JSON Object                                  | Optional | Zero-to-one
+|====
+
+
+[#sensor-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a Sensor entity and other entity types
+[width="100%",cols="5,5,10,10",options="header"]
+|====
+| *Entity Name*               | *Role*                                 | *Multiplicity*                   | *Description*
+| `Datastream`                | Datastreams                            | One mandatory to many optional   | The Observations of a Datastream are measured with the same Sensor. One Sensor MAY produce zero-to-many Observations in different Datastreams
+|====
+
+
+The Sensor encodingType allows clients to know how to interpret metadata’s value. Currently SensorThings API defines two common Sensor metadata encodingTypes. Most sensor manufacturers provide their sensor datasheets in a PDF format. As a result, PDF is a Sensor encodingType supported by SensorThings API. The second Sensor encodingType is SensorML.
+
+[#sensor-encodingType-value-codes,reftext='{table-caption} {counter:table-num}']
+.List of some code values used for identifying types for the encodingType of the Sensor entity
+[width="100%",cols="15,5",options="header"]
+|====
+| *Sensor encodingType*                | *ValueCode Value*              
+| `PDF`                                | application/pdf                                  
+| `SensorML`                           | http://www.opengis.net/doc/IS/SensorML/2.0
+|====
