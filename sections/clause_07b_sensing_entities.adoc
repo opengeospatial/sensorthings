@@ -25,8 +25,8 @@ requirement:: {identifier}/req-class/datamodel/sensing/feature
 
 
 The OGC SensorThings API v2.0 depicts the Core Sensing entities in Figure {counter:figure-num}
-[#img-sta-core,link=../images/GRP0001.png]
-image::../images/GRP0001.png[Sensing Core]  
+[#img-sta-core,link=../images/GRP0002.png]
+image::../images/GRP0002.png[Sensing Core]  
 [.text-center]  
 .Figure 1. Sensing Core
 
