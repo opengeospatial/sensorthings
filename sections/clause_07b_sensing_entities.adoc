@@ -1,11 +1,10 @@
+:sectnums: |,all|
+:sectanchors:
 [[sensing-entities]]
-=== Sensing Entities
-
+== The SensorThings API Sensing Entities
 All data model requirements classes are grouped in the following requirements class:
 
 [requirements_class]
-.Sensing Entities
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing
@@ -23,21 +22,20 @@ requirement:: {identifier}/req-class/datamodel/sensing/observation
 requirement:: {identifier}/req-class/datamodel/sensing/feature  
 ====
 
+[[sensing-entities2]]
+=== Sensing Entities
 
 The OGC SensorThings API v2.0 depicts the Core Sensing entities in Figure {counter:figure-num}
-[#img-sta-core,link=../images/GRP0002.png]
-image::../images/GRP0002.png[Sensing Core]  
-[.text-center]  
-.Figure 1. Sensing Core
+[#img-sta-core,link=images/GRP0002.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Core']
+image::images/GRP0002.png[Sensing Core, align="center"]  
 
 
-In this section, we define each entity depicted in Figure 1 and its relationships with other entities. Additionally, we also provide examples to model the entities in different contexts.  
+In this section, we define each entity depicted in <<img-sta-core>> and its relationships with other entities. Additionally, we also provide examples to model the entities in different contexts.  
 
-==== Requirement Class: Thing
+[[thing]]
+==== Thing
 
 [requirements_class]
-.Thing
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/thing
@@ -99,12 +97,10 @@ Each Thing entity SHALL have the direct relation between a Thing entity and othe
 
 
 
-
-==== Requirement Class: Location
+[[location]]
+==== Location
 
 [requirements_class]
-.Location
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/location
@@ -170,12 +166,10 @@ Each Location entity SHALL have the direct relation between a Location entity an
 
 
 
-
-==== Requirement Class: HistoricalLocation
+[[historicallocation]]
+==== HistoricalLocation
 
 [requirements_class]
-.HistoricalLocation
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/historical-location
@@ -254,12 +248,10 @@ When a user directly adds new HistoricalLocation, and the time of this new Histo
 
 
 
-
-==== Requirement Class: Datastream
+[[datastream]]
+==== Datastream
 
 [requirements_class]
-.Datastream
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/datastream
@@ -391,13 +383,10 @@ The observationType defines the result types for specialized single and multi ob
 
 
 
-
-==== Requirement Class: Sensor
+[[sensor]]
+==== Sensor
 
 [requirements_class]
-.Sensor
-
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/sensor
@@ -462,13 +451,10 @@ Each Sensor entity SHALL have the direct relation between a Sensor entity and ot
 
 The Sensor encodingType allows clients to know how to interpret metadata’s value. Currently SensorThings API defines two common Sensor metadata encodingTypes. Most sensor manufacturers provide their sensor datasheets in a PDF format. As a result, PDF is a Sensor encodingType supported by SensorThings API. The second Sensor encodingType is SensorML. Lastly, some sensor datasheets are HTML documents rather than PDFs. Other encodingTypes are permitted (e.g., text/plain). Note that the metadata property may contain either a URL to metadata content (e.g., an https://, ftp://, etc. link to a PDF, SensorML, or HTML document) or the metadata content itself (in the case of text/plain or other encodingTypes that can be represented as valid JSON). It is up to clients to perform string parsing necessary to properly handle metadata content.
 
-
-==== Requirement Class: ObservedProperty
+[[observedproperty]]
+==== ObservedProperty
 
 [requirements_class]
-.ObservedProperty
-
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/observed-property
@@ -520,13 +506,10 @@ Each ObservedProperty entity SHALL have the direct relation between an ObservedP
 
 
 
-
-==== Requirement Class: Observation
+[[observation]]
+==== Observation
 
 [requirements_class]
-.Observation
-
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/observation
@@ -549,7 +532,7 @@ Each Observation entity SHALL have the mandatory properties and MAY have the opt
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/observed-property/relations
+identifier:: {identifier}/req/datamodel/sensing/observation/relations
 
 Each Observation entity SHALL have the direct relation between an Observation entity and other entity types listed in Table {counter:table-num}.
 ====
@@ -582,13 +565,10 @@ Note: Many resource-constrained sensing devices do not have a clock. As a result
 |====
 
 
-
-==== Requirement Class: Feature
+[[feature]]
+==== Feature
 
 [requirements_class]
-.Feature
-
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/feature
@@ -622,7 +602,7 @@ Each Feature entity SHALL have the mandatory properties and MAY have the optiona
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/observed-property/relations
+identifier:: {identifier}/req/datamodel/sensing/feature/relations
 
 Each Feature entity SHALL have the direct relation between a Feature entity and other entity types listed in Table {counter:table-num}.
 ====

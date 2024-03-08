@@ -1,11 +1,11 @@
+:sectnums: |,all|
+:sectanchors:
 [[sensing-OM-extension]]
 === Sensing Extension (Observations & Measurements)
 
 All Sensing Extension (Observations & Measurements) requirements classes are grouped in the following requirements class:
 
 [requirements_class]
-.Sensing Extension (Observations & Measurements) Entities
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing-extension-om
@@ -15,19 +15,17 @@ requirement:: {identifier}/req-class/datamodel/sensing/deployment
 requirement:: {identifier}/req-class/datamodel/sensing/observing-procedure
 ====
 
+[[sensing-entities-om-extn]]
+==== Sensing Extension (Observations & Measurements) Entities
+
 The Sensing Extension (Observations & Measurements) is described by the entities in Figure {counter:figure-num}
-[#img-sta-core,link=../images/GRP0001.png]
-image::../images/GRP0001.png[Sensing Core]  
-[.text-center]  
-.Figure . Sensing Extension (Observations & Measurements)
+[#img-sta-extn,link=images/GRP0001.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Extension (Observations & Measurements)']
+image::images/GRP0001.png["Sensing Extension (Observations & Measurements)", align="center"]
 
-
-==== Requirement Class: Deployment
+[[deployment]]
+===== Deployment
 
 [requirements_class]
-.Deployment
-
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/deployment
@@ -90,13 +88,10 @@ Each Deployment entity SHALL have the direct relation between a Deployment entit
 ====
 
 
-
-==== Requirement Class: ObservingProcedure
+[[observingprocedure]]
+===== ObservingProcedure
 
 [requirements_class]
-.ObservingProcedure
-
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/observing-procedure
