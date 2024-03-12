@@ -2,5 +2,5 @@
 metanorma:
   source:
     files:
-      - document.adoc
+      - 23-019.adoc
 
