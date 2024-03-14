@@ -1,4 +1,4 @@
-<img src="http://www.opengeospatial.org/pub/www/files/OGC_Logo_2D_Blue_x_0_0.png" width="400">
+<img src="https://www.ogc.org/pub/www/files/OGC_Logo_2D_Blue_x_0_0.png" width="400">
 
 # OGC SensorThings API
 The OGC SensorThings API is an OGC standard specification for providing an open and unified way to interconnect IoT devices, data, and applications over the Web. The SensorThings API is an open standard, builds on Web protocols and the OGC Sensor Web Enablement standards, and applies an easy-to-use REST-like style. The result is to provide a uniform way to expose the full potential of the Internet of Things.
