@@ -12,8 +12,6 @@
 :published-date: 2029-03-30
 :fullname: Hylke van der Schaaf
 :fullname_2: Steve Liang
-:fullname_3: Humaid Kidwai
-:fullname_4: Kathi Schleidt
 :docsubtype: implementation
 :keywords: ogcdoc, OGC document, API, OData, openapi, html, MQTT
 :submitting-organizations: Fraunhofer-Gesellschaft, Germany; University of Calgary, Canada; SensorUp Inc., Canada; Keys, USA; DataCove e.U., Austria
@@ -50,11 +48,9 @@ include::sections/clause_07a_meta_model.adoc[]
 
 include::sections/clause_07b_sensing_entities.adoc[]
 
-include::sections/clause_07c_sensing_OM_extension.adoc[]
+include::sections/clause_07c_sampling_entities.adoc[]
 
-include::sections/clause_07d_sampling_entities.adoc[]
-
-include::sections/clause_07e_actuation_entities.adoc[]
+include::sections/clause_07d_actuation_entities.adoc[]
 
 include::sections/clause_08a_abstract_api_overview.adoc[]
 
