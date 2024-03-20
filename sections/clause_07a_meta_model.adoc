@@ -1,15 +1,14 @@
-[[meta-data-model]]
-== Meta Data Model
+[[OData-Entity-Model]]
+== OData Entity Model
 
-This chapter describes the SensorThings API meta model that is used to describe the SensorThings API data model and its data model extensions.
-The meta model is also used to specify the rest and pub-sub apis.
-It is based on the ODATA Meta Model 
+Every OData service utilizes an entity model which MAY be distributed over several schemas. The service describes this model through a metadata document accessible by a simple HTTP _GET_ request to the <serviceRoot>/$metadata path. This chapter describes an overview of the types of entities in the metadata document that will be used to describe the SensorThings API data model and its data model extensions.
+The entities listed below are also used to describe the REST and MQTT bindings of the SensorThings API service.
 
 * https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_DataModel 
 * https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_EntityModel
 
 
-The meta model consists of the following elements:
+The data model consists of the following elements:
 
 * `Entity Type`: named, structured, keyed element that defines the properties and relations of Entities.
   The key of an Entity Type consists of one or more primitive properties of the Entity Type. 
