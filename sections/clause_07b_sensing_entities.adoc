@@ -373,7 +373,7 @@ A Datastream groups a collection of Observations into a time series measuring th
 *Datastream Examples*
 
 - An air quality monitoring station may have multiple Datastreams each recording a specific pollutant measured by the sensors
-- A sensor that measures multiple ObservedProperties can generate a single Datastream of composite observationTypes 
+- A sensor that measures multiple ObservedProperties can generate a single Datastream of composite resultTypes 
 
 ====
 
@@ -422,7 +422,7 @@ Its value is computed by the server when creating or updating the entity unless 
 | String
 | Optional | Zero-to-one
 
-| `observationType`
+| `resultType`
 | The type of Observation (with unit of measurement AND unique result type), which is used by the service to encode observations
 | JSON Object (SWE-Common) (see <<datastream-value-codes>>)
 | Required | One
@@ -477,11 +477,11 @@ One Observation SHALL occur in one-and-only-one Datastream
 |====
 
 
-The observationType defines the result types for specialized single and multi observations based on the JSON encoding of the SWE Common Data Model [OGC 08-094r1 and OGC 17-011r2].
+The resultType defines the result types for specialized single and multi observations based on the JSON encoding of the SWE Common Data Model [OGC 08-094r1 and OGC 17-011r2].
 This also obsoletes MultiDatastreams as the same information can be described using the SWE Common definition types.
 
 
-.Example {counter:examples}: A Datastream observationType example measuring a scalar Observation
+.Example {counter:examples}: A Datastream resultType example measuring a scalar Observation
 [source,json]
 ----
 {
@@ -493,7 +493,7 @@ This also obsoletes MultiDatastreams as the same information can be described us
 }
 ----
 
-.Example {counter:examples}: A Datastream observationType example measuring an Observation that can take categorical values from a predefined code space
+.Example {counter:examples}: A Datastream resultType example measuring an Observation that can take categorical values from a predefined code space
 [source,json]
 ----
 {
@@ -505,7 +505,7 @@ This also obsoletes MultiDatastreams as the same information can be described us
 }
 ----
 
-.Example {counter:examples}: A Datastream observationType example measuring multiple observedProperties
+.Example {counter:examples}: A Datastream resultType example measuring multiple observedProperties
 [source,json]
 ----
 {
@@ -536,7 +536,7 @@ This also obsoletes MultiDatastreams as the same information can be described us
 
 
 [#datastream-value-codes,reftext='{table-caption} {counter:table-num}']
-.List of some SWE Common types for defining observationTypes based on the UML classes in SWE Common Data Model  (OGC 08-094r1 and OGC 17-011r2)
+.List of some SWE Common types for defining resultTypes based on the UML classes in SWE Common Data Model  (OGC 08-094r1 and OGC 17-011r2)
 [width="100%",cols="15,5",options="header"]
 
 * `SWE:DataRecordType`                                         
