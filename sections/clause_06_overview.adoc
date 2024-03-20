@@ -76,26 +76,26 @@ SensorThings API defines nine entities for the IoT sensing applications and two 
 === SensorThings API 2.0 changes from 1.1
 [#sta-changes,reftext='{table-caption} {counter:table-num}']
 .Changes in the SensorThings API 2.0 data model compared to v1.x 
-[width="100%",cols="5,20",options="header"]
+[width="100%",cols="5,20a",options="header"]
 |====
 | *Entity* | *Changes* 
 | Sensor     | description attribute is now optional and not mandatory
 | Thing      | description attribute is now optional and not mandatory
 | Location   | description attribute is now optional and not mandatory
-| Datastream | description attribute is now optional and not mandatory 
+| Datastream | 
 
-resultType replaces the observationType attribute, this eliminates MultiDatastream entity
-
-unitOfMeasurement SHALL be embedded within the observedType attribute and does not exist as an independent attribute within the Datastream entity
-
-A Datastream can link to multiple ObservedProperties which was only possible with MultiDatastream entity earlier. The SWE-Common based observationType attribute eliminates the need for having a separate MultiDatastream entity
-
-A Datastream can now be partitioned by the Feature it observes as an optional link between Datastream and Feature is introduced
+- description attribute is now optional and not mandatory 
+- resultType replaces the observationType attribute, this eliminates MultiDatastream entity
+- unitOfMeasurement SHALL be embedded within the observedType attribute and does not exist as an independent attribute within the Datastream entity
+- A Datastream can link to multiple ObservedProperties which was only possible with MultiDatastream entity earlier. The SWE-Common based observationType attribute eliminates the need for having a separate MultiDatastream entity
+- A Datastream can now be partitioned by the Feature it observes as an optional link between Datastream and Feature is introduced
 
 | ObservedProperty | description attribute is now optional and not mandatory
-| Observation | properties replaces the parameters attribute
+| Observation | 
 
-An Observation may or may not link to any Feature in contrast to the mandatory link between Observation and FeatureOfInterest from v1.x 
+- properties replaces the parameters attribute
+- An Observation may or may not link to any Feature in contrast to the mandatory link between Observation and FeatureOfInterest from v1.x 
+
 | Feature    | The Feature entity replaces the FeatureOfInterest entity from 1.x as it now takes the role of UltimateFeatureOfInterest or ProximateFeatureOfInterest depending upon the context and links with Observation and Datastream entities
 |====
 
