@@ -424,7 +424,7 @@ Its value is computed by the server when creating or updating the entity unless 
 
 | `resultType`
 | The type of Observation (with unit of measurement AND unique result type), which is used by the service to encode observations
-| JSON Object (SWE-Common) (see <<datastream-value-codes>>)
+| JSON Object (SWE-Common AbstractDataComponent)
 | Required | One
 
 | `observedArea`
@@ -481,69 +481,97 @@ The resultType defines the result types for specialized single and multi observa
 This also obsoletes MultiDatastreams as the same information can be described using the SWE Common definition types.
 
 
-.Example {counter:examples}: A Datastream resultType example measuring a scalar Observation
-[source,json]
+.Example {counter:examples}: A Datastream example measuring a scalar Observation
+[source%unnumbered,json]
 ----
 {
-  "type": "Quantity",
-  "definition": "http://sensorml.com/ont/swe/property/SpectralRadiance",
-  "label": "Radiance",
-  "description": "Radiance measured on band1",
-  "uom": { "code": "W.m-2.Sr-1.um-1" },
+  "id": 42,
+  "name": "Oven temperature",
+  "description": "This is a datastream measuring the air temperature in an oven.",
+  "resultType": {
+    "type": "Quantity",
+    "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
+    "uom": { "code": "Cel", "label": "degree Celsius", "symbol": "°C" }
+  }
 }
 ----
 
-.Example {counter:examples}: A Datastream resultType example measuring an Observation that can take categorical values from a predefined code space
-[source,json]
+.Example {counter:examples}: An Observation for the Datastream defined in the example above
+[source%unnumbered,json]
 ----
 {
-  "type": "CategoryRange",
-  "definition": "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#GeologicTime",
-  "label": "Approximate Dating",
-  "description": "Approximate geological dating expressed as a range of geological eras",
-  "codeSpace": "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#Era",
+  "result": 25.1,
+  "phenomenonTime": "2021-13-14T15:16:00Z",
+  "resultTime": null
 }
 ----
 
-.Example {counter:examples}: A Datastream resultType example measuring multiple observedProperties
-[source,json]
+
+.Example {counter:examples}: A Datastream example for Observations with category values from a predefined code space
+[source%unnumbered,json]
 ----
 {
-  "type": "DataArray",
-  "label": "Measurement Table",
-  "elementType": {
-    "name": "measurement",
+  "id": 43,
+  "name": "Sample Datings",
+  "description": "This is a datastream containing the geological datings of rock samples.",
+  "resultType": {
+    "type": "Category",
+    "definition": "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#GeologicTime",
+    "codeSpace": "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#Era"
+  }
+}
+----
+
+.Example {counter:examples}: An Observation for a Datastream defined in the example above
+[source%unnumbered,json]
+----
+{
+  "result": "Jurassic",
+  "phenomenonTime": "2021-13-14T15:16:00Z",
+  "resultTime": null
+}
+----
+
+
+.Example {counter:examples}: A Datastream example measuring multiple observedProperties
+[source%unnumbered,json]
+----
+{
+  "id": 43,
+  "name": "Temperature and Pressure",
+  "description": "This is a datastream containing temperature and pressure measurement sets.",
+  "resultType": {
     "type": "DataRecord",
+    "name": "Measurement set",
     "fields": [
       {
         "name": "temp",
         "type": "Quantity",
         "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
         "label": "Air Temperature",
-        "uom": { "code": "Cel" }
+        "uom": { "code": "Cel", "label": "degree Celsius", "symbol": "°C"  }
       },
       {
         "name": "press",
         "type": "Quantity",
         "definition": "http://mmisw.org/ont/cf/parameter/air_pressure_at_mean_sea_level",
         "label": "Air Pressure",
-        "uom": { "code": "mbar" }
+        "uom": { "code": "mbar", "label": "Millibar", "symbol": "mBar"  }
       }
     ]
   }
 }
 ----
 
-
-[#datastream-value-codes,reftext='{table-caption} {counter:table-num}']
-.List of some SWE Common types for defining resultTypes based on the UML classes in SWE Common Data Model  (OGC 08-094r1 and OGC 17-011r2)
-[width="100%",cols="15,5",options="header"]
-
-* `SWE:DataRecordType`                                         
-* `SWE:DataArrayType`                                         
-* `SWE:VectorType`                                  
-* `SWE:CategoryRangeType`    
-
+.Example {counter:examples}: An Observation for a Datastream defined in the example above
+[source%unnumbered,json]
+----
+{
+  "result": {"temp": 15, "press": 1024},
+  "phenomenonTime": "2021-13-14T15:16:00Z",
+  "resultTime": null
+}
+----
 
 
 
