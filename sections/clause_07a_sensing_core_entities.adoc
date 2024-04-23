@@ -1,7 +1,5 @@
-[[sensing-entities]]
-=== Sensing Entities
-
-
+[[sensing-core]]
+== The SensorThings API Sensing Core Entities
 All data model requirements classes are grouped in the following requirements class:
 
 
@@ -17,15 +15,13 @@ requirement:: {identifier}/req-class/datamodel/sensing/thing
 requirement:: {identifier}/req-class/datamodel/sensing/location
 requirement:: {identifier}/req-class/datamodel/sensing/historical-location
 requirement:: {identifier}/req-class/datamodel/sensing/datastream
-requirement:: {identifier}/req-class/datamodel/sensing/deployment
-requirement:: {identifier}/req-class/datamodel/sensing/location
-requirement:: {identifier}/req-class/datamodel/sensing/historical-location
-requirement:: {identifier}/req-class/datamodel/sensing/datastream
-requirement:: {identifier}/req-class/datamodel/sensing/deployment
 requirement:: {identifier}/req-class/datamodel/sensing/sensor
+requirement:: {identifier}/req-class/datamodel/sensing/observed-property
+requirement:: {identifier}/req-class/datamodel/sensing/observation
+requirement:: {identifier}/req-class/datamodel/sensing/feature  
 ====
 
-[[sensing-entities2]]
+[[sensing-entities]]
 === Sensing Entities
 
 The OGC SensorThings API v2.0 depicts the Core Sensing entities in Figure {counter:figure-num}
@@ -36,11 +32,10 @@ image::images/GRP0001.png[Sensing Core, align="center"]
 In this section, we define each entity depicted in <<img-sta-core>> and its relationships with other entities.
 Additionally, we also provide examples to model the entities in different contexts.
 
-==== Requirement Class: Thing
+[[thing]]
+==== Thing
 
 [requirements_class]
-.thing
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/thing
@@ -130,8 +125,6 @@ A Thing SHOULD have only one Location.
 
 However, in some complex use cases, a Thing MAY have more than one Location representations.
 In such case, the Thing MAY have more than one Locations.
-These Locations SHALL have different encodingTypes and the encodingTypes SHOULD be in different spaces (e.g., one encodingType in Geometrical space and one encodingType in Topological space).
-
 | `HistoricalLocation`        | HistoricalLocations  | One mandatory to many optional
 | A Thing has zero-to-many HistoricalLocations.
 A HistoricalLocation has one-and-only-one Thing.
@@ -893,7 +886,7 @@ Each Feature entity SHALL have the mandatory properties and MAY have the optiona
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/feature/relations
 
-Each Thing entity SHALL have the direct relation between a Thing entity and other entity types listed in Table XX.
+Each Feature entity SHALL have the direct relation between a Feature entity and other entity types listed in Table {counter:table-num}.
 ====
 
 
