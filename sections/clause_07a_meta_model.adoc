@@ -1,9 +1,10 @@
 [[meta-data-model]]
 == Meta Data Model
 
-This chapter describes the SensorThings API meta model that is used to describe the SensorThings API data model and its data model extensions.
-The meta model is also used to specify the rest and pub-sub apis.
-It is based on the ODATA Meta Model 
+Every OData service utilizes an entity model which MAY be distributed over several schemas.
+The service describes this model through a metadata document accessible by a simple HTTP _GET_ request to the <serviceRoot>/$metadata path.
+This chapter describes an overview of the types of entities in the metadata document that will be used to describe the SensorThings API data model and its data model extensions.
+The entities listed below are also used to describe the REST and MQTT bindings of the SensorThings API service.
 
 * https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_DataModel 
 * https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_EntityModel
@@ -12,13 +13,17 @@ It is based on the ODATA Meta Model
 The meta model consists of the following elements:
 
 * `Entity Type`: named, structured, keyed element that defines the properties and relations of Entities.
-  The key of an Entity Type consists of one or more primitive properties of the Entity Type. 
-* `Entity`: instance of an `Entity Type`. An Entity can have only one Entity Type.
+  The key of an Entity Type consists of one or more primitive properties of the Entity Type.
+* `Entity`: instance of an `Entity Type`.
+  An Entity can have only one Entity Type.
 * `Primitive Type`: unnamed, unstructured type, such as String, Integer or DateTime.
   https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_PrimitiveTypes
-* `Complex Type`: named, structured, keyless, element consisting of a set of named properties. Instances of Complex Types can not be accessed outside of the Entity they are contained in.
+* `Complex Type`: named, structured, keyless, element consisting of a set of named properties.
+  Instances of Complex Types can not be accessed outside of the Entity they are contained in.
   A property with a Primitive Type is called a primitive property.
-* `Relation`: named connections between Entities. Relations defined as `navigation properties` in Entity Types. Relations have a cardinality.
+* `Relation`: named connections between Entities.
+  Relations defined as `navigation properties` in Entity Types.
+  Relations have a cardinality.
 * `Properties`: named elements that are part of structured types (Entity Types and Complex Types).
   Properties can be Primitive-, Complex- or navigation properties.
   Properties defined as part of a structured type (Entity/Complex Type) are `declared properties`.
@@ -41,7 +46,8 @@ The meta model consists of the following elements:
 
 EDITOR: Say something about `id`, primary keys, extensions and server-generated/user-supplied.
 
-EDITOR: Say something about absolute / relative URLs. Relative to what, and how is this done in MQTT? See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html#sec_RelativeURLs
+EDITOR: Say something about absolute / relative URLs.
+Relative to what, and how is this done in MQTT? See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html#sec_RelativeURLs
 
 
 [[tab-common-control-annotations]]
@@ -51,7 +57,7 @@ EDITOR: Say something about absolute / relative URLs. Relative to what, and how 
 |Name |Definition |Data Type
 
 |@context
-|The context url contains the metadata document that describes the context of a payload. 
+|The context url contains the metadata document that describes the context of a payload.
 |URL
 
 |@id
