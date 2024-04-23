@@ -1,5 +1,3 @@
-:sectnums: |,all|
-:sectanchors:
 [[sensing-OM-extension]]
 === Sensing Extension (Observations & Measurements)
 

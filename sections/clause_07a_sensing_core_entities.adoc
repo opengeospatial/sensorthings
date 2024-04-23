@@ -1,10 +1,11 @@
-:sectnums: |,all|
-:sectanchors:
-[[sensing-entities1]]
-== The SensorThings API Sensing Entities
+[[sensing-core]]
+== The SensorThings API Sensing Core Entities
 All data model requirements classes are grouped in the following requirements class:
 
+
 [requirements_class]
+.Sensing Entities
+
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing
@@ -14,19 +15,13 @@ requirement:: {identifier}/req-class/datamodel/sensing/thing
 requirement:: {identifier}/req-class/datamodel/sensing/location
 requirement:: {identifier}/req-class/datamodel/sensing/historical-location
 requirement:: {identifier}/req-class/datamodel/sensing/datastream
-requirement:: {identifier}/req-class/datamodel/sensing/deployment
-requirement:: {identifier}/req-class/datamodel/sensing/location
-requirement:: {identifier}/req-class/datamodel/sensing/historical-location
-requirement:: {identifier}/req-class/datamodel/sensing/datastream
-requirement:: {identifier}/req-class/datamodel/sensing/deployment
 requirement:: {identifier}/req-class/datamodel/sensing/sensor
 requirement:: {identifier}/req-class/datamodel/sensing/observed-property
-requirement:: {identifier}/req-class/datamodel/sensing/observing-procedure
 requirement:: {identifier}/req-class/datamodel/sensing/observation
 requirement:: {identifier}/req-class/datamodel/sensing/feature  
 ====
 
-[[sensing-entities2]]
+[[sensing-entities]]
 === Sensing Entities
 
 The OGC SensorThings API v2.0 depicts the Core Sensing entities in Figure {counter:figure-num}
@@ -130,8 +125,6 @@ A Thing SHOULD have only one Location.
 
 However, in some complex use cases, a Thing MAY have more than one Location representations.
 In such case, the Thing MAY have more than one Locations.
-These Locations SHALL have different encodingTypes and the encodingTypes SHOULD be in different spaces (e.g., one encodingType in Geometrical space and one encodingType in Topological space).
-
 | `HistoricalLocation`        | HistoricalLocations  | One mandatory to many optional
 | A Thing has zero-to-many HistoricalLocations.
 A HistoricalLocation has one-and-only-one Thing.

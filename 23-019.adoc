@@ -12,8 +12,7 @@
 :published-date: 2029-03-30
 :fullname: Hylke van der Schaaf
 :fullname_2: Steve Liang
-:fullname_3: Humaid Kidwai
-:fullname_4: Kathi Schleidt
+:fullname_4: Humaid Kidwai
 :docsubtype: implementation
 :keywords: ogcdoc, OGC document, API, OData, openapi, html, MQTT
 :submitting-organizations: Fraunhofer-Gesellschaft, Germany; University of Calgary, Canada; SensorUp Inc., Canada; Keys, USA; DataCove e.U., Austria
@@ -46,27 +45,27 @@ include::sections/clause_05_conventions.adoc[]
 
 include::sections/clause_06_overview.adoc[]
 
-include::sections/clause_07a_meta_model.adoc[]
+include::sections/clause_07a_sensing_core_entities.adoc[]
 
-include::sections/clause_07b_sensing_entities.adoc[]
+include::sections/clause_07b_sensing_OM_extension.adoc[]
 
-include::sections/clause_07c_sensing_OM_extension.adoc[]
+include::sections/clause_07c_sampling_entities.adoc[]
 
-include::sections/clause_07d_sampling_entities.adoc[]
+include::sections/clause_07d_actuation_entities.adoc[]
 
-include::sections/clause_07e_actuation_entities.adoc[]
+include::sections/clause_08a_meta_model.adoc[]
 
-include::sections/clause_08a_abstract_api_overview.adoc[]
+include::sections/clause_08b_abstract_api_overview.adoc[]
 
-include::sections/clause_08b_rest_api_read.adoc[]
+include::sections/clause_08c_rest_api_read.adoc[]
 
-include::sections/clause_08c_rest_api_create_update_delete.adoc[]
+include::sections/clause_08d_rest_api_create_update_delete.adoc[]
 
-include::sections/clause_08d_rest_api_batch_requests.adoc[]
+include::sections/clause_08e_rest_api_batch_requests.adoc[]
 
-include::sections/clause_08e_rest_api_data_array.adoc[]
+include::sections/clause_08g_pubsub_api.adoc[]
 
-include::sections/clause_08f_pubsub_api.adoc[]
+include::sections/clause_08f_rest_api_data_array.adoc[]
 
 include::sections/clause_09a_bindings_http.adoc[]
 
