@@ -75,11 +75,11 @@ The <<sensing-OM-extension>> and <<relations-extension>> are optional extensions
 === SensorThings API and Relation to ISO/OGC Observations, Measurements and Samples
 
 Managing and retrieving observations and metadata from IoT sensor systems is one of the most common use cases.
-As a result, SensorThings API’s sensing part is designed based on the OMS model.
+As a result, SensorThings API's sensing part is designed based on the OMS model.
 OMS defines models for the exchange of information describing observation acts, their results as well as the feature involved in sampling when making observations.
 
 
-SensorThings API defines nine entities for the IoT sensing applications and two additional entities in the OM extension.
+SensorThings API defines nine entities for the IoT sensing applications and several additional entities in various extensions.
 <<sensingentities,base>> lists each component and its relationship with OMS.
 SensorThings API uses the term of Sensor to describe the Observer that is used in generating an Observation, instead of using OMS’ term of Observer.
 
@@ -93,25 +93,41 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 |Host
 
 |Datastream
-|-
+|ObservationCollection
 
 |Sensor
 |Observer
 
-|Deployment
-|Deployment
-
 |Observation
 |Observation
-
-|ObservingProcedure
-|Observing Procedure
 
 |ObservedProperty
 |Observed Property
 
 |Feature
 |Feature
+
+|Deployment (OM Extension)
+|Deployment
+
+|ObservingProcedure (OM Extension)
+|Observing Procedure
+
+|Sample (Sampling Extension)
+|Sample
+
+|Sampling (Sampling Extension)
+|Sampling
+
+|SamplingProcedure (Sampling Extension)
+|Sampling Procedure
+
+|PreparationProcedure (Sampling Extension)
+|Preparation Procedure
+
+|PreparationStep (Sampling Extension)
+|Preparation Step
+
 |===
 
 

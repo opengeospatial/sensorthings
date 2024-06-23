@@ -24,7 +24,7 @@ requirement:: {identifier}/req-class/datamodel/sensing/feature
 [[sensing-entities]]
 === Sensing Entities
 
-The OGC SensorThings API v2.0 depicts the Core Sensing entities in Figure {counter:figure-num}
+The OGC SensorThings API v2.0 depicts the Core Sensing entities in <<img-sta-core>>
 [#img-sta-core,link=images/GRP0001.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Core']
 image::images/GRP0001.png[Sensing Core, align="center"]  
 
@@ -48,14 +48,6 @@ requirement:: {identifier}/req/datamodel/sensing/thing/relations
 The SensorThings API follows the ITU-T definition, i.e., with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060].
 A Thing is related to the Platform entity as described in Section 4.9.2.1 of [OGC 16-079] in a way that any entity that can be modelled as a Thing MAY be subsequently translated to a Platform and vice versa.
 
-[example%unnumbered]
-====
-*Thing Examples*
-
-- A weather forecasting facility that houses multiple weather sensors deployed across several sites
-- A drone that mounts a LiDAR sensor for mapping purposes
-- An upstream oil well that is equipped with compound gas detection devices
-====
 The SensorThings API follows the ITU-T definition, i.e., with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060].
 A Thing is related to the Platform entity as described in Section 4.9.2.1 of [OGC 16-079] in a way that any entity that can be modelled as a Thing MAY be subsequently translated to a Platform and vice versa.
 
@@ -73,9 +65,9 @@ A Thing is related to the Platform entity as described in Section 4.9.2.1 of [OG
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/thing/properties
 
-Each Thing entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
-Each Thing entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+Each Thing entity SHALL have the mandatory properties and MAY have the optional properties listed in <<thing-properties>>.
 ====
+
 [#thing-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Thing entity
 [width="100%",cols="5,17,3,3,3",options="header"]
@@ -107,7 +99,8 @@ Its value is computed by the server when creating or updating the entity unless 
 ====
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/thing/relations
-Each Thing entity SHALL have the direct relation between a Thing entity and other entity types listed in Table {counter:table-num}.
+
+Each Thing entity SHALL have the direct relation between a Thing entity and other entity types listed in <<thing-relations>>.
 ====
 
 [#thing-relations,reftext='{table-caption} {counter:table-num}']
@@ -160,6 +153,8 @@ The ObservedProperty in this case MAY characterize only the area around the sens
 Thus, depending upon the feature-of-interest, the Feature can then be either a ProximateFeatureOfInterest or UltimateFeatureOfInterest.
 For __ex-situ__ sensing applications, the Location MAY describe the coordinates of where the Thing is located, whereas the feature MAY be the point location of the observed Feature.
 
+EDITOR: Explain all 4 possible options? in-situ, local; in-site, remote; ex-situ, local; ex-situ, remote
+
 Section 7.1.4 of [OGC 20-082r4 and ISO 19156:2023] provides a detailed explanation of observation location.
 
 [example%unnumbered]
@@ -176,8 +171,9 @@ Section 7.1.4 of [OGC 20-082r4 and ISO 19156:2023] provides a detailed explanati
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/location/properties
 
-Each Location entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+Each Location entity SHALL have the mandatory properties and MAY have the optional properties listed in <<location-properties>>.
 ====
+
 [#location-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Location entity
 [width="100%",cols="5,17,3,3,3",options="header"]
@@ -217,7 +213,8 @@ Its value is computed by the server when creating or updating the entity unless 
 ====
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/location/relations
-Each Location entity SHALL have the direct relation between a Location entity and other entity types listed in Table {counter:table-num}.
+
+Each Location entity SHALL have the direct relation between a Location entity and other entity types listed in <<location-relations>>.
 ====
 
 [#location-relations,reftext='{table-caption} {counter:table-num}']
@@ -238,7 +235,6 @@ One HistoricalLocation SHALL have one or more Locations.
 
 
 
-
 [[historicallocation]]
 ==== HistoricalLocation
 
@@ -254,7 +250,7 @@ requirement:: {identifier}/req/datamodel/sensing/historical-location/create-upda
 requirement:: {identifier}/req/datamodel/sensing/historical-location/create-update-delete/historical-location-manual-creation
 ====
 
-A Thing’s HistoricalLocation entity set provides the times of the current (i.e., last known) and previous locations of the Thing.
+A Thing's HistoricalLocation entity set provides the times of the current (i.e., last known) and previous locations of the Thing.
 It can be used to model the path observed by a moving Thing.
 
 [example%unnumbered]
@@ -272,7 +268,7 @@ HistoricalLocation should then record the individual Locations of the drone over
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/historical-location/properties
 
-Each HistoricalLocation entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+Each HistoricalLocation entity SHALL have the mandatory properties and MAY have the optional properties listed in <<historical-location-properties>>.
 ====
 
 
@@ -281,7 +277,7 @@ Each HistoricalLocation entity SHALL have the mandatory properties and MAY have 
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/historical-location/relations
 
-Each HistoricalLocation entity SHALL have the direct relation between a HistoricalLocation entity and other entity types listed in Table {counter:table-num}.
+Each HistoricalLocation entity SHALL have the direct relation between a HistoricalLocation entity and other entity types listed in <<historical-location-relations>>.
 ====
 
 [requirement]
@@ -376,7 +372,7 @@ A Datastream groups a collection of Observations into a time series measuring th
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/datastream/properties
 
-Each Datastream entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+Each Datastream entity SHALL have the mandatory properties and MAY have the optional properties listed in <<datastream-properties>>.
 ====
 
 
@@ -385,7 +381,7 @@ Each Datastream entity SHALL have the mandatory properties and MAY have the opti
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/datastream/relations
 
-Each Datastream entity SHALL have the direct relation between a Datastream entity and other entity types listed in Table {counter:table-num}.
+Each Datastream entity SHALL have the direct relation between a Datastream entity and other entity types listed in <<datastream-relations>>.
 ====
 
 
@@ -589,7 +585,7 @@ A Sensor is an instrument that observes a property or phenomenon with the goal o
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/sensor/properties
 
-Each Sensor entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+Each Sensor entity SHALL have the mandatory properties and MAY have the optional properties listed in <<sensor-properties>>.
 ====
 
 
@@ -598,7 +594,7 @@ Each Sensor entity SHALL have the mandatory properties and MAY have the optional
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/sensor/relations
 
-Each Sensor entity SHALL have the direct relation between a Sensor entity and other entity types listed in Table {counter:table-num}.
+Each Sensor entity SHALL have the direct relation between a Sensor entity and other entity types listed in <<sensor-relations>>.
 ====
 
 
@@ -657,7 +653,10 @@ The metadata type is defined by encodingType.
 | `HTML`                               | text/html
 |====
 
-The Sensor encodingType allows clients to know how to interpret metadata’s value.
+EDITOR: Ensure wording that List is not exhaustive!
+
+
+The Sensor encodingType allows clients to know how to interpret the metadata value.
 Currently SensorThings API defines two common Sensor metadata encodingTypes.
 Most sensor manufacturers provide their sensor datasheets in a PDF format.
 As a result, PDF is a Sensor encodingType supported by SensorThings API.
@@ -686,7 +685,7 @@ requirement:: {identifier}/req/datamodel/sensing/observed-property/relations
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/observed-property/properties
 
-Each ObservedProperty entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+Each ObservedProperty entity SHALL have the mandatory properties and MAY have the optional properties listed in <<observed-property-properties>>.
 ====
 
 
@@ -695,7 +694,7 @@ Each ObservedProperty entity SHALL have the mandatory properties and MAY have th
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/observed-property/relations
 
-Each ObservedProperty entity SHALL have the direct relation between an ObservedProperty entity and other entity types listed in Table {counter:table-num}.
+Each ObservedProperty entity SHALL have the direct relation between an ObservedProperty entity and other entity types listed in <<observed-property-relations>>.
 ====
 
 
@@ -764,7 +763,7 @@ requirement:: {identifier}/req/datamodel/sensing/observation/relations
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/observation/properties
 
-Each Observation entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+Each Observation entity SHALL have the mandatory properties and MAY have the optional properties listed in <<observation-properties>>.
 ====
 
 
@@ -773,7 +772,7 @@ Each Observation entity SHALL have the mandatory properties and MAY have the opt
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/observation/relations
 
-Each Observation entity SHALL have the direct relation between an Observation entity and other entity types listed in Table {counter:table-num}.
+Each Observation entity SHALL have the direct relation between an Observation entity and other entity types listed in <<observation-relations>>.
 ====
 
 
@@ -877,7 +876,7 @@ However, in such cases, it is recommended to use the Location entity to store th
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/feature/properties
 
-Each Feature entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+Each Feature entity SHALL have the mandatory properties and MAY have the optional properties listed in <<feature-properties>>.
 ====
 
 
@@ -886,7 +885,7 @@ Each Feature entity SHALL have the mandatory properties and MAY have the optiona
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/feature/relations
 
-Each Feature entity SHALL have the direct relation between a Feature entity and other entity types listed in Table {counter:table-num}.
+Each Feature entity SHALL have the direct relation between a Feature entity and other entity types listed in <<feature-relations>>.
 ====
 
 

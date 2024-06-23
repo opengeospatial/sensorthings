@@ -16,8 +16,8 @@ requirement:: {identifier}/req-class/datamodel/sensing/observing-procedure
 [[sensing-entities-om-extn]]
 ==== Sensing Extension (Observations & Measurements) Entities
 
-The Sensing Extension (Observations & Measurements) is described by the entities in Figure {counter:figure-num}
-[#img-sta-extn,link=images/GRP0002.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Extension (Observations & Measurements)']
+The Sensing Extension (Observations & Measurements) is described by the entities in <<img-sta-extn-om>>
+[#img-sta-extn-om,link=images/GRP0002.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Extension (Observations & Measurements)']
 image::images/GRP0002.png["Sensing Extension (Observations & Measurements)", align="center"]
 
 [[deployment]]
@@ -42,7 +42,7 @@ The Deployment entity is optional and the draft does not mandate defining the en
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/deployment/properties
 
-Each Deployment entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+Each Deployment entity SHALL have the mandatory properties and MAY have the optional properties listed in <<deployment-properties>>.
 ====
 
 
@@ -51,7 +51,7 @@ Each Deployment entity SHALL have the mandatory properties and MAY have the opti
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/deployment/relations
 
-Each Deployment entity SHALL have the direct relation between a Deployment entity and other entity types listed in Table {counter:table-num}.
+Each Deployment entity SHALL have the direct relation between a Deployment entity and other entity types listed in <<deployment-relations>>.
 ====
 
 [#deployment-properties,reftext='{table-caption} {counter:table-num}']
@@ -138,7 +138,7 @@ requirement:: {identifier}/req/datamodel/sensing/observing-procedure/relations
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/observing-procedure/properties
 
-Each ObservingProcedure entity SHALL have the mandatory properties and MAY have the optional properties listed in Table {counter:table-num}.
+Each ObservingProcedure entity SHALL have the mandatory properties and MAY have the optional properties listed in <<observing-procedure-properties>>.
 ====
 
 
@@ -147,7 +147,7 @@ Each ObservingProcedure entity SHALL have the mandatory properties and MAY have 
 [%metadata]
 identifier:: {identifier}/req/datamodel/sensing/observing-procedure/relations
 
-Each ObservingProcedure entity SHALL have the direct relation between an ObservingProcedure entity and other entity types listed in Table {counter:table-num}.
+Each ObservingProcedure entity SHALL have the direct relation between an ObservingProcedure entity and other entity types listed in <<observing-procedure-relations>>.
 ====
 
 
