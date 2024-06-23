@@ -49,9 +49,9 @@ include::sections/clause_07a_sensing_core_entities.adoc[]
 
 include::sections/clause_07b_sensing_OM_extension.adoc[]
 
-include::sections/clause_07c_sampling_entities.adoc[]
+include::sections/clause_07d_sampling_entities.adoc[]
 
-include::sections/clause_07d_actuation_entities.adoc[]
+include::sections/clause_07e_actuation_entities.adoc[]
 
 include::sections/clause_08a_meta_model.adoc[]
 

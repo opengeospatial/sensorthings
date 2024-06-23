@@ -1,10 +1,12 @@
 .DS_Store
 .swp
 .tmp.xml
+.vscode
 relaton
 iev
 23-019.doc
 23-019.err
+23-019.err.html
 23-019.html
 23-019.xml
 23-019.presentation.xml
