@@ -1,4 +1,4 @@
-:Title: OGC (add title text)
+:Title: SensorThings v2.0 Charter Task Update
 :titletext: {Title}
 :doctype: book
 :encoding: utf-8
@@ -15,9 +15,9 @@
 |===
 |{set:cellbgcolor:#FFFFFF}
 |[big]*Open Geospatial Consortium*
-|Submission Date: 2021-03-24
+|Submission Date: 2022-07-30
 |Approval Date:   <yyyy-mm-dd>
-|Internal reference number of this OGC(R) document:    21-015
+|Internal reference number of this OGC(R) document:     22-034
 |Category: OGC(R) Standards Working Group Charter
 |Authors:   Steve Liang, Hylke van der Schaaf
 |===
