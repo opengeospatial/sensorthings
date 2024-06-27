@@ -167,9 +167,17 @@ N/A
 
 === Additional SWG Tasks
 
-* The OGC SensorThings API Part 1 - Sensing version 2.0 (note: timeline can be found in the Scope of Work section.)
-* Create an extension (_24-032 SensorThings API Extension: WebSub 1.0_)
-* Create an extension (_23-019 SensorThings API Extension: Data Quality 1.0_)
+==== The OGC SensorThings API Part 1 - Sensing version 2.0
+
+(note: timeline can be found in the Scope of Work section.)
+
+==== Create an extension (_24-032 SensorThings API Extension: WebSub 1.0_)
+
+This extension will allow to use the W3C WebSub Recommendation with a SensorThings API service. Essentially, the extension allows a subscriber to receive HTTP(S) update notifications via Webhook for any HTTP(S) request to a SensorThings Service. Any compliant SensorThings applications will support the subscription to conditions for update notifications based on ODATA queries. Example: Subscribe to notifications for air temperature > 35°C.
+
+==== Create an extension (_23-019 SensorThings API Extension: Data Quality 1.0_)
+
+This extension will allow to express quality for observations and sensors in a standardized way. The data model extension defines Data Quality related entities that can be created and queried. Also, the extension supports timeseries of data quality – so basically to explore quality of sensors and observations over time.
 
 == IPR Policy for this SWG
 
