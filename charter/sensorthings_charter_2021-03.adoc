@@ -15,9 +15,9 @@
 |===
 |{set:cellbgcolor:#FFFFFF}
 |[big]*Open Geospatial Consortium*
-|Submission Date: 2022-07-30
+|Submission Date: 2024-06-27
 |Approval Date:   <yyyy-mm-dd>
-|Internal reference number of this OGC(R) document:     22-034
+|Internal reference number of this OGC(R) document:     22-034r1
 |Category: OGC(R) Standards Working Group Charter
 |Authors:   Steve Liang, Hylke van der Schaaf
 |===
@@ -30,7 +30,7 @@
 [cols = "^", frame = "none", grid = "none"]
 |===
 |*Copyright notice*
-|Copyright (C) 2021 Open Geospatial Consortium
+|Copyright (C) 2024 Open Geospatial Consortium
 |To obtain additional rights of use, visit http://www.opengeospatial.org/legal/
 |===
 
@@ -158,7 +158,8 @@ The SWG can be inactivated once the final multipart standard has been developed,
 The SWG has the following deliverables:
 
 * The OGC SensorThings API Part 1 - Sensing version 2.0 (note: timeline can be found in the Scope of Work section.)
-* Best Practice of the OGC SensorThings API - Methane Emissions (draft ready - Q2 2021, submission to TC for approval vote - Q3 2021 )
+* 24-032 SensorThings API Extension: WebSub 1.0 (timeline: end of 2024)
+* 23-019 SensorThings API Extension: Data Quality 1.0 (timeline: end of 2024)
 
 === Initial Deliverables
 
@@ -167,8 +168,8 @@ N/A
 === Additional SWG Tasks
 
 * The OGC SensorThings API Part 1 - Sensing version 2.0 (note: timeline can be found in the Scope of Work section.)
-* Best Practice of the OGC SensorThings API - Methane Emissions (draft ready - Q2 2021, submission to TC for approval vote - Q3 2021 )
-* Create an extension (_22-022 SensortThings API - PLUS Extension_) from _21-068 OGC Best Practice for using Sensor Things API with Citizen Science_.
+* Create an extension (_24-032 SensorThings API Extension: WebSub 1.0_)
+* Create an extension (_23-019 SensorThings API Extension: Data Quality 1.0_)
 
 == IPR Policy for this SWG
 
@@ -240,5 +241,3 @@ The following people support this proposal and are committed to the Charter and 
 
 * Steve Liang, SensorUp
 * Hylke van der Schaaf, Fraunhofer IOSB
-
-
