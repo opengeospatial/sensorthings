@@ -1,5 +1,6 @@
 [[sensing-core]]
-== The SensorThings API Sensing Core Entities
+== The SensorThings API Data Model
+
 All data model requirements classes are grouped in the following requirements class:
 
 
@@ -21,19 +22,18 @@ requirement:: {identifier}/req-class/datamodel/sensing/observation
 requirement:: {identifier}/req-class/datamodel/sensing/feature  
 ====
 
-[[sensing-entities]]
-=== Sensing Entities
-
 The OGC SensorThings API v2.0 depicts the Core Sensing entities in <<img-sta-core>>
-[#img-sta-core,link=images/GRP0001.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Core']
-image::images/GRP0001.png[Sensing Core, align="center"]  
+[#img-sta-core,link=figures/Datamodel-SensorThingsApi-V2-Core.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Core']
+image::figures/Datamodel-SensorThingsApi-V2-Core.drawio.png[Sensing Core, align="center"]  
+
+NOTE: move image into document once finished
 
 
 In this section, we define each entity depicted in <<img-sta-core>> and its relationships with other entities.
 Additionally, we also provide examples to model the entities in different contexts.
 
 [[thing]]
-==== Thing
+=== Thing
 
 [requirements_class]
 ====
@@ -131,7 +131,7 @@ A HistoricalLocation has one-and-only-one Thing.
 
 
 [[location]]
-==== Location
+=== Location
 
 [requirements_class]
 ====
@@ -236,7 +236,7 @@ One HistoricalLocation SHALL have one or more Locations.
 
 
 [[historicallocation]]
-==== HistoricalLocation
+=== HistoricalLocation
 
 [requirements_class]
 ====
@@ -343,7 +343,7 @@ One Thing MAY have zero-to-many HistoricalLocations.
 
 
 [[datastream]]
-==== Datastream
+=== Datastream
 
 [requirements_class]
 ====
@@ -565,7 +565,7 @@ This also obsoletes MultiDatastreams as the same information can be described us
 
 
 [[sensor]]
-==== Sensor
+=== Sensor
 
 [requirements_class]
 ====
@@ -667,7 +667,7 @@ Note that the metadata property may contain either a URL to metadata content (e.
 It is up to clients to perform string parsing necessary to properly handle metadata content.
 
 [[observedproperty]]
-==== ObservedProperty
+=== ObservedProperty
 
 [requirements_class]
 ====
@@ -745,7 +745,7 @@ The Observations of different Datastreams MAY observe the same ObservedProperty.
 
 
 [[observation]]
-==== Observation
+=== Observation
 
 [requirements_class]
 ====
@@ -841,7 +841,7 @@ The relationship is optional and SHALL exist in cases where the observed Feature
 
 
 [[feature]]
-==== Feature
+=== Feature
 
 [requirements_class]
 ====

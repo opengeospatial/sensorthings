@@ -150,7 +150,7 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 - unitOfMeasurement SHALL be embedded within the observedType attribute and does not exist as an independent attribute within the Datastream entity
 - A Datastream can link to multiple ObservedProperties which was only possible with MultiDatastream entity earlier.
   The SWE-Common based observationType attribute eliminates the need for having a separate MultiDatastream entity
-- A Datastream can now be partitioned by the Feature it observes as an optional link between Datastream and Feature is introduced
+- A Datastream can now be linked to the Feature it observes as an optional link, named UltimateFeatureOfInterest, between Datastream and Feature is introduced
 
 | ObservedProperty | description attribute is now optional and not mandatory
 | Observation | 

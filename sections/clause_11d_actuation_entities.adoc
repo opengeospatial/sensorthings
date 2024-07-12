@@ -1,7 +1,7 @@
 :sectnums: |,all|
 :sectanchors:
 [[actuation]]
-=== Actuation
+=== Actuation Extension
 All actuation entites are grouped into the following requirements class:
 
 [requirements_class]
@@ -15,15 +15,15 @@ requirement:: {identifier}/req-class/datamodel/actuation/task
 requirement:: {identifier}/req-class/datamodel/actuation/actuator
 ====
 
-[[actuation-entities]]
-==== Actuation Entities
+The entity types, properties and relations added by this extension are depicted in <<img-sta-tasking-relations>>.
+[#img-sta-tasking-relations,link=figures/Datamodel-SensorThingsApi-V2-Tasking.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Tasking Extension']
+image::figures/Datamodel-SensorThingsApi-V2-Tasking.drawio.png[Tasking Extension, align="center"]  
 
-The Actuation entities are described by the entities in <<img-sta-actuation>>
-[#img-sta-actuation,link=images/GRP0003.png, reftext='{figure-caption} {counter:figure-num}', title='Actuation Entities']
-image::images/GRP0003.png["Actuation Entities", align="center"]
+NOTE: move image into document once finished
+
 
 [[tasking-capability]]
-===== Tasking Capability
+==== Tasking Capability
 
 [requirements_class]
 ====
@@ -125,7 +125,7 @@ Each TaskingCapability entity SHALL have the direct relation between a TaskingCa
 |====
 
 [[task]]
-===== Task
+==== Task
 
 [requirements_class]
 ====
@@ -227,7 +227,7 @@ A TaskingCapability has zero-to-many Tasks
 
 [[actuator]]
 
-===== Actuator
+==== Actuator
 
 [requirements_class]
 ====
@@ -320,7 +320,7 @@ A TaskingCapability has one-and-only-one Actuator
 
 EDITOR: Reword to make clear that this list is not exhaustive!
 
-The Actuator encodingType allows clients to know how to interpret metadata’s value(s).
+The Actuator encodingType allows clients to know how to interpret metadata's value(s).
 Currently, the SensorThings API defines two common Actuator metadata encodingTypes.
 Most sensor manufacturers provide their sensor datasheets in a PDF format.
 As a result, PDF is a Sensor encodingType supported by SensorThings API.
