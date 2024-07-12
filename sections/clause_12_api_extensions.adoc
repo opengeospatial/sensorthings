@@ -1,0 +1,4 @@
+== API extensions
+
+API extensions add new behaviour to the API part of the SensorThing API.
+

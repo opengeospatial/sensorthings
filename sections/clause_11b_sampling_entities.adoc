@@ -1,6 +1,15 @@
 [[sampling-entities]]
 === Sampling Entities
 
+The sampling extension adds entity types, properties and relations needed to precicely describe the way samples are taken.
+
+The entity types, properties and relations added by this extension are depicted in <<img-sta-sampling-relations>>.
+[#img-sta-sampling-relations,link=figures/Datamodel-SensorThingsApi-V2-Sampling.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Sampling Extension']
+image::figures/Datamodel-SensorThingsApi-V2-Sampling.drawio.png[Sampling Extension, align="center"]  
+
+NOTE: move image into document once finished
+
+
 ==== Requirement Class: Sampler
 
 [requirements_class]

@@ -45,13 +45,7 @@ include::sections/clause_05_conventions.adoc[]
 
 include::sections/clause_06_overview.adoc[]
 
-include::sections/clause_07a_sensing_core_entities.adoc[]
-
-include::sections/clause_07b_sensing_OM_extension.adoc[]
-
-include::sections/clause_07d_sampling_entities.adoc[]
-
-include::sections/clause_07e_actuation_entities.adoc[]
+include::sections/clause_07_core_data_model.adoc[]
 
 include::sections/clause_08a_meta_model.adoc[]
 
@@ -60,12 +54,6 @@ include::sections/clause_08b_abstract_api_overview.adoc[]
 include::sections/clause_08c_rest_api_read.adoc[]
 
 include::sections/clause_08d_rest_api_create_update_delete.adoc[]
-
-include::sections/clause_08e_rest_api_batch_requests.adoc[]
-
-include::sections/clause_08g_pubsub_api.adoc[]
-
-include::sections/clause_08f_rest_api_data_array.adoc[]
 
 include::sections/clause_09a_bindings_http.adoc[]
 
@@ -76,6 +64,24 @@ include::sections/clause_09c_bindings_amqp.adoc[]
 include::sections/clause_09d_bindings_ogc_api_common.adoc[]
 
 include::sections/clause_10_media_types.adoc[]
+
+include::sections/clause_11_data_model_extensions.adoc[][]
+
+include::sections/clause_11a_sensing_OM_extension.adoc[]
+
+include::sections/clause_11b_sampling_entities.adoc[]
+
+include::sections/clause_11c_relations_extension.adoc[]
+
+include::sections/clause_11d_actuation_entities.adoc[]
+
+include::sections/clause_12_api_extensions.adoc[]
+
+include::sections/clause_12a_rest_api_batch_requests.adoc[]
+
+include::sections/clause_12b_rest_api_data_array.adoc[]
+
+include::sections/clause_12c_pubsub_api_extension.adoc[]
 
 ////
 add or remove annexes after "A" as necessary

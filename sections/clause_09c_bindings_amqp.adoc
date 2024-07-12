@@ -1,6 +1,6 @@
-== MQTT Interface Bindings
+== AMQP Interface Bindings
 
-The MQTT Bindings specify how to access the SensorThings API using the AMQP protocol.
+The AMQP Bindings specify how to access the SensorThings API using the AMQP protocol.
 
 === Request / Response
 

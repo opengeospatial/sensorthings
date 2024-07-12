@@ -13,15 +13,15 @@ requirement:: {identifier}/req-class/datamodel/sensing/deployment
 requirement:: {identifier}/req-class/datamodel/sensing/observing-procedure
 ====
 
-[[sensing-entities-om-extn]]
-==== Sensing Extension (Observations & Measurements) Entities
+The entity types, properties and relations added by this extension are depicted in <<img-sta-om-relations>>.
+[#img-sta-om-relations,link=figures/Datamodel-SensorThingsApi-V2-OM.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='OM Extension']
+image::figures/Datamodel-SensorThingsApi-V2-OM.drawio.png[OM Extension, align="center"]  
 
-The Sensing Extension (Observations & Measurements) is described by the entities in <<img-sta-extn-om>>
-[#img-sta-extn-om,link=images/GRP0002.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Extension (Observations & Measurements)']
-image::images/GRP0002.png["Sensing Extension (Observations & Measurements)", align="center"]
+NOTE: move image into document once finished
+
 
 [[deployment]]
-===== Deployment
+==== Deployment
 
 [requirements_class]
 ====
@@ -120,7 +120,7 @@ The Thing has the role of the Host as it hosts the associated Sensors.
 
 
 [[observingprocedure]]
-===== ObservingProcedure
+==== ObservingProcedure
 
 [requirements_class]
 ====
