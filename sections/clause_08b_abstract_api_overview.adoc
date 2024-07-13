@@ -1,8 +1,100 @@
-== Abstract API
 
-This section describes the abstract API.
+=== URI Patterns
 
-=== Basic Requests
+URI Patterns in the SensorThings API consist of three parts: the URI-Root, the resource path and query options.
+The URI-Root always ends with the version number of the standard, encoded as: `"v"majorversionnumber + "." + minorversionnumber`.
+The query options start with a question mark (`?`)
+
+.Example {counter:examples}: Complete URI example using HTTP bindings
+[source%unnumbered,text]
+----
+http://example.org/v2.0/Observations?$orderby=ID&$top=10
+_______________________/___________/___________________/
+          |                 |               |
+  service root URI     resource path   query options
+----
+
+.Example {counter:examples}: Complete URI example using MQTT bindings
+[source%unnumbered,text]
+----
+base/topic/v2.0/Observations?$orderby=ID&$top=10
+_______________/___________/___________________/
+      |              |               |
+   root URI    resource path   query options
+----
+
+
+==== Dervice Document
+
+`v2.0`
+
+
+==== Service Metadata Document
+
+`v2.0/$metadata`
+
+
+==== Entity Set
+
+`v2.0/EntityTypeName`
+
+.Example {counter:examples}: Resource pattern for the Datastreams Entity Set
+[source%unnumbered,text]
+----
+v2.0/Datastreams
+----
+
+
+==== Entity
+
+`v2.0/EntityTypeName(<primaryKey>)`
+
+.Example {counter:examples}: Resource pattern for a specific Datastream, for a service that uses Integers for the id field of Datastreams
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)
+----
+
+.Example {counter:examples}: Resource pattern for a specific Datastream, for a service that uses Strings for the id field of Datastreams
+[source%unnumbered,text]
+----
+v2.0/Datastreams('xz42df')
+----
+
+
+==== Related Entity
+
+`v2.0/EntityTypeName(<primaryKey>)/EntityNavigationProperty`
+
+.Example {counter:examples}: Resource pattern for the Thing of a specific Datastream
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)/Thing
+----
+
+`v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty(<primaryKey>)`
+
+.Example {counter:examples}: Resource pattern for a specific Observation of a specific Datastream
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)/Observations(5321)
+----
+
+The above example returns the same content as `v2.0/Observations(5321)`, except when Observation `5321` is not actually contained in Datastream 4, since in that case the example would return a `Not Found` error.
+
+
+
+==== Related EntitySet
+
+`v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty`
+
+.Example {counter:examples}: Resource pattern for the Observations of a specific Datastream
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)/Observations
+----
+
+
 
 === Request Options
 

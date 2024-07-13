@@ -47,6 +47,8 @@ include::sections/clause_06_overview.adoc[]
 
 include::sections/clause_07_core_data_model.adoc[]
 
+include::sections/clause_08_abstract_api.adoc[]
+
 include::sections/clause_08a_meta_model.adoc[]
 
 include::sections/clause_08b_abstract_api_overview.adoc[]

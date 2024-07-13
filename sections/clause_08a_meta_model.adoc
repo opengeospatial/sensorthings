@@ -1,5 +1,5 @@
 [[OData-Entity-Model]]
-== OData Entity Model
+=== OData Entity Model
 
 Every OData service utilizes an entity model which MAY be distributed over several schemas.
 The service describes this model through a metadata document accessible by a simple HTTP _GET_ request to the <serviceRoot>/$metadata path.
