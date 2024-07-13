@@ -25,7 +25,7 @@ The data model consists of the following elements:
   Relations defined as `navigation properties` in Entity Types.
   Relations have a cardinality.
 * `Properties`: named elements that are part of structured types (Entity Types and Complex Types).
-  Properties can be Primitive-, Complex- or navigation properties.
+  Properties can be Primitive-, Complex- or Navigation properties.
   Properties defined as part of a structured type (Entity/Complex Type) are `declared properties`.
   A structured type can allow properties that are added dynamically, as long as these `dynamic properties` do not have the same name as a declared property.
   Structured types that allow dynamic properties are called `Open Types`.
@@ -34,8 +34,8 @@ The data model consists of the following elements:
   Entity Sets are the entry points into the data model.
 * `Annotation`: additional information attached to model or instance elements.
   annotations can be identified by the `@` character.
-  If the annotation starts with `@` the annotation pertains the object containing the annotation.
-  If the annotation has a property name before the (`@`) the annotation pertains the property with that name.
+  If the annotation starts with the `@` character, then the annotation pertains to the object containing the annotation.
+  If the annotation has a property name before the `@` charater, then the annotation pertains the property with that name.
   Annotations are server-generated additional information that a client can use when processing the data.
   A client can ignore any annotations it does not understand.
   The default annotations can be found in <<tab-common-control-annotations>>.
@@ -43,6 +43,8 @@ The data model consists of the following elements:
 * `EntityId`: a globally unique identifier for an Entity.
   If present in Entity representations, the EntityId is specified in the `@id` annotation.
 
+Each Entity has a primary key that is composed of one or more of the `declared properties` of the entity type.
+Which properties of the Entity Type make up the primary key of the Entity Type is specified in the service metadata document.
 
 EDITOR: Say something about `id`, primary keys, extensions and server-generated/user-supplied.
 
@@ -57,7 +59,7 @@ Relative to what, and how is this done in MQTT? See https://docs.oasis-open.org/
 |Name |Definition |Data Type
 
 |@context
-|The context url contains the metadata document that describes the context of a payload.
+|The context url contains the metadata document that describes the context of a payload. See <<OData-CSDL>>
 |URL
 
 |@id
@@ -65,7 +67,7 @@ Relative to what, and how is this done in MQTT? See https://docs.oasis-open.org/
 |URL
 
 |linkName@navigationLink
-|Annotations of the form `linkName@navigationLink` are the relative or absolute URL that retrieves content of related entities for the navigation property `linkName`.
+|Annotations of the form `linkName@navigationLink` are the relative or absolute URL that retrieves the related entity or entities for the navigation property `linkName`.
 |URL
 |===
 
@@ -73,9 +75,16 @@ Relative to what, and how is this done in MQTT? See https://docs.oasis-open.org/
 [[OData-CSDL]]
 === OData Common Schema Definition Language
 
-The data model is described in a machine-readable way using the OData Common Schema Definition Language.
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html
 The data model is specified in the metadata document that can be retrieved from the context url.
+It is described in a machine-readable way using the OData Common Schema Definition Language.
+See https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html
+
+An example can be found in ...
+
+
+
+NOTE: Add example.
+
 
 
 
