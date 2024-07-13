@@ -79,7 +79,7 @@ Each Thing entity SHALL have the mandatory properties and MAY have the optional 
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating or updating the entity unless specified by the client.
+Its value is computed by the server when creating  the entity unless specified by the client.
 | ANY              | Required | One
 
 | `name`
@@ -185,7 +185,7 @@ Each Location entity SHALL have the mandatory properties and MAY have the option
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating or updating the entity unless specified by the client.
+Its value is computed by the server when creating  the entity unless specified by the client.
 | ANY              | Required | One
 
 | `name`
@@ -315,7 +315,7 @@ When a user directly adds new HistoricalLocation, and the time of this new Histo
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating or updating the entity unless specified by the client.
+Its value is computed by the server when creating  the entity unless specified by the client.
 | ANY         | Required | One
 
 | `time`
@@ -398,7 +398,7 @@ Each Datastream entity SHALL have the direct relation between a Datastream entit
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating or updating the entity unless specified by the client
+Its value is computed by the server when creating  the entity unless specified by the client
 | ANY
 | Required | One
 
@@ -612,7 +612,7 @@ Each Sensor entity SHALL have the direct relation between a Sensor entity and ot
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating or updating the entity unless specified by the client.
+Its value is computed by the server when creating  the entity unless specified by the client.
 | ANY         | Required | One
 
 | `name`
@@ -712,7 +712,7 @@ Each ObservedProperty entity SHALL have the direct relation between an ObservedP
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating or updating the entity unless specified by the client.
+Its value is computed by the server when creating  the entity unless specified by the client.
 | ANY          | Required | One
 
 | `name`
@@ -790,7 +790,7 @@ Each Observation entity SHALL have the direct relation between an Observation en
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating or updating the entity unless specified by the client.
+Its value is computed by the server when creating  the entity unless specified by the client.
 | ANY         | Required | One
 
 | `phenomenonTime`
@@ -903,7 +903,7 @@ Each Feature entity SHALL have the direct relation between a Feature entity and 
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating or updating the entity unless specified by the client.
+Its value is computed by the server when creating  the entity unless specified by the client.
 | ANY         | Required | One
 
 | `name`
