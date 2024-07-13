@@ -45,8 +45,10 @@ The data model consists of the following elements:
 
 Each Entity has a primary key that is composed of one or more of the `declared properties` of the entity type.
 Which properties of the Entity Type make up the primary key of the Entity Type is specified in the service metadata document.
+For the data models specified in this document the primary key is always the field `id`, though the data type of the field may vary between services.
+In most cases the primary key field will be server generated at the time an Entity is created, but a service may allow for client-specified primary key fields.
 
-EDITOR: Say something about `id`, primary keys, extensions and server-generated/user-supplied.
+
 
 EDITOR: Say something about absolute / relative URLs.
 Relative to what, and how is this done in MQTT? See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html#sec_RelativeURLs

@@ -64,7 +64,7 @@ Each Deployment entity SHALL have the direct relation between a Deployment entit
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating or updating the entity unless specified by the client.
+Its value is computed by the server when creating  the entity unless specified by the client.
 | ANY         | Required | One
 
 | `name`
@@ -92,7 +92,7 @@ The metadata type is defined by encodingType
 
 [#deployment-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a Deployment entity and other entity types
-[width="100%",cols="5,5,10,10",options="header"]
+[width="100%",cols="3,3,10,20",options="header"]
 |====
 | *Entity Name* | *Role*      | *Multiplicity*
 | *Description*
@@ -161,7 +161,7 @@ Each ObservingProcedure entity SHALL have the direct relation between an Observi
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating or updating the entity unless specified by the client
+Its value is computed by the server when creating  the entity unless specified by the client
 | ANY         | Required | One
 
 | `name`
