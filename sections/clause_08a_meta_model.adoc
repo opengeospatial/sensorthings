@@ -58,7 +58,9 @@ Relative to what, and how is this done in MQTT? See https://docs.oasis-open.org/
 .Common control annotations
 [cols="2a,7a,1a"]
 |===
-|Name |Definition |Data Type
+|Name
+|Definition
+|Data Type
 
 |@context
 |The context url contains the metadata document that describes the context of a payload. See <<OData-CSDL>>

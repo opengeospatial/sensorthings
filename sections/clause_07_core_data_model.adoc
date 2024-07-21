@@ -71,28 +71,33 @@ Each Thing entity SHALL have the mandatory properties and MAY have the optional 
 
 [#thing-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Thing entity
-[width="100%",cols="5,17,3,3,3",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
 | *Name*
 | *Definition*
-| *Data Type*      | *Usage*  | *Multiplicity*
+| *Data Type*
+| *Multiplicity*
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
 Its value is computed by the server when creating  the entity unless specified by the client.
-| ANY              | Required | One
+| ANY
+| 1
 
 | `name`
 | A property provides a label for Thing entity, commonly a descriptive name.
-| String           | Required | One
+| String
+| 1
 
 | `description`
 | This is a short description of the corresponding Thing entity.
-| String           | Optional | Zero-to-one
+| String
+| 0..1
 
 | `properties`
-| A JSON Object containing user-annotated properties as key-value pairs.
-| JSON Object      | Optional | Zero to One
+| A JSON Object containing user-annotated properties.
+| JSON Object
+| 0..1
 |====
 
 
@@ -106,12 +111,14 @@ Each Thing entity SHALL have the direct relation between a Thing entity and othe
 
 [#thing-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a Thing entity and other entity types
-[width="100%",cols="5,5,7,10a",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
-| *Entity Name*               | *Role*               | *Multiplicity*
+| *Role*
 | *Description*
+| *Target Entity Type*
+| *Multiplicity*
 
-| `Location`                  | Locations            | Many optional to many optional
+| `Location`
 | The Location entity locates the Thing.
 Multiple Things MAY be located at the same Location.
 A Thing MAY not have a Location.
@@ -119,12 +126,19 @@ A Thing SHOULD have only one Location.
 
 However, in some complex use cases, a Thing MAY have more than one Location representations.
 In such case, the Thing MAY have more than one Locations.
-| `HistoricalLocation`        | HistoricalLocations  | One mandatory to many optional
+| `Location`
+| 0..1
+
+| `HistoricalLocations`
 | A Thing has zero-to-many HistoricalLocations.
 A HistoricalLocation has one-and-only-one Thing.
+| `HistoricalLocation`
+| 0..*
 
-| `Datastream`                | Datastreams          | One mandatory to many optional
+| `Datastreams`
 | A Thing MAY have zero-to-many Datastreams.
+| `Datastream`
+| 0..*
 |====
 
 
@@ -177,36 +191,43 @@ Each Location entity SHALL have the mandatory properties and MAY have the option
 
 [#location-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Location entity
-[width="100%",cols="5,17,3,3,3",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
 | *Name*
 | *Definition*
-| *Data Type*      | *Usage*  | *Multiplicity*
+| *Data Type*
+| *Multiplicity*
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
 Its value is computed by the server when creating  the entity unless specified by the client.
-| ANY              | Required | One
+| ANY
+| 1
 
 | `name`
 | A property provides a label for Location entity, commonly a descriptive name.
-| String           | Required | One
+| String
+| 1
 
 | `encodingType`
 | The encoding type of the Location property.
-| String           | Required | One
+| String
+| 1
 
 | `location`
 | The identifiable location of the Thing
-| ANY              | Required | One
+| ANY
+| 1
 
 | `description`
 | The description about the Location
-| String           | Optional | Zero-to-one
+| String
+| 0..1
 
 | `properties`
-| A JSON Object containing user-annotated properties as key-value pairs.
-| JSON Object      | Optional | Zero to One
+| A JSON Object containing user-annotated properties.
+| JSON Object
+| 0..1
 |====
 
 
@@ -220,18 +241,23 @@ Each Location entity SHALL have the direct relation between a Location entity an
 
 [#location-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a Location entity and other entity types
-[width="100%",cols="5,5,10,10",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
-| *Entity Name*        | *Role*              | *Multiplicity*
+| *Role*
 | *Description*
+| *Target Entity Type*
+| *Multiplicity*
 
-| `Thing`              | Things              | Many optional to many optional
-| Multiple Things MAY locate at the same Location.
-A Thing MAY not have a Location.
+| `Things`
+| The Things located at the source Location.
+Multiple Things MAY locate at the same Location.
+| `Thing`
+| 0..*
 
-| `HistoricalLocation` | HistoricalLocations | Many optional to many optional
-| A Location MAY have zero-to-many HistoricalLocations.
-One HistoricalLocation SHALL have one or more Locations.
+| `HistoricalLocations`
+| The HistoricalLocations of things that have been located at this Location.
+| `HistoricalLocation`
+| 0..*
 |====
 
 
@@ -307,37 +333,46 @@ When a user directly adds new HistoricalLocation, and the time of this new Histo
 
 [#historical-location-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a HistoricalLocation entity
-[width="100%",cols="5,17,3,3,3",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
 | *Name*
 | *Definition*
-| *Data Type* | *Usage*  | *Multiplicity*
+| *Data Type*
+| *Multiplicity*
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
 Its value is computed by the server when creating  the entity unless specified by the client.
-| ANY         | Required | One
+| ANY
+| 1
 
 | `time`
 | The time when the Thing is known at the Location.
-| TM_Instant  | Required | One
+| TM_Instant
+| 1
 |====
 
 
 [#historical-location-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a HistoricalLocation entity and other entity types
-[width="100%",cols="5,5,10,10",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
-| *Entity Name* | *Role*    | *Multiplicity*
+| *Role*
 | *Description*
+| *Target Entity Type*
+| *Multiplicity*
 
-| `Location`    | Locations | Many optional to many mandatory
-| A Location can have zero-to-many HistoricalLocations.
-One HistoricalLocation SHALL have one or many Locations.
+| Locations
+| The Locations for this HistoricalLocation.
+One HistoricalLocation SHALL have at least one Location.
+| `Location`
+| 1..*
 
-| `Thing`       | Thing     | Many optional to one mandatory
-| A HistoricalLocation has one-and-only-one Thing.
-One Thing MAY have zero-to-many HistoricalLocations.
+| Thing
+| The Thing this HistoricalLocation positions in time.
+A HistoricalLocation has exactly one Thing.
+| `Thing`
+| 1
 |====
 
 
@@ -389,89 +424,102 @@ Each Datastream entity SHALL have the direct relation between a Datastream entit
 
 [#datastream-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Datastream entity
-[width="100%",cols="5,17,3,3,3",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
 | *Name*
 | *Definition*
 | *Data Type*
-| *Usage*  | *Multiplicity*
+| *Multiplicity*
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
 Its value is computed by the server when creating  the entity unless specified by the client
 | ANY
-| Required | One
+| 1
 
 | `name`
 | A property provides a label for Datastream entity, commonly a descriptive name.
 | String
-| Required | One
+| 1
 
 | `description`
 | The description of the Datastream entity.
 | String
-| Optional | Zero-to-one
+| 0..1
 
 | `resultType`
-| The type of Observation (with unit of measurement AND unique result type), which is used by the service to encode observations
+| The formal description of the `result` field of the Observations in this Datastream.
+Contains the unit of measurement.
 | JSON Object (SWE-Common AbstractDataComponent)
-| Required | One
+| 1
 
 | `observedArea`
 | The spatial bounding box of the spatial extent of the Feature that belong to the Observations associated with this Datastream.
 This is usually generated by the server.
 | Geometry
-| Optional | Zero-to-one
+| 0..1
 
 | `phenomenonTime`
 | The temporal interval of the phenomenon times of all observations belonging to this Datastream.
 This is usually generated by the server.
 | TM_Period
-| Optional | Zero-to-one
+| 0..1
 
 | `resultTime`
 | The temporal interval of the result times of all observations belonging to this Datastream.
 This is usually generated by the server.
 | TM_Period
-| Optional | Zero-to-one
+| 0..1
 
 | `properties`
-| A JSON Object containing user-annotated properties as key-value pairs.
+| A JSON Object containing user-annotated properties.
 | JSON Object
-| Optional | Zero-to-one
+| 0..1
 |====
 
 
 [#datastream-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a Datastream entity and other entity types
-[width="100%",cols="5,5,10,10",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
-| *Entity Name*      | *Role*                    | *Multiplicity*
+| *Role*
 | *Description*
+| *Target Entity Type*
+| *Multiplicity*
 
-| `Thing`            | Thing                     | Many optional to one mandatory
-| A Thing has zero-to-many Datastreams.
-A Datastream entity SHALL only link to a Thing as a collection of Observations
+| `Thing`
+| The Thing this Datastream holds Observations for.
+| `Thing`
+| 1
 
-| `Sensor`           | Sensor                    | Many optional to one mandatory
-| The Observations in a Datastream are performed by one-and-only-one Sensor.
-One Sensor MAY produce zero-to-many Observations in different Datastreams.
+| `Sensor`
+| The Sensor that made the Observations in this Datastream.
+| `Sensor`
+| 1
 
-| `ObservedProperty` | ObservedProperty          | Many optional to many mandatory
-| The Observations of a Datastream SHALL observe the same ObservedProperty.
-The Observations of different Datastreams MAY observe the same ObservedProperty
+| `ObservedProperty`
+| The ObservedProperty of the Observations in this Datastream.
+The Observations in a Datastream may hold values for multiple ObservedProperties, but the ObservedProperties are the same for all Observations in the same Datastream.
+See `resultType` for the details on the encoding of results.
+| `ObservedProperty`
+| 1..*
 
-| `Observation`      | Observations              | One mandatory to many optional
-| A Datastream has zero-to-many Observations.
-One Observation SHALL occur in one-and-only-one Datastream
+| `Observations`
+| The Observations for a Datastream.
+| `Observation`
+| 0..*
 
-| `Feature`          | UltimateFeatureOfInterest | Many optional to one optional
+| `UltimateFeatureOfInterest`
 | The Feature has the role UltimateFeatureOfInterest so that all the Observations in a Datastream pertain only to the same linked Feature
+| `Feature`
+| 0..1
 |====
 
 
 The resultType defines the result types for specialized single and multi observations based on the JSON encoding of the SWE Common Data Model [OGC 08-094r1 and OGC 17-011r2].
-This also obsoletes MultiDatastreams as the same information can be described using the SWE Common definition types.
+The result of an Observation may be a single simple number or String, or it may contain a complex JSON structure holding multiple values for multiple ObservedProperties.
+The exact definition for this result structure, and which unit of measurement and which ObservedProperty pertains to each value in the result structure is exactly described by this resultType Object.
+
 
 
 .Example {counter:examples}: A Datastream example measuring a scalar Observation
@@ -604,46 +652,60 @@ Each Sensor entity SHALL have the direct relation between a Sensor entity and ot
 
 [#sensor-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Sensor entity
-[width="100%",cols="5,17,3,3,3",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
 | *Name*
 | *Definition*
-| *Data Type* | *Usage*  | *Multiplicity*
+| *Data Type*
+| *Multiplicity*
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
 Its value is computed by the server when creating  the entity unless specified by the client.
-| ANY         | Required | One
+| ANY
+| 1
 
 | `name`
 | A property provides a label for Sensor entity, commonly a descriptive name.
-| String      | Required | One
+| String
+| 1
 | `description`
 | The description of the Sensor entity.
-| String      | Optional | Zero-to-one
+| String
+| 0..1
 
 | `encodingType`
 | The encoding type of the metadata property.
 Its value is one of the ValueCode enumeration (see <<sensor-encodingType-value-codes>> for the available ValueCode)
-| ValueCode   | Required | One
+| ValueCode
+| 1
 
 | `metadata`
 | The detailed description of the Sensor or system.
 The metadata type is defined by encodingType.
-| String      | Required | One
+| String
+| 1
 
 | `properties`
 | A JSON Object containing user-annotated properties as key-value pairs
-| JSON Object | Optional | Zero-to-one
+| JSON Object
+| 0..1
 |====
 
 
 [#sensor-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a Sensor entity and other entity types
-[width="100%",cols="5,5,10,10",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
-| *Entity Name*               | *Role*                                 | *Multiplicity*                   | *Description*
-| `Datastream`                | Datastreams                            | One mandatory to many optional   | The Observations of a Datastream are measured with the same Sensor. One Sensor MAY produce zero-to-many Observations in different Datastreams
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `Datastreams`
+| The Datastreams that hold Observations produced by this Sensor.
+| `Datastream`
+| 0..*
 |====
 
 
@@ -651,10 +713,17 @@ The metadata type is defined by encodingType.
 .List of some code values used for identifying types for the encodingType of the Sensor entity
 [width="100%",cols="15,5",options="header"]
 |====
-| *Sensor encodingType*                | *ValueCode Value*              
-| `PDF`                                | application/pdf                                  
-| `SensorML`                           | http://www.opengis.net/doc/IS/SensorML/2.0
-| `HTML`                               | text/html
+| *Sensor encodingType*
+| *ValueCode Value*              
+
+| `PDF`
+| application/pdf                                  
+
+| `SensorML`
+| http://www.opengis.net/doc/IS/SensorML/2.0
+
+| `HTML`
+| text/html
 |====
 
 EDITOR: Ensure wording that List is not exhaustive!
@@ -704,45 +773,55 @@ Each ObservedProperty entity SHALL have the direct relation between an ObservedP
 
 [#observed-property-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of an ObservedProperty entity
-[width="100%",cols="5,17,3,3,3",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
 | *Name*
 | *Definition*
-| *Data Type* | *Usage*  | *Multiplicity*
+| *Data Type*
+| *Multiplicity*
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
 Its value is computed by the server when creating  the entity unless specified by the client.
-| ANY          | Required | One
+| ANY
+| 1
 
 | `name`
 | A property provides a label for ObservedProperty  entity, commonly a descriptive name.
-| String       | Required | One
+| String
+| 1
 
 | `definition`
 | The URI of the ObservedProperty.
 Dereferencing this URI SHOULD result in a representation of the definition of the ObservedProperty
-| URI          | Required | One
+| URI
+| 1
 
 | `description`
 | A description about the ObservedProperty.
-| String       | Optional | Zero-to-one
+| String
+| 0..1
 
 | `properties`
 | A JSON Object containing user-annotated properties as key-value pairs
-| JSON Object  | Optional | Zero-to-one
+| JSON Object
+| 0..1
 |====
 
 
 [#observed-property-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between an ObservedProperty entity and other entity types
-[width="100%",cols="5,5,10,10",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
-| *Entity Name* | *Role*      | *Multiplicity*
+| *Role*
 | *Description*
-| `Datastream`  | Datastreams | One mandatory to many optional   
-| The Observations of a Datastream observe the same ObservedProperty.
-The Observations of different Datastreams MAY observe the same ObservedProperty.
+| *Target Entity Type*
+| *Multiplicity*
+
+| `Datastreams`
+| Datastreams that hold Observations that observed this ObservedProperty.
+| `Datastream`
+| 0..*
 |====
 
 
@@ -782,16 +861,18 @@ Each Observation entity SHALL have the direct relation between an Observation en
 
 [#observation-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of an Observation entity
-[width="100%",cols="5,17,3,3,3",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
 | *Name*
 | *Definition*
-| *Data Type* | *Usage*  | *Multiplicity*
+| *Data Type*
+| *Multiplicity*
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
 Its value is computed by the server when creating  the entity unless specified by the client.
-| ANY         | Required | One
+| ANY
+| 1
 
 | `phenomenonTime`
 | The time instant or period of when the Observation happens.
@@ -799,43 +880,53 @@ Its value is computed by the server when creating  the entity unless specified b
 Note: Many resource-constrained sensing devices do not have a clock.
 As a result, a client may omit phenomenonTime when POST new Observations, even though phenomenonTime is a mandatory property.
 When a SensorThings service receives a POST Observations without phenomenonTime, the service SHALL assign the current server time to the value of the phenomenonTime
-| TM_Object   | Optional | Zero-to-one
+| TM_Object
+| 0..1
 
 | `result`
 | The estimated value of an ObservedProperty from the Observation.
-| ANY         | Required | One
+| ANY
+| 1
 | `resultTime`
 | The time of the Observation’s result was generated
 
 Note: Many resource-constrained sensing devices do not have a clock.
 As a result, a client may omit resultTime when POST new Observations, even though resultTime is a mandatory property.
 When a SensorThings service receives a POST Observations without resultTime, the service SHALL assign a null value to the resultTime.
-| TM_Instant  | Optional | Zero-to-one
+| TM_Instant
+| 0..1
 
 | `validTime`
 | The time period during which the result may be used
-| TM_Period   | Optional | Zero-to-one
+| TM_Period
+| 0..1
 
 | `properties`
 | A JSON Object containing user-annotated properties as key-value pairs (usually showing the environmental conditions during measurement)
-| JSON Object | Optional | Zero-to-one
+| JSON Object
+| 0..1
 |====
 
 
 [#observation-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between an Observation entity and other entity types
-[width="100%",cols="5,5,10,10",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
-| *Entity Name* | *Role*                     | *Multiplicity*
+| *Role*
 | *Description*
+| *Target Entity Type*
+| *Multiplicity*
 
-| `Datastream`  | Datastream                 | Many optional to one mandatory
-| A Datastream can have zero-to-many Observations.
-One Observation SHALL occur in one-and-only-one Datastream
+| `Datastream`
+| The Datastream this Observation exists in.
+| `Datastream`
+| 1
 
-| `Feature`     | ProximateFeatureOfInterest | Many optional to one optional
+| `ProximateFeatureOfInterest`
 | The Feature observed by the Observation.
 The relationship is optional and SHALL exist in cases where the observed Feature is a proxy of the actual Feature
+| `Feature`
+| 0..1
 |====
 
 [additional-notes]
@@ -895,52 +986,156 @@ Each Feature entity SHALL have the direct relation between a Feature entity and 
 
 [#feature-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Feature entity
-[width="100%",cols="5,17,3,3,3",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
 | *Name*
 | *Definition*
-| *Data Type* | *Usage*  | *Multiplicity*
+| *Data Type*
+| *Multiplicity*
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
 Its value is computed by the server when creating  the entity unless specified by the client.
-| ANY         | Required | One
+| ANY
+| 1
 
 | `name`
 | A property provides a label for Feature entity, commonly a descriptive name.
-| String      | Required | One
+| String
+| 1
 
 | `description`
 | The description about the Feature
-| String      | Optional | Zero-to-one
+| String
+| 0..1
 
 | `encodingType`
 | The encoding type of the feature property
-| String      | Required | One
+| String
+| 1
 
 | `feature`
 | The detailed description of the feature.
 The data type is defined by encodingType.
-| ANY         | Required | Zero-to-one
+| ANY
+| 0..1
 
 | `properties`
 | A JSON Object containing user-annotated properties as key-value pairs
-| JSON Object | Optional | Zero-to-one
+| JSON Object
+| 0..1
 |====
 
 
 [#feature-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a Feature entity and other entity types
-[width="100%",cols="5,5,10,10",options="header"]
+[width="100%",cols="3,20a,3,3",options="header"]
 |====
-| *Entity Name* | *Role*       | *Multiplicity*                
+| *Role*
 | *Description*
+| *Target Entity Type*
+| *Multiplicity*                
 
-| `Observation` | Observations | One optional to many optional
-| A Feature MAY have zero-to-many Observations.
-An Observation SHOULD observe at most one Feature
+| `Observations`
+| All Observations that are made on this Feature
+| `Observation`
+| 0..*
 
-| `Datastream`  | Datastreams  | One optional to many optional
-| There MAY be multiple Datastreams observing the same Feature as a Feature MAY have multiple properties of interest.
-However a Datastream SHOULD link to at most one Feature of interest.
+| `Datastreams`
+| All Datastreams that contain Observations relevant for this Feature.
+| `Datastream`
+| 0..*
 |====
+
+
+
+
+[[featuretype]]
+=== FeatureType
+
+[requirements_class]
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sensing/feature-type
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/sensing/feature-type/properties
+requirement:: {identifier}/req/datamodel/sensing/feature-type/relations
+====
+
+The type or types of each Feature can be specified using the FeatureType class.
+The `definition` attribute of the FeatureType should point to an external registry or code list, that defines the Type.
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/feature-type/properties
+
+Each FeatureType entity SHALL have the mandatory properties and MAY have the optional properties listed in <<feature-type-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/feature-type/relations
+
+Each FeatureType entity SHALL have the direct relation between a FeatureType entity and other entity types listed in <<feature-type-relations>>.
+====
+
+
+[#feature-type-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a FeatureType entity
+[width="100%",cols="3,20a,3,3",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating  the entity unless specified by the client.
+| ANY
+| 1
+
+| `name`
+| A property provides a label for Feature entity, commonly a descriptive name.
+| String
+| 1
+
+| `description`
+| The description about the Feature
+| String
+| 0..1
+
+| `definition`
+| The URI the defines this FeatureType.
+Dereferencing this URI SHOULD result in a representation of the definition of the FeatureType.
+| URI
+| 0..1
+
+| `properties`
+| A JSON Object containing user-annotated properties as key-value pairs
+| JSON Object
+| 0..1
+|====
+
+
+[#feature-type-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a FeatureType entity and other entity types
+[width="100%",cols="3,20a,3,3",options="header"]
+|====
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*                
+
+| `Features`
+| All Features of a FeatureType.
+| `Feature`
+| 0..*
+|====
+
+

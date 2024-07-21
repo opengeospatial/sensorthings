@@ -1,4 +1,5 @@
-:sectnums: |,all|
+:sectnums:
+|,all|
 :sectanchors:
 [[actuation]]
 === Actuation Extension
@@ -50,27 +51,35 @@ Each TaskingCapability entity SHALL have the mandatory properties and MAY have t
 .Properties of a TaskingCapability entity
 [width="100%",cols="5,17,3,3,3",options="header"]
 |====
-| *Name*        | *Definition* | *Data Type* | *Usage*  | *Multiplicity*
+| *Name*
+| *Definition*
+| *Data Type*
+| *Usage*
+| *Multiplicity*
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
 | ANY
-| Required | One
+| Required
+| One
 
 | `name`
 | A property provides a label for TaskingCapability entity, commonly a descriptive name
 | String
-| Required | One
+| Required
+| One
 
 | `description`
 | The description of the Deployment entity
 | String
-| Optional | Zero-to-one
+| Optional
+| Zero-to-one
 
 | `properties`
 | A JSON Object containing user-annotated properties as key-value pairs
 | JSON Object
-| Optional | Zero-to-one
+| Optional
+| Zero-to-one
 
 | `taskingParameters`
 | The taskingParameters property describes optional and mandatory tasking parameters.
@@ -79,7 +88,8 @@ To ensure common understanding between client and server, a common exchange prot
 
 SensorThings uses the JSON encoding defined in OGC 17-011r2 to define taskingParameters
 | JSON Object (SWE-Common AbstractDataComponent)
-| Required | One
+| Required
+| One
      
 |====
 
@@ -96,7 +106,10 @@ Each TaskingCapability entity SHALL have the direct relation between a TaskingCa
 .Direct relation between a TaskingCapability entity and other entity types
 [width="100%",cols="5,5,10,10",options="header"]
 |====
-| *Entity Name* | *Role*        | *Multiplicity* | *Description*
+| *Target Entity Type*
+| *Role*
+| *Multiplicity*
+| *Description*
 
 | `Task`
 | Tasks
@@ -151,27 +164,35 @@ Each Task entity SHALL have the mandatory properties and MAY have the optional p
 .Properties of a Task entity
 [width="100%",cols="5,17,3,3,3",options="header"]
 |====
-| *Name*        | *Definition* | *Data Type* | *Usage*  | *Multiplicity*
+| *Name*
+| *Definition*
+| *Data Type*
+| *Usage*
+| *Multiplicity*
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
 | ANY
-| Required | One
+| Required
+| One
 
 | `creationTime`
 | The time when the task is created. This time SHALL only be added automatically by the service.
 | TM_Instant
-| Optional | One
+| Optional
+| One
 
 | `runTime`
 | The total time taken when the task is executed
 | TM_Object
-| Optional | One
+| Optional
+| One
 
 | `status`
 | The status of the task. The status of the task can be one of the values listed in <<task-status-status-codes>>.
 | CodeList
-| Optional | One
+| Optional
+| One
 
 | `taskingParameters`
 | The taskingParameters property describes optional and mandatory tasking parameters.
@@ -181,7 +202,8 @@ SensorThings uses the JSON encoding for SWE Common data block defined in OGC 08-
 taskingParameters is a SWE Common data block and MUST have key-value pairs in a JSON object.
 Key MUST be the name described in TaskingCapablity's taskingParamaters and value MUST be the value of that parameter for this Task.
 | JSON Object (SWE-Common AbstractDataComponent)
-| Required | One
+| Required
+| One
 |====
 
 [requirement]
@@ -196,7 +218,10 @@ Each Task entity SHALL have the direct relation between a Task entity and other 
 .Direct relation between a Task entity and other entity types
 [width="100%",cols="5,5,10,10",options="header"]
 |====
-| *Entity Name*       | *Role*                               | *Multiplicity* | *Description*
+| *Target Entity Type*
+| *Role*
+| *Multiplicity*
+| *Description*
 
 | `TaskingCapability`
 | TaskingCapability
@@ -207,7 +232,8 @@ A TaskingCapability has zero-to-many Tasks
 | `Feature`
 | ProximateFeatureOfInterest
 | Many optional to one optional
- | A Task may have a Feature that is the target of the Task.
+
+| A Task may have a Feature that is the target of the Task.
  A Feature may have zero-to-many Tasks
 |====
 
@@ -253,36 +279,47 @@ Each Actuator entity SHALL have the mandatory properties and MAY have the option
 .Properties of an Actuator entity
 [width="100%",cols="5,17,3,3,3",options="header"]
 |====
-| *Name*        | *Definition* | *Data Type* | *Usage*  | *Multiplicity*
+| *Name*
+| *Definition*
+| *Data Type*
+| *Usage*
+| *Multiplicity*
 
 | `id`
 | A unique, read-only property that serves as an identifier for the entity.
 | ANY
-| Required | One
+| Required
+| One
 
 | `name`
 | A property provides a label for Actuator entity, commonly a descriptive name
 | String
-| Required | One
+| Required
+| One
 
-| `description` | The description of the Actuator entity
+| `description`
+| The description of the Actuator entity
 | String
-| Optional | Zero-to-one
+| Optional
+| Zero-to-one
 
 | `encodingType`| The encoding type of the metadata property. Its value is one of the ValueCode enumeration (see <<actuator-encodingType-value-codes>>)
 | ANY
-| Required | One
+| Required
+| One
 
 | `metadata`
 | The metadata property provides detailed information about the Actuator entity.
 The content of the metadata property is implementation dependent.
 | ANY
-| Required | One
+| Required
+| One
 
 | `properties`
 | A JSON Object containing user-annotated properties as key-value pairs
 | JSON Object
-| Optional | Zero-to-one
+| Optional
+| Zero-to-one
 
 |====
 
@@ -298,7 +335,10 @@ Each Actuator entity SHALL have the direct relation between an Actuator entity a
 .Direct relation between an Actuator entity and other entity types
 [width="100%",cols="5,5,10,10",options="header"]
 |====
-| *Entity Name*       | *Role*                               | *Multiplicity* | *Description*
+| *Target Entity Type*
+| *Role*
+| *Multiplicity*
+| *Description*
 
 | `TaskingCapability`
 | TaskingCapability

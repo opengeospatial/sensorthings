@@ -47,7 +47,10 @@ Each entity SHALL have the following common control information listed in <<tab-
 .Common control information
 [cols="20a,50a,15a,15a"]
 |===
-|Name |Definition |Data type |Multiplicity and use
+|Name
+|Definition
+|Data type
+|Multiplicity and use
 
 |id
 |`id` is the system-generated identifier of an entity that is unique among the entities of the same entity type in a SensorThings API service instance.

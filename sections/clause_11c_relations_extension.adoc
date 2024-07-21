@@ -2,9 +2,18 @@
 
 The relations extension adds the ability to relate Things to other Things, Features to other Features, Datastreams to other Datastreams and Observations to other Observations.
 These relations can be semantically annotated in both directions.
+Possible use cases include:
+
+* Linking sub-systems to their parent systems, both implemented as Things.
+* Linking Datastreams that contain aggregate data to the source-Datastreams containing the raw data.
+* Linking Rivers (Features) to the Rivers or Lakes that they flow into.
+* Linking Rooms to the Floors they are on, and those Floors to the Buildings they are in.
+* Linking derivative Observations to the source Observations they are derived from.
 
 The entity types, properties and relations added by this extension are depicted in <<img-sta-extension-relations>>.
 [#img-sta-extension-relations,link=figures/Datamodel-SensorThingsApi-V2-Relations.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Relations Extension']
 image::figures/Datamodel-SensorThingsApi-V2-Relations.drawio.png[Relations Extension, align="center"]  
 
 NOTE: move image into document once finished
+
+
