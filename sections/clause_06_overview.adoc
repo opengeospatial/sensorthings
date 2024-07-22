@@ -12,6 +12,7 @@ Application developers can use this open Standard to connect to various IoT devi
 IoT device manufacturers can also use OGC SensorThings API as the API can be embedded within various IoT hardware and software platforms, so that the various IoT devices can effortlessly connect with the OGC Standard-compliant servers around the world.
 In summary, the OGC SensorThings API is transforming the numerous disjointed IoT systems into a fully connected platform where complex tasks can be synchronized and performed.
 
+EDITOR: Add the many non-IoT uses!
 
 [[benefits]]
 === Benefits of the OGC SensorThings API
@@ -20,7 +21,7 @@ In today’s world, most IoT devices (e.g., sensors and actuators) have propriet
 New APIs are often required and developed on an as-needed basis, often in an environment with resource limitations and associated risks.
 This situation requires significant investment on the part of developers for each new sensor or project involving multiple systems and on the part of the providers of sensors, gateways, and portals or services where observations and measurements are required.
 
-As a standardized data model and interface for sensors in the WoT and IoT<<footnote2>>, the OGC SensorThings API offers the following benefits:
+As a standardized data model and interface for sensors in the WoT and IoT, the OGC SensorThings API offers the following benefits:
 (1) it permits the proliferation of new high value services with lower overhead of development and wider reach,
 (2) it lowers the risks, time and cost across a full IoT product cycle, and
 (3) it simplifies the connections between devices-to-devices and devices-to-applications.
@@ -60,14 +61,14 @@ The method used to execute a Sampling may be described by a SamplingProcedure.
 This SamplingProcedure can be used by multiple Samplers and conversely, a Sampler may implement multiple SamplingProcedures. 
 However, any Sampling that is executed by a Sampler is always associated with a unique SamplingProcedure.
 In addition, various preparation steps may be performed on samples both before and after observations are performed on the sample.
-The entities are explained in detail in <<sampling-entities>>.
+The entities are explained in detail in <<sampling-extension>>.
 
 The Tasking part provides a standard way for parameterizing - also called tasking - of taskable IoT devices, such as individual sensors and actuators, composite consumer / commercial / industrial / smart cities in-situ platforms, mobile and wearable devices, or even unmanned systems platforms such as drones, satellites, connected and autonomous vehicles, etc.
 A Task defines a control action executed by an Actuator.
 Actuator is modeled to describe a device that is equipped with Tasking Capabilities.
 A TaskingCapability characterizes an Actuator's (or in some cases, a Thing's) ability to trigger a change in ActuableProperties of any FeatureOfInterest by executing the given Task.
 The Tasking Data Model thus mirrors the Sensing Data Model.
-Each of these entities are elaborated further in <<tasking-entities>>.
+Each of these entities are elaborated further in <<actuation-extension>>.
 
 The <<sensing-OM-extension>> and <<relations-extension>> are optional extensions to the data model that may be used for extended data modelling requirements.
 
@@ -84,8 +85,9 @@ SensorThings API defines nine entities for the IoT sensing applications and seve
 SensorThings API uses the term of Sensor to describe the Observer that is used in generating an Observation, instead of using OMS’ term of Observer.
 
 
-[[tab-sensing-entities]]
+[#tab-sensing-entities,reftext='{table-caption} {counter:table-num}']
 .SensorThings API Sensing entities and equivalent concepts in OMS 3.0
+[width="100%",cols="5,5",options="header"]
 |===
 |SensorThings API Entities
 |OMS 3.0 Concepts
@@ -136,16 +138,24 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 === SensorThings API 2.0 changes from 1.1
 [#sta-changes,reftext='{table-caption} {counter:table-num}']
 .Changes in the SensorThings API 2.0 data model compared to v1.1
-[width="100%",cols="5,20a",options="header"]
+[width="100%",cols="4,20a",options="header"]
 |====
-| *Entity* | *Changes* 
-| Sensor     | description attribute is now optional and not mandatory
-| Thing      | description attribute is now optional and not mandatory
-| Location   | 
+| *Entity*
+| *Changes* 
+
+| Sensor
+| description attribute is now optional and not mandatory
+
+| Thing
+| description attribute is now optional and not mandatory
+
+| Location
+| 
 - description attribute is now optional and not mandatory
 - For a Thing having multiple Locations, these Locations MAY be in same encodingTypes OR the encodingTypes MAY be be in different spaces (e.g., one encodingType in Geometrical space and one encodingType in Topological space).
-| Datastream | 
 
+| Datastream
+| 
 - description attribute is now optional and not mandatory 
 - resultType replaces the observationType attribute, this eliminates MultiDatastream entity
 - unitOfMeasurement SHALL be embedded within the observedType attribute and does not exist as an independent attribute within the Datastream entity
@@ -153,13 +163,19 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
   The SWE-Common based observationType attribute eliminates the need for having a separate MultiDatastream entity
 - A Datastream can now be linked to the Feature it observes as an optional link, named UltimateFeatureOfInterest, between Datastream and Feature is introduced
 
-| ObservedProperty | description attribute is now optional and not mandatory
-| Observation | 
+| ObservedProperty
+| description attribute is now optional and not mandatory
 
+| Observation
+| 
 - properties replaces the parameters attribute
-- An Observation may or may not link to any Feature in contrast to the mandatory link between Observation and FeatureOfInterest from v1.x 
+- An Observation may or may not link to any Feature in contrast to the mandatory link between Observation and FeatureOfInterest from v1.x
 
-| Feature    | The Feature entity replaces the FeatureOfInterest entity from 1.x as it now takes the role of UltimateFeatureOfInterest or ProximateFeatureOfInterest depending upon the context and links with Observation and Datastream entities
+| Feature
+| The Feature entity replaces the FeatureOfInterest entity from 1.x as it now takes the role of UltimateFeatureOfInterest or ProximateFeatureOfInterest depending upon the context and links with Observation and Datastream entities
+
+| FeatureType
+| The FeatureType entity is added, and makes it easier to handle type information for Features
 |====
 
 

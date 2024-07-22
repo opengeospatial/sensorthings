@@ -1,5 +1,5 @@
-[[sampling-entities]]
-=== Sampling Entities
+[[sampling-extension]]
+=== Sampling Extension
 
 The sampling extension adds entity types, properties and relations needed to precicely describe the way samples are taken.
 
