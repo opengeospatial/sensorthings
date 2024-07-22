@@ -525,8 +525,8 @@ Its value is computed by the server when creating the entity unless specified by
 | String
 | 0..1
 
-| `link`
-| The URI of the PreparationStep.
+| `definition`
+| The URI defining the PreparationStep.
 Dereferencing this URI SHOULD result in a representation of the definition of the PreparationStep
 | URI
 | 0..1
