@@ -19,7 +19,7 @@ The entity types, properties and relations added by this extension are depicted 
 [#img-sta-om-relations,link=figures/Datamodel-SensorThingsApi-V2-OM.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='OM Extension']
 image::figures/Datamodel-SensorThingsApi-V2-OM.drawio.png[OM Extension, align="center"]  
 
-NOTE: move image into document once finished
+
 
 
 [[deployment]]
