@@ -5,6 +5,6 @@ This sections provides details and examples for any conventions used in the docu
 === Identifiers
 The normative provisions in this standard are denoted by the URI
 
-`http://www.opengis.net/spec/{standard}/{m.n}`
+`{identifier}`
 
 All requirements and conformance tests that appear in this document are denoted by partial URIs which are relative to this base.
