@@ -181,8 +181,15 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 
 === Relation to OASIS-OData
 
+OData is an API standard for exchanging relational data.
+It allows for the definition of a consistent REST API on any relational data model.
+OData specifies how clients can inspect the data model and how they can perform Create, Read, Update and Delete actions.
+OData comes with a very powerful query language that allows users to compose the response to queries such that only a minimal number of queries is required to fetch needed data, regardless of the use case of the client.
+The OData specification also defines filtering mechanisms that allows filtering across relations.
+OData uses JSON-encoding by default, and specifies generic rules for encoding relational data models in JSON.
+
 The OGC SensorThings API v2 interface is not an OData interface and does not claim to be an OData service. 
 It specifies a subset of the OData interface, and extends it at the same time.
-An SensorThings API Server implementation can implement the full OData specification. An OData client can access a SensorThings API service.
+A SensorThings API Server implementation can implement the full OData specification. An OData client can access a SensorThings API service.
 
 EDITOR: Check if this is true

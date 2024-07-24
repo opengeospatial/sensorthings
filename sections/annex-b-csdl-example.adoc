@@ -1,0 +1,450 @@
+[appendix,obligation="informative"]
+[[sta-core-csdl-example]]
+== Example SensorThings API Core CSDL
+
+[source,json]
+----
+{
+    "$Version": "4.01",
+    "$EntityContainer": "org.OGC.SensorThingsV2",
+    "org.OGC": {
+        "Datastream": {
+            "$Kind": "EntityType",
+            "$Key": [
+                "id"
+            ],
+            "id": {
+                "$Type": "Edm.Int64"
+            },
+            "name": {},
+            "description": {
+                "$Nullable": true
+            },
+            "resultType": {
+                "$Type": "org.OGC.Object"
+            },
+            "properties": {
+                "$Type": "org.OGC.Object",
+                "$Nullable": true
+            },
+            "observedArea": {
+                "$Type": "Edm.Geometry",
+                "$Nullable": true
+            },
+            "phenomenonTime": {
+                "$Type": "org.OGC.TM_Period",
+                "$Nullable": true
+            },
+            "resultTime": {
+                "$Type": "org.OGC.TM_Period",
+                "$Nullable": true
+            },
+            "Observations": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "Datastream",
+                "$Type": "org.OGC.Observation",
+                "$Nullable": true
+            },
+            "ObservedProperties": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "Datastreams",
+                "$Type": "org.OGC.ObservedProperty",
+                "$Nullable": true
+            },
+            "Sensor": {
+                "$Kind": "NavigationProperty",
+                "$Partner": "Datastreams",
+                "$Type": "org.OGC.Sensor"
+            },
+            "Thing": {
+                "$Kind": "NavigationProperty",
+                "$Partner": "Datastreams",
+                "$Type": "org.OGC.Thing"
+            },
+            "ultimateFeatureOfInterest": {
+                "$Kind": "NavigationProperty",
+                "$Partner": "Datastreams",
+                "$Type": "org.OGC.Feature",
+                "$Nullable": true
+            }
+        },
+        "Feature": {
+            "$Kind": "EntityType",
+            "$Key": [
+                "id"
+            ],
+            "id": {
+                "$Type": "Edm.Int64"
+            },
+            "name": {},
+            "description": {
+                "$Nullable": true
+            },
+            "encodingType": {
+                "$Nullable": true
+            },
+            "feature": {
+                "$Type": "org.OGC.Geometry",
+                "$Nullable": true
+            },
+            "properties": {
+                "$Type": "org.OGC.Object",
+                "$Nullable": true
+            },
+            "Datastreams": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "ultimateFeatureOfInterest",
+                "$Type": "org.OGC.Datastream",
+                "$Nullable": true
+            },
+            "FeatureTypes": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "Features",
+                "$Type": "org.OGC.FeatureType",
+                "$Nullable": true
+            },
+            "Observations": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "proximateFeatureOfInterest",
+                "$Type": "org.OGC.Observation",
+                "$Nullable": true
+            }
+        },
+        "FeatureType": {
+            "$Kind": "EntityType",
+            "$Key": [
+                "id"
+            ],
+            "id": {
+                "$Type": "Edm.Int64"
+            },
+            "name": {},
+            "description": {
+                "$Nullable": true
+            },
+            "definition": {
+                "$Nullable": true
+            },
+            "properties": {
+                "$Type": "org.OGC.Object",
+                "$Nullable": true
+            },
+            "Features": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "FeatureTypes",
+                "$Type": "org.OGC.Feature",
+                "$Nullable": true
+            }
+        },
+        "HistoricalLocation": {
+            "$Kind": "EntityType",
+            "$Key": [
+                "id"
+            ],
+            "id": {
+                "$Type": "Edm.Int64"
+            },
+            "time": {
+                "$Type": "Edm.DateTimeOffset"
+            },
+            "Locations": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "HistoricalLocations",
+                "$Type": "org.OGC.Location",
+                "$Nullable": true
+            },
+            "Thing": {
+                "$Kind": "NavigationProperty",
+                "$Partner": "HistoricalLocations",
+                "$Type": "org.OGC.Thing"
+            }
+        },
+        "Location": {
+            "$Kind": "EntityType",
+            "$Key": [
+                "id"
+            ],
+            "id": {
+                "$Type": "Edm.Int64"
+            },
+            "name": {},
+            "description": {
+                "$Nullable": true
+            },
+            "encodingType": {
+                "$Nullable": true
+            },
+            "location": {
+                "$Type": "org.OGC.Geometry",
+                "$Nullable": true
+            },
+            "properties": {
+                "$Type": "org.OGC.Object",
+                "$Nullable": true
+            },
+            "HistoricalLocations": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "Locations",
+                "$Type": "org.OGC.HistoricalLocation",
+                "$Nullable": true
+            },
+            "Things": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "Locations",
+                "$Type": "org.OGC.Thing",
+                "$Nullable": true
+            }
+        },
+        "Observation": {
+            "$Kind": "EntityType",
+            "$Key": [
+                "id"
+            ],
+            "id": {
+                "$Type": "Edm.Int64"
+            },
+            "phenomenonTime": {
+                "$Type": "org.OGC.TM_Object",
+                "$Nullable": true
+            },
+            "resultTime": {
+                "$Type": "Edm.DateTimeOffset",
+                "$Nullable": true
+            },
+            "validTime": {
+                "$Type": "org.OGC.TM_Period",
+                "$Nullable": true
+            },
+            "properties": {
+                "$Type": "org.OGC.Object",
+                "$Nullable": true
+            },
+            "result": {
+                "$Type": "Edm.Untyped",
+                "$Nullable": true
+            },
+            "Datastream": {
+                "$Kind": "NavigationProperty",
+                "$Partner": "Observations",
+                "$Type": "org.OGC.Datastream"
+            },
+            "proximateFeatureOfInterest": {
+                "$Kind": "NavigationProperty",
+                "$Partner": "Observations",
+                "$Type": "org.OGC.Feature",
+                "$Nullable": true
+            }
+        },
+        "ObservedProperty": {
+            "$Kind": "EntityType",
+            "$Key": [
+                "id"
+            ],
+            "id": {
+                "$Type": "Edm.Int64"
+            },
+            "definition": {},
+            "name": {},
+            "description": {
+                "$Nullable": true
+            },
+            "properties": {
+                "$Type": "org.OGC.Object",
+                "$Nullable": true
+            },
+            "Datastreams": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "ObservedProperties",
+                "$Type": "org.OGC.Datastream",
+                "$Nullable": true
+            }
+        },
+        "Sensor": {
+            "$Kind": "EntityType",
+            "$Key": [
+                "id"
+            ],
+            "id": {
+                "$Type": "Edm.Int64"
+            },
+            "name": {},
+            "description": {
+                "$Nullable": true
+            },
+            "encodingType": {
+                "$Nullable": true
+            },
+            "metadata": {
+                "$Nullable": true
+            },
+            "properties": {
+                "$Type": "org.OGC.Object",
+                "$Nullable": true
+            },
+            "Datastreams": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "Sensor",
+                "$Type": "org.OGC.Datastream",
+                "$Nullable": true
+            }
+        },
+        "Thing": {
+            "$Kind": "EntityType",
+            "$Key": [
+                "id"
+            ],
+            "id": {
+                "$Type": "Edm.Int64"
+            },
+            "name": {},
+            "description": {
+                "$Nullable": true
+            },
+            "properties": {
+                "$Type": "org.OGC.Object",
+                "$Nullable": true
+            },
+            "Datastreams": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "Thing",
+                "$Type": "org.OGC.Datastream",
+                "$Nullable": true
+            },
+            "HistoricalLocations": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "Thing",
+                "$Type": "org.OGC.HistoricalLocation",
+                "$Nullable": true
+            },
+            "Locations": {
+                "$Kind": "NavigationProperty",
+                "$Collection": true,
+                "$Partner": "Things",
+                "$Type": "org.OGC.Location",
+                "$Nullable": true
+            }
+        },
+        "Geometry": {
+            "$Kind": "TypeDefinition",
+            "$UnderlyingType": "Edm.Geometry",
+            "@Core.Description": "A Free Location object"
+        },
+        "Object": {
+            "$Kind": "ComplexType",
+            "$OpenType": true,
+            "@Core.Description": "A free object that can contain anything"
+        },
+        "TM_Object": {
+            "$Kind": "ComplexType",
+            "@Core.Description": "An ISO time instant or time interval.",
+            "start": {
+                "$Type": "Edm.DateTimeOffset"
+            },
+            "end": {
+                "$Type": "Edm.DateTimeOffset",
+                "$Nullable": true
+            }
+        },
+        "TM_Period": {
+            "$Kind": "ComplexType",
+            "@Core.Description": "An ISO time interval.",
+            "start": {
+                "$Type": "Edm.DateTimeOffset"
+            },
+            "end": {
+                "$Type": "Edm.DateTimeOffset"
+            }
+        },
+        "SensorThingsV2": {
+            "$Kind": "EntityContainer",
+            "Datastreams": {
+                "$Collection": true,
+                "$Type": "org.OGC.Datastream",
+                "$NavigationPropertyBinding": {
+                    "ultimateFeatureOfInterest": "Features",
+                    "Observations": "Observations",
+                    "ObservedProperties": "ObservedProperties",
+                    "Thing": "Things",
+                    "Sensor": "Sensors"
+                }
+            },
+            "Features": {
+                "$Collection": true,
+                "$Type": "org.OGC.Feature",
+                "$NavigationPropertyBinding": {
+                    "Datastreams": "Datastreams",
+                    "FeatureTypes": "FeatureTypes",
+                    "Observations": "Observations"
+                }
+            },
+            "FeatureTypes": {
+                "$Collection": true,
+                "$Type": "org.OGC.FeatureType",
+                "$NavigationPropertyBinding": {
+                    "Features": "Features"
+                }
+            },
+            "HistoricalLocations": {
+                "$Collection": true,
+                "$Type": "org.OGC.HistoricalLocation",
+                "$NavigationPropertyBinding": {
+                    "Locations": "Locations",
+                    "Thing": "Things"
+                }
+            },
+            "Locations": {
+                "$Collection": true,
+                "$Type": "org.OGC.Location",
+                "$NavigationPropertyBinding": {
+                    "Things": "Things",
+                    "HistoricalLocations": "HistoricalLocations"
+                }
+            },
+            "Observations": {
+                "$Collection": true,
+                "$Type": "org.OGC.Observation",
+                "$NavigationPropertyBinding": {
+                    "Datastream": "Datastreams",
+                    "proximateFeatureOfInterest": "Features"
+                }
+            },
+            "ObservedProperties": {
+                "$Collection": true,
+                "$Type": "org.OGC.ObservedProperty",
+                "$NavigationPropertyBinding": {
+                    "Datastreams": "Datastreams"
+                }
+            },
+            "Sensors": {
+                "$Collection": true,
+                "$Type": "org.OGC.Sensor",
+                "$NavigationPropertyBinding": {
+                    "Datastreams": "Datastreams"
+                }
+            },
+            "Things": {
+                "$Collection": true,
+                "$Type": "org.OGC.Thing",
+                "$NavigationPropertyBinding": {
+                    "Datastreams": "Datastreams",
+                    "Locations": "Locations",
+                    "HistoricalLocations": "HistoricalLocations"
+                }
+            }
+        }
+    }
+}
+----

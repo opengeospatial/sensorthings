@@ -2,21 +2,23 @@
 === OData Entity Model
 
 Every OData service utilizes an entity model which MAY be distributed over several schemas.
-The service describes this model through a metadata document accessible by a simple HTTP _GET_ request to the <serviceRoot>/$metadata path.
+The service describes this model through a metadata document accessible by a simple HTTP _GET_ request to the `<serviceRoot>/$metadata` path.
 This chapter describes an overview of the types of entities in the metadata document that will be used to describe the SensorThings API data model and its data model extensions.
 The entities listed below are also used to describe the REST and MQTT bindings of the SensorThings API service.
+
+This section is base on:
 
 * https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_DataModel 
 * https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_EntityModel
 
 
-The data model consists of the following elements:
+The entity model consists of the following elements:
 
 * `Entity Type`: named, structured, keyed element that defines the properties and relations of Entities.
   The key of an Entity Type consists of one or more primitive properties of the Entity Type.
 * `Entity`: instance of an `Entity Type`.
   An Entity can have only one Entity Type.
-* `Primitive Type`: unnamed, unstructured type, such as String, Integer or DateTime.
+* `Primitive Type`: unnamed, unstructured type, such as String, Integer or DateTime. The full list can be found at:
   https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_PrimitiveTypes
 * `Complex Type`: named, structured, keyless, element consisting of a set of named properties.
   Instances of Complex Types can not be accessed outside of the Entity they are contained in.
@@ -49,12 +51,12 @@ For the data models specified in this document the primary key is always the fie
 In most cases the primary key field will be server generated at the time an Entity is created, but a service may allow for client-specified primary key fields.
 
 
+URLs in documents may be absolute or relative.
+Relative URLs are relative to the context URL in the document, or if there is no context url, relative to the request URL.
+See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html#sec_RelativeURLs.
 
-EDITOR: Say something about absolute / relative URLs.
-Relative to what, and how is this done in MQTT? See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html#sec_RelativeURLs
 
-
-[[tab-common-control-annotations]]
+[#tab-common-control-annotations,reftext='{table-caption} {counter:table-num}']
 .Common control annotations
 [width="100%",cols="2a,7a,1a",options="header"]
 |===
@@ -83,12 +85,92 @@ The data model is specified in the metadata document that can be retrieved from 
 It is described in a machine-readable way using the OData Common Schema Definition Language.
 See https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html
 
-An example can be found in ...
+An example CSDL document describing a service hosting a SensorThings API v2.0 core data model can be found in <<sta-core-csdl-example>>.
+A shortened example with comments can be found below.
 
-
-
-NOTE: Add example.
-
+[[csdl-example-short]]
+.A shortened example CSDL definition with only (incomplete) Datastreams and Observations.
+[source,json]
+----
+{
+    "$Version": "4.01",  // OData version
+    "$EntityContainer": "org.OGC.SensorThingsV2",  // Namespace + . + container name
+    "org.OGC": {         // Namespace
+        "Datastream": {  // EntityType name
+            "$Kind": "EntityType",  // Object is an EntityType
+            "$Key": [    // Primary key of the EntityType
+                "id"     // Primary key consists of the id field
+            ],
+            "id": {                   // id field, structural properties have no $Kind
+                "$Type": "Edm.Int64"  // Type of the id field
+            },                        // Not nullable, but PrimaryKeys are auto generated
+            "name": {},   // name field, Default $Type=Edm.String, not nullable
+            "properties": {                 // Property properties
+                "$Type": "org.OGC.Object",  // custom type defined in org.OGC namespace
+                "$Nullable": true           // Nullable, thus Optional
+            },
+            "phenomenonTime": {               // Property phenomenonTime
+                "$Type": "org.OGC.TM_Period", // custom type defined in org.OGC namespace
+                "$Nullable": true             // Nullable, thus Optional
+            },
+            "Observations": {                   // Property Observations
+                "$Kind": "NavigationProperty",  // NavigationProperty
+                "$Collection": true,            // links to a Set of Entities
+                "$Partner": "Datastream",       // inverse link is called Datastream
+                "$Type": "org.OGC.Observation", // Target is of type Observation
+                "$Nullable": true               // can be an empty set
+            }
+        },
+        "Observation": {            // EntityType name
+            "$Kind": "EntityType",  // Object is an EntityType
+            "$Key": [               // Primary key of the EntityType
+                "id"                // Primary key consists of the id field
+            ],
+            "id": {                   // id field, structural properties have no $Kind
+                "$Type": "Edm.Int64"  // Type of the id field
+            },                        // Not nullable, but PrimaryKeys are auto generated
+            "result": {
+                "$Type": "Edm.Untyped"  // Untyped=can be anything
+            },
+            "Datastream": {                    // Property Datastream linking to a single Entity
+                "$Kind": "NavigationProperty", // is a NavigationProperty
+                "$Partner": "Observations",    // inverse relation is called Observations
+                "$Type": "org.OGC.Datastream"  //  links to a Datastream
+            }                                  // No $Nullable, thus mandatory!
+        },
+        "Object": {                 // Custom type Object
+            "$Kind": "ComplexType", // is a complex type
+            "$OpenType": true       // Open, thus can hold user-defined properties
+        },
+        "TM_Period": {                         // Custom type TM_Period
+            "$Kind": "ComplexType",            // is a complex type
+            "start": {                         // Has a structural property named start
+                "$Type": "Edm.DateTimeOffset"  // that is of type DataTimeOffset
+            },                                 // No $Nullable, thus mandatory!
+            "end": {                           // Has a structural property named end
+                "$Type": "Edm.DateTimeOffset"  // that is of type DataTimeOffset
+            }
+        },
+        "SensorThingsV2": {             // The entity container defining the base entity sets
+            "$Kind": "EntityContainer",
+            "Datastreams": {                     // The v2.0/Datastreams entitySet
+                "$Collection": true,             // is an entity set
+                "$Type": "org.OGC.Datastream",   // containing Datastreams
+                "$NavigationPropertyBinding": {  // The navigationProperties link to other top-level sets
+                    "Observations": "Observations"  // v2.0/Datastreams(x)/Observations are also in v2.0/Observations
+                }
+            },
+            "Observations": {                    // The v2.0/Observations entitySet
+                "$Collection": true,             // is an entity set
+                "$Type": "org.OGC.Observation",  // containing Observations
+                "$NavigationPropertyBinding": {
+                    "Datastream": "Datastreams"  // v2.0/Observations(x)/Datastream is also in v2.0/Datastreams
+                }
+            }
+        }
+    }
+}
+----
 
 
 
