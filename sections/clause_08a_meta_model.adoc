@@ -56,7 +56,7 @@ Relative to what, and how is this done in MQTT? See https://docs.oasis-open.org/
 
 [[tab-common-control-annotations]]
 .Common control annotations
-[cols="2a,7a,1a"]
+[width="100%",cols="2a,7a,1a",options="header"]
 |===
 |Name
 |Definition

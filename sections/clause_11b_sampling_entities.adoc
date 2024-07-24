@@ -56,7 +56,7 @@ Each Sampler entity SHALL have the direct relation between a Sampler entity and 
 
 [#sampler-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Sampler entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -93,7 +93,7 @@ Its value is computed by the server when creating  the entity unless specified b
 
 [#sampler-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a Sampler entity and other entity types
-[width="100%",cols="3,20,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Role*
 | *Description*
@@ -153,7 +153,7 @@ Each SamplingProcedure entity SHALL have the direct relation between a SamplingP
 
 [#samplingprocedure-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a SamplingProcedure entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -202,7 +202,7 @@ It can be a time instant, or, for Samplings that take a longer duration, a time 
 
 [#samplingprocedure-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a SamplingProcedure entity and other entity types
-[width="100%",cols="3,20,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Role*
 | *Description*
@@ -266,7 +266,7 @@ Each Sampling entity SHALL have the direct relation between a Sampling entity an
 
 [#sampling-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Sampling entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -303,7 +303,7 @@ Its value is computed by the server when creating the entity unless specified by
 
 [#sampling-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a Sampling entity and other entity types
-[width="100%",cols="3,3,20,3,3",options="header"]
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
 |====
 | *Source Entity Type*
 | *Role*
@@ -409,7 +409,7 @@ Each PreparationProcedure entity SHALL have the direct relation between a Prepar
 
 [#preparation-procedure-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a PreparationProcedure entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -447,7 +447,7 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 
 [#preparation-procedure-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a PreparationProcedure entity and other entity types
-[width="100%",cols="3,20,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Role*
 | *Description*
@@ -502,7 +502,7 @@ Each PreparationStep entity SHALL have the direct relation between a Preparation
 
 [#preparation-step-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a PreparationStep entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -545,7 +545,7 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 
 [#preparation-step-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a PreparationStep entity and other entity types
-[width="100%",cols="3,20,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Role*
 | *Description*

@@ -67,7 +67,7 @@ Each RelationRole entity SHALL have the direct relation between a RelationRole e
 
 [#relationrole-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a RelationRole entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -116,7 +116,7 @@ Generally, this should be a verb so that _Target name Source_ forms a sentence.
 
 [#relationrole-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a RelationRole entity and other entity types
-[width="100%",cols="3,20,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Role*
 | *Description*
@@ -184,7 +184,7 @@ Each RelatedDatastream entity SHALL have the direct relation between a RelatedDa
 
 [#relateddatastream-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a RelatedDatastream entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -207,7 +207,7 @@ If an externalTarget is set, the `Source` relation must not be set.
 
 [#relateddatastream-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a RelatedDatastream entity and other entity types
-[width="100%",cols="3,3,20,3,3",options="header"]
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
 |====
 | *Source Entity Type*
 | *Role*
@@ -287,7 +287,7 @@ Each RelatedFeature entity SHALL have the direct relation between a RelatedFeatu
 
 [#relatedfeature-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a RelatedFeature entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -310,7 +310,7 @@ If an externalTarget is set, the `Source` relation must not be set.
 
 [#relatedfeature-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a RelatedFeature entity and other entity types
-[width="100%",cols="3,3,20,3,3",options="header"]
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
 |====
 | *Source Entity Type*
 | *Role*
@@ -390,7 +390,7 @@ Each RelatedObservation entity SHALL have the direct relation between a RelatedO
 
 [#relatedobservation-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a RelatedObservation entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -413,7 +413,7 @@ If an externalTarget is set, the `Source` relation must not be set.
 
 [#relatedobservation-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a RelatedObservation entity and other entity types
-[width="100%",cols="3,3,20,3,3",options="header"]
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
 |====
 | *Source Entity Type*
 | *Role*
@@ -493,7 +493,7 @@ Each RelatedThing entity SHALL have the direct relation between a RelatedThing e
 
 [#relatedthing-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a RelatedThing entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -516,7 +516,7 @@ If an externalTarget is set, the `Source` relation must not be set.
 
 [#relatedthing-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a RelatedThing entity and other entity types
-[width="100%",cols="3,3,20,3,3",options="header"]
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
 |====
 | *Source Entity Type*
 | *Role*

@@ -62,7 +62,7 @@ Each Deployment entity SHALL have the direct relation between a Deployment entit
 
 [#deployment-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of a Deployment entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -105,7 +105,7 @@ The metadata type is defined by encodingType
 
 [#deployment-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between a Deployment entity and other entity types
-[width="100%",cols="3,3,20a,3,3",options="header"]
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
 |====
 | *Source Entity Type*
 | *Role*
@@ -197,7 +197,7 @@ Each ObservingProcedure entity SHALL have the direct relation between an Observi
 
 [#observing-procedure-properties,reftext='{table-caption} {counter:table-num}']
 .Properties of an ObservingProcedure entity
-[width="100%",cols="5,17,3,3",options="header"]
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
 | *Description*
@@ -235,7 +235,7 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 
 [#observing-procedure-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between an ObservingProcedure entity and other entity types
-[width="100%",cols="3,3,20a,3,3",options="header"]
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
 |====
 | *Source Entity Type*
 | *Role*
