@@ -32,6 +32,28 @@ image::figures/Datamodel-SensorThingsApi-V2-Core.drawio.png[Sensing Core, align=
 In this section, we define each entity depicted in <<img-sta-core>> and its relationships with other entities.
 Additionally, we also provide examples to model the entities in different contexts.
 
+
+=== Recurring properties
+
+Several properties are used in several classes.
+They always have the same semantic meaning, regarless of the class they are used in.
+
+id:: The primary key of the class.
+  An Entity is uniquely identified, among Entities of the same class and in the same service, by its `id` value.
+  The data type of the `id` field may vary between services, or even between classes in the same service, but must be the same for all Entities of the same class in the same service.
+
+name:: The name of an Entity is a (short) character string that describes the Entity.
+  It does not need to be unique among entities of the same type, though, when two entities of the same type have the same name, there should be another distinguishing property.
+  Two Things with the same `name` are likely to cause confusion, but two Datastreams with the same name are generally acceptable, as long as these Datastreams are associated to different Things.
+
+description:: The description of an Entity is a longer, human readable, character string giving a descriptive text of the Entity.
+
+definition:: The definition of an Entity is a unique external identifier, linking the Entity to an external, autorative source.
+  The definition allows for different services to represent different aspects of the same systems.
+  It can, for instance, be a URL to a feature in an OGC API - Features service, or a DID pointing to a crytographically signed resource.
+
+
+
 [[thing]]
 === Thing
 
@@ -88,6 +110,12 @@ Its value is computed by the server when creating  the entity unless specified b
 | A property provides a label for Thing entity, commonly a descriptive name.
 | String
 | 1
+
+| `definition`
+| The URI linking the Thing to an external definition.
+Dereferencing this URI SHOULD result in a representation of the definition of the Thing.
+| URI
+| 0..1
 
 | `description`
 | This is a short description of the corresponding Thing entity.
@@ -849,6 +877,9 @@ requirement:: {identifier}/req/datamodel/sensing/observed-property/properties
 requirement:: {identifier}/req/datamodel/sensing/observed-property/relations
 ====
 
+An ObservedProperty is a property of a Feature that is being observed by a Sensor, such as temperature, humidity, population count or colour.
+It should be uniquely identified by its `definition`, which should point to an external vocabulary by means of a URL, URI or DID.
+
 
 [requirement]
 ====
@@ -957,6 +988,8 @@ requirement:: {identifier}/req/datamodel/sensing/observation/properties
 requirement:: {identifier}/req/datamodel/sensing/observation/relations
 ====
 
+An Observation provides a value for an ObservedProperty of a Feature, as observed by a Sensor.
+This value can be of any type, as described by the resultType of the Datastream that Observation is associated with.
 
 [requirement]
 ====
@@ -1025,8 +1058,10 @@ When a SensorThings service receives a POST Observations without resultTime, the
 |====
 
 TM_Object is by default encoded as a complex type with a start (mandatory) and end (optional) properties of type TM_Instant.
+This means it can either describe a time instant, when only the start is present, or a time interval with both stand and end are present.
 
 TM_Period is by default encoded as a complex type with a start (mandatory) and end (mandatory) properties of type TM_Instant.
+This means it always describes a time interval with fixed starting and ending instants.
 
 
 EDITOR: Do we want to keep the current resultTime behaviour?
