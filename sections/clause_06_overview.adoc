@@ -136,6 +136,10 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 
 [[revision-differences]]
 === SensorThings API 2.0 changes from 1.1
+
+From the SensorThings API version 1.1 to 2.0 changes have been made to both the data model and the API.
+The changes to the data model have been summarised in <<sta-changes>> and <<img-sta-core-changed>>.
+
 [#sta-changes,reftext='{table-caption} {counter:table-num}']
 .Changes in the SensorThings API 2.0 data model compared to v1.1
 [width="100%",cols="4,20a",options="header"]
@@ -144,15 +148,20 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 | *Changes* 
 
 | Sensor
-| description attribute is now optional and not mandatory
+|
+- description attribute is now optional and not mandatory
+- definition attribute added
 
 | Thing
-| description attribute is now optional and not mandatory
+|
+- description attribute is now optional and not mandatory
+- definition attribute added
 
 | Location
 | 
 - description attribute is now optional and not mandatory
 - For a Thing having multiple Locations, these Locations MAY be in same encodingTypes OR the encodingTypes MAY be be in different spaces (e.g., one encodingType in Geometrical space and one encodingType in Topological space).
+- definition attribute added
 
 | Datastream
 | 
@@ -162,6 +171,7 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 - A Datastream can link to multiple ObservedProperties which was only possible with MultiDatastream entity earlier.
   The SWE-Common based observationType attribute eliminates the need for having a separate MultiDatastream entity
 - A Datastream can now be linked to the Feature it observes as an optional link, named UltimateFeatureOfInterest, between Datastream and Feature is introduced
+- definition attribute added
 
 | ObservedProperty
 | description attribute is now optional and not mandatory
@@ -172,11 +182,16 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 - An Observation may or may not link to any Feature in contrast to the mandatory link between Observation and FeatureOfInterest from v1.x
 
 | Feature
-| The Feature entity replaces the FeatureOfInterest entity from 1.x as it now takes the role of UltimateFeatureOfInterest or ProximateFeatureOfInterest depending upon the context and links with Observation and Datastream entities
+| 
+- The Feature entity replaces the FeatureOfInterest entity from 1.x as it now takes the role of UltimateFeatureOfInterest or ProximateFeatureOfInterest depending upon the context and links with Observation and Datastream entities
+- definition attribute added
 
 | FeatureType
 | The FeatureType entity is added, and makes it easier to handle type information for Features
 |====
+
+[#img-sta-core-changed,link=figures/Datamodel-SensorThingsApi-V2-Core-changed.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Core Changes']
+image::figures/Datamodel-SensorThingsApi-V2-Core-changed.drawio.png[Sensing Core Changes, align="center"]
 
 
 === Relation to OASIS-OData
@@ -189,7 +204,7 @@ The OData specification also defines filtering mechanisms that allows filtering 
 OData uses JSON-encoding by default, and specifies generic rules for encoding relational data models in JSON.
 
 The OGC SensorThings API v2 interface is not an OData interface and does not claim to be an OData service. 
-It specifies a subset of the OData interface, and extends it at the same time.
+It specifies a subset of the OData 4.01 interface, and extends it at the same time.
 A SensorThings API Server implementation can implement the full OData specification. An OData client can access a SensorThings API service.
 
 EDITOR: Check if this is true
