@@ -1,7 +1,96 @@
 [appendix,obligation="informative"]
+[[csdl-example-short]]
+== Short CSDL example with comments
+
+.A shortened example CSDL definition with only (incomplete) Datastreams and Observations.
+[source,json]
+----
+{
+    "$Version": "4.01",  // OData version
+    "$EntityContainer": "org.OGC.SensorThingsV2",  // Namespace + . + container name
+    "org.OGC": {         // Namespace
+        "Datastream": {  // EntityType name
+            "$Kind": "EntityType",  // Object is an EntityType
+            "$Key": [    // Primary key of the EntityType
+                "id"     // Primary key consists of the id field
+            ],
+            "id": {                   // id field, structural properties have no $Kind
+                "$Type": "Edm.Int64"  // Type of the id field
+            },                        // Not nullable, but PrimaryKeys are auto generated
+            "name": {},   // name field, Default $Type=Edm.String, not nullable
+            "properties": {                 // Property properties
+                "$Type": "org.OGC.Object",  // custom type defined in org.OGC namespace
+                "$Nullable": true           // Nullable, thus Optional
+            },
+            "phenomenonTime": {               // Property phenomenonTime
+                "$Type": "org.OGC.TM_Period", // custom type defined in org.OGC namespace
+                "$Nullable": true             // Nullable, thus Optional
+            },
+            "Observations": {                   // Property Observations
+                "$Kind": "NavigationProperty",  // NavigationProperty
+                "$Collection": true,            // links to a Set of Entities
+                "$Partner": "Datastream",       // inverse link is called Datastream
+                "$Type": "org.OGC.Observation", // Target is of type Observation
+                "$Nullable": true               // can be an empty set
+            }
+        },
+        "Observation": {            // EntityType name
+            "$Kind": "EntityType",  // Object is an EntityType
+            "$Key": [               // Primary key of the EntityType
+                "id"                // Primary key consists of the id field
+            ],
+            "id": {                   // id field, structural properties have no $Kind
+                "$Type": "Edm.Int64"  // Type of the id field
+            },                        // Not nullable, but PrimaryKeys are auto generated
+            "result": {
+                "$Type": "Edm.Untyped"  // Untyped=can be anything
+            },
+            "Datastream": {                    // Property Datastream linking to a single Entity
+                "$Kind": "NavigationProperty", // is a NavigationProperty
+                "$Partner": "Observations",    // inverse relation is called Observations
+                "$Type": "org.OGC.Datastream"  //  links to a Datastream
+            }                                  // No $Nullable, thus mandatory!
+        },
+        "Object": {                 // Custom type Object
+            "$Kind": "ComplexType", // is a complex type
+            "$OpenType": true       // Open, thus can hold user-defined properties
+        },
+        "TM_Period": {                         // Custom type TM_Period
+            "$Kind": "ComplexType",            // is a complex type
+            "start": {                         // Has a structural property named start
+                "$Type": "Edm.DateTimeOffset"  // that is of type DataTimeOffset
+            },                                 // No $Nullable, thus mandatory!
+            "end": {                           // Has a structural property named end
+                "$Type": "Edm.DateTimeOffset"  // that is of type DataTimeOffset
+            }
+        },
+        "SensorThingsV2": {             // The entity container defining the base entity sets
+            "$Kind": "EntityContainer",
+            "Datastreams": {                     // The v2.0/Datastreams entitySet
+                "$Collection": true,             // is an entity set
+                "$Type": "org.OGC.Datastream",   // containing Datastreams
+                "$NavigationPropertyBinding": {  // The navigationProperties link to other top-level sets
+                    "Observations": "Observations"  // v2.0/Datastreams(x)/Observations are also in v2.0/Observations
+                }
+            },
+            "Observations": {                    // The v2.0/Observations entitySet
+                "$Collection": true,             // is an entity set
+                "$Type": "org.OGC.Observation",  // containing Observations
+                "$NavigationPropertyBinding": {
+                    "Datastream": "Datastreams"  // v2.0/Observations(x)/Datastream is also in v2.0/Datastreams
+                }
+            }
+        }
+    }
+}
+----
+
+
+[appendix,obligation="informative"]
 [[sta-core-csdl-example]]
 == Example SensorThings API Core CSDL
 
+.A CSDL example for the SensorThings API Core
 [source,json]
 ----
 {
