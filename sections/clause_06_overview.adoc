@@ -149,42 +149,42 @@ The changes to the data model have been summarised in <<sta-changes>> and <<img-
 
 | Sensor
 |
-- description attribute is now optional and not mandatory
-- definition attribute added
+- `description` attribute is now optional and not mandatory
+- `definition` attribute added
 
 | Thing
 |
-- description attribute is now optional and not mandatory
-- definition attribute added
+- `description` attribute is now optional and not mandatory
+- `definition` attribute added
 
 | Location
 | 
-- description attribute is now optional and not mandatory
+- `description` attribute is now optional and not mandatory
 - For a Thing having multiple Locations, these Locations MAY be in same encodingTypes OR the encodingTypes MAY be be in different spaces (e.g., one encodingType in Geometrical space and one encodingType in Topological space).
-- definition attribute added
+- `definition` attribute added
 
 | Datastream
 | 
-- description attribute is now optional and not mandatory 
-- resultType replaces the observationType attribute, this eliminates MultiDatastream entity
+- `description` attribute is now optional and not mandatory 
+- `resultType` replaces the `observationType` attribute, this eliminates MultiDatastream entity
 - unitOfMeasurement SHALL be embedded within the observedType attribute and does not exist as an independent attribute within the Datastream entity
 - A Datastream can link to multiple ObservedProperties which was only possible with MultiDatastream entity earlier.
-  The SWE-Common based observationType attribute eliminates the need for having a separate MultiDatastream entity
+  The SWE-Common based `resultType` attribute eliminates the need for having a separate MultiDatastream entity
 - A Datastream can now be linked to the Feature it observes as an optional link, named UltimateFeatureOfInterest, between Datastream and Feature is introduced
-- definition attribute added
+- `definition` attribute added
 
 | ObservedProperty
-| description attribute is now optional and not mandatory
+| `description` attribute is now optional and not mandatory
 
 | Observation
 | 
-- properties replaces the parameters attribute
+- `properties` replaces the `parameters` attribute
 - An Observation may or may not link to any Feature in contrast to the mandatory link between Observation and FeatureOfInterest from v1.x
 
 | Feature
 | 
 - The Feature entity replaces the FeatureOfInterest entity from 1.x as it now takes the role of UltimateFeatureOfInterest or ProximateFeatureOfInterest depending upon the context and links with Observation and Datastream entities
-- definition attribute added
+- `definition` attribute added
 
 | FeatureType
 | The FeatureType entity is added, and makes it easier to handle type information for Features

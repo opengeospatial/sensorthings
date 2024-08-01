@@ -1,12 +1,11 @@
 [[sensing-core]]
-== The SensorThings API Data Model
+== The SensorThings API Core Data Model
 
 All data model requirements classes are grouped in the following requirements class:
 
 
 [requirements_class]
 .Sensing Entities
-
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing
@@ -34,24 +33,28 @@ In this section, we define each entity depicted in <<img-sta-core>> and its rela
 Additionally, we also provide examples to model the entities in different contexts.
 
 
-=== Recurring properties
+=== Recurring attributes
 
-Several properties are used in several classes.
+Several attributes are used in several classes.
 They always have the same semantic meaning, regarless of the class they are used in.
 
-id:: The primary key of the class.
+`id`:: The primary key of the class.
   An Entity is uniquely identified, among Entities of the same class and in the same service, by its `id` value.
-  The data type of the `id` field may vary between services, or even between classes in the same service, but must be the same for all Entities of the same class in the same service.
+  The data type of the `id` attribute may vary between services, or even between classes in the same service, but must be the same for all Entities of the same class in the same service.
 
-name:: The name of an Entity is a (short) character string that describes the Entity.
-  It does not need to be unique among entities of the same type, though, when two entities of the same type have the same name, there should be another distinguishing property.
-  Two Things with the same `name` are likely to cause confusion, but two Datastreams with the same name are generally acceptable, as long as these Datastreams are associated to different Things.
+`name`:: The name of an Entity is a (short) character string that describes the Entity.
+  It does not need to be unique among entities of the same type, though, when two entities of the same type have the same name, there should be another distinguishing attribute.
+  Two Things with the same name are likely to cause confusion, but two Datastreams with the same name are generally acceptable, as long as these Datastreams are associated to different Things.
 
-description:: The description of an Entity is a longer, human readable, character string giving a descriptive text of the Entity.
+`description`:: The description of an Entity is a longer, human readable, character string giving a descriptive text of the Entity.
 
-definition:: The definition of an Entity is a unique external identifier, linking the Entity to an external, autorative source.
+`definition`:: The definition of an Entity is a unique external identifier, linking the Entity to an external, autorative source.
   The definition allows for different services to represent different aspects of the same systems.
   It can, for instance, be a URL to a feature in an OGC API - Features service, or a DID pointing to a crytographically signed resource.
+
+`properties`:: A set of user-defined named values.
+  The values may be of any type, including nested arrays or name-value sets.
+  In the default JSON encoding the `properties` attribute is a JSON-Object.
 
 
 
@@ -59,12 +62,13 @@ definition:: The definition of an Entity is a unique external identifier, linkin
 === Thing
 
 [requirements_class]
+.Class Thing
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/thing
 obligation:: requirement
 subject:: Target Type: Data Model
-requirement:: {identifier}/req/datamodel/sensing/thing/properties
+requirement:: {identifier}/req/datamodel/sensing/thing/attributes
 requirement:: {identifier}/req/datamodel/sensing/thing/relations
 ====
 
@@ -87,13 +91,13 @@ A Thing is related to the Platform entity as described in Section 4.9.2.1 of [OG
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/thing/properties
+identifier:: {identifier}/req/datamodel/sensing/thing/attributes
 
-Each Thing entity SHALL have the mandatory properties and MAY have the optional properties listed in <<thing-properties>>.
+Each Thing entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<thing-attributes>>.
 ====
 
-[#thing-properties,reftext='{table-caption} {counter:table-num}']
-.Properties of a Thing entity
+[#thing-attributes,reftext='{table-caption} {counter:table-num}']
+.Attributes of a Thing entity
 [width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
@@ -102,8 +106,7 @@ Each Thing entity SHALL have the mandatory properties and MAY have the optional 
 | *Multiplicity*
 
 | `id`
-| A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating  the entity unless specified by the client.
+| A unique, read-only attribute that serves as an identifier for the entity.
 | ANY
 | 1
 
@@ -197,12 +200,13 @@ A HistoricalLocation has one-and-only-one Thing.
 === Location
 
 [requirements_class]
+.Class Location
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/location
 obligation:: requirement
 subject:: Target Type: Data Model
-requirement:: {identifier}/req/datamodel/sensing/location/properties
+requirement:: {identifier}/req/datamodel/sensing/location/attributes
 requirement:: {identifier}/req/datamodel/sensing/location/relations
 ====
 
@@ -232,13 +236,13 @@ Section 7.1.4 of [OGC 20-082r4 and ISO 19156:2023] provides a detailed explanati
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/location/properties
+identifier:: {identifier}/req/datamodel/sensing/location/attributes
 
-Each Location entity SHALL have the mandatory properties and MAY have the optional properties listed in <<location-properties>>.
+Each Location entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<location-attributes>>.
 ====
 
-[#location-properties,reftext='{table-caption} {counter:table-num}']
-.Properties of a Location entity
+[#location-attributes,reftext='{table-caption} {counter:table-num}']
+.Attributes of a Location entity
 [width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
@@ -247,8 +251,7 @@ Each Location entity SHALL have the mandatory properties and MAY have the option
 | *Multiplicity*
 
 | `id`
-| A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating  the entity unless specified by the client.
+| A unique, read-only attribute that serves as an identifier for the entity.
 | ANY
 | 1
 
@@ -359,12 +362,13 @@ NOTE: When using a GeoJSON encoding for the location attribute, the value can ei
 === HistoricalLocation
 
 [requirements_class]
+.Class HistoricalLocation
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/historical-location
 obligation:: requirement
 subject:: Target Type: Data Model
-requirement:: {identifier}/req/datamodel/sensing/historical-location/properties
+requirement:: {identifier}/req/datamodel/sensing/historical-location/attributes
 requirement:: {identifier}/req/datamodel/sensing/historical-location/relations
 requirement:: {identifier}/req/datamodel/sensing/historical-location/create-update-delete/historical-location-auto-creation
 requirement:: {identifier}/req/datamodel/sensing/historical-location/create-update-delete/historical-location-manual-creation
@@ -386,9 +390,9 @@ HistoricalLocation should then record the individual Locations of the drone over
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/historical-location/properties
+identifier:: {identifier}/req/datamodel/sensing/historical-location/attributes
 
-Each HistoricalLocation entity SHALL have the mandatory properties and MAY have the optional properties listed in <<historical-location-properties>>.
+Each HistoricalLocation entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<historical-location-attributes>>.
 ====
 
 
@@ -424,8 +428,8 @@ identifier:: {identifier}/req/datamodel/sensing/historical-location/create-updat
 When a user directly adds new HistoricalLocation, and the time of this new HistoricalLocation is later than the latest HistoricalLocation for the Thing, then the Locations of the Thing are changed to the Locations of this new HistoricalLocation.
 ====
 
-[#historical-location-properties,reftext='{table-caption} {counter:table-num}']
-.Properties of a HistoricalLocation entity
+[#historical-location-attributes,reftext='{table-caption} {counter:table-num}']
+.Attributes of a HistoricalLocation entity
 [width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
@@ -434,8 +438,7 @@ When a user directly adds new HistoricalLocation, and the time of this new Histo
 | *Multiplicity*
 
 | `id`
-| A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating  the entity unless specified by the client.
+| A unique, read-only attribute that serves as an identifier for the entity.
 | ANY
 | 1
 
@@ -490,12 +493,13 @@ A HistoricalLocation has exactly one Thing.
 === Datastream
 
 [requirements_class]
+.Class Datastream
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/datastream
 obligation:: requirement
 subject:: Target Type: Data Model
-requirement:: {identifier}/req/datamodel/sensing/datastream/properties
+requirement:: {identifier}/req/datamodel/sensing/datastream/attributes
 requirement:: {identifier}/req/datamodel/sensing/datastream/relations
 ====
 
@@ -516,9 +520,9 @@ EDITOR: Note something about the SWE-Common Datastream class
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/datastream/properties
+identifier:: {identifier}/req/datamodel/sensing/datastream/attributes
 
-Each Datastream entity SHALL have the mandatory properties and MAY have the optional properties listed in <<datastream-properties>>.
+Each Datastream entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<datastream-attributes>>.
 ====
 
 
@@ -532,8 +536,8 @@ Each Datastream entity SHALL have the direct relation between a Datastream entit
 
 
 
-[#datastream-properties,reftext='{table-caption} {counter:table-num}']
-.Properties of a Datastream entity
+[#datastream-attributes,reftext='{table-caption} {counter:table-num}']
+.Attributes of a Datastream entity
 [width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
@@ -542,8 +546,7 @@ Each Datastream entity SHALL have the direct relation between a Datastream entit
 | *Multiplicity*
 
 | `id`
-| A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating  the entity unless specified by the client
+| A unique, read-only attribute that serves as an identifier for the entity.
 | ANY
 | 1
 
@@ -587,7 +590,7 @@ This is usually generated by the server.
 | 0..1
 |====
 
-TM_Period is by default encoded as a complex type with a start (mandatory) and end (mandatory) properties of type TM_Instant.
+TM_Period is by default encoded as a complex type with a start (mandatory) and end (mandatory) attributes of type TM_Instant.
 
 
 [#datastream-relations,reftext='{table-caption} {counter:table-num}']
@@ -729,12 +732,13 @@ The exact definition for this result structure, and which unit of measurement an
 === Sensor
 
 [requirements_class]
+.Class Sensor
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/sensor
 obligation:: requirement
 subject:: Target Type: Data Model
-requirement:: {identifier}/req/datamodel/sensing/sensor/properties
+requirement:: {identifier}/req/datamodel/sensing/sensor/attributes
 requirement:: {identifier}/req/datamodel/sensing/sensor/relations
 ====
 
@@ -744,9 +748,9 @@ A Sensor is an instrument that observes a property or phenomenon with the goal o
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/sensor/properties
+identifier:: {identifier}/req/datamodel/sensing/sensor/attributes
 
-Each Sensor entity SHALL have the mandatory properties and MAY have the optional properties listed in <<sensor-properties>>.
+Each Sensor entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<sensor-attributes>>.
 ====
 
 
@@ -759,8 +763,8 @@ Each Sensor entity SHALL have the direct relation between a Sensor entity and ot
 ====
 
 
-[#sensor-properties,reftext='{table-caption} {counter:table-num}']
-.Properties of a Sensor entity
+[#sensor-attributes,reftext='{table-caption} {counter:table-num}']
+.Attributes of a Sensor entity
 [width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
@@ -769,8 +773,7 @@ Each Sensor entity SHALL have the direct relation between a Sensor entity and ot
 | *Multiplicity*
 
 | `id`
-| A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating  the entity unless specified by the client.
+| A unique, read-only attribute that serves as an identifier for the entity.
 | ANY
 | 1
 
@@ -869,12 +872,13 @@ It is up to clients to perform string parsing necessary to properly handle metad
 === ObservedProperty
 
 [requirements_class]
+.Class ObservedProperty
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/observed-property
 obligation:: requirement
 subject:: Target Type: Data Model
-requirement:: {identifier}/req/datamodel/sensing/observed-property/properties
+requirement:: {identifier}/req/datamodel/sensing/observed-property/attributes
 requirement:: {identifier}/req/datamodel/sensing/observed-property/relations
 ====
 
@@ -885,9 +889,9 @@ It should be uniquely identified by its `definition`, which should point to an e
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/observed-property/properties
+identifier:: {identifier}/req/datamodel/sensing/observed-property/attributes
 
-Each ObservedProperty entity SHALL have the mandatory properties and MAY have the optional properties listed in <<observed-property-properties>>.
+Each ObservedProperty entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<observed-property-attributes>>.
 ====
 
 
@@ -900,8 +904,8 @@ Each ObservedProperty entity SHALL have the direct relation between an ObservedP
 ====
 
 
-[#observed-property-properties,reftext='{table-caption} {counter:table-num}']
-.Properties of an ObservedProperty entity
+[#observed-property-attributes,reftext='{table-caption} {counter:table-num}']
+.Attributes of an ObservedProperty entity
 [width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
@@ -910,8 +914,7 @@ Each ObservedProperty entity SHALL have the direct relation between an ObservedP
 | *Multiplicity*
 
 | `id`
-| A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating  the entity unless specified by the client.
+| A unique, read-only attribute that serves as an identifier for the entity.
 | ANY
 | 1
 
@@ -980,12 +983,13 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 === Observation
 
 [requirements_class]
+.Class Observation
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/observation
 obligation:: requirement
 subject:: Target Type: Data Model
-requirement:: {identifier}/req/datamodel/sensing/observation/properties
+requirement:: {identifier}/req/datamodel/sensing/observation/attributes
 requirement:: {identifier}/req/datamodel/sensing/observation/relations
 ====
 
@@ -995,9 +999,9 @@ This value can be of any type, as described by the resultType of the Datastream 
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/observation/properties
+identifier:: {identifier}/req/datamodel/sensing/observation/attributes
 
-Each Observation entity SHALL have the mandatory properties and MAY have the optional properties listed in <<observation-properties>>.
+Each Observation entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<observation-attributes>>.
 ====
 
 
@@ -1010,8 +1014,8 @@ Each Observation entity SHALL have the direct relation between an Observation en
 ====
 
 
-[#observation-properties,reftext='{table-caption} {counter:table-num}']
-.Properties of an Observation entity
+[#observation-attributes,reftext='{table-caption} {counter:table-num}']
+.Attributes of an Observation entity
 [width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
@@ -1020,8 +1024,7 @@ Each Observation entity SHALL have the direct relation between an Observation en
 | *Multiplicity*
 
 | `id`
-| A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating  the entity unless specified by the client.
+| A unique, read-only attribute that serves as an identifier for the entity.
 | ANY
 | 1
 
@@ -1032,7 +1035,7 @@ Note: Many resource-constrained sensing devices do not have a clock.
 As a result, a client may omit phenomenonTime when POST new Observations, even though phenomenonTime is a mandatory property.
 When a SensorThings service receives a POST Observations without phenomenonTime, the service SHALL assign the current server time to the value of the phenomenonTime
 | TM_Object
-| 0..1
+| 1
 
 | `result`
 | The estimated value of an ObservedProperty from the Observation.
@@ -1040,10 +1043,6 @@ When a SensorThings service receives a POST Observations without phenomenonTime,
 | 1
 | `resultTime`
 | The time of the Observation's result was generated
-
-Note: Many resource-constrained sensing devices do not have a clock.
-As a result, a client may omit resultTime when POST new Observations, even though resultTime is a mandatory property.
-When a SensorThings service receives a POST Observations without resultTime, the service SHALL assign a null value to the resultTime.
 | TM_Instant
 | 0..1
 
@@ -1058,10 +1057,10 @@ When a SensorThings service receives a POST Observations without resultTime, the
 | 0..1
 |====
 
-TM_Object is by default encoded as a complex type with a start (mandatory) and end (optional) properties of type TM_Instant.
+TM_Object is by default encoded as a complex type with a start (mandatory) and end (optional) attributes of type TM_Instant.
 This means it can either describe a time instant, when only the start is present, or a time interval with both stand and end are present.
 
-TM_Period is by default encoded as a complex type with a start (mandatory) and end (mandatory) properties of type TM_Instant.
+TM_Period is by default encoded as a complex type with a start (mandatory) and end (mandatory) attributes of type TM_Instant.
 This means it always describes a time interval with fixed starting and ending instants.
 
 
@@ -1118,12 +1117,13 @@ EDITOR: what about wen measuring the battery level of the sensor. There the FoI 
 === Feature
 
 [requirements_class]
+.Class Feature
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/feature
 obligation:: requirement
 subject:: Target Type: Data Model
-requirement:: {identifier}/req/datamodel/sensing/feature/properties
+requirement:: {identifier}/req/datamodel/sensing/feature/attributes
 requirement:: {identifier}/req/datamodel/sensing/feature/relations
 ====
 
@@ -1148,9 +1148,9 @@ However, in such cases, it is recommended to use the Location entity to store th
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/feature/properties
+identifier:: {identifier}/req/datamodel/sensing/feature/attributes
 
-Each Feature entity SHALL have the mandatory properties and MAY have the optional properties listed in <<feature-properties>>.
+Each Feature entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<feature-attributes>>.
 ====
 
 
@@ -1163,8 +1163,8 @@ Each Feature entity SHALL have the direct relation between a Feature entity and 
 ====
 
 
-[#feature-properties,reftext='{table-caption} {counter:table-num}']
-.Properties of a Feature entity
+[#feature-attributes,reftext='{table-caption} {counter:table-num}']
+.Attributes of a Feature entity
 [width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
@@ -1173,8 +1173,7 @@ Each Feature entity SHALL have the direct relation between a Feature entity and 
 | *Multiplicity*
 
 | `id`
-| A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating  the entity unless specified by the client.
+| A unique, read-only attribute that serves as an identifier for the entity.
 | ANY
 | 1
 
@@ -1260,12 +1259,13 @@ The data type is defined by encodingType.
 === FeatureType
 
 [requirements_class]
+.Class FeatureType
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing/feature-type
 obligation:: requirement
 subject:: Target Type: Data Model
-requirement:: {identifier}/req/datamodel/sensing/feature-type/properties
+requirement:: {identifier}/req/datamodel/sensing/feature-type/attributes
 requirement:: {identifier}/req/datamodel/sensing/feature-type/relations
 ====
 
@@ -1276,9 +1276,9 @@ The `definition` attribute of the FeatureType should point to an external regist
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/feature-type/properties
+identifier:: {identifier}/req/datamodel/sensing/feature-type/attributes
 
-Each FeatureType entity SHALL have the mandatory properties and MAY have the optional properties listed in <<feature-type-properties>>.
+Each FeatureType entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<feature-type-attributes>>.
 ====
 
 
@@ -1291,8 +1291,8 @@ Each FeatureType entity SHALL have the direct relation between a FeatureType ent
 ====
 
 
-[#feature-type-properties,reftext='{table-caption} {counter:table-num}']
-.Properties of a FeatureType entity
+[#feature-type-attributes,reftext='{table-caption} {counter:table-num}']
+.Attributes of a FeatureType entity
 [width="100%",cols="<3a,<20a,<3a,<",options="header"]
 |====
 | *Name*
@@ -1301,8 +1301,7 @@ Each FeatureType entity SHALL have the direct relation between a FeatureType ent
 | *Multiplicity*
 
 | `id`
-| A unique, read-only property that serves as an identifier for the entity.
-Its value is computed by the server when creating  the entity unless specified by the client.
+| A unique, read-only attribute that serves as an identifier for the entity.
 | ANY
 | 1
 
