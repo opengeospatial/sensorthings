@@ -1,3 +1,14 @@
-== Abstract API
+== Abstract REST API
 
-This section describes the abstract API.
+This section describes the abstract REST API.
+The abstract REST API can be implemented using various protocols, like HTTP or MQTT version 5.
+
+[requirements_class]
+.Abstract API
+====
+[%metadata]
+identifier:: {identifier}/req-class/api/abstract
+obligation:: requirement
+subject:: Target Type: Abstract API
+requirement:: {identifier}/req-class/api/abstract/csdl
+====
