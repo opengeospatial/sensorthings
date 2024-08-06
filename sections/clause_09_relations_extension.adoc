@@ -1,0 +1,560 @@
+[[relations-extension]]
+== Relations Extension
+
+The relations extension adds the ability to relate Things to other Things, Features to other Features, Datastreams to other Datastreams and Observations to other Observations.
+These relations can be semantically annotated in both directions.
+Possible use cases include:
+
+* Linking sub-systems to their parent systems, both implemented as Things.
+* Linking Datastreams that contain aggregate data to the source-Datastreams containing the raw data.
+* Linking Rivers (Features) to the Rivers or Lakes that they flow into.
+* Linking Rooms to the Floors they are on, and those Floors to the Buildings they are in.
+* Linking derivative Observations to the source Observations they are derived from.
+
+Relations can link between two Entities in the same service, or link to an external resource.
+
+The entity types, properties and relations added by this extension are depicted in <<img-sta-extension-relations>>.
+[#img-sta-extension-relations,link=figures/Datamodel-SensorThingsApi-V2-Relations.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Relations Extension']
+image::figures/Datamodel-SensorThingsApi-V2-Relations.drawio.png[Relations Extension, align="center"]  
+
+
+
+=== Requirement Class: RelationRole
+
+When creating a relation between two entities, a key aspect of this relation is what it means that these two entities are related.
+This meaning for a relation is the role of the relation and is described in the RelationRole entity that is associated with each relation.
+A relation has two directions.
+If Entity-A is related to Entity-B with role-1, then Entity-B is related to Entity-A with the inverse of role-1.
+The RelationRole Entity holds a name and definition for both directions of the relation.
+
+
+
+[requirements_class]
+.relationrole
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/relations/relationrole
+obligation:: requirement
+subject:: Target Type: Data Model
+inherit:: {identifier}/req-class/datamodel/sensing/datastream
+inherit:: {identifier}/req-class/datamodel/sensing/feature
+inherit:: {identifier}/req-class/datamodel/sensing/observation
+inherit:: {identifier}/req-class/datamodel/sensing/thing
+requirement:: {identifier}/req/datamodel/relations/relationrole/properties
+requirement:: {identifier}/req/datamodel/relations/relationrole/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/relationrole/properties
+
+Each RelationRole entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<relationrole-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/relationrole/relations
+
+Each RelationRole entity SHALL have the direct relation between a RelationRole entity and other entity types listed in Table <<relationrole-relations>>.
+====
+
+
+
+[#relationrole-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a RelationRole entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating the entity unless specified by the client.
+| ANY
+| 1
+
+| `name`
+| The name of the relation in the source -> target direction.
+Generally, this should be a verb so that _Source name Target_ forms a sentence. 
+| String
+| 1
+
+| `definition`
+| The URI that defines this role. 
+| String
+| 0..1
+
+| `inverseName`
+| The name of the relation in the target -> source direction.
+Generally, this should be a verb so that _Target name Source_ forms a sentence. 
+| String
+| 1
+
+| `inverseDefinition`
+| The URI that defines the inverse of this role. 
+| String
+| 0..1
+
+| `description`
+| The human readable description of the RelationRole entity.
+| String
+| 0..1
+
+| `properties`
+| A JSON Object containing user-annotated properties.
+| JSON Object
+| 0..1
+|====
+
+
+[#relationrole-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a RelationRole entity and other entity types
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `RelatedDatastreams`
+| The list of Datastream-Datastream relations that this RelationRole describes.
+| `RelatedDatastream`
+| 0..*
+
+| `RelatedFeatures`
+| The list of Feature-Feature relations that this RelationRole describes.
+| `RelatedFeature`
+| 0..*
+
+| `RelatedObservations`
+| The list of Observation-Observation relations that this RelationRole describes.
+| `RelatedObservation`
+| 0..*
+
+| `RelatedThings`
+| The list of Thing-Thing relations that this RelationRole describes.
+| `RelatedThing`
+| 0..*
+|====
+
+
+
+=== Requirement Class: RelatedDatastream
+
+A RelatedDatastream Entity relates a source Datastream to a target Datastream, or to an external resource, using a RelationRole.
+
+[requirements_class]
+.relateddatastream
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/relations/relateddatastream
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/relations/relateddatastream/properties
+requirement:: {identifier}/req/datamodel/relations/relateddatastream/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/relateddatastream/properties
+
+Each RelatedDatastream entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<relateddatastream-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/relateddatastream/relations
+
+Each RelatedDatastream entity SHALL have the direct relation between a RelatedDatastream entity and other entity types listed in Table <<relateddatastream-relations>>.
+====
+
+
+
+[#relateddatastream-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a RelatedDatastream entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating  the entity unless specified by the client.
+| ANY
+| 1
+
+| `externalTarget`
+| A URL or URI of an external target that acts as the target for this relation.
+If an externalTarget is set, the `Source` relation must not be set.
+| String
+| 0..1
+|====
+
+
+[#relateddatastream-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a RelatedDatastream entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `RelatedDatastream`
+| `Source`
+| The source Datastream for this relation.
+This is the inverse of `TargetRelatedDatastreams`.
+| `Datastream`
+| 1
+
+| `RelatedDatastream`
+| `Target`
+| The target Datastream for this relation.
+This must be set if, and only if, the externalTarget property is not set.
+This is the inverse of `SourceRelatedDatastreams`.
+| `Datastream`
+| 0..1
+
+| `Datastream`
+| `TargetRelatedDatastreams`
+| The list of RelatedDatastream entities where this Datastream is the Source.
+In other words, following this link leads to the Targets.
+This is the inverse of `Source`.
+| `RelatedDatastream`
+| 0..*
+
+| `Datastream`
+| `SourceRelatedDatastreams`
+| The list of RelatedDatastream entities where this Datastream is the Target.
+In other words, following this link leads to the Sources.
+This is the inverse of `Target`.
+| `RelatedDatastream`
+| 0..*
+|====
+
+
+
+=== Requirement Class: RelatedFeature
+
+A RelatedFeature Entity relates a source Feature to a target Feature, or to an external resource, using a RelationRole.
+
+[requirements_class]
+.relatedfeature
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/relations/relatedfeature
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/relations/relatedfeature/properties
+requirement:: {identifier}/req/datamodel/relations/relatedfeature/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/relatedfeature/properties
+
+Each RelatedFeature entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<relatedfeature-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/relatedfeature/relations
+
+Each RelatedFeature entity SHALL have the direct relation between a RelatedFeature entity and other entity types listed in Table <<relatedfeature-relations>>.
+====
+
+
+
+[#relatedfeature-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a RelatedFeature entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating  the entity unless specified by the client.
+| ANY
+| 1
+
+| `externalTarget`
+| A URL or URI of an external target that acts as the target for this relation.
+If an externalTarget is set, the `Source` relation must not be set.
+| String
+| 0..1
+|====
+
+
+[#relatedfeature-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a RelatedFeature entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `RelatedFeature`
+| `Source`
+| The source Feature for this relation.
+This is the inverse of `TargetRelatedFeatures`.
+| `Feature`
+| 1
+
+| `RelatedFeature`
+| `Target`
+| The target Feature for this relation.
+This must be set if, and only if, the externalTarget property is not set.
+This is the inverse of `SourceRelatedFeatures`.
+| `Feature`
+| 0..1
+
+| `Feature`
+| `TargetRelatedFeatures`
+| The list of RelatedFeature entities where this Feature is the Source.
+In other words, following this link leads to the Targets.
+This is the inverse of `Source`.
+| `RelatedFeature`
+| 0..*
+
+| `Feature`
+| `SourceRelatedFeatures`
+| The list of RelatedFeature entities where this Feature is the Target.
+In other words, following this link leads to the Sources.
+This is the inverse of `Target`.
+| `RelatedFeature`
+| 0..*
+|====
+
+
+
+=== Requirement Class: RelatedObservation
+
+A RelatedObservation Entity relates a source Observation to a target Observation, or to an external resource, using a RelationRole.
+
+[requirements_class]
+.relatedobservation
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/relations/relatedobservation
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/relations/relatedobservation/properties
+requirement:: {identifier}/req/datamodel/relations/relatedobservation/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/relatedobservation/properties
+
+Each RelatedObservation entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<relatedobservation-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/relatedobservation/relations
+
+Each RelatedObservation entity SHALL have the direct relation between a RelatedObservation entity and other entity types listed in Table <<relatedobservation-relations>>.
+====
+
+
+
+[#relatedobservation-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a RelatedObservation entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating  the entity unless specified by the client.
+| ANY
+| 1
+
+| `externalTarget`
+| A URL or URI of an external target that acts as the target for this relation.
+If an externalTarget is set, the `Source` relation must not be set.
+| String
+| 0..1
+|====
+
+
+[#relatedobservation-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a RelatedObservation entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `RelatedObservation`
+| `Source`
+| The source Observation for this relation.
+This is the inverse of `TargetRelatedObservations`.
+| `Observation`
+| 1
+
+| `RelatedObservation`
+| `Target`
+| The target Observation for this relation.
+This must be set if, and only if, the externalTarget property is not set.
+This is the inverse of `SourceRelatedObservations`.
+| `Observation`
+| 0..1
+
+| `Observation`
+| `TargetRelatedObservations`
+| The list of RelatedObservation entities where this Observation is the Source.
+In other words, following this link leads to the Targets.
+This is the inverse of `Source`.
+| `RelatedObservation`
+| 0..*
+
+| `Observation`
+| `SourceRelatedObservations`
+| The list of RelatedObservation entities where this Observation is the Target.
+In other words, following this link leads to the Sources.
+This is the inverse of `Target`.
+| `RelatedObservation`
+| 0..*
+|====
+
+
+
+=== Requirement Class: RelatedThing
+
+A RelatedThing Entity relates a source Thing to a target Thing, or to an external resource, using a RelationRole.
+
+[requirements_class]
+.relatedthing
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/relations/relatedthing
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/relations/relatedthing/properties
+requirement:: {identifier}/req/datamodel/relations/relatedthing/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/relatedthing/properties
+
+Each RelatedThing entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<relatedthing-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/relatedthing/relations
+
+Each RelatedThing entity SHALL have the direct relation between a RelatedThing entity and other entity types listed in Table <<relatedthing-relations>>.
+====
+
+
+
+[#relatedthing-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a RelatedThing entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating  the entity unless specified by the client.
+| ANY
+| 1
+
+| `externalTarget`
+| A URL or URI of an external target that acts as the target for this relation.
+If an externalTarget is set, the `Source` relation must not be set.
+| String
+| 0..1
+|====
+
+
+[#relatedthing-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a RelatedThing entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `RelatedThing`
+| `Source`
+| The source Thing for this relation.
+This is the inverse of `TargetRelatedThings`.
+| `Thing`
+| 1
+
+| `RelatedThing`
+| `Target`
+| The target Thing for this relation.
+This must be set if, and only if, the externalTarget property is not set.
+This is the inverse of `SourceRelatedThings`.
+| `Thing`
+| 0..1
+
+| `Thing`
+| `TargetRelatedThings`
+| The list of RelatedThing entities where this Thing is the Source.
+In other words, following this link leads to the Targets.
+This is the inverse of `Source`.
+| `RelatedThing`
+| 0..*
+
+| `Thing`
+| `SourceRelatedThings`
+| The list of RelatedThing entities where this Thing is the Target.
+In other words, following this link leads to the Sources.
+This is the inverse of `Target`.
+| `RelatedThing`
+| 0..*
+|====
+
+
+

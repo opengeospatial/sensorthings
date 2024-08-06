@@ -1,0 +1,391 @@
+[[actuation-extension]]
+== Actuation Extension
+All actuation entites are grouped into the following requirements class:
+
+[requirements_class]
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/actuation
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req-class/datamodel/actuation/tasking-capability
+requirement:: {identifier}/req-class/datamodel/actuation/task
+requirement:: {identifier}/req-class/datamodel/actuation/actuator
+====
+
+The entity types, properties and relations added by this extension are depicted in <<img-sta-tasking-relations>>.
+[#img-sta-tasking-relations,link=figures/Datamodel-SensorThingsApi-V2-Tasking.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Tasking Extension']
+image::figures/Datamodel-SensorThingsApi-V2-Tasking.drawio.png[Tasking Extension, align="center"]  
+
+
+
+
+[[tasking-capability]]
+=== Tasking Capability
+
+[requirements_class]
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/actuation/tasking-capability
+obligation:: requirement
+subject:: Target Type: Data Model
+inherit:: {identifier}/req-class/datamodel/sensing/feature
+inherit:: {identifier}/req-class/datamodel/sensing/observed-property
+inherit:: {identifier}/req-class/datamodel/sensing/thing
+requirement:: {identifier}/req/datamodel/actuation/tasking-capability/properties
+requirement:: {identifier}/req/datamodel/actuation/tasking-capability/relations
+====
+
+The TaskingCapability entity contains information about the capabilities of the taskable device. It contains all the parameters that can be used for controlling the device. SWE Common JSON encoding rules [OGC17-011r2] are used to define these parameters for TaskingCapability.
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/actuation/tasking-capability/properties
+
+Each TaskingCapability entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tasking-capability-properties>>.
+====
+
+[#tasking-capability-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a TaskingCapability entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+| ANY
+| 1
+
+| `name`
+| A property provides a label for TaskingCapability entity, commonly a descriptive name
+| String
+| 1
+
+| `description`
+| The description of the Deployment entity
+| String
+| 0..1
+
+| `properties`
+| A JSON Object containing user-annotated properties as key-value pairs
+| JSON Object
+| 0..1
+
+| `taskingParameters`
+| The taskingParameters property describes optional and mandatory tasking parameters.
+Clients use the definition to provide corresponding tasking parameter values.
+To ensure common understanding between client and server, a common exchange protocol is used to express both descriptions and tasking parameter values.
+
+SensorThings uses the JSON encoding defined in OGC 17-011r2 to define taskingParameters
+| JSON Object (SWE-Common AbstractDataComponent)
+| 1
+     
+|====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/actuation/tasking-capability/relations
+
+Each TaskingCapability entity SHALL have the direct relation between a TaskingCapability entity and other entity types listed in <<tasking-capability-relations>>.
+====
+
+[#tasking-capability-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a TaskingCapability entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `TaskingCapability`
+| `Tasks`
+| A TaskingCapability has zero-to-many Tasks. A Task has one-and-only-one TaskingCapability
+| `Task`
+| 0..*
+
+| `TaskingCapability`
+| `Actuator`
+| A TaskingCapability has one-and-only-one Actuator. An Actuator has zero-to-many TaskingCapabilities
+| `Actuator`
+| 1
+
+| `TaskingCapability`
+| `Thing`
+| A TaskingCapability has one-and-only-one Thing. A Thing has zero-to-many TaskingCapabilities
+| `Thing`
+| 1
+
+| `TaskingCapability`
+| `UltimateFeatureOfInterest`
+| A TaskingCapability may have an UltimateFeatureOfInterest upon which a TaskingCapability can execute a Task. A Feature may have zero-to-many TaskingCapabilities
+| `Feature`
+| 0..1
+
+| `TaskingCapability`
+| `ActuableProperties`
+| A TaskingCapability may have one or more ObservedProperties that are changed by the Actuator.
+| `ObservedProperty`
+| 0..*
+
+| `Thing`
+| `TaskingCapabilities`
+| The TaskingCapabilities that are related to the Thing.
+| `TaskingCapability`
+| 0..*
+
+| `Feature`
+| `TaskingCapabilities`
+| The TaskingCapabilities that are can be used to control aspects of the Feature.
+| `TaskingCapability`
+| 0..*
+
+| `ObservedProperty`
+| `TaskingCapabilities`
+| The TaskingCapabilities that are related to the ObservedProperty.
+| `TaskingCapability`
+| 0..*
+|====
+
+[[task]]
+=== Task
+
+[requirements_class]
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/actuation/task
+obligation:: requirement
+subject:: Target Type: Data Model
+inherit:: {identifier}/req-class/datamodel/sensing/feature
+requirement:: {identifier}/req/datamodel/actuation/task/properties
+requirement:: {identifier}/req/datamodel/actuation/task/relations
+====
+
+The Task entity represents a task that can be executed by the Actuator. The Task entity contains the parameters that are required to execute the task. SWE Common JSON encoding rules [OGC17-011r2] are used to define these parameters for the Task entity.
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/actuation/task/properties
+
+Each Task entity SHALL have the mandatory properties and MAY have the optional properties listed in <<task-properties>>.
+====
+
+[#task-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a Task entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+| ANY
+| 1
+
+| `creationTime`
+| The time when the task is created. This time SHALL only be added automatically by the service.
+| TM_Instant
+| 1
+
+| `runTime`
+| The total time taken when the task is executed
+| TM_Object
+| 0..1
+
+| `status`
+| The status of the task. The status of the task can be one of the values listed in <<task-status-status-codes>>.
+| CodeList
+| 0..1
+
+| `taskingParameters`
+| The taskingParameters property describes optional and mandatory tasking parameters.
+Clients use the definition to provide corresponding tasking parameter values.
+To ensure common understanding between client and server, a common exchange protocol is used to express both descriptions and tasking parameter values.
+SensorThings uses the JSON encoding for SWE Common data block defined in OGC 08-094r1 to define taskingParameters.
+taskingParameters is a SWE Common data block and MUST have key-value pairs in a JSON object.
+Key MUST be the name described in TaskingCapablity's taskingParamaters and value MUST be the value of that parameter for this Task.
+| JSON Object (SWE-Common AbstractDataComponent)
+| 1
+|====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/actuation/task/relations
+
+Each Task entity SHALL have the direct relation between a Task entity and other entity types listed in <<task-relations>>.
+====
+
+[#task-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a Task entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `Task`
+| `TaskingCapability`
+| A Task has one-and-only-one TaskingCapability.
+| `TaskingCapability`
+| 1
+
+| `Task`
+| `ProximateFeatureOfInterest`
+| A Task may have a Feature that is the target of the Task.
+| `Feature`
+| 0..1
+
+| `Feature`
+| `Tasks`
+| Feature may have many Tasks associated to it.
+| `Task`
+| 0..*
+|====
+
+
+[#task-status-status-codes,reftext='{table-caption} {counter:table-num}']
+.List of Status Codes used for identifying the status of the Task entity
+[width="50%",cols="5,10",options="header"]
+|====
+| *StatusCode*       | *Description* 
+
+| `Created`          | Created status
+| `Running`          | Running status
+| `Completed`        | Completed status
+| `Rejected`         | Rejected status
+| `Failed`           | Failed status
+|====
+
+[[actuator]]
+
+=== Actuator
+
+[requirements_class]
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/actuation/actuator
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/actuation/actuator/properties
+requirement:: {identifier}/req/datamodel/actuation/actuator/relations
+====
+
+An Actuator is a device that can be controlled/tasked. The Actuator entity contains information and metadata about taskable actuator. Each TaskingCapability has one Actuator and defines the parameters that can be set/tasked for the Actuator.
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/actuation/actuator/properties
+
+Each Actuator entity SHALL have the mandatory properties and MAY have the optional properties listed in <<actuator-properties>>.
+====
+
+[#actuator-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of an Actuator entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+| ANY
+| 1
+
+| `name`
+| A property provides a label for Actuator entity, commonly a descriptive name
+| String
+| 1
+
+| `description`
+| The description of the Actuator entity
+| String
+| 0..1
+
+| `encodingType`| The encoding type of the metadata property.
+A list of suggested values can be found in <<actuator-encodingType-value-codes>>.
+| ANY
+| 1
+
+| `metadata`
+| The metadata property provides detailed information about the Actuator entity.
+The content of the metadata property is implementation dependent.
+| ANY
+| 1
+
+| `properties`
+| A JSON Object containing user-annotated properties as key-value pairs
+| JSON Object
+| 0..1
+
+|====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/actuation/actuator/relations
+
+Each Actuator entity SHALL have the direct relation between an Actuator entity and other entity types listed in <<actuator-relations>>.
+====
+
+[#actuator-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between an Actuator entity and other entity types
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `TaskingCapability`
+| An Actuator has zero-to-many TaskingCapabilities.
+A TaskingCapability has one-and-only-one Actuator
+| `TaskingCapability`
+| 0..*
+|====
+
+
+[#actuator-encodingType-value-codes,reftext='{table-caption} {counter:table-num}']
+.List of some code values used for identifying types for the encodingType of the Actuator entity
+[width="50%",cols="5,15",options="header"]
+|====
+| *Actuator encodingType*
+| *ValueCode Value*              
+
+| `PDF`
+| application/pdf
+
+| `SensorML`
+| http://www.opengis.net/doc/IS/SensorML/2.0
+|====
+
+
+The Actuator encodingType allows clients to know how to interpret metadata's value(s).
+Currently, the SensorThings API defines two common Actuator metadata encodingTypes.
+Most sensor manufacturers provide their sensor datasheets in a PDF format.
+As a result, PDF is a Sensor encodingType supported by SensorThings API.
+The second Sensor encodingType is SensorML.
+This list is not exhoustive and other values may also be used.
+
+
+
+
+
+
+

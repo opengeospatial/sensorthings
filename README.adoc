@@ -1,0 +1,11 @@
+= 24-046: SensorThings API v2.0 - Extensions
+
+== Content
+
+This repository contains the content for an OGC standard.
+
+* `24-046.adoc` - the main standard document with references to all sections
+
+== Building
+
+Run `build.sh`.

@@ -1,0 +1,565 @@
+[[sampling-extension]]
+== Sampling Extension
+
+The sampling extension adds entity types, properties and relations needed to precicely describe the way samples are taken.
+
+The entity types, properties and relations added by this extension are depicted in <<img-sta-sampling-relations>>.
+[#img-sta-sampling-relations,link=figures/Datamodel-SensorThingsApi-V2-Sampling.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Sampling Extension']
+image::figures/Datamodel-SensorThingsApi-V2-Sampling.drawio.png[Sampling Extension, align="center"]  
+
+
+
+A Sample is a small part or fraction of a larger Feature.
+The Sample is used as a proxy for the larger Feature because Observations can not be made directly on the Feature itself.
+The act of taking a Sample is called a Sampling.
+The Sample is made by a Sampler, following a certain SamplingProcedure, though the Sampler and SamplingProcedure may not always be known and are thus optional.
+
+Example: A small water sample is taken at a certain location in a river.
+The water sample is packaged and send to a laboratory for analysis.
+
+
+=== Requirement Class: Sampler
+
+The Sampler describes the machine, device, human or other entity that executed the sampling procedure to produce a sample.
+
+[requirements_class]
+.sampler
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sampling/sampler
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/sampling/sampler/properties
+requirement:: {identifier}/req/datamodel/sampling/sampler/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/sampler/properties
+
+Each Sampler entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<sampler-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/sampler/relations
+
+Each Sampler entity SHALL have the direct relation between a Sampler entity and other entity types listed in Table <<sampler-relations>>.
+====
+
+
+
+[#sampler-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a Sampler entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating  the entity unless specified by the client.
+| ANY
+| 1
+
+| `name`
+| A property provides a label for the Sampler entity, commonly a descriptive name.
+| String
+| 1
+
+| `description`
+| The description of the Sampler entity.
+| String
+| 0..1
+
+| `properties`
+| A JSON Object containing user-annotated properties.
+| JSON Object
+| 0..1
+
+| `samplerType`
+| The type of sampler.
+| String
+| 1
+|====
+
+
+[#sampler-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a Sampler entity and other entity types
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| Samplings
+| The Samplings made by this Sampler.
+| `Sampling`
+| 0..*
+
+| SamplingProcedures
+| A sampler must implement at least one SamplingProcedure, but may implement many.
+| `SamplingProcedure`
+| 1..*
+|====
+
+
+
+=== Requirement Class: SamplingProcedure
+
+The SamplingProcedure describes the method, or procedure, that the Sampler uses to create Samples.
+A Sampler must implement at least one SamplingProcedure, but can implement many.
+A Sample is created using one SamplingProcedure, though this SamplingProcedure may not be known.
+
+[requirements_class]
+.samplingprocedure
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sampling/samplingprocedure
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/sampling/samplingprocedure/properties
+requirement:: {identifier}/req/datamodel/sampling/samplingprocedure/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/samplingprocedure/properties
+
+Each SamplingProcedure entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<samplingprocedure-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/samplingprocedure/relations
+
+Each SamplingProcedure entity SHALL have the direct relation between a SamplingProcedure entity and other entity types listed in Table <<samplingprocedure-relations>>.
+====
+
+
+
+[#samplingprocedure-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a SamplingProcedure entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating the entity unless specified by the client.
+| ANY
+| 1
+
+| `name`
+| A property provides a label for the SamplingProcedure entity, commonly a descriptive name.
+| String
+| 1
+
+| `description`
+| The description of the SamplingProcedure entity.
+| String
+| 0..1
+
+| `encodingType`
+| The encoding type of the location property.
+If the location property is present, the encodingType must also be present.
+| String
+| 0..1
+
+| `location`
+| The location where the Sampling was executed
+| ANY
+| 0..1
+
+| `properties`
+| A JSON Object containing user-annotated properties.
+| JSON Object
+| 0..1
+
+| `time`
+| The time at which the sampling was executed.
+It can be a time instant, or, for Samplings that take a longer duration, a time interval.
+| String
+| 1
+|====
+
+
+[#samplingprocedure-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a SamplingProcedure entity and other entity types
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| Samplings
+| The Samplings made using this SamplingProcedure.
+| `Sampling`
+| 0..*
+
+| Samplers
+| The Samplers that implement this SamplingProcedure.
+| `Sampler`
+| 0..*
+|====
+
+
+
+=== Requirement Class: Sampling
+
+The Sampling is the act of taking one or more Samples.
+The Sampling takes Samples from a SampledFeature.
+The Sampling is executed by a Sampler, following a SamplingProcedure.
+The Sampling can be associated with a Thing.
+
+
+[requirements_class]
+.sampling
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sampling/sampling
+obligation:: requirement
+subject:: Target Type: Data Model
+inherit:: {identifier}/req-class/datamodel/sensing/feature
+inherit:: {identifier}/req-class/datamodel/sensing/thing
+requirement:: {identifier}/req/datamodel/sampling/sampling/properties
+requirement:: {identifier}/req/datamodel/sampling/sampling/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/sampling/properties
+
+Each Sampling entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<sampling-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/sampling/relations
+
+Each Sampling entity SHALL have the direct relation between a Sampling entity and other entity types listed in Table <<sampling-relations>>.
+====
+
+
+
+[#sampling-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a Sampling entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating the entity unless specified by the client.
+| ANY
+| 1
+
+| `name`
+| A property provides a label for the Sampling entity, commonly a descriptive name.
+| String
+| 1
+
+| `description`
+| The description of the Sampling entity.
+| String
+| 0..1
+
+| `properties`
+| A JSON Object containing user-annotated properties.
+| JSON Object
+| 0..1
+
+| `samplerType`
+| The type of sampler.
+| String
+| 0..1
+|====
+
+
+[#sampling-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a Sampling entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `Sampling`
+| `Thing`
+| The Thing that this Sampling is associated with.
+This is, for example, the Envionmental Monitoring Station where the Sampling took place.
+| `Thing`
+| 0..1
+
+| `Sampling`
+| `SampledFeature`
+| The Feature that the Sampling took Samples of, and that the resulting Samples act as a proxy for.
+This relation is the inverse of the `Samplings` role.
+| `Feature`
+| 1
+
+| `Sampling`
+| `Samples`
+| The Samples made during the execution of this Sampling.
+This relation is the inverse of the `Creator` role.
+| `Feature`
+| 0..*
+
+| `Sampling`
+| `SamplingProcedure`
+| The SamplingProcedure that was followed during the execution of this Sampling.
+| `SamplingProcedure`
+| 0..1
+
+| `Sampling`
+| `Sampler`
+| The Sampler that executed this Sampling.
+| `Sampler`
+| 0..1
+
+| `Feature`
+| `Samplings`
+| The Samplings that have been created of the source Feature.
+This relation is the inverse of the `SampledFeature` role.
+| `Sampling`
+| 1
+
+| `Feature`
+| `Creator`
+| The Sampling that created the Sample (source Feature).
+This relation is the inverse of the `Samples` role.
+| `Sampling`
+| 0..*
+
+| `Thing`
+| `Samplings`
+| The Samplings that took place at the source Thing.
+| `Sampling`
+| 0..*
+|====
+
+
+=== Requirement Class: PreparationProcedure
+
+After a sample is taken, a preparation procedure can be applied to it.
+For example, a specimen of butterfly species is treated with chemicals to preserve it, or a fish is frozen for long-term storage.
+The difference with the sampling procedure is that the preparation procedure does not result in one or more new samples, but that an existing sample is modified.
+The PreparationProcedure stores the generic procedure that can be applied to many samples.
+The PreparationSteps can be instantiated separately for each Sample and can store operational details, such as the exact amouts of chemicals used.
+
+
+[requirements_class]
+.preparation-procedure
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sampling/preparation-procedure
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/sampling/preparation-procedure/properties
+requirement:: {identifier}/req/datamodel/sampling/preparation-procedure/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/preparation-procedure/properties
+
+Each PreparationProcedure entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<preparation-procedure-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/preparation-procedure/relations
+
+Each PreparationProcedure entity SHALL have the direct relation between a PreparationProcedure entity and other entity types listed in Table <<preparation-procedure-relations>>.
+====
+
+
+
+[#preparation-procedure-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a PreparationProcedure entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating the entity unless specified by the client.
+| ANY
+| 1
+
+| `name`
+| A property provides a label for the PreparationProcedure entity, commonly a descriptive name.
+| String
+| 1
+
+| `description`
+| The description of the PreparationProcedure entity.
+| String
+| 0..1
+
+| `definition`
+| The URI of the PreparationProcedure.
+Dereferencing this URI SHOULD result in a representation of the definition of the PreparationProcedure
+| URI
+| 0..1
+
+| `properties`
+| A JSON Object containing user-annotated properties.
+| JSON Object
+| 0..1
+|====
+
+
+[#preparation-procedure-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a PreparationProcedure entity and other entity types
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| PreparationSteps
+| The concrete steps taken when this PreparationProcedure was applied to a Sample.
+| `PreparationStep`
+| 0..*
+|====
+
+
+=== Requirement Class: PreparationStep
+
+When applying a PreparationProcdedure to a Sample, the process is recorded in individual PreparationSteps.
+For a simple, short PreparationProcedure, a single PreparationStep can be sufficient to record the fact that the preparation procedure was applied to the Sample, and the time at which the procedure was applied.
+For a complex procedure, that takes a long time, many PreparationSteps may be recorded.
+
+[requirements_class]
+.preparation-step
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sampling/preparation-step
+obligation:: requirement
+subject:: Target Type: Data Model
+inherit:: {identifier}/req-class/datamodel/sensing/feature
+requirement:: {identifier}/req/datamodel/sampling/preparation-step/properties
+requirement:: {identifier}/req/datamodel/sampling/preparation-step/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/preparation-step/properties
+
+Each PreparationStep entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<preparation-step-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sampling/preparation-step/relations
+
+Each PreparationStep entity SHALL have the direct relation between a PreparationStep entity and other entity types listed in Table <<preparation-step-relations>>.
+====
+
+
+
+[#preparation-step-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a PreparationStep entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating the entity unless specified by the client.
+| ANY
+| 1
+
+| `name`
+| A property provides a label for the PreparationStep entity, commonly a descriptive name.
+| String
+| 1
+
+| `description`
+| The description of the PreparationStep entity.
+| String
+| 0..1
+
+| `definition`
+| The URI defining the PreparationStep.
+Dereferencing this URI SHOULD result in a representation of the definition of the PreparationStep
+| URI
+| 0..1
+
+| `properties`
+| A JSON Object containing user-annotated properties.
+| JSON Object
+| 0..1
+
+| `time`
+| The time when the PreparationStep was executed.
+| TM_Instant
+| 1
+|====
+
+
+[#preparation-step-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a PreparationStep entity and other entity types
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| PreparationProcedure
+| The PreparationProcedue that this PreparationStep is part of.
+| `PreparationProcedure`
+| 1
+
+| PreparedSample
+| The Feature that represents the Sample that this PreparationStep is applied to.
+| `Feature`
+| 1
+|====
+

@@ -1,0 +1,283 @@
+[[sensing-OM-extension]]
+== Sensing Extension (Observations & Measurements)
+
+The Sensing Extension (Observations & Measurements) adds two Classes to the Core data model, that are part of the Observations & Measurements part of the OMS standard: Deployment and ObservingProcedure.
+These classes can be used to describe additional details of the sensing systems used.
+This extension's requirements are grouped in the following requirements class:
+
+[requirements_class]
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sensing-extension-om
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req-class/datamodel/sensing/deployment
+requirement:: {identifier}/req-class/datamodel/sensing/observing-procedure
+====
+
+The entity types, properties and relations added by this extension are depicted in <<img-sta-om-relations>>.
+[#img-sta-om-relations,link=figures/Datamodel-SensorThingsApi-V2-OM.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='OM Extension']
+image::figures/Datamodel-SensorThingsApi-V2-OM.drawio.png[OM Extension, align="center"]  
+
+
+
+
+[[deployment]]
+=== Deployment
+
+[requirements_class]
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sensing/deployment
+obligation:: requirement
+subject:: Target Type: Data Model
+inherit:: {identifier}/req-class/datamodel/sensing/datastream
+inherit:: {identifier}/req-class/datamodel/sensing/sensor
+inherit:: {identifier}/req-class/datamodel/sensing/thing
+requirement:: {identifier}/req/datamodel/sensing/deployment/properties
+requirement:: {identifier}/req/datamodel/sensing/deployment/relations
+====
+
+A Deployment is the association of a Sensor to a Thing that hosts this Sensor, and to the Datastreams that contain the Observations produced by the Sensor while it is/was hosted on this Thing.
+
+Each Deployment links to one Sensor in order to maintain information regarding the relative position of the Sensor with respect to the Host (Thing), to record its deployment time and other additional infortmation.
+If a sensor is redeployed on to the same Host again, the same Datastream MAY be reused but the same Deployment entity cannot be re-used.
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/deployment/properties
+
+Each Deployment entity SHALL have the mandatory properties and MAY have the optional properties listed in <<deployment-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/deployment/relations
+
+Each Deployment entity SHALL have the direct relation between a Deployment entity and other entity types listed in <<deployment-relations>>.
+====
+
+[#deployment-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a Deployment entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating  the entity unless specified by the client.
+| ANY
+| 1
+
+| `name`
+| A property provides a label for Deployment entity, commonly a descriptive name.
+| String
+| 1
+
+| `description`
+| The description of the Deployment entity.
+| String
+| 0..1
+
+| `properties`
+| A JSON Object containing user-annotated properties.
+| JSON Object
+| 0..1
+
+| `position`
+| The detailed description of the Sensor or system.
+The metadata type is defined by encodingType
+| String
+| 1
+
+| `time`
+| The time instant or period of when the Sensors are deployed and they start producing Datastreams.
+| TM_Object
+| 0..1         
+|====
+
+
+[#deployment-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a Deployment entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `Deployment`
+| `Sensor`
+| The Sensor that this Deployment describes the positioning of.
+| `Sensor`
+| 1
+
+| `Deployment`
+| `Datastreams`
+| The datastreams that contain the Observations that the deployed Sensor created while deployed on the related Thing.
+| `Datastream`
+| 0..1
+
+| `Deployment`
+| `Host`
+| The Thing that the linked Sensor is deploye on.
+| `Thing`
+| 1
+
+| `Sensor`
+| `Deployments`
+| The Deployments that this Sensor has been involved in.
+| `Deployment`
+| 0..*
+
+| `Datastream`
+| `Deployments`
+| The deployments that resulted in Observations in this Datastream.
+| `Deployment`
+| 0..*
+
+| `Thing`
+| `Deployments`
+| The Deployments that have been performed on the Thing.
+| `Deployment`
+| 0..*
+|====
+
+
+[example%unnumbered]
+====
+*Deployment Examples*
+
+- The assignment of an array of Sensors onto a platform within a Thing that monitors speed limit and driver distraction on a freeway
+- The information pertaining to the orientation of moving Sensors when observing moving Features can be described by a Deployment
+====
+
+
+[[observingprocedure]]
+=== ObservingProcedure
+
+[requirements_class]
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/sensing/observing-procedure
+obligation:: requirement
+subject:: Target Type: Data Model
+inherit:: {identifier}/req-class/datamodel/sensing/datastream
+inherit:: {identifier}/req-class/datamodel/sensing/observed-property
+inherit:: {identifier}/req-class/datamodel/sensing/sensor
+requirement:: {identifier}/req/datamodel/sensing/observing-procedure/properties
+requirement:: {identifier}/req/datamodel/sensing/observing-procedure/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/observing-procedure/properties
+
+Each ObservingProcedure entity SHALL have the mandatory properties and MAY have the optional properties listed in <<observing-procedure-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/sensing/observing-procedure/relations
+
+Each ObservingProcedure entity SHALL have the direct relation between an ObservingProcedure entity and other entity types listed in <<observing-procedure-relations>>.
+====
+
+
+[#observing-procedure-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of an ObservingProcedure entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating  the entity unless specified by the client
+| ANY
+| 1
+
+| `name`
+| A property provides a label for ObservingProcedure  entity, commonly a descriptive name.
+| String
+| 1
+
+| `definition`
+| The URI of the ObservingProcedure.
+Dereferencing this URI SHOULD result in a representation of the definition of the ObservingProcedure.
+| URI
+| 0..1
+
+| `description`
+| A description about the ObservingProcedure
+| String
+| 0..1
+
+| `properties`
+| A JSON Object containing user-annotated properties as key-value pairs
+| JSON Object
+| 0..1
+|====
+
+
+[#observing-procedure-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between an ObservingProcedure entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `ObservingProcedure`
+| `Datastreams`
+| The Datastreams that implement this ObservingProcedure.
+| `Datastream`
+| 0..*
+
+| `ObservingProcedure`
+| `ObservedProperties`
+| The ObservedProperties that can be Observed using this ObservingProcedure.
+| `ObservedProperty`
+| 1..*
+
+| `ObservingProcedure`
+| `Sensors`
+| A Sensor MAY measure an ObservedProperty using zero-to-many ObservingProcedures.
+| `Sensor`
+| 0..*
+
+| `Datastream`
+| `ObservingProcedure`
+| The ObservingProcedure used to generate the Observations a Datastream contains.
+| `ObservingProcedure`
+| 0..1
+
+| `ObservedProperty`
+| `ObservingProcedure`
+| The ObservingProcedures that can be used to observe this ObservedProperty.
+| `ObservingProcedure`
+| 0..*
+
+| `Sensor`
+| `ObservingProcedures`
+| The ObservingProcedures that a Sensor implements.
+| `Sensor`
+| 0..*
+|====
+
+

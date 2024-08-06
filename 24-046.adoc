@@ -1,0 +1,72 @@
+= OGC SensorThings API 2.0
+:doctype: standard
+:encoding: utf-8
+:lang: en
+:status: draft
+:committee: technical
+:draft: 2.0
+:external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
+:docnumber: 23-019
+:received-date: 2029-03-30
+:issued-date: 2029-03-30
+:published-date: 2029-03-30
+:fullname: Hylke van der Schaaf
+:fullname_2: Steve Liang
+:docsubtype: implementation
+:keywords: ogcdoc, OGC document, API, OData, openapi, html, MQTT
+:submitting-organizations: Fraunhofer-Gesellschaft, Germany; University of Calgary, Canada; SensorUp Inc., Canada; Keys, USA; DataCove e.U., Austria
+:mn-document-class: ogc
+:mn-output-extensions: xml,html,doc,pdf
+:local-cache-only:
+:data-uri-image:
+:pdf-uri: ./document.pdf
+:xml-uri: ./document.xml
+:doc-uri: ./document.doc
+:edition: 0.1
+
+:identifier: http://www.opengis.net/spec/sensorthings/2.0
+
+
+////
+Make sure to complete each included document
+////
+include::sections/clause_00_front_material.adoc[]
+
+include::sections/clause_01_scope.adoc[]
+
+include::sections/clause_02_conformance.adoc[]
+
+include::sections/clause_03_references.adoc[]
+
+include::sections/clause_04_terms_and_definitions.adoc[]
+
+include::sections/clause_05_conventions.adoc[]
+
+include::sections/clause_06_overview.adoc[]
+
+include::sections/clause_07_sensing_OM_extension.adoc[]
+
+include::sections/clause_08_sampling_entities.adoc[]
+
+include::sections/clause_09_relations_extension.adoc[]
+
+include::sections/clause_10_actuation_entities.adoc[]
+
+include::sections/clause_11_rest_api_batch_requests.adoc[]
+
+include::sections/clause_12_rest_api_data_array.adoc[]
+
+include::sections/clause_13_pubsub_api_extension.adoc[]
+
+////
+add or remove annexes after "A" as necessary
+////
+include::sections/annex-a.adoc[]
+
+////
+Revision History should be the last annex before the Bibliography
+Bibliography should be the last annex
+////
+include::sections/annex-history.adoc[]
+
+include::sections/annex-bibliography.adoc[]

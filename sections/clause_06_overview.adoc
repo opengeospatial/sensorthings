@@ -1,0 +1,74 @@
+[[overview1]]
+== SensorThings API overview
+
+
+[[who-should-use]]
+=== Who should use the OGC SensorThings API
+
+
+Organizations that need web-based platforms to manage, store, share, and analyze IoT-based sensor observation data should use the OGC SensorThings API.
+The OGC SensorThings API simplifies and accelerates the development of IoT applications.
+Application developers can use this open Standard to connect to various IoT devices and create innovative applications without worrying the daunting heterogeneous protocols of the different IoT devices, gateways and services.
+IoT device manufacturers can also use OGC SensorThings API as the API can be embedded within various IoT hardware and software platforms, so that the various IoT devices can effortlessly connect with the OGC Standard-compliant servers around the world.
+In summary, the OGC SensorThings API is transforming the numerous disjointed IoT systems into a fully connected platform where complex tasks can be synchronized and performed.
+
+EDITOR: Add the many non-IoT uses!
+
+[[benefits]]
+=== Benefits of the OGC SensorThings API
+
+In today’s world, most IoT devices (e.g., sensors and actuators) have proprietary software interfaces defined by their manufacturers and used selectively.
+New APIs are often required and developed on an as-needed basis, often in an environment with resource limitations and associated risks.
+This situation requires significant investment on the part of developers for each new sensor or project involving multiple systems and on the part of the providers of sensors, gateways, and portals or services where observations and measurements are required.
+
+As a standardized data model and interface for sensors in the WoT and IoT, the OGC SensorThings API offers the following benefits:
+(1) it permits the proliferation of new high value services with lower overhead of development and wider reach,
+(2) it lowers the risks, time and cost across a full IoT product cycle, and
+(3) it simplifies the connections between devices-to-devices and devices-to-applications.
+
+
+[[overview2]]
+=== SensorThings API Overview
+
+The OGC SensorThings API data model consists of three main parts:
+(1) the Sensing part,
+(2) the Sampling part and
+(3) the Tasking part.
+Additionally, SensorThings API supports the following two extensions to the data model:
+(1) the Sensing Extension (Observations & Measurements) and
+(2) the Relations extension
+
+The Sensing part allows IoT devices and applications to CREATE, READ, UPDATE, and DELETE (__i.e.__, HTTP POST, GET, PATCH, and DELETE) IoT data and metadata in a SensorThings service.
+The Sensing part is designed based on the OGC/ISO Observation, Measurements and Samples (OMS) model [OGC 20-004r3 and ISO 19156:2023].
+An Observation is modeled as an act that produces a result whose value is an estimate of a property of a given Feature.
+An Observation instance is characterized by its event time (e.g., resultTime and phenonmenonTime), Feature, ObservedProperty, and the procedure used (often a Sensor).
+Moreover, Things are also modeled in the SensorThings API.
+A Thing draws from the same concept as a Host in OMS where a Host is defined as a collection of Observers (defined as Sensor in SensorThings API).
+Formally, its definition follows the ITU-T definition:
+“__an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks__” [ITU-T Y.2060].
+The geographical Locations of Things are useful in almost every application and as a result are included as well.
+For the Things whose location changed, the HistoricalLocations entities offer the history of the Thing’s locations.
+A Thing also can have multiple Datastreams.
+A Datastream is a collection of Observations grouped by the same ObservedProperty, Sensor and optionally by Feature and ObservingProcedure.
+An Observation is an event performed by a Sensor that produces a result whose value is an estimate of an ObservedProperty of any given Feature which may be a proximate or ultimate FeatureofInterest.
+Details of each above described entity are provided in <<sensing-core>>.
+
+The Sampling part is a new addition to the SensorThings API.
+As is often the case, an Observation may not be a true representation of the intended Feature's Property that an Observer may be trying to Observe.
+Sampling is a common strategy to understand the characteristics of an otherwise difficult-to-measure Property of any feature-of-interest.
+Samples are created by a Sampler, that may be a physical device or a human being.
+The method used to execute a Sampling may be described by a SamplingProcedure.
+This SamplingProcedure can be used by multiple Samplers and conversely, a Sampler may implement multiple SamplingProcedures. 
+However, any Sampling that is executed by a Sampler is always associated with a unique SamplingProcedure.
+In addition, various preparation steps may be performed on samples both before and after observations are performed on the sample.
+The entities are explained in detail in <<sampling-extension>>.
+
+The Tasking part provides a standard way for parameterizing - also called tasking - of taskable IoT devices, such as individual sensors and actuators, composite consumer / commercial / industrial / smart cities in-situ platforms, mobile and wearable devices, or even unmanned systems platforms such as drones, satellites, connected and autonomous vehicles, etc.
+A Task defines a control action executed by an Actuator.
+Actuator is modeled to describe a device that is equipped with Tasking Capabilities.
+A TaskingCapability characterizes an Actuator's (or in some cases, a Thing's) ability to trigger a change in ActuableProperties of any FeatureOfInterest by executing the given Task.
+The Tasking Data Model thus mirrors the Sensing Data Model.
+Each of these entities are elaborated further in <<actuation-extension>>.
+
+The <<sensing-OM-extension>> and <<relations-extension>> are optional extensions to the data model that may be used for extended data modelling requirements.
+

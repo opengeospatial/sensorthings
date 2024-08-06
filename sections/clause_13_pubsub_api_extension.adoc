@@ -1,0 +1,25 @@
+== PubSub API Extension
+
+This section describes how to create, update and delete Entities.
+Deltails on how to send POST, PATCH, PUT and DELETE requests and how responses are received are described in the protocol bindings sections.
+
+=== Requirement Class A or Requirement A Example
+
+intro text for the requirement class.
+
+Use the following table for Requirements Classes.
+
+
+==== Requirement 1
+
+intro text for the requirement.
+
+Use the following table for Requirements, number sequentially.
+
+
+==== Requirement 2
+
+intro text for the requirement.
+
+Use the following table for Requirements, number sequentially.
+
