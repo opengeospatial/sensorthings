@@ -15,7 +15,7 @@
 :fullname_4: Humaid Kidwai
 :docsubtype: implementation
 :keywords: ogcdoc, OGC document, API, OData, openapi, html, MQTT
-:submitting-organizations: Fraunhofer-Gesellschaft, Germany; University of Calgary, Canada; SensorUp Inc., Canada; Keys, USA; DataCove e.U., Austria
+:submitting-organizations: Fraunhofer-Gesellschaft, Germany; University of Calgary, Canada; SensorUp Inc., Canada; Keys, USA; DataCove e.U., Austria; Secure Dimensions, Germany
 :mn-document-class: ogc
 :mn-output-extensions: xml,html,doc,pdf
 :local-cache-only:
@@ -66,24 +66,6 @@ include::sections/clause_09c_bindings_amqp.adoc[]
 include::sections/clause_09d_bindings_ogc_api_common.adoc[]
 
 include::sections/clause_10_media_types.adoc[]
-
-include::sections/clause_11_data_model_extensions.adoc[][]
-
-include::sections/clause_11a_sensing_OM_extension.adoc[]
-
-include::sections/clause_11b_sampling_entities.adoc[]
-
-include::sections/clause_11c_relations_extension.adoc[]
-
-include::sections/clause_11d_actuation_entities.adoc[]
-
-include::sections/clause_12_api_extensions.adoc[]
-
-include::sections/clause_12a_rest_api_batch_requests.adoc[]
-
-include::sections/clause_12b_rest_api_data_array.adoc[]
-
-include::sections/clause_12c_pubsub_api_extension.adoc[]
 
 ////
 add or remove annexes after "A" as necessary

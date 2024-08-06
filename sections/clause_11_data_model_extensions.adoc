@@ -1,8 +1,0 @@
-== Data model extensions
-
-Data model extensions extend the SensorThings API core data model with extra entity types and relations.
-These extensions do not change the behaviour of the core data model.
-This means that a client that only implements the core data model can still interact with a server that implements data model extensions as if these extensions did not exist.
-
-Whenever a data model extension defines a relation between a new entity type and an Entity Type from the core model, both directions of the relation is listed in the table that defines the relations for the new Entity Type.
-To clearly define these relations, the table will have both a *Source Entity Type* and a *Target Entity Type* column.
