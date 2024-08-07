@@ -178,8 +178,9 @@ The changes to the data model have been summarised in <<sta-changes>> and <<img-
 
 | Observation
 | 
-- `properties` replaces the `parameters` attribute
-- An Observation may or may not link to any Feature in contrast to the mandatory link between Observation and FeatureOfInterest from v1.x
+- `properties` replaces the `parameters` attribute.
+- An Observation may or may not link to any Feature in contrast to the mandatory link between Observation and FeatureOfInterest from v1.x.
+- `resultTime` is now optional and can be left out completely, instead of defaulting to a `null` value.
 
 | Feature
 | 

@@ -155,9 +155,8 @@ Each Thing entity SHALL have the direct relation between a Thing entity and othe
 | The Location entity locates the Thing.
 Multiple Things MAY be located at the same Location.
 A Thing MAY not have a Location.
-A Thing SHOULD have only one Location.
 
-However, in some complex use cases, a Thing MAY have more than one Location representations.
+A Thing SHOULD have only one physical location, but this location may be described in different ways, using different representations.
 In such case, the Thing MAY have more than one Locations.
 | `Location`
 | 0..1
@@ -1065,7 +1064,6 @@ TM_Period is by default encoded as a complex type with a start (mandatory) and e
 This means it always describes a time interval with fixed starting and ending instants.
 
 
-EDITOR: Do we want to keep the current resultTime behaviour?
 
 [#observation-relations,reftext='{table-caption} {counter:table-num}']
 .Direct relation between an Observation entity and other entity types
