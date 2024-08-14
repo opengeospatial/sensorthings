@@ -76,9 +76,6 @@ requirement:: {identifier}/req/datamodel/sensing/thing/relations
 The SensorThings API follows the ITU-T definition, i.e., with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060].
 A Thing is related to the Platform entity as described in Section 4.9.2.1 of [OGC 16-079] in a way that any entity that can be modelled as a Thing MAY be subsequently translated to a Platform and vice versa.
 
-The SensorThings API follows the ITU-T definition, i.e., with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060].
-A Thing is related to the Platform entity as described in Section 4.9.2.1 of [OGC 16-079] in a way that any entity that can be modelled as a Thing MAY be subsequently translated to a Platform and vice versa.
-
 [example%unnumbered]
 ====
 *Thing Examples*
