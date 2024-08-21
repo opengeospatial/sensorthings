@@ -1084,14 +1084,15 @@ This means it always describes a time interval with fixed starting and ending in
 
 | `ProximateFeatureOfInterest`
 | The Feature observed by the Observation.
-The relationship is optional and SHALL exist in cases where the observed Feature is a proxy of the actual Feature
 | `Feature`
 | 0..1
 |====
 
-NOTE: For an Observation, either the direct ProximateFeatureOfInterest or the indirect UltimateFeatureOfInterest SHALL exist.
+An Observation can be directly linked to a Feature, through the relation `ProximateFeatureOfInterest`. Features linked to an Observation in this way are generally samples, either real, physical ones, like water samples taken from a river, or transient ones, to fix the place that a moving Thing happended to be in, when it made a measurement.
 
-EDITOR: what about wen measuring the battery level of the sensor. There the FoI is the Thing. Making a duplicate of the Thing seems silly. 
+In case the Feature is a domain object, like a river, a building, or a plot of land, the Feature is indirectly linked to the Observation through the `UltimateFeatureOfInterest` relation on the Datastream. It is also possible for both relations to exist, in which case the `ProximateFeatureOfInterest` is a sample of the `UltimateFeatureOfInterest`.
+
+A third case is possible, when the target of the observation is (a sub-part of) the Thing itself. For instance, when the Observation is on the battery-level of a drone. In this case neither the `ProximateFeatureOfInterest`, nor the `UltimateFeatureOfInterest` need to be set.
 
 
 .Example of an Observation entity returned by a HTTP end point.
@@ -1251,7 +1252,7 @@ The data type is defined by encodingType.
 }
 ----
 
-
+EDITOR: Add non-GeoJSON examples!
 
 
 
