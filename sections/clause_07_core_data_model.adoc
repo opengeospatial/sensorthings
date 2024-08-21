@@ -653,7 +653,9 @@ The exact definition for this result structure, and which unit of measurement an
 ----
 {
   "result": 25.1,
-  "phenomenonTime": "2021-13-14T15:16:00Z"
+  "phenomenonTime":  {
+    "start": "2021-13-14T15:16:00Z"
+  }
 }
 ----
 
@@ -677,7 +679,9 @@ The exact definition for this result structure, and which unit of measurement an
 ----
 {
   "result": "Jurassic",
-  "phenomenonTime": "2021-13-14T15:16:00Z"
+  "phenomenonTime":  {
+    "start": "2021-13-14T15:16:00Z"
+  }
 }
 ----
 
@@ -719,11 +723,13 @@ The exact definition for this result structure, and which unit of measurement an
     "temp": 15,
     "press": 1024
   },
-  "phenomenonTime": "2021-13-14T15:16:00Z"
+  "phenomenonTime": {
+    "start": "2021-13-14T15:16:00Z"
+  }
 }
 ----
 
-
+EDITOR: Discuss the phenomenonTime examples above
 
 [[sensor]]
 === Sensor
