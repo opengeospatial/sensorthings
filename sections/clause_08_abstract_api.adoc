@@ -1,7 +1,7 @@
-== Abstract REST API
+== Abstract OData API
 
-This section describes the abstract REST API.
-The abstract REST API can be implemented using various protocols, like HTTP or MQTT version 5.
+This section describes the abstract OData API.
+The abstract OData API can be implemented using various protocols, like HTTP or MQTT version 5.
 
 [requirements_class]
 .Abstract API

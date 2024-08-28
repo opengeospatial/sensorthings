@@ -118,6 +118,7 @@ Extensions that need to expose additional server settings may do so in a propert
 }
 ----
 
+EDITOR: Add section on listing implemented features, like filter functions.
 
 
 ==== Service Metadata Document
@@ -393,6 +394,15 @@ The `$filter` option can be applied to any request that returns an EntitySet.
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.1
 
+[EDITOR]
+====
+    - Copy from 1.1
+    - add cast, 
+    - add `any()`,
+    - add in(),
+    - time interval functions?
+    - ...
+====
 
 ==== Server driven pagination
 
