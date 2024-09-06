@@ -5,25 +5,354 @@ Details on how to send requests and how to receive responses are described in th
 https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
 https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html
 
-==== Basic Requests
 
-==== Request Options
+=== Request Query Options
 
-==== Response Formatting
+==== Evaluation Order
+
+The OGC SensorThings API adapts many of OData's system query options and their usage.
+These query options allow refining the request.
+The result of the service request is as if the system query options were evaluated in the following order.
+
+Prior to applying any server-driven pagination:
+
+- `$filter`
+- `$count`
+- `$orderby`
+- `$skip`
+- `$top`
+
+After applying any server-driven pagination:
+
+- `$expand`
+- `$select`
+
+
+
+==== $select
+
+The $select system query option requests the service to return only the properties explicitly requested by the client.
+The value of a $select query option SHALL be a comma-separated list of selection clauses.
+Each selection clause SHALL be a property name (including navigation property names).
+For navigation properties, `$select` controls the inclusion of the navigationLink in the response.
+
+In the response, the service SHALL return the specified content, if available.
+Expanded navigation properties do not need to be added to the `$select` list, they SHALL always be included in the response.
+The `$select` option can be applied to any request that returns an Entity or an EntitySet.
+
+Note: Adapted from OData 4.01-Protocol 11.2.5.1
+
+.Example {counter:examples}: Resource pattern returning only the `id` and `name` of the Entities in the Things EntitySet.
+[source%unnumbered,text]
+----
+v2.0/Things?$select=id,name
+----
+
+
+
+==== $select distinct
+
+EDITOR: TODO
+
+
+==== $expand
+
+The `$expand` system query option indicates the related entities to be represented inline.
+The value of the `$expand` query option SHALL be a comma separated list of navigation property names.
+Query options can be applied to the expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name.
+Allowed system query options are $filter, $select, $orderby, $skip, $top, $count, and $expand.
+
+The `$expand` option can be applied to any request that returns an Entity or an EntitySet.
+
+Note: Adapted from OData 4.01-Protocol 11.2.5.2
+
+.Example {counter:examples}: Resource pattern returning Things, with their Datastreams, and the ObservedProperty for each Datastream.
+[source%unnumbered,text]
+----
+v2.0/Things?$expand=Datastreams($expand=ObservedProperty)
+----
+
+.Example {counter:examples}: Resource pattern returning Datastream as well as the result and phenomenonTime of the last Observation (as ordered by phenomenonTime) and the ObservedProperty associated with this Datastream.
+[source%unnumbered,text]
+----
+v2.0/Datastreams?$expand=Observations($select=result,phenomenonTime;$orderby=phenomenonTime desc;$top=1),ObservedProperty
+----
+
+
+
+==== $top
+
+The `$top` system query option specifies the limit on the number of items returned from an EntitySet.
+The value of the `$top` system query option SHALL be a non-negative integer.
+The service SHALL return the number of available items up to but not greater than the specified value.
+
+If no unique ordering is imposed through an $orderby query option, the service SHALL impose a stable ordering across requests that include `$top`.
+
+In addition, if the `$top` value exceeds the service-driven pagination limitation (i.e., the largest number of entities the service can return in a single response), the `$top` query option SHALL be discarded and the server-side pagination limitation SHALL be imposed.
+
+Note: Adapted from OData 4.01-Protocol 11.2.6.3
+
+.Example {counter:examples}: Resource pattern returning only the first five entities in the Things EntitySet.
+[source%unnumbered,text]
+----
+v2.0/Things?$top=5
+----
+
+.Example {counter:examples}: Resource pattern returning the first five Observation entries after sorting by the phenomenonTime property in descending order.
+[source%unnumbered,text]
+----
+v2.0/Observations?$top=5&$orderby=phenomenonTime%20desc
+----
+
+
+==== $skip
+
+The `$skip` system query option specifies the number for the items of the queried EntitySet that SHALL be excluded from the result.
+The value of `$skip` system query option SHALL be a non-negative integer n.
+The service SHALL return items starting at position n+1.
+
+Where $top and `$skip` are used together, `$skip` SHALL be applied before `$top`, regardless of the order in which they appear in the request.
+
+If no unique ordering is imposed through an `$orderby` query option, the service SHALL impose a stable ordering across requests that include `$skip`.
+
+Note: Adapted from OData 4.01-Protocol 11.2.6.4
+
+.Example {counter:examples}: Resource pattern returning Thing entities starting with the sixth Thing entity in the Things EntitySet.
+[source%unnumbered,text]
+----
+v2.0/Things?$skip=5
+----
+
+.Example {counter:examples}: Resource pattern returning the third and fourth Observation entities from the collection of all Observation entities when the collection is sorted by the resultTime property in ascending order.
+[source%unnumbered,text]
+----
+v2.0/Observations?$skip=2&$top=2&$orderby=resultTime
+----
+
+
+==== $count
+
+The `$count` system query option with a value of `true` specifies that the total count of items within an EntitySet matching the request SHALL be returned along with the result.
+A `$count` query option with a value of `false` specifies that the service SHALL not return a count.
+
+The service SHALL return an HTTP Status code of 400 Bad Request if a value other than `true` or `false` is specified.
+
+The `$count` system query option SHALL ignore any `$top`, `$skip`, or `$expand` query options, and SHALL return the total count of results across all pages including only those results matching any specified `$filter`.
+
+Clients should be aware that the count returned inline may not exactly equal the actual number of items returned, due to latency between calculating the count and enumerating the last value or due to inexact calculations on the service.
+
+Note: Adapted from OData 4.01-Protocol 11.2.6.5
+
+==== $orderby
+
+The `$orderby` system query option specifies the order in which items are returned from the service.
+The value of the `$orderby` system query option SHALL contain a comma-separated list of expressions whose primitive result values are used to sort the items.
+A special case of such an expression is a property path terminating on a primitive property.
+
+The expression MAY include the suffix `asc` for ascending or `desc` for descending, separated from the property name by one or more spaces.
+If asc or desc is not specified, the service SHALL order by the specified property in ascending order.
+
+Null values SHALL come before non-null values when sorting in ascending order and after non-null values when sorting in descending order.
+
+Items SHALL be sorted by the result values of the first expression, and then items with the same value for the first expression SHALL be sorted by the result value of the second expression, and so on.
+
+Note: Adapted from OData 4.01-Protocol 11.2.6.2
+
+.Example {counter:examples}: Resource pattern returning all Observations ordered by the result property in ascending order.
+[source%unnumbered,text]
+----
+v2.0/Observations?$orderby=result
+----
+
+.Example {counter:examples}: Resource pattern returning all Observations ordered by the id property of the linked Datastream entry in descending order, then by the phenomenonTime property of Observations in ascending order.
+[source%unnumbered,text]
+----
+v2.0/Observations?$orderby=Datastreams/id desc, phenomenonTime
+----
+
+
+==== $filter
+
+The `$filter` option can be used to filter the entities returned by a request to any EntitySet.
+The expression specified with $filter is evaluated for each entity in the collection, and only items where the expression evaluates to true SHALL be included in the response.
+Entities for which the expression evaluates to false or to null, or which reference properties that are unavailable due to permissions, SHALL be omitted from the response.
+
+[Adapted from Data 4.01-URL Conventions 5.1.1]
+
+The expression language that is used in $filter operators SHALL support references to properties and literals.
+The literal values SHALL be strings enclosed in single quotes, numbers, boolean values (true or false), null, datetime values as ISO 8601 time string, duration values or geometry values.
+Encoding rules for constants are listed in <<constants_encoding_rules>>
+Properties of Entities are addressed by their name.
+
+Note: Adapted from OData 4.01-Protocol 11.2.6.1
+
+
+.Example {counter:examples}: Observations of Datastream 42 that have a result greater than 5.
+[source%unnumbered,text]
+----
+v2.0/Datastreams(42)/Observations?$filter=result gt 5
+----
+
+.Example {counter:examples}: Locations inside a given area.
+[source%unnumbered,text]
+----
+v2.0/Locations?$filter=st_within(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
+----
+
+Sub-proprties of complex properties are addressed using the complex property name, followed by a `/`, followed by the sub-property name.
+
+.Example {counter:examples}: Observations with a valid time that started before the given timestamp.
+[source%unnumbered,text]
+----
+v2.0/Observations?$filter=validTime/start lt 2012-12-03T07:16:23Z
+----
+
+Entities can be filtered on properties of related entities by using the navigationProperty, followed by a `/`, followed by a property of the related entity.
+This can be used recursively.
+For filtering on properties of entities in a related EntitySet see the `any()` function.
+
+.Example {counter:examples}: Observations of all Datastreams that are named Temperature.
+[source%unnumbered,text]
+----
+v2.0/Observations?$filter=Datastream/name eq 'Temperature'
+----
+
+.Example {counter:examples}: Observations of all Things that are named House 1.
+[source%unnumbered,text]
+----
+v2.0/Observations?$filter=Datastream/Thing/name eq 'House 1'
+----
+
+
+===== Built-in filter operations
+
+The OGC SensorThings API supports a set of built-in filter operations, as described in the following table.
+These built-in filter operator usages and definitions follow the [OData Version 4.01. Part 1: Protocol 11.2.6.1.1] and [OData Version 4.01 ABNF].
+The operator precedence is described in [OData Version 4.01. Part 2: URL Conventions Section 5.1.1.17].
+
+
+
+
+[#tab-built-in-filter-operators,reftext='{table-caption} {counter:table-num}']
+.Built-in Filter Operators
+[cols="<15,<25,<60",options="header"]
+|===
+|Operator |Description |Example
+
+3+|**Comparison Operators**
+
+|eq
+|Equal
+|`+/Datastreams?$filter=unitOfMeasurement/name eq 'degree Celsius'+`
+
+|ne
+|Not equal
+|`+/Datastreams?$filter=unitOfMeasurement/name ne 'degree Celsius'+`
+
+|gt
+|Greater than
+|`+/Observations?$filter=result gt 20.0+`
+
+|ge
+|Greater than or equal
+|`+/Observations?$filter=result ge 20.0+`
+
+|lt
+|Less than
+|`+/Observations?$filter=result lt 100+`
+
+|le
+|Less than or equal
+|`+/Observations?$filter=result le 100+`
+
+
+3+|**Logical Operators**
+
+|and
+|Logical and
+|`+/Observations?$filter=result le 3.5 and FeatureOfInterest/id eq 1+`
+
+|or
+|Logical or
+|`+/Observations?$filter=result gt 20 or result le 3.5+`
+
+|not
+|Logical negation
+|`+/Things?$filter=not startswith(description,'test')+`
+
+
+3+|**Arithmetic Operators**
+
+|add
+|Addition
+|`+/Observations?$filter=result add 5 gt 10+`
+
+|sub
+|Subtraction
+|`+/Observations?$filter=result sub 5 gt 10+`
+
+|mul
+|Multiplication
+|`+/Observations?$filter=result mul 2 gt 2000+`
+
+|div
+|Division
+|`+/Observations?$filter=result div 2 gt 4+`
+
+|mod
+|Modulo
+|`+/Observations?$filter=result mod 2 eq 0+`
+
+
+3+|**Grouping Operators**
+
+|( )
+|Precedence grouping
+|`+/Observations?$filter=(result sub 5) gt 10+`
+|===
+
+
+
+[EDITOR]
+====
+    - Copy from 1.1
+    - add cast, 
+    - add `any()`,
+    - add `in()`,
+    - time interval functions?
+    - ...
+====
+
+==== Server driven pagination
+
+Responses that include only a partial set of the items identified by the request URL SHALL contain a link that allows retrieving the next partial set of items.
+This link is called a nextLink; its representation is format-specific.
+The final partial set of items (the last page) SHALL NOT contain a nextLink.
+
+The nextLink annotation indicates that a response is only a subset of the requested collection of entities or collection of entity references.
+It contains a URL that allows retrieving the next subset of the requested collection.
+
+SensorThings clients SHALL treat the URL of the nextLink as opaque, and SHALL NOT append system query options to the URL of a next link.
+Services may disallow a change of format on requests for subsequent pages using the next link.
+
+Note: Adapted from OData 4.01-Protocol 11.2.6.7
+
+
+=== Response Formatting
 
 intro text for the requirement class.
 
 Use the following table for Requirements Classes.
 
 
-===== Requirement 1
+==== Requirement 1
 
 intro text for the requirement.
 
 Use the following table for Requirements, number sequentially.
 
 
-===== Requirement 2
+==== Requirement 2
 
 intro text for the requirement.
 
