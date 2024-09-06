@@ -269,7 +269,7 @@ v2.0/Things?$select=id,name
 
 ==== $select distinct
 
-
+EDITOR: TODO
 
 
 ==== $expand
@@ -390,16 +390,195 @@ v2.0/Observations?$orderby=Datastreams/id desc, phenomenonTime
 
 ==== $filter
 
-The `$filter` option can be applied to any request that returns an EntitySet.
+The `$filter` option can be used to filter the entities returned by a request to any EntitySet.
+The expression specified with $filter is evaluated for each entity in the collection, and only items where the expression evaluates to true SHALL be included in the response.
+Entities for which the expression evaluates to false or to null, or which reference properties that are unavailable due to permissions, SHALL be omitted from the response.
+
+[Adapted from Data 4.01-URL Conventions 5.1.1]
+
+The expression language that is used in $filter operators SHALL support references to properties and literals.
+The literal values SHALL be strings enclosed in single quotes, numbers, boolean values (true or false), null, datetime values as ISO 8601 time string, duration values or geometry values.
+Encoding rules for constants are listed in <<constants_encoding_rules>>
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.1
+
+
+[#constants_encoding_rules,reftext='{table-caption} {counter:table-num}']
+.Encoding rules for constants in requests
+[width="100%",cols="<3a,<20a,<20a",options="header"]
+|====
+| *Type*
+| *Description*
+| *Example*
+
+| String
+| Quoted using single-quotes (`'`). Single quotes in a string are doubled.
+| `'degree Celsius'` +
+`'Abby''s Car'`
+
+| Number
+| Numbers are not quoted, use a decimal point (`.`), no thousands separator.
+| `0.31415926535897931e1` +
+`-42`
+
+| Datetime
+| Not quoted ISO8601 time with timezone. Special characters (`+`) must be URL-Encoded.
+| `2012-12-03T07:16:23Z` +
+`2012-12-03T07:16:23%2B08:00`
+
+| Boolean
+| Literal value `true` or `false`
+| `true` +
+`false`
+
+| Null
+| Literal value `null`
+| `null`
+
+| Time Duration
+| the keyword `duration` followed by an ISO8601 Druation in single quotes.
+| `duration'P1DT30M'`
+
+| Geometry
+| the keyword `geography` followed by WKT in single quotes.
+| `geography'POINT(-122 43)'`
+
+|====
+
+Properties of Entities are addressed by their name.
+
+.Example {counter:examples}: Observations of Datastream 42 that have a result greater than 5.
+[source%unnumbered,text]
+----
+v2.0/Datastreams(42)/Observations?$filter=result gt 5
+----
+
+.Example {counter:examples}: Locations inside a given area.
+[source%unnumbered,text]
+----
+v2.0/Locations?$filter=st_within(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
+----
+
+Sub-proprties of complex properties are addressed using the complex property name, followed by a `/`, followed by the sub-property name.
+
+.Example {counter:examples}: Observations with a valid time that started before the given timestamp.
+[source%unnumbered,text]
+----
+v2.0/Observations?$filter=validTime/start lt 2012-12-03T07:16:23Z
+----
+
+Entities can be filtered on properties of related entities by using the navigationProperty, followed by a `/`, followed by a property of the related entity.
+This can be used recursively.
+For filtering on properties of entities in a related EntitySet see the `any()` function.
+
+.Example {counter:examples}: Observations of all Datastreams that are named Temperature.
+[source%unnumbered,text]
+----
+v2.0/Observations?$filter=Datastream/name eq 'Temperature'
+----
+
+.Example {counter:examples}: Observations of all Things that are named House 1.
+[source%unnumbered,text]
+----
+v2.0/Observations?$filter=Datastream/Thing/name eq 'House 1'
+----
+
+
+===== Built-in filter operations
+
+The OGC SensorThings API supports a set of built-in filter operations, as described in the following table.
+These built-in filter operator usages and definitions follow the [OData Version 4.01. Part 1: Protocol 11.2.6.1.1] and [OData Version 4.01 ABNF].
+The operator precedence is described in [OData Version 4.01. Part 2: URL Conventions Section 5.1.1.17].
+
+
+
+
+[#tab-built-in-filter-operators,reftext='{table-caption} {counter:table-num}']
+.Built-in Filter Operators
+[cols="<15,<25,<60",options="header"]
+|===
+|Operator |Description |Example
+
+3+|**Comparison Operators**
+
+|eq
+|Equal
+|`+/Datastreams?$filter=unitOfMeasurement/name eq 'degree Celsius'+`
+
+|ne
+|Not equal
+|`+/Datastreams?$filter=unitOfMeasurement/name ne 'degree Celsius'+`
+
+|gt
+|Greater than
+|`+/Observations?$filter=result gt 20.0+`
+
+|ge
+|Greater than or equal
+|`+/Observations?$filter=result ge 20.0+`
+
+|lt
+|Less than
+|`+/Observations?$filter=result lt 100+`
+
+|le
+|Less than or equal
+|`+/Observations?$filter=result le 100+`
+
+
+3+|**Logical Operators**
+
+|and
+|Logical and
+|`+/Observations?$filter=result le 3.5 and FeatureOfInterest/id eq 1+`
+
+|or
+|Logical or
+|`+/Observations?$filter=result gt 20 or result le 3.5+`
+
+|not
+|Logical negation
+|`+/Things?$filter=not startswith(description,'test')+`
+
+
+3+|**Arithmetic Operators**
+
+|add
+|Addition
+|`+/Observations?$filter=result add 5 gt 10+`
+
+|sub
+|Subtraction
+|`+/Observations?$filter=result sub 5 gt 10+`
+
+|mul
+|Multiplication
+|`+/Observations?$filter=result mul 2 gt 2000+`
+
+|div
+|Division
+|`+/Observations?$filter=result div 2 gt 4+`
+
+|mod
+|Modulo
+|`+/Observations?$filter=result mod 2 eq 0+`
+
+
+3+|**Grouping Operators**
+
+|( )
+|Precedence grouping
+|`+/Observations?$filter=(result sub 5) gt 10+`
+|===
+
+
 
 [EDITOR]
 ====
     - Copy from 1.1
     - add cast, 
     - add `any()`,
-    - add in(),
+    - add `in()`,
     - time interval functions?
     - ...
 ====

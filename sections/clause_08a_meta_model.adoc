@@ -97,3 +97,4 @@ A service that implements the absract REST API SHALL make a service metadata doc
 ====
 
 
+EDITOR: Mention TM_Object and TM_Interval here?
