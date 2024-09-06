@@ -206,6 +206,21 @@ v2.0/Datastreams(4)/Thing/Locations
 ----
 
 
+==== Entity Property
+
+EDITOR: TO DO
+
+
+==== Entity Property raw value ($value)
+
+EDITOR: TO DO
+
+
+==== Relation Reference ($ref)
+
+EDITOR: TO DO
+
+
 ==== Encoding rules for constants
 
 Encoding rules for constants in resource paths and query options are listed in <<constants_encoding_rules>>
