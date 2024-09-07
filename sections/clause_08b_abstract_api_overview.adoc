@@ -163,6 +163,48 @@ v2.0/Datastreams('xz42df')
 ----
 
 
+[[pattern_entity_property]]
+==== Entity Property
+
+URI Pattern: `v2.0/EntityTypeName(<primaryKey>)/entityProperty`
+
+Requesting a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, addresses the value of this Entity Property of the base Entity.
+The used URL for the base entity may itself be a related entity URL.
+
+.Example {counter:examples}: Resource pattern for the name of a specific Datastream
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)/name
+----
+
+.Example {counter:examples}: Resource pattern for the name of the Thing of a specific Datastream
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)/Thing/name
+----
+
+
+[[pattern_entity_property_raw]]
+==== Entity Property raw value ($value)
+
+URI Pattern: `v2.0/EntityTypeName(<primaryKey>)/entityProperty/$value`
+
+Requesting a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, followed by `/$value`, addresses the raw value of this Entity Property of the base Entity.
+The used URL for the base entity may itself be a related entity URL.
+
+.Example {counter:examples}: Resource pattern for the raw name of a specific Datastream
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)/name/$value
+----
+
+.Example {counter:examples}: Resource pattern for the raw name of the Thing of a specific Datastream
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)/Thing/name/$value
+----
+
+
 [[pattern_entity_related]]
 ==== Related Entity
 
@@ -206,19 +248,31 @@ v2.0/Datastreams(4)/Thing/Locations
 ----
 
 
-==== Entity Property
+[[pattern_relation]]
+==== Association link ($ref)
 
-EDITOR: TO DO
+URI Pattern: `v2.0/EntityTypeName(<primaryKey>)/NavigationProperty/$ref`
 
+Requesting a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation property, followed by `/$ref`, addresses the entity-id(s), for related entity or entities of the given navigation property. For navigation property with a cardinality of many, the navigation property may be followed by a primary-key in brackets, to address the specific association between the base entity and the related entity.
+The association link can be used to modify the relation(s).
 
-==== Entity Property raw value ($value)
+.Example {counter:examples}: Resource pattern for the association link of the Thing of a specific Datastream
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)/Thing/$ref
+----
 
-EDITOR: TO DO
+.Example {counter:examples}: Resource pattern for the association link to the Observations related to a specific Datastream
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)/Observations/$ref
+----
 
-
-==== Relation Reference ($ref)
-
-EDITOR: TO DO
+.Example {counter:examples}: Resource pattern for the association link between a specific Datastream and a specific Observation
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)/Observations(1)/$ref
+----
 
 
 ==== Encoding rules for constants

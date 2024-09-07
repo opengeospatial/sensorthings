@@ -69,7 +69,7 @@ See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-
 |URL
 
 |@id
-|The annotation `@id` is the absolute or relative URL of an entity that uniquely resolves to this entity.
+|The annotation `@id` is the `entity-id`, an absolute or relative URL of an entity that uniquely resolves to this entity.
 |URL
 
 |linkName@navigationLink
