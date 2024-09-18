@@ -157,9 +157,40 @@ v2.0/Things?$select=id,name
 
 ==== $select distinct
 
-EDITOR: TODO
+It is quite useful to give Entities common properties, like a “type”.
+But when filtering on such a common property the client needs to know what the used values are.
+Distinct select allows a client to request all distinct values for a field or a set of fields.
+
+Distinct select can be used in expands, and can be ordered.
+When combining $orderby with a distinct select, it is only possible to order by the exact fields that are selected.
+
+Note that selecting distinct values for the primary key field (`id`) makes no sense, since this field is unique for each entity.
+
+To request the distinct values for a set of selected fields, add the `distinct:` keyword at the start of the `$select` parameter.
+
+The returned data is formatted just like a non-distinct request of the same type would be.
 
 
+.Example {counter:examples}: request returning all distinct values of the properties/type field of all Things
+[source%unnumbered,text]
+----
+v1.1/Things?$select=distinct:properties/type
+----
+
+.Example {counter:examples}: possible response to the above request
+[source%unnumbered,json]
+----
+{
+    "value": [
+        { "properties": { "type": "waterBody" } },
+        { "properties": { "type": "station" } },
+        { "properties": { "type": "aquifer" } }
+    ]
+}
+----
+
+
+[[expand]]
 ==== $expand
 
 The `$expand` system query option indicates the related entities to be represented inline.
