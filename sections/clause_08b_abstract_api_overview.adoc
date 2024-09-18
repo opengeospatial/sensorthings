@@ -35,6 +35,7 @@ URI Pattern: `v2.0`
 Requests to the URL pattern consisting of just the version number, optionally followed by a slash (`/`) address the service document.
 
 
+[[pattern_service_metadata_document]]
 ==== Service Metadata Document
 
 URI Pattern: `v2.0/$metadata`
@@ -190,7 +191,23 @@ v2.0/Datastreams(4)/Observations(1)/$ref
 ----
 
 
-==== Encoding rules for constants
+==== More complex examples
+
+`v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty(<primaryKey>)`
+
+The pattern <<pattern_entityset_related>> and <<pattern_entity>> can be combined to address a specific entity from a related set.
+This will return a `Not Found` error when the requested entity is not actually in the related set.
+
+.Example {counter:examples}: Resource pattern for a specific Observation of a specific Datastream
+[source%unnumbered,text]
+----
+v2.0/Datastreams(4)/Observations(5321)
+----
+
+The above example addresses the same entity as `v2.0/Observations(5321)`, except when Observation `5321` is not actually contained in Datastream 4, since in that case any action on the resource would return a `Not Found` error.
+
+
+=== Encoding rules for constants
 
 Encoding rules for constants in resource paths and query options are listed in <<constants_encoding_rules>>
 
@@ -236,19 +253,4 @@ Encoding rules for constants in resource paths and query options are listed in <
 
 |====
 
-
-==== More complex examples
-
-`v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty(<primaryKey>)`
-
-The pattern <<pattern_entityset_related>> and <<pattern_entity>> can be combined to get a specific entity from a related set.
-This will return a `Not Found` error when the requested entity is not actually in the related set.
-
-.Example {counter:examples}: Resource pattern for a specific Observation of a specific Datastream
-[source%unnumbered,text]
-----
-v2.0/Datastreams(4)/Observations(5321)
-----
-
-The above example addresses the same entity as `v2.0/Observations(5321)`, except when Observation `5321` is not actually contained in Datastream 4, since in that case any action on the resource would return a `Not Found` error.
 
