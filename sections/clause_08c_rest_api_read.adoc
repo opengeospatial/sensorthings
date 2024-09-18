@@ -175,7 +175,7 @@ The returned data is formatted just like a non-distinct request of the same type
 .Example {counter:examples}: request returning all distinct values of the properties/type field of all Things
 [source%unnumbered,text]
 ----
-v1.1/Things?$select=distinct:properties/type
+v2.0/Things?$select=distinct:properties/type
 ----
 
 .Example {counter:examples}: possible response to the above request
@@ -197,7 +197,7 @@ v1.1/Things?$select=distinct:properties/type
 The `$expand` system query option indicates the related entities to be represented inline.
 The value of the `$expand` query option SHALL be a comma separated list of navigation property names.
 Query options can be applied to the expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name.
-Allowed system query options are $filter, $select, $orderby, $skip, $top, $count, and $expand.
+Allowed system query options are `$filter`, `$select`, `$orderby`, `$skip`, `$top`, `$count`, and `$expand`.
 
 The `$expand` option can be applied to any request that returns an Entity or an EntitySet.
 
@@ -472,130 +472,130 @@ In addition, the Well-Known Text (WKT) format is the default input geometry for 
 
 2+|**String Functions**
 
-|bool substringof(string p0, string p1)
-|substringof('Sensor Things',description)
+|`+bool substringof(string p0, string p1)+`
+|`+substringof('Sensor Things',description)+`
 
-|bool endswith(string p0, string p1)
-|endswith(description,'Things')
+|`+bool endswith(string p0, string p1)+`
+|`+endswith(description,'Things')+`
 
-|bool startswith(string p0, string p1)
-|startswith(description,'Sensor')
+|`+bool startswith(string p0, string p1)+`
+|`+startswith(description,'Sensor')+`
 
-|int length(string p0)
-|length(description) eq 13
+|`+int length(string p0)+`
+|`+length(description) eq 13+`
 
-|int indexof(string p0, string p1)
-|indexof(description,'Sensor') eq 1
+|`+int indexof(string p0, string p1)+`
+|`+indexof(description,'Sensor') eq 1+`
 
-|string substring(string p0, int p1) +
-string substring(string p0, int p1, int p2)
+|`+string substring(string p0, int p1)+` +
+`+string substring(string p0, int p1, int p2)+`
 
-|substring(description,1) eq 'ensor Things' +
-substring(description,2,4) eq 'nsor'
+|`+substring(description,1) eq 'ensor Things'+` +
+`+substring(description,2,4) eq 'nsor'+`
 
-|string tolower(string p0)
-|tolower(description) eq 'sensor things'
+|`+string tolower(string p0)+`
+|`+tolower(description) eq 'sensor things'+`
 
-|string toupper(string p0)
-|toupper(description) eq 'SENSOR THINGS'
+|`+string toupper(string p0)+`
+|`+toupper(description) eq 'SENSOR THINGS'+`
 
-|string trim(string p0)
-|trim(description) eq 'Sensor Things'
+|`+string trim(string p0)+`
+|`+trim(description) eq 'Sensor Things'+`
 
-|string concat(string p0, string p1)
-|concat(concat(unitOfMeasurement/symbol,', '), unitOfMeasurement/name) eq 'degree, Celsius'
+|`+string concat(string p0, string p1)+`
+|`+concat(concat(unitOfMeasurement/symbol,', '), unitOfMeasurement/name) eq 'degree, Celsius'+`
 
 2+|**Date Functions**
 
-|int year
-|year(resultTime) eq 2015
+|`+int year+`
+|`+year(resultTime) eq 2015+`
 
-|int month
-|month(resultTime) eq 12
+|`+int month+`
+|`+month(resultTime) eq 12+`
 
-|int day
-|day(resultTime) eq 8
+|`+int day+`
+|`+day(resultTime) eq 8+`
 
-|int hour
-|hour(resultTime) eq 1
+|`+int hour+`
+|`+hour(resultTime) eq 1+`
 
-|int minute
-|minute(resultTime) eq 0
+|`+int minute+`
+|`+minute(resultTime) eq 0+`
 
-|int second
-|second(resultTime) eq 0
+|`+int second+`
+|`+second(resultTime) eq 0+`
 
-|int fractionalseconds
-|second(resultTime) eq 0
+|`+int fractionalseconds+`
+|`+second(resultTime) eq 0+`
 
-|int date
-|date(resultTime) ne date(validTime)
+|`+int date+`
+|`+date(resultTime) ne date(validTime)+`
 
-|time
-|time(resultTime) le validTime
+|`+time+`
+|`+time(resultTime) le validTime+`
 
-|int totaloffsetminutes
-|totaloffsetminutes(resultTime) eq 60
+|`+int totaloffsetminutes+`
+|`+totaloffsetminutes(resultTime) eq 60+`
 
-|now
-|resultTime ge now()
+|`+now+`
+|`+resultTime ge now()+`
 
-|mindatetime
-|resultTime eq mindatetime()
+|`+mindatetime+`
+|`+resultTime eq mindatetime()+`
 
-|maxdatetime
-|resultTime eq maxdatetime()
+|`+maxdatetime+`
+|`+resultTime eq maxdatetime()+`
 
 2+|**Math Functions**
 
-|round
-|round(result) eq 32
+|`+round+`
+|`+round(result) eq 32+`
 
-|floor
-|floor(result) eq 32
+|`+floor+`
+|`+floor(result) eq 32+`
 
-|ceiling
-|ceiling(result) eq 33
+|`+ceiling+`
+|`+ceiling(result) eq 33+`
 
 2+|**Geospatial Functions**
 
-|double geo.distance(Point p0, Point p1)
-|geo.distance(location, geography'POINT (30 10)')
+|`+double geo.distance(Point p0, Point p1)+`
+|`+geo.distance(location, geography'POINT (30 10)')+`
 
-|double geo.length(LineString p0)
-|geo.length(geography'LINESTRING (30 10, 10 30, 40 40)')
+|`+double geo.length(LineString p0)+`
+|`+geo.length(geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
-|bool geo.intersects(Point p0, Polygon p1)
-|geo.intersects(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
+|`+bool geo.intersects(Point p0, Polygon p1)+`
+|`+geo.intersects(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
 2+|**Spatial Relationship Functions**
 
-|bool st_equals
-|st_equals(location, geography'POINT (30 10)')
+|`+bool st_equals+`
+|`+st_equals(location, geography'POINT (30 10)')+`
 
-|bool st_disjoint
-|st_disjoint(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
+|`+bool st_disjoint+`
+|`+st_disjoint(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
-|bool st_touches
-|st_touches(location, geography'LINESTRING (30 10, 10 30, 40 40)')
+|`+bool st_touches+`
+|`+st_touches(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
-|bool st_within
-|st_within(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
+|`+bool st_within+`
+|`+st_within(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
-|bool st_overlaps
-|st_overlaps(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
+|`+bool st_overlaps+`
+|`+st_overlaps(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
-|bool st_crosses
-|st_crosses(location, geography'LINESTRING (30 10, 10 30, 40 40)')
+|`+bool st_crosses+`
+|`+st_crosses(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
-|bool st_intersects
-|st_intersects(location, geography'LINESTRING (30 10, 10 30, 40 40)')
+|`+bool st_intersects+`
+|`+st_intersects(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
-|bool st_contains
-|st_contains(location, geography'POINT (30 10)')
+|`+bool st_contains+`
+|`+st_contains(location, geography'POINT (30 10)')+`
 
-|bool st_relate
-|st_relate(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))', 'T********')
+|`+bool st_relate+`
+|`+st_relate(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))', 'T********')+`
 |===
 
 
@@ -614,6 +614,13 @@ The `any()` operator applies a boolean expression to each member of a collection
     - ...
 ====
 
+
+[[param_format]]
+==== $format
+
+EDITOR: TODO
+
+
 [[server_driven_pagination]]
 ==== Server driven pagination
 
@@ -628,25 +635,4 @@ SensorThings clients SHALL treat the URL of the nextLink as opaque, and SHALL NO
 Services may disallow a change of format on requests for subsequent pages using the next link.
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.7
-
-
-=== Response Formatting
-
-intro text for the requirement class.
-
-Use the following table for Requirements Classes.
-
-
-==== Requirement 1
-
-intro text for the requirement.
-
-Use the following table for Requirements, number sequentially.
-
-
-==== Requirement 2
-
-intro text for the requirement.
-
-Use the following table for Requirements, number sequentially.
 
