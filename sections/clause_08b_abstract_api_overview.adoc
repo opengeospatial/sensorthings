@@ -39,7 +39,7 @@ Requests to the URL pattern consisting of just the version number, optionally fo
 
 URI Pattern: `v2.0/$metadata`
 
-Requesting the URL pattern consisting of the API version number followed by `/$metadata` returns the service metadata document that describes the data model that the service exposes.
+Requests to the URL pattern consisting of the API version number followed by `/$metadata` address the service metadata document that describes the data model that the service exposes.
 The service metadata document is described in <<OData-CSDL>>.
 
 
@@ -48,7 +48,7 @@ The service metadata document is described in <<OData-CSDL>>.
 
 URI Pattern: `v2.0/EntityTypeName`
 
-Requesting a URL pattern consisting of the API version number followed by `/` and the name of an entity type addresses the set of all entities of the requested type.
+Requests to a URL pattern consisting of the API version number followed by `/` and the name of an entity type address the set of all entities of the requested type.
 
 .Example {counter:examples}: Resource pattern for the Datastreams Entity Set
 [source%unnumbered,text]
@@ -62,7 +62,7 @@ v2.0/Datastreams
 
 URI Pattern: `v2.0/EntityTypeName(<primaryKey>)`
 
-Requesting a URL pattern consisting of the name of an EntitySet URL, followed by, in brackets, a primary key value fitting the entity type of the set, addresses the single Entity from the set, that has the given primary key.
+Requests to a URL pattern consisting of the name of an EntitySet URL, followed by, in brackets, a primary key value fitting the entity type of the set, address the single Entity from the set, that has the given primary key.
 
 .Example {counter:examples}: Resource pattern for a specific Datastream, for a service that uses Integers for the id field of Datastreams
 [source%unnumbered,text]
@@ -82,7 +82,7 @@ v2.0/Datastreams('xz42df')
 
 URI Pattern: `v2.0/EntityTypeName(<primaryKey>)/entityProperty`
 
-Requesting a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, addresses the value of this Entity Property of the base Entity.
+Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, address the value of this Entity Property of the base Entity.
 The used URL for the base entity may itself be a related entity URL.
 
 .Example {counter:examples}: Resource pattern for the name of a specific Datastream
@@ -103,7 +103,7 @@ v2.0/Datastreams(4)/Thing/name
 
 URI Pattern: `v2.0/EntityTypeName(<primaryKey>)/entityProperty/$value`
 
-Requesting a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, followed by `/$value`, addresses the raw value of this Entity Property of the base Entity.
+Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, followed by `/$value`, address the raw value of this Entity Property of the base Entity.
 The used URL for the base entity may itself be a related entity URL.
 
 .Example {counter:examples}: Resource pattern for the raw name of a specific Datastream
@@ -124,7 +124,7 @@ v2.0/Datastreams(4)/Thing/name/$value
 
 URI Pattern: `v2.0/EntityTypeName(<primaryKey>)/EntityNavigationProperty`
 
-Requesting a URL pattern consisting of a URL that return an Entity (the base entity), followed by a navigation property with a cardinality of one, addresses the related entity of the base entity.
+Requests to a URL pattern consisting of a URL that return an Entity (the base entity), followed by a navigation property with a cardinality of one, address the related entity of the base entity.
 The used URL for the base entity may itself be a related entity URL.
 
 
@@ -146,7 +146,7 @@ v2.0/Observations(42)/Datastream/Thing
 
 URI Pattern: `v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty`
 
-Requesting a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation property with a cardinality of many, addresses the related EntitySet of the base entity.
+Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation property with a cardinality of many, address the related EntitySet of the base entity.
 The used URL for the base entity may itself be a related entity URL.
 
 .Example {counter:examples}: Resource pattern for the Observations of a specific Datastream
@@ -167,7 +167,8 @@ v2.0/Datastreams(4)/Thing/Locations
 
 URI Pattern: `v2.0/EntityTypeName(<primaryKey>)/NavigationProperty/$ref`
 
-Requesting a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation property, followed by `/$ref`, addresses the entity-id(s), for related entity or entities of the given navigation property. For navigation property with a cardinality of many, the navigation property may be followed by a primary-key in brackets, to address the specific association between the base entity and the related entity.
+Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation property, followed by `/$ref`, address the entity-id(s) of the related entity or entities of the given navigation property.
+For navigation property with a cardinality of many, the navigation property may be followed by a primary-key in brackets, to address the specific association between the base entity and the related entity.
 The association link can be used to modify the relation(s).
 
 .Example {counter:examples}: Resource pattern for the association link of the Thing of a specific Datastream
