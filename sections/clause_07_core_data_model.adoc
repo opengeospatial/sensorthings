@@ -259,6 +259,7 @@ Each Location entity SHALL have the mandatory attributes and MAY have the option
 
 | `encodingType`
 | The encoding type of the Location property.
+(see <<location-encodingType-value-codes>> for some suggested ValueCodes)
 | String
 | 1
 
@@ -307,6 +308,25 @@ Multiple Things MAY locate at the same Location.
 | `HistoricalLocation`
 | 0..*
 |====
+
+
+[#location-encodingType-value-codes,reftext='{table-caption} {counter:table-num}']
+.Non-exhaustive list of code values used for identifying types for the encodingType of the Location and Feature entities
+[width="100%",cols="5,15",options="header"]
+|====
+| encodingType
+| ValueCode Value
+
+| `GeoJSON`
+| `application/geo+json`
+
+| `GeoPose`
+| `application/geopose+json`
+
+| `WKT`
+| `text/plain`
+|====
+
 
 EDITOR: Add example for wkt, jsonFG
 
@@ -791,7 +811,7 @@ Each Sensor entity SHALL have the direct relation between a Sensor entity and ot
 
 | `encodingType`
 | The encoding type of the metadata property.
-Its value is one of the ValueCode enumeration (see <<sensor-encodingType-value-codes>> for the available ValueCode)
+Its value is one of the ValueCode enumeration (see <<sensor-encodingType-value-codes>> for some suggested ValueCodes)
 | ValueCode
 | 1
 
@@ -1191,7 +1211,7 @@ Each Feature entity SHALL have the direct relation between a Feature entity and 
 | 0..1
 
 | `encodingType`
-| The encoding type of the feature property
+| The encoding type of the feature property. (see <<location-encodingType-value-codes>> for some suggested ValueCodes)
 | String
 | 1
 
