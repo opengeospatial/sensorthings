@@ -15,7 +15,7 @@
 :fullname_4: Humaid Kidwai
 :docsubtype: implementation
 :keywords: ogcdoc, OGC document, API, OData, openapi, html, MQTT
-:submitting-organizations: Fraunhofer-Gesellschaft, Germany; University of Calgary, Canada; SensorUp Inc., Canada; Keys, USA; DataCove e.U., Austria; Secure Dimensions, Germany
+:submitting-organizations: Fraunhofer-Gesellschaft, Germany; University of Calgary, Canada; SensorUp Inc., Canada; Keys, USA; DataCove e.U., Austria; Secure Dimensions, Germany; CREAF, Spain
 :mn-document-class: ogc
 :mn-output-extensions: xml,html,doc,pdf
 :local-cache-only:
