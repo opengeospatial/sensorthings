@@ -131,6 +131,7 @@ After applying any server-driven pagination:
 
 - `$expand`
 - `$select`
+- `$format`
 
 
 
@@ -154,7 +155,7 @@ v2.0/Things?$select=id,name
 ----
 
 
-
+[[select_distinct]]
 ==== $select distinct
 
 It is quite useful to give Entities common properties, like a “type”.
@@ -215,7 +216,7 @@ v2.0/Datastreams?$expand=Observations($select=result,phenomenonTime;$orderby=phe
 ----
 
 
-
+[[top]]
 ==== $top
 
 The `$top` system query option specifies the limit on the number of items returned from an EntitySet.
@@ -241,6 +242,7 @@ v2.0/Observations?$top=5&$orderby=phenomenonTime%20desc
 ----
 
 
+[[skip]]
 ==== $skip
 
 The `$skip` system query option specifies the number for the items of the queried EntitySet that SHALL be excluded from the result.
@@ -266,6 +268,7 @@ v2.0/Observations?$skip=2&$top=2&$orderby=resultTime
 ----
 
 
+[[count]]
 ==== $count
 
 The `$count` system query option with a value of `true` specifies that the total count of items within an EntitySet matching the request SHALL be returned along with the result.
@@ -279,6 +282,8 @@ Clients should be aware that the count returned inline may not exactly equal the
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.5
 
+
+[[orderby]]
 ==== $orderby
 
 The `$orderby` system query option specifies the order in which items are returned from the service.
@@ -307,6 +312,7 @@ v2.0/Observations?$orderby=Datastreams/id desc, phenomenonTime
 ----
 
 
+[[filter]]
 ==== $filter
 
 The `$filter` option can be used to filter the entities returned by a request to any EntitySet.
@@ -360,12 +366,12 @@ v2.0/Observations?$filter=Datastream/Thing/name eq 'House 1'
 ----
 
 
+[[filter_operations]]
 ===== Built-in filter operations
 
 The OGC SensorThings API supports a set of built-in filter operations, as described in the following table.
 These built-in filter operator usages and definitions follow the [OData Version 4.01. Part 1: Protocol 11.2.6.1.1] and [OData Version 4.01 ABNF].
 The operator precedence is described in [OData Version 4.01. Part 2: URL Conventions Section 5.1.1.17].
-
 
 
 
@@ -379,11 +385,11 @@ The operator precedence is described in [OData Version 4.01. Part 2: URL Convent
 
 |eq
 |Equal
-|`+/Datastreams?$filter=unitOfMeasurement/name eq 'degree Celsius'+`
+|`+/Datastreams?$filter=resultType/type eq 'Quantity'+`
 
 |ne
 |Not equal
-|`+/Datastreams?$filter=unitOfMeasurement/name ne 'degree Celsius'+`
+|`+/Datastreams?$filter=resultType/type ne 'Quantity'+`
 
 |gt
 |Greater than
@@ -448,10 +454,159 @@ The operator precedence is described in [OData Version 4.01. Part 2: URL Convent
 |===
 
 
+[[query_functions]]
+===== Built-in query functions
+
+The OGC SensorThings API supports a set of functions that can be used with the $filter or $orderby query operations.
+The following table lists the available functions and they follows the OData Canonical function definitions listed in link:https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_CanonicalFunctions[OData Version 4.01 Part 2: URL Conventions, Section 5.1.1.4].
+
+In order to support spatial relationship functions, SensorThings API defines nine additional geospatial functions based on the spatial relationship between two geometry objects.
+The spatial relationship functions are defined in the OGC Simple Feature Access specification [OGC 06-104r4 part 1, clause 6.1.2.3]. The names of these nine functions start with a prefix st_ following the OGC Simple Feature Access specification [OGC 06-104r4].
+In addition, the Well-Known Text (WKT) format is the default input geometry for these nine functions.
+
+[#tab-built-in-query-functions,reftext='{table-caption} {counter:table-num}']
+.Built-in Query Functions
+[cols="<30a,<60a",options="header"]
+|===
+|Function |Example
+
+2+|**String Functions**
+
+|bool substringof(string p0, string p1)
+|substringof('Sensor Things',description)
+
+|bool endswith(string p0, string p1)
+|endswith(description,'Things')
+
+|bool startswith(string p0, string p1)
+|startswith(description,'Sensor')
+
+|int length(string p0)
+|length(description) eq 13
+
+|int indexof(string p0, string p1)
+|indexof(description,'Sensor') eq 1
+
+|string substring(string p0, int p1) +
+string substring(string p0, int p1, int p2)
+
+|substring(description,1) eq 'ensor Things' +
+substring(description,2,4) eq 'nsor'
+
+|string tolower(string p0)
+|tolower(description) eq 'sensor things'
+
+|string toupper(string p0)
+|toupper(description) eq 'SENSOR THINGS'
+
+|string trim(string p0)
+|trim(description) eq 'Sensor Things'
+
+|string concat(string p0, string p1)
+|concat(concat(unitOfMeasurement/symbol,', '), unitOfMeasurement/name) eq 'degree, Celsius'
+
+2+|**Date Functions**
+
+|int year
+|year(resultTime) eq 2015
+
+|int month
+|month(resultTime) eq 12
+
+|int day
+|day(resultTime) eq 8
+
+|int hour
+|hour(resultTime) eq 1
+
+|int minute
+|minute(resultTime) eq 0
+
+|int second
+|second(resultTime) eq 0
+
+|int fractionalseconds
+|second(resultTime) eq 0
+
+|int date
+|date(resultTime) ne date(validTime)
+
+|time
+|time(resultTime) le validTime
+
+|int totaloffsetminutes
+|totaloffsetminutes(resultTime) eq 60
+
+|now
+|resultTime ge now()
+
+|mindatetime
+|resultTime eq mindatetime()
+
+|maxdatetime
+|resultTime eq maxdatetime()
+
+2+|**Math Functions**
+
+|round
+|round(result) eq 32
+
+|floor
+|floor(result) eq 32
+
+|ceiling
+|ceiling(result) eq 33
+
+2+|**Geospatial Functions**
+
+|double geo.distance(Point p0, Point p1)
+|geo.distance(location, geography'POINT (30 10)')
+
+|double geo.length(LineString p0)
+|geo.length(geography'LINESTRING (30 10, 10 30, 40 40)')
+
+|bool geo.intersects(Point p0, Polygon p1)
+|geo.intersects(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
+
+2+|**Spatial Relationship Functions**
+
+|bool st_equals
+|st_equals(location, geography'POINT (30 10)')
+
+|bool st_disjoint
+|st_disjoint(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
+
+|bool st_touches
+|st_touches(location, geography'LINESTRING (30 10, 10 30, 40 40)')
+
+|bool st_within
+|st_within(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
+
+|bool st_overlaps
+|st_overlaps(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
+
+|bool st_crosses
+|st_crosses(location, geography'LINESTRING (30 10, 10 30, 40 40)')
+
+|bool st_intersects
+|st_intersects(location, geography'LINESTRING (30 10, 10 30, 40 40)')
+
+|bool st_contains
+|st_contains(location, geography'POINT (30 10)')
+
+|bool st_relate
+|st_relate(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))', 'T********')
+|===
+
+
+[[any]]
+===== Any
+
+The `any()` operator applies a boolean expression to each member of a collection and returns true if the expression returns true for any member of the collection.
+
 
 [EDITOR]
 ====
-    - Copy from 1.1
     - add cast, 
     - add `any()`,
     - add `in()`,
@@ -459,6 +614,7 @@ The operator precedence is described in [OData Version 4.01. Part 2: URL Convent
     - ...
 ====
 
+[[server_driven_pagination]]
 ==== Server driven pagination
 
 Responses that include only a partial set of the items identified by the request URL SHALL contain a link that allows retrieving the next partial set of items.
