@@ -11,19 +11,19 @@ At the top level, query options are separated with the ampersant (`&`) character
 .Example {counter:examples}: Complete URI example using HTTP bindings
 [source%unnumbered,text]
 ----
-http://example.org/v2.0/Observations?$orderby=ID&$top=10
-_______________________/___________/___________________/
-          |                 |               |
-  service root URI     resource path   query options
+http://example.org/v2.0/Datastreams(5)/Observations?$orderby=ID&$top=10
+_______________________/__________________________/___________________/
+          |                          |                      |
+  service root URI             resource path           query options
 ----
 
 .Example {counter:examples}: Complete URI example using MQTT bindings
 [source%unnumbered,text]
 ----
-base/topic/v2.0/Observations?$orderby=ID&$top=10
-_______________/___________/___________________/
-      |              |               |
-   root URI    resource path   query options
+base/topic/v2.0/Datastreams(5)/Observations?$orderby=ID&$top=10
+_______________/__________________________/___________________/
+      |                      |                      |
+   root URI            resource path           query options
 ----
 
 
