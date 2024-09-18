@@ -1,7 +1,112 @@
 === Requesting Data
 
-This section describes how to request data from a SensorThings API compatible service.
+This section describes how to read data from a SensorThings API compatible service.
 Details on how to send requests and how to receive responses are described in the protocol bindings sections.
+For example, when using the HTTP bindings, GET is used for read requests.
+
+[[read_service_document]]
+==== Service Document
+
+A read (GET) Requests to the Service Document URL pattern (<<pattern_service_document>>) returns the service document.
+
+The Service document is a JSON object with a property named value and a property named serverSettings.
+The content of the property named value SHALL be a JSON Array containing one element for each entity set of the SensorThings Service.
+The content of the property named serverSettings SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
+
+Each element of the value array SHALL be a JSON object with at least two name/value pairs, one with name name containing the name of the entity set (e.g., Things, Locations, Datastreams, Observations, ObservedProperties and Sensors) and one with name url containing the URL of the entity set, which may be an absolute or a relative URL.
+(Adapted from OData 4.01-JSON-Format section 5)
+
+The serverSettings object SHALL contain the property conformance of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements.
+If a service implements all requirements from a requirements class, it only needs to list the requirements class id.
+
+Security extensions can modify the list of requirements to only show those requirements that the user is allowed to use.
+For example, if a user is not allowed to delete entities, the security extension can hide the create-update-delete/delete-entity requirement.
+In the most extreme case, a security extension would hide all requirements for a user that is not authenticated, except its own requirement and the instructions on how to authenticate.
+
+Extensions that need to expose additional server settings may do so in a property of the serverSettings object that is named after the conformance class URI of the requirement that defines this setting.
+
+.A service document using absolute HTTPS-URLs
+[source,json]
+----
+{
+  "value": [
+    {
+      "name": "Things",
+      "url": "https://example.org/v2.0/Things"
+    },
+    {
+      "name": "Locations",
+      "url": "https://example.org/v2.0/Locations"
+    },
+    {
+      "name": "Datastreams",
+      "url": "https://example.org/v2.0/Datastreams"
+    },
+    {
+      "name": "Sensors",
+      "url": "https://example.org/v2.0/Sensors"
+    },
+    {
+      "name": "Observations",
+      "url": "https://example.org/v2.0/Observations"
+    },
+    {
+      "name": "ObservedProperties",
+      "url": "https://example.org/v2.0/ObservedProperties"
+    },
+    {
+      "name": "Features",
+      "url": "https://example.org/v2.0/Features"
+    },
+    {
+      "name": "FeatureTypes",
+      "url": "https://example.org/v2.0/FeatureTypes"
+    }
+  ],
+  "serverSettings": {
+    "conformance": [
+        "http://www.opengis.net/spec/sensorthings/2.0/req/datamodel",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/resource-path/resource-path-to-entities",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/request-data",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/create-entity",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/link-to-existing-entities",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/deep-insert",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/deep-insert-status-code",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/update-entity",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/delete-entity",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/historical-location-auto-creation",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/create-observations-via-mqtt/observations-creation",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/receive-updates-via-mqtt/receive-updates"
+    ],
+    "http://www.opengis.net/spec/sensorthings/2.0/req/receive-updates-via-mqtt/receive-updates": {
+      "endpoints": [
+        "mqtt://server.example.com:1833",
+        "ws://server.example.com/sensorThings",
+      ]
+    },
+    "http://www.opengis.net/spec/sensorthings/2.0/req/create-observations-via-mqtt/observations-creation": {
+      "endpoints": [
+        "mqtts://server.example.com:8883",
+        "wss://server.example.com:443/sensorThings"
+      ]
+    }
+  }
+}
+----
+
+EDITOR: Add section on listing implemented features, like filter functions.
+
+
+==== EntitySet
+
+A Read (GET) request to a URI pattern that returns an entity set can use all query options: `$filter`, `$count`, `$orderby`, `$skip`, `$top`, `$expand`, `$select` and `$format`.
+
+
+==== Single Entity
+
+A Read (GET) request to a URI pattern that returns a single entity can use the `$expand`, `$select` and `$format` query options.
+
+
 https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
 https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html
 
