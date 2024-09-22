@@ -98,3 +98,51 @@ A service that implements the absract REST API SHALL make a service metadata doc
 
 
 EDITOR: Mention TM_Object and TM_Interval here?
+
+
+=== Encoding rules for constants
+
+Encoding rules for constants in resource paths and query options are listed in <<constants_encoding_rules>>
+
+[#constants_encoding_rules,reftext='{table-caption} {counter:table-num}']
+.Encoding rules for constants in requests
+[width="100%",cols="<3a,<20a,<20a",options="header"]
+|====
+| *Type*
+| *Description*
+| *Example*
+
+| String
+| Quoted using single-quotes (`'`). Single quotes in a string are doubled.
+| `'degree Celsius'` +
+`'Abby''s Car'`
+
+| Number
+| Numbers are not quoted, use a decimal point (`.`), no thousands separator.
+| `0.31415926535897931e1` +
+`-42`
+
+| Datetime
+| Not quoted ISO8601 time with timezone. Special characters (`+`) must be URL-Encoded.
+| `2012-12-03T07:16:23Z` +
+`2012-12-03T07:16:23%2B08:00`
+
+| Boolean
+| Literal value `true` or `false`
+| `true` +
+`false`
+
+| Null
+| Literal value `null`
+| `null`
+
+| Time Duration
+| the keyword `duration` followed by an ISO8601 Druation in single quotes.
+| `duration'P1DT30M'`
+
+| Geometry
+| the keyword `geography` followed by WKT in single quotes.
+| `geography'POINT(-122 43)'`
+
+|====
+
