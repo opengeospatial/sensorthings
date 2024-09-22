@@ -4,6 +4,17 @@ This section describes how to read data from a SensorThings API compatible servi
 Details on how to send requests and how to receive responses are described in the protocol bindings sections.
 For example, when using the HTTP bindings, GET is used for read requests.
 
+Adapted from:
+
+- https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
+- https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html
+
+[[context_url]]
+==== Context URL
+
+EDITOR: Explain the `@context` url. https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ContextURL
+
+
 [[read_service_document]]
 ==== Service Document
 
@@ -29,38 +40,39 @@ Extensions that need to expose additional server settings may do so in a propert
 [source,json]
 ----
 {
+  "@context": "<<Service Root URI>>/$metadata",
   "value": [
     {
       "name": "Things",
-      "url": "https://example.org/v2.0/Things"
+      "url": "<<Service Root URI>>/Things"
     },
     {
       "name": "Locations",
-      "url": "https://example.org/v2.0/Locations"
+      "url": "<<Service Root URI>>/Locations"
     },
     {
       "name": "Datastreams",
-      "url": "https://example.org/v2.0/Datastreams"
+      "url": "<<Service Root URI>>/Datastreams"
     },
     {
       "name": "Sensors",
-      "url": "https://example.org/v2.0/Sensors"
+      "url": "<<Service Root URI>>/Sensors"
     },
     {
       "name": "Observations",
-      "url": "https://example.org/v2.0/Observations"
+      "url": "<<Service Root URI>>/Observations"
     },
     {
       "name": "ObservedProperties",
-      "url": "https://example.org/v2.0/ObservedProperties"
+      "url": "<<Service Root URI>>/ObservedProperties"
     },
     {
       "name": "Features",
-      "url": "https://example.org/v2.0/Features"
+      "url": "<<Service Root URI>>/Features"
     },
     {
       "name": "FeatureTypes",
-      "url": "https://example.org/v2.0/FeatureTypes"
+      "url": "<<Service Root URI>>/FeatureTypes"
     }
   ],
   "serverSettings": {
@@ -99,16 +111,88 @@ EDITOR: Add section on listing implemented features, like filter functions.
 
 ==== EntitySet
 
-A Read (GET) request to a URI pattern that returns an entity set can use all query options: `$filter`, `$count`, `$orderby`, `$skip`, `$top`, `$expand`, `$select` and `$format`.
+When a Read (GET) request is made to a URI pattern that addresses an entity set, the service returns a JSON object with the properties `@context` and `value` and optionally `@count` and `@nextLink`.
+The `@context` annotation SHALL be a context URI as described in <<context_url>>.
+The value of the `value` property SHALL be an array containing entities in the specified entity set, or an empty array if there are no entities in the addressed set.
+The `@count` annotation SHALL, if returned by default, or requested explicitly, contain the total number of items in the set that match the request, as described in <<top>>.
+If service-driven pagination is in effect, the `@nextLink` annotation SHALL contain a link to the next set of entities, as described in <<server_driven_pagination>>.
+
+Read requests to an entity set can use all query options: `$filter`, `$count`, `$orderby`, `$skip`, `$top`, `$expand`, `$select` and `$format`.
+
+
+.Possible result from a read request to an Entity Set resource returning ObservedProperties, with $top=5 and $count=true
+[source,json]
+----
+{
+  "@context": "<<Service Root URI>>/$metadata#ObservedProperties",
+  "@count": 36,
+  "value": [
+    {
+      "@id": "<<Service Root URI>>/ObservedProperties(1)",
+      "id": 1,
+      "name": "SO2",
+      "definition": "http://dd.eionet.europa.eu/vocabulary/aq/pollutant/1",
+      "description": "SO2",
+      "properties": {
+        "eionetId": 1,
+        "owner": "http://dd.eionet.europa.eu",
+        "recommendedUnit": "µg/m3"
+      },
+      "Datastreams@navigationLink": "<<Service Root URI>>/ObservedProperties(1)/Datastreams"
+    },
+    {
+      "@id": "<<Service Root URI>>/ObservedProperties(2)",
+      "id": 2,
+      "name": "PM2.5",
+      "definition": "http://dd.eionet.europa.eu/vocabulary/aq/pollutant/6001",
+      "description": "PM2.5",
+      "properties": {
+        "eionetId": 6001,
+        "owner": "http://dd.eionet.europa.eu",
+        "recommendedUnit": "µg/m3"
+      },
+      "Datastreams@navigationLink": "<<Service Root URI>>/ObservedProperties(2)/Datastreams"
+    }, { … }, { … }, { … }
+  ],
+  "@nextLink": "<<Service Root URI>>/ObservedProperties?$top=5&$skip=5"
+
+}
+----
 
 
 ==== Single Entity
 
 A Read (GET) request to a URI pattern that returns a single entity can use the `$expand`, `$select` and `$format` query options.
 
+.Possible result from a request to an Entity resource returning a Thing
+[source,json]
+----
+{
+  "@context": "<<Service Root URI>>/$metadata#Things/$entity",
+  "@id": "<<Service Root URI>>/Things(1)",
+  "id": 1,
+  "name": "Oven",
+  "description": "This thing is an oven.",
+  "properties": {
+    "owner": "Noah Liang",
+    "color": "Black"
+  },
+  "HistoricalLocations@navigationLink": "<<Service Root URI>>/Things(1)/HistoricalLocations",
+  "Locations@navigationLink": "<<Service Root URI>>/Things(1)/Locations",
+  "Datastreams@navigationLink": "<<Service Root URI>>/Things(1)/Datastreams"
+}
+----
 
-https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
-https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html
+
+
+==== Single Entity Property
+
+
+==== Raw Value of a Single Entity Property
+
+
+==== Relation Reference
+
 
 
 === Request Query Options
@@ -134,7 +218,7 @@ After applying any server-driven pagination:
 - `$format`
 
 
-
+[[select]]
 ==== $select
 
 The $select system query option requests the service to return only the properties explicitly requested by the client.
@@ -603,12 +687,29 @@ In addition, the Well-Known Text (WKT) format is the default input geometry for 
 ===== Any
 
 The `any()` operator applies a boolean expression to each member of a collection and returns true if the expression returns true for any member of the collection.
+The any operator can be used by adding a slash and the `any` keyword after a filter path ending in an EntitySet.
+The argument of the any operator is a case-sensitive, alphanumeric lamda variable name, followed by a colon (`:`), followed by a boolean expression that can use the defined variable to access properties of the entities in the collection.
+
+Path expressions not prefixed by the lambda variable are evaluated in the context of the collection that is the target of the `$filter` containing the any operator.
+
+.Example {counter:examples}: Request for all Datastreams that have at least one Observation that has both a result greater than the threshold custom property in the containing Datastream, and a phenomenonTime after 2024-01-01 00:00:00Z
+[source%unnumbered,text]
+----
+Datastreams?$filter=Observations/any(o: o/result gt properties/threshold and o/phenomenonTime gt 2024-01-01T00:00:00Z)
+----
+
+In the example above, the `properties/threshold` path is evaluated in the context of the Datastreams collection being filtered.
+
+.Example {counter:examples}: Request for all Things that both have a Datastream measuring NO2 and a Datastream measuring O3
+[source%unnumbered,text]
+----
+Things?$filter=Datastreams/any(d1: d1/ObservedProperty/name eq 'NO2') and Datastreams/any(d2: d2/ObservedProperty/name eq 'O3')
+----
 
 
 [EDITOR]
 ====
     - add cast, 
-    - add `any()`,
     - add `in()`,
     - time interval functions?
     - ...
