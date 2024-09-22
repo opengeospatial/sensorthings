@@ -1,11 +1,11 @@
-
 === URI Patterns
 
 URI Patterns in the SensorThings API consist of three parts: the URI-Root, the resource path and query options.
-The URI-Root always ends with the version number of the standard, encoded as: `"v"majorversionnumber + "." + minorversionnumber`.
-The resource path consists of zero to many parts separated with by the slash (`/`) character.
+
+The service root URI:: always ends with the version number of the standard, encoded as: `"v" + majorversionnumber + "." + minorversionnumber`.
+The resource path:: consists of zero to many parts separated with by the slash (`/`) character.
 Resource paths are case sensitive.
-The query options start with a question mark (`?`) character.
+The query options:: start with a question mark (`?`) character.
 At the top level, query options are separated with the ampersant (`&`) character.
 
 .Example {counter:examples}: Complete URI example using HTTP bindings

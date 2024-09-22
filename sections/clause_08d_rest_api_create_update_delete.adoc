@@ -23,5 +23,5 @@ intro text for the requirement.
 
 Use the following table for Requirements, number sequentially.
 
-=== JSON-Patch
+==== JSON-Patch
 
