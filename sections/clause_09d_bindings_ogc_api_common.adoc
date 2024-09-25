@@ -2,25 +2,8 @@
 
 The OGC API -- Common Bindings specify how to combine the SensorThings API with other OGC APIs.
 
-=== Request / Response
-
-intro text for the requirement class.
-
-Use the following table for Requirements Classes.
-
-=== Publish / Subscribe
+=== Landing Page
 
 
-==== Requirement 1
-
-intro text for the requirement.
-
-Use the following table for Requirements, number sequentially.
-
-
-==== Requirement 2
-
-intro text for the requirement.
-
-Use the following table for Requirements, number sequentially.
+=== Authentication & Authorization
 

@@ -25,3 +25,5 @@ Use the following table for Requirements, number sequentially.
 
 ==== JSON-Patch
 
+
+=== Authentication & Authorization

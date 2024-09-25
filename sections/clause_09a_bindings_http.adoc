@@ -20,19 +20,7 @@ Use the following table for Requirements Classes.
 
 === OPTIONS
 
+=== Cross Origin Resource Sharing
 
-
-==== Requirement 1
-
-intro text for the requirement.
-
-Use the following table for Requirements, number sequentially.
-
-
-
-==== Requirement 2
-
-intro text for the requirement.
-
-Use the following table for Requirements, number sequentially.
+=== Authentication & Authorization
 
