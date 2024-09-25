@@ -232,8 +232,8 @@ The `$select` option can be applied to any request that returns an Entity or an 
 
 Note: Adapted from OData 4.01-Protocol 11.2.5.1
 
-.Example {counter:examples}: Resource pattern returning only the `id` and `name` of the Entities in the Things EntitySet.
-[source%unnumbered,text]
+.Resource pattern returning only the `id` and `name` of the Entities in the Things EntitySet.
+[source,text]
 ----
 v2.0/Things?$select=id,name
 ----
@@ -256,14 +256,14 @@ To request the distinct values for a set of selected fields, add the `distinct:`
 The returned data is formatted just like a non-distinct request of the same type would be.
 
 
-.Example {counter:examples}: request returning all distinct values of the properties/type field of all Things
-[source%unnumbered,text]
+.request returning all distinct values of the properties/type field of all Things
+[source,text]
 ----
 v2.0/Things?$select=distinct:properties/type
 ----
 
-.Example {counter:examples}: possible response to the above request
-[source%unnumbered,json]
+.possible response to the above request
+[source,json]
 ----
 {
     "value": [
@@ -287,14 +287,14 @@ The `$expand` option can be applied to any request that returns an Entity or an 
 
 Note: Adapted from OData 4.01-Protocol 11.2.5.2
 
-.Example {counter:examples}: Resource pattern returning Things, with their Datastreams, and the ObservedProperty for each Datastream.
-[source%unnumbered,text]
+.Resource pattern returning Things, with their Datastreams, and the ObservedProperty for each Datastream.
+[source,text]
 ----
 v2.0/Things?$expand=Datastreams($expand=ObservedProperty)
 ----
 
-.Example {counter:examples}: Resource pattern returning Datastream as well as the result and phenomenonTime of the last Observation (as ordered by phenomenonTime) and the ObservedProperty associated with this Datastream.
-[source%unnumbered,text]
+.Resource pattern returning Datastream as well as the result and phenomenonTime of the last Observation (as ordered by phenomenonTime) and the ObservedProperty associated with this Datastream.
+[source,text]
 ----
 v2.0/Datastreams?$expand=Observations($select=result,phenomenonTime;$orderby=phenomenonTime desc;$top=1),ObservedProperty
 ----
@@ -313,14 +313,14 @@ In addition, if the `$top` value exceeds the service-driven pagination limitatio
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.3
 
-.Example {counter:examples}: Resource pattern returning only the first five entities in the Things EntitySet.
-[source%unnumbered,text]
+.Resource pattern returning only the first five entities in the Things EntitySet.
+[source,text]
 ----
 v2.0/Things?$top=5
 ----
 
-.Example {counter:examples}: Resource pattern returning the first five Observation entries after sorting by the phenomenonTime property in descending order.
-[source%unnumbered,text]
+.Resource pattern returning the first five Observation entries after sorting by the phenomenonTime property in descending order.
+[source,text]
 ----
 v2.0/Observations?$top=5&$orderby=phenomenonTime%20desc
 ----
@@ -339,14 +339,14 @@ If no unique ordering is imposed through an `$orderby` query option, the service
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.4
 
-.Example {counter:examples}: Resource pattern returning Thing entities starting with the sixth Thing entity in the Things EntitySet.
-[source%unnumbered,text]
+.Resource pattern returning Thing entities starting with the sixth Thing entity in the Things EntitySet.
+[source,text]
 ----
 v2.0/Things?$skip=5
 ----
 
-.Example {counter:examples}: Resource pattern returning the third and fourth Observation entities from the collection of all Observation entities when the collection is sorted by the resultTime property in ascending order.
-[source%unnumbered,text]
+.Resource pattern returning the third and fourth Observation entities from the collection of all Observation entities when the collection is sorted by the resultTime property in ascending order.
+[source,text]
 ----
 v2.0/Observations?$skip=2&$top=2&$orderby=resultTime
 ----
@@ -383,14 +383,14 @@ Items SHALL be sorted by the result values of the first expression, and then ite
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.2
 
-.Example {counter:examples}: Resource pattern returning all Observations ordered by the result property in ascending order.
-[source%unnumbered,text]
+.Resource pattern returning all Observations ordered by the result property in ascending order.
+[source,text]
 ----
 v2.0/Observations?$orderby=result
 ----
 
-.Example {counter:examples}: Resource pattern returning all Observations ordered by the id property of the linked Datastream entry in descending order, then by the phenomenonTime property of Observations in ascending order.
-[source%unnumbered,text]
+.Resource pattern returning all Observations ordered by the id property of the linked Datastream entry in descending order, then by the phenomenonTime property of Observations in ascending order.
+[source,text]
 ----
 v2.0/Observations?$orderby=Datastreams/id desc, phenomenonTime
 ----
@@ -413,22 +413,22 @@ Properties of Entities are addressed by their name.
 Note: Adapted from OData 4.01-Protocol 11.2.6.1
 
 
-.Example {counter:examples}: Observations of Datastream 42 that have a result greater than 5.
-[source%unnumbered,text]
+.Observations of Datastream 42 that have a result greater than 5.
+[source,text]
 ----
 v2.0/Datastreams(42)/Observations?$filter=result gt 5
 ----
 
-.Example {counter:examples}: Locations inside a given area.
-[source%unnumbered,text]
+.Locations inside a given area.
+[source,text]
 ----
 v2.0/Locations?$filter=st_within(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
 ----
 
 Sub-proprties of complex properties are addressed using the complex property name, followed by a `/`, followed by the sub-property name.
 
-.Example {counter:examples}: Observations with a valid time that started before the given timestamp.
-[source%unnumbered,text]
+.Observations with a valid time that started before the given timestamp.
+[source,text]
 ----
 v2.0/Observations?$filter=validTime/start lt 2012-12-03T07:16:23Z
 ----
@@ -437,14 +437,14 @@ Entities can be filtered on properties of related entities by using the navigati
 This can be used recursively.
 For filtering on properties of entities in a related EntitySet see the `any()` function.
 
-.Example {counter:examples}: Observations of all Datastreams that are named Temperature.
-[source%unnumbered,text]
+.Observations of all Datastreams that are named Temperature.
+[source,text]
 ----
 v2.0/Observations?$filter=Datastream/name eq 'Temperature'
 ----
 
-.Example {counter:examples}: Observations of all Things that are named House 1.
-[source%unnumbered,text]
+.Observations of all Things that are named House 1.
+[source,text]
 ----
 v2.0/Observations?$filter=Datastream/Thing/name eq 'House 1'
 ----
@@ -692,16 +692,16 @@ The argument of the any operator is a case-sensitive, alphanumeric lamda variabl
 
 Path expressions not prefixed by the lambda variable are evaluated in the context of the collection that is the target of the `$filter` containing the any operator.
 
-.Example {counter:examples}: Request for all Datastreams that have at least one Observation that has both a result greater than the threshold custom property in the containing Datastream, and a phenomenonTime after 2024-01-01 00:00:00Z
-[source%unnumbered,text]
+.Request for all Datastreams that have at least one Observation that has both a result greater than the threshold custom property in the containing Datastream, and a phenomenonTime after 2024-01-01 00:00:00Z
+[source,text]
 ----
 Datastreams?$filter=Observations/any(o: o/result gt properties/threshold and o/phenomenonTime gt 2024-01-01T00:00:00Z)
 ----
 
 In the example above, the `properties/threshold` path is evaluated in the context of the Datastreams collection being filtered.
 
-.Example {counter:examples}: Request for all Things that both have a Datastream measuring NO2 and a Datastream measuring O3
-[source%unnumbered,text]
+.Request for all Things that both have a Datastream measuring NO2 and a Datastream measuring O3
+[source,text]
 ----
 Things?$filter=Datastreams/any(d1: d1/ObservedProperty/name eq 'NO2') and Datastreams/any(d2: d2/ObservedProperty/name eq 'O3')
 ----

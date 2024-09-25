@@ -8,8 +8,8 @@ Resource paths are case sensitive.
 The query options:: start with a question mark (`?`) character.
 At the top level, query options are separated with the ampersant (`&`) character.
 
-.Example {counter:examples}: Complete URI example using HTTP bindings
-[source%unnumbered,text]
+.Complete URI example using HTTP bindings
+[source,text]
 ----
 http://example.org/v2.0/Datastreams(5)/Observations?$orderby=ID&$top=10
 _______________________/__________________________/___________________/
@@ -17,8 +17,8 @@ _______________________/__________________________/___________________/
   service root URI             resource path           query options
 ----
 
-.Example {counter:examples}: Complete URI example using MQTT bindings
-[source%unnumbered,text]
+.Complete URI example using MQTT bindings
+[source,text]
 ----
 base/topic/v2.0/Datastreams(5)/Observations?$orderby=ID&$top=10
 _______________/__________________________/___________________/
@@ -51,8 +51,8 @@ URI Pattern: `v2.0/EntityTypeName`
 
 Requests to a URL pattern consisting of the API version number followed by `/` and the name of an entity type address the set of all entities of the requested type.
 
-.Example {counter:examples}: Resource pattern for the Datastreams Entity Set
-[source%unnumbered,text]
+.Resource pattern for the Datastreams Entity Set
+[source,text]
 ----
 v2.0/Datastreams
 ----
@@ -65,14 +65,14 @@ URI Pattern: `v2.0/EntityTypeName(<primaryKey>)`
 
 Requests to a URL pattern consisting of the name of an EntitySet URL, followed by, in brackets, a primary key value fitting the entity type of the set, address the single Entity from the set, that has the given primary key.
 
-.Example {counter:examples}: Resource pattern for a specific Datastream, for a service that uses Integers for the id field of Datastreams
-[source%unnumbered,text]
+.Resource pattern for a specific Datastream, for a service that uses Integers for the id field of Datastreams
+[source,text]
 ----
 v2.0/Datastreams(4)
 ----
 
-.Example {counter:examples}: Resource pattern for a specific Datastream, for a service that uses Strings for the id field of Datastreams
-[source%unnumbered,text]
+.Resource pattern for a specific Datastream, for a service that uses Strings for the id field of Datastreams
+[source,text]
 ----
 v2.0/Datastreams('xz42df')
 ----
@@ -86,14 +86,14 @@ URI Pattern: `v2.0/EntityTypeName(<primaryKey>)/entityProperty`
 Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, address the value of this Entity Property of the base Entity.
 The used URL for the base entity may itself be a related entity URL.
 
-.Example {counter:examples}: Resource pattern for the name of a specific Datastream
-[source%unnumbered,text]
+.Resource pattern for the name of a specific Datastream
+[source,text]
 ----
 v2.0/Datastreams(4)/name
 ----
 
-.Example {counter:examples}: Resource pattern for the name of the Thing of a specific Datastream
-[source%unnumbered,text]
+.Resource pattern for the name of the Thing of a specific Datastream
+[source,text]
 ----
 v2.0/Datastreams(4)/Thing/name
 ----
@@ -107,14 +107,14 @@ URI Pattern: `v2.0/EntityTypeName(<primaryKey>)/entityProperty/$value`
 Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, followed by `/$value`, address the raw value of this Entity Property of the base Entity.
 The used URL for the base entity may itself be a related entity URL.
 
-.Example {counter:examples}: Resource pattern for the raw name of a specific Datastream
-[source%unnumbered,text]
+.Resource pattern for the raw name of a specific Datastream
+[source,text]
 ----
 v2.0/Datastreams(4)/name/$value
 ----
 
-.Example {counter:examples}: Resource pattern for the raw name of the Thing of a specific Datastream
-[source%unnumbered,text]
+.Resource pattern for the raw name of the Thing of a specific Datastream
+[source,text]
 ----
 v2.0/Datastreams(4)/Thing/name/$value
 ----
@@ -129,14 +129,14 @@ Requests to a URL pattern consisting of a URL that return an Entity (the base en
 The used URL for the base entity may itself be a related entity URL.
 
 
-.Example {counter:examples}: Resource pattern for the Thing of a specific Datastream
-[source%unnumbered,text]
+.Resource pattern for the Thing of a specific Datastream
+[source,text]
 ----
 v2.0/Datastreams(4)/Thing
 ----
 
-.Example {counter:examples}: Resource pattern for the Thing of the Datastream of a specific Observation
-[source%unnumbered,text]
+.Resource pattern for the Thing of the Datastream of a specific Observation
+[source,text]
 ----
 v2.0/Observations(42)/Datastream/Thing
 ----
@@ -150,14 +150,14 @@ URI Pattern: `v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty`
 Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation property with a cardinality of many, address the related EntitySet of the base entity.
 The used URL for the base entity may itself be a related entity URL.
 
-.Example {counter:examples}: Resource pattern for the Observations of a specific Datastream
-[source%unnumbered,text]
+.Resource pattern for the Observations of a specific Datastream
+[source,text]
 ----
 v2.0/Datastreams(4)/Observations
 ----
 
-.Example {counter:examples}: Resource pattern for the Locations of the Thing of a specific Datastream
-[source%unnumbered,text]
+.Resource pattern for the Locations of the Thing of a specific Datastream
+[source,text]
 ----
 v2.0/Datastreams(4)/Thing/Locations
 ----
@@ -172,20 +172,20 @@ Requests to a URL pattern consisting of a URL that addresses an Entity (the base
 For navigation property with a cardinality of many, the navigation property may be followed by a primary-key in brackets, to address the specific association between the base entity and the related entity.
 The association link can be used to modify the relation(s).
 
-.Example {counter:examples}: Resource pattern for the association link of the Thing of a specific Datastream
-[source%unnumbered,text]
+.Resource pattern for the association link of the Thing of a specific Datastream
+[source,text]
 ----
 v2.0/Datastreams(4)/Thing/$ref
 ----
 
-.Example {counter:examples}: Resource pattern for the association link to the Observations related to a specific Datastream
-[source%unnumbered,text]
+.Resource pattern for the association link to the Observations related to a specific Datastream
+[source,text]
 ----
 v2.0/Datastreams(4)/Observations/$ref
 ----
 
-.Example {counter:examples}: Resource pattern for the association link between a specific Datastream and a specific Observation
-[source%unnumbered,text]
+.Resource pattern for the association link between a specific Datastream and a specific Observation
+[source,text]
 ----
 v2.0/Datastreams(4)/Observations(1)/$ref
 ----
@@ -198,8 +198,8 @@ v2.0/Datastreams(4)/Observations(1)/$ref
 The pattern <<pattern_entityset_related>> and <<pattern_entity>> can be combined to address a specific entity from a related set.
 This will return a `Not Found` error when the requested entity is not actually in the related set.
 
-.Example {counter:examples}: Resource pattern for a specific Observation of a specific Datastream
-[source%unnumbered,text]
+.Resource pattern for a specific Observation of a specific Datastream
+[source,text]
 ----
 v2.0/Datastreams(4)/Observations(5321)
 ----
