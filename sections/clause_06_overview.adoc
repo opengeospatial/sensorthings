@@ -87,10 +87,9 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 
 [#sta-oms-compare,reftext='{table-caption} {counter:table-num}']
 .SensorThings API Sensing entities and equivalent concepts in OMS 3.0
-[options="header"]
+[cols="10a,10a",options="header"]
 |===
-|SensorThings API Entities
-|OMS 3.0 Concepts
+| SensorThings API Entities | OMS 3.0 Concepts
 
 |Thing 
 |Host
