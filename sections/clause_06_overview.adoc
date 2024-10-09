@@ -146,6 +146,13 @@ The changes to the data model have been summarised in <<sta-changes>> and <<img-
 | *Entity*
 | *Changes* 
 
+| All
+|
+- `@iot.id` is renamed to `id`
+- `@iot.selfLink` is renamed to `@id`, to match OData 4.01
+- All `@iot.navigationLink` are renamed to `@navigationLink`, to match OData 4.01
+- `@iot.nextLink` is renamed to `@nextLink` to match OData 4.01
+
 | Sensor
 |
 - `description` attribute is now optional and not mandatory
