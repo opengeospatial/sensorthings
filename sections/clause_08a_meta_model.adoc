@@ -20,9 +20,15 @@ The entity model consists of the following elements:
   An Entity can have only one Entity Type.
 * `Primitive Type`: unnamed, unstructured type, such as String, Integer or DateTime. The full list can be found at:
   https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_PrimitiveTypes
+  A property with a Primitive Type is called a primitive property.
 * `Complex Type`: named, structured, keyless, element consisting of a set of named properties.
   Instances of Complex Types can not be accessed outside of the Entity they are contained in.
-  A property with a Primitive Type is called a primitive property.
+  A property with a Complex Type is called a complex property.
+  Examples of complex types / complex properties are:
+  ** TM_Interval (Observation/validTime): The complex type TM_Interval has mandatory declared properties `start` and `end`.
+  ** TM_Object (Observation/resultTime): The complex type TM_Interval has mandatory declared property `start` and optional declared property `end`.
+  ** JSON_Object (properties): The complex type JSON_Object is an open type with no declared properties.
+    That means users can add any properties they see fit.
 * `Relation`: named connections between Entities.
   Relations defined as `navigation properties` in Entity Types.
   Relations have a cardinality.
@@ -78,6 +84,106 @@ See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-
 |===
 
 
+[[type_mapping]]
+=== Type Mappings
+
+<<table_type_mapping>> lists the mapping of types used in the SensorThings API core data model to OData primitive types.
+
+[#table_type_mapping,reftext='{table-caption} {counter:table-num}']
+.mapping of types used in the SensorThings API core data model to OData primitive types
+[%autowidth,cols="<a,<a,<a",options="header"]
+|====
+| STA Type | OData type | Description
+
+| ANY
+| Edm.Untyped
+| Any primitive or complex type
+
+| String
+| Edm.String
+| A character string
+
+| URI
+| Edm.String
+| A character string that must be a valid URI
+
+| Geometry
+| EDM.Geometry
+| A geometry type
+
+| TM_Instant
+| Edm.DateTimeOffset
+| A time instant, with timezone information
+|====
+
+
+The SensorThings API core data model contains several complex types.
+They are `TM_Interval`, `TM_Object` and `JSON Object`.
+
+
+[[tm_interval]]
+==== Complex Type TM_Interval
+
+TM_Interval is a time interval with a mandatory start and end time.
+The interval end is "open" meaning that the end-time is not part of the interval.
+
+[#tm_interval-attributes,reftext='{table-caption} {counter:table-num}']
+.Attributes of a TM_Interval complex type
+[%autowidth,cols="<a,<~a,<a,<a",options="header"]
+|====
+| Name
+| Description
+| Data Type
+| Multiplicity
+
+| `start`
+| The starting time (inclusive) of the time interval.
+| TM_Instant
+| 1
+
+| `end`
+| The end time (exclusive) of the time interval.
+| TM_Instant
+| 1
+|====
+
+
+[[tm_object]]
+==== Complex Type TM_Object
+
+TM_Object is either a time instant or a time interval.
+This is modelled as a time interval with a mandatory start and an optional end time.
+If the end time is not present, 
+The interval end is "open" meaning that the end-time is not part of the interval.
+
+[#tm_object-attributes,reftext='{table-caption} {counter:table-num}']
+.Attributes of a TM_Interval complex type
+[width="100%",cols="<a,<~a,<a,<a",options="header"]
+|====
+| Name
+| Description
+| Data Type
+| Multiplicity
+
+| `start`
+| The time instant of the time object, or the starting time (inclusive) of the time interval.
+| TM_Instant
+| 1
+
+| `end`
+| The end time (exclusive) of the time interval.
+| TM_Instant
+| 0..1
+|====
+
+
+[[json_object]]
+==== Complex Type JSON_Object
+
+JSON_Object is an open, complex type with no declared properties.
+This means users can store any properties in instances of this type that they see fit.
+
+
 [[OData-CSDL]]
 === OData Common Schema Definition Language
 
@@ -96,8 +202,6 @@ identifier:: {identifier}/req-class/api/abstract/csdl
 A service that implements the absract REST API SHALL make a service metadata document available as described in <<OData-CSDL>>.
 ====
 
-
-EDITOR: Mention TM_Object and TM_Interval here?
 
 
 === Encoding rules for constants
