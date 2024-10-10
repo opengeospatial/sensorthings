@@ -1,8 +1,9 @@
 === URL Patterns
 
-URL Patterns in the SensorThings API consist of three parts: the URL-Root, the resource path and query options.
+URL Patterns in the SensorThings API consist of four parts: the Service Root, the API version number, the resource path and query options.
 
-The service root URL:: always ends with the version number of the standard, encoded as: `"v" + majorversionnumber + "." + minorversionnumber`.
+The service root URL:: the free to chose base path of the service.
+The API version number:: encoded as: `"v" + majorversionnumber + "." + minorversionnumber`.
 The resource path:: consists of zero to many parts separated with by the slash (`/`) character.
 Resource paths are case sensitive.
 The query options:: start with a question mark (`?`) character.
@@ -12,25 +13,25 @@ At the top level, query options are separated with the ampersant (`&`) character
 [source,text]
 ----
 http://example.org/v2.0/Datastreams(5)/Observations?$orderby=ID&$top=10
-_______________________/__________________________/___________________/
-          |                          |                      |
-  service root URL             resource path           query options
+__________________/____/__________________________/___________________/
+         |          |                |                      |
+   service root   version      resource path           query options
 ----
 
 .Complete URL example using MQTT bindings
 [source,text]
 ----
 base/topic/v2.0/Datastreams(5)/Observations?$orderby=ID&$top=10
-_______________/__________________________/___________________/
-      |                      |                      |
-  root Topic           resource path           query options
+__________/____/__________________________/___________________/
+    |     version            |                      |
+root Topic             resource path           query options
 ----
 
 
 [[pattern_service_document]]
 ==== Service Document
 
-URL Pattern: `v2.0`
+URL Pattern: `<Service Root>/v2.0`
 
 Requests to the URL pattern consisting of just the version number, optionally followed by a slash (`/`) address the service document.
 
@@ -38,7 +39,7 @@ Requests to the URL pattern consisting of just the version number, optionally fo
 [[pattern_service_metadata_document]]
 ==== Service Metadata Document
 
-URL Pattern: `v2.0/$metadata`
+URL Pattern: `<Service Root>/v2.0/$metadata`
 
 Requests to the URL pattern consisting of the API version number followed by `/$metadata` address the service metadata document that describes the data model that the service exposes.
 The service metadata document is described in <<OData-CSDL>>.
@@ -47,41 +48,41 @@ The service metadata document is described in <<OData-CSDL>>.
 [[pattern_entityset]]
 ==== Entity Set
 
-URL Pattern: `v2.0/EntityTypeName`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName`
 
 Requests to a URL pattern consisting of the API version number followed by `/` and the name of an entity type address the set of all entities of the requested type.
 
 .Resource pattern for the Datastreams Entity Set
 [source,text]
 ----
-v2.0/Datastreams
+<Service Root>/v2.0/Datastreams
 ----
 
 
 [[pattern_entity]]
 ==== Entity
 
-URL Pattern: `v2.0/EntityTypeName(<primaryKey>)`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)`
 
 Requests to a URL pattern consisting of the name of an EntitySet URL, followed by, in brackets, a primary key value fitting the entity type of the set, address the single Entity from the set, that has the given primary key.
 
 .Resource pattern for a specific Datastream, for a service that uses Integers for the id field of Datastreams
 [source,text]
 ----
-v2.0/Datastreams(4)
+<Service Root>/v2.0/Datastreams(4)
 ----
 
 .Resource pattern for a specific Datastream, for a service that uses Strings for the id field of Datastreams
 [source,text]
 ----
-v2.0/Datastreams('xz42df')
+<Service Root>/v2.0/Datastreams('xz42df')
 ----
 
 
 [[pattern_entity_property]]
 ==== Entity Property
 
-URL Pattern: `v2.0/EntityTypeName(<primaryKey>)/entityProperty`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/entityProperty`
 
 Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, address the value of this Entity Property of the base Entity.
 The used URL for the base entity may itself be a related entity URL.
@@ -89,20 +90,20 @@ The used URL for the base entity may itself be a related entity URL.
 .Resource pattern for the name of a specific Datastream
 [source,text]
 ----
-v2.0/Datastreams(4)/name
+<Service Root>/v2.0/Datastreams(4)/name
 ----
 
 .Resource pattern for the name of the Thing of a specific Datastream
 [source,text]
 ----
-v2.0/Datastreams(4)/Thing/name
+<Service Root>/v2.0/Datastreams(4)/Thing/name
 ----
 
 
 [[pattern_entity_property_raw]]
 ==== Entity Property raw value ($value)
 
-URL Pattern: `v2.0/EntityTypeName(<primaryKey>)/entityProperty/$value`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/entityProperty/$value`
 
 Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, followed by `/$value`, address the raw value of this Entity Property of the base Entity.
 The used URL for the base entity may itself be a related entity URL.
@@ -110,20 +111,20 @@ The used URL for the base entity may itself be a related entity URL.
 .Resource pattern for the raw name of a specific Datastream
 [source,text]
 ----
-v2.0/Datastreams(4)/name/$value
+<Service Root>/v2.0/Datastreams(4)/name/$value
 ----
 
 .Resource pattern for the raw name of the Thing of a specific Datastream
 [source,text]
 ----
-v2.0/Datastreams(4)/Thing/name/$value
+<Service Root>/v2.0/Datastreams(4)/Thing/name/$value
 ----
 
 
 [[pattern_entity_related]]
 ==== Related Entity
 
-URL Pattern: `v2.0/EntityTypeName(<primaryKey>)/EntityNavigationProperty`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntityNavigationProperty`
 
 Requests to a URL pattern consisting of a URL that return an Entity (the base entity), followed by a navigation property with a cardinality of one, address the related entity of the base entity.
 The used URL for the base entity may itself be a related entity URL.
@@ -132,20 +133,20 @@ The used URL for the base entity may itself be a related entity URL.
 .Resource pattern for the Thing of a specific Datastream
 [source,text]
 ----
-v2.0/Datastreams(4)/Thing
+<Service Root>/v2.0/Datastreams(4)/Thing
 ----
 
 .Resource pattern for the Thing of the Datastream of a specific Observation
 [source,text]
 ----
-v2.0/Observations(42)/Datastream/Thing
+<Service Root>/v2.0/Observations(42)/Datastream/Thing
 ----
 
 
 [[pattern_entityset_related]]
 ==== Related EntitySet
 
-URL Pattern: `v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty`
 
 Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation property with a cardinality of many, address the related EntitySet of the base entity.
 The used URL for the base entity may itself be a related entity URL.
@@ -153,20 +154,20 @@ The used URL for the base entity may itself be a related entity URL.
 .Resource pattern for the Observations of a specific Datastream
 [source,text]
 ----
-v2.0/Datastreams(4)/Observations
+<Service Root>/v2.0/Datastreams(4)/Observations
 ----
 
 .Resource pattern for the Locations of the Thing of a specific Datastream
 [source,text]
 ----
-v2.0/Datastreams(4)/Thing/Locations
+<Service Root>/v2.0/Datastreams(4)/Thing/Locations
 ----
 
 
 [[pattern_relation]]
 ==== Association link ($ref)
 
-URL Pattern: `v2.0/EntityTypeName(<primaryKey>)/NavigationProperty/$ref`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/NavigationProperty/$ref`
 
 Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation property, followed by `/$ref`, address the entity-id(s) of the related entity or entities of the given navigation property.
 For navigation property with a cardinality of many, the navigation property may be followed by a primary-key in brackets, to address the specific association between the base entity and the related entity.
@@ -175,25 +176,25 @@ The association link can be used to modify the relation(s).
 .Resource pattern for the association link of the Thing of a specific Datastream
 [source,text]
 ----
-v2.0/Datastreams(4)/Thing/$ref
+<Service Root>/v2.0/Datastreams(4)/Thing/$ref
 ----
 
 .Resource pattern for the association link to the Observations related to a specific Datastream
 [source,text]
 ----
-v2.0/Datastreams(4)/Observations/$ref
+<Service Root>/v2.0/Datastreams(4)/Observations/$ref
 ----
 
 .Resource pattern for the association link between a specific Datastream and a specific Observation
 [source,text]
 ----
-v2.0/Datastreams(4)/Observations(1)/$ref
+<Service Root>/v2.0/Datastreams(4)/Observations(1)/$ref
 ----
 
 
 ==== More complex examples
 
-`v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty(<primaryKey>)`
+`<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty(<primaryKey>)`
 
 The pattern <<pattern_entityset_related>> and <<pattern_entity>> can be combined to address a specific entity from a related set.
 This will return a `Not Found` error when the requested entity is not actually in the related set.
@@ -201,10 +202,10 @@ This will return a `Not Found` error when the requested entity is not actually i
 .Resource pattern for a specific Observation of a specific Datastream
 [source,text]
 ----
-v2.0/Datastreams(4)/Observations(5321)
+<Service Root>/v2.0/Datastreams(4)/Observations(5321)
 ----
 
-The above example addresses the same entity as `v2.0/Observations(5321)`, except when Observation `5321` is not actually contained in Datastream 4, since in that case any action on the resource would return a `Not Found` error.
+The above example addresses the same entity as `<Service Root>/v2.0/Observations(5321)`, except when Observation `5321` is not actually contained in Datastream `4`, since in that case any action on the resource would return a `Not Found` error.
 
 ==== Key as Path Segment
 

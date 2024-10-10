@@ -36,43 +36,43 @@ In the most extreme case, a security extension would hide all requirements for a
 
 Extensions that need to expose additional server settings may do so in a property of the serverSettings object that is named after the conformance class URI of the requirement that defines this setting.
 
-.A service document using absolute HTTPS-URLs
+.An example service document.
 [source,json]
 ----
 {
-  "@context": "<<Service Root URI>>/$metadata",
+  "@context": "<Service Root>/v2.0/$metadata",
   "value": [
     {
       "name": "Things",
-      "url": "<<Service Root URI>>/Things"
+      "url": "<Service Root>/v2.0/Things"
     },
     {
       "name": "Locations",
-      "url": "<<Service Root URI>>/Locations"
+      "url": "<Service Root>/v2.0/Locations"
     },
     {
       "name": "Datastreams",
-      "url": "<<Service Root URI>>/Datastreams"
+      "url": "<Service Root>/v2.0/Datastreams"
     },
     {
       "name": "Sensors",
-      "url": "<<Service Root URI>>/Sensors"
+      "url": "<Service Root>/v2.0/Sensors"
     },
     {
       "name": "Observations",
-      "url": "<<Service Root URI>>/Observations"
+      "url": "<Service Root>/v2.0/Observations"
     },
     {
       "name": "ObservedProperties",
-      "url": "<<Service Root URI>>/ObservedProperties"
+      "url": "<Service Root>/v2.0/ObservedProperties"
     },
     {
       "name": "Features",
-      "url": "<<Service Root URI>>/Features"
+      "url": "<Service Root>/v2.0/Features"
     },
     {
       "name": "FeatureTypes",
-      "url": "<<Service Root URI>>/FeatureTypes"
+      "url": "<Service Root>/v2.0/FeatureTypes"
     }
   ],
   "serverSettings": {
@@ -124,11 +124,11 @@ Read requests to an entity set can use all query options: `$filter`, `$count`, `
 [source,json]
 ----
 {
-  "@context": "<<Service Root URI>>/$metadata#ObservedProperties",
+  "@context": "<Service Root>/v2.0/$metadata#ObservedProperties",
   "@count": 36,
   "value": [
     {
-      "@id": "<<Service Root URI>>/ObservedProperties(1)",
+      "@id": "<Service Root>/v2.0/ObservedProperties(1)",
       "id": 1,
       "name": "SO2",
       "definition": "http://dd.eionet.europa.eu/vocabulary/aq/pollutant/1",
@@ -138,10 +138,10 @@ Read requests to an entity set can use all query options: `$filter`, `$count`, `
         "owner": "http://dd.eionet.europa.eu",
         "recommendedUnit": "µg/m3"
       },
-      "Datastreams@navigationLink": "<<Service Root URI>>/ObservedProperties(1)/Datastreams"
+      "Datastreams@navigationLink": "<Service Root>/v2.0/ObservedProperties(1)/Datastreams"
     },
     {
-      "@id": "<<Service Root URI>>/ObservedProperties(2)",
+      "@id": "<Service Root>/v2.0/ObservedProperties(2)",
       "id": 2,
       "name": "PM2.5",
       "definition": "http://dd.eionet.europa.eu/vocabulary/aq/pollutant/6001",
@@ -151,10 +151,10 @@ Read requests to an entity set can use all query options: `$filter`, `$count`, `
         "owner": "http://dd.eionet.europa.eu",
         "recommendedUnit": "µg/m3"
       },
-      "Datastreams@navigationLink": "<<Service Root URI>>/ObservedProperties(2)/Datastreams"
+      "Datastreams@navigationLink": "<Service Root>/v2.0/ObservedProperties(2)/Datastreams"
     }, { … }, { … }, { … }
   ],
-  "@nextLink": "<<Service Root URI>>/ObservedProperties?$top=5&$skip=5"
+  "@nextLink": "<Service Root>/v2.0/ObservedProperties?$top=5&$skip=5"
 
 }
 ----
@@ -162,14 +162,16 @@ Read requests to an entity set can use all query options: `$filter`, `$count`, `
 
 ==== Single Entity
 
-A Read (GET) request to a URI pattern that returns a single entity can use the `$expand`, `$select` and `$format` query options.
+When a Read (GET) request is made to a URI pattern that addresses a single entity, the service returns a JSON object representing the entity, with the added properties `@context`. The `@context` annotation SHALL be a context URI as described in <<context_url>>.
+
+Read requests to a URI pattern that returns a single entity can use the `$expand`, `$select` and `$format` query options.
 
 .Possible result from a request to an Entity resource returning a Thing
 [source,json]
 ----
 {
-  "@context": "<<Service Root URI>>/$metadata#Things/$entity",
-  "@id": "<<Service Root URI>>/Things(1)",
+  "@context": "<Service Root>/v2.0/$metadata#Things/$entity",
+  "@id": "<Service Root>/v2.0/Things(1)",
   "id": 1,
   "name": "Oven",
   "description": "This thing is an oven.",
@@ -177,9 +179,9 @@ A Read (GET) request to a URI pattern that returns a single entity can use the `
     "owner": "Noah Liang",
     "color": "Black"
   },
-  "HistoricalLocations@navigationLink": "<<Service Root URI>>/Things(1)/HistoricalLocations",
-  "Locations@navigationLink": "<<Service Root URI>>/Things(1)/Locations",
-  "Datastreams@navigationLink": "<<Service Root URI>>/Things(1)/Datastreams"
+  "HistoricalLocations@navigationLink": "<Service Root>/v2.0/Things(1)/HistoricalLocations",
+  "Locations@navigationLink": "<Service Root>/v2.0/Things(1)/Locations",
+  "Datastreams@navigationLink": "<Service Root>/v2.0/Things(1)/Datastreams"
 }
 ----
 
