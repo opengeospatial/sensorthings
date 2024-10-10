@@ -151,7 +151,7 @@ The interval end is "open" meaning that the end-time is not part of the interval
 [[tm_object]]
 ==== Complex Type TM_Object
 
-TM_Object is either a time instant or a time interval.
+TM_Object, used in `Observation/phenomenonTime`, is either a time instant or a time interval.
 This is modelled as a time interval with a mandatory start and an optional end time.
 If the end time is not present, 
 The interval end is "open" meaning that the end-time is not part of the interval.

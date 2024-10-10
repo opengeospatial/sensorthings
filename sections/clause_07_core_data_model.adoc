@@ -467,17 +467,10 @@ Each Datastream entity SHALL have the direct relation between a Datastream entit
 
 
 A Datastream groups a collection of Observations into a time series measuring the same ObservedProperty by the same Sensor for the same Feature for the same Thing.
+Examples of Datastreams could be:
 
-EDITOR: Note something about the SWE-Common Datastream class
-
-[example%unnumbered]
-====
-*Datastream Examples*
-
-- An air quality monitoring station may have multiple Datastreams each recording a specific pollutant measured by the sensors
-- A sensor that measures multiple ObservedProperties can generate a single Datastream of composite resultTypes 
-
-====
+- An air quality monitoring station may have multiple Datastreams, each recording a specific pollutant measured by a specific sensor.
+- A sensor that measures multiple ObservedProperties can generate a single Datastream with a composite resultType.
 
 
 
@@ -507,7 +500,7 @@ EDITOR: Note something about the SWE-Common Datastream class
 
 | `resultType`
 | The formal description of the `result` field of the Observations in this Datastream.
-Contains the unit of measurement.
+Contains the unit of measurement and the `definition` of the ObservedProperty.
 | JSON_Object (SWE-Common AbstractDataComponent)
 | 1
 
@@ -560,7 +553,7 @@ TM_Period is by default encoded as a complex type with a start (mandatory) and e
 | `ObservedProperty`
 | The ObservedProperty of the Observations in this Datastream.
 The Observations in a Datastream may hold values for multiple ObservedProperties, but the ObservedProperties are the same for all Observations in the same Datastream.
-See `resultType` for the details on the encoding of results.
+The service must ensure the definitions of the linked ObservedProperties match the definitions used in the `resultType`.
 | `ObservedProperty`
 | 1..*
 
@@ -580,6 +573,15 @@ The resultType defines the result types for specialized single and multi observa
 The result of an Observation may be a single simple number or String, or it may contain a complex JSON structure holding multiple values for multiple ObservedProperties.
 The exact definition for this result structure, and which unit of measurement and which ObservedProperty pertains to each value in the result structure is exactly described by this resultType Object.
 
+EDITOR: Update to new SWE-Common!
+
+In most cases each Observation holds a single numeric result value, measured by a single Sensor.
+In this case the resultType is of the SWE-Common class `Quantity` (though a number could also be a `Count`) and thus must have the fields `type`, `definition`, `label`, and `uom`.
+
+- The `type` field defines the type of the result and has the value `Quantity`.
+- The `definition` must be the same as the `definition` field in the single ObservedProperty linked to the Datastream.
+- The `uom` field contains the unit of measurement, and is an object that must contain either a `code` field with the UCUM code of the unit, or a `href` field with a URI pointing to a unit definition. It may also contain the `label` and `symbol` fields that can be displayed in user interfaces.
+- The `label` field is somewhat redundant in this case, but since it is mandatory it can be set to the same value as the Datastream `name`.
 
 
 .A Datastream example measuring a scalar Observation
@@ -590,6 +592,7 @@ The exact definition for this result structure, and which unit of measurement an
   "description": "This is a datastream measuring the air temperature in an oven.",
   "resultType": {
     "type": "Quantity",
+    "label": "Oven temperature",
     "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
     "uom": { "code": "Cel", "label": "degree Celsius", "symbol": "°C" }
   }
@@ -608,16 +611,28 @@ The exact definition for this result structure, and which unit of measurement an
 ----
 
 
+Another common type of result is a value from a key list.
+An example would be an Observation of the current weather as `Fair` or `Overcast`, or the geological dating of a rock sample to be `Jurassic`.
+In the latter case, the code space that defines the values could be the Sweet ontology.
+In this example the resultType is a `Category` and thus must have the fields `type`, `definition`, `label`, and `codeSpace`.
+
+- The `type` field defines the type of the result and has the value `Category`.
+- The `definition` must be the same as the `definition` field in the single ObservedProperty linked to the Datastream.
+- The `codeSpace` field must be a reference that defines the valid values that can be used as results.
+- The `label` field is somewhat redundant in this case, but since it is mandatory it can be set to the same value as the Datastream `name`.
+
+
 .A Datastream example for Observations with category values from a predefined code space
 [source,json]
 ----
 {
-  "name": "Sample Datings",
+  "name": "Sample Dating",
   "description": "This is a datastream containing the geological datings of rock samples.",
   "resultType": {
     "type": "Category",
-    "definition": "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#GeologicTime",
-    "codeSpace": "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#Era"
+    "label": "Sample Dating",
+    "definition": "http://sweetontology.net/stateTime/Period",
+    "codeSpace": "http://sweetontology.net/stateTimeGeologic/"
   }
 }
 ----
@@ -634,6 +649,19 @@ The exact definition for this result structure, and which unit of measurement an
 ----
 
 
+In some cases, a (composite) Sensor generates multiple values that should be kept together.
+This can be achieved with a `DataRecord` resultType.
+In the below example, a temperature and pressure value are stored as a pair, per Observation.
+The resultType has the SWE-Common class `DataRecord`, which is a composite class that contains sub-entries.
+The mandatory fields of a DataRecord are `type` and `fields`:
+
+- The `type` field defines the type of the result and has the value `DataRecord`.
+- The `fields` field is an array of other SWE-Common components.
+  In this example there are two `Quantity` entries.
+  Each entry has the mandatory fields for a `Quantity`.
+
+Since there are two _distinct_ `definition` fields in the resultType, this Datastream must be linked to two ObservedProperties that match the two definitions.
+
 .A Datastream example measuring multiple observedProperties
 [source,json]
 ----
@@ -642,20 +670,19 @@ The exact definition for this result structure, and which unit of measurement an
   "description": "This is a datastream containing temperature and pressure measurement sets.",
   "resultType": {
     "type": "DataRecord",
-    "name": "Measurement set",
     "fields": [
       {
         "name": "temp",
         "type": "Quantity",
-        "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
         "label": "Air Temperature",
+        "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
         "uom": { "code": "Cel", "label": "degree Celsius", "symbol": "°C"  }
       },
       {
         "name": "press",
         "type": "Quantity",
-        "definition": "http://mmisw.org/ont/cf/parameter/air_pressure_at_mean_sea_level",
         "label": "Air Pressure",
+        "definition": "http://mmisw.org/ont/cf/parameter/air_pressure_at_mean_sea_level",
         "uom": { "code": "mbar", "label": "Millibar", "symbol": "mBar"  }
       }
     ]
@@ -677,7 +704,7 @@ The exact definition for this result structure, and which unit of measurement an
 }
 ----
 
-EDITOR: Discuss the phenomenonTime examples above
+
 
 [[sensor]]
 === Sensor
