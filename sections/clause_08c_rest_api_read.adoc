@@ -12,7 +12,11 @@ Adapted from:
 [[context_url]]
 ==== Context URL
 
-EDITOR: Explain the `@context` url. https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ContextURL
+Most responses to read requests contain a context URL that describes the content of the payload.
+The context URL consists of the URL of the service metadata document (See <<OData-CSDL>>) followed by a fragment that identifies the relevant portion of the document.
+
+EDITOR: Explain the `@context` url. Do we want to go the full complexity? https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ContextURL
+
 
 
 [[read_service_document]]
@@ -189,8 +193,27 @@ Read requests to a URI pattern that returns a single entity can use the `$expand
 
 ==== Single Entity Property
 
+When a Read (GET) request is made to a URI pattern that addresses a single entity property (<<pattern_entity_property>>), the service returns the JSON representation of this entity property.
+
+.Possible result from a request to an Entity resource returning the name of a Thing
+[source,json]
+----
+{
+  "@context": "<Service Root>/v2.0/$metadata#Edm.String",
+  "value": "Oven"
+}
+----
+
 
 ==== Raw Value of a Single Entity Property
+
+When a Read (GET) request is made to a URI pattern that addresses the raw value of a single entity property (<<pattern_entity_property_raw>>), the service returns the entity property.
+
+.Possible result from a request to an Entity resource returning the raw value of the name of a Thing
+[source,json]
+----
+Oven
+----
 
 
 ==== Relation Reference
@@ -365,6 +388,9 @@ The service SHALL return an HTTP Status code of 400 Bad Request if a value other
 The `$count` system query option SHALL ignore any `$top`, `$skip`, or `$expand` query options, and SHALL return the total count of results across all pages including only those results matching any specified `$filter`.
 
 Clients should be aware that the count returned inline may not exactly equal the actual number of items returned, due to latency between calculating the count and enumerating the last value or due to inexact calculations on the service.
+
+For requests to an EntitySet, the count is returned in the `@count` property of the returned object.
+When a count is requested on an expanded EntitySet, the count is returned in the `<navigationlink name>@count` property of the containing Entity.
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.5
 
