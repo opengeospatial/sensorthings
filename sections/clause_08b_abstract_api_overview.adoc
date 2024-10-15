@@ -170,8 +170,6 @@ The used URL for the base entity may itself be a related entity URL.
 URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/NavigationProperty/$ref`
 
 Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation property, followed by `/$ref`, address the entity-id(s) of the related entity or entities of the given navigation property.
-For navigation property with a cardinality of many, the navigation property may be followed by a primary-key in brackets, to address the specific association between the base entity and the related entity.
-The association link can be used to modify the relation(s).
 
 .Resource pattern for the association link of the Thing of a specific Datastream
 [source,text]
@@ -184,6 +182,8 @@ The association link can be used to modify the relation(s).
 ----
 <Service Root>/v2.0/Datastreams(4)/Observations/$ref
 ----
+
+For navigation property with a cardinality of many, the navigation property may be followed by a primary-key in brackets, to address the specific association between the base entity and the related entity.
 
 .Resource pattern for the association link between a specific Datastream and a specific Observation
 [source,text]

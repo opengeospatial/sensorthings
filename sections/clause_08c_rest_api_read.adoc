@@ -218,9 +218,43 @@ Oven
 
 ==== Relation Reference
 
+When a Read (GET) request is made to a URI pattern that addresses a relation reference, the service responds with the  entity-id(s) of the target Entity(s).
+
+.Response to a read request for <Service Root>/v2.0/Datastream(10643)/Thing
+[source,json]
+----
+{
+  "@context": "<Service Root>/v2.0/$metadata#$ref",
+  "@id": "<Service Root>/v2.0/Things(42)"
+}
+----
+
+
+.Response to a read request for <Service Root>/v2.0/Things(42)/Datastreams
+[source,json]
+----
+{
+  "@context": "http://host/service/$metadata#Collection($ref)",
+  "value": [
+    { "@id": "<Service Root>/v2.0/Datastreams(10643)" },
+    { "@id": "<Service Root>/v2.0/Datastreams(10759)" }
+  ]
+}
+----
+
+.Response to a read request for <Service Root>/v2.0/Things(1)/Locations(1)
+[source,json]
+----
+{
+  "@context": "<Service Root>/v2.0/$metadata#$ref",
+  "@id": "<Service Root>/v2.0/Locations(1)"
+}
+----
 
 
 === Request Query Options
+
+Read requests can be modified using various query options.
 
 ==== Evaluation Order
 
