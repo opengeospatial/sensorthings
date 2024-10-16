@@ -77,15 +77,13 @@ Each Thing entity SHALL have the direct relation between a Thing entity and othe
 The SensorThings API follows the ITU-T definition, i.e., with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060].
 A Thing is related to the Platform entity as described in Section 4.9.2.1 of [OGC 16-079] in a way that any entity that can be modelled as a Thing MAY be subsequently translated to a Platform and vice versa.
 
-[example%unnumbered]
-====
-*Thing Examples*
+Examples of the use of Thing are:
 
 - A weather station that houses a varying set of environmental sensors
+- A thermostat in a room, monitoring and controlling the temperature on that room
 - A drone that mounts a LiDAR sensor for mapping purposes
 - A science vessel that has many sensors installed
 - An upstream oil well that is equipped with compound gas detection devices
-====
 
 
 [#thing-attributes,reftext='{table-caption} {counter:table-num}']
@@ -197,24 +195,12 @@ Each Location entity SHALL have the direct relation between a Location entity an
 The Location entity geo-locates the Thing or the Things it associated with.
 A Thing's Location entity is defined as the last known location of the Thing.
 
-The Feature can be either a proximate feature of interest or the ultimate feature of interest depending upon the context of the Observation.
-For __in-situ__ sensing applications, the Location MAY describe the coordinates of where the Thing is located.
-The Feature is the entity for which the value of a property was determined by the Sensor.
-The ObservedProperty in this case MAY characterize only the area around the sensing device or it MAY characterize the larger observedArea that the sensing application intends to capture.
-Thus, depending upon the feature-of-interest, the Feature can then be either a ProximateFeatureOfInterest or UltimateFeatureOfInterest.
-For __ex-situ__ sensing applications, the Location MAY describe the coordinates of where the Thing is located, whereas the feature MAY be the point location of the observed Feature.
-
-EDITOR: Explain all 4 possible options? in-situ, local; in-site, remote; ex-situ, local; ex-situ, remote
-
 Section 7.1.4 of [OGC 20-082r4 and ISO 19156:2023] provides a detailed explanation of observation location.
-
-[example%unnumbered]
-====
-*Location Examples*
+Examples of the use of Location are:
 
 - An air quality sensing facility's Location can be the physical location where the facility is situated, but the (proximate) Feature that is characterized by the Observation could be the air envelope around the Sensor which is subsequently used to estimate the air quality of the district where the facility is situated.
+
 - A drone that mounts a LiDAR Sensor may have its Location as the geo-referenced area over which the drone is scheduled to fly, whereas the Feature could be the individual objects mapped by the Sensor within that geo-referenced area
-====
 
 
 
@@ -371,15 +357,10 @@ When a user directly adds new HistoricalLocation, and the time of this new Histo
 
 A Thing's HistoricalLocation entity set provides the times of the current (i.e., last known) and previous locations of the Thing.
 It can be used to model the path observed by a moving Thing.
-
-[example%unnumbered]
-====
-*HistoricalLocation Examples*
+An example of the use of HistoricalLocation is:
 
 - A drone that measures methane leaks over a large basin may want to record the trajectory through which it flies.
-HistoricalLocation should then record the individual Locations of the drone over time 
-
-====
+HistoricalLocation should then record the individual Locations of the drone over time.
 
 
 The HistoricalLocation can also be created, updated and deleted.
@@ -1058,19 +1039,19 @@ Each Feature entity SHALL have the direct relation between a Feature entity and 
 An Observation assigns a value to a property of a subject by applying an ObservingProcedure.
 The subject is the Feature that can take the role of ProximateFeatureOfInterest or ultimateFeatureOfInterest of the Observation [OGC 20-082r4 and ISO 19156:2023].
 In cases where estimating the value of a property of interest is not possible directly, a proxy feature MAY be used.
-Such an application typically requires Sampling the UltimateFeatureOfInterest such that the observed Feature represents an approximation of the domain feature.
-In many sensing applications, the Observations’ Feature can be ambiguous with the Location of the Thing.
-Thus the concept of roles is introduced to better describe the relationship between an Observation and it's Feature.
+Such an application typically requires taking a sample of the UltimateFeatureOfInterest such that this sample, the ProximateFeatureOfInterest, represents an approximation of the domain feature.
 
-[example%unnumbered]
-====
-*Feature Examples*
+Some examples of features are:
 
-- The Feature of a WiFi enabled thermostat can be the Location of the thermostat (i.e., the living room where the thermostat is located in).
-However, in such cases, it is recommended to use the Location entity to store this information while the Feature entity (with the role of proximateFeatureOfInterest) can be used to model the ambient indoor atmosphere around the thermostat that approximates the overall room's temperature.
+- The Feature of a WiFi enabled thermostat, with a built-in temperature sensor, can be the room that the thermostat monitors.
+The exact position of the themostat is captured in a Location entity of the Thing representing the thermostat.
 
-- In the case of remote sensing, the Feature observed can be the individual geographical parcel or swath that is being sensed, while the Location entity can maintain the larger geographical region that is being monitored.
-====
+- In the case of water quality monitoring, water samples are taken from a river.
+The water sample and the river are both Features.
+The river is the UltimateFeatureOfInterest attached to the Datastreams of the Observations taken on the sample, while sample is the ProximateFeatureOfInterest directly attached to the various Observations.
+
+- In the case of remote sensing, the Feature observed can be the individual geographical parcel or swath that is being sensed, while the Location entity captures the position of the device (drone, sattellite) that hosts the sensors.
+
 
 
 [#feature-attributes,reftext='{table-caption} {counter:table-num}']
