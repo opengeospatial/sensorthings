@@ -553,6 +553,12 @@ The operator precedence is described in [OData Version 4.01. Part 2: URL Convent
 |Less than or equal
 |`+/Observations?$filter=result le 100+`
 
+|`+in+`
+|Containment
+|- `+/Things?$filter=properties/type in ('Room','Corridor')+` +
+Where `properties/type` is a string.
+- `+/Things?$filter='Vehicle' in properties/tags+` +
+Where `proprties/tags` is an array of strings.
 
 3+|**Logical Operators**
 
@@ -609,6 +615,11 @@ The following table lists the available functions and they follows the OData Can
 In order to support spatial relationship functions, SensorThings API defines nine additional geospatial functions based on the spatial relationship between two geometry objects.
 The spatial relationship functions are defined in the OGC Simple Feature Access specification [OGC 06-104r4 part 1, clause 6.1.2.3]. The names of these nine functions start with a prefix st_ following the OGC Simple Feature Access specification [OGC 06-104r4].
 In addition, the Well-Known Text (WKT) format is the default input geometry for these nine functions.
+
+In some cases the service may not have enough information to deduce the types of parameters used in functions.
+This may, for instance, happen when combining two values from json objects, or attributes of type `ANY`.
+In such cases, the `cast` function can be used.
+
 
 [#tab-built-in-query-functions,reftext='{table-caption} {counter:table-num}']
 .Built-in Query Functions
@@ -742,6 +753,16 @@ In addition, the Well-Known Text (WKT) format is the default input geometry for 
 
 |`+bool st_relate+`
 |`+st_relate(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))', 'T********')+`
+
+2+|**Collection Functions**
+
+|`+bool any()+`
+|`+Observations/any(o: o/result gt 5 and o/phenomenonTime gt 2024-01-01T00:00:00Z)+`
+
+2+|**Type Functions**
+
+|`+type cast(expression,type)+`
+|`+cast(result,Edm.Decimal) gt cast(Datastream/properties/threshold,Edm.Decimal)+`
 |===
 
 
@@ -771,8 +792,6 @@ Things?$filter=Datastreams/any(d1: d1/ObservedProperty/name eq 'NO2') and Datast
 
 [EDITOR]
 ====
-    - add cast, 
-    - add `in()`,
     - time interval functions?
     - ...
 ====
