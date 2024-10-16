@@ -523,7 +523,7 @@ The operator precedence is described in [OData Version 4.01. Part 2: URL Convent
 
 [#tab-built-in-filter-operators,reftext='{table-caption} {counter:table-num}']
 .Built-in Filter Operators
-[cols="<15,<25,<60",options="header"]
+[cols="<15,<25,<60a",options="header"]
 |===
 |Operator |Description |Example
 
@@ -574,16 +574,19 @@ Where `proprties/tags` is an array of strings.
 |Logical negation
 |`+/Things?$filter=not startswith(description,'test')+`
 
-
 3+|**Arithmetic Operators**
 
 |add
 |Addition
-|`+/Observations?$filter=result add 5 gt 10+`
+|
+- `+/Observations?$filter=result add 5 gt 10+`
+- `+/Observations?$filter=validTime gt now() add duration'PT1H'+`
 
 |sub
 |Subtraction
-|`+/Observations?$filter=result sub 5 gt 10+`
+|
+- `+/Observations?$filter=result sub 5 gt 10+` +
+- `+/Observations?$filter=phenomenonTime gt now() sub duration'P1D'+`
 
 |mul
 |Multiplication
@@ -597,12 +600,11 @@ Where `proprties/tags` is an array of strings.
 |Modulo
 |`+/Observations?$filter=result mod 2 eq 0+`
 
-
 3+|**Grouping Operators**
 
 |( )
 |Precedence grouping
-|`+/Observations?$filter=(result sub 5) gt 10+`
+|`+/Observations?$filter=(result sub 5) mul 2 gt 10+`
 |===
 
 
@@ -644,11 +646,13 @@ In such cases, the `cast` function can be used.
 |`+int indexof(string p0, string p1)+`
 |`+indexof(description,'Sensor') eq 1+`
 
-|`+string substring(string p0, int p1)+` +
-`+string substring(string p0, int p1, int p2)+`
+|
+- `+string substring(string p0, int p1)+`
+- `+string substring(string p0, int p1, int p2)+`
 
-|`+substring(description,1) eq 'ensor Things'+` +
-`+substring(description,2,4) eq 'nsor'+`
+|
+- `+substring(description,1) eq 'ensor Things'+`
+- `+substring(description,2,4) eq 'nsor'+`
 
 |`+string tolower(string p0)+`
 |`+tolower(description) eq 'sensor things'+`
