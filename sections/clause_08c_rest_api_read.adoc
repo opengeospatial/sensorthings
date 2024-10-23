@@ -13,10 +13,11 @@ Adapted from:
 ==== Context URL
 
 Most responses to read requests contain a context URL that describes the content of the payload.
-The context URL consists of the URL of the service metadata document (See <<OData-CSDL>>) followed by a fragment that identifies the relevant portion of the document.
+The context URL consists of the URL of the service metadata document (See <<pattern_service_metadata_document>>, <<OData-CSDL>>) followed by a fragment that identifies the relevant portion of the document.
 
 EDITOR: Explain the `@context` url. Do we want to go the full complexity? https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ContextURL
 
+A read (GET) Requests to the Service Document URL pattern (<<pattern_service_metadata_document>>) returns the service metadata document as described in <<OData-CSDL>>.
 
 
 [[read_service_document]]
@@ -115,7 +116,7 @@ EDITOR: Add section on listing implemented features, like filter functions.
 
 ==== EntitySet
 
-When a Read (GET) request is made to a URI pattern that addresses an entity set, the service returns a JSON object with the properties `@context` and `value` and optionally `@count` and `@nextLink`.
+When a Read (GET) request is made to a URI pattern that addresses an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>), the service returns a JSON object with the properties `@context` and `value` and optionally `@count` and `@nextLink`.
 The `@context` annotation SHALL be a context URI as described in <<context_url>>.
 The value of the `value` property SHALL be an array containing entities in the specified entity set, or an empty array if there are no entities in the addressed set.
 The `@count` annotation SHALL, if returned by default, or requested explicitly, contain the total number of items in the set that match the request, as described in <<top>>.
@@ -166,7 +167,7 @@ Read requests to an entity set can use all query options: `$filter`, `$count`, `
 
 ==== Single Entity
 
-When a Read (GET) request is made to a URI pattern that addresses a single entity, the service returns a JSON object representing the entity, with the added properties `@context`. The `@context` annotation SHALL be a context URI as described in <<context_url>>.
+When a Read (GET) request is made to a URI pattern that addresses a single entity (<<pattern_entity>>, <<pattern_entity_related>>), the service returns a JSON object representing the entity, with the added properties `@context`. The `@context` annotation SHALL be a context URI as described in <<context_url>>.
 
 Read requests to a URI pattern that returns a single entity can use the `$expand`, `$select` and `$format` query options.
 
@@ -218,7 +219,7 @@ Oven
 
 ==== Relation Reference
 
-When a Read (GET) request is made to a URI pattern that addresses a relation reference, the service responds with the  entity-id(s) of the target Entity(s).
+When a Read (GET) request is made to a URI pattern that addresses a relation reference (<<pattern_relation>>), the service responds with the  entity-id(s) of the target Entity(s).
 
 .Response to a read request for <Service Root>/v2.0/Datastream(10643)/Thing
 [source,json]
@@ -804,7 +805,13 @@ Things?$filter=Datastreams/any(d1: d1/ObservedProperty/name eq 'NO2') and Datast
 [[param_format]]
 ==== $format
 
-EDITOR: TODO
+The format of the data returned by read request can be controlled with the `$format` query option.
+The default value for the `$format` option is `application/json`.
+
+[[format_json]]
+===== application/json
+
+$format=application/json;metadata=full
 
 
 [[server_driven_pagination]]
