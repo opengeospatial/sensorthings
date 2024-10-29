@@ -7,12 +7,26 @@
 
 
 Organizations that need web-based platforms to manage, store, share, and analyze IoT-based sensor observation data should use the OGC SensorThings API.
-The OGC SensorThings API simplifies and accelerates the development of IoT applications.
-Application developers can use this open Standard to connect to various IoT devices and create innovative applications without worrying the daunting heterogeneous protocols of the different IoT devices, gateways and services.
+The OGC SensorThings API simplifies and accelerates the development of modern geospatially enabled digital reality monitoring and control applications.
+Application developers can use this open Standard to connect to various sensor devices and create innovative applications without worrying about the daunting heterogeneous protocols of the different IoT devices, gateways and services.
 IoT device manufacturers can also use OGC SensorThings API as the API can be embedded within various IoT hardware and software platforms, so that the various IoT devices can effortlessly connect with the OGC Standard-compliant servers around the world.
-In summary, the OGC SensorThings API is transforming the numerous disjointed IoT systems into a fully connected platform where complex tasks can be synchronized and performed.
 
-EDITOR: Add the many non-IoT uses!
+While the OGC SensorThings API was initially designed with basic IoT applications in mind, it has proven valuable for many non-IoT use cases as well:
+
+* Environmental Monitoring: Managing data from fixed monitoring stations for air quality, water quality, weather, and climate observations that may not be considered traditional IoT devices
+
+* Scientific Research: Handling laboratory measurements, experimental data, and field observations where standardized data management and interoperability are crucial
+
+* Urban Planning, Smart Cities & Digital Twins: Urban planners & municipal corporations can use the API to monitor various environmental and infrastructure metrics, like noise levels, pollution, or green space usage, helping with sustainable city planning. Large buildings or campuses can have digital twins that track HVAC systems, lighting, occupancy, and environmental conditions. SensorThings allows for efficient, standardized data collection from these disparate systems, enabling optimization for energy efficiency and comfort.
+
+* Historical Data Archives: Providing standardized access to historical observation datasets 
+
+* Citizen Science: Supporting data collection and management from volunteer observers and manual measurements
+
+* Regulatory Compliance: Managing environmental compliance for monitoring data from both automated and manual sampling programs
+
+In summary, the OGC SensorThings API is transforming the numerous disjointed networked sensor systems into a fully connected platform where complex tasks can be synchronized and performed.
+The flexible data model and powerful query capabilities make SensorThings API suitable for any application involving time-series observations, regardless of whether networked sensor devices are involved.
 
 [[benefits]]
 === Benefits of the OGC SensorThings API
@@ -22,9 +36,12 @@ New APIs are often required and developed on an as-needed basis, often in an env
 This situation requires significant investment on the part of developers for each new sensor or project involving multiple systems and on the part of the providers of sensors, gateways, and portals or services where observations and measurements are required.
 
 As a standardized data model and interface for sensors in the WoT and IoT, the OGC SensorThings API offers the following benefits:
-(1) it permits the proliferation of new high value services with lower overhead of development and wider reach,
-(2) it lowers the risks, time and cost across a full IoT product cycle, and
-(3) it simplifies the connections between devices-to-devices and devices-to-applications.
+
+1. it permits the proliferation of new high value services with lower overhead of development and wider reach
+
+2. it lowers the risks, time and cost across a full IoT product cycle
+
+3. it simplifies the connections between devices-to-devices and devices-to-applications
 
 
 [[overview2]]
@@ -40,16 +57,20 @@ Additionally, SensorThings API supports the following two extensions to the data
 
 The Sensing part allows IoT devices and applications to CREATE, READ, UPDATE, and DELETE (__i.e.__, HTTP POST, GET, PATCH, and DELETE) IoT data and metadata in a SensorThings service.
 The Sensing part is designed based on the OGC/ISO Observation, Measurements and Samples (OMS) model [OGC 20-004r3 and ISO 19156:2023].
+
 An Observation is modeled as an act that produces a result whose value is an estimate of a property of a given Feature.
+
 An Observation instance is characterized by its event time (e.g., resultTime and phenonmenonTime), Feature, ObservedProperty, and the procedure used (often a Sensor).
-Moreover, Things are also modeled in the SensorThings API.
-A Thing draws from the same concept as a Host in OMS where a Host is defined as a collection of Observers (defined as Sensor in SensorThings API).
+
+Moreover, Things are also modeled in the SensorThings API. A Thing draws from the same concept as a Host in OMS where a Host is defined as a collection of Observers (defined as Sensor in SensorThings API).
 Formally, its definition follows the ITU-T definition:
 “__an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks__” [ITU-T Y.2060].
+
 The geographical Locations of Things are useful in almost every application and as a result are included as well.
 For the Things whose location changed, the HistoricalLocations entities offer the history of the Thing’s locations.
-A Thing also can have multiple Datastreams.
-A Datastream is a collection of Observations grouped by the same ObservedProperty, Sensor and optionally by Feature and ObservingProcedure.
+
+A Thing also can have multiple Datastreams. A Datastream is a collection of Observations grouped by the same ObservedProperty, Sensor and optionally by Feature and ObservingProcedure.
+
 An Observation is an event performed by a Sensor that produces a result whose value is an estimate of an ObservedProperty of any given Feature which may be a proximate or ultimate FeatureofInterest.
 Details of each above described entity are provided in <<sensing-core>>.
 

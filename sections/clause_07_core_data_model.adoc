@@ -287,8 +287,6 @@ Multiple Things MAY locate at the same Location.
 |====
 
 
-EDITOR: Add example for wkt, jsonFG
-
 .Example of a Location entity using a GeoJSON Feature.
 [source,json]
 ----
@@ -331,6 +329,79 @@ EDITOR: Add example for wkt, jsonFG
 ----
 
 NOTE: When using a GeoJSON encoding for the location attribute, the value can either be a GeoJSON Feature or a GeoJSON Geometry.
+
+.Example of a Location entity using WKT.
+[source,json]
+----
+{
+  "@context": "https://example.org/v2.0/$metadata#Locations/$entity", 
+  "@id": "Locations(3)",
+  "id": 3,
+  "name": "Hamburg Port",
+  "description": "Location at Hamburg Harbor",
+  "encodingType": "text/plain",
+  "location": "POINT(9.9937 53.5511)",
+  "Things@navigationLink": "Locations(3)/Things",
+  "HistoricalLocations@navigationLink": "Locations(3)/HistoricalLocations"
+}
+----
+.Example of a Location entity using JSON-FG.
+[source,json]
+----
+{
+  "@context": "https://example.org/v2.0/$metadata#Locations/$entity",
+  "@id": "Locations(4)", 
+  "id": 4,
+  "name": "Weather Station Alpha",
+  "description": "Rooftop weather monitoring station",
+  "encodingType": "application/json+fg",
+  "location": {
+    "type": "Feature",
+    "place": {
+      "type": "Point",
+      "coordinates": [13.4050, 52.5200]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [13.4050, 52.5200]
+    },
+    "properties": {
+      "floor": 5,
+      "building": "Tower A",
+      "installation_date": "2023-01-15"
+    }
+  },
+  "Things@navigationLink": "Locations(4)/Things",
+  "HistoricalLocations@navigationLink": "Locations(4)/HistoricalLocations"
+}
+----
+.Example of a Location entity using OGC GeoPose.
+[source,json]
+----
+{
+  "@context": "https://example.org/v2.0/$metadata#Locations/$entity",
+  "@id": "Locations(5)",
+  "id": 5, 
+  "name": "Drone Camera Position",
+  "description": "Position and orientation of aerial survey drone",
+  "encodingType": "application/geopose+json",
+  "location": {
+    "position": {
+      "lat": 48.8584,
+      "lon": 2.2945,
+      "h": 300.5
+    },
+    "quaternion": {
+      "x": 0.0,
+      "y": 0.0, 
+      "z": 0.7071,
+      "w": 0.7071
+    }
+  },
+  "Things@navigationLink": "Locations(5)/Things",
+  "HistoricalLocations@navigationLink": "Locations(5)/HistoricalLocations"
+}
+----
 
 
 
@@ -1140,7 +1211,23 @@ The data type is defined by encodingType.
 }
 ----
 
-EDITOR: Add non-GeoJSON examples!
+.Example of a Feature entity using WKT Geometry.
+[source,json]
+----
+{
+  "@context": "https://example.org/v2.0/$metadata#Features/$entity", 
+  "@id": "Features(2)",
+  "id": 2,
+  "name": "City Center Park",
+  "description": "A public park located in the heart of the city",
+  "encodingType": "application/wkt",
+  "feature": "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))",
+  "FeatureType@navigationLink": "FeaturesOfInterest(2)/FeatureType",
+  "Datastreams@navigationLink": "FeaturesOfInterest(2)/Datastreams",
+  "Observations@navigationLink": "FeaturesOfInterest(2)/Observations"
+}
+----
+
 
 
 
