@@ -140,7 +140,7 @@ A Thing MAY not have a Location.
 A Thing SHOULD have only one physical location, but this location may be described in different ways, using different representations.
 In such case, the Thing MAY have more than one Locations.
 | `Location`
-| 0..1
+| 0..*
 
 | `HistoricalLocations`
 | A Thing has zero-to-many HistoricalLocations.
