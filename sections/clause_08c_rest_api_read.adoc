@@ -795,12 +795,6 @@ Things?$filter=Datastreams/any(d1: d1/ObservedProperty/name eq 'NO2') and Datast
 ----
 
 
-[EDITOR]
-====
-    - time interval functions?
-    - ...
-====
-
 
 [[param_format]]
 ==== $format
@@ -811,7 +805,13 @@ The default value for the `$format` option is `application/json`.
 [[format_json]]
 ===== application/json
 
-$format=application/json;metadata=full
+This formatter encodes responses in JSON as specified in OData JSON Format Version 4.01.
+The JSON format can be explicitly requested using the `$format` query option with a value of `application/json`, or the shorter alias `json`.
+The format option allows for the format parameter `metadata` to control the amount of service metadata added to the response.
+
+* `$format=application/json;metadata=full` returns the full metadata.
+* `$format=application/json;metadata=minimal` removes all metadata that can be calculated by the client, returning only: context, count (if requested) and nextLink (if applicable)
+* `$format=application/json;metadata=none` only returns: nextLink (if applicable) and count (if requested)
 
 
 [[server_driven_pagination]]
