@@ -625,7 +625,9 @@ The resultType defines the result types for specialized single and multi observa
 The result of an Observation may be a single simple number or String, or it may contain a complex JSON structure holding multiple values for multiple ObservedProperties.
 The exact definition for this result structure, and which unit of measurement and which ObservedProperty pertains to each value in the result structure is exactly described by this resultType Object.
 
-EDITOR: Update to new SWE-Common!
+EDITOR: Describe auto-linking of ObservedProperty. Is that an optional feature with its own requirement?
+
+EDITOR: Update to new SWE-Common! 24-014
 
 In most cases each Observation holds a single numeric result value, measured by a single Sensor.
 In this case the resultType is of the SWE-Common class `Quantity` (though a number could also be a `Count`) and thus must have the fields `type`, `definition`, `label`, and `uom`.
@@ -920,7 +922,8 @@ It should be uniquely identified by its `definition`, which should point to an e
 
 | `definition`
 | The URI of the ObservedProperty.
-Dereferencing this URI SHOULD result in a representation of the definition of the ObservedProperty
+Dereferencing this URI SHOULD result in a representation of the definition of the ObservedProperty.
+The definition SHOULD be unique in a service.
 | URI
 | 1
 
