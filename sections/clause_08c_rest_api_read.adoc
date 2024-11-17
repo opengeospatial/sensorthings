@@ -17,13 +17,13 @@ The context URL consists of the URL of the service metadata document (See <<patt
 
 EDITOR: Explain the `@context` url. Do we want to go the full complexity? https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ContextURL
 
-A read (GET) Requests to the Service Document URL pattern (<<pattern_service_metadata_document>>) returns the service metadata document as described in <<OData-CSDL>>.
+A read Requests to the Service Document URL pattern (<<pattern_service_metadata_document>>) returns the service metadata document as described in <<OData-CSDL>>.
 
 
 [[read_service_document]]
 ==== Service Document
 
-A read (GET) Requests to the Service Document URL pattern (<<pattern_service_document>>) returns the service document.
+A read Requests to the Service Document URL pattern (<<pattern_service_document>>) returns the service document.
 
 The Service document is a JSON object with a property named value and a property named serverSettings.
 The content of the property named value SHALL be a JSON Array containing one element for each entity set of the SensorThings Service.
@@ -116,7 +116,7 @@ EDITOR: Add section on listing implemented features, like filter functions.
 
 ==== EntitySet
 
-When a Read (GET) request is made to a URI pattern that addresses an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>), the service returns a JSON object with the properties `@context` and `value` and optionally `@count` and `@nextLink`.
+When a Read request is made to a URI pattern that addresses an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>), the service returns a JSON object with the properties `@context` and `value` and optionally `@count` and `@nextLink`.
 The `@context` annotation SHALL be a context URI as described in <<context_url>>.
 The value of the `value` property SHALL be an array containing entities in the specified entity set, or an empty array if there are no entities in the addressed set.
 The `@count` annotation SHALL, if returned by default, or requested explicitly, contain the total number of items in the set that match the request, as described in <<top>>.
@@ -167,7 +167,7 @@ Read requests to an entity set can use all query options: `$filter`, `$count`, `
 
 ==== Single Entity
 
-When a Read (GET) request is made to a URI pattern that addresses a single entity (<<pattern_entity>>, <<pattern_entity_related>>), the service returns a JSON object representing the entity, with the added properties `@context`. The `@context` annotation SHALL be a context URI as described in <<context_url>>.
+When a Read request is made to a URI pattern that addresses a single entity (<<pattern_entity>>, <<pattern_entity_related>>), the service returns a JSON object representing the entity, with the added properties `@context`. The `@context` annotation SHALL be a context URI as described in <<context_url>>.
 
 Read requests to a URI pattern that returns a single entity can use the `$expand`, `$select` and `$format` query options.
 
@@ -194,7 +194,7 @@ Read requests to a URI pattern that returns a single entity can use the `$expand
 
 ==== Single Entity Property
 
-When a Read (GET) request is made to a URI pattern that addresses a single entity property (<<pattern_entity_property>>), the service returns the JSON representation of this entity property.
+When a Read request is made to a URI pattern that addresses a single entity property (<<pattern_entity_property>>), the service returns the JSON representation of this entity property.
 
 .Possible result from a request to an Entity resource returning the name of a Thing
 [source,json]
@@ -208,7 +208,7 @@ When a Read (GET) request is made to a URI pattern that addresses a single entit
 
 ==== Raw Value of a Single Entity Property
 
-When a Read (GET) request is made to a URI pattern that addresses the raw value of a single entity property (<<pattern_entity_property_raw>>), the service returns the entity property.
+When a Read request is made to a URI pattern that addresses the raw value of a single entity property (<<pattern_entity_property_raw>>), the service returns the entity property.
 
 .Possible result from a request to an Entity resource returning the raw value of the name of a Thing
 [source,json]
@@ -219,7 +219,7 @@ Oven
 
 ==== Relation Reference
 
-When a Read (GET) request is made to a URI pattern that addresses a relation reference (<<pattern_relation>>), the service responds with the  entity-id(s) of the target Entity(s).
+When a Read request is made to a URI pattern that addresses a relation reference (<<pattern_relation>>), the service responds with the  entity-id(s) of the target Entity(s).
 
 .Response to a read request for <Service Root>/v2.0/Datastream(10643)/Thing
 [source,json]
