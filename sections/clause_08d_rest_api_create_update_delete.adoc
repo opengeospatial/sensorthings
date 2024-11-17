@@ -1,27 +1,99 @@
 === Modifying Data
 
 This section describes how to create, update and delete Entities.
-Deltails on how to send POST, PATCH, PUT and DELETE requests and how responses are received are described in the protocol bindings sections.
-
-==== Requirement Class A or Requirement A Example
-
-intro text for the requirement class.
-
-Use the following table for Requirements Classes.
+Deltails on how to send create, update and delete requests and how responses are received are described in the protocol bindings sections.
 
 
-===== Requirement 1
+==== Creating Entities (EntitySet)
 
-intro text for the requirement.
+URI patterns that address an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>) can be used to create a new entity by sending a create request to the URI.
+The content of the create request is the JSON encoded representation of the entity to be created.
+Upon successful completion the service responds with the entity-id (selfLink) of the created entity.
 
-Use the following table for Requirements, number sequentially.
+If the inline representation contains a value for a computed property (i.e., `id`), the service ignores that value when creating the entity.
+
+When the URI pattern is of the related entity set type (<<pattern_entityset_related>>), the created entity is automatically linked to the parent entity of the entity set the create request is sent to.
+
+Relations to existing entities can be created by providing the entity-id (selfLink) of the existing entities.
+If a conflicting value for a relation exists in the URI and the content of the request, the value from the URI takes priority.
 
 
-===== Requirement 2
+.Sending a create request to `v2.0/Things(5)/Datastreams` with the given content will create a Datastream, linked to Thing 5, Sensor 2 and the ObservedProperty that matches the definition in the resultType.
+[source,json]
+----
+{
+  "name": "Oven temperature",
+  "description": "This is a datastream measuring the air temperature in an oven.",
+  "resultType": {
+    "type": "Quantity",
+    "label": "Oven temperature",
+    "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
+    "uom": { "code": "Cel", "label": "degree Celsius", "symbol": "°C" }
+  },
+  "Sensor": {"@id": "Sensors(2)"}
+}
+----
 
-intro text for the requirement.
 
-Use the following table for Requirements, number sequentially.
+==== Deep Insert
+
+A create request can have related entities embedded in-line, to be created alongside the main entity.
+Such a create request is referred to as a "deep insert".
+
+On success, the service creates all entities and relates them.
+On failure, the service does not create any of the entities.
+
+.Sending a create request to `v2.0/Things` with the given content will create a Thing with its Location and a Datastream with an associated Sensor. The Datastream will automatically be linked to the ObservedProperty that matches the definition in the resultType. 
+[source,json]
+----
+{
+  "description": "This an oven with a temperature datastream.",
+  "name": "oven",
+  "Locations": [
+    {
+      "name": "CCIT",
+      "description": "Calgary Centre for Innovative Technologies",
+      "encodingType": "application/geo+json",
+      "location": {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [10,10]
+        }
+      }
+    }
+  ],
+  "Datastreams": [
+    {
+      "name": "oven temperature",
+      "description": "This is a datastream for an oven’s internal temperature.",
+      "resultType": {
+        "type": "Quantity",
+        "label": "Oven temperature",
+        "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
+        "uom": { "code": "Cel", "label": "degree Celsius", "symbol": "°C" }
+      },
+      "Sensor": {
+        "name": "DS18B20",
+        "description": "DS18B20 is an air temperature sensor…",
+        "encodingType": "application/pdf",
+        "metadata": "http://datasheets.maxim-ic.com/en/ds/DS18B20.pdf"
+      }
+    }
+  ]
+}
+----
+
+
+
+==== Updating Entities (Single Entity)
+
+
+==== Deep Update
+
+
+==== Modifying Relations
+
 
 ==== JSON-Patch
 
