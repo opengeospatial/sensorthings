@@ -6,9 +6,8 @@ Deltails on how to send create, update and delete requests and how responses are
 
 ==== Creating Entities (EntitySet)
 
-URI patterns that address an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>) can be used to create a new entity by sending a create request to the URI.
+Entities can be created with a create request to an URI pattern that addresses an entity set (<<pattern_entityset>> or <<pattern_entityset_related>>).
 The content of the create request is the JSON encoded representation of the entity to be created.
-Upon successful completion the service responds with the entity-id (selfLink) of the created entity.
 
 If the inline representation contains a value for a computed property (i.e., `id`), the service ignores that value when creating the entity.
 
@@ -88,14 +87,41 @@ On failure, the service does not create any of the entities.
 
 ==== Updating Entities (Single Entity)
 
+Entities can be updated with a patch or replace request to an URI pattern that addresses an entity set (<<pattern_entity>> or <<pattern_entity_related>>).
+Services MUST support patch requests and MAY support replace requests.
+
+A patch request must contain as content only those updatable attributes of the entity that are to be changed.
+Attributes that are not present in the patch request are not changed, though server-generated attributes may be updated by the server as a result of the change request.
+
+A replace request must contain as content the complete entity to be replaced.
+Attributes that are not present in the replace request are removed from the entity.
+
+For even finer grained update control, or updates that are safe from concurrent modification by other user, see <<json-patch>>.
+
 
 ==== Deep Update
 
+EDITOR: Do we want delta payloads? https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_UpdateRelatedEntitiesWhenUpdatinganE
+
+[[json-patch]]
+==== JSON-Patch
+
+https://datatracker.ietf.org/doc/html/rfc6902/
+
+
+
+[[return-value]]
+==== Return Value
+
+The returned value for a, entity modification request depends on the `prefer` option, with the possible values `return=minimal` (default) and `return=representation`.
+
+If the `prefer` option is not present, or does not contain a value for `return`, or has `return=minimal` then, for create requests, the entity-id (selfLink) of the created entity is returned as a header, and no content is returned.
+For update requests no content is returned.
+
+If the `prefer` option has `return=representation`, then the created resource is returned, optionally taking `$expand`, `$select` and `$format` query options into account.
+
 
 ==== Modifying Relations
-
-
-==== JSON-Patch
 
 
 === Authentication & Authorization
