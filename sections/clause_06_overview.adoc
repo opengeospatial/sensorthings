@@ -37,39 +37,39 @@ This situation requires significant investment on the part of developers for eac
 
 As a standardized data model and interface for sensors in the WoT and IoT, the OGC SensorThings API offers the following key benefits:
 
-1. *Interoperability and Integration*
-- Enables seamless integration between different sensor systems, platforms, and applications
-- Reduces vendor lock-in by providing a standardized interface
-- Facilitates data exchange across organizational boundaries and domains
+. *Interoperability and Integration*
+** Enables seamless integration between different sensor systems, platforms, and applications
+** Reduces vendor lock-in by providing a standardized interface
+** Facilitates data exchange across organizational boundaries and domains
 
-2. *Cost and Time Efficiency*
-- Lowers development costs through standardized implementation patterns
-- Reduces time-to-market for IoT solutions
-- Minimizes the need for custom interface development
-- Simplifies maintenance and updates across the system
+. *Cost and Time Efficiency*
+** Lowers development costs through standardized implementation patterns
+** Reduces time-to-market for IoT solutions
+** Minimizes the need for custom interface development
+** Simplifies maintenance and updates across the system
 
-3. *Scalability and Flexibility*
-- Supports both small-scale deployments and large enterprise solutions
-- Adapts to various use cases from environmental monitoring to smart cities
-- Enables easy addition of new sensors and data sources
-- Supports both real-time and historical data management
+. *Scalability and Flexibility*
+** Supports both small-scale deployments and large enterprise solutions
+** Adapts to various use cases from environmental monitoring to smart cities
+** Enables easy addition of new sensors and data sources
+** Supports both real-time and historical data management
 
-4. *Data Quality and Governance*
-- Provides consistent metadata management
-- Ensures data provenance through standardized observation tracking
-- Supports regulatory compliance through structured data handling
-- Enables better data discovery and reuse
+. *Data Quality and Governance*
+** Provides consistent metadata management
+** Ensures data provenance through standardized observation tracking
+** Supports regulatory compliance through structured data handling
+** Enables better data discovery and reuse
 
-5. *Modern Web-GIS Support*
-- Aligns with REST architectural principles
-- Supports cloud-native deployments
-- Enables edge computing scenarios
+. *Modern Web-GIS Support*
+** Aligns with REST architectural principles
+** Supports cloud-native deployments
+** Enables edge computing scenarios
 
-6. *Enhanced Analytics and Innovation*
-- Simplifies data integration for analytics and AI/ML applications
-- Enables standardized access to historical datasets
-- Supports real-time monitoring and alerting
-- Facilitates development of innovative applications and services
+. *Enhanced Analytics and Innovation*
+** Simplifies data integration for analytics and AI/ML applications
+** Enables standardized access to historical datasets
+** Supports real-time monitoring and alerting
+** Facilitates development of innovative applications and services
 
 These benefits make the OGC SensorThings API particularly valuable in today's rapidly evolving digital landscape, where organizations increasingly rely on sensor data for decision-making and automation.
 
