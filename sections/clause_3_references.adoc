@@ -1,0 +1,15 @@
+[bibliography]
+== References
+
+The following normative documents contain provisions that, through reference in this text, constitute provisions of this document. For dated references, subsequent amendments to, or revisions of, any of these publications do not apply. For undated references, the latest edition of the normative document referred to applies.
+
+[NOTE]
+====
+Insert References here. If there are no references, leave this section empty.
+
+References are to follow the Springer LNCS style, with the exception that optional information may be appended to references: DOIs are added after the date and web resource references may include an access date at the end of the reference in parentheses. See examples from Springer and OGC below.
+====
+
+* [[[OGC18088,OGC 18-088]]], _OGC SensorThings API Part 1: Sensing Version 1.1_, August 04, 2021. https://docs.ogc.org/is/18-088/18-088.html
+
+* [[[W3CWebSub,W3C WebSub Recommendation]]], _WebSub_, January 23, 2018. https://www.w3.org/TR/websub

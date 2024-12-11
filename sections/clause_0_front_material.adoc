@@ -1,0 +1,66 @@
+.Preface
+
+
+
+////
+*OGC Declaration*
+////
+
+Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
+
+Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
+
+[abstract]
+== Abstract
+
+STA-WebSub - SensorThings API extension WebSub - defines an additional SensorThings API capability that allows the distribution of updates via HTTP(S) using Webhook as defined in the W3C WebSub Recommendation. A subscriber can fetch base data from a SensorThings API service and then can use the same identical URL to subscribe for updates. This allows any subscriber to prevent polling a SensorThings API service, as any updates - according to the URL used - get submitted to the subscriber's Webhook when the update event is triggered. The use of this WebSub extension is also developer friendly, as subscribers only need to setup a W3C WebSub compliant Webhook using HTTP(S). The SensorThings API MQTT protocol is not exposed to the subscriber; it remains internal between the SensorThings API service and the associated STA-WebSub Hub(s). Any SensorThings API service, supporting MQTT topic pattern to include an ODATA query, allows the subscriber to subscribe for updates by defining actual triggering conditions using `$filter`. Using the ODATA query also supports the subscriber to get exactly that data and structured as it is fit for purpose using `$select` and `$expand`. 
+
+The use of STA-WebSub improves the flexible use a SensorThings API service building asynchronous workflows. The ability to define trigger conditions and to specify the event data structure that is pushed over HTTP(S) POST enables a fit-for-purpose processing of events using workflows. From a subscriber's point of view, only HTTP requests have to be implemented (HTTP GET for subscription and HTTP POST for receiving event data); the use of the MQTT protocol is used between the SensorThings Service and the Hub only. This strengthen the ability to take load off the MQTT broker as only the associated Hub may subscribe to topics. Also, access control can be implemented in the discovery functionality which controls the subscription based on business or access control policies.
+
+== Preface
+
+[NOTE]
+====
+Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
+
+Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
+====
+
+== Security considerations
+Any MQTT based event system is susceptible to denial of service attacks when to many clients subscribe to topics with high frequency update (`chatty topics`). For example, subscription to the topic `v1.1/Observations` brings the danger that the SensorThings API service cannot deliver all events to all subscribed clients when the update frequency gets too high. One needs to keep in mind that the MQTT broker is also responsible for receiving observations from very many sensors.
+
+Mitigation to this attack vector exist by disallowing to subscribe to `chatty topics` but in case of the `v1.1/Observations` topic, this is not a good idea as most of the interesting updates happen on this topic! The other mitigation may be to reduce the number of subscribing clients.
+
+This WebSub extension mitigates the denial of service risk allowing only associates Hubs to subscribe to MQTT topics and which topics are supported for subscription can be controlled via the discovery logic. Also, the distribution of the update notifications is not done by the SensorThings service itself; The Hub instance(s) does(do) that.
+
+Any implementation that is compliant with the `ODATA` conformance class, is particularly susceptible to denial of service. To prevent that an attacker can achieve a denial of service attack by subscribing with a complex ODATA query, an implementation of the conformance class `ODATA` should carefully analyze the query before accepting the subscription request. The SensorThings API STA-WebSub discovery logic should validate the subscription carefully.
+
+Any SensorThings API service should deny MQTT subscription requests that do not origin from an associated Hub. This guarantees that an attacker cannot simply bypass the Hub and swamp the SensorThings API service directly with bogus subscriptions.
+
+The proper network separation of SensorThings API service and Hub - e.g. in a fast private network - allows to establish a clever load distribution between a SensorThings API service and as many hubs as needed. This self-adaptivity to scaling mitigates the likelihood for denial of service attacks even with many subscribed clients and complex topics.
+
+In any case, the Hub must validate a subscription with the STA-WebSub Service. This can be achieved via the regular discovery request (HTTP Head request with the topic URL).
+
+To prevent bogus subscriptions, a Hub may require authentication for the subscribe / unsubscribe API.
+
+== Submitters
+
+All questions regarding this submission should be directed to the editors or the submitters:
+
+[%autowidth,cols="3*"]
+|===
+|Name |Representing |OGC Member
+
+|Andreas Matheus
+|Secure Dimensions GmbH
+|Yes
+
+|Joan Maso
+|Centre de Recerca Ecològica i Aplicacions Forestals (CREAF)
+|Yes
+
+|Hylke van der Schaaf
+|Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+|Yes
+
+|===
