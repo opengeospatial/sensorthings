@@ -192,9 +192,9 @@ For navigation property with a cardinality of many, the navigation property may 
 ----
 
 
-==== More complex examples
+==== Nested paths
 
-`<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty(<primaryKey>)`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty(<primaryKey>)`
 
 The pattern <<pattern_entityset_related>> and <<pattern_entity>> can be combined to address a specific entity from a related set.
 This will return a `Not Found` error when the requested entity is not actually in the related set.

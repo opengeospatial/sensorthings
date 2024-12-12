@@ -76,16 +76,21 @@ These benefits make the OGC SensorThings API particularly valuable in today's ra
 [[overview2]]
 === SensorThings API Overview
 
-The OGC SensorThings API data model consists of three main parts:
-(1) the Sensing part,
-(2) the Sampling part and
-(3) the Tasking part.
-Additionally, SensorThings API supports the following two extensions to the data model:
-(1) the Sensing Extension (Observations & Measurements) and
-(2) the Relations extension
+EDITOR: Go over these parts
 
-The Sensing part allows sensor devices and applications to CREATE, READ, UPDATE, and DELETE (__i.e.__, HTTP POST, GET, PATCH, and DELETE) data and metadata in a SensorThings service.
-The Sensing part is designed based on the OGC/ISO Observation, Measurements and Samples (OMS) model [OGC 20-004r3 and ISO 19156:2023].
+The OGC SensorThings API data model consists of three main parts:
+
+. the Sensing part,
+. the Sampling part and
+. the Tasking part.
+
+Additionally, SensorThings API supports the following two extensions to the data model:
+
+. the Sensing Extension (Observations & Measurements) and
+. the Relations extension
+
+The core data model allows sensor devices and applications to CREATE, READ, UPDATE, and DELETE (__i.e.__, HTTP POST, GET, PATCH, and DELETE) data and metadata in a SensorThings service.
+The Sensing part is designed based on the OGC/ISO Observation, Measurements and Samples (OMS) model (<<OgcOMS>> and <<IsoOMS>>).
 
 An Observation is modeled as an act that produces a result whose value is an estimate of a property of a given Feature.
 
@@ -93,10 +98,10 @@ An Observation instance is characterized by its event time (e.g., resultTime and
 
 Moreover, Things are also modeled in the SensorThings API. A Thing draws from the same concept as a Host in OMS where a Host is defined as a collection of Observers (defined as Sensor in SensorThings API).
 Formally, its definition follows the ITU-T definition:
-“__an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks__” [ITU-T Y.2060].
+“__an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks__” <<ITU-T-Y.2060>>.
 
 The geographical Locations of Things are useful in almost every application and as a result are included as well.
-For the Things whose location changed, the HistoricalLocations entities offer the history of the Thing’s locations.
+For the Things whose location changed, the HistoricalLocations entities offer the history of the Thing's locations.
 
 A Thing also can have multiple Datastreams. A Datastream is a collection of Observations grouped by the same ObservedProperty, Sensor and optionally by Feature and ObservingProcedure.
 
@@ -114,7 +119,7 @@ OMS defines models for the exchange of information describing observation acts, 
 
 SensorThings API defines nine entities for the IoT sensing applications and several additional entities in various extensions.
 <<sta-oms-compare>> lists each component and its relationship with OMS.
-SensorThings API uses the term of Sensor to describe the Observer that is used in generating an Observation, instead of using OMS’ term of Observer.
+SensorThings API uses the term of Sensor to describe the Observer that is used in generating an Observation, instead of using OMS' term of Observer.
 
 
 [#sta-oms-compare,reftext='{table-caption} {counter:table-num}']
@@ -168,7 +173,7 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 [[revision-differences]]
 === SensorThings API 2.0 changes from 1.1
 
-From the SensorThings API version 1.1 to 2.0 changes have been made to both the data model and the API.
+From the SensorThings API version 1.1 (<<STAv1.1>>) to 2.0 changes have been made to both the data model and the API.
 The changes to the data model have been summarised in <<sta-changes>> and <<img-sta-core-changed>>.
 
 [#sta-changes,reftext='{table-caption} {counter:table-num}']

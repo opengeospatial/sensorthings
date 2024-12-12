@@ -157,7 +157,7 @@ If the end time is not present,
 The interval end is "open" meaning that the end-time is not part of the interval.
 
 [#tm_object-attributes,reftext='{table-caption} {counter:table-num}']
-.Attributes of a TM_Interval complex type
+.Attributes of a TM_Object complex type
 [width="100%",cols="<a,<~a,<a,<a",options="header"]
 |====
 | Name
@@ -175,6 +175,8 @@ The interval end is "open" meaning that the end-time is not part of the interval
 | TM_Instant
 | 0..1
 |====
+
+EDITOR: Add explanation of use of TM_Interval and TM_Object in filters, automatic use of start or end.
 
 
 [[json_object]]

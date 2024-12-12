@@ -702,12 +702,6 @@ In such cases, the `cast` function can be used.
 |`+now+`
 |`+resultTime ge now()+`
 
-|`+mindatetime+`
-|`+resultTime eq mindatetime()+`
-
-|`+maxdatetime+`
-|`+resultTime eq maxdatetime()+`
-
 2+|**Math Functions**
 
 |`+round+`

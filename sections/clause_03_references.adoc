@@ -10,6 +10,33 @@ Insert References here. If there are no references, leave this section empty.
 References are to follow the Springer LNCS style, with the exception that optional information may be appended to references: DOIs are added after the date and web resource references may include an access date at the end of the reference in parentheses. See examples from Springer and OGC below.
 ====
 
+
+* [[[STAv1.1, OGC 18-088]]]
+
+* [[[OgcOMS, OGC 20-082r4]]]
+
+* [[[IsoOMS, ISO 19156:2023]]]
+
+* [[[ITU-T-Y.2060, ITU-T Y.2060]]]
+
+* [[[ogc08-094,OGC 08-094r1]]]
+
+* [[[ogc17-011,OGC 17-011r2]]]
+
+* [[[SweCommon,OGC 24-014]]]
+
+* [[[RFC6902,IETF RFC 6902]]]
+
+* [[[ODATAP1,OASIS OData-Part1]]]
+
+* [[[ODATAP2,OASIS OData-Part2]]]
+
+* [[[ODATACSDL,OASIS OData-CSDL-JSON-v4.01]]]
+
+* [[[MQTT50,OASIS mqtt-v5.0]]]
+
+EDITOR: Check which of these are normative and which should go to the bibliography at the end.
+
 * [[[Smith81,Identification of Common Molecular Subsequences]]],
 _Identification of Common Molecular Subsequences_.
 Smith, T.F., Waterman, M.S., J. Mol. Biol. 147, 195–197 (1981)

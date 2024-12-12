@@ -621,7 +621,7 @@ The service must ensure the definitions of the linked ObservedProperties match t
 |====
 
 
-The resultType defines the result types for specialized single and multi observations based on the JSON encoding of the SWE Common Data Model [OGC 08-094r1 and OGC 17-011r2].
+The resultType defines the result types for specialized single and multi observations based on the JSON encoding of the SWE Common Data Model (<<ogc08-094>> and <<ogc17-011>>, once released: <<SweCommon>>).
 The result of an Observation may be a single simple number or String, or it may contain a complex JSON structure holding multiple values for multiple ObservedProperties.
 The exact definition for this result structure, and which unit of measurement and which ObservedProperty pertains to each value in the result structure is exactly described by this resultType Object.
 
