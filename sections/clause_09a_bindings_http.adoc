@@ -6,7 +6,7 @@ The actions that can be executed on resources, as defined in the <<abstract_api>
 
 [#http-method-mapping,reftext='{table-caption} {counter:table-num}']
 .Mapping of abstract request types to HTTP Methods.
-[width="90%",cols="<,<",options="header"]
+[width="80%",cols="<,<",options="header"]
 |====
 | *Request type*
 | *HTTP Method*
@@ -30,24 +30,12 @@ The actions that can be executed on resources, as defined in the <<abstract_api>
 | POST
 |====
 
+EDITOR: 
+----
+HEAD / OPTIONS: point to W3 standards
 
-=== GET
-
-intro text for the requirement class.
-
-Use the following table for Requirements Classes.
-
-=== POST
-
-=== PUT
-
-=== PATCH
-
-=== DELETE
-
-=== HEAD
-
-=== OPTIONS
+Create / Update / Replace / Execute: Content in body
+----
 
 === Cross Origin Resource Sharing
 
