@@ -61,9 +61,7 @@ include::sections/clause_09a_bindings_http.adoc[]
 
 include::sections/clause_09b_bindings_mqtt.adoc[]
 
-include::sections/clause_09c_bindings_amqp.adoc[]
-
-include::sections/clause_09d_bindings_ogc_api_common.adoc[]
+include::sections/clause_09c_bindings_ogc_api_common.adoc[]
 
 include::sections/clause_10_media_types.adoc[]
 

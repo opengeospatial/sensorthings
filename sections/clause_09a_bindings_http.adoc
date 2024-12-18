@@ -2,6 +2,35 @@
 
 The HTTP Bindings specify how access the SensorThings API using the HTTP protocol.
 
+The actions that can be executed on resources, as defined in the <<abstract_api>> are mapped to HTTP Methods as defined in table <<http-method-mapping>>.
+
+[#http-method-mapping,reftext='{table-caption} {counter:table-num}']
+.Mapping of abstract request types to HTTP Methods.
+[width="90%",cols="<,<",options="header"]
+|====
+| *Request type*
+| *HTTP Method*
+
+| Read
+| GET
+
+| Create
+| POST
+
+| Update
+| PATCH
+
+| Replace
+| PUT
+
+| Delete
+| DELETE
+
+| Execute
+| POST
+|====
+
+
 === GET
 
 intro text for the requirement class.
