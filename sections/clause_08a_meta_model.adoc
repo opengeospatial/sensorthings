@@ -147,14 +147,16 @@ The interval end is "open" meaning that the end-time is not part of the interval
 | 1
 |====
 
+Properties of the type TM_Interval can be directly compared to other time-related properties and constants.
+
 
 [[tm_object]]
 ==== Complex Type TM_Object
 
 TM_Object, used in `Observation/phenomenonTime`, is either a time instant or a time interval.
 This is modelled as a time interval with a mandatory start and an optional end time.
-If the end time is not present, 
-The interval end is "open" meaning that the end-time is not part of the interval.
+If the end time is not present, the TM_Object is a time instant.
+If the end time is present, the TM_Object is a time interval with an "open" end, meaning that the end-time is not part of the interval.
 
 [#tm_object-attributes,reftext='{table-caption} {counter:table-num}']
 .Attributes of a TM_Object complex type

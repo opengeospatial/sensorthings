@@ -1,3 +1,4 @@
+[[abstract_api]]
 == Abstract OData API
 
 This section describes the abstract OData API.
