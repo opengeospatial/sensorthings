@@ -1,8 +1,9 @@
 == Scope
-[NOTE]
-====
-Insert Scope text here. Give the subject of the document and the aspects of that scope covered by the document.
-====
+
+The OGC SensorThings API Version 2 provides an open Standard-based and geospatial-enabled framework to interconnect the Internet of Things devices, data, and applications over the web.
+It defines a data model, an abstract REST API for interacting with the data model, and HTTP and MQTT protocol bindings for the REST API.
+The data model, and API can be extended, and additional protocol bindings can be added, by future extensions of the standard.
 
 === Security Considerations
 
+bla bla
