@@ -340,7 +340,7 @@ v2.0/Things?$select=distinct:properties/type
 
 The `$expand` system query option indicates the related entities to be represented inline.
 The value of the `$expand` query option SHALL be a comma separated list of navigation property names.
-Query options can be applied to the expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name.
+Query options can be applied to the expanded navigation property by appending a semicolon (`;`) separated list of query options, enclosed in parentheses, to the navigation property name.
 Allowed system query options are `$filter`, `$select`, `$orderby`, `$skip`, `$top`, `$count`, and `$expand`.
 
 The `$expand` option can be applied to any request that returns an Entity or an EntitySet.
@@ -668,36 +668,6 @@ In such cases, the `cast` function can be used.
 |`+concat(concat(unitOfMeasurement/symbol,', '), unitOfMeasurement/name) eq 'degree, Celsius'+`
 
 2+|**Date Functions**
-
-|`+int year+`
-|`+year(resultTime) eq 2015+`
-
-|`+int month+`
-|`+month(resultTime) eq 12+`
-
-|`+int day+`
-|`+day(resultTime) eq 8+`
-
-|`+int hour+`
-|`+hour(resultTime) eq 1+`
-
-|`+int minute+`
-|`+minute(resultTime) eq 0+`
-
-|`+int second+`
-|`+second(resultTime) eq 0+`
-
-|`+int fractionalseconds+`
-|`+second(resultTime) eq 0+`
-
-|`+int date+`
-|`+date(resultTime) ne date(validTime)+`
-
-|`+time+`
-|`+time(resultTime) le validTime+`
-
-|`+int totaloffsetminutes+`
-|`+totaloffsetminutes(resultTime) eq 60+`
 
 |`+now+`
 |`+resultTime ge now()+`
