@@ -88,11 +88,11 @@ On failure, the service does not create any of the entities.
 
 ==== Updating Entities
 
-Entities can be updated with a patch or replace request to an URI pattern that addresses a single entity (<<pattern_entity>> or <<pattern_entity_related>>).
-Services MUST support patch requests and MAY support replace requests.
+Entities can be updated with an update or replace request to an URI pattern that addresses a single entity (<<pattern_entity>> or <<pattern_entity_related>>).
+Services MUST support update requests and MAY support replace requests.
 
-A patch request must contain as content only those updatable attributes of the entity that are to be changed.
-Attributes that are not present in the patch request are not changed, though server-generated attributes may be updated by the server as a result of the change request.
+An update request must contain as content only those updatable attributes of the entity that are to be changed.
+Attributes that are not present in the update request are not changed, though server-generated attributes may be updated by the server as a result of the change request.
 
 A replace request must contain as content the complete entity to be replaced.
 Attributes that are not present in the replace request are removed from the entity.
@@ -100,7 +100,7 @@ Attributes that are not present in the replace request are removed from the enti
 For even finer grained update control, or updates that are safe from concurrent modification by other users, see <<json-patch>>.
 
 
-.Sending a patch request to `v2.0/Things(1)` with the given content will update the name of Thing 1,  and leave all other fields unchanged.
+.Sending an update request to `v2.0/Things(1)` with the given content will update the name of Thing 1,  and leave all other fields unchanged.
 [source,json]
 ----
 {
@@ -113,16 +113,16 @@ For even finer grained update control, or updates that are safe from concurrent 
 [[deep-update]]
 ==== Deep Update (optional)
 
-The content of a patch request may contain nested entites to be updated or created and entity references to be linked, that specify the full set of entities to be linked.
+The content of an update request may contain nested entites to be updated or created and entity references to be linked, that specify the full set of entities to be linked.
 
 On succes, the server makes all the changes. On failure, te server makes none of the changes.
 
-The server must ensure data integrity and return an error if the patch would break integrity.
-For example, a patch request that specifies fewer Datastreams on a Thing than the Thing currently has can not be valid, since a Datastream MUST have a Thing.
+The server must ensure data integrity and return an error if the update would break integrity.
+For example, an update request that specifies fewer Datastreams on a Thing than the Thing currently has can not be valid, since a Datastream MUST have a Thing.
 To remove a Datastream from a Thing, either the Datastream must be explicitly deleted, or linked to a different Thing.
 
 
-.Sending a patch request to `v2.0/Things(1)` with the given content will update the name of Thing 1, create a new Location, and set the Locations of the Thing to the newly created Location and existing Location 1, removing any old Location(s).
+.Sending an update request to `v2.0/Things(1)` with the given content will update the name of Thing 1, create a new Location, and set the Locations of the Thing to the newly created Location and existing Location 1, removing any old Location(s).
 [source,json]
 ----
 {
