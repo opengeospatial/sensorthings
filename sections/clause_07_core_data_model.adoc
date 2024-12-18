@@ -345,6 +345,8 @@ NOTE: When using a GeoJSON encoding for the location attribute, the value can ei
   "HistoricalLocations@navigationLink": "Locations(3)/HistoricalLocations"
 }
 ----
+
+
 .Example of a Location entity using JSON-FG.
 [source,json]
 ----
@@ -354,7 +356,7 @@ NOTE: When using a GeoJSON encoding for the location attribute, the value can ei
   "id": 4,
   "name": "Weather Station Alpha",
   "description": "Rooftop weather monitoring station",
-  "encodingType": "application/json+fg",
+  "encodingType": "application/vnd.ogc.fg+json",
   "location": {
     "type": "Feature",
     "place": {
@@ -375,6 +377,8 @@ NOTE: When using a GeoJSON encoding for the location attribute, the value can ei
   "HistoricalLocations@navigationLink": "Locations(4)/HistoricalLocations"
 }
 ----
+
+
 .Example of a Location entity using OGC GeoPose.
 [source,json]
 ----
