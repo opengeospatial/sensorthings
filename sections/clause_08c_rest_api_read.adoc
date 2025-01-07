@@ -255,7 +255,7 @@ When a Read request is made to a URI pattern that addresses a relation reference
 
 === Request Query Options
 
-Read requests can be modified using various query options.
+Read requests can be modified using various query options. Query options are added to the URL of the request, as specified in <<url-patterns>>.
 
 ==== Evaluation Order
 

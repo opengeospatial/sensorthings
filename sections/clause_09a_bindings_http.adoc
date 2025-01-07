@@ -30,12 +30,13 @@ The actions that can be executed on resources, as defined in the <<abstract_api>
 | POST
 |====
 
-EDITOR: 
-----
-HEAD / OPTIONS: point to W3 standards
+Content for Create, Update, Replace or Execute requests is passed in the body of the HTTP request.
 
-Create / Update / Replace / Execute: Content in body
-----
+HTTP HEAD and OPTIONS requests are treated as normal GET requests, but don't return data.
+If a GET request with the same URL and headers would return an error, the HEAD or OPTION requests also returns this error.
+
+EDITOR: point to W3 standards
+
 
 === Cross Origin Resource Sharing
 

@@ -638,6 +638,9 @@ The structure of the resultType MUST NOT be changed once a Datastream has Observ
 
 EDITOR: Update reference to new SWE-Common: 24-014
 
+EDITOR: Option: Use the @id of the ObservedProperty as definition in the SWE-Common struct?
+
+
 In most cases each Observation holds a single numeric result value, measured by a single Sensor.
 In this case the resultType is of the SWE-Common class `Quantity` (though a number could also be a `Count`) and thus must have the fields `type`, `definition`, `label`, and `uom`.
 
