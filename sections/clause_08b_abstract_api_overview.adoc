@@ -1,3 +1,4 @@
+[[url-patterns]]
 === URL Patterns
 
 URL Patterns in the SensorThings API consist of four parts: the Service Root, the API version number, the resource path and query options.
