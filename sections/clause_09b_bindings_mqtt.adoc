@@ -1,13 +1,103 @@
 == MQTT Interface Bindings
 
-The MQTT Bindings specify how to access the SensorThings API using the MQTT 5 protocol.
+The MQTT Bindings specify how to access the SensorThings API using the MQTT 5.0 protocol (<<MQTT50>>).
 
 === Request / Response
 
-intro text for the requirement class.
+MQTT 5.0 formalises a request-response pattern over the MQTT protocol that allows the use of the REST API over the MQTT protocol.
+See <<mqtt5-req-res>> for a basic overview of the request-response pattern in MQTT 5.0.
 
-Use the following table for Requirements Classes.
+[[mqtt5-req-res]]
+[plantuml, title='MQTT 5 request-response pattern', reftext='{figure-caption} {counter:figure-num}']
+....
+@startuml
+  skinparam responseMessageBelowArrow true
+  participant Client as client
+  participant "MQTT5 Broker" as broker
+  participant RequestHandler as rh
+
+  == Setup RequestHandler ==
+  rh -> broker: CONNECT
+  rh <-- broker: CONNACK
+
+  rh -> broker: SUBSCRIBE v2.0/requests
+  rh <-- broker: ok
+
+  == Setup Client ==
+
+  client -> broker: CONNECT\nrequestResponseInformation=true
+  client <-- broker: CONNACK\nri:responses/userXyz
+
+  client -> broker: SUBSCRIBE responses/userXyz
+  client <-- broker: ok
+
+  ...
+
+  == Request-Response ==
+  client -> broker: PUBLISH v2.0/request\ncorrelationData=123xyz\nresponseTopic=responses/userXyz
+  client <-- broker: ok
+
+  broker -> rh: PUBLISH v2.0/request\ncorrelationData=123xyz\nresponseTopic=responses/userXyz
+  broker <-- rh: ok
+
+  rh -> rh: handle request
+
+  rh -> broker: PUBLISH responses/userXyz\ncorrelationData=123xyz\nrequest response
+  rh <-- broker: ok
+
+  broker -> client: PUBLISH responses/userXyz\ncorrelationData=123xyz\nrequest response
+  broker <-- client: ok
+@enduml
+....
+
 
 === Publish / Subscribe
+
+MQTT subscriptions are allowed on EntitySets (<<pattern_entityset>>, <<pattern_entityset_related>>), individual entities (<<pattern_entity>>, <<pattern_entity_related>>), and individual entity properties (<<pattern_entity_property>>).
+
+To get all updates for an EntitySet or Entity, clients can subscribe to the topic that matches the plain URL pattern, without service root, and without a preceding slash (`/`).
+
+.Topic to use for receiving all updates for the Observations of a specific Datastream
+[source,text]
+----
+v2.0/Datastreams(4)/Observations
+----
+
+MQTT wildcards (`#` and `+`) are not allowed in subscriptions in the SensorThings topic tree.
+
+Like HTTP URLs, MQTT topic in the SensorThings API can be extended with query options.
+Query options are separated from the topic with a question mark character (`?`) and separated using an ampersant (`&`).
+
+
+==== $select
+
+The $select query option (<<select>>) can be added to topics to reduce the amount of data that is sent.
+
+.Topic to use for receiving all updates for the Observations of a specific Datastream, limited to only the phenomenonTime and result attributes
+[source,text]
+----
+v2.0/Datastreams(4)/Observations?$select=phenomenonTime,result
+----
+
+
+==== $expand (optional)
+
+The $expand query option (<<expand>>) can be added to topics to indicate that certain entities related to the created or updated entity should be sent.
+This can, for instance, be useful when dealing with moving sensors, to receive new Observations together with their ProximateFeatureOfInterest.
+
+.Topic to use for receiving all updates for the Observations of a specific Datastream
+[source,text]
+----
+v2.0/Datastreams(4)/Observations?$expand=ProximateFeatureOfInterest
+----
+
+
+==== $filter (optional)
+
+The $filter query option (<<filter>>) can be used to only receive notification of certain changes.
+
+
+
+EDITOR: Do we need subscriptions on relations? On raw properties?
 
 === Authentication & Authorization
