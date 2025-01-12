@@ -213,6 +213,7 @@ The above example addresses the same entity as `<Service Root>/v2.0/Observations
 EDITOR: to write. https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_KeyasSegmentConvention
 
 
+[[request_types]]
 === Request Types
 
 To the resources paths above the following request types can be sent:

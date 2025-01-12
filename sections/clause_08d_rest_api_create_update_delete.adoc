@@ -177,12 +177,12 @@ The paths in the json-patch request must not contain navigation properties.
 [[return-value]]
 ==== Return Value
 
-The returned value for a, entity modification request depends on the `prefer` option, with the possible values `return=minimal` (default) and `return=representation`.
+The returned value for a, entity modification request depends on the `prefer` header, with the possible values `return=minimal` (default) and `return=representation`.
 
-If the `prefer` option is not present, or does not contain a value for `return`, or has `return=minimal` then, for create requests, the entity-id (selfLink) of the created entity is returned as a header, and no content is returned.
+If the `prefer` header is not present, or does not contain a value for `return`, or has `return=minimal` then, for create requests, the entity-id (selfLink) of the created entity is returned as a header, and no content is returned.
 For update requests no content is returned.
 
-If the `prefer` option has `return=representation`, then the created resource is returned, optionally taking `$expand`, `$select` and `$format` query options into account.
+If the `prefer` header has `return=representation`, then the created resource is returned, optionally taking `$expand`, `$select` and `$format` query options into account.
 
 
 ==== Modifying Relations

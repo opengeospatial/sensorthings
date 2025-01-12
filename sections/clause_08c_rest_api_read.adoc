@@ -25,14 +25,14 @@ A read Requests to the Service Document URL pattern (<<pattern_service_metadata_
 
 A read Requests to the Service Document URL pattern (<<pattern_service_document>>) returns the service document.
 
-The Service document is a JSON object with a property named value and a property named serverSettings.
-The content of the property named value SHALL be a JSON Array containing one element for each entity set of the SensorThings Service.
-The content of the property named serverSettings SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
+The Service document is a JSON object with a property named `value` and a property named `serverSettings`.
+The content of the property named `value` SHALL be a JSON Array containing one element for each entity set of the SensorThings Service.
+The content of the property named `serverSettings` SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
 
-Each element of the value array SHALL be a JSON object with at least two name/value pairs, one with name name containing the name of the entity set (e.g., Things, Locations, Datastreams, Observations, ObservedProperties and Sensors) and one with name url containing the URL of the entity set, which may be an absolute or a relative URL.
+Each element of the `value` array SHALL be a JSON object with at least two name/value pairs, one with name `name` containing the name of the entity set (e.g., Things, Locations, etc.) and one with name `url` containing the URL of the entity set, which may be an absolute or a relative URL.
 (Adapted from OData 4.01-JSON-Format section 5)
 
-The serverSettings object SHALL contain the property conformance of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements.
+The serverSettings object SHALL contain the property `conformance` of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements.
 If a service implements all requirements from a requirements class, it only needs to list the requirements class id.
 
 Security extensions can modify the list of requirements to only show those requirements that the user is allowed to use.
@@ -669,7 +669,7 @@ In such cases, the `cast` function can be used.
 
 2+|**Date Functions**
 
-|`+now+`
+|`+now()+`
 |`+resultTime ge now()+`
 
 2+|**Math Functions**
