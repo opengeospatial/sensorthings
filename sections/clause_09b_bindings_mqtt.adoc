@@ -4,8 +4,10 @@ The MQTT Bindings specify how to access the SensorThings API using the MQTT 5.0 
 
 === Request / Response
 
-MQTT 5.0 formalises a request-response pattern over the MQTT protocol that allows the use of the REST API over the MQTT protocol.
+MQTT 5.0 formalises a request-response pattern over the MQTT protocol (<<MQTT50,section="4.10">>) that allows the use of the REST API over the MQTT protocol.
 See <<mqtt5-req-res>> for a basic overview of the request-response pattern in MQTT 5.0.
+
+MQTT 5.0 also defines User Properties (<<MQTT50,section="3.3.2.3.7">>) that can be used to pass application-defined key-value pairs with a published message.
 
 [[mqtt5-req-res]]
 [plantuml, title='MQTT 5 request-response pattern', reftext='{figure-caption} {counter:figure-num}']
@@ -26,7 +28,7 @@ See <<mqtt5-req-res>> for a basic overview of the request-response pattern in MQ
   == Setup Client ==
 
   client -> broker: CONNECT\nrequestResponseInformation=true
-  client <-- broker: CONNACK\nri:responses/userXyz
+  client <-- broker: CONNACK\nResponseInformation:responses/userXyz
 
   client -> broker: SUBSCRIBE responses/userXyz
   client <-- broker: ok
@@ -50,6 +52,113 @@ See <<mqtt5-req-res>> for a basic overview of the request-response pattern in MQ
 @enduml
 ....
 
+Using the basic request-response pattern, and the User Properties of MQTT 5.0, the abstract API defined in <<abstract_api>> can be implemented over the MQTT protocol.
+
+- Requests are sent to the topic `v2.0/$request`.
+- The URL, including query parameters, for the request is passed in the User Property named `url` (case-insensitive). The URL does not need to be URL-Encoded.
+- The request type (<<request_types>>) is passed in the User Property named `type`.
+- Headers (such as `content-type` and `location`) are passes as User Properties.
+- Content is sent as the payload of the message.
+- The request must contain a response topic that follows the `Response Information` passed by the broker.
+- all URLs pointing to the API start with the version of the API and contain no scheme, host or port.
+
+To minimise the size of the returned payload, the json format is used with `metadata=none` (<<format_json>>).
+
+EDITOR: Check if there really is no need to URL-Encode the url.
+
+.Message requesting the service document
+[source,text]
+----
+Topic: v2.0/$request
+ResponseTopic: responses/userxyz
+User Properties:
+  url: v2.0
+  type: read
+  accept: */*
+Payload: <empty>
+----
+
+.Response message to the previous read request
+[source,text]
+----
+topic: responses/userxyz
+User Properties:
+  content-type: application/json;charset=UTF-8
+Payload: <the service document>
+----
+
+
+.Message requesting the first thing, ordered by id
+[source,text]
+----
+Topic: v2.0/$request
+ResponseTopic: responses/userxyz
+User Properties:
+  url: v2.0/Things?$top=1&$orderby=id
+  type: read
+  accept: */*
+Payload: <empty>
+----
+
+.Response message to the previous read request
+[source,text]
+----
+topic: responses/userxyz
+User Properties:
+  content-type: application/json;charset=UTF-8
+Payload:
+{
+  "value": [
+    {
+      "id": 1,
+      "name": "Oven",
+      "description": "This thing is an oven.",
+      "properties": {
+        "owner": "Ulrike Schmidt",
+        "color": "Black"
+      }
+    }
+  ],
+  "@nextLink": "v2.0/Things?$top=1&$skip=1&$orderby=id"
+}
+----
+
+
+
+.Message creating a new thing
+[source,text]
+----
+Topic: v2.0/$request
+ResponseTopic: responses/userxyz
+User Properties:
+  url: v2.0/Things
+  type: create
+  content-type: application/json
+  accept: */*
+Payload:
+{
+  "id": 1,
+  "name": "Oven",
+  "description": "This thing is an oven.",
+  "properties": {
+    "owner": "Ulrike Schmidt",
+    "color": "Black"
+  }
+}
+----
+
+.Response message to the previous create request
+[source,text]
+----
+topic: responses/userxyz
+User Properties:
+  content-type: application/json;charset=UTF-8
+  location: v2.0/Things(1)
+Payload: <empty>
+----
+
+
+
 
 === Publish / Subscribe
 
@@ -63,10 +172,13 @@ To get all updates for an EntitySet or Entity, clients can subscribe to the topi
 v2.0/Datastreams(4)/Observations
 ----
 
+
+
 MQTT wildcards (`#` and `+`) are not allowed in subscriptions in the SensorThings topic tree.
 
 Like HTTP URLs, MQTT topic in the SensorThings API can be extended with query options.
 Query options are separated from the topic with a question mark character (`?`) and separated using an ampersant (`&`).
+Query options are listed below.
 
 
 ==== $select
