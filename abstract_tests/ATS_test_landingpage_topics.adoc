@@ -1,0 +1,70 @@
+[[ats_sta_websub_landingpage_topics]]
+[abstract_test]
+====
+[%metadata]
+label:: /conf/discovery/api-sta-websub-landing-page
+subject:: /req/req-class/landing-page-topics
+test-purpose:: Validate that the denied root topics are advertised on the Landing Page.
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Construct a URL to the Landing Page.
+--
+
+[.component,class=step]
+--
+Issue a HTTP GET request on that URL.
+--
+
+[.component,class=step]
+--
+Validate the contents of the returned document to include the implemented Conformance Class(es):
+
+`http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery`
+--
+
+[.component,class=step]
+--
+Validate the contents of the returned document to include the JSON object `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` including the key `topics_denied`. 
+--
+
+[.component,class=step]
+--
+Validate that the value of the key `topics_denied` is a JSON array that is either empty ("[]") or contains a list of denied root topics.
+--
+
+NOTE: A root topic starts with `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-entity-updates[14.2.2]
+=====
+====
+
+==== Example Landing Page snippet advertising no denied root topics
+
+```JSON
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+        },
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+            "topics_denied": []
+        }
+    }
+}
+```
+
+==== Example Landing Page snippet advertising `v1.1/Observations` as a denied root topic
+
+```JSON
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+        },
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+            "topics_denied": ["v1.1/Observations"]
+        }
+    }
+}
+```

@@ -1,0 +1,46 @@
+[[ats_sta_websub_landing_page_discovery]]
+[abstract_test]
+====
+[%metadata]
+label:: /conf/discovery/api-sta-websub-landing-page-discovery
+subject:: /req/req-class/landing-page
+test-purpose:: Validate that the implemented STA-WebSub Conformance Class `Discovery` is listed on the Landing Page.
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Construct a URL to the Landing Page.
+--
+
+[.component,class=step]
+--
+Issue a HTTP GET request on that URL.
+--
+
+[.component,class=step]
+--
+Validate the contents of the returned document to include the implemented Conformance Class(es):
+
+`http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery`
+--
+=====
+====
+
+==== Example
+
+```JSON
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+        },
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+            "topics_denied": [],
+            "odata_denied": [],
+            "policy_href": "http://localhost/myDiscoveryPolicy"
+        }
+    }
+}
+```
+

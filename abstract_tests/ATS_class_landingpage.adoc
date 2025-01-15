@@ -1,0 +1,24 @@
+[[ats_landingpage]]
+[conformance_class_landingpage]
+====
+[%metadata]
+label:: http://www.opengis.net/spec/sta-websub/1.0/conf/landingpage
+subject:: Requirements Class "LandingPage"
+classification:: Target Type: Web API
+====
+
+==== Tests for Conformance Advertisement
+
+include::./ATS_test_landingpage_discovery.adoc[]
+
+==== Tests for Topic Blacklisting
+
+include::./ATS_test_landingpage_topics.adoc[]
+
+==== Tests for ODATA Command Blacklisting
+
+include::./ATS_test_landingpage_odata.adoc[]
+
+==== Tests for Discovery Policy
+
+include::./ATS_test_landingpage_policy.adoc[]

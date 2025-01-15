@@ -1,3 +1,9 @@
 == Media Types for any data encoding(s)
 
-A section describing the MIME-types to be used is mandatory for any standard involving data encodings. If no suitable MIME type exists in http://www.iana.org/assignments/media-types/index.html then this section may be used to define a new MIME type for registration with IANA.
+This OGC Standard uses Link Header as defined in <<RFC5988>> and <<WebSub>>.
+
+In particular, the following HTTP Link headers are used:
+
+* `rel="hub"` as defined in https://www.w3.org/TR/websub/#x4-discovery
+* `rel="self"` as defined in https://www.w3.org/TR/websub/#x4-discovery
+* `rel="help"` as defined in https://www.iana.org/assignments/link-relations/link-relations.xhtml

@@ -8,7 +8,7 @@
 :external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
 :docnumber: 24-032
 :received-date: 2024-07-03
-:issued-date: 2024-12-11
+:issued-date: 2025-01-15
 :published-date: 2029-12-31
 :fullname: Andreas Matheus
 :fullname_2: 
@@ -22,7 +22,7 @@
 :pdf-uri: ./document.pdf
 :xml-uri: ./document.xml
 :doc-uri: ./document.doc
-:edition: 0.2
+:edition: 0.4
 
 :identifier: http://www.opengis.net/spec/sensorthings-websub/1.0
 
@@ -52,7 +52,7 @@ add or remove annexes after "A" as necessary
 ////
 include::sections/annex-a.adoc[]
 
-include::sections/annex-n.adoc[]
+include::sections/annex-b.adoc[]
 
 ////
 Revision History should be the last annex before the Bibliography

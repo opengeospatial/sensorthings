@@ -1,38 +1,207 @@
-== Clause containing normative material
+== STA-WebSub Requirements (normative)
+The normative section of this OGC Standard is only concerned with the discovery aspect as the standardization target is the SensorThings API implementation. Appendix B provides guidance for implementing a STA-WebSub Hub.
 
-Paragraph
+A STA-WebSub implementation requires that the SensorThings API HTTP interface supports the discovery protocol; the hub supports the transformation of topic URLs into MQTT topics, use MQTT for subscription and notifications, and accepts the subscription with api-key; the subscriber supports the use of api-key and the evaluation of the `Link rel="help"`.
 
-=== Requirement Class A or Requirement A Example
+The STA-WebSub extension defines the following requirements classes: 
 
-Paragraph – intro text for the requirement class.
+* Discovery Conformance Class (mandatory)
+* LandingPage Conformance Class (mandatory)
 
-Use the following table for Requirements Classes.
+=== Discovery Requirements Class (mandatory)
+The `Discovery` requirements class (mandatory) is implemented at the SensorThings API service - HTTP interface and supports the W3C WebSub discovery protocol. 
 
-include::../requirements/requirements_class.adoc[]
+An implementation MUST support discovery via HTTP GET **and** HEAD methods.
 
-==== Requirement 1
+An implementation MUST return the `<Link/>; rel="hub"` HTTP header to indicate support for WebSub.
 
-Paragraph - intro text for the requirement.
+An implementation MUST return the `<Link/>; rel="self"` HTTP header to indicate the ability for subscription.
 
-Use the following table for Requirements, number sequentially.
+An implementation MUST omit the `<Link/>; rel="self"` HTTP header and instead return the `<Link/>; rel="help"` header to indicate the cause why the request URL is not suitable for subscription.
 
-include::../requirements/requirement001.adoc[]
+[NOTE]
+====
+An implementation may use policies that regulate for which MQTT topics a hub may subscribe for. The implementation may therefore return the `<Link/>; rel="self"` as HTTP response headers for a HTTP GET or HEAD request if the associated MQTT topic is accepted as MQTT subscription. In the case where the discovery policy denies a subscription, the `<Link/>; rel="self"` HTTP header will be missing in the response. Instead, the `<Link/>; rel="help"` HTTP header is returned to inform the user or calling implementation why the subscription is not possible.
+====
 
-Dictionary tables for requirements can be added as necessary. Modify the following example as needed.
+An implementation MUST limit the discovery such that the associated MQTT topic is compliant to OGC SensorThings API v1.1 requirement regarding updates via MQTT [section 14.2 - https://docs.ogc.org/is/18-088/18-088.html#req-receive-updates-via-mqtt-receive-updates] with the following extensions:
 
-[width="90%",options="header"]
-|===
-|Names |Definition |Data types and values |Multiplicity and use
-|name 1 |definition of name 1 |float |One or more (mandatory)
-|name 2 |definition of name 2 |character string type, not empty |Zero or one (optional)
-|name 3 |definition of name 3 |GML:: Point PropertyType |One (mandatory)
-|===
+* `SERVICE_VERSION/RESOURCE_PATH/COLLECTION_NAME` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-subscribe-entity-set[14.2.1] can be extended with a `?` followed by any valid combination of ODATA commands - e.g. `v1.1/Datastreams(1)/Observations?$filter=result gt 30`
+* `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-entity-updates[14.2.2] can be extended with a `?` followed by any valid combination of ODATA commands - e.g. `v1.1/Observations?$select=result`
+* `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY/PROPERTY_NAME` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-subscribe-entity-property[14.2.3]
 
 
-==== Requirement 2
+The following sequence diagram illustrates the discovery for the URL `http://localhost/sta/v1.1/Observations`
 
-Paragraph - intro text for the requirement.
+[[WebSubDiscovery1]] 
+.Discovery with URL for supported subscription
+[plantuml]
+....
+@startuml
 
-Use the following table for Requirements, number sequentially.
+participant Subscriber
+participant "STA Service - HTTP interface\n(Publisher)"
 
-include::../requirements/requirement002.adoc[]
+Subscriber -> "STA Service - HTTP interface\n(Publisher)": http://localhost/sta/v1.1/Things
+
+alt HTTP GET
+
+    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: JSON Response\nLink: <http://localhost/sta/v1.1/Things/>; rel="self"\nLink: <http://hub//>; rel="hub" 
+
+else HTTP HEAD
+
+    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: Link: <http://localhost/sta/v1.1/Things/>; rel="self"\nLink: <http://hub//>; rel="hub" 
+
+end
+
+@enduml
+....
+
+For this URL, the implementation returns the `<Link/>; rel="self"` header.
+
+The following sequence diagram illustrates the discovery for a URL that is not supported for subscription: `http://localhost/sta/v1.1/Observations`
+
+NOTE: it is assumed that the topic `v1.1/Observation` is disallowed for subscription.
+
+[[WebSubDiscovery2]] 
+.Discovery with URL not supported for subscription due to root topic restriction
+[plantuml]
+....
+@startuml
+
+participant Subscriber
+participant "STA Service - HTTP interface\n(Publisher)"
+
+Subscriber -> "STA Service - HTTP interface\n(Publisher)": http://localhost/sta/v1.1/Observations
+
+alt HTTP GET
+
+    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: JSON Response\nLink: <http://URL for the help page/>; rel="help"\nLink: <http://hub//>; rel="hub" 
+
+else HTTP HEAD
+
+    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: JSON Response\nLink: <http://URL for the help page/>; rel="help"\nLink: <http://hub//>; rel="hub"  
+
+end
+
+@enduml
+....
+
+For this URL, the implementation does not return the `<Link/>; rel="self"` but the  `<Link/>; rel="help"` header.
+
+[[WebSubDiscovery3]] 
+.Discovery with URL not supported for subscription due to ODATA restriction
+[plantuml]
+....
+@startuml
+
+participant Subscriber
+participant "STA Service - HTTP interface\n(Publisher)"
+
+Subscriber -> "STA Service - HTTP interface\n(Publisher)": http://localhost/sta/v1.1/Datastream(4711)/Observations?\n$expand=FeatureOfInterest
+
+alt HTTP GET
+
+    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: JSON Response\nLink: <http://URL for the help page/>; rel="help"\nLink: <http://hub//>; rel="hub" 
+
+else HTTP HEAD
+
+    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: JSON Response\nLink: <http://URL for the help page/>; rel="help"\nLink: <http://hub//>; rel="hub"  
+
+end
+
+@enduml
+....
+
+
+=== LandingPage Requirements Class (mandatory)
+An implementation MUST list the conformance class `Discovery` on the landing page.
+
+For example, the following snippet indicates support for STA-WebSub:
+
+```JSON
+"conformance": {
+    ...
+    "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery",
+    ...
+}
+```
+
+An implementation may deny discovery (and thereby later subscription) for certain root entities (i.e. v1.1/Observation) or certain ODATA commands like `$expand` or `$filter`. An implementation MUST advertise on the SensorThings API service Landing Page
+
+* the blacklisting of root entities for which a discovery is denied
+* the blacklisting of ODATA commands for which a discovery is denied
+* the description for the discovery decision making
+
+==== Blacklisting root topics
+A STA root topic starts with `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-entity-updates[14.2.2]. An implementation MUST advertise the existence of denied root topics by adding the following key to the Landing Page: `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` that includes the key `topics_denied`. This key MUST contain a JSON array for all denied root topics. 
+
+The following snippet illustrates the construct:
+
+```JSON
+"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+    "topics_denied": <JSON Array of denied root topics>
+}
+````
+
+In case no root topics are denied, the implementation MUST declare that with an empty JSON array.
+
+For example, the following Landing Page snippet indicates **no** deny for root topics:
+
+```JSON
+"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+    "topics_denied": []
+}
+```
+
+For example, the following Landing Page snippet indicates deny for the root topics `v1.1/Observations` and `v1.1/Datastream('very chatty')/Observations`:
+
+```JSON
+"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+    "topics_denied": ["v1.1/Observations", "v1.1/Datastream('very chatty')/Observations"]
+}
+```
+
+==== Blacklisting ODATA Commands
+A STA URL may contain a query part (parameters after the `?`) using ODATA commands. An implementation may deny discovery (and thereby later subscription) for certain ODATA commands like `$expand` or `$filter`. 
+
+An implementation MUST advertise the existence of denied ODATA commands by adding the following key to the Landing Page: `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` that includes the key `odata_denied`. This key MUST contain a JSON array for all denied ODATA commands. 
+
+```JSON
+"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+    "odata_denied": <JSON Array of denied ODATA commands>
+}
+````
+
+In case no ODATA commands are denied, the implementation MUST declare that with an empty JSON array.
+
+For example, the following Landing Page snippet indicates **no** deny for ODATA commands:
+
+```JSON
+"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+    "odata_denied": []
+}
+```
+
+For example, the following Landing Page snippet indicates deny for `$expand`, `$skip`, `$top` and `$filter`:
+
+```JSON
+"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+    "odata_denied": ["$expand", "$skip", "$top", "$filter"]
+}
+```
+
+=== Discovery Policy
+Expressing more complex limitations for the discovery beyond root entities or disallowed ODATA commands, an implementation MUST advertise a link to a 'policy' page that explains the discovery decision making. 
+
+An implementation MUST advertise the description by adding the following key to the Landing Page: `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` that includes the key `policy_href`. This key MUST contain a URL to a web page that describes the discovery decision making (what are the conditions for not returning the Link header `rel="self"`).
+
+NOTE: The URL to the policy document may also be used with the Link header `rel="help"` perhaps with section anchors ('#') for pointing to a particular explanation.
+
+For example, the following Landing Page snippet links to http://localhost/myDiscoveryPolicy
+
+```JSON
+"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+    "policy_href": "http://localhost/myDiscoveryPolicy"
+}
+```

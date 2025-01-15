@@ -1,4 +1,2 @@
 == Scope
-The W3C WebSub Recommendation does not specify the protocol between a Hub and a Publisher (here the SensorThings API service) - see §6 for details.
-
-This Standard defines how to adopt the W3C WebSub Recommendation with an OGC SensorThings API service. In particular this Standard defines the protocol between a Hub and the MQTT broker that is part of the SensorThings API service.
+This OGC Standard defines how to implement an asynchronous API extension to the OGC SensorThings API service by adopting the W3C WebSub Recommendation.

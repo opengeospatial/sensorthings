@@ -1,0 +1,76 @@
+[appendix,obligation="informative"]
+== Hub Implementation Guidance
+This appendix provides guidance how to implement a STA-WebSub Hub (implementation) for a SensorThings API service.
+
+=== Callback Authentication
+A Hub implementation MUST accept the `hub.api_key` or `hub.x_api_key` with a subscription request. If both parameters (the `hub.api_key` **and** the `hub.x_api_key`) are used, the implementation MUST deny the subscription and return a HTTP response status code 400.
+
+* If the subscription request includes the `hub.api_key` parameter, the hub MUST add the HTTP header `Api-Key` to the request send to the subscriber's callback
+* If the subscription request includes the `hub.x_api_key` parameter, the hub MUST add the HTTP header `X-Api-Key` to the request send to the subscriber's callback
+
+The `hub.api_key` or `hub.x_api_key` parameter SHOULD only be specified with static callback URLs. The parameter MUST be less than 200 bytes in length.
+
+=== Subscription
+The STA-WebSub Hub, associated to a SensorThings API service, supports the W3C subscribe / unsubscribe protocol and transforms a subscription topic URL (`hub.topic`) into a MQTT topic. A compliant implementation must know how to transform the absolute HTTP(S) URL into the corresponding MQTT topic for the associated SensorThings API service. 
+
+The Hub uses the MQTT protocol to subscribe and unsubscribe with the MQTT broker of the associated SensorThings API service.
+
+An implementation of the STA-WebSub Hub MUST transform the HTTP (discovery) URL into a MQTT topic by removing the SensorThings API `baseUrl`. For example, a deployment with the `baseUrl=http://localhost:8080/mysta`, the discovery URL `http://localhost:8080/mysta/v1.1/Observations` results in the MQTT topic `v1.1/Observations`.
+
+[[WebSubSubscription]] 
+.Subscription Handling in the STA-WebSub Hub
+[plantuml]
+....
+@startuml
+
+participant Subscriber
+participant "STA Service - HTTP interface\n(Publisher)"
+
+Subscriber -> Hub: HTTP POST\nhub.mode=subscribe\nhub.callback=http://mywebhook\nhub.topic=http://localhost/sta/v1.1/Observations?\n$select=result
+Hub -> Subscriber: HTTP 202 - Accepted
+
+Hub -> "SensorThings API service": HTTP HEAD\nhttp://localhost/sta/v1.1/Observations?\n$select=result
+"SensorThings API service" -> Hub: Link: <http://localhost/sta/v1.1/Observations?\n$select=result/>; rel="self"\nLink: <http://hub//>; rel="hub"
+
+opt Link 'self' is present
+Hub -> "SensorThings API service": MQTT subscribe\ntopic=v1.1/Observations?$select=result
+Hub -> Hub : Store topic - callback
+end
+
+@enduml
+....
+
+As defined in the W3C WebSub, a subscriber sends a subscription request to the Hub using the URL from the `<Link/> rel="hub"`. The subscription topic (`hub.topic`) is identical to the URL returned with the `<Link/> rel="self"`. 
+
+Upon receiving the subscription request, the Hub should validate the intend of the subscriber as defined in the W3C WebSub. For a STA-WebSub Hub it is recommended to also check the subscription validity with the publisher using the discovery protocol. Upon success (the `Link rel="self"` is included in the discovery response), the Hub subscribes to the SensorThings API service via MQTT after transforming the topic URL into a MQTT topic.
+
+It is recommended to use the HTTP HEAD method for the discovery requests to avoid un-necessary data transfer.
+
+For a new and renewing subscription (the hub receives a subscribe request for an existing subscription), the implementation MUST set/update the api-key and use the  value for further content distribution to the subscriber. 
+
+=== Notification
+The STA-WebSub Hub must support receiving MQTT notifications from the MQTT broker associated with the SensorThings API service. An implementation MUST listen to notifications from the MQTT broker of the SensorThings API service. Once a notification is received, the implementation MUST distribute the notification content to all subscribers using HTTP(S) as defined by the W3C WebSub Recommendation.
+
+[[WebSubNotification]] 
+.MQTT notification delivery by the STA-WebSub Hub
+[plantuml]
+....
+@startuml
+
+participant Subscriber
+participant Hub
+participant "STA Service - MQTT interface"
+
+"STA Service - MQTT interface" -> Hub: notification\nMQTT topic\nJSON encoded content
+
+loop for each subscriber
+    Hub -> Subscriber : HTTP POST content
+end
+
+@enduml
+....
+
+If the subscription was made with the `hub.api_key` or `hub.x_api_key`, the implementation MUST add the `Api-Key` or `X-Api-Key` to the HTTP request send to the subscriber's callback. 
+
+Likewise, the implementation MUST add the `X-Hub-Signature` header if the subscription was made with the `hub.secret` parameter.
+

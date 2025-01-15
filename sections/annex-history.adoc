@@ -4,5 +4,8 @@
 [width="90%",options="header"]
 |===
 |Date |Release |Editor | Primary clauses modified |Description
-|2016-04-28 |0.1 |G. Editor |all |initial version
+|2024-10-08 |0.1 |Andreas Matheus |all |initial version
+|2024-12-11 |0.2 |Andreas Matheus |all |improvements based on implementations
+|2024-12-19 |0.3 |Andreas Matheus |all |restructuring to meet OGC standards structure
+|2025-01-14 |0.4 |Andreas Matheus |all |structure improvement; Appendix A first draft
 |===
