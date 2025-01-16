@@ -4,6 +4,10 @@
 *OGC Declaration*
 ////
 
+Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
+
+Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
+
 [abstract]
 == Abstract
 
@@ -12,15 +16,6 @@ STA-WebSub - SensorThings API extension WebSub - defines an additional SensorThi
  A subscriber can fetch base data from a SensorThings API service and then use the same identical URL to subscribe for updates. This allows any subscriber to prevent polling a SensorThings API service, as any updates - according to the URL used - get submitted to the subscriber's Webhook when the update event is triggered. The use of this WebSub extension is also easy to integrate into existing systems, as producers only need to setup a W3C WebSub compliant Hub that listens to subscription updates via MQTT. Consumers only need to setup a WebSub Subscriber to receive updates via WebHook. The SensorThings API MQTT protocol does not need to be exposed to the subscriber; it can remain internal between the SensorThings API service and the associated STA-WebSub Hub(s). Any SensorThings API service that extends the MQTT topic pattern to include filter and expand capabilities via ODATA query parameters, allows to subscribe for updates by defining actual triggering conditions using `$filter`. Using the ODATA query parameter `$select` and `$expand` also supports the subscriber to get exactly the data and structure as it is fit for purpose. 
 
 The use of STA-WebSub improves the flexible use a SensorThings API service for building asynchronous workflows. The ability to define trigger conditions and to specify the event data structure that is pushed over HTTP(S) POST enables a fit-for-purpose processing of events using workflows. From a subscriber's point of view, only HTTP requests have to be implemented (HTTP GET for subscription and HTTP POST for receiving event data); the use of the MQTT protocol is used between the SensorThings Service and the Hub only. This takes the load off the MQTT broker as only the associated Hub may subscribe to topics. Access control can be implemented in the discovery functionality which controls the subscription based on business or access control policies.
-
-== Preface
-
-[NOTE]
-====
-Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
-
-Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
-====
 
 == Security considerations
 Any MQTT based event system is susceptible to denial of service attacks when too many clients subscribe to topics with high frequency update (`chatty topics`) or too many updates are received. For example, subscription to the topic `v1.1/Observations` brings the danger that the SensorThings API service cannot deliver all events to all subscribed clients when the update frequency gets too high. Or, the subscriber may get flooded with event data sent by the hub. 
