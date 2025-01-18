@@ -76,6 +76,7 @@ See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-
 
 |@id
 |The annotation `@id` is the `entity-id`, an absolute or relative URL of an entity that uniquely resolves to this entity.
+This is was known as the `@selfLink` in SensorThings version 1.
 |URL
 
 |linkName@navigationLink

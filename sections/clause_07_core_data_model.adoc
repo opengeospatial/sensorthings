@@ -556,7 +556,7 @@ Examples of Datastreams could be:
 
 | `resultType`
 | The formal description of the `result` field of the Observations in this Datastream.
-Contains the unit of measurement and the `definition` of the ObservedProperty.
+Contains the unit of measurement and the `@id` of the ObservedProperty.
 | JSON_Object (SWE-Common AbstractDataComponent)
 | 1
 
@@ -609,7 +609,7 @@ TM_Period is by default encoded as a complex type with a start (mandatory) and e
 | `ObservedProperty`
 | The ObservedProperty of the Observations in this Datastream.
 The Observations in a Datastream may hold values for multiple ObservedProperties, but the ObservedProperties are the same for all Observations in the same Datastream.
-The service must ensure the definitions of the linked ObservedProperties match the definitions used in the `resultType`.
+The service must ensure the linked ObservedProperties match the definitions used in the `resultType`.
 | `ObservedProperty`
 | 1..*
 
@@ -625,21 +625,17 @@ The service must ensure the definitions of the linked ObservedProperties match t
 |====
 
 
-The resultType defines the result types for specialized single and multi observations based on the JSON encoding of the SWE Common Data Model (<<ogc08-094>> and <<ogc17-011>>, once released: <<SweCommon>>).
+The resultType defines the result types for specialized single and multi observations based on the JSON encoding of the SWE Common Data Model (<<ogc08-094>> and <<ogc17-011>>, or, once released: <<SweCommon>>).
 The result of an Observation may be a single simple number or String, or it may contain a complex JSON structure holding multiple values for multiple ObservedProperties.
 The exact definition for this result structure, and which unit of measurement and which ObservedProperty pertains to each value in the result structure is exactly described by this resultType Object.
 
 The resultType contains references to the ObservedProperty or ObservedProperties of the Observations in the Datastream.
-When a change is made to the resultType, the server MUST ensure the ObservedProperties linked to the Datastream match the references used in the resultType, based on the `definition` attribute, and create or remove relations as needed.
-If multiple ObservedProperties exist with the same value for the `definition` attribute, then the `label` attribute of the DataComponent is matched against the `name` attribute of the ObservedProperty.
-If the server can not match all definitions, either because of missing ObservedProperties, or ambigious definitions, it must return an error and reject the change.
-The structure of the resultType MUST NOT be changed once a Datastream has Observations, since the existing Observations would not fit the new structure.
+When a change is made to the resultType, the server MUST ensure the ObservedProperties linked to the Datastream match the references used in the the `definition` attribute(s) of the resultType, and create or remove relations as needed.
+The values of the definition fields in the resultType must be valid entity-ids (`@id`) of ObservedProperties.
+The structure of the resultType must not be changed once a Datastream has Observations, since the existing Observations would not fit the new structure.
 
 
 EDITOR: Update reference to new SWE-Common: 24-014
-
-EDITOR: Option: Use the @id of the ObservedProperty as definition in the SWE-Common struct?
-
 
 In most cases each Observation holds a single numeric result value, measured by a single Sensor.
 In this case the resultType is of the SWE-Common class `Quantity` (though a number could also be a `Count`) and thus must have the fields `type`, `definition`, `label`, and `uom`.
