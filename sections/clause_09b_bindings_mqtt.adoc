@@ -60,9 +60,10 @@ Using the basic request-response pattern, and the User Properties of MQTT 5.0, t
 - Headers (such as `content-type` and `location`) are passes as User Properties.
 - Content is sent as the payload of the message.
 - The request must contain a response topic that follows the `Response Information` passed by the broker.
+- The request may contain correlation data to help the client associate the response to the request.
 - all URLs pointing to the API start with the version of the API and contain no scheme, host or port.
 
-To minimise the size of the returned payload, the json format is used with `metadata=none` (<<format_json>>).
+To minimise the size of the returned payload, by default the json format is used with `metadata=none` (<<format_json>>).
 
 EDITOR: Check if there really is no need to URL-Encode the url.
 
@@ -71,6 +72,7 @@ EDITOR: Check if there really is no need to URL-Encode the url.
 ----
 Topic: v2.0/$request
 ResponseTopic: responses/userxyz
+CorrelationData: 42
 User Properties:
   url: v2.0
   type: read
@@ -82,6 +84,7 @@ Payload: <empty>
 [source,text]
 ----
 topic: responses/userxyz
+CorrelationData: 42
 User Properties:
   content-type: application/json;charset=UTF-8
 Payload: <the service document>
@@ -93,6 +96,7 @@ Payload: <the service document>
 ----
 Topic: v2.0/$request
 ResponseTopic: responses/userxyz
+CorrelationData: 43
 User Properties:
   url: v2.0/Things?$top=1&$orderby=id
   type: read
@@ -104,6 +108,7 @@ Payload: <empty>
 [source,text]
 ----
 topic: responses/userxyz
+CorrelationData: 43
 User Properties:
   content-type: application/json;charset=UTF-8
 Payload:
@@ -162,19 +167,44 @@ Payload: <empty>
 
 === Publish / Subscribe
 
-MQTT subscriptions are allowed on EntitySets (<<pattern_entityset>>, <<pattern_entityset_related>>), individual entities (<<pattern_entity>>, <<pattern_entity_related>>), and individual entity properties (<<pattern_entity_property>>).
+MQTT subscriptions are allowed on EntitySets (<<pattern_entityset>>, <<pattern_entityset_related>>), individual entities (<<pattern_entity>>, <<pattern_entity_related>>), and individual entity attributes (<<pattern_entity_property>>).
 
 To get all updates for an EntitySet or Entity, clients can subscribe to the topic that matches the plain URL pattern, without service root, and without a preceding slash (`/`).
 
-.Topic to use for receiving all updates for the Observations of a specific Datastream
+When an entity or attribute is created, updated/replaced or deleted, that is relevant for the subscription, the service returns a complete JSON representation of the affected entity in the payload of the message.
+
+The action that caused the notification is specified in the user property named `type`, with a value of `create`, `update` or `delete`.
+Replace actions are published with the type `update`.
+
+
+.Topic to use for receiving all updates for the Observations of a specific Datastream, and a typical message notifying about the creation of a new Observation
 [source,text]
 ----
 v2.0/Datastreams(4)/Observations
+
+User Properties:
+  type: create
+payload:
+{
+  "id": 123,
+  "result": 45,
+  "phenonmenonTime": "2015-02-05T17:00:00Z"
+}
+----
+
+
+To only get updates for certain actions on an EntitySet or Entity, clients can subscribe to the topic that matches the plain URL pattern, without service root, and without a preceding slash (`/`), followed by a slash (`/`) and one of the actions `create`, `update`, `delete`.
+
+.Topic to use for receiving notifications for the creation of new Observations in a specific Datastream
+[source,text]
+----
+v2.0/Datastreams(4)/Observations/create
 ----
 
 
 
-MQTT wildcards (`#` and `+`) are not allowed in subscriptions in the SensorThings topic tree.
+
+Since OData URLs are recursive, MQTT wildcards (`#` and `+`) are not allowed in subscriptions in the SensorThings topic tree.
 
 Like HTTP URLs, MQTT topic in the SensorThings API can be extended with query options.
 Query options are separated from the topic with a question mark character (`?`) and separated using an ampersant (`&`).
