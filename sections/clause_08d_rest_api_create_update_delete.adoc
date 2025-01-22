@@ -1,7 +1,7 @@
 === Modifying Data
 
 This section describes how to create, update and delete Entities.
-Deltails on how to send create, update and delete requests and how responses are received are described in the protocol bindings sections.
+Details on how to send create, update and delete requests and how responses are received are described in the protocol bindings sections.
 
 The content type of data sent to a service must be `application/json`, unless otherwise specified.
 
@@ -115,7 +115,7 @@ For even finer grained update control, or updates that are safe from concurrent 
 
 The content of an update request may contain nested entites to be updated or created and entity references to be linked, that specify the full set of entities to be linked.
 
-On succes, the server makes all the changes. On failure, te server makes none of the changes.
+On succes, the server makes all the changes. On failure, the server makes none of the changes.
 
 The server must ensure data integrity and return an error if the update would break integrity.
 For example, an update request that specifies fewer Datastreams on a Thing than the Thing currently has can not be valid, since a Datastream MUST have a Thing.
@@ -272,7 +272,7 @@ Sending individual delete requests for each entity to be deleted is very ineffic
 For example for maintenance, when all Observations older than a certain date need to be deleted, a client would first have to sent a read request to find all entities older than the threshold data, and then sent a delete request for each of the returned entities.
 To make deleting a large number of entities more efficient, a server may implement filtered-delete capability.
 
-When filtered-delete is supported, a client can sent a delete request to an URI pattern that addresses an entity set (<<pattern_entityset>> or <<pattern_entityset_related>>) with the $filter option (<<filter>>).
+When filtered-delete is supported, a client can send a delete request to an URI pattern that addresses an entity set (<<pattern_entityset>> or <<pattern_entityset_related>>) with the $filter option (<<filter>>).
 The server will delete all entities from the set that match the filter.
 
 

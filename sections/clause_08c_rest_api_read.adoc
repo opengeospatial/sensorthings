@@ -349,7 +349,6 @@ v2.0/Things?$select=distinct:properties/type
 ==== $expand
 
 The `$expand` system query option indicates the related entities to be represented inline.
-The value of the `$expand` query option SHALL be a comma separated list of navigation property names.
 Query options can be applied to the expanded navigation property by appending a semicolon (`;`) separated list of query options, enclosed in parentheses, to the navigation property name.
 Allowed system query options are `$filter`, `$select`, `$orderby`, `$skip`, `$top`, `$count`, and `$expand`.
 
@@ -394,7 +393,7 @@ v2.0/Things?$top=5
 .Resource pattern returning the first five Observation entries after sorting by the phenomenonTime property in descending order.
 [source,text]
 ----
-v2.0/Observations?$top=5&$orderby=phenomenonTime%20desc
+v2.0/Observations?$top=5&$orderby=phenomenonTime desc
 ----
 
 
@@ -404,9 +403,6 @@ v2.0/Observations?$top=5&$orderby=phenomenonTime%20desc
 The `$skip` system query option specifies the number for the items of the queried EntitySet that SHALL be excluded from the result.
 The value of `$skip` system query option SHALL be a non-negative integer n.
 The service SHALL return items starting at position n+1.
-
-Where $top and `$skip` are used together, `$skip` SHALL be applied before `$top`, regardless of the order in which they appear in the request.
-
 If no unique ordering is imposed through an `$orderby` query option, the service SHALL impose a stable ordering across requests that include `$skip`.
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.4
@@ -430,7 +426,7 @@ v2.0/Observations?$skip=2&$top=2&$orderby=resultTime
 The `$count` system query option with a value of `true` specifies that the total count of items within an EntitySet matching the request SHALL be returned along with the result.
 A `$count` query option with a value of `false` specifies that the service SHALL not return a count.
 
-The service SHALL return an HTTP Status code of 400 Bad Request if a value other than `true` or `false` is specified.
+The service SHALL reject the request and inform the client that the request is malformed if a value other than `true` or `false` is specified.
 
 The `$count` system query option SHALL ignore any `$top`, `$skip`, or `$expand` query options, and SHALL return the total count of results across all pages including only those results matching any specified `$filter`.
 
