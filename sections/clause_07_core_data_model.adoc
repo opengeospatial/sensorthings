@@ -1331,6 +1331,75 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 }
 ----
 
+The service SHALL adhere to the integrity constraints as defined in <<tab-integrity-constraint-create>> when creating an entity and <<tab-integrity-constraint-delete>> when deleting an entity. 
+
+[#tab-integrity-constraint-create,reftext='{table-caption} {counter:table-num}']
+.Integrity constraints when creating an entity
+|===
+|Entity |Integrity Constraints
+
+|Thing
+|-
+
+|Location
+|-
+
+|HistoricalLocation
+a|* SHALL link to a Thing entity
+
+|Datastream
+a|* SHALL link to a Thing entity
+* SHALL link to a Sensor entity
+* SHALL link to an ObservedProperty entity
+* SHALL link to Feature (UltimateFeatureOfInterest) entity if Observation entity does not link to a Feature
+
+|Sensor
+|-
+
+|ObservedProperty
+|-
+
+|Observation
+a|* SHALL link to a Datastream entity
+* SHALL link to a Feature (ProximateFeatureOfInterest) entity if Datastream does not link to a Feature. If no link specified (when the target of Observation is Thing itself), the service SHALL create a Feature entity from the content of the Location entities
+
+|Feature
+|
+
+|FeatureType
+|-
+|===
 
 
+[#tab-integrity-constraint-delete,reftext='{table-caption} {counter:table-num}']
+.Integrity constraints when deleting an entity
+|===
+|Entity |Integrity Constraints
 
+|Thing
+|Delete all the Datastream and HistoricalLocation entities linked to the Thing entity
+
+|Location
+|Delete all the HistoricalLocation entities linked to the Location entity
+
+|Datastream
+|Delete all the Observation entities linked to the Datastream entity
+
+|Sensor
+|Delete all the Datastream entities linked to the Sensor entity
+
+|ObservedProperty
+|Delete all the Datastream entities linked to the ObservedProperty entity
+
+|Observation
+|-
+
+|Feature
+|Delete all the Observation entities linked to the Feature entity
+
+|FeatureType
+|Delete all the Features of type FeatureType
+
+|HistoricalLocation
+|-
+|===
