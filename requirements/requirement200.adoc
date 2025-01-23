@@ -1,0 +1,8 @@
+[[req_class_landingpage_discovery]]
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/req-class-landingpage/req-discovery
+part:: An implementation shall list the conformance class `Discovery` on the landing page.
+====

@@ -1,0 +1,8 @@
+[[req_class_landingpage_topic_no_blacklisting]]
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/req-class-landingpage/req-topic-no-blacklisting
+part:: In case no root topics are denied, the implementation shall declare that with an empty JSON array.
+====

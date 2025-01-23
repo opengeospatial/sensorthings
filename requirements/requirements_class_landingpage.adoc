@@ -1,0 +1,11 @@
+[[req_class_landingpage]]
+
+[requirements_class]
+.Requirements Class 'Landing Page'
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sta-websub/1.0/conf/landingpage
+subject:: Web API
+requirement:: /req/req-class-landingpage/req-discovery
+requirement:: /req/req-class-landingpage/req-topic-blacklisting
+====

@@ -1,0 +1,8 @@
+[[req_class_discovery_link_hub]]
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/req-class-discovery/req-link-hub
+part:: An implementation shall return the `<Link/>; rel="hub"` HTTP header to indicate support for WebSub.
+====

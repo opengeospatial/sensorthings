@@ -1,0 +1,8 @@
+[[req_class_discovery_link_self]]
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/req-class-discovery/req-link-self
+part:: An implementation shall return the `<Link/>; rel="self"` HTTP header to indicate the ability for subscription.
+====

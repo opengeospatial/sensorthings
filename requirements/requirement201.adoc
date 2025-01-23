@@ -1,0 +1,8 @@
+[[req_class_landingpage_topic_blacklisting]]
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/req-class-landingpage/req-topic-blacklisting
+part:: A STA root topic starts with `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-entity-updates[14.2.2]. An implementation shall advertise the existence of denied root topics by adding the following key to the Landing Page: `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` that includes the key `topics_denied`. This key shall contain a JSON array for all denied root topics. 
+====

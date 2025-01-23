@@ -1,0 +1,14 @@
+[[req_class_odata_support]]
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/req-class-odata/req-odata-support
+part:: An implementation shall advertise the support for ODATA query parameters by publishing the string `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata` in the conformance section of the Landing Page.
+
+```
+"conformance": {
+    "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata"
+}
+```
+====

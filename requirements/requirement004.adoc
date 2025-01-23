@@ -1,0 +1,9 @@
+[[req_class_discovery_link_help]]
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/req-class-discovery/req-link-help
+part:: An implementation shall omit the `<Link/>; rel="self"` HTTP header.
+part:: An implementation shall return the `<Link/>; rel="help"` header to indicate the cause why the requested URL is not suitable for subscription.
+====
