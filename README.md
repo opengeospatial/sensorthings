@@ -1,4 +1,4 @@
-= OGC SensorThings API Extension: WebSub WebSub Asynchronous Messaging
+# OGC SensorThings API Extension: WebSub WebSub Asynchronous Messaging
 
 STA-WebSub - SensorThings API extension WebSub Asynchronous Messaging - defines an additional SensorThings API capability which allows the distribution of updates via HTTP(S) using Webhook as defined in the W3C WebSub Recommendation. 
 
