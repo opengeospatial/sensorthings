@@ -1,10 +1,10 @@
-[[ats_sta_websub_landing_page_discovery]]
+[[ats_sta_websub_odata_discovery]]
 [abstract_test]
 ====
 [%metadata]
-label:: /conf/discovery/api-sta-websub-landing-page-discovery
-subject:: /req/req-class/landing-page
-test-purpose:: Validate that the implemented STA-WebSub Conformance Class `Discovery` is listed on the Landing Page.
+label:: /conf/discovery/api-sta-websub-odata
+subject:: /req/req-class/odata-discovery
+test-purpose:: Validate that the support for ODATA commands is advertised on the Landing Page.
 
 [.component,class=test method]
 =====
@@ -22,18 +22,19 @@ Issue a HTTP GET request on that URL.
 --
 Validate the contents of the returned document to include the implemented Conformance Class(es):
 
-`http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery`
+`http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata`
 --
+
 =====
 ====
 
-==== Example
+==== Example Landing Page snippet advertising ODATA support
 
 ```JSON
 {
     "serverSettings": {
         "conformance": {
-            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata"
         }
     }
 }

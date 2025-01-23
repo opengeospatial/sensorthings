@@ -1,0 +1,29 @@
+[[ats_sta_websub_discovery_link_help]]
+[abstract_test]
+====
+[%metadata]
+label:: /conf/discovery/api-sta-websub-link-header
+subject:: /req/req-class/discovery/req-discovery-help
+test-purpose:: Validate that the WebSub discovery returns the link headers `hub` and `help` for a topic URL **not allowed** for subscription.
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Construct a topic URL that is **not allowed** for subscription. 
+--
+
+[NOTE]
+To determine which topic URLs **are not allowed**, examine the Landing Page. The cause for 'not allowed' shall be based on `topics_denied` for an implementation that does not support the `ODATA` Conformance Class. For an implementation that supports the `ODATA` Conformance Class, the cause may also be based on denied ODATA commands.
+
+[.component,class=step]
+--
+Issue a HTTP GET or HEAD request on that topic URL.
+--
+
+[.component,class=step]
+--
+Validate that the response includes the Link header `hub` and **`help`**. In particular validate that the Link header `self` is not present!
+--
+=====
+====

@@ -1,37 +1,40 @@
 == Terms and definitions
 
-This document uses the terms defined in OGC Policy Directive 49, which is based on the ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards. In particular, the word "`shall`" (not "`must`") is the verb form used to indicate a requirement to be strictly followed to conform to this standard.
-
-NOTE: Annex B provides guidance for implementing a STA-WebSub Hub. This guidance is not normative for this standard and therefore uses the word "`must`" to define a requirement. 
-
-For the purposes of this document, the following additional terms and definitions apply.
 
 === WebSub
 
-__WebSub (formerly PubSubHubbub) is an open protocol for distributed publish–subscribe communication on the Internet.[1] Initially designed to extend the Atom (and RSS) protocols for data feeds, the protocol can be applied to any data type (e.g. HTML, text, pictures, audio, video) as long as it is accessible via HTTP. Its main purpose is to provide real-time notifications of changes, which improves upon the typical situation where a client periodically polls the feed server at some arbitrary interval. In this way, WebSub provides pushed HTTP notifications without requiring clients to spend resources on polling for change.__
+[quote, https://en.wikipedia.org/wiki/WebSub]
+----
+WebSub (formerly PubSubHubbub) is an open protocol for distributed publish–subscribe communication on the Internet.[1] Initially designed to extend the Atom (and RSS) protocols for data feeds, the protocol can be applied to any data type (e.g. HTML, text, pictures, audio, video) as long as it is accessible via HTTP. Its main purpose is to provide real-time notifications of changes, which improves upon the typical situation where a client periodically polls the feed server at some arbitrary interval. In this way, WebSub provides pushed HTTP notifications without requiring clients to spend resources on polling for change.
 
-__In October 2017, PubSubHubbub was renamed to WebSub for simplicity and clarity. As of January 2018, the WebSub protocol has been adopted by the W3C as a Recommendation.__
+
+[NOTE]
+====
+In October 2017, PubSubHubbub was renamed to WebSub for simplicity and clarity. As of January 2018, the WebSub protocol has been adopted by the W3C as a Recommendation.
+====
+
+----
 
 [.source]
 https://en.wikipedia.org/wiki/WebSub
 
-=== Publisher
-
-__A WebSub Publisher is an implementation that advertises a topic and hub URL on one or more resource URLs.__
+=== WebSub Publisher
+[quote, https://www.w3.org/TR/websub/#x3-2-1-publisher]
+An implementation that advertises a topic and hub URL on one or more resource URLs.
 
 [.source]
 https://www.w3.org/TR/websub/#x3-2-1-publisher
 
-=== Subscriber
-
-__A WebSub Subscriber is an implementation that discovers the hub and topic URL given a resource URL, subscribes to updates at the hub, and accepts content distribution requests from the hub.__
+=== WebSub Subscriber
+[quote, https://www.w3.org/TR/websub/#x3-2-2-subscriber]
+An implementation that discovers the hub and topic URL given a resource URL, subscribes to updates at the hub, and accepts content distribution requests from the hub.
 
 [.source]
 https://www.w3.org/TR/websub/#x3-2-2-subscriber
 
-=== Hub
-
-__A WebSub Hub is an implementation that handles subscription requests and distributes the content to subscribers when the corresponding topic URL has been updated.__
+=== WebSub Hub
+[quote, https://www.w3.org/TR/websub/#x3-2-3-hub]
+An implementation that handles subscription requests and distributes the content to subscribers when the corresponding topic URL has been updated.
 
 [.source]
 https://www.w3.org/TR/websub/#x3-2-3-hub

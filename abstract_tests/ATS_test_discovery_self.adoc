@@ -1,0 +1,29 @@
+[[ats_sta_websub_discovery_link_self]]
+[abstract_test]
+====
+[%metadata]
+label:: /conf/discovery/api-sta-websub-link-header
+subject:: /req/req-class/discovery/req-discovery-self
+test-purpose:: Validate that the WebSub discovery returns the link headers `hub` and `self` for a topic URL that is **allowed** for subscription.
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Construct a topic URL that is **allowed** for subscription.
+--
+
+[NOTE]
+To determine which topic URLs **are allowed**, examine the Landing Page. In particular, please check if the `$expand` or `$filter` parameters are allowed for the topic URL.
+
+[.component,class=step]
+--
+Issue a HTTP GET or HEAD request on that topic URL.
+--
+
+[.component,class=step]
+--
+Validate that the response includes the Link header `hub` and **`self`**. In particular validate that the Link header `help` is not present!
+--
+=====
+====

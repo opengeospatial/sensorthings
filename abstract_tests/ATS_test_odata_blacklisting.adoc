@@ -1,0 +1,69 @@
+[[ats_sta_websub_odata_blacklisting]]
+[abstract_test]
+====
+[%metadata]
+label:: /conf/discovery/api-sta-websub-odata
+subject:: /req/req-class/odata-blacklisting
+test-purpose:: Validate that the disallowed ODATA commands are advertised on the Landing Page.
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Construct a URL to the Landing Page.
+--
+
+[.component,class=step]
+--
+Issue a HTTP GET request on that URL.
+--
+
+[.component,class=step]
+--
+Validate the contents of the returned document to include the implemented Conformance Class(es):
+
+`http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata`
+--
+
+[.component,class=step]
+--
+Validate the contents of the returned document to include the JSON object `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata` including the key `odata_denied`. 
+--
+
+[.component,class=step]
+--
+Validate that the value of the key `odata_denied` is a JSON array that is either empty ("[]") or contains a list of denied ODATA commands.
+--
+
+=====
+====
+
+==== Example Landing Page snippet advertising no denied ODATA commands
+
+```JSON
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata"
+        },
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata": {
+            "odata_denied": []
+        }
+    }
+}
+```
+
+==== Example Landing Page snippet advertising `$expand` as a denied ODATA command
+
+```JSON
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata"
+        },
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata": {
+            "odata_denied": ["$expand"]
+        }
+    }
+}
+```

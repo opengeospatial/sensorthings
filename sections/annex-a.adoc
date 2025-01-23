@@ -10,3 +10,7 @@ include::../abstract_tests/ATS_class_discovery.adoc[]
 === Conformance Class LandingPage (mandatory)
 
 include::../abstract_tests/ATS_class_landingpage.adoc[]
+
+=== Conformance Class ODATA (optional)
+
+include::../abstract_tests/ATS_class_odata.adoc[]

@@ -14,5 +14,5 @@ include::./ATS_test_discovery_head.adoc[]
 
 ==== Link Headers
 
-include::./ATS_test_discovery_ok.adoc[]
-include::./ATS_test_discovery_nok.adoc[]
+include::./ATS_test_discovery_self.adoc[]
+include::./ATS_test_discovery_help.adoc[]

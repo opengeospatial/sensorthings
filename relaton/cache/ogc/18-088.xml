@@ -1,0 +1,51 @@
+<bibdata type="standard" schema-version="v1.2.9">
+  <fetched>2024-12-10</fetched>
+  <title type="title-main" format="text/plain" language="en" script="Latn">OGC SensorThings API Part 1: Sensing Version 1.1</title>
+  <title type="main" format="text/plain" language="en" script="Latn">OGC SensorThings API Part 1: Sensing Version 1.1</title>
+  <uri type="src">http://www.opengis.net/doc/is/sensorthings/1.1.0</uri>
+  <uri type="obp">https://docs.ogc.org/is/18-088/18-088.html</uri>
+  <docidentifier type="OGC" primary="true">18-088</docidentifier>
+  <date type="published">
+    <on>2021-08-04</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename>Steve Liang</completename>
+      </name>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename>Tania Khalafbeigi</completename>
+      </name>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename>Hylke van der Schaaf</completename>
+      </name>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Open Geospatial Consortium</name>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/plain" language="en" script="Latn">The OGC SensorThings API provides an open, geospatial-enabled and unified way to interconnect the Internet of Things (IoT) devices, data, and applications over the web. At a high level the OGC SensorThings API provides two main functionalities and each function is handled by a part. The two parts are the Sensing part and the Tasking part. The Sensing part provides a standard way to manage and retrieve observations and metadata from heterogeneous IoT sensor systems. This document is version 1.1 and it is extending the first version of Sensing part.</abstract>
+  <ext schema-version="v1.0.1">
+    <doctype>standard</doctype>
+    <subdoctype>implementation</subdoctype>
+    <editorialgroup>
+      <committee>technical</committee>
+    </editorialgroup>
+  </ext>
+</bibdata>

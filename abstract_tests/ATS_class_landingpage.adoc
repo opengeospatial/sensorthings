@@ -3,7 +3,7 @@
 ====
 [%metadata]
 label:: http://www.opengis.net/spec/sta-websub/1.0/conf/landingpage
-subject:: Requirements Class "LandingPage"
+subject:: Requirements Class "Landing Page"
 classification:: Target Type: Web API
 ====
 
@@ -14,11 +14,3 @@ include::./ATS_test_landingpage_discovery.adoc[]
 ==== Tests for Topic Blacklisting
 
 include::./ATS_test_landingpage_topics.adoc[]
-
-==== Tests for ODATA Command Blacklisting
-
-include::./ATS_test_landingpage_odata.adoc[]
-
-==== Tests for Discovery Policy
-
-include::./ATS_test_landingpage_policy.adoc[]
