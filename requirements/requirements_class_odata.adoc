@@ -7,5 +7,6 @@
 identifier:: http://www.opengis.net/spec/sta-websub/1.0/conf/odata
 subject:: Web API
 requirement:: /req/req-class-odata/req-odata
+requirement:: /req/req-class-odata/req-odata-support
 requirement:: /req/req-class-odata/req-odata-blacklisting
 ====

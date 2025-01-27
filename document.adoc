@@ -11,7 +11,6 @@
 :issued-date: 2025-01-23
 :published-date: 2029-12-31
 :fullname: Andreas Matheus
-:fullname_2: 
 :docsubtype: Implementation
 :keywords: ogcdoc, OGC document, OGC Standard, API, SensorThings, WebSub
 :submitting-organizations: Secure Dimensions GmbH; Centre de Recerca Ecològica i Aplicacions Forestals (CREAF); Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.

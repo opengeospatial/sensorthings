@@ -1,11 +1,11 @@
-[[req_class_discovery]]
 
 [requirements_class]
 .Requirements Class 'Discovery'
 ====
 [%metadata]
 identifier:: http://www.opengis.net/spec/sta-websub/1.0/conf/discovery
-subject:: Web API
+obligation:: requirement
+subject:: Discovery Web API
 requirement:: /req/req-class-discovery/req-req-http-methods
 requirement:: /req/req-class-discovery/req-link-hub
 requirement:: /req/req-class-discovery/req-link-self

@@ -1,10 +1,11 @@
-[[ats_landingpage]]
-[conformance_class_landingpage]
+[conformance_class]
 ====
 [%metadata]
 label:: http://www.opengis.net/spec/sta-websub/1.0/conf/landingpage
 subject:: Requirements Class "Landing Page"
 classification:: Target Type: Web API
+conformance-test:: /conf/ATS_test_landingpage_discovery
+conformance-test:: /conf/ATS_test_landingpage_topics    
 ====
 
 ==== Tests for Conformance Advertisement

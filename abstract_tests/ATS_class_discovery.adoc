@@ -1,10 +1,15 @@
-[[ats_discovery]]
-[conformance_class_discovery]
+
+[conformance_class]
 ====
 [%metadata]
 label:: http://www.opengis.net/spec/sta-websub/1.0/conf/discovery
 subject:: Requirements Class "Discovery"
+target:: http://www.opengis.net/spec/sta-websub/1.0/conf/discovery
 classification:: Target Type: Web API
+conformance-test:: /conf/ATS_test_discovery_get
+conformance-test:: /conf/ATS_test_discovery_head
+conformance-test:: /conf/ATS_test_discovery_self
+conformance-test:: /conf/ATS_test_discovery_help
 ====
 
 ==== HTTP Methods

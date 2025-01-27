@@ -1,10 +1,11 @@
-[[ats_odata]]
-[conformance_class_odata]
+[conformance_class]
 ====
 [%metadata]
 label:: http://www.opengis.net/spec/sta-websub/1.0/conf/odata
 subject:: Requirements Class "ODATA"
 classification:: Target Type: Web API
+conformance-test:: /conf/ATS_test_odata_discovery
+conformance-test:: /conf/ATS_test_odata_blacklisting
 ====
 
 ==== Tests for ODATA Support Advertisement
