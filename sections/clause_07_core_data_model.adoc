@@ -5,7 +5,7 @@ All data model requirements classes are grouped in the following requirements cl
 
 
 [requirements_class]
-.Sensing Entities
+.Core Data Model
 ====
 [%metadata]
 identifier:: {identifier}/req-class/datamodel/sensing
