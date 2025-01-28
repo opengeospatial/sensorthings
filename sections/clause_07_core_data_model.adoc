@@ -631,6 +631,7 @@ The exact definition for this result structure, and which unit of measurement an
 
 The resultType contains references to the ObservedProperty or ObservedProperties of the Observations in the Datastream.
 When a change is made to the resultType, the server MUST ensure the ObservedProperties linked to the Datastream match the references used in the the `definition` attribute(s) of the resultType, and create or remove relations as needed.
+If the resultType contains references to non-existing ObservedProperties the request must be rejected with a Bad Request error.
 The values of the definition fields in the resultType must be valid entity-ids (`@id`) of ObservedProperties.
 The structure of the resultType must not be changed once a Datastream has Observations, since the existing Observations would not fit the new structure.
 
@@ -655,7 +656,7 @@ In this case the resultType is of the SWE-Common class `Quantity` (though a numb
   "resultType": {
     "type": "Quantity",
     "label": "Temperature",
-    "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
+    "definition": "ObservedProperties(1)",
     "uom": { "code": "Cel", "label": "degree Celsius", "symbol": "°C" }
   }
 }
@@ -693,7 +694,7 @@ In this example the resultType is a `Category` and thus must have the fields `ty
   "resultType": {
     "type": "Category",
     "label": "Period",
-    "definition": "http://sweetontology.net/stateTime/Period",
+    "definition": "ObservedProperties(2)",
     "codeSpace": "http://sweetontology.net/stateTimeGeologic/"
   }
 }
@@ -737,14 +738,14 @@ Since there are two _distinct_ `definition` fields in the resultType, this Datas
         "name": "temp",
         "type": "Quantity",
         "label": "Air Temperature",
-        "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
+        "definition": "ObservedProperties(1)",
         "uom": { "code": "Cel", "label": "degree Celsius", "symbol": "°C"  }
       },
       {
         "name": "press",
         "type": "Quantity",
         "label": "Air Pressure",
-        "definition": "http://mmisw.org/ont/cf/parameter/air_pressure_at_mean_sea_level",
+        "definition": "ObservedProperties(3)",
         "uom": { "code": "mbar", "label": "Millibar", "symbol": "mBar"  }
       }
     ]

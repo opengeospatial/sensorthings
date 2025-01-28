@@ -27,7 +27,7 @@ If a conflicting value for a relation exists in the URI and the content of the r
   "resultType": {
     "type": "Quantity",
     "label": "Oven temperature",
-    "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
+    "definition": "ObservedProperties(1)",
     "uom": { "code": "Cel", "label": "degree Celsius", "symbol": "°C" }
   },
   "Sensor": {"@id": "Sensors(2)"}
@@ -70,7 +70,7 @@ On failure, the service does not create any of the entities.
       "resultType": {
         "type": "Quantity",
         "label": "Oven temperature",
-        "definition": "http://mmisw.org/ont/cf/parameter/air_temperature",
+        "definition": "ObservedProperties(1)",
         "uom": { "code": "Cel", "label": "degree Celsius", "symbol": "°C" }
       },
       "Sensor": {
