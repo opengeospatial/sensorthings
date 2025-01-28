@@ -15,8 +15,6 @@ References are to follow the Springer LNCS style, with the exception that option
 
 * [[[IsoOMS, ISO 19156:2023]]]
 
-* [[[ITU-T-Y.2060, ITU-T Y.2060]]]
-
 * [[[ogc08-094,OGC 08-094r1]]]
 
 * [[[ogc17-011,OGC 17-011r2]]]
@@ -35,24 +33,3 @@ References are to follow the Springer LNCS style, with the exception that option
 
 EDITOR: Check which of these are normative and which should go to the bibliography at the end.
 
-* [[[Smith81,Identification of Common Molecular Subsequences]]],
-_Identification of Common Molecular Subsequences_.
-Smith, T.F., Waterman, M.S., J. Mol. Biol. 147, 195–197 (1981)
-
-* [[[May06,ZIB Structure Prediction Pipeline]]],
-_ZIB Structure Prediction Pipeline: Composing a Complex Biological Workflow through Web Services_.
-May, P., Ehrlich, H.C., Steinke, T. In: Nagel, W.E., Walter,
-W.V., Lehner, W. (eds.) Euro-Par 2006. LNCS, vol. 4128, pp. 1148–1158. Springer,
-Heidelberg (2006)
-
-* [[[Grid,The Grid]]], _The Grid: Blueprint for a New Computing Infrastructure._,
-Foster, I., Kesselman, C.. Morgan Kaufmann, San Francisco (1999).
-
-* [[[Czajkowski01,Grid Information Services for Distributed Resource Sharing]]],
-_Grid Information Services for Distributed Resource Sharing._
-Czajkowski, K., Fitzgerald, S., Foster, I., Kesselman, C. In: 10th IEEE International Symposium on High
-Performance Distributed Computing, pp. 181–184. IEEE Press, New York (2001)
-
-* [[[Foster02,The Physiology of the Grid]]],
-_The Physiology of the Grid: an Open Grid Services Architecture for Distributed Systems Integration._
-Foster, I., Kesselman, C., Nick, J., Tuecke, S. Technical report, Global Grid Forum (2002)

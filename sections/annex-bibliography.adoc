@@ -2,4 +2,4 @@
 [[Bibliography]]
 == Bibliography
 
-* [[[OLD_RFC6902,1]]], _RFC6902: JavaScript Object Notation (JSON) Patch_. https://datatracker.ietf.org/doc/html/rfc6902/
+* [[[ITU-T-Y.2060,1]]], ITU-T Y.2060: _Overview of the Internet of Things_, 2012. Available Online: https://www.itu.int/rec/t-rec-y.2060-201206-i
