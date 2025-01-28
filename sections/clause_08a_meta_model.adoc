@@ -179,7 +179,10 @@ If the end time is present, the TM_Object is a time interval with an "open" end,
 | 0..1
 |====
 
-EDITOR: Add explanation of use of TM_Interval and TM_Object in filters, automatic use of start or end.
+Filter operators and functions that accept times can work directly on TM_Interval and TM_Object types and will use the `start` or `end` time as appropriate.
+For instance, finding all Observations with a phenomenonTime before 2025-01-01T00:00:00Z can be done using: `phenomenonTime lt 2025-01-01T00:00:00Z`
+For phenomenonTimes that are an interval, this will ensure the end of the interval is before the threshold.
+Users can also filter specifically on the start or end by directly referencing these attributes.
 
 
 [[json_object]]
