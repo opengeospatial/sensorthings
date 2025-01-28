@@ -344,6 +344,8 @@ The value of the `$expand` query option SHALL be a comma separated list of navig
 Query options can be applied to the expanded navigation property by appending a semicolon (`;`) separated list of query options, enclosed in parentheses, to the navigation property name.
 Allowed system query options are `$filter`, `$select`, `$orderby`, `$skip`, `$top`, `$count`, and `$expand`.
 
+Expanded navigation properties do not need to be added to `$select`, they are implicitly selected.
+
 The `$expand` option can be applied to any request that returns an Entity or an EntitySet.
 
 Note: Adapted from OData 4.01-Protocol 11.2.5.2
