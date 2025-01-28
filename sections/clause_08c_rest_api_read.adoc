@@ -35,6 +35,8 @@ Each element of the `value` array SHALL be a JSON object with at least two name/
 The serverSettings object SHALL contain the property `conformance` of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements.
 If a service implements all requirements from a requirements class, it only needs to list the requirements class id.
 
+The serverSettings object SHALL contain the property `functions` of the type Array, containing the function names of the filter functions that the service implements.
+
 Security extensions can modify the list of requirements to only show those requirements that the user is allowed to use.
 For example, if a user is not allowed to delete entities, the security extension can hide the create-update-delete/delete-entity requirement.
 In the most extreme case, a security extension would hide all requirements for a user that is not authenticated, except its own requirement and the instructions on how to authenticate.
@@ -95,24 +97,23 @@ Extensions that need to expose additional server settings may do so in a propert
         "http://www.opengis.net/spec/sensorthings/2.0/req/create-observations-via-mqtt/observations-creation",
         "http://www.opengis.net/spec/sensorthings/2.0/req/receive-updates-via-mqtt/receive-updates"
     ],
-    "http://www.opengis.net/spec/sensorthings/2.0/req/receive-updates-via-mqtt/receive-updates": {
+    "functions": [
+      "any","cast","ceiling","concat","endswith","floor","floor","geo.distance","geo.intersects","geo.length",
+      "indexof","interval","length","now","round","round","startswith","st_contains","st_crosses","st_disjoint",
+      "st_equals","st_intersects","st_overlaps","st_relate","st_touches","st_within","substring","substringof",
+      "tolower","toupper","trim"
+    ],
+    "http://www.opengis.net/spec/sensorthings/2.0/req/mqtt": {
       "endpoints": [
         "mqtt://server.example.com:1833",
         "ws://server.example.com/sensorThings",
-      ]
-    },
-    "http://www.opengis.net/spec/sensorthings/2.0/req/create-observations-via-mqtt/observations-creation": {
-      "endpoints": [
-        "mqtts://server.example.com:8883",
-        "wss://server.example.com:443/sensorThings"
       ]
     }
   }
 }
 ----
 
-EDITOR: Add section on listing implemented features, like filter functions.
-
+EDITOR: Update example with the correct requirement URLs.
 
 ==== EntitySet
 
@@ -626,27 +627,33 @@ In such cases, the `cast` function can be used.
 
 [#tab-built-in-query-functions,reftext='{table-caption} {counter:table-num}']
 .Built-in Query Functions
-[cols="<30a,<60a",options="header"]
+[cols="<10a,<30a,<60a",options="header"]
 |===
-|Function |Example
+| Function | Definition | Example
 
-2+|**String Functions**
+3+|**String Functions**
 
+| substringof
 |`+bool substringof(string p0, string p1)+`
 |`+substringof('Sensor Things',description)+`
 
+| endswith
 |`+bool endswith(string p0, string p1)+`
 |`+endswith(description,'Things')+`
 
+| startswith
 |`+bool startswith(string p0, string p1)+`
 |`+startswith(description,'Sensor')+`
 
+| length
 |`+int length(string p0)+`
 |`+length(description) eq 13+`
 
+| indexof
 |`+int indexof(string p0, string p1)+`
 |`+indexof(description,'Sensor') eq 1+`
 
+| substring
 |
 - `+string substring(string p0, int p1)+`
 - `+string substring(string p0, int p1, int p2)+`
@@ -655,82 +662,108 @@ In such cases, the `cast` function can be used.
 - `+substring(description,1) eq 'ensor Things'+`
 - `+substring(description,2,4) eq 'nsor'+`
 
+| tolower
 |`+string tolower(string p0)+`
 |`+tolower(description) eq 'sensor things'+`
 
+| toupper
 |`+string toupper(string p0)+`
 |`+toupper(description) eq 'SENSOR THINGS'+`
 
+| trim
 |`+string trim(string p0)+`
 |`+trim(description) eq 'Sensor Things'+`
 
+| concat
 |`+string concat(string p0, string p1)+`
 |`+concat(concat(unitOfMeasurement/symbol,', '), unitOfMeasurement/name) eq 'degree, Celsius'+`
 
-2+|**Date Functions**
+3+|**Date Functions**
 
-|`+now()+`
+| now
+|`+Edm.DateTimeOffset now()+`
 |`+resultTime ge now()+`
 
-2+|**Math Functions**
+| interval
+|`+TM_Interval interval(start, end or duration)+`
+|`+interval(properties/referenceTime, duration'PT1H')+`
 
-|`+round+`
+3+|**Math Functions**
+
+| round
+|`+int round(number p0)+`
 |`+round(result) eq 32+`
 
-|`+floor+`
+| floor
+|`+int floor(number p0)+`
 |`+floor(result) eq 32+`
 
-|`+ceiling+`
+| ceiling
+|`+int ceiling(number p0)+`
 |`+ceiling(result) eq 33+`
 
-2+|**Geospatial Functions**
+3+|**Geospatial Functions**
 
+| geo.distance
 |`+double geo.distance(Point p0, Point p1)+`
 |`+geo.distance(location, geography'POINT (30 10)')+`
 
+| geo.length
 |`+double geo.length(LineString p0)+`
 |`+geo.length(geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
+| geo.intersects
 |`+bool geo.intersects(Point p0, Polygon p1)+`
 |`+geo.intersects(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
-2+|**Spatial Relationship Functions**
+3+|**Spatial Relationship Functions**
 
-|`+bool st_equals+`
+| st_equals
+|`+bool st_equals(geography p0, geography p1)+`
 |`+st_equals(location, geography'POINT (30 10)')+`
 
-|`+bool st_disjoint+`
+| st_disjoint
+|`+bool st_disjoint(geography p0, geography p1)+`
 |`+st_disjoint(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
-|`+bool st_touches+`
+| st_touches
+|`+bool st_touches(geography p0, geography p1)+`
 |`+st_touches(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
-|`+bool st_within+`
+| st_within
+|`+bool st_within(geography p0, geography p1)+`
 |`+st_within(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
-|`+bool st_overlaps+`
+| st_overlaps
+|`+bool st_overlaps(geography p0, geography p1)+`
 |`+st_overlaps(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
-|`+bool st_crosses+`
+| st_crosses
+|`+bool st_crosses(geography p0, geography p1)+`
 |`+st_crosses(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
-|`+bool st_intersects+`
+| st_intersects
+|`+bool st_intersects(geography p0, geography p1)+`
 |`+st_intersects(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
 
-|`+bool st_contains+`
+| st_contains
+|`+bool st_contains(geography p0, geography p1)+`
 |`+st_contains(location, geography'POINT (30 10)')+`
 
-|`+bool st_relate+`
+| st_relate
+|`+bool st_relate(geography p0, geography p1, string p2)+`
 |`+st_relate(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))', 'T********')+`
 
-2+|**Collection Functions**
+3+|**Collection Functions**
 
-|`+bool any()+`
+| any
+|`+bool EntitySetNavProp/any(name: expression)+`
 |`+Observations/any(o: o/result gt 5 and o/phenomenonTime gt 2024-01-01T00:00:00Z)+`
 
-2+|**Type Functions**
+3+|**Type Functions**
 
-|`+type cast(expression,type)+`
+| cast
+|`+type cast(expression,typeName)+`
 |`+cast(result,Edm.Decimal) gt cast(Datastream/properties/threshold,Edm.Decimal)+`
 |===
 
