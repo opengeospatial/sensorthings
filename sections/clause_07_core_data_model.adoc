@@ -8,17 +8,17 @@ All data model requirements classes are grouped in the following requirements cl
 .Core Data Model
 ====
 [%metadata]
-identifier:: {identifier}/req-class/datamodel/sensing
+identifier:: {identifier}/req-class/datamodel/core
 obligation:: requirement
-subject:: Target Type: Data Model
-requirement:: {identifier}/req/datamodel/sensing/thing
-requirement:: {identifier}/req/datamodel/sensing/location
-requirement:: {identifier}/req/datamodel/sensing/historical-location
-requirement:: {identifier}/req/datamodel/sensing/datastream
-requirement:: {identifier}/req/datamodel/sensing/sensor
-requirement:: {identifier}/req/datamodel/sensing/observed-property
-requirement:: {identifier}/req/datamodel/sensing/observation
-requirement:: {identifier}/req/datamodel/sensing/feature  
+subject:: Data Model
+requirement:: {identifier}/req/datamodel/core/thing
+requirement:: {identifier}/req/datamodel/core/location
+requirement:: {identifier}/req/datamodel/core/historical-location
+requirement:: {identifier}/req/datamodel/core/datastream
+requirement:: {identifier}/req/datamodel/core/sensor
+requirement:: {identifier}/req/datamodel/core/observed-property
+requirement:: {identifier}/req/datamodel/core/observation
+requirement:: {identifier}/req/datamodel/core/feature  
 ====
 
 The OGC SensorThings API v2.0 depicts the Core Sensing entities in <<img-sta-core>>
@@ -66,7 +66,7 @@ They always have the same semantic meaning, regarless of the class they are used
 .Class Thing
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/thing
+identifier:: {identifier}/req/datamodel/core/thing
 
 Each Thing entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<thing-attributes>>.
 
@@ -184,7 +184,7 @@ A HistoricalLocation has one-and-only-one Thing.
 .Class Location
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/location
+identifier:: {identifier}/req/datamodel/core/location
 
 Each Location entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<location-attributes>>.
 
@@ -416,7 +416,7 @@ NOTE: When using a GeoJSON encoding for the location attribute, the value can ei
 .Class HistoricalLocation
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/historical-location
+identifier:: {identifier}/req/datamodel/core/historical-location
 
 Each HistoricalLocation entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<historical-location-attributes>>.
 
@@ -514,7 +514,7 @@ A HistoricalLocation has exactly one Thing.
 .Class Datastream
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/datastream
+identifier:: {identifier}/req/datamodel/core/datastream
 
 Each Datastream entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<datastream-attributes>>.
 
@@ -776,7 +776,7 @@ Since there are two _distinct_ `definition` fields in the resultType, this Datas
 .Class Sensor
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/sensor
+identifier:: {identifier}/req/datamodel/core/sensor
 
 Each Sensor entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<sensor-attributes>>.
 
@@ -899,7 +899,7 @@ It is up to clients to perform string parsing necessary to properly handle metad
 .Class ObservedProperty
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/observed-property
+identifier:: {identifier}/req/datamodel/core/observed-property
 
 Each ObservedProperty entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<observed-property-attributes>>.
 
@@ -993,7 +993,7 @@ The definition SHOULD be unique in a service.
 .Class Observation
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/observation
+identifier:: {identifier}/req/datamodel/core/observation
 
 Each Observation entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<observation-attributes>>.
 
@@ -1111,7 +1111,7 @@ A third case is possible, when the target of the observation is (a sub-part of) 
 .Class Feature
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/feature
+identifier:: {identifier}/req/datamodel/core/feature
 
 Each Feature entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<feature-attributes>>.
 
@@ -1252,7 +1252,7 @@ The data type is defined by encodingType.
 .Class FeatureType
 ====
 [%metadata]
-identifier:: {identifier}/req/datamodel/sensing/feature-type
+identifier:: {identifier}/req/datamodel/core/feature-type
 
 Each FeatureType entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<feature-type-attributes>>.
 

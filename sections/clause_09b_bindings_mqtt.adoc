@@ -1,7 +1,40 @@
+[[mqtt-bindings]]
 == MQTT Interface Bindings
 
 The MQTT Bindings specify how to access the SensorThings API using the MQTT 5.0 protocol (<<MQTT50>>).
 
+
+[requirements_class]
+.MQTT Interface Bindings
+====
+[%metadata]
+identifier:: {identifier}/req-class/bindings/mqtt
+obligation:: requirement
+subject:: Interface Binding
+requirement:: {identifier}/req/bindings/mqtt
+====
+
+
+To help a client find the MQTT endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the landing page described in <<read_service_document>>.
+If the service supports the MQTT extension, then the `+serverSettings+` object SHALL contain a property of type Object, with the name
+
+`http://www.opengis.net/spec/sensorthings/2.0/req/bindings/mqtt`
+
+This Object SHALL contain a property named `+endpoints+` of type Array. The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the MQTT service
+
+
+[requirement]
+.Binding Advertisement
+====
+[%metadata]
+identifier:: {identifier}/req/bindings/mqtt
+
+The MQTT endpoints of a service SHALL be advertised in the service document as described in <<mqtt-bindings>>.
+====
+
+
+
+[[mqtt-request-response]]
 === Request / Response
 
 MQTT 5.0 formalises a request-response pattern over the MQTT protocol (<<MQTT50,section="4.10">>) that allows the use of the REST API over the MQTT protocol.
@@ -83,7 +116,7 @@ Payload: <empty>
 .Response message to the previous read request
 [source,text]
 ----
-topic: responses/userxyz
+Topic: responses/userxyz
 CorrelationData: 42
 User Properties:
   content-type: application/json;charset=UTF-8
@@ -107,7 +140,7 @@ Payload: <empty>
 .Response message to the previous read request
 [source,text]
 ----
-topic: responses/userxyz
+Topic: responses/userxyz
 CorrelationData: 43
 User Properties:
   content-type: application/json;charset=UTF-8
@@ -155,7 +188,7 @@ Payload:
 .Response message to the previous create request
 [source,text]
 ----
-topic: responses/userxyz
+Topic: responses/userxyz
 User Properties:
   content-type: application/json;charset=UTF-8
   location: v2.0/Things(1)
@@ -164,10 +197,10 @@ Payload: <empty>
 
 
 
-
+[[mqtt-publish-subscribe]]
 === Publish / Subscribe
 
-MQTT subscriptions are allowed on EntitySets (<<pattern_entityset>>, <<pattern_entityset_related>>), individual entities (<<pattern_entity>>, <<pattern_entity_related>>), and individual entity attributes (<<pattern_entity_property>>).
+MQTT subscriptions are allowed on EntitySets (<<pattern_entityset>>, <<pattern_entityset_related>>), individual entities (<<pattern_entity>>, <<pattern_entity_related>>), and individual entity attributes (<<pattern_entity_property>>, <<pattern_entity_property_raw>>).
 
 To get all updates for an EntitySet or Entity, clients can subscribe to the topic that matches the plain URL pattern, without service root, and without a preceding slash (`/`).
 
@@ -184,24 +217,13 @@ v2.0/Datastreams(4)/Observations
 
 User Properties:
   type: create
-payload:
+Payload:
 {
   "id": 123,
   "result": 45,
   "phenonmenonTime": "2015-02-05T17:00:00Z"
 }
 ----
-
-
-To only get updates for certain actions on an EntitySet or Entity, clients can subscribe to the topic that matches the plain URL pattern, without service root, and without a preceding slash (`/`), followed by a slash (`/`) and one of the actions `create`, `update`, `delete`.
-
-.Topic to use for receiving notifications for the creation of new Observations in a specific Datastream
-[source,text]
-----
-v2.0/Datastreams(4)/Observations/create
-----
-
-
 
 
 Since OData URLs are recursive, MQTT wildcards (`#` and `+`) are not allowed in subscriptions in the SensorThings topic tree.
@@ -239,7 +261,29 @@ v2.0/Datastreams(4)/Observations?$expand=ProximateFeatureOfInterest
 The $filter query option (<<filter>>) can be used to only receive notification of certain changes.
 
 
+[[mqtt-simple-create]]
+=== Simple Create
 
-EDITOR: Do we need subscriptions on relations? On raw properties?
+Since simple clients, like sensors, may not be capable of handling the full MQTT request/reponse pattern, the simple-create pattern allows for a simpler way to create entities.
+Entities can be created by sending a publish request to the topic of an 
+EntitySet (<<pattern_entityset>>, <<pattern_entityset_related>>), without service root, and without a preceding slash (`/`), followed by `/create`.
+
+
+.Publish message used to create an Observation in Datastream 4.
+[source,text]
+----
+Topic: v2.0/Datastreams(4)/Observations/create
+Payload:
+{
+  "result": 42,
+  "phenomenonTime": {
+    "start": "2017-11-12T13:00:00Z"
+  }
+}
+----
+
+
+More advanced clients are adviced to use the MQTT Request/Response pattern to create entities, since it allows the server to return a success or failure response on entity creation.
+
 
 === Authentication & Authorization

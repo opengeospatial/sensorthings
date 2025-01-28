@@ -202,15 +202,6 @@ See https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.0
 An example CSDL document describing a service hosting a SensorThings API v2.0 core data model can be found in <<sta-core-csdl-example>>.
 A shortened example with comments can be found in <<csdl-example-short>>.
 
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req-class/api/abstract/csdl
-
-A service that implements the absract REST API SHALL make a service metadata document available as described in <<OData-CSDL>>.
-====
-
-
 
 === Encoding rules for constants
 

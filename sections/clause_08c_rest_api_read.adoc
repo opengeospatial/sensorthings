@@ -20,6 +20,15 @@ EDITOR: Explain the `@context` url. Do we want to go the full complexity? https:
 A read Requests to the Service Document URL pattern (<<pattern_service_metadata_document>>) returns the service metadata document as described in <<OData-CSDL>>.
 
 
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req-class/api/abstract/csdl
+
+A service that implements the absract REST API SHALL make the service metadata document available as described in <<OData-CSDL>>.
+====
+
+
 [[read_service_document]]
 ==== Service Document
 
@@ -103,7 +112,7 @@ Extensions that need to expose additional server settings may do so in a propert
       "st_equals","st_intersects","st_overlaps","st_relate","st_touches","st_within","substring","substringof",
       "tolower","toupper","trim"
     ],
-    "http://www.opengis.net/spec/sensorthings/2.0/req/mqtt": {
+    "http://www.opengis.net/spec/sensorthings/2.0/req/bindings/mqtt": {
       "endpoints": [
         "mqtt://server.example.com:1833",
         "ws://server.example.com/sensorThings",
