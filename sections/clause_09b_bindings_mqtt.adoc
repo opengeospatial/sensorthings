@@ -16,11 +16,11 @@ requirement:: {identifier}/req/bindings/mqtt
 
 
 To help a client find the MQTT endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the landing page described in <<read_service_document>>.
-If the service supports the MQTT extension, then the `+serverSettings+` object SHALL contain a property of type Object, with the name
+If the service supports the MQTT extension, then the `+serverSettings+` object SHALL contain a attribute of type Object, with the name
 
 `http://www.opengis.net/spec/sensorthings/2.0/req/bindings/mqtt`
 
-This Object SHALL contain a property named `+endpoints+` of type Array. The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the MQTT service
+This Object SHALL contain a attribute named `+endpoints+` of type Array. The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the MQTT service
 
 
 [requirement]
@@ -88,7 +88,7 @@ MQTT 5.0 also defines User Properties (<<MQTT50,section="3.3.2.3.7">>) that can 
 Using the basic request-response pattern, and the User Properties of MQTT 5.0, the abstract API defined in <<abstract_api>> can be implemented over the MQTT protocol.
 
 - Requests are sent to the topic `v2.0/$request`.
-- The URL, including query parameters, for the request is passed in the User Property named `url` (case-insensitive). The URL does not need to be URL-Encoded.
+- The URL, including query parameters, for the request is passed in the User Attribute named `url` (case-insensitive). The URL does not need to be URL-Encoded.
 - The request type (<<request_types>>) is passed in the User Property named `type`.
 - Request parameters (such as `prefer`, `content-type` and `location`)  are passed as User Properties.
 - Content is sent as the payload of the message.
@@ -200,13 +200,13 @@ Payload: <empty>
 [[mqtt-publish-subscribe]]
 === Publish / Subscribe
 
-MQTT subscriptions are allowed on EntitySets (<<pattern_entityset>>, <<pattern_entityset_related>>), individual entities (<<pattern_entity>>, <<pattern_entity_related>>), and individual entity attributes (<<pattern_entity_property>>, <<pattern_entity_property_raw>>).
+MQTT subscriptions are allowed on EntitySets (<<pattern_entityset>>, <<pattern_entityset_related>>), individual entities (<<pattern_entity>>, <<pattern_entity_related>>), and individual entity attributes (<<pattern_entity_attribute>>, <<pattern_entity_attribute_raw>>).
 
 To get all updates for an EntitySet or Entity, clients can subscribe to the topic that matches the plain URL pattern, without service root, and without a preceding slash (`/`).
 
 When an entity or attribute is created, updated/replaced or deleted, that is relevant for the subscription, the service returns a complete JSON representation of the affected entity in the payload of the message.
 
-The action that caused the notification is specified in the user property named `type`, with a value of `create`, `update` or `delete`.
+The action that caused the notification is specified in the User Property named `type`, with a value of `create`, `update` or `delete`.
 Replace actions are published with the type `update`.
 
 

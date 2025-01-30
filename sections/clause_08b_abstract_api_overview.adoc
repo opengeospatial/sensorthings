@@ -80,12 +80,12 @@ Requests to a URL pattern consisting of the name of an EntitySet URL, followed b
 ----
 
 
-[[pattern_entity_property]]
-==== Entity Property
+[[pattern_entity_attribute]]
+==== Entity Attribute
 
-URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/entityProperty`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/entityAttribute`
 
-Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, address the value of this Entity Property of the base Entity.
+Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Attribute, address the value of this Entity Attribute of the base Entity.
 The used URL for the base entity may itself be a related entity URL.
 
 .Resource pattern for the name of a specific Datastream
@@ -101,12 +101,12 @@ The used URL for the base entity may itself be a related entity URL.
 ----
 
 
-[[pattern_entity_property_raw]]
-==== Entity Property raw value ($value)
+[[pattern_entity_attribute_raw]]
+==== Entity Attribute raw value ($value)
 
-URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/entityProperty/$value`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/entityAttribute/$value`
 
-Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Property, followed by `/$value`, address the raw value of this Entity Property of the base Entity.
+Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Attribute, followed by `/$value`, address the raw value of this Entity Attribute of the base Entity.
 The used URL for the base entity may itself be a related entity URL.
 
 .Resource pattern for the raw name of a specific Datastream
@@ -125,9 +125,9 @@ The used URL for the base entity may itself be a related entity URL.
 [[pattern_entity_related]]
 ==== Related Entity
 
-URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntityNavigationProperty`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntityNavigationAttribute`
 
-Requests to a URL pattern consisting of a URL that return an Entity (the base entity), followed by a navigation property with a cardinality of one, address the related entity of the base entity.
+Requests to a URL pattern consisting of a URL that return an Entity (the base entity), followed by a navigation attribute with a cardinality of one, address the related entity of the base entity.
 The used URL for the base entity may itself be a related entity URL.
 
 
@@ -147,9 +147,9 @@ The used URL for the base entity may itself be a related entity URL.
 [[pattern_entityset_related]]
 ==== Related EntitySet
 
-URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationAttribute`
 
-Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation property with a cardinality of many, address the related EntitySet of the base entity.
+Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation attribute with a cardinality of many, address the related EntitySet of the base entity.
 The used URL for the base entity may itself be a related entity URL.
 
 .Resource pattern for the Observations of a specific Datastream
@@ -168,9 +168,9 @@ The used URL for the base entity may itself be a related entity URL.
 [[pattern_relation]]
 ==== Association link ($ref)
 
-URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/NavigationProperty/$ref`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/NavigationAttribute/$ref`
 
-Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation property, followed by `/$ref`, address the entity-id(s) of the related entity or entities of the given navigation property.
+Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation attribute, followed by `/$ref`, address the entity-id(s) of the related entity or entities of the given navigation attribute.
 
 .Resource pattern for the association link of the Thing of a specific Datastream
 [source,text]
@@ -184,7 +184,7 @@ Requests to a URL pattern consisting of a URL that addresses an Entity (the base
 <Service Root>/v2.0/Datastreams(4)/Observations/$ref
 ----
 
-For navigation property with a cardinality of many, the navigation property may be followed by a primary-key in brackets, to address the specific association between the base entity and the related entity.
+For navigation attribute with a cardinality of many, the navigation attribute may be followed by a primary-key in brackets, to address the specific association between the base entity and the related entity.
 
 .Resource pattern for the association link between a specific Datastream and a specific Observation
 [source,text]
@@ -195,7 +195,7 @@ For navigation property with a cardinality of many, the navigation property may 
 
 ==== Nested paths
 
-URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationProperty(<primaryKey>)`
+URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationAttribute(<primaryKey>)`
 
 The pattern <<pattern_entityset_related>> and <<pattern_entity>> can be combined to address a specific entity from a related set.
 This will return a `Not Found` error when the requested entity is not actually in the related set.
@@ -223,9 +223,9 @@ Read:: Read data from the resource path.
 Create:: Create a new Entity, or new Entities, at the resource path.
 
 Update:: Change the Entity or Entities at the resource path.
-Only the properties present in the request are updated.
+Only the attributes present in the request are updated.
 
-Replace:: Replace the data of the resource with different data.
+Replace:: Replace all the data of the resource with different data.
 
 Delete:: Remove the resource.
 

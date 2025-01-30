@@ -11,39 +11,40 @@ This section is base on:
 * https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_DataModel 
 * https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_EntityModel
 
+NOTE: The OData specification uses the term property and properties. To avoid confusion with "ObservedProperties" and the "properties property", his document uses the terms attribute and attributes instead.
 
 The entity model consists of the following elements:
 
-* `Entity Type`: named, structured, keyed element that defines the properties and relations of Entities.
-  The key of an Entity Type consists of one or more primitive properties of the Entity Type.
+* `Entity Type`: named, structured, keyed element that defines the attributes and relations of Entities.
+  The key of an Entity Type consists of one or more primitive attributes of the Entity Type.
 * `Entity`: instance of an `Entity Type`.
   An Entity can have only one Entity Type.
 * `Primitive Type`: unnamed, unstructured type, such as String, Integer or DateTime. The full list can be found at:
   https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_PrimitiveTypes
-  A property with a Primitive Type is called a primitive property.
-* `Complex Type`: named, structured, keyless, element consisting of a set of named properties.
+  A attribute with a Primitive Type is called a primitive attribute.
+* `Complex Type`: named, structured, keyless, element consisting of a set of named attributes.
   Instances of Complex Types can not be accessed outside of the Entity they are contained in.
-  A property with a Complex Type is called a complex property.
-  Examples of complex types / complex properties are:
-  ** TM_Interval (Observation/validTime): The complex type TM_Interval has mandatory declared properties `start` and `end`.
-  ** TM_Object (Observation/resultTime): The complex type TM_Interval has mandatory declared property `start` and optional declared property `end`.
-  ** JSON_Object (properties): The complex type JSON_Object is an open type with no declared properties.
-    That means users can add any properties they see fit.
+  A attribute with a Complex Type is called a complex attribute.
+  Examples of complex types / complex attributes are:
+  ** TM_Interval (Observation/validTime): The complex type TM_Interval has mandatory declared attributes `start` and `end`.
+  ** TM_Object (Observation/resultTime): The complex type TM_Interval has mandatory declared attribute `start` and optional declared attribute `end`.
+  ** JSON_Object (properties): The complex type JSON_Object is an open type with no declared attributes.
+    That means users can add any attributes they see fit.
 * `Relation`: named connections between Entities.
-  Relations defined as `navigation properties` in Entity Types.
+  Relations defined as `navigation attributes` in Entity Types.
   Relations have a cardinality.
-* `Properties`: named elements that are part of structured types (Entity Types and Complex Types).
-  Properties can be Primitive-, Complex- or Navigation properties.
-  Properties defined as part of a structured type (Entity/Complex Type) are `declared properties`.
-  A structured type can allow properties that are added dynamically, as long as these `dynamic properties` do not have the same name as a declared property.
-  Structured types that allow dynamic properties are called `Open Types`.
+* `Attributes`: named elements that are part of structured types (Entity Types and Complex Types).
+  Attributes can be Primitive-, Complex- or Navigation attributes.
+  Attributes defined as part of a structured type (Entity/Complex Type) are `declared attributes`.
+  A structured type can allow attributes that are added dynamically, as long as these `dynamic attributes` do not have the same name as a declared attribute.
+  Structured types that allow dynamic attributes are called `Open Types`.
 * `Entity Set`: a named collection of Entities of the same `Entity Type`.
   Each Entity is uniquely identified among other Entities in the same Entity Set, by its key.
   Entity Sets are the entry points into the data model.
 * `Annotation`: additional information attached to model or instance elements.
   annotations can be identified by the `@` character.
   If the annotation starts with the `@` character, then the annotation pertains to the object containing the annotation.
-  If the annotation has a property name before the `@` charater, then the annotation pertains the property with that name.
+  If the annotation has a attribute name before the `@` charater, then the annotation pertains the attribute with that name.
   Annotations are server-generated additional information that a client can use when processing the data.
   A client can ignore any annotations it does not understand.
   The default annotations can be found in <<tab-common-control-annotations>>.
@@ -51,8 +52,8 @@ The entity model consists of the following elements:
 * `EntityId`: a globally unique identifier for an Entity.
   If present in Entity representations, the EntityId is specified in the `@id` annotation.
 
-Each Entity has a primary key that is composed of one or more of the `declared properties` of the entity type.
-Which properties of the Entity Type make up the primary key of the Entity Type is specified in the service metadata document.
+Each Entity has a primary key that is composed of one or more of the `declared attributes` of the entity type.
+Which attributes of the Entity Type make up the primary key of the Entity Type is specified in the service metadata document.
 For the data models specified in this document the primary key is always the field `id`, though the data type of the field may vary between services.
 In most cases the primary key field will be server generated at the time an Entity is created, but a service may allow for client-specified primary key fields.
 
@@ -80,7 +81,7 @@ This is was known as the `@selfLink` in SensorThings version 1.
 |URL
 
 |linkName@navigationLink
-|Annotations of the form `linkName@navigationLink` are the relative or absolute URL that retrieves the related entity or entities for the navigation property `linkName`.
+|Annotations of the form `linkName@navigationLink` are the relative or absolute URL that retrieves the related entity or entities for the navigation attribute `linkName`.
 |URL
 |===
 
@@ -148,7 +149,7 @@ The interval end is "open" meaning that the end-time is not part of the interval
 | 1
 |====
 
-Properties of the type TM_Interval can be directly compared to other time-related properties and constants.
+Attributes of the type TM_Interval can be directly compared to other time-related attributes and constants.
 
 
 [[tm_object]]
@@ -188,8 +189,8 @@ Users can also filter specifically on the start or end by directly referencing t
 [[json_object]]
 ==== Complex Type JSON_Object
 
-JSON_Object is an open, complex type with no declared properties.
-This means users can store any properties in instances of this type that they see fit.
+JSON_Object is an open, complex type with no declared attributes.
+This means users can store any attributes in instances of this type that they see fit.
 
 
 [[OData-CSDL]]

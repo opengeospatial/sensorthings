@@ -34,23 +34,23 @@ A service that implements the absract REST API SHALL make the service metadata d
 
 A read Requests to the Service Document URL pattern (<<pattern_service_document>>) returns the service document.
 
-The Service document is a JSON object with a property named `value` and a property named `serverSettings`.
-The content of the property named `value` SHALL be a JSON Array containing one element for each entity set of the SensorThings Service.
-The content of the property named `serverSettings` SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
+The Service document is a JSON object with a attribute named `value` and a attribute named `serverSettings`.
+The content of the attribute named `value` SHALL be a JSON Array containing one element for each entity set of the SensorThings Service.
+The content of the attribute named `serverSettings` SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
 
 Each element of the `value` array SHALL be a JSON object with at least two name/value pairs, one with name `name` containing the name of the entity set (e.g., Things, Locations, etc.) and one with name `url` containing the URL of the entity set, which may be an absolute or a relative URL.
 (Adapted from OData 4.01-JSON-Format section 5)
 
-The serverSettings object SHALL contain the property `conformance` of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements.
+The serverSettings object SHALL contain the attribute `conformance` of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements.
 If a service implements all requirements from a requirements class, it only needs to list the requirements class id.
 
-The serverSettings object SHALL contain the property `functions` of the type Array, containing the function names of the filter functions that the service implements.
+The serverSettings object SHALL contain the attribute `functions` of the type Array, containing the function names of the filter functions that the service implements.
 
 Security extensions can modify the list of requirements to only show those requirements that the user is allowed to use.
 For example, if a user is not allowed to delete entities, the security extension can hide the create-update-delete/delete-entity requirement.
 In the most extreme case, a security extension would hide all requirements for a user that is not authenticated, except its own requirement and the instructions on how to authenticate.
 
-Extensions that need to expose additional server settings may do so in a property of the serverSettings object that is named after the conformance class URI of the requirement that defines this setting.
+Extensions that need to expose additional server settings may do so in a attribute of the serverSettings object that is named after the conformance class URI of the requirement that defines this setting.
 
 .An example service document.
 [source,json]
@@ -126,9 +126,9 @@ EDITOR: Update example with the correct requirement URLs.
 
 ==== EntitySet
 
-When a Read request is made to a URI pattern that addresses an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>), the service returns a JSON object with the properties `@context` and `value` and optionally `@count` and `@nextLink`.
+When a Read request is made to a URI pattern that addresses an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>), the service returns a JSON object with the attributes `@context` and `value` and optionally `@count` and `@nextLink`.
 The `@context` annotation SHALL be a context URI as described in <<context_url>>.
-The value of the `value` property SHALL be an array containing entities in the specified entity set, or an empty array if there are no entities in the addressed set.
+The value of the `value` attribute SHALL be an array containing entities in the specified entity set, or an empty array if there are no entities in the addressed set.
 The `@count` annotation SHALL, if returned by default, or requested explicitly, contain the total number of items in the set that match the request, as described in <<top>>.
 If service-driven pagination is in effect, the `@nextLink` annotation SHALL contain a link to the next set of entities, as described in <<server_driven_pagination>>.
 
@@ -177,7 +177,7 @@ Read requests to an entity set can use all query options: `$filter`, `$count`, `
 
 ==== Single Entity
 
-When a Read request is made to a URI pattern that addresses a single entity (<<pattern_entity>>, <<pattern_entity_related>>), the service returns a JSON object representing the entity, with the added properties `@context`. The `@context` annotation SHALL be a context URI as described in <<context_url>>.
+When a Read request is made to a URI pattern that addresses a single entity (<<pattern_entity>>, <<pattern_entity_related>>), the service returns a JSON object representing the entity, with the added attributes `@context`. The `@context` annotation SHALL be a context URI as described in <<context_url>>.
 
 Read requests to a URI pattern that returns a single entity can use the `$expand`, `$select` and `$format` query options.
 
@@ -202,9 +202,9 @@ Read requests to a URI pattern that returns a single entity can use the `$expand
 
 
 
-==== Single Entity Property
+==== Single Entity Attribute
 
-When a Read request is made to a URI pattern that addresses a single entity property (<<pattern_entity_property>>), the service returns the JSON representation of this entity property.
+When a Read request is made to a URI pattern that addresses a single entity attribute (<<pattern_entity_attribute>>), the service returns the JSON representation of this entity attribute.
 
 .Possible result from a request to an Entity resource returning the name of a Thing
 [source,json]
@@ -216,9 +216,9 @@ When a Read request is made to a URI pattern that addresses a single entity prop
 ----
 
 
-==== Raw Value of a Single Entity Property
+==== Raw Value of a Single Entity Attribute
 
-When a Read request is made to a URI pattern that addresses the raw value of a single entity property (<<pattern_entity_property_raw>>), the service returns the entity property.
+When a Read request is made to a URI pattern that addresses the raw value of a single entity attribute (<<pattern_entity_attribute_raw>>), the service returns the entity attribute.
 
 .Possible result from a request to an Entity resource returning the raw value of the name of a Thing
 [source,json]
@@ -291,13 +291,13 @@ After applying any server-driven pagination:
 [[select]]
 ==== $select
 
-The $select system query option requests the service to return only the properties explicitly requested by the client.
+The $select system query option requests the service to return only the attributes explicitly requested by the client.
 The value of a $select query option SHALL be a comma-separated list of selection clauses.
-Each selection clause SHALL be a property name (including navigation property names).
-For navigation properties, `$select` controls the inclusion of the navigationLink in the response.
+Each selection clause SHALL be a attribute name (including navigation attribute names).
+For navigation attributes, `$select` controls the inclusion of the navigationLink in the response.
 
 In the response, the service SHALL return the specified content, if available.
-Expanded navigation properties do not need to be added to the `$select` list, they SHALL always be included in the response.
+Expanded navigation attributes do not need to be added to the `$select` list, they SHALL always be included in the response.
 The `$select` option can be applied to any request that returns an Entity or an EntitySet.
 
 Note: Adapted from OData 4.01-Protocol 11.2.5.1
@@ -312,8 +312,8 @@ v2.0/Things?$select=id,name
 [[select_distinct]]
 ==== $select distinct
 
-It is quite useful to give Entities common properties, like a “type”.
-But when filtering on such a common property the client needs to know what the used values are.
+It is quite useful to give Entities common attributes, like a “type”.
+But when filtering on such a common attribute the client needs to know what the used values are.
 Distinct select allows a client to request all distinct values for a field or a set of fields.
 
 Distinct select can be used in expands, and can be ordered.
@@ -349,10 +349,11 @@ v2.0/Things?$select=distinct:properties/type
 ==== $expand
 
 The `$expand` system query option indicates the related entities to be represented inline.
-Query options can be applied to the expanded navigation property by appending a semicolon (`;`) separated list of query options, enclosed in parentheses, to the navigation property name.
+The value of the `$expand` query option SHALL be a comma separated list of navigation attribute names.
+Query options can be applied to the expanded navigation attribute by appending a semicolon (`;`) separated list of query options, enclosed in parentheses, to the navigation attribute name.
 Allowed system query options are `$filter`, `$select`, `$orderby`, `$skip`, `$top`, `$count`, and `$expand`.
 
-Expanded navigation properties do not need to be added to `$select`, they are implicitly selected.
+Expanded navigation attributes do not need to be added to `$select`, they are implicitly selected.
 
 The `$expand` option can be applied to any request that returns an Entity or an EntitySet.
 
@@ -390,7 +391,7 @@ Note: Adapted from OData 4.01-Protocol 11.2.6.3
 v2.0/Things?$top=5
 ----
 
-.Resource pattern returning the first five Observation entries after sorting by the phenomenonTime property in descending order.
+.Resource pattern returning the first five Observation entries after sorting by the phenomenonTime attribute in descending order.
 [source,text]
 ----
 v2.0/Observations?$top=5&$orderby=phenomenonTime desc
@@ -413,7 +414,7 @@ Note: Adapted from OData 4.01-Protocol 11.2.6.4
 v2.0/Things?$skip=5
 ----
 
-.Resource pattern returning the third and fourth Observation entities from the collection of all Observation entities when the collection is sorted by the resultTime property in ascending order.
+.Resource pattern returning the third and fourth Observation entities from the collection of all Observation entities when the collection is sorted by the resultTime attribute in ascending order.
 [source,text]
 ----
 v2.0/Observations?$skip=2&$top=2&$orderby=resultTime
@@ -432,8 +433,8 @@ The `$count` system query option SHALL ignore any `$top`, `$skip`, or `$expand` 
 
 Clients should be aware that the count returned inline may not exactly equal the actual number of items returned, due to latency between calculating the count and enumerating the last value or due to inexact calculations on the service.
 
-For requests to an EntitySet, the count is returned in the `@count` property of the returned object.
-When a count is requested on an expanded EntitySet, the count is returned in the `<navigationlink name>@count` property of the containing Entity.
+For requests to an EntitySet, the count is returned in the `@count` attribute of the returned object.
+When a count is requested on an expanded EntitySet, the count is returned in the `<navigationlink name>@count` attribute of the containing Entity.
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.5
 
@@ -443,10 +444,10 @@ Note: Adapted from OData 4.01-Protocol 11.2.6.5
 
 The `$orderby` system query option specifies the order in which items are returned from the service.
 The value of the `$orderby` system query option SHALL contain a comma-separated list of expressions whose primitive result values are used to sort the items.
-A special case of such an expression is a property path terminating on a primitive property.
+A special case of such an expression is a attribute path terminating on a primitive attribute.
 
-The expression MAY include the suffix `asc` for ascending or `desc` for descending, separated from the property name by one or more spaces.
-If asc or desc is not specified, the service SHALL order by the specified property in ascending order.
+The expression MAY include the suffix `asc` for ascending or `desc` for descending, separated from the attribute name by one or more spaces.
+If asc or desc is not specified, the service SHALL order by the specified attribute in ascending order.
 
 Null values SHALL come before non-null values when sorting in ascending order and after non-null values when sorting in descending order.
 
@@ -454,13 +455,13 @@ Items SHALL be sorted by the result values of the first expression, and then ite
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.2
 
-.Resource pattern returning all Observations ordered by the result property in ascending order.
+.Resource pattern returning all Observations ordered by the result attribute in ascending order.
 [source,text]
 ----
 v2.0/Observations?$orderby=result
 ----
 
-.Resource pattern returning all Observations ordered by the id property of the linked Datastream entry in descending order, then by the phenomenonTime property of Observations in ascending order.
+.Resource pattern returning all Observations ordered by the id attribute of the linked Datastream entry in descending order, then by the phenomenonTime attribute of Observations in ascending order.
 [source,text]
 ----
 v2.0/Observations?$orderby=Datastreams/id desc, phenomenonTime
@@ -472,14 +473,14 @@ v2.0/Observations?$orderby=Datastreams/id desc, phenomenonTime
 
 The `$filter` option can be used to filter the entities returned by a request to any EntitySet.
 The expression specified with $filter is evaluated for each entity in the collection, and only items where the expression evaluates to true SHALL be included in the response.
-Entities for which the expression evaluates to false or to null, or which reference properties that are unavailable due to permissions, SHALL be omitted from the response.
+Entities for which the expression evaluates to false or to null, or which reference attributes that are unavailable due to permissions, SHALL be omitted from the response.
 
 [Adapted from Data 4.01-URL Conventions 5.1.1]
 
-The expression language that is used in $filter operators SHALL support references to properties and literals.
+The expression language that is used in $filter operators SHALL support references to attributes and literals.
 The literal values SHALL be strings enclosed in single quotes, numbers, boolean values (true or false), null, datetime values as ISO 8601 time string, duration values or geometry values.
 Encoding rules for constants are listed in <<constants_encoding_rules>>
-Properties of Entities are addressed by their name.
+Attributes of Entities are addressed by their name.
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.1
 
@@ -496,7 +497,7 @@ v2.0/Datastreams(42)/Observations?$filter=result gt 5
 v2.0/Locations?$filter=st_within(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
 ----
 
-Sub-proprties of complex properties are addressed using the complex property name, followed by a `/`, followed by the sub-property name.
+Sub-proprties of complex attributes are addressed using the complex attribute name, followed by a `/`, followed by the sub-attribute name.
 
 .Observations with a valid time that started before the given timestamp.
 [source,text]
@@ -504,9 +505,9 @@ Sub-proprties of complex properties are addressed using the complex property nam
 v2.0/Observations?$filter=validTime/start lt 2012-12-03T07:16:23Z
 ----
 
-Entities can be filtered on properties of related entities by using the navigationProperty, followed by a `/`, followed by a property of the related entity.
+Entities can be filtered on attributes of related entities by using the navigationAttribute, followed by a `/`, followed by a attribute of the related entity.
 This can be used recursively.
-For filtering on properties of entities in a related EntitySet see the `any()` function.
+For filtering on attributes of entities in a related EntitySet see the `any()` function.
 
 .Observations of all Datastreams that are named Temperature.
 [source,text]
@@ -780,11 +781,11 @@ In such cases, the `cast` function can be used.
 
 The `any()` operator applies a boolean expression to each member of a collection and returns true if the expression returns true for any member of the collection.
 The any operator can be used by adding a slash and the `any` keyword after a filter path ending in an EntitySet.
-The argument of the any operator is a case-sensitive, alphanumeric lamda variable name, followed by a colon (`:`), followed by a boolean expression that can use the defined variable to access properties of the entities in the collection.
+The argument of the any operator is a case-sensitive, alphanumeric lamda variable name, followed by a colon (`:`), followed by a boolean expression that can use the defined variable to access attributes of the entities in the collection.
 
 Path expressions not prefixed by the lambda variable are evaluated in the context of the collection that is the target of the `$filter` containing the any operator.
 
-.Request for all Datastreams that have at least one Observation that has both a result greater than the threshold custom property in the containing Datastream, and a phenomenonTime after 2024-01-01 00:00:00Z
+.Request for all Datastreams that have at least one Observation that has both a result greater than the threshold custom attribute in the containing Datastream, and a phenomenonTime after 2024-01-01 00:00:00Z
 [source,text]
 ----
 Datastreams?$filter=Observations/any(o: o/result gt properties/threshold and o/phenomenonTime gt 2024-01-01T00:00:00Z)
