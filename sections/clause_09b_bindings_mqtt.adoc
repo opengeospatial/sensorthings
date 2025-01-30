@@ -90,7 +90,7 @@ Using the basic request-response pattern, and the User Properties of MQTT 5.0, t
 - Requests are sent to the topic `v2.0/$request`.
 - The URL, including query parameters, for the request is passed in the User Property named `url` (case-insensitive). The URL does not need to be URL-Encoded.
 - The request type (<<request_types>>) is passed in the User Property named `type`.
-- Headers (such as `content-type` and `location`) are passes as User Properties.
+- Request parameters (such as `prefer`, `content-type` and `location`)  are passed as User Properties.
 - Content is sent as the payload of the message.
 - The request must contain a response topic that follows the `Response Information` passed by the broker.
 - The request may contain correlation data to help the client associate the response to the request.

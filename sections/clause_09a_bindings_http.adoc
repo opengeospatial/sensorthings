@@ -32,6 +32,8 @@ The actions that can be executed on resources, as defined in the <<abstract_api>
 
 Content for Create, Update, Replace or Execute requests is passed in the body of the HTTP request.
 
+Request parameters (such as `prefer`, `content-type` and `location`)  are passed as Headers.
+
 HTTP HEAD and OPTIONS requests are treated as normal GET requests, but don't return data.
 If a GET request with the same URL and headers would return an error, the HEAD or OPTION requests also returns this error.
 

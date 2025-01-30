@@ -233,3 +233,15 @@ Execute:: Execute an function on a resource.
 
 NOTE: The Execute request type is not used in the core SensorThings API standard, but may be used in extensions.
 
+
+=== Additional request parameters
+
+Besides the query options, there are a few other request parameters that are used to convey information between client and server.
+
+Content-Type:: Used to indicate the type of the content that is being transferred.
+
+Prefer:: Analogous to <<RFC7240>>, used by a client to indicate how it prefers the server to respond to modification requests.
+
+Location:: Used by the server to convey the self link of a newly created entity.
+
+
