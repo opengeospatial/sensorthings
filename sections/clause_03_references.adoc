@@ -23,6 +23,8 @@ References are to follow the Springer LNCS style, with the exception that option
 
 * [[[RFC6902,IETF RFC 6902]]]
 
+* [[[RFC7240,IETF RFC 7240]]]
+
 * [[[ODATAP1,OASIS OData-Part1]]]
 
 * [[[ODATAP2,OASIS OData-Part2]]]

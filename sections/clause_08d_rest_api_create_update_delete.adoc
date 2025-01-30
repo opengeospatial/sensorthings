@@ -86,21 +86,38 @@ On failure, the service does not create any of the entities.
 
 
 
+[[updating_entities]]
 ==== Updating Entities
 
-Entities can be updated with an update or replace request to an URI pattern that addresses a single entity (<<pattern_entity>> or <<pattern_entity_related>>).
-Services MUST support update requests and MAY support replace requests.
+Entities can be updated with an update request to an URI pattern that addresses a single entity (<<pattern_entity>> or <<pattern_entity_related>>).
 
 An update request must contain as content only those updatable attributes of the entity that are to be changed.
 Attributes that are not present in the update request are not changed, though server-generated attributes may be updated by the server as a result of the change request.
-
-A replace request must contain as content the complete entity to be replaced.
-Attributes that are not present in the replace request are removed from the entity.
 
 For even finer grained update control, or updates that are safe from concurrent modification by other users, see <<json-patch>>.
 
 
 .Sending an update request to `v2.0/Things(1)` with the given content will update the name of Thing 1,  and leave all other fields unchanged.
+[source,json]
+----
+{
+  "name": "My Updated Oven"
+}
+----
+
+
+
+[[replacing_entities]]
+==== Replacing Entities (optional)
+
+Entities can be replaced with a replace request to an URI pattern that addresses a single entity (<<pattern_entity>> or <<pattern_entity_related>>).
+
+A replace request must contain as content the complete entity to be replaced.
+Entity attributes that are not present in the replace request are removed from the entity.
+Navigation attributes are not affected.
+
+
+.Sending a replace request to `v2.0/Things(1)` with the given content will update the name of Thing 1,  and remove all other fields.
 [source,json]
 ----
 {
