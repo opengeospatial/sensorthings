@@ -3,6 +3,9 @@
 ====
 [%metadata]
 label:: /conf/discovery/api-sta-websub-http-get
+identifier:: /conf/discovery/api-sta-websub-http-get
+target:: /req/req-class-discovery/req-http-methods
+target:: /req/req-class-discovery/req-link-hub
 subject:: /req/req-class/discovery
 test-purpose:: Validate that the STA-WebSub discovery is supported via HTTP GET.
 

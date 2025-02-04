@@ -1,18 +1,18 @@
-[[ats_sta_websub_odata_blacklisting]]
+[[ats_sta_websub_odata_no_blacklisting]]
 [abstract_test]
 ====
 [%metadata]
 label:: /conf/discovery/api-sta-websub-odata
-identifier:: /conf/discovery/api-sta-websub-odata-blacklisting
+identifier:: /conf/discovery/api-sta-websub-odata-no-blacklisting
 target:: /req/req-class-discovery/req-odata-blacklisting
 subject:: /req/req-class/discovery
-test-purpose:: Validate that the disallowed ODATA options do not return the HTTP link header `rel="self"`.
+test-purpose:: Validate that the allowed ODATA options do return the HTTP link header `rel="self"`.
 
 [.component,class=test method]
 =====
 [.component,class=step]
 --
-Construct multiple SensorThings URLs each including a supported ODATA option that is listed under the `odata_denied`.
+Construct multiple SensorThings URLs each including a supported ODATA option that is not listed under the `odata_denied`.
 --
 
 [.component,class=step]
@@ -22,7 +22,7 @@ Issue HTTP HEAD and GET requests on each URL.
 
 [.component,class=step]
 --
-Validate the contents of the returned HTTP header to not include the link header `rel="self"` but the link header `rel="help"`.
+Validate the contents of the returned HTTP header to include the link header `rel="self"` that includes the issued URL.
 --
 
 =====
@@ -45,16 +45,15 @@ Validate the contents of the returned HTTP header to not include the link header
 }
 ----
 
-==== Example HTTP response for a URL including the denied ODATA option `$expand`
+==== Example HTTP response for a URL not including the denied ODATA option
 
 [source,text]
 ----
-GET /sta/v1.1/Things?$expand=Locations HTTP/1.1
+GET /sta/v1.1/Things?$select=name HTTP/1.1
 Host: example.com
 
 HTTP/1.1 200 Ok
 Content-type: application/json
 Link: <http://hub.example.com/>; rel="hub"
-Link: <http://help.example.com/sta/v1.1/help#odata_option_denied>; rel="help"
-[source,json]
+Link: <http://example.com/sta/v1.1/Things?%24select%3Dname>; rel="self"
 ----

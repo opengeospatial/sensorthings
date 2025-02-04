@@ -4,7 +4,7 @@ This appendix provides guidance how to implement a STA-WebSub Hub (implementatio
 
 [NOTE]
 ====
-This appendix uses the work "`must`" to emphasize de-facto implementation requirements.
+This appendix uses the work "`MUST`" to emphasize de-facto implementation requirements.
 ====
 
 === Callback Authentication

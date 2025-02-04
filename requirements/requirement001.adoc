@@ -1,9 +1,9 @@
-[[req_class_discovery_http_methods]]
+[[req_discovery_http_methods]]
 
 [requirement]
 ====
 [%metadata]
 identifier:: /req/req-class-discovery/req-http-methods
-part:: An implementation shall support discovery via HTTP GET method.
-part:: An implementation shall support discovery via HTTP HEAD method.
+part:: An implementation SHALL support discovery via HTTP GET method.
+part:: An implementation SHALL support discovery via HTTP HEAD method.
 ====

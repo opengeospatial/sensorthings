@@ -1,8 +1,8 @@
-[[req_class_landingpage_discovery]]
+[[req_topics_discovery]]
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/req-class-landingpage/req-discovery
-part:: An implementation shall list the conformance class `Discovery` on the landing page.
+identifier:: /req/req-class-discovery/req-topics-discovery
+part:: An implementation SHALL advertise the support for topics blacklisting by publishing the string `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` in the `serverSettings` section of the root page that includes the key `topics_denied`.
 ====

@@ -4,14 +4,14 @@
 *OGC Declaration*
 ////
 
-Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
+Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium SHALL not be held responsible for identifying any or all such patent rights.
 
 Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
 
 [abstract]
 == Abstract
 
-STA-WebSub - SensorThings API extension WebSub - defines an additional SensorThings API capability which allows the distribution of updates via HTTP(S) using Webhook as defined in the W3C WebSub Recommendation. 
+STA-WebSub - SensorThings API extension WebSub - defines an additional SensorThings API capability which allows the distribution of updates via HTTP(S) as defined in the W3C WebSub Recommendation. 
 
 A subscriber can fetch base data from a SensorThings API service and then use the same identical URL to subscribe for updates. This avoids the need for any subscriber to poll a SensorThings API service, as any updates - according to the URL used - get submitted to the subscriber's Webhook when the update event is triggered. The use of this WebSub extension is also easy to integrate into existing systems, as producers only need to setup a W3C WebSub compliant Hub that listens to subscription updates via MQTT. Consumers only need to setup a WebSub Subscriber to receive updates via WebHook. The SensorThings API MQTT protocol does not need to be exposed to the subscriber; it can remain internal between the SensorThings API service and the associated STA-WebSub Hub(s). Any SensorThings API service that extends the MQTT topic pattern to include filter and expand capabilities via ODATA query parameters, allows to subscribe for updates by defining actual triggering conditions using `$filter`. Using the ODATA query parameter `$select` and `$expand` also supports the subscriber to get exactly the data and structure as it is fit for purpose. 
 

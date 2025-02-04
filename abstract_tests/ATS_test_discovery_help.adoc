@@ -2,7 +2,9 @@
 [abstract_test]
 ====
 [%metadata]
-label:: /conf/discovery/api-sta-websub-link-header
+label:: /conf/discovery/api-sta-websub-link-header-help
+identifier:: /conf/discovery/api-sta-websub-link-header-help
+target:: /req/req-class-discovery/req-link-help
 subject:: /req/req-class/discovery/req-discovery-help
 test-purpose:: Validate that the WebSub discovery returns the link headers `hub` and `help` for a topic URL **not allowed** for subscription.
 
@@ -14,7 +16,7 @@ Construct a topic URL that is **not allowed** for subscription.
 --
 
 [NOTE]
-To determine which topic URLs **are not allowed**, examine the Landing Page. The cause for 'not allowed' shall be based on `topics_denied` for an implementation that does not support the `ODATA` Conformance Class. For an implementation that supports the `ODATA` Conformance Class, the cause may also be based on denied ODATA commands.
+To determine which topic URLs **are not allowed**, examine the root page. The cause for 'not allowed' SHALL be based on `topics_denied` or `odata_denied`.
 
 [.component,class=step]
 --
@@ -23,7 +25,50 @@ Issue a HTTP GET or HEAD request on that topic URL.
 
 [.component,class=step]
 --
-Validate that the response includes the Link header `hub` and **`help`**. In particular validate that the Link header `self` is not present!
+Validate that the response includes the Link header `hub` and `help`. In particular validate that the Link header `self` is not present!
 --
 =====
 ====
+
+==== Example for topics and ODATA restrictions
+
+[source,json]
+----
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+        },
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+            "topics_denied": ["v1.1/Observations"],
+            "odata_denied": ["$expand"]
+        }
+    }
+}
+----
+
+==== Example HTTP request and response for a URL including the denied topic `v1.1/Observations`
+
+[source,text]
+----
+GET /sta/v1.1/Observations HTTP/1.1
+Host: example.com
+
+HTTP/1.1 200 Ok
+Content-type: application/json
+Link: <http://hub.example.com/>; rel="hub"
+Link: <http://help.example.com/sta/v1.1/help#topic_denied>; rel="help"
+----
+
+==== Example HTTP request and response for a URL including the denied ODATA option `$expand`
+
+[source,text]
+----
+GET /sta/v1.1/Things?$expand=Locations HTTP/1.1
+Host: example.com
+
+HTTP/1.1 200 Ok
+Content-type: application/json
+Link: <http://hub.example.com/>; rel="hub"
+Link: <http://help.example.com/sta/v1.1/help#odata_option_denied>; rel="help"
+----

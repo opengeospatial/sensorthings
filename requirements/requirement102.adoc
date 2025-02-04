@@ -1,8 +1,9 @@
-[[req_class_odata_blacklisting]]
+[[req_odata_blacklisting]]
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/req-class-odata/req-odata-blacklisting
-part:: An implementation shall advertise the existence of denied ODATA commands by adding the following key to the Landing Page: `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` that includes the key `odata_denied`. This key shall contain a JSON array for all denied ODATA commands.
+identifier:: /req/req-class-discovery/req-odata-blacklisting
+part:: An implementation SHALL advertise the existence of denied ODATA options by adding the following key to the root page: `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` that includes the key `odata_denied`. This key SHALL contain a JSON array for all denied ODATA options.
+part:: In case no ODATA options are denied,an implementation SHALL advertise the non-existence of denied ODATA options by adding the following key to the root page: `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` that includes the key `odata_denied`. This key SHALL contain an empty JSON array.
 ====

@@ -1,10 +1,24 @@
 [[ats_discovery]]
-[conformance_class_discovery]
+[conformance_class]
 ====
 [%metadata]
 label:: http://www.opengis.net/spec/sta-websub/1.0/conf/discovery
+target:: http://www.opengis.net/spec/sta-websub/1.0/req/discovery
 subject:: Requirements Class "Discovery"
 classification:: Target Type: Web API
+conformance-test:: /conf/discovery/api-sta-websub-http-get
+conformance-test:: /conf/discovery/api-sta-websub-http-head
+conformance-test:: /conf/discovery/api-sta-websub-link-header-help
+conformance-test:: /conf/discovery/api-sta-websub-link-header-self
+
+conformance-test:: /conf/discovery/api-sta-websub-odata-support
+conformance-test:: /conf/discovery/api-sta-websub-odata-discovery
+conformance-test:: /conf/discovery/api-sta-websub-odata-blacklisting
+conformance-test:: /conf/discovery/api-sta-websub-odata-no-blacklisting
+
+conformance-test:: /conf/discovery/api-sta-websub-topics-discovery
+conformance-test:: /conf/discovery/api-sta-websub-topics-blacklisting
+conformance-test:: /conf/discovery/api-sta-websub-topics-no-blacklisting
 ====
 
 ==== HTTP Methods
@@ -16,3 +30,31 @@ include::./ATS_test_discovery_head.adoc[]
 
 include::./ATS_test_discovery_self.adoc[]
 include::./ATS_test_discovery_help.adoc[]
+
+==== Tests for ODATA Support
+
+include::./ATS_test_odata_support.adoc[]
+
+==== Tests for ODATA Support Advertisement
+
+include::./ATS_test_odata_discovery.adoc[]
+
+==== Tests for ODATA Options Blacklisting
+
+include::./ATS_test_odata_blacklisting.adoc[]
+
+==== Tests for no Blacklisting of ODATA Options
+
+include::./ATS_test_odata_no_blacklisting.adoc[]
+
+==== Tests for Topics Advertisement
+
+include::./ATS_test_topic_discovery.adoc[]
+
+==== Tests for Denied Topics Blacklisting
+
+include::./ATS_test_topic_blacklisting.adoc[]
+
+==== Tests for no denied Topic Blacklisting
+
+include::./ATS_test_topic_no_blacklisting.adoc[]

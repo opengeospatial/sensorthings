@@ -1,12 +1,12 @@
-[[ats_sta_websub_odata_discovery]]
+[[ats_sta_websub_landing_page_discovery]]
 [abstract_test]
 ====
 [%metadata]
-label:: /conf/discovery/api-sta-websub-odata
-identifier:: /conf/discovery/api-sta-websub-odata-discovery
-target:: /req/req-class-discovery/req-odata-discovery
-subject:: /req/req-class/discovery
-test-purpose:: Validate that the disallowed ODATA options are advertised on the root page.
+label:: /conf/discovery/api-sta-websub-landing-page-discovery
+identifier:: /conf/discovery/api-sta-websub-topics-discovery
+subject:: /req/req-class-discovery/req-discovery
+target:: /req/req-class-discovery/req-topics-discovery
+test-purpose:: Validate that the implemented STA-WebSub Conformance Class `Discovery` is listed on the root page.
 
 [.component,class=test method]
 =====
@@ -31,12 +31,12 @@ Validate the contents of the returned document to include the implemented Confor
 
 [.component,class=step]
 --
-Validate the contents of the returned document to include the JSON object `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` in the `serverSettings` including the key `odata_denied`. 
+Validate the contents of the returned document to include the JSON object `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` in the `serverSettings` including the key `topics_denied`. 
 --
 
 [.component,class=step]
 --
-Validate that the value of the key `odata_denied` is a JSON array that is either empty ("[]") or contains a list of denied ODATA options.
+Validate that the value of the key `topics_denied` is a JSON array that is either empty ("[]") or contains a list of denied topics.
 --
 
 =====
@@ -59,7 +59,8 @@ Validate that the value of the key `odata_denied` is a JSON array that is either
 }
 ----
 
-==== Example root page snippet advertising `$expand` as a denied ODATA option
+==== Example root page snippet advertising `v1.1/Observations` as a denied topic
+
 [source,json]
 ----
 {
@@ -68,8 +69,8 @@ Validate that the value of the key `odata_denied` is a JSON array that is either
             "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
         },
         "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
-            "topics_denied": [],
-            "odata_denied": ["$expand"]
+            "topics_denied": ["v1.1/Observations"],
+            "odata_denied": []
         }
     }
 }

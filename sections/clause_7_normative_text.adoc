@@ -1,146 +1,154 @@
-== STA-WebSub Requirements (normative)
-The normative section of this OGC Standard is concerned with the discovery aspect as the standardization target is the SensorThings API service (HTTP interface). 
+== SensorThings API - WebSub Extension (normative)
+As outlined in chapter <<introduction>>, a system leveraging the SensorThings API Extension WebSub (STA-WebSub) is a specialization of the asynchronous messaging system described in the <<W3CWebSub>>. As a W3C WebSub system, the STA-WebSub system is comprised of three parts (Subscriber, Hub, Publisher). In the context of this standard, the Publisher is the SensorThings API service which can be split into two sub-components: the HTTP interface and the MQTT broker. 
+
+As the only change to the SensorThings API service is concerned with supporting the W3C WebSub discovery, this STA-WebSub extension to SensorThings API only defines the requirements for the HTTP interface for implementing the W3C WebSub Discovery protocol.
 
 [NOTE]
 ====
 Appendix B provides guidance for implementing a STA-WebSub Hub.
 ====
 
-The STA-WebSub extension defines the following requirements classes: 
+The STA-WebSub extension defines the following requirements class: 
 
 * Discovery Requirements Class (mandatory)
-* Landing Page Requirements Class (mandatory)
-* ODATA Requirements Class (optional)
 
 === Discovery Requirements Class (mandatory)
-The `Discovery` requirements class (mandatory) is implemented at the SensorThings API service - HTTP interface to support the W3C WebSub discovery protocol. 
+The `Discovery` requirements class is implemented at the SensorThings API service - HTTP interface to support the W3C WebSub discovery protocol. 
 
 include::../requirements/requirements_class_discovery.adoc[]
 
 ==== Requirement HTTP Methods
-An implementation shall support discovery via HTTP GET and HEAD methods.
+According to <<W3CWebSub>>, discovery can be achieved via HTTP GET and HEAD methods.
 
 include::../requirements/requirement001.adoc[]
 
 ==== Requirement Link Header 'hub'
-An implementation shall return the `<Link/>; rel="hub"` HTTP header to indicate support for WebSub.
+According to <<W3CWebSub>>, discovery always returns `<Link/>; rel="hub"`.
 
 include::../requirements/requirement002.adoc[]
 
 ==== Requirement Link Header 'self'
-An implementation shall return the `<Link/>; rel="self"` HTTP header to indicate the ability for subscription.
+According to <<W3CWebSub>>, discovery returns `<Link/>; rel="self"` for a URL that is suitable for subscription.
 
 include::../requirements/requirement003.adoc[]
 
 ==== Requirement Link Header 'help'
-An implementation shall omit the `<Link/>; rel="self"` HTTP header and instead return the `<Link/>; rel="help"` header to indicate the cause why the requested URL is not suitable for subscription.
+Returning the `<Link/>; rel="help"` header (specific to STA-WebSub) indicates the cause why the requested URL is not suitable for subscription.
 
 include::../requirements/requirement004.adoc[]
 
-=== ODATA Requirements Class (optional)
-The `ODATA` requirements class is implemented at the SensorThings API service - HTTP interface and supports the W3C WebSub discovery protocol. 
-
-include::../requirements/requirements_class_odata.adoc[]
-
-==== Requirement ODATA query parameter
-An implementation shall allow the discovery such that the associated MQTT topic is compliant to OGC SensorThings API v1.1 requirement regarding updates via MQTT [<<OGC18088>>, section 14.2 (https://docs.ogc.org/is/18-088/18-088.html#req-receive-updates-via-mqtt-receive-updates)] with the following extensions:
-
-* `SERVICE_VERSION/RESOURCE_PATH/COLLECTION_NAME` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-subscribe-entity-set[§14.2.1] can be extended with a `?` followed by any valid combination of ODATA commands - e.g. `v1.1/Datastreams(1)/Observations?$filter=result gt 30`
-* `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-entity-updates[§14.2.2] can be extended with a `?` followed by any valid combination of ODATA commands - e.g. `v1.1/Observations?$select=result`
-* `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY/PROPERTY_NAME` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-subscribe-entity-property[§14.2.3]
+==== Requirement ODATA query options support
 
 include::../requirements/requirement100.adoc[]
 
-An implementation shall advertise the support for ODATA query parameters by publishing the string `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata` in the conformance section of the Landing Page.
+==== Requirement ODATA support advertisement
 
-```
-"conformance": {
-    "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata"
-}
-```
 include::../requirements/requirement101.adoc[]
 
-==== Requirement Blacklisting ODATA Commands
-A STA URL may contain query parameters (after the `?`) presenting ODATA commands. An implementation may deny discovery (and thereby later subscription) for certain ODATA commands like `$expand` or `$filter`. 
-
-An implementation shall advertise the existence of denied ODATA commands by adding the following key to the Landing Page: `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata` that includes the key `odata_denied`. This key shall contain a JSON array for all denied ODATA commands. 
+==== Requirement ODATA Blacklisting
+A STA URL may contain query parameters (after the `?`) presenting ODATA options. An implementation may deny discovery (and thereby later subscription) for certain ODATA options like `$expand` or `$filter`. 
 
 include::../requirements/requirement102.adoc[]
 
-```
-"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata": {
-    "odata_denied": <JSON Array of denied ODATA commands>
+[EXAMPLE]
+====
+Example blacklisting structure for ODATA options
+[source,json]
+----
+{
+    "serverSettings": {
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+            "odata_denied": <JSON Array of denied ODATA options>
+        }
+    }
 }
-```
+----
+====
 
-In case no ODATA commands are denied, the implementation shall declare that with an empty JSON array.
+[EXAMPLE]
+====
+For example, the following root page snippet indicates restrictions for `$expand`, `$skip`, `$top` and `$filter`
 
-For example, the following Landing Page snippet indicates **no** discovery restrictions for ODATA commands:
-
-```
-"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata": {
-    "odata_denied": []
+[source,json]
+----
+{
+    "serverSettings": {
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+            "odata_denied": ["$expand", "$skip", "$top", "$filter"]
+        }
+    }
 }
-```
+----
+====
 
-For example, the following Landing Page snippet indicates discovery restrictions for `$expand`, `$skip`, `$top` and `$filter`:
+[EXAMPLE]
+====
+The following root page snippet indicates **no** restrictions for ODATA options
 
-```
-"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/odata": {
-    "odata_denied": ["$expand", "$skip", "$top", "$filter"]
+[source,json]
+----
+{
+    "serverSettings": {
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+            "odata_denied": []
+        }
+    }
 }
-```
+----
+====
 
-=== LandingPage Requirements Class (mandatory)
-
-include::../requirements/requirements_class_landingpage.adoc[]
-
-==== Requirement Declare Conformance for STA-WebSub
-An implementation shall list the conformance class `Discovery` on the landing page.
+==== Requirement Topics Blacklisting
+The support for STA-WebSub can be determined from the root page as the relevant conformance classes are listed.
 
 include::../requirements/requirement200.adoc[]
 
-For example, the following snippet indicates support for STA-WebSub:
-
-```
-"conformance": {
-    "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+[EXAMPLE]
+====
+Example blacklisting structure for topics
+[source,json]
+----
+{
+    "serverSettings": {
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+            "topics_denied": <JSON Array of denied topics>
+        }
+    }
 }
-```
-
-==== Requirement Blacklisting root topics
-
-A STA root topic starts with `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-entity-updates[14.2.2]. An implementation shall advertise the existence of denied root topics by adding the following key to the Landing Page: `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` that includes the key `topics_denied`. This key shall contain a JSON array for all denied root topics. 
-
-An implementation may deny discovery (and thereby later subscription) for certain root entities (i.e. v1.1/Observation). An implementation shall advertise the blacklisting of root entities for which a discovery is denied on the landing page.
+----
+====
 
 include::../requirements/requirement201.adoc[]
 
-The following snippet illustrates the construct:
+[EXAMPLE]
+====
+The following root page snippet indicates deny for the topics `v1.1/Observations` and `v1.1/Datastreams('very chatty')/Observations`
 
-```
-"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
-    "topics_denied": <JSON Array of denied root topics>
+[source,json]
+----
+{
+    "serverSettings": {
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+            "topics_denied": ["v1.1/Observations", "v1.1/Datastreams('very chatty')/Observations"]
+        }
+    }
 }
-```
+----
+====
 
-In case no root topics are denied, the implementation shall declare that with an empty JSON array.
+[EXAMPLE]
+====
+The following root page snippet indicates **no** deny for topics:
 
-include::../requirements/requirement202.adoc[]
-
-For example, the following Landing Page snippet indicates **no** deny for root topics:
-
-```
-"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
-    "topics_denied": []
+[source,json]
+----
+{
+    "serverSettings": {
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+            "topics_denied": []
+        }
+    }
 }
-```
+----
+====
 
-For example, the following Landing Page snippet indicates deny for the root topics `v1.1/Observations` and `v1.1/Datastream('very chatty')/Observations`:
-
-```
-"http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
-    "topics_denied": ["v1.1/Observations", "v1.1/Datastream('very chatty')/Observations"]
-}
-```
 

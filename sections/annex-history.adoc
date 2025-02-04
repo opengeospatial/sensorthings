@@ -10,4 +10,6 @@
 |2025-01-14 |0.4 |Andreas Matheus |all |structure improvement; Appendix A first draft
 |2025-01-17 |0.5 |Andreas Matheus |all |First draft of normative section and completion of Appendix A
 |2025-01-23 |0.6 |Andreas Matheus |all |Incorporating feedback from Joan Maso
+|2025-01-31 |0.7 |Andreas Matheus |all |Making the normative chapters (STA-WebSub Requirements and Annex A) compliant with OGC Mod-Spec
+|2025-02-04 |0.8 |Andreas Matheus |Chapter 7 and Annex A |Incorporating feedback from Joan Maso and Hylke van der Schaaf
 |===

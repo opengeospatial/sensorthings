@@ -8,7 +8,7 @@
 :external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
 :docnumber: 24-032
 :received-date: 2024-07-03
-:issued-date: 2025-01-23
+:issued-date: 2025-02-04
 :published-date: 2029-12-31
 :fullname: Andreas Matheus
 :fullname_2: 
@@ -22,7 +22,7 @@
 :pdf-uri: ./document.pdf
 :xml-uri: ./document.xml
 :doc-uri: ./document.doc
-:edition: 0.6
+:edition: 0.8
 
 :identifier: http://www.opengis.net/spec/sensorthings-websub/1.0
 

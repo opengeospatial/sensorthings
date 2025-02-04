@@ -4,10 +4,17 @@
 .Requirements Class 'Discovery'
 ====
 [%metadata]
-identifier:: http://www.opengis.net/spec/sta-websub/1.0/conf/discovery
+identifier:: http://www.opengis.net/spec/sta-websub/1.0/req/discovery
 subject:: Web API
 requirement:: /req/req-class-discovery/req-req-http-methods
 requirement:: /req/req-class-discovery/req-link-hub
 requirement:: /req/req-class-discovery/req-link-self
 requirement:: /req/req-class-discovery/req-link-help
+requirement:: /req/req-class-discovery/req-odata-support
+requirement:: /req/req-class-discovery/req-odata-discovery
+requirement:: /req/req-class-discovery/req-odata-blacklisting
+requirement:: /req/req-class-discovery/req-odata-no-blacklisting
+requirement:: /req/req-class-discovery/req-topics-discovery
+requirement:: /req/req-class-discovery/req-topics-blacklisting
+requirement:: /req/req-class-discovery/req-topics-no-blacklisting
 ====

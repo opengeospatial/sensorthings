@@ -1,0 +1,28 @@
+[[ats_sta_websub_odata_support]]
+[abstract_test]
+====
+[%metadata]
+label:: /conf/discovery/api-sta-websub-odata-support
+identifier:: /conf/discovery/api-sta-websub-odata-support
+target:: /req/req-class-discovery/req-odata-support
+test-purpose:: Validate that the SensorThings implementation supports the use of ODATA options.
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Construct SensorThings URLs for each valid and implemented ODATA option(s).
+--
+
+[.component,class=step]
+--
+Issue a HTTP GET request on each URL.
+--
+
+[.component,class=step]
+--
+Validate the returned content to not contain errors.
+--
+
+=====
+====

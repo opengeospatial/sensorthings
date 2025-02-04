@@ -1,0 +1,59 @@
+[[ats_sta_websub_topic_no_blacklisting]]
+[abstract_test]
+====
+[%metadata]
+label:: /conf/discovery/api-sta-websub-landing-page
+identifier:: /conf/discovery/api-sta-websub-topics-no-blacklisting
+target:: /req/req-class-discovery/req-topics-blacklisting
+subject:: /req/req-class-discovery
+test-purpose:: Validate that all topics are actually allowed for discovery.
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Construct multiple URLs for accessing a topic.
+--
+
+[.component,class=step]
+--
+Issue a HTTP GET request on each URL.
+--
+
+[.component,class=step]
+--
+Validate the returned link headers to contain the `link rel=self"` and **not** `link rel="help"`.
+--
+
+=====
+====
+
+==== Example root page snippet advertising no denied topics
+
+[source,json]
+----
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+        },
+        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+            "topics_denied": [],
+            "odata_denied": []
+        }
+    }
+}
+----
+
+==== Example HTTP request and response for a URL not including a denied topic
+
+[source,text]
+----
+GET /sta/v1.1/Observations HTTP/1.1
+Host: example.com
+
+HTTP/1.1 200 Ok
+Content-type: application/json
+Link: <http://hub.example.com/>; rel="hub"
+Link: <http://help.example.com/sta/v1.1/Observations>; rel="self"
+----

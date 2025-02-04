@@ -1,12 +1,12 @@
-[[req_class_odata_extension]]
+[[req_odata_support]]
 
 [requirement]
 ====
 [%metadata]
-identifier:: /req/req-class-odata/req-odata
-part:: An implementation shall allow the discovery such that the associated MQTT topic is compliant to OGC SensorThings API v1.1 requirement regarding updates via MQTT [section 14.2 - https://docs.ogc.org/is/18-088/18-088.html#req-receive-updates-via-mqtt-receive-updates] with the following extensions:
+identifier:: /req/req-class-discovery/req-odata-support
+part:: An implementation SHALL allow the discovery such that the associated MQTT topic is compliant to OGC SensorThings API v1.1 requirement regarding updates via MQTT [section 14.2 - https://docs.ogc.org/is/18-088/18-088.html#req-receive-updates-via-mqtt-receive-updates] with the following extensions:
 
-* `SERVICE_VERSION/RESOURCE_PATH/COLLECTION_NAME` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-subscribe-entity-set[14.2.1] can be extended with a `?` followed by any valid combination of ODATA commands - e.g. `v1.1/Datastreams(1)/Observations?$filter=result gt 30`
-* `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-entity-updates[14.2.2] can be extended with a `?` followed by any valid combination of ODATA commands - e.g. `v1.1/Observations?$select=result`
+* `SERVICE_VERSION/RESOURCE_PATH/COLLECTION_NAME` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-subscribe-entity-set[14.2.1] can be extended with a `?` followed by any valid combination of ODATA options - e.g. `v1.1/Datastreams(1)/Observations?$filter=result gt 30`
+* `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-entity-updates[14.2.2] can be extended with a `?` followed by any valid combination of ODATA options - e.g. `v1.1/Observations?$select=result`
 * `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY/PROPERTY_NAME` as defined in https://docs.ogc.org/is/18-088/18-088.html#mqtt-subscribe-entity-property[14.2.3]
 ====

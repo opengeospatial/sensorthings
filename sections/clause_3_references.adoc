@@ -14,4 +14,4 @@ References are to follow the Springer LNCS style, with the exception that option
 
 * [[[W3CWebSub,W3C WebSub Recommendation]]], _WebSub_, January 23, 2018. https://www.w3.org/TR/websub
 
-* [[[IETF RFC 5988,RFC5988]]], _Web Linking_, October 2010. https://datatracker.ietf.org/doc/html/rfc5988
+* [[[RFC5988,IETF RFC 5988]]], _Web Linking_, October 2010. https://datatracker.ietf.org/doc/html/rfc5988
