@@ -6,4 +6,14 @@ Ensure that there is a conformance class for each requirements class and a test 
 
 === Conformance Class A
 
-include::../abstract_tests/ATS_class_example1.adoc[]
+include::../abstract_tests/cc_01_http_rest_binding.adoc[]
+
+include::../abstract_tests/cc_01_mqtt_rest_binding.adoc[]
+
+include::../abstract_tests/cc_01_mqtt_pubsub_binding.adoc[]
+
+include::../abstract_tests/cc_02_datamodel.adoc[]
+
+include::../abstract_tests/cc_02_rest.adoc[]
+
+include::../abstract_tests/cc_02_rest_read.adoc[]

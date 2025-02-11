@@ -1,0 +1,41 @@
+[conformance_class]
+====
+[%metadata]
+identifier:: {identifier}/conf-class/binding/mqtt/request-response
+target:: {identifier}/req-class/binding/mqtt/request-response
+classification:: Target Type:Web API
+inherit:: {identifier}/conf-class/datamodel/core
+inherit:: {identifier}/conf-class/api/abstract
+conformance-test:: {identifier}/conf/binding/mqtt/advertisement
+conformance-test:: {identifier}/conf/binding/mqtt/request-response/test1
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/mqtt/advertisement
+target:: {identifier}/req/binding/mqtt/advertisement
+test-purpose:: Validate the MQTT advertisement in the service documents of all request-response bindings.
+
+test-method::
+For each request-response binding:
+. Construct a path for the service document.
+
+. Issue a Read request on that path.
+
+. Validate that the mqtt binding is advertised, and endpoints are set.
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/mqtt/request-response/test1
+target:: {identifier}/req/binding/mqtt/request-response
+test-purpose:: Validate the MQTT request-response implementation.
+
+test-method::
+Test stuff
+====
+

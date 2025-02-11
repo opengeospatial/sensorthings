@@ -2,6 +2,47 @@
 
 The HTTP Bindings specify how access the SensorThings API using the HTTP protocol.
 
+
+
+[[http-binding-advertisement]]
+=== HTTP Binding Advertisement
+
+To help a client find the HTTP endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the service documents of all request-response bindings, as described in <<read_service_document>>.
+If the service supports the HTTP interface binding, then the `+serverSettings+` object SHALL contain a attribute of type Object, with the name
+
+`{identifier}/req/binding/http`
+
+This Object SHALL contain a attribute named `+endpoints+` of type Array. The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the HTTP service
+
+
+[requirement]
+.Binding Advertisement
+====
+[%metadata]
+identifier:: {identifier}/req/binding/http/advertisement
+
+If a service implements any HTTP bindings, then the HTTP endpoints of the service SHALL be advertised in the service documents of all implemented request-response bindings, as described in <<http-binding-advertisement>>.
+====
+
+
+
+[[http-request-response]]
+=== Request / Response
+
+
+[requirements_class]
+.HTTP Interface Bindings, CRUD
+====
+[%metadata]
+identifier:: {identifier}/req-class/binding/http/request-response
+obligation:: requirement
+subject:: Interface Binding
+inherit:: {identifier}/req-class/api/abstract
+requirement:: {identifier}/req/binding/http/request-response
+====
+
+
+
 The actions that can be executed on resources, as defined in the <<abstract_api>> are mapped to HTTP Methods as defined in table <<http-method-mapping>>.
 
 [#http-method-mapping,reftext='{table-caption} {counter:table-num}']
@@ -37,7 +78,15 @@ Request parameters (such as `prefer`, `content-type` and `location`)  are passed
 HTTP HEAD and OPTIONS requests are treated as normal GET requests, but don't return data.
 If a GET request with the same URL and headers would return an error, the HEAD or OPTION requests also returns this error.
 
-EDITOR: point to W3 standards
+[requirement]
+.Binding Advertisement
+====
+[%metadata]
+identifier:: {identifier}/req/binding/http/request-response
+
+If a service implements and HTTP bindings, then the HTTP endpoints of the service SHALL be advertised in the service documents of all implemented request-response bindings, as described in <<http-binding-advertisement>>.
+====
+
 
 
 === Cross Origin Resource Sharing

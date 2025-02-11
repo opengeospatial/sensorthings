@@ -25,6 +25,8 @@ References are to follow the Springer LNCS style, with the exception that option
 
 * [[[RFC7240,IETF RFC 7240]]]
 
+* [[[RFC2818,IETF RFC 2818]]]
+
 * [[[ODATAP1,OASIS OData-Part1]]]
 
 * [[[ODATAP2,OASIS OData-Part2]]]
@@ -32,6 +34,8 @@ References are to follow the Springer LNCS style, with the exception that option
 * [[[ODATACSDL,OASIS OData-CSDL-JSON-v4.01]]]
 
 * [[[MQTT50,OASIS mqtt-v5.0]]]
+
+* [[[OGC06-121r9, OGC 06-121r9]]]
 
 EDITOR: Check which of these are normative and which should go to the bibliography at the end.
 

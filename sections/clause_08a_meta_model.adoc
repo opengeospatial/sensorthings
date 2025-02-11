@@ -11,7 +11,7 @@ This section is base on:
 * https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_DataModel 
 * https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_EntityModel
 
-NOTE: The OData specification uses the term property and properties. To avoid confusion with "ObservedProperties" and the "properties property", his document uses the terms attribute and attributes instead.
+NOTE: The OData specification uses the term "property". To avoid confusion with "ObservedProperty" and the "properties property", his document uses the terms "attribute" instead.
 
 The entity model consists of the following elements:
 

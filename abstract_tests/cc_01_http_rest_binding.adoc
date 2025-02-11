@@ -1,0 +1,44 @@
+[conformance_class]
+====
+[%metadata]
+identifier:: {identifier}/conf-class/binding/http/request-response
+target:: {identifier}/req-class/binding/http/request-response
+classification:: Target Type:Web API
+inherit:: {identifier}/conf-class/api/abstract
+conformance-test:: {identifier}/conf/binding/http/advertisement
+conformance-test:: {identifier}/conf/binding/http/request-response
+====
+
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/http/advertisement
+target:: {identifier}/req/binding/http/advertisement
+test-purpose:: test-purpose:: Validate the binding advertisement in the service document.
+
+test-method::
+For each request-response binding:
+. Construct a path for the service document.
+
+. Issue a Read request on that path.
+
+. Validate that the mqtt binding is advertised, and endpoints are set.
+====
+
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/http/request-response
+target:: {identifier}/req/binding/http/request-response
+test-purpose:: Validate that the resource paths advertised through the API conform with HTTP 1.1 and, where appropriate, TLS.
+
+test-method::
+. All compliance tests SHALL be configured to use the HTTP 1.1 protocol exclusively.
+
+. For APIs which support HTTPS, all compliance tests SHALL be configured to use <<RFC2818,HTTP over TLS>> (RFC 2818) with their HTTP 1.1 protocol.
+
+====

@@ -1,0 +1,10 @@
+[conformance_class]
+====
+[%metadata]
+identifier:: {identifier}/conf-class/api/abstract
+target:: {identifier}/req-class/api/abstract
+classification:: Target Type:Data Model
+inherit:: {identifier}/conf-class/api/read
+====
+
+

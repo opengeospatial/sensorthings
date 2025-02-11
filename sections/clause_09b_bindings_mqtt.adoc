@@ -2,23 +2,16 @@
 == MQTT Interface Bindings
 
 The MQTT Bindings specify how to access the SensorThings API using the MQTT 5.0 protocol (<<MQTT50>>).
+This binding consists of three parts that can be implemented independently: <<mqtt-request-response>>, <<mqtt-publish-subscribe>> and <<mqtt-simple-create>>.
 
 
-[requirements_class]
-.MQTT Interface Bindings
-====
-[%metadata]
-identifier:: {identifier}/req-class/bindings/mqtt
-obligation:: requirement
-subject:: Interface Binding
-requirement:: {identifier}/req/bindings/mqtt
-====
+[[mqtt-binding-advertisement]]
+=== MQTT Binding Advertisement
 
+To help a client find the MQTT endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the service documents of all request-response bindings, as described in <<read_service_document>>.
+If the service supports any MQTT interface bindings, then the `+serverSettings+` object SHALL contain a attribute of type Object, with the name
 
-To help a client find the MQTT endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the landing page described in <<read_service_document>>.
-If the service supports the MQTT extension, then the `+serverSettings+` object SHALL contain a attribute of type Object, with the name
-
-`http://www.opengis.net/spec/sensorthings/2.0/req/bindings/mqtt`
+`{identifier}/req/binding/mqtt`
 
 This Object SHALL contain a attribute named `+endpoints+` of type Array. The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the MQTT service
 
@@ -27,9 +20,9 @@ This Object SHALL contain a attribute named `+endpoints+` of type Array. The JSO
 .Binding Advertisement
 ====
 [%metadata]
-identifier:: {identifier}/req/bindings/mqtt
+identifier:: {identifier}/req/binding/mqtt/advertisement
 
-The MQTT endpoints of a service SHALL be advertised in the service document as described in <<mqtt-bindings>>.
+If a service implements any MQTT bindings, then the MQTT endpoints of the service SHALL be advertised in the service documents of all implemented request-response bindings, as described in <<mqtt-binding-advertisement>>.
 ====
 
 
@@ -84,6 +77,19 @@ MQTT 5.0 also defines User Properties (<<MQTT50,section="3.3.2.3.7">>) that can 
   broker <-- client: ok
 @enduml
 ....
+
+
+[requirements_class]
+.MQTT Interface Bindings: Request / Response
+====
+[%metadata]
+identifier:: {identifier}/req-class/binding/mqtt/request-response
+obligation:: requirement
+subject:: Interface Binding
+requirement:: {identifier}/req/binding/mqtt/advertisement
+====
+
+
 
 Using the basic request-response pattern, and the User Properties of MQTT 5.0, the abstract API defined in <<abstract_api>> can be implemented over the MQTT protocol.
 
@@ -199,6 +205,17 @@ Payload: <empty>
 
 [[mqtt-publish-subscribe]]
 === Publish / Subscribe
+
+[requirements_class]
+.MQTT Interface Bindings: Publish / Subscribe
+====
+[%metadata]
+identifier:: {identifier}/req-class/binding/mqtt/pub-sub
+obligation:: requirement
+subject:: Interface Binding
+requirement:: {identifier}/req/binding/mqtt/advertisement
+====
+
 
 MQTT subscriptions are allowed on EntitySets (<<pattern_entityset>>, <<pattern_entityset_related>>), individual entities (<<pattern_entity>>, <<pattern_entity_related>>), and individual entity attributes (<<pattern_entity_attribute>>, <<pattern_entity_attribute_raw>>).
 

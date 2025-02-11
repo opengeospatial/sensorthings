@@ -1,3 +1,4 @@
+[[api_read]]
 === Requesting Data
 
 This section describes how to read data from a SensorThings API compatible service.
@@ -9,8 +10,33 @@ Adapted from:
 - https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
 - https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html
 
+
+[requirements_class]
+.Requesting Data
+====
+[%metadata]
+identifier:: {identifier}/req-class/api/read
+obligation:: requirement
+subject:: Interface Binding
+requirement:: {identifier}/req/api/read/paths
+====
+
+[[api_read_paths]]
+==== Read Paths
+
+[requirement]
+.Requesting data
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/paths
+
+A service SHALL support all the read requests listed in section <<api_read_paths>>.
+====
+
+
+
 [[context_url]]
-==== Context URL
+===== Context URL
 
 Most responses to read requests contain a context URL that describes the content of the payload.
 The context URL consists of the URL of the service metadata document (See <<pattern_service_metadata_document>>, <<OData-CSDL>>) followed by a fragment that identifies the relevant portion of the document.
@@ -20,17 +46,9 @@ EDITOR: Explain the `@context` url. Do we want to go the full complexity? https:
 A read Requests to the Service Document URL pattern (<<pattern_service_metadata_document>>) returns the service metadata document as described in <<OData-CSDL>>.
 
 
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req-class/api/abstract/csdl
-
-A service that implements the absract REST API SHALL make the service metadata document available as described in <<OData-CSDL>>.
-====
-
 
 [[read_service_document]]
-==== Service Document
+===== Service Document
 
 A read Requests to the Service Document URL pattern (<<pattern_service_document>>) returns the service document.
 
@@ -124,7 +142,7 @@ Extensions that need to expose additional server settings may do so in a attribu
 
 EDITOR: Update example with the correct requirement URLs.
 
-==== EntitySet
+===== EntitySet
 
 When a Read request is made to a URI pattern that addresses an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>), the service returns a JSON object with the attributes `@context` and `value` and optionally `@count` and `@nextLink`.
 The `@context` annotation SHALL be a context URI as described in <<context_url>>.
@@ -175,7 +193,7 @@ Read requests to an entity set can use all query options: `$filter`, `$count`, `
 ----
 
 
-==== Single Entity
+===== Single Entity
 
 When a Read request is made to a URI pattern that addresses a single entity (<<pattern_entity>>, <<pattern_entity_related>>), the service returns a JSON object representing the entity, with the added attributes `@context`. The `@context` annotation SHALL be a context URI as described in <<context_url>>.
 
@@ -202,7 +220,7 @@ Read requests to a URI pattern that returns a single entity can use the `$expand
 
 
 
-==== Single Entity Attribute
+===== Single Entity Attribute
 
 When a Read request is made to a URI pattern that addresses a single entity attribute (<<pattern_entity_attribute>>), the service returns the JSON representation of this entity attribute.
 
@@ -216,7 +234,7 @@ When a Read request is made to a URI pattern that addresses a single entity attr
 ----
 
 
-==== Raw Value of a Single Entity Attribute
+===== Raw Value of a Single Entity Attribute
 
 When a Read request is made to a URI pattern that addresses the raw value of a single entity attribute (<<pattern_entity_attribute_raw>>), the service returns the entity attribute.
 
@@ -227,7 +245,7 @@ Oven
 ----
 
 
-==== Relation Reference
+===== Relation Reference
 
 When a Read request is made to a URI pattern that addresses a relation reference (<<pattern_relation>>), the service responds with the  entity-id(s) of the target Entity(s).
 
@@ -263,11 +281,11 @@ When a Read request is made to a URI pattern that addresses a relation reference
 ----
 
 
-=== Request Query Options
+==== Request Query Options
 
 Read requests can be modified using various query options. Query options are added to the URL of the request, as specified in <<url-patterns>>.
 
-==== Evaluation Order
+===== Evaluation Order
 
 The OGC SensorThings API adapts many of OData's system query options and their usage.
 These query options allow refining the request.
@@ -289,7 +307,7 @@ After applying any server-driven pagination:
 
 
 [[select]]
-==== $select
+===== $select
 
 The $select system query option requests the service to return only the attributes explicitly requested by the client.
 The value of a $select query option SHALL be a comma-separated list of selection clauses.
@@ -310,7 +328,7 @@ v2.0/Things?$select=id,name
 
 
 [[select_distinct]]
-==== $select distinct
+===== $select distinct
 
 It is quite useful to give Entities common attributes, like a “type”.
 But when filtering on such a common attribute the client needs to know what the used values are.
@@ -346,7 +364,7 @@ v2.0/Things?$select=distinct:properties/type
 
 
 [[expand]]
-==== $expand
+===== $expand
 
 The `$expand` system query option indicates the related entities to be represented inline.
 The value of the `$expand` query option SHALL be a comma separated list of navigation attribute names.
@@ -373,7 +391,7 @@ v2.0/Datastreams?$expand=Observations($select=result,phenomenonTime;$orderby=phe
 
 
 [[top]]
-==== $top
+===== $top
 
 The `$top` system query option specifies the limit on the number of items returned from an EntitySet.
 The value of the `$top` system query option SHALL be a non-negative integer.
@@ -399,7 +417,7 @@ v2.0/Observations?$top=5&$orderby=phenomenonTime desc
 
 
 [[skip]]
-==== $skip
+===== $skip
 
 The `$skip` system query option specifies the number for the items of the queried EntitySet that SHALL be excluded from the result.
 The value of `$skip` system query option SHALL be a non-negative integer n.
@@ -422,7 +440,7 @@ v2.0/Observations?$skip=2&$top=2&$orderby=resultTime
 
 
 [[count]]
-==== $count
+===== $count
 
 The `$count` system query option with a value of `true` specifies that the total count of items within an EntitySet matching the request SHALL be returned along with the result.
 A `$count` query option with a value of `false` specifies that the service SHALL not return a count.
@@ -440,7 +458,7 @@ Note: Adapted from OData 4.01-Protocol 11.2.6.5
 
 
 [[orderby]]
-==== $orderby
+===== $orderby
 
 The `$orderby` system query option specifies the order in which items are returned from the service.
 The value of the `$orderby` system query option SHALL contain a comma-separated list of expressions whose primitive result values are used to sort the items.
@@ -469,7 +487,7 @@ v2.0/Observations?$orderby=Datastreams/id desc, phenomenonTime
 
 
 [[filter]]
-==== $filter
+===== $filter
 
 The `$filter` option can be used to filter the entities returned by a request to any EntitySet.
 The expression specified with $filter is evaluated for each entity in the collection, and only items where the expression evaluates to true SHALL be included in the response.
@@ -523,7 +541,7 @@ v2.0/Observations?$filter=Datastream/Thing/name eq 'House 1'
 
 
 [[filter_operations]]
-===== Built-in filter operations
+====== Built-in filter operations
 
 The OGC SensorThings API supports a set of built-in filter operations, as described in the following table.
 These built-in filter operator usages and definitions follow the [OData Version 4.01. Part 1: Protocol 11.2.6.1.1] and [OData Version 4.01 ABNF].
@@ -619,7 +637,7 @@ Where `proprties/tags` is an array of strings.
 
 
 [[query_functions]]
-===== Built-in query functions
+====== Built-in query functions
 
 The OGC SensorThings API supports a set of functions that can be used with the $filter or $orderby query operations.
 The following table lists the available functions and they follows the OData Canonical function definitions listed in link:https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_CanonicalFunctions[OData Version 4.01 Part 2: URL Conventions, Section 5.1.1.4].
@@ -777,7 +795,7 @@ In such cases, the `cast` function can be used.
 
 
 [[any]]
-===== Any
+====== Any
 
 The `any()` operator applies a boolean expression to each member of a collection and returns true if the expression returns true for any member of the collection.
 The any operator can be used by adding a slash and the `any` keyword after a filter path ending in an EntitySet.
@@ -802,13 +820,13 @@ Things?$filter=Datastreams/any(d1: d1/ObservedProperty/name eq 'NO2') and Datast
 
 
 [[param_format]]
-==== $format
+===== $format
 
 The format of the data returned by read request can be controlled with the `$format` query option.
 The default value for the `$format` option is `application/json`.
 
 [[format_json]]
-===== application/json
+====== application/json
 
 This formatter encodes responses in JSON as specified in OData JSON Format Version 4.01.
 The JSON format can be explicitly requested using the `$format` query option with a value of `application/json`, or the shorter alias `json`.
@@ -820,7 +838,7 @@ The format option allows for the format parameter `metadata` to control the amou
 
 
 [[server_driven_pagination]]
-==== Server driven pagination
+===== Server driven pagination
 
 Responses that include only a partial set of the items identified by the request URL SHALL contain a link that allows retrieving the next partial set of items.
 This link is called a nextLink; its representation is format-specific.

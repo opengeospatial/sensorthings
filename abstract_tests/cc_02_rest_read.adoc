@@ -1,0 +1,22 @@
+[conformance_class]
+====
+[%metadata]
+identifier:: {identifier}/conf-class/api/read
+target:: {identifier}/req-class/api/read
+classification:: Target Type:Data Model
+conformance-test:: {identifier}/conf/api/read/paths
+====
+
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/paths
+target:: {identifier}/req/api/read/paths
+test-purpose:: Validate that all the specified paths can be read, for the implemented data model.
+
+test-method::
+. See if ...
+
+====
