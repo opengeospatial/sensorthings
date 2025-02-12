@@ -1373,75 +1373,28 @@ part:: For any action that changes data, the service SHALL adhere to the integri
 When deleting an entity, all related entities that depend on the deleted entity SHALL also be deleted by the service.
 ====
 
-The service SHALL adhere to the integrity constraints as defined in <<tab-integrity-constraint-create>> when creating an entity and <<tab-integrity-constraint-delete>> when deleting an entity. 
+For the core model the integrity constraints are summarised in <<tab-integrity-constraint>>.
 
-[#tab-integrity-constraint-create,reftext='{table-caption} {counter:table-num}']
-.Integrity constraints when creating an entity
+
+[#tab-integrity-constraint,reftext='{table-caption} {counter:table-num}']
+.Integrity constraints when changing data
+[width="100%",cols="<5a,<20a",options="header"]
 |===
-|Entity |Integrity Constraints
-
-|Thing
-|-
-
-|Location
-|-
+|Entity 
+|Integrity Constraints
 
 |HistoricalLocation
-a|* SHALL link to a Thing entity
+|* SHALL depend on a Thing entity.
+* SHALL depend on at least one Location entity.
 
 |Datastream
-a|* SHALL link to a Thing entity
-* SHALL link to a Sensor entity
-* SHALL link to an ObservedProperty entity
-
-|Sensor
-|-
-
-|ObservedProperty
-|-
+|* SHALL depend on a Thing entity.
+* SHALL depend on a Sensor entity.
+* SHALL depend on at least one ObservedProperty entity.
+* The linked ObservedProperties SHALL match the resultType definition.
 
 |Observation
-a|* SHALL link to a Datastream entity
-
-|Feature
-|
-
-|FeatureType
-|-
-|===
-
-
-[#tab-integrity-constraint-delete,reftext='{table-caption} {counter:table-num}']
-.Integrity constraints when deleting an entity
-|===
-|Entity |Integrity Constraints
-
-|Thing
-|Delete all the Datastream and HistoricalLocation entities linked to the Thing entity
-
-|Location
-|Delete all the HistoricalLocation entities linked to the Location entity
-
-|Datastream
-|Delete all the Observation entities linked to the Datastream entity
-
-|Sensor
-|Delete all the Datastream entities linked to the Sensor entity
-
-|ObservedProperty
-|Delete all the Datastream entities linked to the ObservedProperty entity
-
-|Observation
-|-
-
-|Feature
-|Delete all the Observation entities linked to the Feature entity
-
-|FeatureType
-|Delete all the Features of type FeatureType
-
-|HistoricalLocation
-|-
+|* SHALL depend on a Datastream entity.
 |===
 
 
