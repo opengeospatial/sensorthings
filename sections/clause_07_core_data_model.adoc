@@ -25,7 +25,7 @@ requirement:: {identifier}/req/datamodel/core/integrity
 
 The OGC SensorThings API v2.0 depicts the Core Sensing entities in <<img-sta-core>>
 
-[#img-sta-core,link=figures/Datamodel-SensorThingsApi-V2-Core.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Core data model']
+[#img-sta-core,link=figures/Datamodel-SensorThingsApi-V2-Core.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='UML class diagram of the SensorThings API Core data model']
 image::figures/Datamodel-SensorThingsApi-V2-Core.drawio.png[Sensing Core, align="center"]
 
 
@@ -224,6 +224,12 @@ Examples of the use of Location are:
 | A property provides a label for Location entity, commonly a descriptive name.
 | String
 | 1
+
+| `definition`
+| The URI linking the Location to an external definition.
+Dereferencing this URI SHOULD result in a representation of the definition of the Location.
+| URI
+| 0..1
 
 | `encodingType`
 | The encoding type of the Location property.
@@ -551,6 +557,12 @@ Examples of Datastreams could be:
 | String
 | 1
 
+| `definition`
+| The URI linking the Datastream to an external definition.
+Dereferencing this URI SHOULD result in a representation of the definition of the Datastream.
+| URI
+| 0..1
+
 | `description`
 | The description of the Datastream entity.
 | String
@@ -807,6 +819,13 @@ A Sensor may represent a piece of hardware, but a Sensor may also be a human or 
 | A property provides a label for Sensor entity, commonly a descriptive name.
 | String
 | 1
+
+| `definition`
+| The URI linking the Thing to an external definition.
+Dereferencing this URI SHOULD result in a representation of the definition of the Thing.
+| URI
+| 0..1
+
 | `description`
 | The description of the Sensor entity.
 | String
@@ -1158,6 +1177,12 @@ The river is the UltimateFeatureOfInterest attached to the Datastreams of the Ob
 | String
 | 1
 
+| `definition`
+| The URI linking the Feature to an external definition.
+Dereferencing this URI SHOULD result in a representation of the definition of the Feature.
+| URI
+| 0..1
+
 | `description`
 | The description about the Feature
 | String
@@ -1172,7 +1197,7 @@ The river is the UltimateFeatureOfInterest attached to the Datastreams of the Ob
 | The detailed description of the feature.
 The data type is defined by encodingType.
 | ANY
-| 0..1
+| 1
 
 | `properties`
 | A JSON Object containing user-annotated properties as key-value pairs
@@ -1285,15 +1310,15 @@ The `definition` attribute of the FeatureType should point to an external regist
 | String
 | 1
 
-| `description`
-| The description about the Feature
-| String
-| 0..1
-
 | `definition`
 | The URI the defines this FeatureType.
 Dereferencing this URI SHOULD result in a representation of the definition of the FeatureType.
 | URI
+| 0..1
+
+| `description`
+| The description about the Feature
+| String
 | 0..1
 
 | `properties`
