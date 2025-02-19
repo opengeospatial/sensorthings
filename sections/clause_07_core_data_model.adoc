@@ -23,7 +23,7 @@ requirement:: {identifier}/req/datamodel/core/feature-type
 requirement:: {identifier}/req/datamodel/core/integrity
 ====
 
-The OGC SensorThings API v2.0 depicts the Core Sensing entities in <<img-sta-core>>
+The OGC SensorThings API v2.0 Core data model is depicted in <<img-sta-core>>
 
 [#img-sta-core,link=figures/Datamodel-SensorThingsApi-V2-Core.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='UML class diagram of the SensorThings API Core data model']
 image::figures/Datamodel-SensorThingsApi-V2-Core.drawio.png[Sensing Core, align="center"]
