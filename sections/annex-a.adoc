@@ -1,4 +1,4 @@
-[appendix]
+[appendix,obligation="normative"]
 == Conformance Class Abstract Test Suite (Normative)
 
 For compliance, the mandatory conformance tests must be implemented. 

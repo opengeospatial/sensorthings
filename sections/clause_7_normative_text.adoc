@@ -1,7 +1,6 @@
-== SensorThings API - WebSub Extension (normative)
-As outlined in chapter <<introduction>>, a system leveraging the SensorThings API Extension WebSub (STA-WebSub) is a specialization of the asynchronous messaging system described in the <<W3CWebSub>>. As a W3C WebSub system, the STA-WebSub system is comprised of three parts (Subscriber, Hub, Publisher). In the context of this standard, the Publisher is the SensorThings API service which can be split into two sub-components: the HTTP interface and the MQTT broker. 
-
-As the only change to the SensorThings API service is concerned with supporting the W3C WebSub discovery, this STA-WebSub extension to SensorThings API only defines the requirements for the HTTP interface for implementing the W3C WebSub Discovery protocol.
+[obligation="normative"]
+== SensorThings API - WebSub Extension (Normative)
+As outlined in chapter <<introduction>>, a system leveraging the SensorThings APIWebSub Extension (STA-WebSub) is a specialization of the asynchronous messaging system described in the <<W3CWebSub>>. As a W3C WebSub system, the STA-WebSub system is comprised of three parts (Subscriber, Hub, Publisher). In the context of this OGC SensorThings API Extension: WebSub Asynchronous Messaging Standard, the Publisher is the SensorThings API service which can be split into two sub-components: the HTTP interface and the MQTT broker. 
 
 [NOTE]
 ====

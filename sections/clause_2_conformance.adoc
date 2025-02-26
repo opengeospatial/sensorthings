@@ -1,7 +1,7 @@
 == Conformance
 Requirements for one standardization target type are considered:
 
-* SensorThings API v1.1
+* A SensorThings API v1.1 service
 
 Conformance with this standard SHALL be checked using all the relevant tests specified in Annex A (normative) of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC Compliance Testing web site.
 

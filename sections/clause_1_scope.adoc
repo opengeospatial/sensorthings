@@ -1,2 +1,2 @@
 == Scope
-This OGC Standard defines how to extend the OGC SensorThings API service towards asynchronous messaging over HTTP by adopting the W3C WebSub Recommendation.
+This OGC SensorThings API Extension: WebSub Asynchronous Messaging Standard defines how to extend the OGC SensorThings API v1.1 implementation towards asynchronous messaging over HTTP by adopting the W3C WebSub Recommendation.
