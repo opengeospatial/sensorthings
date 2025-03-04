@@ -197,7 +197,7 @@ part:: Each Location entity SHALL have the direct relation between a Location en
 The Location entity geo-locates the Thing or the Things it associated with.
 A Thing's Location entity is defined as the last known location of the Thing.
 
-Section 7.1.4 of [OGC 20-082r4 and ISO 19156:2023] provides a detailed explanation of observation location.
+Section 7.1.4 of [<<OgcOMS>> and <<IsoOMS>>] provides a detailed explanation of observation location.
 Examples of the use of Location are:
 
 - An air quality sensing facility's Location can be the physical location where the facility is situated, but the (proximate) Feature that is characterized by the Observation could be the air envelope around the Sensor which is subsequently used to estimate the air quality of the district where the facility is situated.
@@ -530,7 +530,7 @@ part:: Each Datastream entity SHALL have the direct relation between a Datastrea
 ====
 
 
-A Datastream groups a collection of Observations into a time series measuring the same ObservedProperty by the same Sensor for the same Feature for the same Thing.
+A Datastream groups a collection of Observations into a time series measuring the same ObservedProperties by the same Sensor for the same Thing.
 Examples of Datastreams could be:
 
 - An air quality monitoring station may have multiple Datastreams, each recording a specific pollutant measured by a specific sensor.
@@ -1118,7 +1118,7 @@ A third case is possible, when the target of the observation is (a sub-part of) 
   "resultTime": "2017-11-12T14:00:00Z",
   "result": 12.5,
   "Datastream@navigationLink": "Observations(1)/Datastream",
-  "proximateFeatureOfInterest@navigationLink": "Observations(1)/proximateFeatureOfInterest"
+  "ProximateFeatureOfInterest@navigationLink": "Observations(1)/ProximateFeatureOfInterest"
 }
 ----
 
@@ -1141,7 +1141,7 @@ part:: Each Feature entity SHALL have the direct relation between a Feature enti
 
 
 An Observation assigns a value to a property of a subject by applying an ObservingProcedure.
-The subject is the Feature that can take the role of ProximateFeatureOfInterest or ultimateFeatureOfInterest of the Observation [OGC 20-082r4 and ISO 19156:2023].
+The subject is the Feature that can take the role of ProximateFeatureOfInterest or UltimateFeatureOfInterest of the Observation [<<OgcOMS>> and <<IsoOMS>>].
 In cases where estimating the value of a property of interest is not possible directly, a proxy feature MAY be used.
 Such an application typically requires taking a sample of the UltimateFeatureOfInterest such that this sample, the ProximateFeatureOfInterest, represents an approximation of the domain feature.
 
