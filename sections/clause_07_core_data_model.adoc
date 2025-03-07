@@ -1244,9 +1244,9 @@ The data type is defined by encodingType.
       49.800951554
     ]
   },
-  "FeatureType@navigationLink": "FeaturesOfInterest(1)/FeatureType",
-  "Datastreams@navigationLink": "FeaturesOfInterest(1)/Datastreams",
-  "Observations@navigationLink": "FeaturesOfInterest(1)/Observations"
+  "FeatureType@navigationLink": "Features(1)/FeatureType",
+  "Datastreams@navigationLink": "Features(1)/Datastreams",
+  "Observations@navigationLink": "Features(1)/Observations"
 }
 ----
 
@@ -1261,9 +1261,9 @@ The data type is defined by encodingType.
   "description": "A public park located in the heart of the city",
   "encodingType": "application/wkt",
   "feature": "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))",
-  "FeatureType@navigationLink": "FeaturesOfInterest(2)/FeatureType",
-  "Datastreams@navigationLink": "FeaturesOfInterest(2)/Datastreams",
-  "Observations@navigationLink": "FeaturesOfInterest(2)/Observations"
+  "FeatureType@navigationLink": "Features(2)/FeatureType",
+  "Datastreams@navigationLink": "Features(2)/Datastreams",
+  "Observations@navigationLink": "Features(2)/Observations"
 }
 ----
 
