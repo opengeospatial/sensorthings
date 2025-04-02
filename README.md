@@ -16,12 +16,12 @@ The standard is on [OGC SensorThings API page](https://www.ogc.org/standards/sen
 
 Implementating and certified servers are also listed on OGC website:
 
-* [OGC SensorThings API Part 1: Sensing 1.0](https://www.ogc.org/resource/products/byspec/?specid=772)
-    * [OGC SensorThings API Sensing Core 1.0](https://www.ogc.org/resource/products/byspec/?specid=773)
-    * [OGC SensorThings API Filtering Extension 1.0](https://www.ogc.org/resource/products/byspec/?specid=774)
-    * [OGC SensorThings API Create-Update-Delete 1.0](https://www.ogc.org/resource/products/byspec/?specid=775)
-* [OGC SensorThings API Part 1: Sensing 1.1](https://www.ogc.org/resource/products/byspec/?specid=1183)
-* [OGC SensorThings API Part 2: Tasking Core 1.0](https://www.ogc.org/resource/products/byspec/?specid=971)
+* OGC SensorThings API Part 1: Sensing 1.0 [(Compliant)](https://portal.ogc.org/public_ogc/compliance/compliant.php?specid=772) [(Implementing)](https://portal.ogc.org/public_ogc/compliance/implementing.php?specid=772)
+    * OGC SensorThings API Sensing Core 1.0 [(Compliant)](https://portal.ogc.org/public_ogc/compliance/compliant.php?specid=773) [(Implementing)](https://portal.ogc.org/public_ogc/compliance/implementing.php?specid=773)
+    * OGC SensorThings API Filtering Extension 1.0 [(Compliant)](https://portal.ogc.org/public_ogc/compliance/compliant.php?specid=774) [(Implementing)](https://portal.ogc.org/public_ogc/compliance/implementing.php?specid=774)
+    * OGC SensorThings API Create-Update-Delete 1.0 [(Compliant)](https://portal.ogc.org/public_ogc/compliance/compliant.php?specid=775) [(Implementing)](https://portal.ogc.org/public_ogc/compliance/implementing.php?specid=775)
+* OGC SensorThings API Part 1: Sensing 1.1 [(Implementing)](https://portal.ogc.org/public_ogc/compliance/implementing.php?specid=1183)
+* OGC SensorThings API Part 2: Tasking Core 1.0 [(Compliant)](https://portal.ogc.org/public_ogc/compliance/compliant.php?specid=971) [(Implementing)](https://portal.ogc.org/public_ogc/compliance/implementing.php?specid=971)
 
 
 Some client implementations exist:
