@@ -62,3 +62,16 @@ OGC SensorThings API is an official OGC standard specification. The OGC SensorTh
 
 ### Is the OGC SensorThings API a new standard?
 Yes and No. The answer can be yes, because it is a new standard designed specifically for IoT devices and applications. The answer can also be no, because the OGC SensorThings API is developed based on the existing [OGC Sensor Web Enablement (SWE) standards](http://www.opengeospatial.org/ogc/markets-technologies/swe). The OGC SWE standards enable all types of sensors and actuators discoverable, accessible and re-usable via the Web. These standards have been widely implemented around the world. SWE standards, however, are as complex as necessary to support tasks such as controlling Earth imaging satellites and archiving national libraries of geological observation data, and thus are, too "heavyweight" for the resource-constrained IoT applications. The OGC SensorThings API can be considered as a lightweight SWE profile suited particularly for IoT applications. As a result, the OGC SensorThings API is a new and efficient API based on the proven and widely implemented SWE standard framework.
+
+## Branches in this repository
+This repository contains branches for the different parts and versions
+of the standard. Most of these branches are named after the identifier
+code for the standards document they contain. In particular, there are:
+ - :white_check_mark: 15-078: SensorThings API Part 1: Sensing 1.0 (published)
+ - :white_check_mark: 17-079: SensorThings API Part 2: Tasking Core 1.0 (published)
+ - :white_check_mark: 18-056: OGC SensorThings API Tasking Core Discussion Paper (published)
+ - :white_check_mark: 18-088: SensorThings API Part 1: Sensing 1.1 (published)
+ - :white_check_mark: 22-022: SensorThings API Extension: STAplus 1.0 (published)
+ - :construction: 23-019: OGC SensorThings API 2.0 (in development)
+ - :construction: 24-032: SensorThings API Extension: WebSub Asynchronous Messaging Standard (in development)
+ - :construction: 24-046: SensorThings API 2.0 Extensions (in development)
