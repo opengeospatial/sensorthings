@@ -1,4 +1,4 @@
-= OGC SensorThings API 2.0
+= OGC SensorThings API 2.0 Extensions
 :doctype: standard
 :encoding: utf-8
 :lang: en
@@ -24,7 +24,7 @@
 :doc-uri: ./document.doc
 :edition: 0.1
 
-:identifier: http://www.opengis.net/spec/sensorthings/2.0
+:identifier: http://www.opengis.net/spec/sensorthings/extensions/2.0
 
 
 ////
