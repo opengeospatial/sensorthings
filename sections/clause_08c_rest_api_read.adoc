@@ -659,6 +659,10 @@ In such cases, the `cast` function can be used.
 
 3+|**String Functions**
 
+| contains
+|`+bool contains(string p0, string p1)+`
+|`+contains(description, 'Sensor Things')+`
+
 | substringof
 |`+bool substringof(string p0, string p1)+`
 |`+substringof('Sensor Things',description)+`
