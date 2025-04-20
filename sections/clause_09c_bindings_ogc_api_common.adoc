@@ -1,5 +1,7 @@
 == OGC API -- Common Interface Bindings
 
+=== General
+
 The OGC API -- Common Bindings specify how to combine the SensorThings API with other OGC APIs.
 
 === Landing Page

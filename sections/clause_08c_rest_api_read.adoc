@@ -1,6 +1,8 @@
 [[api_read]]
 === Requesting Data
 
+==== Introduction
+
 This section describes how to read data from a SensorThings API compatible service.
 Details on how to send requests and how to receive responses are described in the protocol bindings sections.
 For example, when using the HTTP bindings, GET is used for read requests.
@@ -21,8 +23,6 @@ subject:: Interface Binding
 requirement:: {identifier}/req/api/read/paths
 ====
 
-[[api_read_paths]]
-==== Read Paths
 
 [requirement]
 .Requesting data
@@ -33,6 +33,9 @@ identifier:: {identifier}/req/api/read/paths
 A service SHALL support all the read requests listed in section <<api_read_paths>>.
 ====
 
+
+[[api_read_paths]]
+==== Read Paths
 
 
 [[context_url]]
@@ -282,6 +285,8 @@ When a Read request is made to a URI pattern that addresses a relation reference
 
 
 ==== Request Query Options
+
+===== Introduction
 
 Read requests can be modified using various query options. Query options are added to the URL of the request, as specified in <<url-patterns>>.
 
@@ -825,6 +830,8 @@ Things?$filter=Datastreams/any(d1: d1/ObservedProperty/name eq 'NO2') and Datast
 
 [[param_format]]
 ===== $format
+
+====== Introduction
 
 The format of the data returned by read request can be controlled with the `$format` query option.
 The default value for the `$format` option is `application/json`.

@@ -1,7 +1,8 @@
 == HTTP Interface Bindings
 
-The HTTP Bindings specify how access the SensorThings API using the HTTP protocol.
+=== Introduction
 
+The HTTP Bindings specify how access the SensorThings API using the HTTP protocol.
 
 
 [[http-binding-advertisement]]

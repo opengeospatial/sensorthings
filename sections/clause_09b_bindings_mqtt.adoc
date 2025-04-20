@@ -1,6 +1,8 @@
 [[mqtt-bindings]]
 == MQTT Interface Bindings
 
+=== Introduction
+
 The MQTT Bindings specify how to access the SensorThings API using the MQTT 5.0 protocol (<<MQTT50>>).
 This binding consists of three parts that can be implemented independently: <<mqtt-request-response>>, <<mqtt-publish-subscribe>> and <<mqtt-simple-create>>.
 
@@ -205,6 +207,8 @@ Payload: <empty>
 
 [[mqtt-publish-subscribe]]
 === Publish / Subscribe
+
+==== General
 
 [requirements_class]
 .MQTT Interface Bindings: Publish / Subscribe

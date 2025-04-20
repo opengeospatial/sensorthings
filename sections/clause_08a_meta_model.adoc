@@ -89,6 +89,8 @@ This is was known as the `@selfLink` in SensorThings version 1.
 [[type_mapping]]
 === Type Mappings
 
+==== Simple Types
+
 <<table_type_mapping>> lists the mapping of types used in the SensorThings API core data model to OData primitive types.
 
 [#table_type_mapping,reftext='{table-caption} {counter:table-num}']

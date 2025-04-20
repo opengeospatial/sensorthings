@@ -1,6 +1,8 @@
 [[abstract_api]]
 == Abstract OData API
 
+=== Introduction
+
 This section describes the abstract OData API.
 The abstract OData API can be implemented using various protocols, like HTTP or MQTT version 5.
 

@@ -1,5 +1,7 @@
 === Modifying Data
 
+==== Introduction
+
 This section describes how to create, update and delete Entities.
 Details on how to send create, update and delete requests and how responses are received are described in the protocol bindings sections.
 

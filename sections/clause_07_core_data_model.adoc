@@ -1,6 +1,8 @@
 [[sensing-core]]
 == The SensorThings API Core Data Model
 
+=== Introduction
+
 All data model requirements classes are grouped in the following requirements class:
 
 
