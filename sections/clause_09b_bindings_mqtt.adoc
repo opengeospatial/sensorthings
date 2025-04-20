@@ -256,7 +256,7 @@ Query options are listed below.
 
 ==== $select
 
-The $select query option (<<select>>) can be added to topics to reduce the amount of data that is sent.
+The $select query option (<<read_options_select>>) can be added to topics to reduce the amount of data that is sent.
 
 .Topic to use for receiving all updates for the Observations of a specific Datastream, limited to only the phenomenonTime and result attributes
 [source,text]
@@ -267,7 +267,7 @@ v2.0/Datastreams(4)/Observations?$select=phenomenonTime,result
 
 ==== $expand (optional)
 
-The $expand query option (<<expand>>) can be added to topics to indicate that certain entities related to the created or updated entity should be sent.
+The $expand query option (<<read_options_expand>>) can be added to topics to indicate that certain entities related to the created or updated entity should be sent.
 This can, for instance, be useful when dealing with moving sensors, to receive new Observations together with their ProximateFeatureOfInterest.
 
 .Topic to use for receiving all updates for the Observations of a specific Datastream
@@ -279,7 +279,7 @@ v2.0/Datastreams(4)/Observations?$expand=ProximateFeatureOfInterest
 
 ==== $filter (optional)
 
-The $filter query option (<<filter>>) can be used to only receive notification of certain changes.
+The $filter query option (<<read_options_filter>>) can be used to only receive notification of certain changes.
 
 
 [[mqtt-simple-create]]

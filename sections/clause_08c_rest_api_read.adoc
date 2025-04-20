@@ -21,6 +21,17 @@ identifier:: {identifier}/req-class/api/read
 obligation:: requirement
 subject:: Interface Binding
 requirement:: {identifier}/req/api/read/paths
+requirement:: {identifier}/req/api/read/options/precedence
+requirement:: {identifier}/req/api/read/options/select
+requirement:: {identifier}/req/api/read/options/select_distinct
+requirement:: {identifier}/req/api/read/options/expand
+requirement:: {identifier}/req/api/read/options/top
+requirement:: {identifier}/req/api/read/options/skip
+requirement:: {identifier}/req/api/read/options/count
+requirement:: {identifier}/req/api/read/options/orderby
+requirement:: {identifier}/req/api/read/options/filter
+requirement:: {identifier}/req/api/read/options/format
+requirement:: {identifier}/req/api/read/options/pagination
 ====
 
 
@@ -150,7 +161,7 @@ EDITOR: Update example with the correct requirement URLs.
 When a Read request is made to a URI pattern that addresses an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>), the service returns a JSON object with the attributes `@context` and `value` and optionally `@count` and `@nextLink`.
 The `@context` annotation SHALL be a context URI as described in <<context_url>>.
 The value of the `value` attribute SHALL be an array containing entities in the specified entity set, or an empty array if there are no entities in the addressed set.
-The `@count` annotation SHALL, if returned by default, or requested explicitly, contain the total number of items in the set that match the request, as described in <<top>>.
+The `@count` annotation SHALL, if returned by default, or requested explicitly, contain the total number of items in the set that match the request, as described in <<read_options_top>>.
 If service-driven pagination is in effect, the `@nextLink` annotation SHALL contain a link to the next set of entities, as described in <<server_driven_pagination>>.
 
 Read requests to an entity set can use all query options: `$filter`, `$count`, `$orderby`, `$skip`, `$top`, `$expand`, `$select` and `$format`.
@@ -290,6 +301,7 @@ When a Read request is made to a URI pattern that addresses a relation reference
 
 Read requests can be modified using various query options. Query options are added to the URL of the request, as specified in <<url-patterns>>.
 
+[[read_options_precedence]]
 ===== Evaluation Order
 
 The OGC SensorThings API adapts many of OData's system query options and their usage.
@@ -310,8 +322,17 @@ After applying any server-driven pagination:
 - `$select`
 - `$format`
 
+[requirement]
+.Requesting data
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/options/precedence
 
-[[select]]
+A service SHALL evaluate the query options supported, in the order defined in section <<read_options_precedence>>.
+====
+
+
+[[read_options_select]]
 ===== $select
 
 The $select system query option requests the service to return only the attributes explicitly requested by the client.
@@ -331,8 +352,17 @@ Note: Adapted from OData 4.01-Protocol 11.2.5.1
 v2.0/Things?$select=id,name
 ----
 
+[requirement]
+.Select
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/options/select
 
-[[select_distinct]]
+A service SHALL support the `$select` query option as described in section <<read_options_select>>.
+====
+
+
+[[read_options_select_distinct]]
 ===== $select distinct
 
 It is quite useful to give Entities common attributes, like a “type”.
@@ -368,7 +398,17 @@ v2.0/Things?$select=distinct:properties/type
 ----
 
 
-[[expand]]
+[requirement]
+.Select Distinct
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/options/select_distinct
+
+If a service advertises this requirement in the service document then the service SHALL support the `distinct:` keyword in the `$select` query option as described in section <<read_options_select_distinct>>.
+====
+
+
+[[read_options_expand]]
 ===== $expand
 
 The `$expand` system query option indicates the related entities to be represented inline.
@@ -395,7 +435,17 @@ v2.0/Datastreams?$expand=Observations($select=result,phenomenonTime;$orderby=phe
 ----
 
 
-[[top]]
+[requirement]
+.Expand
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/options/expand
+
+A service SHALL support the `$expand` query option as described in section <<read_options_expand>>.
+====
+
+
+[[read_options_top]]
 ===== $top
 
 The `$top` system query option specifies the limit on the number of items returned from an EntitySet.
@@ -421,7 +471,17 @@ v2.0/Observations?$top=5&$orderby=phenomenonTime desc
 ----
 
 
-[[skip]]
+[requirement]
+.Top
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/options/top
+
+A service SHALL support the `$top` query option as described in section <<read_options_top>>.
+====
+
+
+[[read_options_skip]]
 ===== $skip
 
 The `$skip` system query option specifies the number for the items of the queried EntitySet that SHALL be excluded from the result.
@@ -444,7 +504,17 @@ v2.0/Observations?$skip=2&$top=2&$orderby=resultTime
 ----
 
 
-[[count]]
+[requirement]
+.Skip
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/options/skip
+
+A service SHALL support the `$skip` query option as described in section <<read_options_skip>>.
+====
+
+
+[[read_options_count]]
 ===== $count
 
 The `$count` system query option with a value of `true` specifies that the total count of items within an EntitySet matching the request SHALL be returned along with the result.
@@ -462,7 +532,17 @@ When a count is requested on an expanded EntitySet, the count is returned in the
 Note: Adapted from OData 4.01-Protocol 11.2.6.5
 
 
-[[orderby]]
+[requirement]
+.Count
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/options/count
+
+A service SHALL support the `$count` query option as described in section <<read_options_count>>.
+====
+
+
+[[read_options_orderby]]
 ===== $orderby
 
 The `$orderby` system query option specifies the order in which items are returned from the service.
@@ -491,8 +571,20 @@ v2.0/Observations?$orderby=Datastreams/id desc, phenomenonTime
 ----
 
 
-[[filter]]
+[requirement]
+.Order By
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/options/orderby
+
+A service SHALL support the `$count` query option as described in section <<read_options_orderby>>.
+====
+
+
+[[read_options_filter]]
 ===== $filter
+
+====== Introduction
 
 The `$filter` option can be used to filter the entities returned by a request to any EntitySet.
 The expression specified with $filter is evaluated for each entity in the collection, and only items where the expression evaluates to true SHALL be included in the response.
@@ -803,14 +895,14 @@ In such cases, the `cast` function can be used.
 |===
 
 
-[[any]]
+[[query_function_any]]
 ====== Any
 
-The `any()` operator applies a boolean expression to each member of a collection and returns true if the expression returns true for any member of the collection.
-The any operator can be used by adding a slash and the `any` keyword after a filter path ending in an EntitySet.
-The argument of the any operator is a case-sensitive, alphanumeric lamda variable name, followed by a colon (`:`), followed by a boolean expression that can use the defined variable to access attributes of the entities in the collection.
+The `any()` function applies a boolean expression to each member of a collection and returns true if the expression returns true for any member of the collection.
+The any function can be used by adding a slash and the `any` keyword after a filter path ending in an EntitySet.
+The argument of the any function is a case-sensitive, alphanumeric lamda variable name, followed by a colon (`:`), followed by a boolean expression that can use the defined variable to access attributes of the entities in the collection.
 
-Path expressions not prefixed by the lambda variable are evaluated in the context of the collection that is the target of the `$filter` containing the any operator.
+Path expressions not prefixed by the lambda variable are evaluated in the context of the collection that is the target of the `$filter` containing the any function.
 
 .Request for all Datastreams that have at least one Observation that has both a result greater than the threshold custom attribute in the containing Datastream, and a phenomenonTime after 2024-01-01 00:00:00Z
 [source,text]
@@ -820,21 +912,43 @@ Datastreams?$filter=Observations/any(o: o/result gt properties/threshold and o/p
 
 In the example above, the `properties/threshold` path is evaluated in the context of the Datastreams collection being filtered.
 
-.Request for all Things that both have a Datastream measuring NO2 and a Datastream measuring O3
+.Request for all Things that have both a Datastream measuring NO2 and a Datastream measuring O3
 [source,text]
 ----
 Things?$filter=Datastreams/any(d1: d1/ObservedProperty/name eq 'NO2') and Datastreams/any(d2: d2/ObservedProperty/name eq 'O3')
 ----
 
 
+[requirement]
+.Format
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/options/filter
 
-[[param_format]]
+part:: A service SHALL support the `$filter` query option as described in section <<read_options_filter>>.
+
+part:: A service SHALL list the suppored filter function in the service document as described in section <<read_service_document>>.
+====
+
+
+[[read_options_format]]
 ===== $format
 
 ====== Introduction
 
 The format of the data returned by read request can be controlled with the `$format` query option.
 The default value for the `$format` option is `application/json`.
+
+
+[requirement]
+.Format
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/options/format
+
+A service SHALL support the `$format` query option as described in section <<read_options_format>> and the JSON format described in <<format_json>>.
+====
+
 
 [[format_json]]
 ====== application/json
@@ -862,4 +976,14 @@ SensorThings clients SHALL treat the URL of the nextLink as opaque, and SHALL NO
 Services may disallow a change of format on requests for subsequent pages using the next link.
 
 Note: Adapted from OData 4.01-Protocol 11.2.6.7
+
+
+[requirement]
+.Format
+====
+[%metadata]
+identifier:: {identifier}/req/api/read/options/pagination
+
+A service SHALL support pagination as described in section <<server_driven_pagination>>.
+====
 
