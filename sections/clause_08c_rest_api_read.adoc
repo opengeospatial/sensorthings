@@ -74,7 +74,7 @@ Each element of the `value` array SHALL be a JSON object with at least two name/
 (Adapted from OData 4.01-JSON-Format section 5)
 
 The serverSettings object SHALL contain the attribute `conformance` of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements.
-If a service implements all requirements from a requirements class, it only needs to list the requirements class id.
+If a service implements all mandatory requirements from a requirements class, it only needs to list the requirements class id.
 
 The serverSettings object SHALL contain the attribute `functions` of the type Array, containing the function names of the filter functions that the service implements.
 

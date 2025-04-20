@@ -4,10 +4,25 @@
 === Introduction
 
 The MQTT Bindings specify how to access the SensorThings API using the MQTT 5.0 protocol (<<MQTT50>>).
-This binding consists of three parts that can be implemented independently: <<mqtt-request-response>>, <<mqtt-publish-subscribe>> and <<mqtt-simple-create>>.
+This binding consists of three parts that can be implemented independently: <<mqtt_request_response>>, <<mqtt_publish_subscribe>> and <<mqtt_simple_create>>.
 
 
-[[mqtt-binding-advertisement]]
+[requirements_class]
+.MQTT Interface Bindings
+====
+[%metadata]
+identifier:: {identifier}/req-class/binding/mqtt
+obligation:: requirement
+subject:: Interface Binding
+inherit:: {identifier}/req-class/datamodel/core
+requirement:: {identifier}/req/binding/mqtt/advertisement
+requirement:: {identifier}/req/binding/mqtt/request_response
+requirement:: {identifier}/req/binding/mqtt/pub_sub
+requirement:: {identifier}/req/binding/mqtt/simple_create
+====
+
+
+[[mqtt_binding_advertisement]]
 === MQTT Binding Advertisement
 
 To help a client find the MQTT endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the service documents of all request-response bindings, as described in <<read_service_document>>.
@@ -24,12 +39,12 @@ This Object SHALL contain a attribute named `+endpoints+` of type Array. The JSO
 [%metadata]
 identifier:: {identifier}/req/binding/mqtt/advertisement
 
-If a service implements any MQTT bindings, then the MQTT endpoints of the service SHALL be advertised in the service documents of all implemented request-response bindings, as described in <<mqtt-binding-advertisement>>.
+If a service implements any MQTT bindings, then the MQTT endpoints of the service SHALL be advertised in the service documents of all implemented request-response bindings, as described in <<mqtt_binding_advertisement>>.
 ====
 
 
 
-[[mqtt-request-response]]
+[[mqtt_request_response]]
 === Request / Response
 
 MQTT 5.0 formalises a request-response pattern over the MQTT protocol (<<MQTT50,section="4.10">>) that allows the use of the REST API over the MQTT protocol.
@@ -79,18 +94,6 @@ MQTT 5.0 also defines User Properties (<<MQTT50,section="3.3.2.3.7">>) that can 
   broker <-- client: ok
 @enduml
 ....
-
-
-[requirements_class]
-.MQTT Interface Bindings: Request / Response
-====
-[%metadata]
-identifier:: {identifier}/req-class/binding/mqtt/request-response
-obligation:: requirement
-subject:: Interface Binding
-requirement:: {identifier}/req/binding/mqtt/advertisement
-====
-
 
 
 Using the basic request-response pattern, and the User Properties of MQTT 5.0, the abstract API defined in <<abstract_api>> can be implemented over the MQTT protocol.
@@ -204,21 +207,22 @@ Payload: <empty>
 ----
 
 
+[requirement]
+.Request / Response
+====
+[%metadata]
+identifier:: {identifier}/req/binding/mqtt/request_response
+inherit:: {identifier}/req-class/api/abstract
 
-[[mqtt-publish-subscribe]]
+If a service advertises this requirement in the service document then the service SHALL implement the abstract API as described in <<mqtt_request_response>>.
+====
+
+
+
+[[mqtt_publish_subscribe]]
 === Publish / Subscribe
 
 ==== General
-
-[requirements_class]
-.MQTT Interface Bindings: Publish / Subscribe
-====
-[%metadata]
-identifier:: {identifier}/req-class/binding/mqtt/pub-sub
-obligation:: requirement
-subject:: Interface Binding
-requirement:: {identifier}/req/binding/mqtt/advertisement
-====
 
 
 MQTT subscriptions are allowed on EntitySets (<<pattern_entityset>>, <<pattern_entityset_related>>), individual entities (<<pattern_entity>>, <<pattern_entity_related>>), and individual entity attributes (<<pattern_entity_attribute>>, <<pattern_entity_attribute_raw>>).
@@ -254,6 +258,20 @@ Query options are separated from the topic with a question mark character (`?`) 
 Query options are listed below.
 
 
+[requirement]
+.MQTT Publish / Subscribe
+====
+[%metadata]
+identifier:: {identifier}/req/binding/mqtt/pub_sub
+requirement:: {identifier}/req/binding/mqtt/pub_sub/select
+requirement:: {identifier}/req/binding/mqtt/pub_sub/expand
+requirement:: {identifier}/req/binding/mqtt/pub_sub/filter
+
+If a service advertises this requirement in the service document then the service SHALL implement the publish-subscribe API as described in <<mqtt_publish_subscribe>>.
+====
+
+
+[[mqtt_pubsub_select]]
 ==== $select
 
 The $select query option (<<read_options_select>>) can be added to topics to reduce the amount of data that is sent.
@@ -265,7 +283,18 @@ v2.0/Datastreams(4)/Observations?$select=phenomenonTime,result
 ----
 
 
-==== $expand (optional)
+[requirement]
+.MQTT Publish / Subscribe Select
+====
+[%metadata]
+identifier:: {identifier}/req/binding/mqtt/pub_sub/select
+
+If a service advertises this requirement in the service document then the service SHALL implement support for the `$select` option as described in <<mqtt_pubsub_select>>.
+====
+
+
+[[mqtt_pubsub_expand]]
+==== $expand
 
 The $expand query option (<<read_options_expand>>) can be added to topics to indicate that certain entities related to the created or updated entity should be sent.
 This can, for instance, be useful when dealing with moving sensors, to receive new Observations together with their ProximateFeatureOfInterest.
@@ -277,12 +306,33 @@ v2.0/Datastreams(4)/Observations?$expand=ProximateFeatureOfInterest
 ----
 
 
-==== $filter (optional)
+[requirement]
+.MQTT Publish / Subscribe Expand
+====
+[%metadata]
+identifier:: {identifier}/req/binding/mqtt/pub_sub/expand
+
+If a service advertises this requirement in the service document then the service SHALL implement support for the `$expand` option as described in <<mqtt_pubsub_expand>>.
+====
+
+
+[[mqtt_pubsub_filter]]
+==== $filter
 
 The $filter query option (<<read_options_filter>>) can be used to only receive notification of certain changes.
 
 
-[[mqtt-simple-create]]
+[requirement]
+.MQTT Publish / Subscribe Filter
+====
+[%metadata]
+identifier:: {identifier}/req/binding/mqtt/pub_sub/filter
+
+If a service advertises this requirement in the service document then the service SHALL implement support for the `$filter` option as described in <<mqtt_pubsub_filter>>.
+====
+
+
+[[mqtt_simple_create]]
 === Simple Create
 
 Since simple clients, like sensors, may not be capable of handling the full MQTT request/reponse pattern, the simple-create pattern allows for a simpler way to create entities.
@@ -305,6 +355,16 @@ Payload:
 
 
 More advanced clients are adviced to use the MQTT Request/Response pattern to create entities, since it allows the server to return a success or failure response on entity creation.
+
+
+[requirement]
+.MQTT Simple Create
+====
+[%metadata]
+identifier:: {identifier}/req/binding/mqtt/simple_create
+
+If a service advertises this requirement in the service document then the service SHALL implement support simple entity creation as described in <<mqtt_simple_create>>.
+====
 
 
 === Authentication & Authorization

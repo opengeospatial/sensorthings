@@ -5,7 +5,20 @@
 The HTTP Bindings specify how access the SensorThings API using the HTTP protocol.
 
 
-[[http-binding-advertisement]]
+[requirements_class]
+.HTTP Interface Bindings
+====
+[%metadata]
+identifier:: {identifier}/req-class/binding/http
+obligation:: requirement
+subject:: Interface Binding
+inherit:: {identifier}/req-class/datamodel/core
+requirement:: {identifier}/req/binding/http/advertisement
+requirement:: {identifier}/req/binding/http/request_response
+====
+
+
+[[http_binding_advertisement]]
 === HTTP Binding Advertisement
 
 To help a client find the HTTP endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the service documents of all request-response bindings, as described in <<read_service_document>>.
@@ -22,26 +35,13 @@ This Object SHALL contain a attribute named `+endpoints+` of type Array. The JSO
 [%metadata]
 identifier:: {identifier}/req/binding/http/advertisement
 
-If a service implements any HTTP bindings, then the HTTP endpoints of the service SHALL be advertised in the service documents of all implemented request-response bindings, as described in <<http-binding-advertisement>>.
+If a service implements any HTTP bindings, then the HTTP endpoints of the service SHALL be advertised in the service documents of all implemented request-response bindings, as described in <<http_binding_advertisement>>.
 ====
 
 
 
-[[http-request-response]]
+[[http_request_response]]
 === Request / Response
-
-
-[requirements_class]
-.HTTP Interface Bindings, CRUD
-====
-[%metadata]
-identifier:: {identifier}/req-class/binding/http/request-response
-obligation:: requirement
-subject:: Interface Binding
-inherit:: {identifier}/req-class/api/abstract
-requirement:: {identifier}/req/binding/http/request-response
-====
-
 
 
 The actions that can be executed on resources, as defined in the <<abstract_api>> are mapped to HTTP Methods as defined in table <<http-method-mapping>>.
@@ -79,13 +79,15 @@ Request parameters (such as `prefer`, `content-type` and `location`)  are passed
 HTTP HEAD and OPTIONS requests are treated as normal GET requests, but don't return data.
 If a GET request with the same URL and headers would return an error, the HEAD or OPTION requests also returns this error.
 
+
 [requirement]
-.Binding Advertisement
+.Request / Response
 ====
 [%metadata]
-identifier:: {identifier}/req/binding/http/request-response
+identifier:: {identifier}/req/binding/http/request_response
+inherit:: {identifier}/req-class/api/abstract
 
-If a service implements and HTTP bindings, then the HTTP endpoints of the service SHALL be advertised in the service documents of all implemented request-response bindings, as described in <<http-binding-advertisement>>.
+If a service advertises this requirement in the service document then the service SHALL map the request types as defined in the abstract API to HTTP methods as described in  <<http_request_response>>.
 ====
 
 

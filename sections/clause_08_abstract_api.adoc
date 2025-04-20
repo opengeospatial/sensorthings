@@ -13,5 +13,6 @@ The abstract OData API can be implemented using various protocols, like HTTP or 
 identifier:: {identifier}/req-class/api/abstract
 obligation:: requirement
 subject:: Target Type: Abstract API
-requirement:: {identifier}/req-class/api/abstract/csdl
+requirement:: {identifier}/req-class/api/read
+requirement:: {identifier}/req-class/api/cud
 ====

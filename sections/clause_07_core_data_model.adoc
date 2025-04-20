@@ -3,7 +3,7 @@
 
 === Introduction
 
-All data model requirements classes are grouped in the following requirements class:
+All data model requirements are grouped in the following requirements class:
 
 
 [requirements_class]
