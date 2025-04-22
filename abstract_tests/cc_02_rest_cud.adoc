@@ -1,0 +1,150 @@
+[conformance_class]
+====
+[%metadata]
+identifier:: {identifier}/conf-class/api/cud
+target:: {identifier}/req-class/api/cud
+conformance-test:: {identifier}/conf/api/cud/advertisement
+conformance-test:: {identifier}/conf/api/cud/create
+conformance-test:: {identifier}/conf/api/cud/deep_insert
+conformance-test:: {identifier}/conf/api/cud/update
+conformance-test:: {identifier}/conf/api/cud/replace
+conformance-test:: {identifier}/conf/api/cud/deep_update
+conformance-test:: {identifier}/conf/api/cud/json_patch
+conformance-test:: {identifier}/conf/api/cud/return_value
+conformance-test:: {identifier}/conf/api/cud/update_relations
+conformance-test:: {identifier}/conf/api/cud/delete
+conformance-test:: {identifier}/conf/api/cud/filtered_delete
+====
+
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/cud/advertisement
+target:: {identifier}/req/api/cud/advertisement
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/cud/create
+target:: {identifier}/req/api/cud/create
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/cud/deep_insert
+target:: {identifier}/req/api/cud/deep_insert
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/cud/update
+target:: {identifier}/req/api/cud/update
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/cud/replace
+target:: {identifier}/req/api/cud/replace
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/cud/deep_update
+target:: {identifier}/req/api/cud/deep_update
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/cud/json_patch
+target:: {identifier}/req/api/cud/json_patch
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/cud/return_value
+target:: {identifier}/req/api/cud/return_value
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/cud/update_relations
+target:: {identifier}/req/api/cud/update_relations
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/cud/delete
+target:: {identifier}/req/api/cud/delete
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/cud/filtered_delete
+target:: {identifier}/req/api/cud/filtered_delete
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====

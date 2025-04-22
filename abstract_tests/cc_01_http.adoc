@@ -1,12 +1,12 @@
 [conformance_class]
 ====
 [%metadata]
-identifier:: {identifier}/conf-class/binding/http/request-response
-target:: {identifier}/req-class/binding/http/request-response
+identifier:: {identifier}/conf-class/binding/http
+target:: {identifier}/req-class/binding/http
 classification:: Target Type:Web API
-inherit:: {identifier}/conf-class/api/abstract
+inherit:: {identifier}/conf-class/datamodel/core
 conformance-test:: {identifier}/conf/binding/http/advertisement
-conformance-test:: {identifier}/conf/binding/http/request-response
+conformance-test:: {identifier}/conf/binding/http/request_response
 ====
 
 
@@ -16,15 +16,14 @@ conformance-test:: {identifier}/conf/binding/http/request-response
 [%metadata]
 identifier:: {identifier}/conf/binding/http/advertisement
 target:: {identifier}/req/binding/http/advertisement
-test-purpose:: test-purpose:: Validate the binding advertisement in the service document.
-
+test-purpose:: Validate the binding advertisement in the service document.
 test-method::
-For each request-response binding:
+For each request_response binding:
 . Construct a path for the service document.
 
 . Issue a Read request on that path.
 
-. Validate that the mqtt binding is advertised, and endpoints are set.
+. Validate that the http binding is advertised, and endpoints are set.
 ====
 
 
@@ -32,10 +31,10 @@ For each request-response binding:
 [abstract_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/binding/http/request-response
-target:: {identifier}/req/binding/http/request-response
+identifier:: {identifier}/conf/binding/http/request_response
+target:: {identifier}/req/binding/http/request_response
+inherit:: {identifier}/conf-class/api/abstract
 test-purpose:: Validate that the resource paths advertised through the API conform with HTTP 1.1 and, where appropriate, TLS.
-
 test-method::
 . All compliance tests SHALL be configured to use the HTTP 1.1 protocol exclusively.
 

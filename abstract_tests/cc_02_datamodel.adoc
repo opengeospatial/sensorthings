@@ -3,7 +3,6 @@
 [%metadata]
 identifier:: {identifier}/conf-class/datamodel/core
 target:: {identifier}/req-class/datamodel/core
-classification:: Target Type:Data Model
 conformance-test:: {identifier}/conf/datamodel/core/thing
 conformance-test:: {identifier}/conf/datamodel/core/location
 conformance-test:: {identifier}/conf/datamodel/core/historical-location
@@ -13,6 +12,7 @@ conformance-test:: {identifier}/conf/datamodel/core/observed-property
 conformance-test:: {identifier}/conf/datamodel/core/feature
 conformance-test:: {identifier}/conf/datamodel/core/feature-type
 conformance-test:: {identifier}/conf/datamodel/core/observation
+conformance-test:: {identifier}/conf/datamodel/core/integrity
 ====
 
 
@@ -141,6 +141,21 @@ test-method::
 identifier:: {identifier}/conf/datamodel/core/observation
 target:: {identifier}/req/datamodel/core/observation
 test-purpose:: Validate that the EntityType has the required attributes and relations.
+
+
+test-method::
+. See if ...
+
+====
+
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/datamodel/core/integrity
+target:: {identifier}/req/datamodel/core/integrity
+test-purpose:: Validate integrity is ensured.
 
 
 test-method::

@@ -3,14 +3,20 @@
 
 === Conformance Class A
 
-include::../abstract_tests/cc_01_http_rest_binding.adoc[]
+include::../abstract_tests/cc_01_http.adoc[]
 
-include::../abstract_tests/cc_01_mqtt_rest_binding.adoc[]
+=== Conformance Class B
 
-include::../abstract_tests/cc_01_mqtt_pubsub_binding.adoc[]
+include::../abstract_tests/cc_01_mqtt.adoc[]
+
+=== Conformance Class C
 
 include::../abstract_tests/cc_02_datamodel.adoc[]
+
+=== Conformance Class D
 
 include::../abstract_tests/cc_02_rest.adoc[]
 
 include::../abstract_tests/cc_02_rest_read.adoc[]
+
+include::../abstract_tests/cc_02_rest_cud.adoc[]

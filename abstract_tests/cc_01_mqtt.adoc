@@ -1,0 +1,105 @@
+[conformance_class]
+====
+[%metadata]
+identifier:: {identifier}/conf-class/binding/mqtt
+target:: {identifier}/req-class/binding/mqtt
+classification:: Target Type:Web API
+inherit:: {identifier}/conf-class/datamodel/core
+conformance-test:: {identifier}/conf/binding/mqtt/advertisement
+conformance-test:: {identifier}/conf/binding/mqtt/request_response
+conformance-test:: {identifier}/conf/binding/mqtt/pub_sub
+conformance-test:: {identifier}/conf/binding/mqtt/pub_sub/select
+conformance-test:: {identifier}/conf/binding/mqtt/pub_sub/expand
+conformance-test:: {identifier}/conf/binding/mqtt/pub_sub/filter
+conformance-test:: {identifier}/conf/binding/mqtt/simple_create
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/mqtt/advertisement
+target:: {identifier}/req/binding/mqtt/advertisement
+test-purpose:: Validate the MQTT advertisement in the service documents of all request-response bindings.
+
+test-method::
+For each request-response binding:
+. Construct a path for the service document.
+
+. Issue a Read request on that path.
+
+. Validate that the mqtt binding is advertised, and endpoints are set.
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/mqtt/request_response
+target:: {identifier}/req/binding/mqtt/request_response
+inherit:: {identifier}/conf-class/api/abstract
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/mqtt/pub_sub
+target:: {identifier}/req/binding/mqtt/pub_sub
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/mqtt/pub_sub/select
+target:: {identifier}/req/binding/mqtt/pub_sub/select
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/mqtt/pub_sub/expand
+target:: {identifier}/req/binding/mqtt/pub_sub/expand
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/mqtt/pub_sub/filter
+target:: {identifier}/req/binding/mqtt/pub_sub/filter
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/mqtt/simple_create
+target:: {identifier}/req/binding/mqtt/simple_create
+test-purpose:: Validate that ...
+test-method::
+. See if ...
+
+====
