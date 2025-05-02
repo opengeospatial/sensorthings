@@ -13,6 +13,8 @@ The standard is on [OGC SensorThings API page](https://www.ogc.org/standards/sen
 * [SensorThings API Part 1: Sensing 1.0](http://docs.opengeospatial.org/is/15-078r6/15-078r6.html) ([PDF version](https://portal.opengeospatial.org/files/15-078r6))
 * [SensorThings API Part 1: Sensing 1.1](https://docs.ogc.org/is/18-088/18-088.html) ([PDF version](https://docs.ogc.org/is/18-088/18-088.pdf))
 * [SensorThings API Part 2: Tasking Core 1.0](http://docs.opengeospatial.org/is/17-079r1/17-079r1.html) ([PDF version](https://portal.opengeospatial.org/files/17-079r1))
+* [OGC SensorThings API Tasking Core Discussion Paper](https://portal.ogc.org/files/?artifact_id=79179)
+* [SensorThings API Extension: STAplus 1.0](https://docs.ogc.org/is/22-022r1/22-022r1.html) ([PDF version](https://docs.ogc.org/is/22-022r1/22-022r1.pdf))
 
 Implementating and certified servers are also listed on OGC website:
 
