@@ -577,14 +577,14 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 | 0..1
 
 | `resultType`
-| The formal description of the `result` field of the Observations in this Datastream.
+| The formal description of the structure of the `result` attribute of the Observations in this Datastream.
 Contains the unit of measurement and the `@id` of the ObservedProperty.
 | JSON_Object (SWE-Common AbstractDataComponent)
 | 1
 
 | `resultEncoding`
-| The default encoding of the `result` field of the Observations in this Datastream.
-The default encoding is `JSONEncoding`.
+| The encoding of the `result` attribute of the Observations in this Datastream.
+The default encoding, used when this attribute is null or empty, is `JSONEncoding`.
 | JSON_Object (SWE-Common Encoding)
 | 0..1
 
@@ -665,20 +665,20 @@ The exact definition for this result structure, and which unit of measurement an
 The resultType contains references to the ObservedProperty or ObservedProperties of the Observations in the Datastream.
 When a change is made to the resultType, the server MUST ensure the ObservedProperties linked to the Datastream match the references used in the the `definition` attribute(s) of the resultType, and create or remove relations as needed.
 If the resultType contains references to non-existing ObservedProperties the request must be rejected with a Bad Request error.
-The values of the definition fields in the resultType must be valid entity-ids (`@id`) of ObservedProperties.
+The values of the definition attributes in the resultType must be valid entity-ids (`@id`) of ObservedProperties.
 The structure of the resultType must not be changed once a Datastream has Observations, since the existing Observations would not fit the new structure.
 
 
 EDITOR: Update reference to new SWE-Common: 24-014
 
 In most cases each Observation holds a single numeric result value, measured by a single Sensor.
-In this case the resultType is of the SWE-Common class `Quantity` (though a number could also be a `Count`) and thus must have the fields `type`, `definition`, `label`, and `uom`.
+In this case the resultType is of the SWE-Common class `Quantity` (though a number could also be a `Count`) and thus must have the attributes `type`, `definition`, `label`, and `uom`.
 
-- The `type` field defines the type of the result and has the value `Quantity`.
-- The `definition` must be the same as the `definition` field in the single ObservedProperty linked to the Datastream.
-- The `uom` field contains the unit of measurement, and is an object that must contain either a `code` field with the UCUM code of the unit, or a `href` field with a URI pointing to a unit definition.
-It may also contain the `label` and `symbol` fields that can be displayed in user interfaces.
-- The `label` field is somewhat redundant in this case, but since it is mandatory it can be set to the same value as the ObservedProperty `name`.
+- The `type` attribute defines the type of the result and has the value `Quantity`.
+- The `definition` must be the same as the `definition` attribute in the single ObservedProperty linked to the Datastream.
+- The `uom` attribute contains the unit of measurement, and is an object that must contain either a `code` attribute with the UCUM code of the unit, or a `href` attribute with a URI pointing to a unit definition.
+It may also contain the `label` and `symbol` attributes that can be displayed in user interfaces.
+- The `label` attribute is somewhat redundant in this case, but since it is mandatory it can be set to the same value as the ObservedProperty `name`.
 
 
 .A Datastream example measuring a scalar Observation
@@ -711,12 +711,12 @@ It may also contain the `label` and `symbol` fields that can be displayed in use
 Another common type of result is a value from a key list.
 An example would be an Observation of the current weather as `Fair` or `Overcast`, or the geological dating of a rock sample to be `Jurassic`.
 In the latter case, the code space that defines the values could be the Sweet ontology.
-In this example the resultType is a `Category` and thus must have the fields `type`, `definition`, `label`, and `codeSpace`.
+In this example the resultType is a `Category` and thus must have the attributes `type`, `definition`, `label`, and `codeSpace`.
 
-- The `type` field defines the type of the result and has the value `Category`.
-- The `definition` must be the same as the `definition` field in the single ObservedProperty linked to the Datastream.
-- The `codeSpace` field must be a reference that defines the valid values that can be used as results.
-- The `label` field is somewhat redundant in this case, but since it is mandatory it can be set to the same value as the ObservedProperty `name`.
+- The `type` attribute defines the type of the result and has the value `Category`.
+- The `definition` must be the same as the `definition` attribute in the single ObservedProperty linked to the Datastream.
+- The `codeSpace` attribute must be a reference that defines the valid values that can be used as results.
+- The `label` attribute is somewhat redundant in this case, but since it is mandatory it can be set to the same value as the ObservedProperty `name`.
 
 
 .A Datastream example for Observations with category values from a predefined code space
@@ -750,14 +750,14 @@ In some cases, a (composite) Sensor generates multiple values that should be kep
 This can be achieved with a `DataRecord` resultType.
 In the below example, a temperature and pressure value are stored as a pair, per Observation.
 The resultType has the SWE-Common class `DataRecord`, which is a composite class that contains sub-entries.
-The mandatory fields of a DataRecord are `type` and `fields`:
+The mandatory attributes of a DataRecord are `type` and `fields`:
 
-- The `type` field defines the type of the result and has the value `DataRecord`.
-- The `fields` field is an array of other SWE-Common components.
+- The `type` attribute defines the type of the result and has the value `DataRecord`.
+- The `fields` attribute is an array of other SWE-Common components.
   In this example there are two `Quantity` entries.
-  Each entry has the mandatory fields for a `Quantity`.
+  Each entry has the mandatory attributes for a `Quantity`.
 
-Since there are two _distinct_ `definition` fields in the resultType, this Datastream must be linked to two ObservedProperties that match the two definitions.
+Since there are two _distinct_ `definition` attributes in the resultType, this Datastream must be linked to two ObservedProperties that match the two definitions.
 
 .A Datastream example measuring multiple observedProperties
 [source,json]
@@ -801,7 +801,53 @@ Since there are two _distinct_ `definition` fields in the resultType, this Datas
 }
 ----
 
-EDITOR: Add MultiDatastream migration example with resultEncoding.
+
+Using the `resultEncoding` attribute, the specifics can be specified of how the structure from the `resultType` attribute is encoded in the `result` attribute of the Observations.
+
+.A Datastream example measuring multiple observedProperties using a custom encoding to mimic the old MultiDatastream format
+[source,json]
+----
+{
+  "name": "Temperature and Pressure",
+  "description": "This is a datastream containing temperature and pressure measurement sets.",
+  "resultType": {
+    "type": "DataRecord",
+    "fields": [
+      {
+        "name": "temp",
+        "type": "Quantity",
+        "label": "Air Temperature",
+        "definition": "ObservedProperties(1)",
+        "uom": { "code": "Cel", "label": "degree Celsius", "symbol": "°C"  }
+      },
+      {
+        "name": "press",
+        "type": "Quantity",
+        "label": "Air Pressure",
+        "definition": "ObservedProperties(3)",
+        "uom": { "code": "mbar", "label": "Millibar", "symbol": "mBar"  }
+      }
+    ]
+  },
+  "resultEncoding": {
+    "type": "JSONEncoding",
+    "recordsAsArrays": true
+  }
+}
+----
+
+.An Observation for a Datastream defined in the example above
+[source,json]
+----
+{
+  "result": [15, 1024]
+  },
+  "phenomenonTime": {
+    "start": "2021-13-14T15:16:00Z"
+  }
+}
+----
+
 
 
 [[sensor]]
