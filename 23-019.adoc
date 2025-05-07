@@ -24,6 +24,8 @@
 :xml-uri: ./document.xml
 :doc-uri: ./document.doc
 :edition: 0.1
+:toclevels: 3
+:htmltoclevels: 4
 
 :identifier: http://www.opengis.net/spec/sensorthings/2.0
 
