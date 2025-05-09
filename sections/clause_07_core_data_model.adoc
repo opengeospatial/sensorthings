@@ -867,6 +867,10 @@ part:: Each Sensor entity SHALL have the direct relation between a Sensor entity
 A Sensor is an entity that observes a property or phenomenon with the goal of producing an estimate of the value of the property.
 A Sensor may represent a piece of hardware, but a Sensor may also be a human or an algorithm implemented in sofware.
 
+A Sensor entity in a SensorThings API deployment can represent either a specific sensor instance, or a more generic sensor type.
+The distinction is generally quite clear from the Sensor metadata.
+Does the entity have detailed metadata that is specific to a sensor instance, like a serial number and calibration data, or is it used for many Datastreams attached to many different Things.
+
 
 [#sensor-attributes,reftext='{table-caption} {counter:table-num}']
 .Attributes of a Sensor entity
