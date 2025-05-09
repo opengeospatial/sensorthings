@@ -247,8 +247,11 @@ Encoding rules for constants in resource paths and query options are listed in <
 | `duration'P1DT30M'`
 
 | Geometry
+| the keyword `geometry` followed by WKT in single quotes.
+| `geometry'POINT(-122 43)'`
+
+| Geography
 | the keyword `geography` followed by WKT in single quotes.
 | `geography'POINT(-122 43)'`
-
 |====
 

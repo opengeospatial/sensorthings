@@ -609,7 +609,7 @@ v2.0/Datastreams(42)/Observations?$filter=result gt 5
 .Locations inside a given area.
 [source,text]
 ----
-v2.0/Locations?$filter=st_within(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
+v2.0/Locations?$filter=st_within(location, geometry'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')
 ----
 
 Sub-proprties of complex attributes are addressed using the complex attribute name, followed by a `/`, followed by the sub-attribute name.
@@ -832,54 +832,76 @@ In such cases, the `cast` function can be used.
 3+|**Geospatial Functions**
 
 | geo.distance
-|`+double geo.distance(Point p0, Point p1)+`
-|`+geo.distance(location, geography'POINT (30 10)')+`
+|
+- `+double geo.distance(geometry p0, geometry p1)+`
+- `+double geo.distance(geography p0, geography p1)+`
+|`+geo.distance(location, geometry'POINT (30 10)')+`
 
 | geo.length
 |`+double geo.length(LineString p0)+`
-|`+geo.length(geography'LINESTRING (30 10, 10 30, 40 40)')+`
+|`+geo.length(geometry'LINESTRING (30 10, 10 30, 40 40)')+`
 
 | geo.intersects
-|`+bool geo.intersects(Point p0, Polygon p1)+`
-|`+geo.intersects(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
+|
+- `+bool geo.intersects(geometry p0, geometry p1)+`
+- `+bool geo.intersects(geography p0, geography p1)+`
+|`+geo.intersects(location, geometry'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
 3+|**Spatial Relationship Functions**
 
 | st_equals
-|`+bool st_equals(geography p0, geography p1)+`
-|`+st_equals(location, geography'POINT (30 10)')+`
+|
+- `+bool st_equals(geometry p0, geometry p1)+`
+- `+bool st_equals(geography p0, geography p1)+`
+|`+st_equals(location, geometry'POINT (30 10)')+`
 
 | st_disjoint
-|`+bool st_disjoint(geography p0, geography p1)+`
-|`+st_disjoint(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
+|
+- `+bool st_disjoint(geometry p0, geometry p1)+`
+- `+bool st_disjoint(geography p0, geography p1)+`
+|`+st_disjoint(location, geometry'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
 | st_touches
-|`+bool st_touches(geography p0, geography p1)+`
-|`+st_touches(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
+|
+- `+bool st_touches(geometry p0, geometry p1)+`
+- `+bool st_touches(geography p0, geography p1)+`
+|`+st_touches(location, geometry'LINESTRING (30 10, 10 30, 40 40)')+`
 
 | st_within
-|`+bool st_within(geography p0, geography p1)+`
-|`+st_within(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
+|
+- `+bool st_within(geometry p0, geometry p1)+`
+- `+bool st_within(geography p0, geography p1)+`
+|`+st_within(location, geometry'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
 | st_overlaps
-|`+bool st_overlaps(geography p0, geography p1)+`
-|`+st_overlaps(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
+|
+- `+bool st_overlaps(geometry p0, geometry p1)+`
+- `+bool st_overlaps(geography p0, geography p1)+`
+|`+st_overlaps(location, geometry'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
 | st_crosses
-|`+bool st_crosses(geography p0, geography p1)+`
-|`+st_crosses(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
+|
+- `+bool st_crosses(geometry p0, geometry p1)+`
+- `+bool st_crosses(geography p0, geography p1)+`
+|`+st_crosses(location, geometry'LINESTRING (30 10, 10 30, 40 40)')+`
 
 | st_intersects
-|`+bool st_intersects(geography p0, geography p1)+`
-|`+st_intersects(location, geography'LINESTRING (30 10, 10 30, 40 40)')+`
+|
+- `+bool st_intersects(geometry p0, geometry p1)+`
+- `+bool st_intersects(geography p0, geography p1)+`
+|`+st_intersects(location, geometry'LINESTRING (30 10, 10 30, 40 40)')+`
 
 | st_contains
-|`+bool st_contains(geography p0, geography p1)+`
-|`+st_contains(location, geography'POINT (30 10)')+`
+|
+- `+bool st_contains(geometry p0, geometry p1)+`
+- `+bool st_contains(geography p0, geography p1)+`
+|`+st_contains(location, geometry'POINT (30 10)')+`
 
 | st_relate
-|`+bool st_relate(geography p0, geography p1, string p2)+`
-|`+st_relate(location, geography'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))', 'T********')+`
+|
+- `+bool st_relate(geometry p0, geometry p1, string p2)+`
+- `+bool st_relate(geography p0, geography p1, string p2)+`
+|`+st_relate(location, geometry'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))', 'T********')+`
 
 3+|**Collection Functions**
 
@@ -890,8 +912,8 @@ In such cases, the `cast` function can be used.
 3+|**Type Functions**
 
 | cast
-|`+type cast(expression,typeName)+`
-|`+cast(result,Edm.Decimal) gt cast(Datastream/properties/threshold,Edm.Decimal)+`
+|`+type cast(expression, typeName)+`
+|`+cast(result, Edm.Decimal) gt cast(Datastream/properties/threshold, Edm.Decimal)+`
 |===
 
 

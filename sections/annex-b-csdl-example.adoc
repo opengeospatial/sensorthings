@@ -118,6 +118,7 @@
             },
             "observedArea": {
                 "$Type": "Edm.Geometry",
+                "$SRID": 4326,
                 "$Nullable": true
             },
             "phenomenonTime": {
@@ -429,6 +430,7 @@
         "Geometry": {
             "$Kind": "TypeDefinition",
             "$UnderlyingType": "Edm.Geometry",
+            "$SRID": 4326,
             "@Core.Description": "A Free Location object"
         },
         "Object": {
