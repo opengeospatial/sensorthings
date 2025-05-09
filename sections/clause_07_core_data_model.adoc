@@ -802,7 +802,9 @@ Since there are two _distinct_ `definition` attributes in the resultType, this D
 ----
 
 
-Using the `resultEncoding` attribute, the specifics can be specified of how the structure from the `resultType` attribute is encoded in the `result` attribute of the Observations.
+The `resultEncoding` attribute, can be used to specify how the structure from the `resultType` attribute is encoded in the `result` attribute of the Observations.
+If the `resultEncoding` is empty, or null, a JSONEncoding is used with the default configuration, as seen in the examples above.
+The example below specifies a modified JSONEncoding, to mimic the result encoding of the MultiDatastream, as specified in version 1.1 of the SensorThings API.
 
 .A Datastream example measuring multiple observedProperties using a custom encoding to mimic the old MultiDatastream format
 [source,json]
