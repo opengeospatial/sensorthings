@@ -78,32 +78,29 @@ These benefits make the OGC SensorThings API particularly valuable in today's ra
 
 EDITOR: Go over these parts
 
-The OGC SensorThings API data model consists of three main parts:
+The OGC SensorThings API core specification consists of several parts:
 
-. the Sensing part,
-. the Sampling part and
-. the Tasking part.
+. the Core data model (<<sensing-core>>),
+. the Abstract API (<<abstract_api>>),
+. the HTTP Interface Bindings (<<http-interface-binding>>),
+. the MQTT Interface Bindings (<<mqtt-interface-bindings>>) and
+. the OGC API — Common Interface Bindings (<<ogc-api-common-interface-bindings>>)
 
-Additionally, SensorThings API supports the following two extensions to the data model:
 
-. the Sensing Extension (Observations & Measurements) and
-. the Relations extension
-
-The core data model allows sensor devices and applications to CREATE, READ, UPDATE, and DELETE (__i.e.__, HTTP POST, GET, PATCH, and DELETE) data and metadata in a SensorThings service.
-The Sensing part is designed based on the OGC/ISO Observation, Measurements and Samples (OMS) model (<<OgcOMS>> and <<IsoOMS>>).
-
+The core data model is designed based on the OGC/ISO Observation, Measurements and Samples (OMS) model (<<OgcOMS>> and <<IsoOMS>>).
 An Observation is modeled as an act that produces a result whose value is an estimate of a property of a given Feature.
+An Observation instance is characterized by its event time (e.g., resultTime and phenonmenonTime), Feature, ObservedProperty, and the observer that made the Observation (often a Sensor).
 
-An Observation instance is characterized by its event time (e.g., resultTime and phenonmenonTime), Feature, ObservedProperty, and the procedure used (often a Sensor).
-
-Moreover, Things are also modeled in the SensorThings API. A Thing draws from the same concept as a Host in OMS where a Host is defined as a collection of Observers (defined as Sensor in SensorThings API).
+The SensorThings API also models Things.
+A Thing draws from the same concept as a Host in OMS where a Host is defined as a collection of Observers (defined as Sensor in SensorThings API).
 Formally, its definition follows the ITU-T definition:
 “__an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks__” <<ITU-T-Y.2060>>.
 
 The geographical Locations of Things are useful in almost every application and as a result are included as well.
 For the Things whose location changed, the HistoricalLocations entities offer the history of the Thing's locations.
 
-A Thing also can have multiple Datastreams. A Datastream is a collection of Observations grouped by the same ObservedProperty, Sensor and optionally by Feature and ObservingProcedure.
+A Thing also can have multiple Datastreams.
+A Datastream is a collection of Observations grouped by the same ObservedProperty, Sensor and optionally by Feature and ObservingProcedure.
 
 An Observation is an event performed by a Sensor that produces a result whose value is an estimate of an ObservedProperty of any given Feature which may be a proximate or ultimate FeatureofInterest.
 Details of each above described entity are provided in <<sensing-core>>.
@@ -117,8 +114,8 @@ As a result, SensorThings API's sensing part is designed based on the OMS model.
 OMS defines models for the exchange of information describing observation acts, their results as well as the feature involved in sampling when making observations.
 
 
-SensorThings API defines nine entities for the IoT sensing applications and several additional entities in various extensions.
-<<sta-oms-compare>> lists each component and its relationship with OMS.
+SensorThings API defines nine entities for the IoT sensing applications and several additional entities in various extensions. 
+In <<sta-oms-compare>> each entity type is listed, and its relationship with OMS.
 SensorThings API uses the term of Sensor to describe the Observer that is used in generating an Observation, instead of using OMS' term of Observer.
 
 
@@ -146,41 +143,46 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 |Feature
 |Feature
 
-|Deployment (OM Extension)
-|Deployment
-
-|ObservingProcedure (OM Extension)
-|Observing Procedure
-
-|Sample (Sampling Extension)
-|Sample
-
-|Sampling (Sampling Extension)
-|Sampling
-
-|SamplingProcedure (Sampling Extension)
-|Sampling Procedure
-
-|PreparationProcedure (Sampling Extension)
-|Preparation Procedure
-
-|PreparationStep (Sampling Extension)
-|Preparation Step
-
 |===
+
+The OMS classes Deployment, Observing Procedure, Sample, Sampling, Sampling Procedure, Preparation Procedure and Preparation Step will be covered in a future extension to the SensorThings API.
 
 
 [[revision-differences]]
 === SensorThings API 2.0 changes from 1.1
 
 From the SensorThings API version 1.1 (<<STAv1.1>>) to 2.0 changes have been made to both the data model and the API.
-The changes to the data model have been summarised in <<sta-changes>> and <<img-sta-core-changed>>.
+
+The API has been aligned with OData version 4.01, removing the incompatibilities.
+The most important change in the API is that the OData `$metadata` page has been added to the API, allowing a client to see the exact data model that is available on a server, including any data model extensions (<<pattern_service_metadata_document>>).
+
+A second important change is the behaviour when updating an Entity (for example using HTTP PATCH or PUT) and specifying a list of related Entities in a navigation property.
+In version 1.1 this would add the specified entities to the collection, while in this version this will replace the list of related entities with the specified list. (<<cud_deep_update>>)
+
+The API now also has options to directly modify relations between Entities, described in <<cud_edit_relations>>.
+
+The changes to the data model and its json representation have been summarised in <<sta-changes>> and <<img-sta-core-changed>>.
+There are two important changes in the data model:
+
+The first relates to how a Datastream specifies its Observation type.
+Datastreams now contain to attributes that describe the structure and encoding of the result fields in their Observations.
+The `resultType` attribute contains a SWE-Common json description of the result structure, while the resultEncoding contains the SWE-Common encoding of this result structure.
+The unitOfMeasure is part of the SWE-Common structure description found in `resultType`, and thus the `unitOfMeasurement` attribute has been removed.
+Since SWE-Common can be used to describe any structure, the MultiDatastream extension of SensorThings v1.1 is obsolete.
+
+The second major change is in how FeatureOfInterest is modelled.
+The Entity Type `FeatureOfInterest` has been renamed to `Feature`, since the "of Interest" part of the name has nothing to do with the Feature directly, but only with the role it has in the process of observing.
+The "of Interest" has thus been moved to the name of the relation the Feature has with an Observation/Datastream.
+OMS (<<OgcOMS>>) defines two roles a Feature can have with the act of Observing: ProximateFeatureOfInterest and UltimateFeatureOFInterest.
+Furthermore, a Feature can now also be linked to Datastreams, as either Proximate- or UltimateFeatureOFInterest, instead of just to Observations as ProximateFeatureOfInterest.
+This change allows for the much more detailed modelling of domain features and their relations to the Observations made on them.
+
 
 [#sta-changes,reftext='{table-caption} {counter:table-num}']
 .Changes in the SensorThings API 2.0 data model compared to v1.1
 [width="100%",cols="4,20a",options="header"]
 |====
-| *Entity*
+| *Entity / Attributes*
 | *Changes* 
 
 | All
@@ -203,17 +205,17 @@ The changes to the data model have been summarised in <<sta-changes>> and <<img-
 | Location
 | 
 - `description` attribute is now optional and not mandatory
-- For a Thing having multiple Locations, these Locations MAY be in same encodingTypes OR the encodingTypes MAY be in different spaces (e.g., one encodingType in Geometrical space and one encodingType in Topological space).
+- For a `Thing` having multiple `Locations`, these `Locations` MAY be in same encodingTypes OR the encodingTypes MAY be in different spaces (e.g., one encodingType in Geometrical space and one encodingType in Topological space).
 - `definition` attribute added
 
 | Datastream
 | 
 - `description` attribute is now optional and not mandatory 
-- `resultType` replaces the `observationType` attribute, this eliminates MultiDatastream entity
-- unitOfMeasurement SHALL be embedded within the observedType attribute and does not exist as an independent attribute within the Datastream entity
-- A Datastream can link to multiple ObservedProperties which was only possible with MultiDatastream entity earlier.
-  The SWE-Common based `resultType` attribute eliminates the need for having a separate MultiDatastream entity
-- A Datastream can now be linked to the Feature it observes as an optional link, named UltimateFeatureOfInterest, between Datastream and Feature is introduced
+- `resultType` replaces the `observationType` attribute, this eliminates `MultiDatastream` entity
+- `unitOfMeasurement` SHALL be embedded within the `resultType` attribute and does not exist as an independent attribute within the `Datastream` entity
+- A `Datastream` can link to multiple `ObservedProperties` which was only possible with `MultiDatastream` entity earlier.
+  The SWE-Common based `resultType` and `resultEncoding` attributes eliminate the need for having a separate MultiDatastream entity
+- A `Datastream` can now be linked to the `Feature` it observes as two optional links between `Datastream` and `Feature` are introduced, named `UltimateFeatureOfInterest` and `ProximateFeatureOfInterest`.
 - `definition` attribute added
 
 | ObservedProperty
@@ -222,16 +224,20 @@ The changes to the data model have been summarised in <<sta-changes>> and <<img-
 | Observation
 | 
 - `properties` replaces the `parameters` attribute.
-- An Observation may or may not link to any Feature in contrast to the mandatory link between Observation and FeatureOfInterest from v1.x.
+- An `Observation` may or may not link to any `Feature` in contrast to the mandatory link between `Observation` and `FeatureOfInterest` from v1.x.
 - `resultTime` is now optional and can be left out completely, instead of defaulting to a `null` value.
 
 | Feature
 | 
-- The Feature entity replaces the FeatureOfInterest entity from 1.x as it now takes the role of UltimateFeatureOfInterest or ProximateFeatureOfInterest depending upon the context and links with Observation and Datastream entities
+- The `Feature` entity replaces the `FeatureOfInterest` entity from 1.x as it now takes the role of UltimateFeatureOfInterest or ProximateFeatureOfInterest depending upon the context and links with Observation and Datastream entities
 - `definition` attribute added
 
 | FeatureType
 | The FeatureType entity is added, and makes it easier to handle type information for Features
+
+| TM_Object & TM_Interval
+| Time attributes that can contain an Interval, and thus can have a start and end time, are now modelled as complex attributes with an explicit `start` and `end` sub-attribute.
+Their serialisation no longer uses the ISO-String notation with two times separated with a `/`.
 |====
 
 [#img-sta-core-changed,link=figures/Datamodel-SensorThingsApi-V2-Core-changed.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Core Changes']
@@ -249,6 +255,4 @@ OData uses JSON-encoding by default, and specifies generic rules for encoding re
 
 The OGC SensorThings API v2 interface is not an OData interface and does not claim to be an OData service. 
 It specifies a subset of the OData 4.01 specification, and extends it at the same time with certain features optimized for accessing sensor data.
-A SensorThings API Server implementation can implement the full OData specification. An OData client can access a SensorThings API service.
-
-EDITOR: Check if this is true
+A SensorThings API Server implementation can implement the full OData specification, but does not have to.

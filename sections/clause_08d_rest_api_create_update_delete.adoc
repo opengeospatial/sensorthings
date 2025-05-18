@@ -209,7 +209,8 @@ The content of an update request may contain nested entites to be updated or cre
 On succes, the server makes all the changes. On failure, the server makes none of the changes.
 
 The server must ensure data integrity and return an error if the update would break integrity.
-For example, an update request that specifies fewer Datastreams on a Thing than the Thing currently has can not be valid, since a Datastream MUST have a Thing.
+For example, an update request that specifies fewer Datastreams on a Thing than the Thing currently has can not be valid.
+This update would remove Datastreams from the Thing, but a Datastream MUST have a Thing.
 To remove a Datastream from a Thing, either the Datastream must be explicitly deleted, or linked to a different Thing.
 
 

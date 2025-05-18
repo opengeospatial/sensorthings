@@ -37,5 +37,7 @@ References are to follow the Springer LNCS style, with the exception that option
 
 * [[[OGC06-121r9, OGC 06-121r9]]]
 
+* [[[ITU-T-Y.2060, ITU-T-Y.2060]]], ITU-T Y.2060: _Overview of the Internet of Things_, 2012. Available Online: https://www.itu.int/rec/t-rec-y.2060-201206-i
+
 EDITOR: Check which of these are normative and which should go to the bibliography at the end.
 

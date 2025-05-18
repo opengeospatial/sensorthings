@@ -1,3 +1,4 @@
+[[ogc-api-common-interface-bindings]]
 == OGC API -- Common Interface Bindings
 
 === General

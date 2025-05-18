@@ -1,4 +1,4 @@
-[[mqtt-bindings]]
+[[mqtt-interface-bindings]]
 == MQTT Interface Bindings
 
 === Introduction
