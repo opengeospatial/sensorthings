@@ -34,10 +34,9 @@ For each request_response binding:
 identifier:: {identifier}/conf/binding/http/request_response
 target:: {identifier}/req/binding/http/request_response
 inherit:: {identifier}/conf-class/api/abstract
-test-purpose:: Validate that the resource paths advertised through the API conform with HTTP 1.1 and, where appropriate, TLS.
+test-purpose:: Validate that the request types defined in the abstract API are mapped to the correct HTTP methods.
 test-method::
-. All compliance tests SHALL be configured to use the HTTP 1.1 protocol exclusively.
-
-. For APIs which support HTTPS, all compliance tests SHALL be configured to use <<RFC2818,HTTP over TLS>> (RFC 2818) with their HTTP 1.1 protocol.
+. Execute a GET request on the URL for the service document.
+. Validate that a service document is returned.
 
 ====

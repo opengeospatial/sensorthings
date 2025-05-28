@@ -38,9 +38,10 @@ For each request-response binding:
 identifier:: {identifier}/conf/binding/mqtt/request_response
 target:: {identifier}/req/binding/mqtt/request_response
 inherit:: {identifier}/conf-class/api/abstract
-test-purpose:: Validate that ...
+test-purpose:: Validate that the MQTT interface implements the request-reponse API.
 test-method::
-. See if ...
+. execute an MQTT read request for the path for the service document.
+. Validate that a service document is returned.
 
 ====
 

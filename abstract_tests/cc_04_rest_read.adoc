@@ -1,0 +1,172 @@
+[conformance_class]
+====
+[%metadata]
+identifier:: {identifier}/conf-class/api/read
+target:: {identifier}/req-class/api/read
+conformance-test:: {identifier}/conf/api/read/paths
+conformance-test:: {identifier}/conf/api/read/options/precedence
+conformance-test:: {identifier}/conf/api/read/options/select
+conformance-test:: {identifier}/conf/api/read/options/select_distinct
+conformance-test:: {identifier}/conf/api/read/options/expand
+conformance-test:: {identifier}/conf/api/read/options/top
+conformance-test:: {identifier}/conf/api/read/options/skip
+conformance-test:: {identifier}/conf/api/read/options/count
+conformance-test:: {identifier}/conf/api/read/options/orderby
+conformance-test:: {identifier}/conf/api/read/options/filter
+conformance-test:: {identifier}/conf/api/read/options/format
+conformance-test:: {identifier}/conf/api/read/options/pagination
+====
+
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/paths
+target:: {identifier}/req/api/read/paths
+test-purpose:: Validate that all the specified paths can be read, for the implemented data model.
+test-method::
+. For each binding that supports request-response 
+.. For each URL pattern defined in <<api_read_paths>>
+... Execute a read request to the URL with no query options.
+... Test if the server returns the appropriate response.
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/options/precedence
+target:: {identifier}/req/api/read/options/precedence
+test-purpose:: Validate that the implementation uses the correct operator precedence.
+test-method::
+. For each binding that supports request-response 
+.. Send a query with the $filter query option for each combination of two built-in filter operators with adjacent operator precedence.
+.. Check if the server returns appropriate result as defined in this specification.
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/options/select
+target:: {identifier}/req/api/read/options/select
+test-purpose:: Validate that the implementation correctly implements the $select query option.
+test-method::
+. For each binding that supports request-response 
+.. For each URL pattern defined in <<api_read_paths>>
+... Execute read requests with a variety of $select query options to the URL.
+... Test if the server returns the appropriate response.
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/options/select_distinct
+target:: {identifier}/req/api/read/options/select_distinct
+test-purpose:: Validate that, if the query advertises select-distinct capability, it is implemented correctly.
+test-method::
+. For each binding that supports request-response and advertises select-distinct capability
+.. For each URL pattern defined in <<api_read_paths>> that returns a list of entities
+... Execute read requests with a an appropriate $select=distinct: query option to the URL.
+... Test if the server returns the appropriate response.
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/options/expand
+target:: {identifier}/req/api/read/options/expand
+test-purpose:: Validate that the implementation correctly implements the $expand query option.
+test-method::
+. For each binding that supports request-response 
+.. For various URL patterns defined in <<api_read_paths>>
+... Execute read requests with a variety of $expand query options to the URL.
+.... Including nested expands and expands with query options.
+... Test if the server returns the appropriate response.
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/options/top_skip
+target:: {identifier}/req/api/read/options/top
+target:: {identifier}/req/api/read/options/skip
+test-purpose:: Validate that the implementation correctly implements the Top and $skip query options.
+test-method::
+. For each binding that supports request-response
+.. For various URL patterns defined in <<api_read_paths>> that return a list of entities
+... Execute read requests with $top=10 and $skip=0.
+... Execute read requests with $top=2 and $skip=1.
+... Test if the server returns items two and three in the second request, when compared to the first request.
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/options/count
+target:: {identifier}/req/api/read/options/count
+test-purpose:: Validate that the implementation correctly implements the $count query option.
+test-method::
+. For each binding that supports request-response
+.. For various URL patterns defined in <<api_read_paths>> that return a list of entities
+... Execute read requests with $count=false,
+... Test if the server correctly omits a count in the response.
+... Execute read requests with $count=true,
+... Test if the response correctly containst a count.
+... Execute read requests with $top=2 and $skip value one less than the count,
+... Test if the server returns only one item.
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/options/orderby
+target:: {identifier}/req/api/read/options/orderby
+test-purpose:: Validate that the implementation correctly implements the $orderby query option.
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/options/filter
+target:: {identifier}/req/api/read/options/filter
+test-purpose:: Validate that the implementation correctly implements the $filter query option.
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/options/format
+target:: {identifier}/req/api/read/options/format
+test-purpose:: Validate that the implementation correctly implements the $format query option.
+test-method::
+. See if ...
+
+====
+
+
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/api/read/options/pagination
+target:: {identifier}/req/api/read/options/pagination
+test-purpose:: Validate that the implementation correctly implements server-driven pagination.
+test-method::
+. See if ...
+
+====
