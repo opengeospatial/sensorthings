@@ -149,7 +149,7 @@ The OMS classes Deployment, Observing Procedure, Sample, Sampling, Sampling Proc
 
 
 [[revision-differences]]
-=== SensorThings API 2.0 changes from 1.1
+=== Changes from Version 1.1
 
 From the SensorThings API version 1.1 (<<STAv1.1>>) to 2.0 changes have been made to both the data model and the API.
 
