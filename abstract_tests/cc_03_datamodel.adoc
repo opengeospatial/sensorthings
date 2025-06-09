@@ -12,7 +12,6 @@ conformance-test:: {identifier}/conf/datamodel/core/observed-property
 conformance-test:: {identifier}/conf/datamodel/core/feature
 conformance-test:: {identifier}/conf/datamodel/core/feature-type
 conformance-test:: {identifier}/conf/datamodel/core/observation
-conformance-test:: {identifier}/conf/datamodel/core/integrity
 ====
 
 
@@ -25,7 +24,10 @@ target:: {identifier}/req/datamodel/core/thing
 test-purpose:: Validate that the API Definition document can be retrieved from the expected location.
 
 test-method::
-. See if ...
+For each request_response binding:
+. Request a list of Things
+. Check if each Thing has all the mandatory Entity Attributes
+. Check if each Thing has all the mandatory Navigation Attributes
 
 ====
 
@@ -36,11 +38,14 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/datamodel/core/location
 target:: {identifier}/req/datamodel/core/location
-test-purpose:: Validate that the EntityType has the required attributes and relations.
+test-purpose:: Validate that Entities of this EntityType have the required attributes and relations.
 
 
 test-method::
-. See if ...
+For each request_response binding:
+. Request a list of Locations
+. Check if each Location has all the mandatory Entity Attributes
+. Check if each Location has all the mandatory Navigation Attributes
 
 ====
 
@@ -51,10 +56,14 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/datamodel/core/historical-location
 target:: {identifier}/req/datamodel/core/historical-location
-test-purpose:: Validate that the EntityType has the required attributes and relations.
+test-purpose:: Validate that Entities of this EntityType have the required attributes and relations.
 
 test-method::
-. See if ...
+For each request_response binding:
+. Request a list of HistoricalLocations
+. Check if each HistoricalLocation has all the mandatory Entity Attributes
+. Check if each HistoricalLocation has all the mandatory Navigation Attributes
+
 
 ====
 
@@ -65,11 +74,15 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/datamodel/core/sensor
 target:: {identifier}/req/datamodel/core/sensor
-test-purpose:: Validate that the EntityType has the required attributes and relations.
+test-purpose:: Validate that Entities of this EntityType have the required attributes and relations.
 
 
 test-method::
-. See if ...
+For each request_response binding:
+. Request a list of Sensors
+. Check if each Sensor has all the mandatory Entity Attributes
+. Check if each Sensor has all the mandatory Navigation Attributes
+
 
 ====
 
@@ -80,11 +93,14 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/datamodel/core/datastream
 target:: {identifier}/req/datamodel/core/datastream
-test-purpose:: Validate that the EntityType has the required attributes and relations.
+test-purpose:: Validate that Entities of this EntityType have the required attributes and relations.
 
 
-test-method::
-. See if ...
+For each request_response binding:
+. Request a list of Datastreams
+. Check if each Datastream has all the mandatory Entity Attributes
+. Check if each Datastream has all the mandatory Navigation Attributes
+
 
 ====
 
@@ -95,11 +111,15 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/datamodel/core/observed-property
 target:: {identifier}/req/datamodel/core/observed-property
-test-purpose:: Validate that the EntityType has the required attributes and relations.
+test-purpose:: Validate that Entities of this EntityType have the required attributes and relations.
 
 
 test-method::
-. See if ...
+For each request_response binding:
+. Request a list of ObservedProperties
+. Check if each ObservedProperty has all the mandatory Entity Attributes
+. Check if each ObservedProperty has all the mandatory Navigation Attributes
+
 
 ====
 
@@ -110,11 +130,15 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/datamodel/core/feature
 target:: {identifier}/req/datamodel/core/feature
-test-purpose:: Validate that the EntityType has the required attributes and relations.
+test-purpose:: Validate that Entities of this EntityType have the required attributes and relations.
 
 
 test-method::
-. See if ...
+For each request_response binding:
+. Request a list of Features
+. Check if each Feature has all the mandatory Entity Attributes
+. Check if each Feature has all the mandatory Navigation Attributes
+
 
 ====
 
@@ -125,11 +149,15 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/datamodel/core/feature-type
 target:: {identifier}/req/datamodel/core/feature-type
-test-purpose:: Validate that the EntityType has the required attributes and relations.
+test-purpose:: Validate that Entities of this EntityType have the required attributes and relations.
 
 
 test-method::
-. See if ...
+For each request_response binding:
+. Request a list of FeatureTypes
+. Check if each FeatureType has all the mandatory Entity Attributes
+. Check if each FeatureType has all the mandatory Navigation Attributes
+
 
 ====
 
@@ -140,26 +168,15 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/datamodel/core/observation
 target:: {identifier}/req/datamodel/core/observation
-test-purpose:: Validate that the EntityType has the required attributes and relations.
+test-purpose:: Validate that Entities of this EntityType have the required attributes and relations.
 
 
 test-method::
-. See if ...
+For each request_response binding:
+. Request a list of Observations
+. Check if each Observation has all the mandatory Entity Attributes
+. Check if each Observation has all the mandatory Navigation Attributes
 
-====
-
-
-
-[abstract_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/datamodel/core/integrity
-target:: {identifier}/req/datamodel/core/integrity
-test-purpose:: Validate integrity is ensured.
-
-
-test-method::
-. See if ...
 
 ====
 

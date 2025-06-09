@@ -1,3 +1,4 @@
+[[http-interface-binding]]
 == HTTP Interface Bindings
 
 === Introduction

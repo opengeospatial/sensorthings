@@ -20,9 +20,7 @@ test-purpose:: Validate the binding advertisement in the service document.
 test-method::
 For each request_response binding:
 . Construct a path for the service document.
-
 . Issue a Read request on that path.
-
 . Validate that the http binding is advertised, and endpoints are set.
 ====
 

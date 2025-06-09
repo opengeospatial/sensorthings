@@ -8,8 +8,7 @@ conformance-test:: {identifier}/conf/api/read/options/precedence
 conformance-test:: {identifier}/conf/api/read/options/select
 conformance-test:: {identifier}/conf/api/read/options/select_distinct
 conformance-test:: {identifier}/conf/api/read/options/expand
-conformance-test:: {identifier}/conf/api/read/options/top
-conformance-test:: {identifier}/conf/api/read/options/skip
+conformance-test:: {identifier}/conf/api/read/options/top_skip
 conformance-test:: {identifier}/conf/api/read/options/count
 conformance-test:: {identifier}/conf/api/read/options/orderby
 conformance-test:: {identifier}/conf/api/read/options/filter
@@ -119,8 +118,6 @@ test-method::
 ... Test if the server correctly omits a count in the response.
 ... Execute read requests with $count=true,
 ... Test if the response correctly containst a count.
-... Execute read requests with $top=2 and $skip value one less than the count,
-... Test if the server returns only one item.
 ====
 
 
@@ -131,7 +128,17 @@ identifier:: {identifier}/conf/api/read/options/orderby
 target:: {identifier}/req/api/read/options/orderby
 test-purpose:: Validate that the implementation correctly implements the $orderby query option.
 test-method::
-. See if ...
+. For each binding that supports request-response
+.. For various URL patterns defined in <<api_read_paths>> that return a list of entities
+
+... Execute read requests with a $orderby containing a single attribute.
+.... Validate that the returned entities are correctly ordered, in ascending order, by the given attribute.
+... Execute read requests with a $orderby containing a single attribute with the `desc` modifier.
+.... Validate that the returned entities are correctly ordered, in decending order, by the given attribute.
+... Execute read requests with a $orderby containing a single attribute with the `asc` modifier.
+.... Validate that the returned entities are correctly ordered, in ascending order, by the given attribute.
+... Execute read requests with a $orderby containing a two attributes.
+.... Validate that the returned entities are correctly ordered, in ascending order, by the given attributes.
 
 ====
 
@@ -143,7 +150,11 @@ identifier:: {identifier}/conf/api/read/options/filter
 target:: {identifier}/req/api/read/options/filter
 test-purpose:: Validate that the implementation correctly implements the $filter query option.
 test-method::
-. See if ...
+. For each binding that supports request-response
+.. For various URL patterns defined in <<api_read_paths>> that return a list of entities
+
+... Execute various read requests containing filter funtions
+... Validate that only entities matching the filter are returned.
 
 ====
 
@@ -155,7 +166,18 @@ identifier:: {identifier}/conf/api/read/options/format
 target:: {identifier}/req/api/read/options/format
 test-purpose:: Validate that the implementation correctly implements the $format query option.
 test-method::
-. See if ...
+. For each binding that supports request-response
+.. For various URL patterns defined in <<api_read_paths>>
+
+... Execute a request with the request parameter `$format=application/json;metadata=full`
+... Validate that all metadata is correctly returned.
+
+... Execute a request with the request parameter `$format=application/json;metadata=minimal`
+... Validate that only context, count (if requested) and nextLink (if applicable) are returned.
+
+... Execute a request with the request parameter `$format=application/json;metadata=none`
+... Validate that only nextLink (if applicable) and count (if requested) are returned.
+
 
 ====
 
@@ -167,6 +189,12 @@ identifier:: {identifier}/conf/api/read/options/pagination
 target:: {identifier}/req/api/read/options/pagination
 test-purpose:: Validate that the implementation correctly implements server-driven pagination.
 test-method::
-. See if ...
+. For each binding that supports request-response
+.. For various URL patterns defined in <<api_read_paths>> that return a list of entities
+... Execute read requests with $top=10 and $skip=0.
+... Execute read requests with $top=2 and $skip=0.
+... Validate that a nextLink is present
+... Execute a read request on the nextLink
+... Validate that the server returns items three and four in this last request, when compared to the first request.
 
 ====

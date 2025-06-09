@@ -25,9 +25,7 @@ test-purpose:: Validate the MQTT advertisement in the service documents of all r
 test-method::
 For each request-response binding:
 . Construct a path for the service document.
-
 . Issue a Read request on that path.
-
 . Validate that the mqtt binding is advertised, and endpoints are set.
 ====
 
