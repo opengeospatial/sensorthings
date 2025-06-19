@@ -197,7 +197,7 @@ Navigation attributes are not affected.
 [%metadata]
 identifier:: {identifier}/req/api/cud/replace
 
-A service advertising this requirements in its service document SHALL support replacing entities as described in section <<cud_replacing_entities>>.
+If a service advertises this requirement in the service document then the service SHALL support replacing entities as described in section <<cud_replacing_entities>>.
 ====
 
 
@@ -243,7 +243,7 @@ To remove a Datastream from a Thing, either the Datastream must be explicitly de
 [%metadata]
 identifier:: {identifier}/req/api/cud/deep_update
 
-A service advertising this requirements in its service document SHALL support the deep updating of entities as described in section <<cud_deep_update>>.
+If a service advertises this requirement in the service document then the service SHALL support the deep updating of entities as described in section <<cud_deep_update>>.
 ====
 
 
@@ -274,7 +274,7 @@ The paths in the json-patch request must not contain navigation attributes.
 [%metadata]
 identifier:: {identifier}/req/api/cud/json_patch
 
-A service advertising this requirements in its service document SHALL support the updating of entities with JSON-Patch requests as described in section <<cud_json_patch>>.
+If a service advertises this requirement in the service document then the service SHALL support the updating of entities with JSON-Patch requests as described in section <<cud_json_patch>>.
 ====
 
 
@@ -419,7 +419,7 @@ The server will delete all entities from the set that match the filter.
 [%metadata]
 identifier:: {identifier}/req/api/cud/filtered_delete
 
-A service advertising this requirements in its service document SHALL support the mass-deleting of entities as described in section <<cud_deleting_entities_filtered>>.
+If a service advertises this requirement in the service document then the service SHALL support the mass-deleting of entities as described in section <<cud_deleting_entities_filtered>>.
 ====
 
 

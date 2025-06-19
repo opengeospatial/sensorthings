@@ -37,6 +37,7 @@ root Topic             resource path           query options
 URL Pattern: `<Service Root>/v2.0`
 
 Requests to the URL pattern consisting of just the version number, optionally followed by a slash (`/`) address the service document.
+The service document content is described in <<read_service_document>>.
 
 
 [[pattern_service_metadata_document]]

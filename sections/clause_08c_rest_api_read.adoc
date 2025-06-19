@@ -73,8 +73,7 @@ The content of the attribute named `serverSettings` SHALL be a JSON Object descr
 Each element of the `value` array SHALL be a JSON object with at least two name/value pairs, one with name `name` containing the name of the entity set (e.g., Things, Locations, etc.) and one with name `url` containing the URL of the entity set, which may be an absolute or a relative URL.
 (Adapted from OData 4.01-JSON-Format section 5)
 
-The serverSettings object SHALL contain the attribute `conformance` of the type Array, containing the URIs of all requirements from this specification and any extensions that the service implements.
-If a service implements all mandatory requirements from a requirements class, it only needs to list the requirements class id.
+The serverSettings object SHALL contain the attribute `conformance` of the type Array. It containing the URIs of all requirements classes and optional requirements that the service implements.
 
 The serverSettings object SHALL contain the attribute `functions` of the type Array, containing the function names of the filter functions that the service implements.
 
@@ -125,18 +124,23 @@ Extensions that need to expose additional server settings may do so in a attribu
   ],
   "serverSettings": {
     "conformance": [
-        "http://www.opengis.net/spec/sensorthings/2.0/req/datamodel",
-        "http://www.opengis.net/spec/sensorthings/2.0/req/resource-path/resource-path-to-entities",
-        "http://www.opengis.net/spec/sensorthings/2.0/req/request-data",
-        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/create-entity",
-        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/link-to-existing-entities",
-        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/deep-insert",
-        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/deep-insert-status-code",
-        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/update-entity",
-        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/delete-entity",
-        "http://www.opengis.net/spec/sensorthings/2.0/req/create-update-delete/historical-location-auto-creation",
-        "http://www.opengis.net/spec/sensorthings/2.0/req/create-observations-via-mqtt/observations-creation",
-        "http://www.opengis.net/spec/sensorthings/2.0/req/receive-updates-via-mqtt/receive-updates"
+        "http://www.opengis.net/spec/sensorthings/2.0/req-class/datamodel/core",
+        "http://www.opengis.net/spec/sensorthings/2.0/req-class/api/read",
+        "http://www.opengis.net/spec/sensorthings/2.0/req-class/api/cud",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/api/read/options/select_distinct",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/api/cud/deep_update",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/api/cud/filtered_delete",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/api/cud/json_patch",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/api/cud/replace",
+        "http://www.opengis.net/spec/sensorthings/2.0/req-class/binding/http",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/request_response",
+        "http://www.opengis.net/spec/sensorthings/2.0/req-class/binding/mqtt",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/mqtt/request_response",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/mqtt/pub_sub",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/mqtt/pub_sub/select",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/mqtt/pub_sub/expand",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/mqtt/pub_sub/filter",
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/mqtt/simple_create"
     ],
     "functions": [
       "any","cast","ceiling","concat","endswith","floor","floor","geo.distance","geo.intersects","geo.length",
@@ -144,17 +148,21 @@ Extensions that need to expose additional server settings may do so in a attribu
       "st_equals","st_intersects","st_overlaps","st_relate","st_touches","st_within","substring","substringof",
       "tolower","toupper","trim"
     ],
+    "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http": {
+      "endpoints": [
+        "https://server.example.com/service/path/v2.0"
+      ]
+    },
     "http://www.opengis.net/spec/sensorthings/2.0/req/bindings/mqtt": {
       "endpoints": [
         "mqtt://server.example.com:1833",
-        "ws://server.example.com/sensorThings",
+        "wss://server.example.com/sensorThings",
       ]
     }
   }
 }
 ----
 
-EDITOR: Update example with the correct requirement URLs.
 
 ===== EntitySet
 
