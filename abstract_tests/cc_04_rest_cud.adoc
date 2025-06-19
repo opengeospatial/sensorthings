@@ -23,9 +23,12 @@ conformance-test:: {identifier}/conf/api/cud/filtered_delete
 [%metadata]
 identifier:: {identifier}/conf/api/cud/advertisement
 target:: {identifier}/req/api/cud/advertisement
-test-purpose:: Validate that ...
+test-purpose:: Validate that CUD capability is advertised
 test-method::
-. See if ...
+For each request_response binding:
+. Construct a path for the service document.
+. Issue a Read request on that path.
+. Validate that the CUD capability is advertised.
 
 ====
 
@@ -35,9 +38,24 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/api/cud/create
 target:: {identifier}/req/api/cud/create
-test-purpose:: Validate that ...
+target:: {identifier}/req/api/cud/return_value
+test-purpose:: Validate that the create capability is correctly implemented.
 test-method::
-. See if ...
+
+. For each SensorThings entity type creates an entity instance by linking to existing entities with a single request.
+.. Varying the value of the return option for the prefer request parameter.
+... Check if the server responds as defined in this specification.
+... Check if the entity is correctly created, with the correct relations.
+
+. For each SensorThings entity type creates an entity instance that does not follow the integrity constraints of the data model (<<sensing-core>>) by linking to existing entities with a single request.
+.. Check if the server responds as defined in this specification.
+.. Check that the entity is not created.
+
+. Create a Location for a Thing entity
+.. Check if the Thing has a HistoricalLocation created by the service according to the Location entity.
+
+. Create a HistoricalLocation for a Thing entity, with a time that is later than the existing HistoricalLocations of the Thing.
+.. Check if the Location of the Thing was changed to the Location of the HistoricalLocation.
 
 ====
 
@@ -47,9 +65,22 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/api/cud/deep_insert
 target:: {identifier}/req/api/cud/deep_insert
-test-purpose:: Validate that ...
+target:: {identifier}/req/api/cud/return_value
+test-purpose:: Validate that the deep insert capability is correctly implemented.
 test-method::
-. See if ...
+
+. For each SensorThings entity type creates an entity instance by following the integrity constraints of the data model (<<sensing-core>>) and creating the related entities with a single request (i.e., deep insert).
+.. Varying the value of the return option for the prefer request parameter.
+... Check if the entity instance is successfully created.
+... Check if the service responds as defined in this specification.
+
+. Create an entity instance and its related entities with a deep insert request that does not conform to the specification (e.g., missing a mandatory property)
+.. Check if the service fails the request without creating any entity within the deep insert request.
+.. Check if the service responds the appropriate status code.
+
+. For each SensorThings entity type issue an entity creation request that does not follow the integrity constraints of the data model (<<sensing-core>>) with deep insert.
+.. Check if the service fails the request without creating any entity within the deep insert request.
+.. Check if the service responds the appropriate status code.
 
 ====
 
@@ -59,7 +90,8 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/api/cud/update
 target:: {identifier}/req/api/cud/update
-test-purpose:: Validate that ...
+target:: {identifier}/req/api/cud/return_value
+test-purpose:: Validate that the update capability is correctly implemented.
 test-method::
 . See if ...
 
@@ -71,7 +103,8 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/api/cud/replace
 target:: {identifier}/req/api/cud/replace
-test-purpose:: Validate that ...
+target:: {identifier}/req/api/cud/return_value
+test-purpose:: Validate that the replace capability, if advertised, is correctly implemented.
 test-method::
 . See if ...
 
@@ -83,7 +116,8 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/api/cud/deep_update
 target:: {identifier}/req/api/cud/deep_update
-test-purpose:: Validate that ...
+target:: {identifier}/req/api/cud/return_value
+test-purpose:: Validate that the deep update capability, if advertised, is correctly implemented.
 test-method::
 . See if ...
 
@@ -95,19 +129,8 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/api/cud/json_patch
 target:: {identifier}/req/api/cud/json_patch
-test-purpose:: Validate that ...
-test-method::
-. See if ...
-
-====
-
-
-[abstract_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/api/cud/return_value
 target:: {identifier}/req/api/cud/return_value
-test-purpose:: Validate that ...
+test-purpose:: Validate that the JSON-Patch capability, if advertised, is correctly implemented.
 test-method::
 . See if ...
 
@@ -119,7 +142,7 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/api/cud/update_relations
 target:: {identifier}/req/api/cud/update_relations
-test-purpose:: Validate that ...
+test-purpose:: Validate that relations can be updated as specified.
 test-method::
 . See if ...
 
@@ -131,7 +154,7 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/api/cud/delete
 target:: {identifier}/req/api/cud/delete
-test-purpose:: Validate that ...
+test-purpose:: Validate that the deleting of entities is correctly implemented.
 test-method::
 . See if ...
 
@@ -143,7 +166,7 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/api/cud/filtered_delete
 target:: {identifier}/req/api/cud/filtered_delete
-test-purpose:: Validate that ...
+test-purpose:: Validate that the filtered-delete capability, if advertised, is correctly implemented.
 test-method::
 . See if ...
 

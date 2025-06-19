@@ -111,6 +111,8 @@ To minimise the size of the returned payload, by default the json format is used
 
 EDITOR: Check if there really is no need to URL-Encode the url.
 
+EDITOR: Add returned status codes!
+
 .Message requesting the service document
 [source,text]
 ----
