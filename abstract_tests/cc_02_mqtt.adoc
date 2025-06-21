@@ -21,12 +21,13 @@ conformance-test:: {identifier}/conf/binding/mqtt/simple_create
 identifier:: {identifier}/conf/binding/mqtt/advertisement
 target:: {identifier}/req/binding/mqtt/advertisement
 test-purpose:: Validate the MQTT advertisement in the service documents of all request-response bindings.
-
 test-method::
+
 For each request-response binding:
 . Construct a path for the service document.
 . Issue a Read request on that path.
 . Validate that the mqtt binding is advertised, and endpoints are set.
+
 ====
 
 
@@ -38,8 +39,10 @@ target:: {identifier}/req/binding/mqtt/request_response
 inherit:: {identifier}/conf-class/api/abstract
 test-purpose:: Validate that the MQTT interface implements the request-reponse API.
 test-method::
+
 . execute an MQTT read request for the path for the service document.
 . Validate that a service document is returned.
+. Validate that the service document contains the request-responce requirement.
 
 ====
 
@@ -49,9 +52,29 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/binding/mqtt/pub_sub
 target:: {identifier}/req/binding/mqtt/pub_sub
-test-purpose:: Validate that ...
+test-purpose:: Validate that the MQTT interface implements the pub-sub API.
 test-method::
-. See if ...
+
+
+. For each path that addresses an entity set
+.. Subscribe to the path with MQTT Subscribe,
+.. create a new entity in the subscribed entity set,
+.. Check if a correct JSON representation of the newly created entity through MQTT is received.
+
+. For each path that addresses an entity set
+.. Subscribe to the path with MQTT Subscribe,
+.. update an existing entity in the subscribed entity set,
+.. Check if a complete JSON representation of the updated entity through MQTT is received.
+
+. For each path that addresses an entity
+.. Subscribe to the path with MQTT Subscribe,
+.. update the entity with PATCH,
+.. Check if the JSON object of the updated entity is received.
+
+. For a selection of paths that addresses an entity property
+.. Subscribe to the path with MQTT Subscribe,
+.. update the property with PATCH,
+.. Check if the JSON object of the updated property is received.
 
 ====
 
@@ -61,9 +84,23 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/binding/mqtt/pub_sub/select
 target:: {identifier}/req/binding/mqtt/pub_sub/select
-test-purpose:: Validate that ...
+test-purpose:: Validate that the MQTT interface implements the $select parameter.
 test-method::
-. See if ...
+
+. For each path that addresses an entity set
+.. Subscribe to the path with MQTT Subscribe, selecting a subset of the properties of the entity type using `$select`,
+.. create a new entity in the subscribed entity set,
+.. Check if the JSON representation of the newly created entity, received through MQTT, only contains the selected properties.
+
+. For each path that addresses an entity set
+.. Subscribe to the path with MQTT Subscribe, selecting a subset of the properties of the entity type using `$select`,
+.. update an existing entity in the subscribed entity set,
+.. Check if the JSON representation of the updated entity, received through MQTT, only contains the selected properties.
+
+. For each path that addresses an entity
+.. Subscribe to the path with MQTT Subscribe, selecting a subset of the properties of the entity type using `$select`,
+.. update the entity with PATCH,
+.. Check if the JSON representation of the updated entity, received through MQTT, only contains the selected properties.
 
 ====
 
@@ -73,9 +110,13 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/binding/mqtt/pub_sub/expand
 target:: {identifier}/req/binding/mqtt/pub_sub/expand
-test-purpose:: Validate that ...
+test-purpose:: Validate that the MQTT interface implements the $expand parameter.
 test-method::
-. See if ...
+
+. For a variety of paths that address an entity or entity set
+.. Subscribe to the path with MQTT Subscribe, expanding one or more navigation properties using `$expand`,
+.. create a new entity in the subscribed entity set, or update the subscribed entity.
+.. Check if the JSON representation of the entity, received through MQTT, contains the expanded relation.
 
 ====
 
@@ -85,9 +126,15 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/binding/mqtt/pub_sub/filter
 target:: {identifier}/req/binding/mqtt/pub_sub/filter
-test-purpose:: Validate that ...
+test-purpose:: Validate that the MQTT interface implements the $filter parameter.
 test-method::
-. See if ...
+
+. For each path that addresses an entity set
+.. Subscribe to the path with MQTT Subscribe, using a filter
+... create a new entity, that matches the filter, in the subscribed entity set,
+.... Check if a correct JSON representation of the newly created entity through MQTT is received.
+... create a new entity, that does not match the filter, in the subscribed entity set,
+.... Check if no JSON representation of the newly created entity is received.
 
 ====
 
@@ -97,8 +144,11 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/binding/mqtt/simple_create
 target:: {identifier}/req/binding/mqtt/simple_create
-test-purpose:: Validate that ...
+test-purpose:: Validate that the MQTT interface implements MQTT Simple Create.
 test-method::
-. See if ...
+
+. For each path that addresses an entity set
+.. Send an MQTT Publish message, containing a valid entity representation for the entity set, to the topic of the entity set with `/create` appended.
+.. Check if the new entity is created.
 
 ====
