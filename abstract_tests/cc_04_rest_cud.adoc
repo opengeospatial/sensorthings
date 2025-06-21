@@ -69,16 +69,16 @@ target:: {identifier}/req/api/cud/return_value
 test-purpose:: Validate that the deep insert capability is correctly implemented.
 test-method::
 
-. For each SensorThings entity type creates an entity instance by following the integrity constraints of the data model (<<sensing-core>>) and creating the related entities with a single request (i.e., deep insert).
-.. Varying the value of the return option for the prefer request parameter.
+. For each SensorThings entity type creates an entity instance by following the integrity constraints of the data model (<<sensing-core>>) and creating the related entities with a single request (i.e., deep insert),
+.. Varying the value of the return option for the prefer request parameter,
 ... Check if the entity instance is successfully created.
 ... Check if the service responds as defined in this specification.
 
-. Create an entity instance and its related entities with a deep insert request that does not conform to the specification (e.g., missing a mandatory property)
+. Create an entity instance and its related entities with a deep insert request that does not conform to the specification (e.g., missing a mandatory property),
 .. Check if the service fails the request without creating any entity within the deep insert request.
 .. Check if the service responds the appropriate status code.
 
-. For each SensorThings entity type issue an entity creation request that does not follow the integrity constraints of the data model (<<sensing-core>>) with deep insert.
+. For each SensorThings entity type issue an entity creation request that does not follow the integrity constraints of the data model (<<sensing-core>>) with deep insert,
 .. Check if the service fails the request without creating any entity within the deep insert request.
 .. Check if the service responds with the appropriate status code.
 
@@ -93,7 +93,14 @@ target:: {identifier}/req/api/cud/update
 target:: {identifier}/req/api/cud/return_value
 test-purpose:: Validate that the update capability is correctly implemented.
 test-method::
-. See if ...
+
+. For each SensorThings entity type send an update request,
+.. with updated values for varying attributes,
+.. varying the value of the return option for the prefer request parameter,
+... check if the properties provided in the payload corresponding to updatable properties replace the value of the corresponding property in the entity.
+... check if the missing properties of the containing entity or complex property are not directly altered.
+... Check if the service responds as defined in this specification.
+
 
 ====
 
@@ -106,7 +113,12 @@ target:: {identifier}/req/api/cud/replace
 target:: {identifier}/req/api/cud/return_value
 test-purpose:: Validate that the replace capability, if advertised, is correctly implemented.
 test-method::
-. See if ...
+
+. For each SensorThings entity type send a repalce request,
+.. with updated values for varying attributes,
+... check if the properties provided in the payload corresponding to updatable properties replace the value of the corresponding property in the entity.
+... check if the missing properties of the containing entity or complex property are removed.
+... Check if the service responds as defined in this specification.
 
 ====
 
@@ -119,7 +131,9 @@ target:: {identifier}/req/api/cud/deep_update
 target:: {identifier}/req/api/cud/return_value
 test-purpose:: Validate that the deep update capability, if advertised, is correctly implemented.
 test-method::
-. See if ...
+
+. For each SensorThings entity type send an update request that contains related entities as inline content,
+.. check if the service updates the inline entities as specified.
 
 ====
 
@@ -132,7 +146,10 @@ target:: {identifier}/req/api/cud/json_patch
 target:: {identifier}/req/api/cud/return_value
 test-purpose:: Validate that the JSON-Patch capability, if advertised, is correctly implemented.
 test-method::
-. See if ...
+
+. For each SensorThings entity type send a JSON-PATCH request,
+.. With various JSON-Patch operations,
+... check if the service updates the inline entities as specified.
 
 ====
 
@@ -144,7 +161,11 @@ identifier:: {identifier}/conf/api/cud/update_relations
 target:: {identifier}/req/api/cud/update_relations
 test-purpose:: Validate that relations can be updated as specified.
 test-method::
-. See if ...
+
+. For each relation in the SensorThings data model,
+.. Send all relation-update requests appropriate for the relation,
+... Check if the service correctly updates the relation, if the update does not violate the integrity requirements of the data model.
+... Check if the service correctly rejects the update, if the update violates the integrity requirements of the data model.
 
 ====
 
@@ -156,7 +177,11 @@ identifier:: {identifier}/conf/api/cud/delete
 target:: {identifier}/req/api/cud/delete
 test-purpose:: Validate that the deleting of entities is correctly implemented.
 test-method::
-. See if ...
+
+. For each entity type in the SensorThings data model,
+.. Send a delete requests deleting an entity of the given type
+... Check if the service correctly removes the entity.
+... Check if the service correctly removes any entities that depended on the deleted entity.
 
 ====
 
@@ -168,6 +193,11 @@ identifier:: {identifier}/conf/api/cud/filtered_delete
 target:: {identifier}/req/api/cud/filtered_delete
 test-purpose:: Validate that the filtered-delete capability, if advertised, is correctly implemented.
 test-method::
-. See if ...
+
+. For each entity type in the SensorThings data model,
+.. Send a filtered-delete requests deleting a specific sub-set of the entities of the given type,
+... Check if the service correctly removes the entities.
+... Check if the service correctly removes any entities that depended on the deleted entities.
+... Check if the service does not delete any entities not matching the filter.
 
 ====

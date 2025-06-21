@@ -102,7 +102,7 @@ Using the basic request-response pattern, and the User Properties of MQTT 5.0, t
 - The URL, including query parameters, for the request is passed in the User Attribute named `url`. The URL does not need to be URL-Encoded.
 - The request type (<<request_types>>) is passed in the User Property named `type`.
 - Request and response parameters (such as `prefer` and `location`)  are passed as User Properties.
-- The status code of a response is passed in the User Attribute named 'status'.
+- The status code of a response is passed in the User Attribute named `status`.
 - The content type of a message is passed in the MQTT 5 property `Content Type` (<<MQTT50, section="3.3.2.3.9">>)
 - Content is sent as the payload of the message.
 - The request must contain a response topic that follows the `Response Information` passed by the broker.
