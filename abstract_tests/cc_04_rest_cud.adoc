@@ -80,7 +80,7 @@ test-method::
 
 . For each SensorThings entity type issue an entity creation request that does not follow the integrity constraints of the data model (<<sensing-core>>) with deep insert.
 .. Check if the service fails the request without creating any entity within the deep insert request.
-.. Check if the service responds the appropriate status code.
+.. Check if the service responds with the appropriate status code.
 
 ====
 

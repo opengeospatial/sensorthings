@@ -99,19 +99,18 @@ MQTT 5.0 also defines User Properties (<<MQTT50,section="3.3.2.3.7">>) that can 
 Using the basic request-response pattern, and the User Properties of MQTT 5.0, the abstract API defined in <<abstract_api>> can be implemented over the MQTT protocol.
 
 - Requests are sent to the topic `v2.0/$request`.
-- The URL, including query parameters, for the request is passed in the User Attribute named `url` (case-insensitive). The URL does not need to be URL-Encoded.
+- The URL, including query parameters, for the request is passed in the User Attribute named `url`. The URL does not need to be URL-Encoded.
 - The request type (<<request_types>>) is passed in the User Property named `type`.
-- Request parameters (such as `prefer`, `content-type` and `location`)  are passed as User Properties.
+- Request and response parameters (such as `prefer` and `location`)  are passed as User Properties.
+- The status code of a response is passed in the User Attribute named 'status'.
+- The content type of a message is passed in the MQTT 5 property `Content Type` (<<MQTT50, section="3.3.2.3.9">>)
 - Content is sent as the payload of the message.
 - The request must contain a response topic that follows the `Response Information` passed by the broker.
 - The request may contain correlation data to help the client associate the response to the request.
-- all URLs pointing to the API start with the version of the API and contain no scheme, host or port.
+- all URLs pointing to the API start with the version of the API and contain no scheme, host or port and no preceding slash.
 
-To minimise the size of the returned payload, by default the json format is used with `metadata=none` (<<format_json>>).
+To minimise the size of the returned payload, by default the json format is used with `metadata=none` (<<format_json>>) and clients are advised to use the $select query parameter.
 
-EDITOR: Check if there really is no need to URL-Encode the url.
-
-EDITOR: Add returned status codes!
 
 .Message requesting the service document
 [source,text]
@@ -122,7 +121,6 @@ CorrelationData: 42
 User Properties:
   url: v2.0
   type: read
-  accept: */*
 Payload: <empty>
 ----
 
@@ -131,8 +129,9 @@ Payload: <empty>
 ----
 Topic: responses/userxyz
 CorrelationData: 42
+ContentType: application/json;charset=UTF-8
 User Properties:
-  content-type: application/json;charset=UTF-8
+  status: 200
 Payload: <the service document>
 ----
 
@@ -146,7 +145,6 @@ CorrelationData: 43
 User Properties:
   url: v2.0/Things?$top=1&$orderby=id
   type: read
-  accept: */*
 Payload: <empty>
 ----
 
@@ -155,8 +153,9 @@ Payload: <empty>
 ----
 Topic: responses/userxyz
 CorrelationData: 43
+ContentType: application/json;charset=UTF-8
 User Properties:
-  content-type: application/json;charset=UTF-8
+  status: 200
 Payload:
 {
   "value": [
@@ -181,11 +180,10 @@ Payload:
 ----
 Topic: v2.0/$request
 ResponseTopic: responses/userxyz
+ContentType: application/json
 User Properties:
   url: v2.0/Things
   type: create
-  content-type: application/json
-  accept: */*
 Payload:
 {
   "id": 1,
@@ -203,7 +201,7 @@ Payload:
 ----
 Topic: responses/userxyz
 User Properties:
-  content-type: application/json;charset=UTF-8
+  status: 201
   location: v2.0/Things(1)
 Payload: <empty>
 ----
