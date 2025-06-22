@@ -150,13 +150,13 @@ Extensions that need to expose additional server settings may do so in a attribu
     ],
     "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http": {
       "endpoints": [
-        "https://server.example.com/service/path/v2.0"
+        "https://server.example.org/service/path/v2.0"
       ]
     },
     "http://www.opengis.net/spec/sensorthings/2.0/req/bindings/mqtt": {
       "endpoints": [
-        "mqtt://server.example.com:1833",
-        "wss://server.example.com/sensorThings",
+        "mqtt://server.example.org:1833",
+        "wss://server.example.org/sensorThings",
       ]
     }
   }

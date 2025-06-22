@@ -80,9 +80,26 @@ See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-
 This is was known as the `@selfLink` in SensorThings version 1.
 |URL
 
+|@count
+|The total number of items in the requested entity set.
+|Integer
+
+|@nextLink
+|In a response that returns a set of entities, this link returns the next set of entities for the main set of the response.
+|URL
+
 |linkName@navigationLink
 |Annotations of the form `linkName@navigationLink` are the relative or absolute URL that retrieves the related entity or entities for the navigation attribute `linkName`.
 |URL
+
+|linkName@count
+|The total number of items in the related entity set of the navigation attribute `linkName`. Present when the navigation property `linkName` is an Entity Set and is expanded with the parameter `$count` set to `true`.
+|Integer
+
+|linkName@nextLink
+|This link returns the next set of entities for the expanded navigation property `linkName` if that navigation property is an Entity Set.
+|URL
+
 |===
 
 
