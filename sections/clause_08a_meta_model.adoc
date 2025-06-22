@@ -206,7 +206,9 @@ An example CSDL document describing a service hosting a SensorThings API v2.0 co
 A shortened example with comments can be found in <<csdl-example-short>>.
 
 
-=== Encoding rules for constants
+
+[[url_encoding]]
+=== URL Encoding for constants
 
 Encoding rules for constants in resource paths and query options are listed in <<constants_encoding_rules>>
 

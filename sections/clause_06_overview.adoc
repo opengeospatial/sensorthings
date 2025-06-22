@@ -87,23 +87,14 @@ The OGC SensorThings API core specification consists of several parts:
 . the OGC API — Common Interface Bindings (<<ogc-api-common-interface-bindings>>)
 
 
-The core data model is designed based on the OGC/ISO Observation, Measurements and Samples (OMS) model (<<OgcOMS>> and <<IsoOMS>>).
-An Observation is modeled as an act that produces a result whose value is an estimate of a property of a given Feature.
-An Observation instance is characterized by its event time (e.g., resultTime and phenonmenonTime), Feature, ObservedProperty, and the observer that made the Observation (often a Sensor).
+The core data model describes with types of entities can be exchanged through the API, and how these entity types relate to each other.
+It is designed based on the OGC/ISO Observation, Measurements and Samples (OMS) model (<<OgcOMS>> and <<IsoOMS>>).
+The data model can be extended, with additional entities and relations, by other specifications.
 
-The SensorThings API also models Things.
-A Thing draws from the same concept as a Host in OMS where a Host is defined as a collection of Observers (defined as Sensor in SensorThings API).
-Formally, its definition follows the ITU-T definition:
-“__an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks__” <<ITU-T-Y.2060>>.
+The abstract API describes, in on an abstract level, how users can interact with the data model.
+It describes the actions a user can make, the paths on which a user can make these actions, and the default formatting of data.
 
-The geographical Locations of Things are useful in almost every application and as a result are included as well.
-For the Things whose location changed, the HistoricalLocations entities offer the history of the Thing's locations.
-
-A Thing also can have multiple Datastreams.
-A Datastream is a collection of Observations grouped by the same ObservedProperty, Sensor and optionally by Feature and ObservingProcedure.
-
-An Observation is an event performed by a Sensor that produces a result whose value is an estimate of an ObservedProperty of any given Feature which may be a proximate or ultimate FeatureofInterest.
-Details of each above described entity are provided in <<sensing-core>>.
+The HTTP and MQTT interface bindings describe how the abstract API can be accessed over HTTP or MQTT.
 
 
 [[observations-measurements]]
