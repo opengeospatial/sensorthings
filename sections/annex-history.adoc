@@ -5,5 +5,5 @@
 .Revision History
 |===
 |Date |Release |Editor | Primary clauses modified |Description
-| 2023-05-09 | 0.1 | Hylke van der Schaaf | all | initial version
+| 2023 - 2025 | 0.1 | Hylke van der Schaaf and others | all | Complete reimagining of the specification.
 |===
