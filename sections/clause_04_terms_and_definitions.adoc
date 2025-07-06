@@ -4,14 +4,125 @@ This document uses the terms defined in Sub-clause 5.3 of <<OGC06-121r9>>, which
 
 For the purposes of this document, the following additional terms and definitions apply.
 
-=== example term
 
-term used for exemplary purposes
+=== Annotation
+
+Additional information attached to model or instance elements.
+Annotations can be identified by the `@` character.
+
+
+=== Attribute
+
+Named element that is part of a structured type (Entity Type or Complex Type).
+
+
+=== Complex Type
+
+Named, structured, keyless, element consisting of a set of named attributes.
+
+
+=== EntityId
+
+A globally unique identifier for an Entity.
+If present in Entity representations, the EntityId is specified in the `@id` annotation.
+
+
+=== Entity
+
+instance of an `Entity Type`. An Entity can have only one Entity Type.
+
+
+=== Entity Set
+
+A named collection of Entities of the same `Entity Type`.
+Each Entity is uniquely identified among other Entities in the same Entity Set, by its key.
+Entity Sets are the entry points into the data model.
+
+
+=== Entity Type
+
+Named, structured, keyed element that defines the attributes and relations of Entities.
+
+
+=== (Internet of) Thing
+
+A thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks.
 
 [.source]
-<<ISO19101-1>>
+<<ITU-T-Y.2060>>
 
-NOTE: An example note.
 
-[example]
-Here's an example of an example term.
+=== Measurement
+
+A set of operations having the object of determining the value of a quantity.
+
+[.source]
+<<OgcOMS>>
+
+[.source]
+<<IsoOMS>>
+
+
+=== Observation
+
+Act of measuring or otherwise determining the value of a property.
+
+[.source]
+<<OgcOMS>>
+
+[.source]
+<<IsoOMS>>
+
+
+=== Observation Result
+
+Estimate of the value of a property determined through a known observation procedure.
+
+[.source]
+<<OgcOMS>>
+
+[.source]
+<<IsoOMS>>
+
+
+=== Primitive Type
+
+Unnamed, unstructured type, such as String, Integer or DateTime.
+An attribute with a Primitive Type is called a primitive attribute.
+
+
+=== Relation
+
+Named connections between Entities.
+
+
+
+[[abbreviated_terms]]
+== Abbreviated terms
+
+API:: Application Programming Interface
+CORS:: Cross-Origin Resource Sharing
+CRUD:: Create, Read, Update, and Delete
+HTML:: HyperText Markup Language
+HTTP:: Hypertext Transfer Protocol
+HTTPS:: Hypertext Transfer Protocol Secure
+IANA:: Internet Assigned Numbers Authority
+IoT:: Internet of Things
+ISO:: International Organization for Standardization
+JSON:: JavaScript Object Notation
+OData:: the Open Data Protocol
+OGC:: Open Geospatial Consortium
+O&M:: Observations and Measurements
+OMS:: Observations, Measurements and Samples
+PDF:: Portable Document Format
+SensorML:: Sensor Model Language
+SWE:: Sensor Web Enablement
+UCUM:: Unified Code for Units of Measure
+URI:: Uniform Resource Identifier
+URL:: Uniform Resource Locator
+UML:: Unified Modeling Language
+WoT:: Web of Things
+XML:: eXtensible Markup Language
+YAML:: YAML Ain’t Markup Language
+
+
