@@ -96,6 +96,7 @@ For each request_response binding:
 . Request a list of Datastreams
 . Check if each Datastream has all the mandatory Entity Attributes
 . Check if each Datastream has all the mandatory Navigation Attributes
+. Check if the linked ObservedProperties match those referenced in the resultType attribute.
 
 ====
 
@@ -164,6 +165,7 @@ For each request_response binding:
 . Request a list of Observations
 . Check if each Observation has all the mandatory Entity Attributes
 . Check if each Observation has all the mandatory Navigation Attributes
+. Check if the content of the result attribute matches the structure defined in the resultType attribute of the linked Datastream
 
 ====
 
