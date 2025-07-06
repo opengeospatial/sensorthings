@@ -9,3 +9,25 @@ The data model, and API can be extended, and additional protocol bindings or dat
 === Security Considerations
 
 bla bla
+
+
+[[submitters-section]]
+== Submitters
+
+EDITOR: Check and Extend
+
+All questions regarding this submission should be directed to the editors or the submitters:
+
+[#submitters-table,reftext='{table-caption} {counter:table-num}']
+.Submitters
+[width="90%",cols="4,6",options="header"]
+|===
+| *Name* | *Affiliation*
+| Hylke van der Schaaf _(editor)_ | Fraunhofer-Gesellschaft
+| Steve Liang _(editor)_ | SensorUp Inc.
+| Kathi Schleidt | Datacove E.U.
+| Andreas Matheus | Secure Dimensions GmbH
+| Joan Maso Pau | Universitat Autònoma de Barcelona (CREAF)
+| Sylvain Grellet | BRGM
+| Humaid Imran Kidwai | University of Calgary
+|===
