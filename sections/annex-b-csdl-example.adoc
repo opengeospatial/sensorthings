@@ -7,8 +7,8 @@
 ----
 {
     "$Version": "4.01",  // OData version
-    "$EntityContainer": "org.OGC.SensorThingsV2",  // Namespace + . + container name
-    "org.OGC": {         // Namespace
+    "$EntityContainer": "org.OGC.STA.SensorThingsV2",  // Namespace + . + container name
+    "org.OGC.STA": {         // Namespace
         "Datastream": {  // EntityType name
             "$Kind": "EntityType",  // Object is an EntityType
             "$Key": [    // Primary key of the EntityType
@@ -19,18 +19,18 @@
             },                        // Not nullable, but PrimaryKeys are auto generated
             "name": {},   // name field, Default $Type=Edm.String, not nullable
             "properties": {                 // Property properties
-                "$Type": "org.OGC.Object",  // custom type defined in org.OGC namespace
+                "$Type": "org.OGC.STA.Object",  // custom type defined in org.OGC.STA namespace
                 "$Nullable": true           // Nullable, thus Optional
             },
             "phenomenonTime": {               // Property phenomenonTime
-                "$Type": "org.OGC.TM_Period", // custom type defined in org.OGC namespace
+                "$Type": "org.OGC.STA.TM_Period", // custom type defined in org.OGC.STA namespace
                 "$Nullable": true             // Nullable, thus Optional
             },
             "Observations": {                   // Property Observations
                 "$Kind": "NavigationProperty",  // NavigationProperty
                 "$Collection": true,            // links to a Set of Entities
                 "$Partner": "Datastream",       // inverse link is called Datastream
-                "$Type": "org.OGC.Observation", // Target is of type Observation
+                "$Type": "org.OGC.STA.Observation", // Target is of type Observation
                 "$Nullable": true               // can be an empty set
             }
         },
@@ -48,7 +48,7 @@
             "Datastream": {                    // Property Datastream linking to a single Entity
                 "$Kind": "NavigationProperty", // is a NavigationProperty
                 "$Partner": "Observations",    // inverse relation is called Observations
-                "$Type": "org.OGC.Datastream"  //  links to a Datastream
+                "$Type": "org.OGC.STA.Datastream"  //  links to a Datastream
             }                                  // No $Nullable, thus mandatory!
         },
         "Object": {                 // Custom type Object
@@ -68,14 +68,14 @@
             "$Kind": "EntityContainer",
             "Datastreams": {                     // The v2.0/Datastreams entitySet
                 "$Collection": true,             // is an entity set
-                "$Type": "org.OGC.Datastream",   // containing Datastreams
+                "$Type": "org.OGC.STA.Datastream",   // containing Datastreams
                 "$NavigationPropertyBinding": {  // The navigationProperties link to other top-level sets
                     "Observations": "Observations"  // v2.0/Datastreams(x)/Observations are also in v2.0/Observations
                 }
             },
             "Observations": {                    // The v2.0/Observations entitySet
                 "$Collection": true,             // is an entity set
-                "$Type": "org.OGC.Observation",  // containing Observations
+                "$Type": "org.OGC.STA.Observation",  // containing Observations
                 "$NavigationPropertyBinding": {
                     "Datastream": "Datastreams"  // v2.0/Observations(x)/Datastream is also in v2.0/Datastreams
                 }
@@ -95,8 +95,8 @@
 ----
 {
     "$Version": "4.01",
-    "$EntityContainer": "org.OGC.SensorThingsV2",
-    "org.OGC": {
+    "$EntityContainer": "org.OGC.STA.SensorThingsV2",
+    "org.OGC.STA": {
         "Datastream": {
             "$Kind": "EntityType",
             "$Key": [
@@ -110,10 +110,10 @@
                 "$Nullable": true
             },
             "resultType": {
-                "$Type": "org.OGC.Object"
+                "$Type": "org.OGC.STA.Object"
             },
             "properties": {
-                "$Type": "org.OGC.Object",
+                "$Type": "org.OGC.STA.Object",
                 "$Nullable": true
             },
             "observedArea": {
@@ -122,41 +122,41 @@
                 "$Nullable": true
             },
             "phenomenonTime": {
-                "$Type": "org.OGC.TM_Period",
+                "$Type": "org.OGC.STA.TM_Period",
                 "$Nullable": true
             },
             "resultTime": {
-                "$Type": "org.OGC.TM_Period",
+                "$Type": "org.OGC.STA.TM_Period",
                 "$Nullable": true
             },
             "Observations": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "Datastream",
-                "$Type": "org.OGC.Observation",
+                "$Type": "org.OGC.STA.Observation",
                 "$Nullable": true
             },
             "ObservedProperties": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "Datastreams",
-                "$Type": "org.OGC.ObservedProperty",
+                "$Type": "org.OGC.STA.ObservedProperty",
                 "$Nullable": true
             },
             "Sensor": {
                 "$Kind": "NavigationProperty",
                 "$Partner": "Datastreams",
-                "$Type": "org.OGC.Sensor"
+                "$Type": "org.OGC.STA.Sensor"
             },
             "Thing": {
                 "$Kind": "NavigationProperty",
                 "$Partner": "Datastreams",
-                "$Type": "org.OGC.Thing"
+                "$Type": "org.OGC.STA.Thing"
             },
             "ultimateFeatureOfInterest": {
                 "$Kind": "NavigationProperty",
                 "$Partner": "Datastreams",
-                "$Type": "org.OGC.Feature",
+                "$Type": "org.OGC.STA.Feature",
                 "$Nullable": true
             }
         },
@@ -176,32 +176,32 @@
                 "$Nullable": true
             },
             "feature": {
-                "$Type": "org.OGC.Geometry",
+                "$Type": "org.OGC.STA.Geometry",
                 "$Nullable": true
             },
             "properties": {
-                "$Type": "org.OGC.Object",
+                "$Type": "org.OGC.STA.Object",
                 "$Nullable": true
             },
             "Datastreams": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "ultimateFeatureOfInterest",
-                "$Type": "org.OGC.Datastream",
+                "$Type": "org.OGC.STA.Datastream",
                 "$Nullable": true
             },
             "FeatureTypes": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "Features",
-                "$Type": "org.OGC.FeatureType",
+                "$Type": "org.OGC.STA.FeatureType",
                 "$Nullable": true
             },
             "Observations": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "proximateFeatureOfInterest",
-                "$Type": "org.OGC.Observation",
+                "$Type": "org.OGC.STA.Observation",
                 "$Nullable": true
             }
         },
@@ -221,14 +221,14 @@
                 "$Nullable": true
             },
             "properties": {
-                "$Type": "org.OGC.Object",
+                "$Type": "org.OGC.STA.Object",
                 "$Nullable": true
             },
             "Features": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "FeatureTypes",
-                "$Type": "org.OGC.Feature",
+                "$Type": "org.OGC.STA.Feature",
                 "$Nullable": true
             }
         },
@@ -247,13 +247,13 @@
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "HistoricalLocations",
-                "$Type": "org.OGC.Location",
+                "$Type": "org.OGC.STA.Location",
                 "$Nullable": true
             },
             "Thing": {
                 "$Kind": "NavigationProperty",
                 "$Partner": "HistoricalLocations",
-                "$Type": "org.OGC.Thing"
+                "$Type": "org.OGC.STA.Thing"
             }
         },
         "Location": {
@@ -272,25 +272,25 @@
                 "$Nullable": true
             },
             "location": {
-                "$Type": "org.OGC.Geometry",
+                "$Type": "org.OGC.STA.Geometry",
                 "$Nullable": true
             },
             "properties": {
-                "$Type": "org.OGC.Object",
+                "$Type": "org.OGC.STA.Object",
                 "$Nullable": true
             },
             "HistoricalLocations": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "Locations",
-                "$Type": "org.OGC.HistoricalLocation",
+                "$Type": "org.OGC.STA.HistoricalLocation",
                 "$Nullable": true
             },
             "Things": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "Locations",
-                "$Type": "org.OGC.Thing",
+                "$Type": "org.OGC.STA.Thing",
                 "$Nullable": true
             }
         },
@@ -303,7 +303,7 @@
                 "$Type": "Edm.Int64"
             },
             "phenomenonTime": {
-                "$Type": "org.OGC.TM_Object",
+                "$Type": "org.OGC.STA.TM_Object",
                 "$Nullable": true
             },
             "resultTime": {
@@ -311,11 +311,11 @@
                 "$Nullable": true
             },
             "validTime": {
-                "$Type": "org.OGC.TM_Period",
+                "$Type": "org.OGC.STA.TM_Period",
                 "$Nullable": true
             },
             "properties": {
-                "$Type": "org.OGC.Object",
+                "$Type": "org.OGC.STA.Object",
                 "$Nullable": true
             },
             "result": {
@@ -325,12 +325,12 @@
             "Datastream": {
                 "$Kind": "NavigationProperty",
                 "$Partner": "Observations",
-                "$Type": "org.OGC.Datastream"
+                "$Type": "org.OGC.STA.Datastream"
             },
             "proximateFeatureOfInterest": {
                 "$Kind": "NavigationProperty",
                 "$Partner": "Observations",
-                "$Type": "org.OGC.Feature",
+                "$Type": "org.OGC.STA.Feature",
                 "$Nullable": true
             }
         },
@@ -348,14 +348,14 @@
                 "$Nullable": true
             },
             "properties": {
-                "$Type": "org.OGC.Object",
+                "$Type": "org.OGC.STA.Object",
                 "$Nullable": true
             },
             "Datastreams": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "ObservedProperties",
-                "$Type": "org.OGC.Datastream",
+                "$Type": "org.OGC.STA.Datastream",
                 "$Nullable": true
             }
         },
@@ -378,14 +378,14 @@
                 "$Nullable": true
             },
             "properties": {
-                "$Type": "org.OGC.Object",
+                "$Type": "org.OGC.STA.Object",
                 "$Nullable": true
             },
             "Datastreams": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "Sensor",
-                "$Type": "org.OGC.Datastream",
+                "$Type": "org.OGC.STA.Datastream",
                 "$Nullable": true
             }
         },
@@ -402,28 +402,28 @@
                 "$Nullable": true
             },
             "properties": {
-                "$Type": "org.OGC.Object",
+                "$Type": "org.OGC.STA.Object",
                 "$Nullable": true
             },
             "Datastreams": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "Thing",
-                "$Type": "org.OGC.Datastream",
+                "$Type": "org.OGC.STA.Datastream",
                 "$Nullable": true
             },
             "HistoricalLocations": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "Thing",
-                "$Type": "org.OGC.HistoricalLocation",
+                "$Type": "org.OGC.STA.HistoricalLocation",
                 "$Nullable": true
             },
             "Locations": {
                 "$Kind": "NavigationProperty",
                 "$Collection": true,
                 "$Partner": "Things",
-                "$Type": "org.OGC.Location",
+                "$Type": "org.OGC.STA.Location",
                 "$Nullable": true
             }
         },
@@ -463,7 +463,7 @@
             "$Kind": "EntityContainer",
             "Datastreams": {
                 "$Collection": true,
-                "$Type": "org.OGC.Datastream",
+                "$Type": "org.OGC.STA.Datastream",
                 "$NavigationPropertyBinding": {
                     "ultimateFeatureOfInterest": "Features",
                     "Observations": "Observations",
@@ -474,7 +474,7 @@
             },
             "Features": {
                 "$Collection": true,
-                "$Type": "org.OGC.Feature",
+                "$Type": "org.OGC.STA.Feature",
                 "$NavigationPropertyBinding": {
                     "Datastreams": "Datastreams",
                     "FeatureTypes": "FeatureTypes",
@@ -483,14 +483,14 @@
             },
             "FeatureTypes": {
                 "$Collection": true,
-                "$Type": "org.OGC.FeatureType",
+                "$Type": "org.OGC.STA.FeatureType",
                 "$NavigationPropertyBinding": {
                     "Features": "Features"
                 }
             },
             "HistoricalLocations": {
                 "$Collection": true,
-                "$Type": "org.OGC.HistoricalLocation",
+                "$Type": "org.OGC.STA.HistoricalLocation",
                 "$NavigationPropertyBinding": {
                     "Locations": "Locations",
                     "Thing": "Things"
@@ -498,7 +498,7 @@
             },
             "Locations": {
                 "$Collection": true,
-                "$Type": "org.OGC.Location",
+                "$Type": "org.OGC.STA.Location",
                 "$NavigationPropertyBinding": {
                     "Things": "Things",
                     "HistoricalLocations": "HistoricalLocations"
@@ -506,7 +506,7 @@
             },
             "Observations": {
                 "$Collection": true,
-                "$Type": "org.OGC.Observation",
+                "$Type": "org.OGC.STA.Observation",
                 "$NavigationPropertyBinding": {
                     "Datastream": "Datastreams",
                     "proximateFeatureOfInterest": "Features"
@@ -514,21 +514,21 @@
             },
             "ObservedProperties": {
                 "$Collection": true,
-                "$Type": "org.OGC.ObservedProperty",
+                "$Type": "org.OGC.STA.ObservedProperty",
                 "$NavigationPropertyBinding": {
                     "Datastreams": "Datastreams"
                 }
             },
             "Sensors": {
                 "$Collection": true,
-                "$Type": "org.OGC.Sensor",
+                "$Type": "org.OGC.STA.Sensor",
                 "$NavigationPropertyBinding": {
                     "Datastreams": "Datastreams"
                 }
             },
             "Things": {
                 "$Collection": true,
-                "$Type": "org.OGC.Thing",
+                "$Type": "org.OGC.STA.Thing",
                 "$NavigationPropertyBinding": {
                     "Datastreams": "Datastreams",
                     "Locations": "Locations",
