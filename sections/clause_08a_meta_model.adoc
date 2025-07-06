@@ -21,17 +21,17 @@ The entity model consists of the following elements:
   An Entity can have only one Entity Type.
 * `Primitive Type`: unnamed, unstructured type, such as String, Integer or DateTime. The full list can be found at:
   https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_PrimitiveTypes
-  A attribute with a Primitive Type is called a primitive attribute.
+  An attribute with a Primitive Type is called a primitive attribute.
 * `Complex Type`: named, structured, keyless, element consisting of a set of named attributes.
   Instances of Complex Types can not be accessed outside of the Entity they are contained in.
-  A attribute with a Complex Type is called a complex attribute.
+  An attribute with a Complex Type is called a complex attribute.
   Examples of complex types / complex attributes are:
   ** TM_Interval (Observation/validTime): The complex type TM_Interval has mandatory declared attributes `start` and `end`.
   ** TM_Object (Observation/resultTime): The complex type TM_Interval has mandatory declared attribute `start` and optional declared attribute `end`.
   ** JSON_Object (properties): The complex type JSON_Object is an open type with no declared attributes.
     That means users can add any attributes they see fit.
 * `Relation`: named connections between Entities.
-  Relations defined as `navigation attributes` in Entity Types.
+  Relations are defined as `navigation attributes` in Entity Types.
   Relations have a cardinality.
 * `Attributes`: named elements that are part of structured types (Entity Types and Complex Types).
   Attributes can be Primitive-, Complex- or Navigation attributes.
@@ -44,7 +44,7 @@ The entity model consists of the following elements:
 * `Annotation`: additional information attached to model or instance elements.
   annotations can be identified by the `@` character.
   If the annotation starts with the `@` character, then the annotation pertains to the object containing the annotation.
-  If the annotation has a attribute name before the `@` charater, then the annotation pertains the attribute with that name.
+  If the annotation has an attribute name before the `@` charater, then the annotation pertains the attribute with that name.
   Annotations are server-generated additional information that a client can use when processing the data.
   A client can ignore any annotations it does not understand.
   The default annotations can be found in <<tab-common-control-annotations>>.
