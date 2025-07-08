@@ -11,6 +11,12 @@ While originally conceived within the IoT world, SensorThings API has been shown
 [[who-should-use]]
 === Who should use the OGC SensorThings API
 
+Use of the OGC SensorThings API falls into two discrete groups:
+- Data providers, looking for a lightweight approach to exposing their available data
+- Data users, looking for relevant data including essential measurement metadata
+
+[[data-provider-use]]
+==== Data Providers
 
 Organizations that need web-based platforms to manage, store, share, and analyze real-time sensor observation data should use the OGC SensorThings API.
 The OGC SensorThings API simplifies and accelerates the development of modern location enabled digital monitoring and control applications.
