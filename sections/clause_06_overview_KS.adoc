@@ -114,7 +114,7 @@ The core data model describes with types of entities can be exchanged through th
 It is designed based on the OGC/ISO Observation, Measurements and Samples (OMS) model (<<OgcOMS>> and <<IsoOMS>>).
 The data model can be extended, with additional entities and relations, by other specifications.
 
-The abstract API describes, in on an abstract level, how users can interact with the data model.
+The abstract API describes, at an abstract level, how users can interact with the data model.
 It describes the actions a user can make, the paths on which a user can make these actions, and the default formatting of data.
 
 The HTTP and MQTT interface bindings describe how the abstract API can be accessed over HTTP or MQTT.
@@ -124,8 +124,9 @@ The HTTP and MQTT interface bindings describe how the abstract API can be access
 === SensorThings API and Relation to ISO/OGC Observations, Measurements and Samples
 
 Managing and retrieving observations and metadata from IoT sensor systems is one of the most common use cases.
-As a result, SensorThings API's sensing part is designed based on the OMS model.
-OMS defines models for the exchange of information describing observation acts, their results as well as the feature involved in sampling when making observations.
+ISO/OGC Observations, Measurements and Samples(OMS) defines conceptual models for the exchange of information describing observation acts, their results as well as the (spatial) feature on which the observation was made. In addition, a wealth of observational metadata is covered, allowing a user to discover methodologies and devices utilized in obtaining the observational data. OMS is Topic 20 of the OGC Abstract Specification, that provides the conceptual foundation for most OGC specification development activities. 
+As a result, SensorThings API is designed based on the OMS model.
+
 
 
 SensorThings API defines nine entities for the IoT sensing applications and several additional entities in various extensions. 
