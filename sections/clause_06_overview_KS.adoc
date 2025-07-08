@@ -186,7 +186,7 @@ The changes to the data model and its json representation have been summarised i
 There are two important changes in the data model:
 
 The first relates to how a Datastream specifies its Observation type.
-Datastreams now contain to attributes that describe the structure and encoding of the result fields in their Observations.
+Datastreams now contain two attributes that describe the structure and encoding of the result fields in their Observations.
 The `resultType` attribute contains a SWE-Common json description of the result structure, while the `resultEncoding` contains the SWE-Common encoding of this result structure.
 The unitOfMeasure is part of the SWE-Common structure description found in `resultType`, and thus the `unitOfMeasurement` attribute has been removed.
 Since SWE-Common can be used to describe any structure, also one covering multiple ObservedProperties, the MultiDatastream extension of SensorThings v1.1 is obsolete.
