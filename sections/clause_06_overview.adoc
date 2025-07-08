@@ -1,32 +1,70 @@
 [[overview1]]
 == SensorThings API overview
 
+[[what-is-sta]]
+=== What is the OGC SensorThings API
+
+SensorThings API is an Open Geospatial Consortium (OGC) standard providing an open and unified framework to interconnect IoT sensing devices, data, and applications over the Web.
+It is based on the OGC Observations, Measurements and Samples (OMS) Standard, also formalized as ISO 19156, that provides a conceptual model for capturing all relevant information pertaining to observed or measured data.
+This open standard addresses the syntactic and semantic interoperability of the Internet of Things, complementing the existing IoT networking protocols such CoAP, MQTT, HTTP, 6LowPAN.
+While the above-mentioned IoT networking protocols are addressing the ability for different IoT systems to exchange information, OGC SensorThings API is addressing the ability for different IoT systems to use and understand the exchanged information due to the inclusion of OMS concepts.
+As an OGC standard, SensorThings API also allows easy integration into existing Spatial Data Infrastructures or Geographic Information Systems.
+
+While originally conceived within the IoT world, SensorThings API has been shown to be applicable to a wide range of use cases far beyond IoT.
+While SensorThings API carries Sensors in its name, its applicability ranges far beyond traditional sensor environments.
+It has been successfully utilized for _ex situ_ measurements performed in the lab as well as field surveys, where humans take on the role of the Sensor.
+While excellent for providing real-time data directly from sensors, OGC SensorThings API has also successfully been deployed on legacy databases.
+Thus, SensorThings API has grown from its IoT roots to become a full fledged standard for the provision of observational data, taking into account all relevant measurement metadata as foreseen under the OGC Observations, Measurements and Samples Standard.
 
 [[who-should-use]]
 === Who should use the OGC SensorThings API
 
+Use of the OGC SensorThings API falls into two distinct groups:
 
-Organizations that need web-based platforms to manage, store, share, and analyze real-time sensor observation data should use the OGC SensorThings API.
+- Data providers, looking for a lightweight approach to exposing their available data
+- Data users, looking for relevant data including essential measurement metadata
+
+[[data-provider-use]]
+==== Data Providers
+
+Organizations that need web-based platforms to manage, store, share, and analyze observational data should use the OGC SensorThings API.
 The OGC SensorThings API simplifies and accelerates the development of modern location enabled digital monitoring and control applications.
-Application developers can use this open standard to connect to various sensor devices and create innovative applications without worrying about the daunting heterogeneous protocols of the disparate vendor hardware including gateways and services.
 Sensor device manufacturers can also use OGC SensorThings API as the API can be embedded within various hardware and software platforms, thus allowing the various sensing devices to effortlessly connect with the OGC Standard-compliant servers around the world.
+
+[[data-user-use]]
+==== Data Users
+
+Application developers can use this open standard to connect to various sensor devices and create innovative applications without worrying about the daunting heterogeneous protocols of the disparate vendor hardware including gateways and services.
+The rich measurement metadata available due to the integration of the OGC Observations, Measurements and Samples Standard enables users to understand the details of how the data was generated, essential for gaging if the data being provided is fit for purpose.
+The powerful query options of the API enable users to custom tailor their results, retrieving exactly the data they require for a specific purpose with no unnecessary overhead.
+This enables developers to focus on the domain aspects of their work instead of having to worry about data access issues.
+
+[[sta-use-cases]]
+==== Potential Use Cases
 
 While the OGC SensorThings API was initially designed with IoT applications in mind, it has proven valuable for many non-IoT use cases as well:
 
-* Environmental Monitoring: Managing data from fixed monitoring stations for air quality, water quality, weather, and climate observations that may not be considered traditional IoT devices
+* Environmental Monitoring: Managing data from fixed monitoring stations for air quality, water quality, soil quality, biodiversity, weather, and climate observations that may not be considered traditional IoT devices.
 
-* Scientific Research: Handling laboratory measurements, experimental data, and field observations where standardized data management and interoperability are crucial
+* Scientific Research: Handling laboratory measurements, experimental data, and field observations where standardized data management and interoperability are crucial in a flexible manner.
+The core data model assures consistency while the standardized extension points enable integration of emerging concepts.
 
-* Urban Planning, Smart Cities & Digital Twins: Urban planners & municipal corporations can use the API to monitor various environmental and infrastructure metrics, like noise levels, pollution, or green space usage, helping with sustainable city planning. Large buildings or campuses can have digital twins that track HVAC systems, lighting, occupancy, occupancy status and safety conditions. SensorThings API allows for efficient, standardized data collection from these disparate systems.
+* Urban Planning, Smart Cities & Digital Twins: Urban planners & municipal corporations can use the API to monitor various environmental and infrastructure metrics, like noise levels, traffic, pollution, or green space usage, helping with sustainable city planning.
+Large buildings or campuses can have digital twins that track HVAC systems, lighting, occupancy, occupancy status and safety conditions.
+Cities are using SensorThings API to manage their traffic systems in real-time.
+SensorThings API allows for efficient, standardized data collection from these disparate systems.
 
-* Historical Data Archives: Providing standardized access to historical observation datasets 
+* Historical Data Archives: Providing standardized access to historical observation datasets stored in databases.
+The same mechanisms originally designed for IoT devices apply seamlessly to legacy databases.
 
-* Citizen Science: Supporting data collection and management from volunteer observers and manual measurements
+* Citizen Science: Supporting data collection and management from volunteer observers and manual measurements in the framework of citizen science initiatives.
+Extensions have been created to better support user management in such scenarios.
 
-* Regulatory Compliance: Managing environmental compliance for monitoring data from both automated and manual sampling programs
+* Regulatory Compliance: Managing environmental compliance for monitoring data from both automated and manual sampling programs.
+While current reporting systems mostly rely on validated data provided as static datasets, approaches for direct provision of near-real-time data are increasingly being established, for which SensorThings API is uniquely suited.
 
 In summary, the OGC SensorThings API is transforming the numerous disjointed networked sensor systems into a fully connected platform where complex tasks can be synchronized and performed.
-The flexible data model and powerful query capabilities make SensorThings API suitable for any application involving time-series observations, regardless of whether networked sensor devices are involved.
+The flexible data model and powerful query capabilities make SensorThings API suitable for any application involving many types of  observations over space and time, regardless of whether networked sensor devices are involved.
 
 [[benefits]]
 === Benefits of the OGC SensorThings API
@@ -91,7 +129,7 @@ The core data model describes with types of entities can be exchanged through th
 It is designed based on the OGC/ISO Observation, Measurements and Samples (OMS) model (<<OgcOMS>> and <<IsoOMS>>).
 The data model can be extended, with additional entities and relations, by other specifications.
 
-The abstract API describes, in on an abstract level, how users can interact with the data model.
+The abstract API describes, at an abstract level, how users can interact with the data model.
 It describes the actions a user can make, the paths on which a user can make these actions, and the default formatting of data.
 
 The HTTP and MQTT interface bindings describe how the abstract API can be accessed over HTTP or MQTT.
@@ -101,17 +139,20 @@ The HTTP and MQTT interface bindings describe how the abstract API can be access
 === SensorThings API and Relation to ISO/OGC Observations, Measurements and Samples
 
 Managing and retrieving observations and metadata from IoT sensor systems is one of the most common use cases.
-As a result, SensorThings API's sensing part is designed based on the OMS model.
-OMS defines models for the exchange of information describing observation acts, their results as well as the feature involved in sampling when making observations.
+ISO/OGC Observations, Measurements and Samples(OMS) defines conceptual models for the exchange of information describing observation acts, their results as well as the (spatial) feature on which the observation was made.
+In addition, a wealth of observational metadata is covered, allowing a user to discover methodologies and devices utilized in obtaining the observational data.
+OMS is Topic 20 of the OGC Abstract Specification, that provides the conceptual foundation for most OGC specification development activities.
+As a result, SensorThings API is designed based on the OMS model.
 
 
-SensorThings API defines nine entities for the IoT sensing applications and several additional entities in various extensions. 
+
+SensorThings API defines nine entities for the IoT sensing applications and several additional entities in various extensions.
 In <<sta-oms-compare>> each entity type is listed, and its relationship with OMS.
 SensorThings API uses the term of Sensor to describe the Observer that is used in generating an Observation, instead of using OMS' term of Observer.
 
 
 [#sta-oms-compare,reftext='{table-caption} {counter:table-num}']
-.SensorThings API Sensing entities and equivalent concepts in the Observations, Measurements and Samples standard
+.SensorThings API entities and equivalent concepts in the Observations, Measurements and Samples standard
 [cols="10a,10a",options="header"]
 |===
 | SensorThings API Entities | OMS Concepts
@@ -144,6 +185,7 @@ The OMS classes Deployment, Observing Procedure, Sample, Sampling, Sampling Proc
 
 EDITOR: Mention extensions of 1.1 missing here, coming in a second document.
 
+==== Changes to the API
 
 From the SensorThings API version 1.1 (<<STAv1.1>>) to 2.0 changes have been made to both the data model and the API.
 
@@ -155,19 +197,25 @@ In version 1.1 this would add the specified entities to the collection, while in
 
 The API now also has options to directly modify relations between Entities, described in <<cud_edit_relations>>.
 
+==== Changes to the Data Model
+
 The changes to the data model and its json representation have been summarised in <<sta-changes>> and <<img-sta-core-changed>>.
 There are two important changes in the data model:
 
 The first relates to how a Datastream specifies its Observation type.
-Datastreams now contain to attributes that describe the structure and encoding of the result fields in their Observations.
-The `resultType` attribute contains a SWE-Common json description of the result structure, while the resultEncoding contains the SWE-Common encoding of this result structure.
+Datastreams now contain two attributes that describe the structure and encoding of the result fields in their Observations.
+The `resultType` attribute contains a SWE-Common json description of the result structure, while the `resultEncoding` contains the SWE-Common encoding of this result structure.
 The unitOfMeasure is part of the SWE-Common structure description found in `resultType`, and thus the `unitOfMeasurement` attribute has been removed.
-Since SWE-Common can be used to describe any structure, the MultiDatastream extension of SensorThings v1.1 is obsolete.
+Since SWE-Common can be used to describe any structure, also one covering multiple ObservedProperties, the MultiDatastream extension of SensorThings v1.1 is obsolete.
 
 The second major change is in how FeatureOfInterest is modelled.
-The Entity Type `FeatureOfInterest` has been renamed to `Feature`, since the "of Interest" part of the name has nothing to do with the Feature directly, but only with the role it has in the process of observing.
-The "of Interest" has thus been moved to the name of the relation the Feature has with an Observation/Datastream.
-OMS (<<OgcOMS>>) defines two roles a Feature can have with the act of Observing: ProximateFeatureOfInterest and UltimateFeatureOFInterest.
+This is due to an update made to OMS (<<OgcOMS>>), that now defines two roles a Feature can have with the act of Observing: 
+
+* ProximateFeatureOfInterest: entity that is directly of interest in the act of observing 
+* UltimateFeatureOFInterest: entity that is ultimately of interest in the act of observing
+
+Based on this, the Entity Type `FeatureOfInterest` has been renamed to `Feature`, since the "of Interest" part of the name has nothing to do with the Feature directly, but only with the role it has in the process of being observed.
+The "of Interest" has thus been moved to the name of the relation an Observation/Datastream has with the Feature.
 Furthermore, a Feature can now also be linked to Datastreams, as either Proximate- or UltimateFeatureOFInterest, instead of just to Observations as ProximateFeatureOfInterest.
 This change allows for the much more detailed modelling of domain features and their relations to the Observations made on them.
 
@@ -205,9 +253,9 @@ This change allows for the much more detailed modelling of domain features and t
 | Datastream
 | 
 - `description` attribute is now optional and not mandatory 
-- `resultType` replaces the `observationType` attribute, this eliminates `MultiDatastream` entity
+- `resultType` replaces the `observationType` attribute, this eliminates the `MultiDatastream` entity
 - `unitOfMeasurement` SHALL be embedded within the `resultType` attribute and does not exist as an independent attribute within the `Datastream` entity
-- A `Datastream` can link to multiple `ObservedProperties` which was only possible with `MultiDatastream` entity earlier.
+- A `Datastream` can link to multiple `ObservedProperties` which was only possible with the `MultiDatastream` entity earlier.
   The SWE-Common based `resultType` and `resultEncoding` attributes eliminate the need for having a separate MultiDatastream entity
 - A `Datastream` can now be linked to the `Feature` it observes as two optional links between `Datastream` and `Feature` are introduced, named `UltimateFeatureOfInterest` and `ProximateFeatureOfInterest`.
 - `definition` attribute added
@@ -247,6 +295,6 @@ OData comes with a very powerful query language that allows users to compose the
 The OData specification also defines filtering mechanisms that allows filtering across relations.
 OData uses JSON-encoding by default, and specifies generic rules for encoding relational data models in JSON.
 
-The OGC SensorThings API v2 interface is not an OData interface and does not claim to be an OData service. 
+The OGC SensorThings API v2 interface is not an OData interface and does not claim to be an OData service.
 It specifies a subset of the OData 4.01 specification, and extends it at the same time with certain features optimized for accessing sensor data.
 A SensorThings API Server implementation can implement the full OData specification, but does not have to.
