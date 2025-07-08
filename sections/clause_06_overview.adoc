@@ -283,7 +283,7 @@ Their serialisation no longer uses the ISO-String notation with two times separa
 |====
 
 [#img-sta-core-changed,link=figures/Datamodel-SensorThingsApi-V2-Core-changed.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Sensing Core Changes']
-image::figures/Datamodel-SensorThingsApi-V2-Core-changed.drawio.png[Sensing Core Changes, align="center"]
+image::figures/Datamodel-SensorThingsApi-V2-Core-changed.drawio.png[Core Datamodel Changes, align="center"]
 
 
 === Relation to OASIS-OData
