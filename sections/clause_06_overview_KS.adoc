@@ -135,7 +135,7 @@ SensorThings API uses the term of Sensor to describe the Observer that is used i
 
 
 [#sta-oms-compare,reftext='{table-caption} {counter:table-num}']
-.SensorThings API Sensing entities and equivalent concepts in the Observations, Measurements and Samples standard
+.SensorThings API entities and equivalent concepts in the Observations, Measurements and Samples standard
 [cols="10a,10a",options="header"]
 |===
 | SensorThings API Entities | OMS Concepts
@@ -168,6 +168,7 @@ The OMS classes Deployment, Observing Procedure, Sample, Sampling, Sampling Proc
 
 EDITOR: Mention extensions of 1.1 missing here, coming in a second document.
 
+==== Changes to the API
 
 From the SensorThings API version 1.1 (<<STAv1.1>>) to 2.0 changes have been made to both the data model and the API.
 
@@ -179,19 +180,25 @@ In version 1.1 this would add the specified entities to the collection, while in
 
 The API now also has options to directly modify relations between Entities, described in <<cud_edit_relations>>.
 
+==== Changes to the Data Model
+
 The changes to the data model and its json representation have been summarised in <<sta-changes>> and <<img-sta-core-changed>>.
 There are two important changes in the data model:
 
 The first relates to how a Datastream specifies its Observation type.
 Datastreams now contain to attributes that describe the structure and encoding of the result fields in their Observations.
-The `resultType` attribute contains a SWE-Common json description of the result structure, while the resultEncoding contains the SWE-Common encoding of this result structure.
+The `resultType` attribute contains a SWE-Common json description of the result structure, while the `resultEncoding` contains the SWE-Common encoding of this result structure.
 The unitOfMeasure is part of the SWE-Common structure description found in `resultType`, and thus the `unitOfMeasurement` attribute has been removed.
-Since SWE-Common can be used to describe any structure, the MultiDatastream extension of SensorThings v1.1 is obsolete.
+Since SWE-Common can be used to describe any structure, also one covering multiple ObservedProperties, the MultiDatastream extension of SensorThings v1.1 is obsolete.
 
-The second major change is in how FeatureOfInterest is modelled.
-The Entity Type `FeatureOfInterest` has been renamed to `Feature`, since the "of Interest" part of the name has nothing to do with the Feature directly, but only with the role it has in the process of observing.
-The "of Interest" has thus been moved to the name of the relation the Feature has with an Observation/Datastream.
-OMS (<<OgcOMS>>) defines two roles a Feature can have with the act of Observing: ProximateFeatureOfInterest and UltimateFeatureOFInterest.
+The second major change is in how FeatureOfInterest is modelled. 
+This is due to an update made to OMS (<<OgcOMS>>), that now defines two roles a Feature can have with the act of Observing: 
+
+* ProximateFeatureOfInterest: entity that is directly of interest in the act of observing 
+* UltimateFeatureOFInterest: entity that is ultimately of interest in the act of observing
+
+Based on this, the Entity Type `FeatureOfInterest` has been renamed to `Feature`, since the "of Interest" part of the name has nothing to do with the Feature directly, but only with the role it has in the process of being observed.
+The "of Interest" has thus been moved to the name of the relation an Observation/Datastream has with the Feature.
 Furthermore, a Feature can now also be linked to Datastreams, as either Proximate- or UltimateFeatureOFInterest, instead of just to Observations as ProximateFeatureOfInterest.
 This change allows for the much more detailed modelling of domain features and their relations to the Observations made on them.
 
@@ -229,9 +236,9 @@ This change allows for the much more detailed modelling of domain features and t
 | Datastream
 | 
 - `description` attribute is now optional and not mandatory 
-- `resultType` replaces the `observationType` attribute, this eliminates `MultiDatastream` entity
+- `resultType` replaces the `observationType` attribute, this eliminates the `MultiDatastream` entity
 - `unitOfMeasurement` SHALL be embedded within the `resultType` attribute and does not exist as an independent attribute within the `Datastream` entity
-- A `Datastream` can link to multiple `ObservedProperties` which was only possible with `MultiDatastream` entity earlier.
+- A `Datastream` can link to multiple `ObservedProperties` which was only possible with the `MultiDatastream` entity earlier.
   The SWE-Common based `resultType` and `resultEncoding` attributes eliminate the need for having a separate MultiDatastream entity
 - A `Datastream` can now be linked to the `Feature` it observes as two optional links between `Datastream` and `Feature` are introduced, named `UltimateFeatureOfInterest` and `ProximateFeatureOfInterest`.
 - `definition` attribute added
