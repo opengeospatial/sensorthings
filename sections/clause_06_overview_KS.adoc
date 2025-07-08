@@ -12,6 +12,7 @@ While originally conceived within the IoT world, SensorThings API has been shown
 === Who should use the OGC SensorThings API
 
 Use of the OGC SensorThings API falls into two discrete groups:
+
 - Data providers, looking for a lightweight approach to exposing their available data
 - Data users, looking for relevant data including essential measurement metadata
 
