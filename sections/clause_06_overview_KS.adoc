@@ -1,6 +1,12 @@
 [[overview1]]
 == SensorThings API overview
 
+[[what-is-sta]]
+=== What is the OGC SensorThings API
+
+SensorThings API is an Open Geospatial Consortium (OGC) standard providing an open and unified framework to interconnect IoT sensing devices, data, and applications over the Web. It is based on the OGC Observations, Measurements and Samples (OMS) Standard, also formalized as ISO 19156, that provides a conceptual model for capturing all relevant information pertaining to observed or measured data. This open standard addresses the syntactic and semantic interoperability of the Internet of Things, complementing the existing IoT networking protocols such CoAP, MQTT, HTTP, 6LowPAN. While the above-mentioned IoT networking protocols are addressing the ability for different IoT systems to exchange information, OGC SensorThings API is addressing the ability for different IoT systems to use and understand the exchanged information due to the inclusion of OMS concepts. As an OGC standard, SensorThings API also allows easy integration into existing Spatial Data Infrastructures or Geographic Information Systems. 
+
+While originally conceived within the IoT world, SensorThings API has been shown to be applicable to a wide range of use cases far beyond IoT. While SensorThings API carries Sensors in its name, its applicability ranges far beyond traditional sensor environments. It has been successfully utilized for _ex situ_ measurements performed in the lab as well as field surveys, where humans take on the role of the Sensor. Thus, SensorThings API has grown from its IoT roots to become a full fledged standard for the provision of observational data, taking into account all relevant measurement metadata as foreseen under the OGC Observations, Measurements and Samples Standard. 
 
 [[who-should-use]]
 === Who should use the OGC SensorThings API
