@@ -24,7 +24,7 @@ The OGC SensorThings API simplifies and accelerates the development of modern lo
 Sensor device manufacturers can also use OGC SensorThings API as the API can be embedded within various hardware and software platforms, thus allowing the various sensing devices to effortlessly connect with the OGC Standard-compliant servers around the world.
 
 [[data-user-use]]
-==== Data Providers
+==== Data Users
 
 Application developers can use this open standard to connect to various sensor devices and create innovative applications without worrying about the daunting heterogeneous protocols of the disparate vendor hardware including gateways and services.
 The rich measurement metadata available due to the integration of the OGC Observations, Measurements and Samples Standard enables users to understand the details of how the data was generated, essential for gaging if the data being provided is fit for purpose.
