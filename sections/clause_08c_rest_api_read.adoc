@@ -63,24 +63,25 @@ A read Requests to the Service Document URL pattern (<<pattern_service_metadata_
 ===== Service Document
 
 A read Requests to the Service Document URL pattern (<<pattern_service_document>>) returns the service document.
+The Service document is a JSON object with attributes named `@context`, `value`, `serverSettings`.
 
-The Service document is a JSON object with a attribute named `value`, and attribute named `conformsTo` and an attribute named `serverSettings`.
+The `@context` attribute SHALL contain the <<context_url>>; the URL of the OData context document that describes the data model and entry points of the service.
 
 The content of the attribute named `value` SHALL be a JSON Array containing one element for each entity set of the SensorThings Service.
-Each element SHALL be a JSON object with at least two name/value pairs, one with name `name` containing the name of the entity set (e.g., Things, Locations, etc.) and one with name `url` containing the URL of the entity set, which may be an absolute or a relative URL.
+Each element of the `value` array SHALL be a JSON object with at least two name/value pairs, one with name `name` containing the name of the entity set (e.g., Things, Locations, etc.) and one with name `url` containing the URL of the entity set, which may be an absolute or a relative URL.
 (Adapted from OData 4.01-JSON-Format section 5)
 
-The attribute `conformsTo` shall be of the type Array and contain the URIs of all requirements classes and optional requirements that the service implements.
-
 The content of the attribute named `serverSettings` SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
+The serverSettings object SHALL contain the attribute `conformance` of the type Array. It containing the URIs of all requirements classes and optional requirements that the service implements.
+Security extensions can modify the list of requirements to only show those requirements that the user is allowed to use.
+For example, if a user is not allowed to delete entities, the security extension can hide the create-update-delete/delete-entity requirement.
+In the most extreme case, a security extension would hide all requirements for a user that is not authenticated, except its own requirement and the instructions on how to authenticate.
+
 
 The serverSettings object SHALL contain the attribute `functions` of the type Array, containing the function names of the filter functions that the service implements.
 
 Extensions that need to expose additional server settings may do so in a attribute of the serverSettings object that is named after the conformance class URI of the requirement that defines this setting.
 
-Security extensions can modify the `conformsTo` list of requirements to only show those requirements that the user is allowed to use.
-For example, if a user is not allowed to delete entities, the security extension can hide the create-update-delete/delete-entity requirement.
-In the most extreme case, a security extension would hide all requirements for a user that is not authenticated, except its own requirement and the instructions on how to authenticate.
 
 .An example service document.
 [source,json]
@@ -121,7 +122,8 @@ In the most extreme case, a security extension would hide all requirements for a
       "url": "<Service Root>/v2.0/FeatureTypes"
     }
   ],
-  "conformsTo": [
+  "serverSettings": {
+    "conformance": [
       "http://www.opengis.net/spec/sensorthings/2.0/req-class/datamodel/core",
       "http://www.opengis.net/spec/sensorthings/2.0/req-class/api/read",
       "http://www.opengis.net/spec/sensorthings/2.0/req-class/api/cud",
@@ -139,8 +141,7 @@ In the most extreme case, a security extension would hide all requirements for a
       "http://www.opengis.net/spec/sensorthings/2.0/req/binding/mqtt/pub_sub/expand",
       "http://www.opengis.net/spec/sensorthings/2.0/req/binding/mqtt/pub_sub/filter",
       "http://www.opengis.net/spec/sensorthings/2.0/req/binding/mqtt/simple_create"
-  ],
-  "serverSettings": {
+    ],
     "functions": [
       "any","cast","ceiling","concat","endswith","floor","floor","geo.distance","geo.intersects","geo.length",
       "indexof","interval","length","now","round","round","startswith","st_contains","st_crosses","st_disjoint",
