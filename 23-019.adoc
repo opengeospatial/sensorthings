@@ -43,29 +43,31 @@ include::sections/clause_03_references.adoc[]
 
 include::sections/clause_04_terms_and_definitions.adoc[]
 
-include::sections/clause_05_conventions.adoc[]
+include::sections/clause_05_abbreviated_terms.adoc[]
 
-include::sections/clause_06_overview.adoc[]
+include::sections/clause_06_conventions.adoc[]
 
-include::sections/clause_07_core_data_model.adoc[]
+include::sections/clause_07_overview.adoc[]
 
-include::sections/clause_08_abstract_api.adoc[]
+include::sections/clause_08_core_data_model.adoc[]
 
-include::sections/clause_08a_meta_model.adoc[]
+include::sections/clause_09_abstract_api.adoc[]
 
-include::sections/clause_08b_abstract_api_overview.adoc[]
+include::sections/clause_09a_meta_model.adoc[]
 
-include::sections/clause_08c_rest_api_read.adoc[]
+include::sections/clause_09b_abstract_api_overview.adoc[]
 
-include::sections/clause_08d_rest_api_create_update_delete.adoc[]
+include::sections/clause_09c_rest_api_read.adoc[]
 
-include::sections/clause_09a_bindings_http.adoc[]
+include::sections/clause_09d_rest_api_create_update_delete.adoc[]
 
-include::sections/clause_09b_bindings_mqtt.adoc[]
+include::sections/clause_10_bindings_http.adoc[]
 
-include::sections/clause_09c_bindings_ogc_api_common.adoc[]
+include::sections/clause_11_bindings_mqtt.adoc[]
 
-include::sections/clause_10_media_types.adoc[]
+include::sections/clause_12_bindings_ogc_api_common.adoc[]
+
+include::sections/clause_13_media_types.adoc[]
 
 ////
 add or remove annexes after "A" as necessary

@@ -1,0 +1,29 @@
+[[abbreviated_terms]]
+== Abbreviated terms
+
+API:: Application Programming Interface
+CORS:: Cross-Origin Resource Sharing
+CRUD:: Create, Read, Update, and Delete
+HTML:: HyperText Markup Language
+HTTP:: Hypertext Transfer Protocol
+HTTPS:: Hypertext Transfer Protocol Secure
+IANA:: Internet Assigned Numbers Authority
+IoT:: Internet of Things
+ISO:: International Organization for Standardization
+JSON:: JavaScript Object Notation
+OData:: the Open Data Protocol
+OGC:: Open Geospatial Consortium
+O&M:: Observations and Measurements
+OMS:: Observations, Measurements and Samples
+PDF:: Portable Document Format
+SensorML:: Sensor Model Language
+SWE:: Sensor Web Enablement
+UCUM:: Unified Code for Units of Measure
+URI:: Uniform Resource Identifier
+URL:: Uniform Resource Locator
+UML:: Unified Modeling Language
+WoT:: Web of Things
+XML:: eXtensible Markup Language
+YAML:: YAML Ain’t Markup Language
+
+

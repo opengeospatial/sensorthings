@@ -1,0 +1,42 @@
+[[ogc-api-common-interface-bindings]]
+== OGC API -- Common Interface Bindings
+
+=== General
+
+The OGC API -- Common Bindings specify how to combine the SensorThings API with other OGC APIs.
+
+=== Landing Page
+
+
+.Items added to the service document to make it a valid OGC API -- Common landing page. The attributes title, description and attribution are recommended but not required.
+[source,json]
+----
+{
+  "title": "Service Title",
+  "description": "This is the description of the service",
+  "attribution": "Suggested attribution text, can include HTML-links.",
+
+  "Links": [
+    {
+      "rel": "http://www.opengis.net/def/rel/ogc/1.0/conformance",
+      "type": "application/json",
+      "title": "Conformance Declaration",
+      "href": "<Service Root>/v2.0/conformance"
+    },
+    {
+      "rel": "service-desc",
+      "type": "application/json",
+      "title": "OpenAPI 3.0 definition for this endpoint.",
+      "href": "<Service Root>/v2.0/api"
+    }
+  ]
+}
+----
+
+=== OpenAPI Definition
+
+The SensorThings API, being based on OData, can not be fully described by OpenAPI, but the most common API features can be captured.
+
+
+=== Authentication & Authorization
+
