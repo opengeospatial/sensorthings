@@ -114,8 +114,6 @@ These benefits make the OGC SensorThings API particularly valuable in today's ra
 [[overview2]]
 === SensorThings API Overview
 
-EDITOR: Go over these parts
-
 The OGC SensorThings API core specification consists of several parts:
 
 . the Core data model (<<sensing-core>>),
@@ -132,7 +130,7 @@ The data model can be extended, with additional entities and relations, by other
 The abstract API describes, at an abstract level, how users can interact with the data model.
 It describes the actions a user can make, the paths on which a user can make these actions, and the default formatting of data.
 
-The HTTP and MQTT interface bindings describe how the abstract API can be accessed over HTTP or MQTT.
+The HTTP and MQTT interface bindings describe how the abstract API can be accessed over HTTP and/or MQTT.
 
 
 [[observations-measurements]]
@@ -183,7 +181,13 @@ The OMS classes Deployment, Observing Procedure, Sample, Sampling, Sampling Proc
 [[revision-differences]]
 === Changes from Version 1.1
 
-EDITOR: Mention extensions of 1.1 missing here, coming in a second document.
+==== Changes to the document structure
+
+The data model, API, and protocol bindings are now independent sections that can be use independently.
+For instance, since MQTT 5 introduced a request/response pattern, it is now possible to use the complete SensorThings API over MQTT without using the HTTP bindings to discover content.
+Several extensions that were defined directly in the version 1.1 document have now been moved to a separate extension document that will be publised at a later date.
+These extensions include, among others, the Batch-Request extension and the DataArrays extension.
+
 
 ==== Changes to the API
 
