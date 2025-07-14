@@ -56,8 +56,6 @@ include::sections/clause_11_rest_api_batch_requests.adoc[]
 
 include::sections/clause_12_rest_api_data_array.adoc[]
 
-include::sections/clause_13_pubsub_api_extension.adoc[]
-
 ////
 add or remove annexes after "A" as necessary
 ////
