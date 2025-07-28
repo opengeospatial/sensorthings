@@ -926,13 +926,13 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 | The encoding type of the metadata property.
 Its value is one of the ValueCode enumeration (see <<sensor-encodingType-value-codes>> for some suggested ValueCodes)
 | ValueCode
-| 1
+| 0..1
 
 | `metadata`
 | The detailed description of the Sensor or system.
 The metadata type is defined by encodingType.
 | String
-| 1
+| 0..1
 
 | `properties`
 | A JSON Object containing user-annotated properties as key-value pairs
