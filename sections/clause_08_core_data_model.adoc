@@ -602,8 +602,8 @@ Contains the unit of measurement and the `@id` of the ObservedProperty.
 
 | `resultEncoding`
 | The encoding of the `result` attribute of the Observations in this Datastream.
-The default encoding, used when this attribute is null or empty, is `JSONEncoding`.
-| JSON_Object (SWE-Common Encoding)
+The default encoding, used when this attribute is null or empty, is `JSONEncoding` with the default settings.
+| JSON_Object (SWE-Common AbstractEncoding)
 | 0..1
 
 | `observedArea`
