@@ -1,4 +1,4 @@
-# Use Case title
+# Sensors in Rooms
 
 **Contributed by:** hylkevds - Fraunhofer IOSB
 
