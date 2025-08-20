@@ -1,0 +1,64 @@
+=== Security Considerations
+Writing security considerations for implementing STA 2.0 is challenging as the purpose of use is unspecified and it is possible to use the STA 2.0 API for creating and fetching observational data for many different interactions. The use cases vary from automated tools for analytical purpose that fetch data (observations) to produce statistics, reports, etc. to Web-Mapping applications running in a Web Browser that interact with a STA 2.0 service based on user interactions like pan, zoom in and zoom out. In other words, the use spans from procedural to user driven interactions. And then there are simple sensor boards that publish data via MQTT as well as observation procedures that subscribe to updates of data. All this must be taken under considerations when talking about security considerations.
+
+Considering that STA 2.0 provides two different interfaces: HTTP and MQTT and the different use cases, this section is separated into three parts: General considerations, considerations for the HTTP interface, and considerations for the MQTT interface.
+
+==== General Considerations
+Typical security considerations should address the following topics:
+
+* authentication
+* authorization
+* integrity
+* confidentiality
+* availability
+* data assurance
+
+===== Authentication
+The STA 2.0 Standard specifies a conformance class that allows to limit access to the HTTP and MQTT interface to identified actors only. In particular, the HTTP status code 401 can be used to signal the caller that authentication i.e. an API-key, is required. 
+
+===== Authorization
+The STA 2.0 Standard does not define how authorization can be applied. Any implementation of STA 2.0 may implement authorization. The STA 2.0 Standard defines the use of HTTP status code 403 to signal the caller that execution of the request is forbidden.
+
+===== Integrity and Confidentiality
+The STA 2.0 Standard does not define how to achieve integrity and confidentiality of the stored data. This means that without authorization implemented, any caller can overwrite existing information and see potentially sensitive data.
+
+===== Availability 
+Availability is a key aspect for any service based infrastructure. To assure availability, any implementation needs to understand the resource allocation for any type of request. The STA 2.0 HTTP interface is based on ODATA with an extension to define options for geospatial data. To ensure high availability, complex ODATA queries involving complex geospatial conditions may require a high load of resources like CPU and main memory. Any implementation should carefully analyze the request query parameters (the ODATA options) before executing the request. To prevent (perhaps accidental) requests including complex ODATA queries, certain types of requests should require an API-Key.
+
+===== Data Assurance
+The STA 2.0 Standard supports the creation of data via the HTTP and MQTT interface. An implementation should parse the uploaded data for scripting content. For example cross-site scripting attacks may get executed in any Web-Application that renders carelessly HTML pages from data fetched from STA 2.0 HTTP or MQTT interface. To arrange an effective execution of an attack, first the attacker would upload some Javascript include in the result of an observation (or description of another entity). So for example `"; alert("xss attack!");//`[^1]. If then the Web-Application renders the data via `document.getElementById("content").innerHTML = <obervation.result>;` (document.getElementById("content").innerHTML = ""; alert("xss attack!");//") the attack gets executed. 
+
+[^1] https://stackoverflow.com/questions/30661497/xss-prevention-and-innerhtml
+
+===== Client Implementation
+Any STA 2.0 API can be accessed from Web-Applications (Javascript implementations executing in a Web Browser), when the STA HTTP interface supports CORS. A simple Web-Application that fetches observations from a STA API to display a time chart forces already a high load on the server(s) that host the STA 2.0 implementation. Typical Web-Mapping libraries like OpenLayers and Leaflet split the canvas into tiles and make a request for each tile in parallel. With fast zoom in and out and panning the area of interest changes and the STA 2.0 HTTP interface receives many requests basically for nothing, because fast zoom and pan means that the user is navigating to an area of interest. If for each of the zoom and pan steps, the STA HTTP interface is hit, a high server load is produced for nothing.
+
+Another aspect with client development is caching: A Web Browser supports caching of static data, i.e. images. But, the result from a STA service is a dynamically created JSON response. This is typically not cached automatically at the Web Browser. To avoid useless interactions with the STA service, a Web-Application should implement efficient caching.
+
+A STA deployment should control via the CORS configuration, which Web-Application to trust.
+
+==== Considerations for the HTTP Interface
+Among the typical security considerations that exist for HTTP interfaces, the STA 2.0 - as well as previous versions - support the use of ODATA query options. 
+
+===== Access Control aspects
+The STA HTTP interface is very complex to arrange control access. The complexity of the HTTP interface and the overwhelming flexibility of the ODATA options suggest that Access Control should be integrated into the STA implementation. Even simple access control scenarios that allow or disallow access to an entity type may have side effects to other requests where such entity type is used internally. For example, it may be possible that a particular entity type is not accessible directly via the HTTP interface but is allowed to participate in an `$filter` operation. Also, the different "path to the same resources" challenge indicate that it would be not a good idea to implement access control using the proxy pattern. For example, the combination of `$filter` and `$expand` is already difficult to be implemented into a proxy: `.../Observations?$expand=Datastream($fiter=id eq 1)` and `/Datastreams(1)/Observations` and `/FeaturesOfInterest/Observations?$expand=Datastream($fiter=id eq 1)` return similar data. 
+
+Implementing access control on the database level, seems not only the right way it also seem to be the best performance. 
+
+
+===== Confidentiality aspects
+When not all data is public accessible, a specific type of access control needs to be included into the application. Similar to the access control example, the granularity level suggests to implement the confidentiality control directly on the database and not in a proxy.
+
+===== Synchronous aspects
+The STA HTTP interface operates synchronously. That means that a caller is waiting for the response on the established socket connection. In the case where the implementation takes too long to start sending the first byte to the caller, the risk of a socket timeout arises. To avoid the useless allocation of server resources, any connection timeout should be avoided. To ensure that an implementation can be implemented "streaming ready", the STA 2.0 Standard does only define streaming ready response types. One typical format that is not streaming ready is GeoPackage for example. Any SQLite database must be fully created at server-side before the first byte of the response can be sent to the caller. 
+
+An implementation of STA 2.0 should consider streaming one record from the database to the HTTP or MQTT interface instead of loading the full database response into main memory to then send it to the caller. This approach prevents high resource allocation and thereby improves service availability.
+
+
+
+==== Considerations for the MQTT Interface
+A STA 2.0 service implementation may expose an MQTT interface to the world. Similar to the HTTP interface, the MQTT interface supports the creation of data via MQTT publish but also to receive notifications of changes for registered MQTT topics. 
+
+The STA 2.0 Standard allows that the implementation applies authentication to the MQTT interface. This allows an implementation to restrict the subscription to "chatty" topics for some client identities. Any openness of the MQTT interface may be used by adversaries to modify data, read sensitive data or even execute DoS attacks by submitting too many subscriptions for "chatty" topics like `Observations` or bulk publishing of bogus data. 
+
+The publish capability for the MQTT interface should be protected via an authentication mechanism to disallow anonymous users (or bots) to create bogus data or flush the service instance with bulk data. Likewise, the subscription to chatty topics or to topics with complex ODATA options should only be allowed for authenticated callers.

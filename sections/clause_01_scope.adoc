@@ -6,9 +6,8 @@ Furthermore, it provides support for push notifications for data changes over MQ
 
 The data model, and API can be extended, and additional protocol bindings or data encodings, can be added by future extensions of the standard.
 
-=== Security Considerations
 
-bla bla
+include::./security_considerations.adoc[]
 
 
 [[submitters-section]]
