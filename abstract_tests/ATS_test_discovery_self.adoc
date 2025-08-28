@@ -20,7 +20,7 @@ To determine which topics **are allowed**, examine the root page and check the `
 
 [.component,class=step]
 --
-Issue a HTTP GET or HEAD request on that topic URL.
+Issue a HTTP HEAD and GET request on that topic URL.
 --
 
 [.component,class=step]

@@ -18,7 +18,7 @@ Construct a topic URL to be used for subscription.
 
 [.component,class=step]
 --
-Issue a HTTP GET request on that topic URL.
+Issue a HTTP HEAD and GET request on that topic URL.
 --
 
 [.component,class=step]
@@ -26,6 +26,6 @@ Issue a HTTP GET request on that topic URL.
 Validate that the request method was accepted and that the response headers include the Link headers `hub`.
 --
 [NOTE]
-The Link header `hub` must always be returned even for a topic URL that is not allowed for subscription. But for this test, it is important to test that the HTTP method is supported and for that, the existence of the `hub` header is sufficient.
+The Link header `hub` must always be returned even for a topic URL that is not allowed for subscription. But for this test, it is sufficient to test that the HTTP method is supported and for that the `hub` header is returned.
 =====
 ====

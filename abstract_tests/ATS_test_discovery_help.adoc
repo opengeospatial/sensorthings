@@ -20,7 +20,7 @@ To determine which topic URLs **are not allowed**, examine the root page. The ca
 
 [.component,class=step]
 --
-Issue a HTTP GET or HEAD request on that topic URL.
+Issue a HTTP HEAD and GET request on that topic URL.
 --
 
 [.component,class=step]
@@ -52,12 +52,12 @@ Validate that the response includes the Link header `hub` and `help`. In particu
 [source,text]
 ----
 GET /sta/v1.1/Observations HTTP/1.1
-Host: example.com
+Host: sta-websub.secd.eu
 
 HTTP/1.1 200 Ok
 Content-type: application/json
-Link: <http://hub.example.com/>; rel="hub"
-Link: <http://help.example.com/sta/v1.1/help#topic_denied>; rel="help"
+Link: <http://hub.sta-websub.secd.eu/>; rel="hub"
+Link: <http://sta-websub.secd.eu/sta/v1.1/help#topic_denied>; rel="help"
 ----
 
 ==== Example HTTP request and response for a URL including the denied ODATA option `$expand`
@@ -65,10 +65,10 @@ Link: <http://help.example.com/sta/v1.1/help#topic_denied>; rel="help"
 [source,text]
 ----
 GET /sta/v1.1/Things?$expand=Locations HTTP/1.1
-Host: example.com
+Host: sta-websub.secd.eu
 
 HTTP/1.1 200 Ok
 Content-type: application/json
-Link: <http://hub.example.com/>; rel="hub"
-Link: <http://help.example.com/sta/v1.1/help#odata_option_denied>; rel="help"
+Link: <http://hub.sta-websub.secd.eu/>; rel="hub"
+Link: <http://sta-websub.secd.eu/sta/v1.1/help#odata_option_denied>; rel="help"
 ----

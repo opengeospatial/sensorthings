@@ -15,7 +15,7 @@ Construct a URL to the Landing Page.
 
 [.component,class=step]
 --
-Issue a HTTP GET request on that URL.
+Issue a HTTP HEAD and GET request on that URL.
 --
 
 [.component,class=step]

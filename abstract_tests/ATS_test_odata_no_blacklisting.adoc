@@ -50,10 +50,10 @@ Validate the contents of the returned HTTP header to include the link header `re
 [source,text]
 ----
 GET /sta/v1.1/Things?$select=name HTTP/1.1
-Host: example.com
+Host: sta-websub.secd.eu
 
 HTTP/1.1 200 Ok
 Content-type: application/json
-Link: <http://hub.example.com/>; rel="hub"
-Link: <http://example.com/sta/v1.1/Things?%24select%3Dname>; rel="self"
+Link: <http://hub.sta-websub.secd.eu/>; rel="hub"
+Link: <http://sta-websub.secd.eu/sta/v1.1/Things?%24select%3Dname>; rel="self"
 ----

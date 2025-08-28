@@ -16,7 +16,7 @@ Construct SensorThings URLs for each valid and implemented ODATA option(s).
 
 [.component,class=step]
 --
-Issue a HTTP GET request on each URL.
+Issue a HTTP HEAD and GET request on each URL.
 --
 
 [.component,class=step]

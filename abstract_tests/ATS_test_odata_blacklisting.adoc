@@ -50,11 +50,11 @@ Validate the contents of the returned HTTP header to not include the link header
 [source,text]
 ----
 GET /sta/v1.1/Things?$expand=Locations HTTP/1.1
-Host: example.com
+Host: sta-websub.secd.eu
 
 HTTP/1.1 200 Ok
 Content-type: application/json
-Link: <http://hub.example.com/>; rel="hub"
-Link: <http://help.example.com/sta/v1.1/help#odata_option_denied>; rel="help"
+Link: <http://hub.sta-websub.secd.eu/>; rel="hub"
+Link: <http://sta-websub.secd.eu/sta/v1.1/help#odata_option_denied>; rel="help"
 [source,json]
 ----

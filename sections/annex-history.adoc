@@ -12,5 +12,6 @@
 |2025-01-23 |0.6 |Andreas Matheus |all |Incorporating feedback from Joan Maso
 |2025-01-31 |0.7 |Andreas Matheus |all |Making the normative chapters (STA-WebSub Requirements and Annex A) compliant with OGC Mod-Spec
 |2025-02-04 |0.8 |Andreas Matheus |Chapter 7 and Annex A |Incorporating feedback from Joan Maso and Hylke van der Schaaf
-|2025-02-25 |0.9 |Andreas Matheus |all |Incorporating editorial corrects from Carl Reed
+|2025-02-25 |0.9 |Andreas Matheus |all |Incorporating editorial improvements from Carl Reed
+|2025-08-28 |0.10|Andreas Matheus |all |Final edits
 |===
