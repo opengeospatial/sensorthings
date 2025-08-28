@@ -43,6 +43,7 @@ A Deployment is the association of a Sensor to a Thing that hosts this Sensor, a
 Each Deployment links to one Sensor in order to maintain information regarding the relative position of the Sensor with respect to the Host (Thing), to record its deployment time and other additional infortmation.
 If a sensor is redeployed on to the same Host again, the same Datastream MAY be reused but the same Deployment entity cannot be re-used.
 
+[[metanorma_fix_placeholder]]
 [requirement]
 ====
 [%metadata]
