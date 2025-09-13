@@ -310,7 +310,7 @@ The replace request must contain an entity reference to the single entity that s
 [source,text]
 ----
 replace http://host/service/Datastreams(1)/UltimateFeatureOfInterest/$ref
-  {"id": "Feature(2)"}
+  {"@id": "Feature(2)"}
 ----
 
 
@@ -331,7 +331,7 @@ The create request must contain an entity reference to the single entity that sh
 [source,text]
 ----
 create http://host/service/Feature(1)/FeatureTypes/$ref
-  {"id": "FeatureTypes(3)"}
+  {"@id": "FeatureTypes(3)"}
 ----
 
 
@@ -343,8 +343,8 @@ The replace request must contain a list of entity references, like the one retur
 ----
 replace http://host/service/Feature(1)/FeatureTypes/$ref
   {"value": [
-    {"id": "FeatureTypes(1)"},
-    {"id": "FeatureTypes(2)"}
+    {"@id": "FeatureTypes(1)"},
+    {"@id": "FeatureTypes(2)"}
   ]}
 ----
 
