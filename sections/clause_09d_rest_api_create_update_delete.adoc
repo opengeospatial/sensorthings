@@ -310,7 +310,7 @@ The replace request must contain an entity reference to the single entity that s
 [source,text]
 ----
 replace http://host/service/Datastreams(1)/UltimateFeatureOfInterest/$ref
-  {"@id": "Feature(2)"}
+  {"@id": "Features(2)"}
 ----
 
 

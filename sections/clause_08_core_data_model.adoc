@@ -252,8 +252,8 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 
 | `encodingType`
 | The encoding type of the Location property.
-(see <<location-encodingType-value-codes>> for some suggested ValueCodes)
-| String
+See <<location-encodingType-value-codes>> for some suggested values.
+| IANA-MediaType
 | 1
 
 | `location`
@@ -297,20 +297,17 @@ Multiple Things MAY locate at the same Location.
 
 
 [#location-encodingType-value-codes,reftext='{table-caption} {counter:table-num}']
-.Non-exhaustive list of code values used for identifying types for the encodingType of the Location and Feature entities
+.Non-exhaustive list of IANA-MediaType used for identifying types for the encodingType of the Location and Feature entities
 [width="100%",cols="5,15",options="header"]
 |====
-| encodingType
-| ValueCode Value
+| Encoding Type
+| IANA-MediaType
 
 | `GeoJSON`
 | `application/geo+json`
 
 | `GeoPose`
 | `application/geopose+json`
-
-| `WKT`
-| `text/plain`
 |====
 
 
@@ -924,8 +921,8 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 
 | `encodingType`
 | The encoding type of the metadata property.
-Its value is one of the ValueCode enumeration (see <<sensor-encodingType-value-codes>> for some suggested ValueCodes)
-| ValueCode
+See <<sensor-encodingType-value-codes>> for some suggested values.
+| IANA-MediaType
 | 0..1
 
 | `metadata`
@@ -961,14 +958,11 @@ The metadata type is defined by encodingType.
 .Non-exhaustive list of code values used for identifying types for the encodingType of the Sensor entity
 [width="100%",cols="5,15",options="header"]
 |====
-| Sensor encodingType
-| ValueCode Value
+| Sensor Encoding Type
+| IANA-MediaType
 
 | `PDF`
 | application/pdf
-
-| `SensorML`
-| http://www.opengis.net/doc/IS/SensorML/2.0
 
 | `HTML`
 | text/html
@@ -976,12 +970,6 @@ The metadata type is defined by encodingType.
 
 
 The Sensor encodingType allows clients to know how to interpret the metadata value.
-Currently SensorThings API defines two common Sensor metadata encodingTypes.
-Most sensor manufacturers provide their sensor datasheets in a PDF format.
-As a result, PDF is a Sensor encodingType supported by SensorThings API.
-The second Sensor encodingType is SensorML.
-Lastly, some sensor datasheets are HTML documents rather than PDFs.
-Other encodingTypes are permitted (e.g., text/plain).
 Note that the metadata property may contain either a URL to metadata content (e.g., an `https://`, `ftp://`, etc. link to a PDF, SensorML, or HTML document) or the metadata content itself (in the case of text/plain or other encodingTypes that can be represented as valid JSON).
 It is up to clients to perform string parsing necessary to properly handle metadata content.
 
@@ -1286,8 +1274,9 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 | 0..1
 
 | `encodingType`
-| The encoding type of the feature property. (see <<location-encodingType-value-codes>> for some suggested ValueCodes)
-| String
+| The encoding type of the feature property.
+See <<location-encodingType-value-codes>> for some suggested values.
+| IANA-MediaType
 | 1
 
 | `feature`
@@ -1361,7 +1350,7 @@ The data type is defined by encodingType.
   "id": 2,
   "name": "City Center Park",
   "description": "A public park located in the heart of the city",
-  "encodingType": "application/wkt",
+  "encodingType": "application/vnd.ogc.wkt",
   "feature": "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))",
   "FeatureType@navigationLink": "Features(2)/FeatureType",
   "Datastreams@navigationLink": "Features(2)/Datastreams",
