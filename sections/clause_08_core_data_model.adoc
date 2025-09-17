@@ -921,6 +921,7 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 
 | `encodingType`
 | The encoding type of the metadata property.
+If the metadata field is present, an encodingType must be specified.
 See <<sensor-encodingType-value-codes>> for some suggested values.
 | IANA-MediaType
 | 0..1
