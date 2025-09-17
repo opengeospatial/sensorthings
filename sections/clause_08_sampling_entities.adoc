@@ -86,7 +86,7 @@ Its value is computed by the server when creating  the entity unless specified b
 
 | `samplerType`
 | The type of sampler.
-| String
+| URI
 | 1
 |====
 
@@ -178,8 +178,8 @@ Its value is computed by the server when creating the entity unless specified by
 
 | `encodingType`
 | The encoding type of the location property.
-If the location property is present, the encodingType must also be present.
-| String
+If the location attribute is present, the encodingType must also be present.
+| IANA-MediaType
 | 0..1
 
 | `location`
@@ -296,7 +296,7 @@ Its value is computed by the server when creating the entity unless specified by
 
 | `samplerType`
 | The type of sampler.
-| String
+| URI
 | 0..1
 |====
 

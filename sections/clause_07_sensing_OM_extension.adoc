@@ -91,11 +91,16 @@ Its value is computed by the server when creating  the entity unless specified b
 | JSON Object
 | 0..1
 
+| `encodingType`| The encoding type of the position property.
+If the position attribute is present, the encodingType must be specified.
+| IANA-MediaType
+| 0..1
+
 | `position`
 | The detailed description of the Sensor or system.
 The metadata type is defined by encodingType
 | String
-| 1
+| 0..1
 
 | `time`
 | The time instant or period of when the Sensors are deployed and they start producing Datastreams.

@@ -319,15 +319,16 @@ Each Actuator entity SHALL have the mandatory properties and MAY have the option
 | 0..1
 
 | `encodingType`| The encoding type of the metadata property.
+If the metadata attribute is present, the encodingType must be specified.
 A list of suggested values can be found in <<actuator-encodingType-value-codes>>.
-| ANY
-| 1
+| IANA-MediaType
+| 0..1
 
 | `metadata`
 | The metadata property provides detailed information about the Actuator entity.
 The content of the metadata property is implementation dependent.
 | ANY
-| 1
+| 0..1
 
 | `properties`
 | A JSON Object containing user-annotated properties as key-value pairs
@@ -365,22 +366,18 @@ A TaskingCapability has one-and-only-one Actuator
 .List of some code values used for identifying types for the encodingType of the Actuator entity
 [width="50%",cols="5,15",options="header"]
 |====
-| *Actuator encodingType*
-| *ValueCode Value*              
+| Actuator Encoding Type
+| IANA-MediaType
 
 | `PDF`
 | application/pdf
 
-| `SensorML`
-| http://www.opengis.net/doc/IS/SensorML/2.0
+| `HTML`
+| text/html
 |====
 
 
-The Actuator encodingType allows clients to know how to interpret metadata's value(s).
-Currently, the SensorThings API defines two common Actuator metadata encodingTypes.
-Most sensor manufacturers provide their sensor datasheets in a PDF format.
-As a result, PDF is a Sensor encodingType supported by SensorThings API.
-The second Sensor encodingType is SensorML.
+The Actuator encodingType lets clients know how to interpret metadata's value(s).
 This list is not exhoustive and other values may also be used.
 
 
