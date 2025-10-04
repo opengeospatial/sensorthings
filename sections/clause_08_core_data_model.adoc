@@ -734,7 +734,7 @@ In this example the resultType is a `Category` and thus must have the attributes
 - The `label` attribute is somewhat redundant in this case, but since it is mandatory it can be set to the same value as the ObservedProperty `name`.
 
 
-.A Datastream example for Observations with category values from a predefined code space
+.A Datastream example for Observations with category values from a predefined code space, but allowing only three specific values
 [source,json]
 ----
 {
@@ -744,7 +744,10 @@ In this example the resultType is a `Category` and thus must have the attributes
     "type": "Category",
     "label": "Period",
     "definition": "ObservedProperties(2)",
-    "codeSpace": "http://sweetontology.net/stateTimeGeologic/"
+    "codeSpace": "http://sweetontology.net/stateTimeGeologic/",
+    "constraint": {
+      "values": [ "cretaceous", "jurassic", "triassic" ]
+    }
   }
 }
 ----
@@ -753,7 +756,7 @@ In this example the resultType is a `Category` and thus must have the attributes
 [source,json]
 ----
 {
-  "result": "Jurassic",
+  "result": "jurassic",
   "phenomenonTime":  {
     "start": "2021-13-14T15:16:00Z"
   }
