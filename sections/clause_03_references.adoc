@@ -19,6 +19,8 @@ References are to follow the Springer LNCS style, with the exception that option
 
 * [[[ogc17-011,OGC 17-011r2]]]
 
+* [[[ogc19-072,OGC 19-072]]]
+
 * [[[SweCommon,OGC 24-014]]], SWE-Common, new version. Not yet publised, but expected soon.
 
 * [[[RFC6902,IETF RFC 6902]]]
@@ -39,3 +41,4 @@ References are to follow the Springer LNCS style, with the exception that option
 
 * [[[ITU-T-Y.2060, ITU-T-Y.2060]]], ITU-T Y.2060: _Overview of the Internet of Things_, 2012. Available Online: https://www.itu.int/rec/t-rec-y.2060-201206-i
 
+* [[[openapi,OpenAPI Specification]]], Open API Initiative: OpenAPI Specification. Available from https://spec.openapis.org/oas/.

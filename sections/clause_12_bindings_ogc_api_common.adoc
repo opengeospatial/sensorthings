@@ -5,9 +5,23 @@
 
 The OGC API -- Common Bindings specify how to combine the SensorThings API with other OGC APIs.
 
+This section does not specify a specific version of the OGC API -- Common specification to use.
+The exact version that an API uses can be found by inspecting the conformance declaration of the API.
+
+
 === Landing Page
 
+The OGC API -- Common (<<ogc19-072>>) specification specified seleveral elements for the landing page of an API.
+None of the elements specified conflict with any elements specified by the SensorThings API, and can thus be added to the Service Document (<<read_service_document>>) for OGC API -- Common compatibility.
 
+The conformance class from the OGC API -- Common specification that specified the landing page requirements is:
+
+`http://www.opengis.net/spec/ogcapi-common-1/1.0/req/landing-page`
+
+The OGC API -- Common specification lists how to link to API definitions, and how conformance classes can be declared.
+An example of the elements to add to the Service Document to make it a valid OGC API -- Common landing page can be found below.
+
+[[oac_landing_page_example]]
 .Items added to the service document to make it a valid OGC API -- Common landing page. The attributes title, description and attribution are recommended but not required.
 [source,json]
 ----
@@ -25,9 +39,15 @@ The OGC API -- Common Bindings specify how to combine the SensorThings API with 
     },
     {
       "rel": "service-desc",
-      "type": "application/json",
+      "type": "application/vnd.oai.openapi+json;version=3.0",
       "title": "OpenAPI 3.0 definition for this endpoint.",
       "href": "<Service Root>/v2.0/api"
+    },
+    {
+      "rel": "service-desc",
+      "type": "application/json",
+      "title": "OData CSDL for this endpoint.",
+      "href": "<Service Root>/v2.0/$metadata"
     }
   ]
 }
@@ -35,8 +55,11 @@ The OGC API -- Common Bindings specify how to combine the SensorThings API with 
 
 === OpenAPI Definition
 
+The <<openapi>> is a popular way to describe HTTP-Based APIs.
+An Open API document lists all the url paths, and the inputs and outputs of requests made to those paths.
 The SensorThings API, being based on OData, can not be fully described by OpenAPI, but the most common API features can be captured.
+The OpenAPI definition can be generated from the service metadata document (<<pattern_service_metadata_document>>)
 
+How the API definition should be made available is specified in section 9.2 of The OGC API -- Common (<<ogc19-072>>) specification.
 
-=== Authentication & Authorization
 
