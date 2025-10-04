@@ -751,6 +751,8 @@ In order to support spatial relationship functions, SensorThings API defines nin
 The spatial relationship functions are defined in the OGC Simple Feature Access specification [OGC 06-104r4 part 1, clause 6.1.2.3]. The names of these nine functions start with a prefix st_ following the OGC Simple Feature Access specification [OGC 06-104r4].
 In addition, the Well-Known Text (WKT) format is the default input geometry for these nine functions.
 
+The results of the time and date functions are time zone dependent, therefore these functions have an optional second argument to specify the time zone to use for the conversion.
+
 In some cases the service may not have enough information to deduce the types of parameters used in functions.
 This may, for instance, happen when combining two values from json objects, or attributes of type `ANY`.
 In such cases, the `cast` function can be used.
@@ -822,6 +824,87 @@ In such cases, the `cast` function can be used.
 | interval
 |`+TM_Interval interval(start, end or duration)+`
 |`+interval(properties/referenceTime, duration'PT1H')+`
+
+| year
+|
+- `+Edm.Int32 year(Edm.DateTimeOffset t)+`
+- `+Edm.Int32 year(Edm.DateTimeOffset t, String zoneId)+`
+|
+- `+year(resultTime) eq 2015+`
+- `+year(resultTime, 'CET') eq 2015+`
+
+| month
+|
+- `+Edm.Int32 month(Edm.DateTimeOffset t)+`
+- `+Edm.Int32 month(Edm.DateTimeOffset t, String zoneId)+`
+|
+- `+month(resultTime) eq 12+`
+- `+month(resultTime, '-09:00') eq 12+`
+
+| day
+|
+- `+Edm.Int32 day(Edm.DateTimeOffset t)+`
+- `+Edm.Int32 day(Edm.DateTimeOffset t, String zoneId)+`
+|
+- `+day(resultTime) eq 8+`
+- `+day(resultTime, 'America/Santiago') eq 8+`
+
+| hour
+|
+- `+Edm.Int32 hour(Edm.DateTimeOffset t)+`
+- `+Edm.Int32 hour(Edm.DateTimeOffset t, String zoneId)+`
+|
+- `+hour(phenomenonTime/start) eq 1+`
+- `+hour(phenomenonTime/start, 'EDT') eq 1+`
+
+| minute
+|
+- `+Edm.Int32 minute(Edm.DateTimeOffset t)+`
+- `+Edm.Int32 minute(Edm.DateTimeOffset t, String zoneId)+`
+|
+- `+minute(resultTime) eq 0+`
+- `+minute(resultTime, Datastream/properties/timeZone) eq 0+`
+
+| second
+|
+- `+Edm.Int32 second(Edm.DateTimeOffset t)+`
+- `+Edm.Int32 second(Edm.DateTimeOffset t, String zoneId)+`
+|
+- `+second(resultTime) eq 0+`
+- `+second(resultTime, 'Asia/Singapore') eq 0+`
+
+| date
+|
+- `+Edm.Date date(Edm.DateTimeOffset t)+`
+- `+Edm.Date date(Edm.DateTimeOffset t, String zoneId)+`
+|
+- `+date(resultTime) ne date(validTime)+`
+- `+date(resultTime) ne date(validTime, '+10')+`
+
+| time
+|
+- `+Edm.TimeOfDay time(Edm.DateTimeOffset t)+`
+- `+Edm.TimeOfDay time(Edm.DateTimeOffset t, String zoneId)+`
+|
+- `+time(resultTime) le validTime+`
+- `+time(resultTime, '+5:00') le validTime+`
+
+| totaloffsetminutes
+|
+- `+Edm.Int32 totaloffsetminutes(Edm.DateTimeOffset t)+`
+- `+Edm.Int32 totaloffsetminutes(Edm.DateTimeOffset t, String zoneId)+`
+|
+- `+totaloffsetminutes(resultTime) eq 60+`
+- `+totaloffsetminutes(resultTime, '-03:30') eq 60+`
+
+| fractionalseconds
+|
+- `+Edm.Int32 fractionalseconds(Edm.DateTimeOffset t)+`
+- `+Edm.Int32 fractionalseconds(Edm.DateTimeOffset t, String zoneId)+`
+|
+- `+fractionalseconds(resultTime) eq 0+`
+- `+fractionalseconds(resultTime, 'CEST') eq 0+`
+
 
 3+|**Math Functions**
 
