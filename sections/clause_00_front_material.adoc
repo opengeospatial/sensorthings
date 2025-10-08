@@ -1,17 +1,5 @@
 .Preface
 
-[NOTE]
-====
-Insert Preface Text here. Give OGC specific commentary: describe the technical content, reason for document, history of the document and precursors, and plans for future work.
-
-There are two ways to specify the Preface: "simple clause" or "full clasuse"
-
-If the Preface does not contain subclauses, it is considered a simple preface clause. This one is entered as text after the `.Preface` label and must be placed between the AsciiDoc document attributes and the first AsciiDoc section title. It should not be give a section title of its own.
-
-If the Preface contains subclauses, it needs to be encoded as a full preface clause. This one is recognized as a full Metanorma AsciiDoc section with te title "Preface", i.e. `== Preface`. (Simple preface content can also be encoded like full preface.) 
-
-====
-
 ////
 *OGC Declaration*
 ////
@@ -25,5 +13,12 @@ Recipients of this document are requested to submit, with their comments, notifi
 [abstract]
 == Abstract
 
-<Insert Abstract Text here>
+The OGC SensorThings API provides an open, geospatial-enabled and unified way to interconnect Internet of Things (IoT) devices, data, and applications over the Internet.
+It contains a core data model, an abstract REST API for accessing data, and bindings for this API for HTTP and MQTT.
+
+The data model is an implementation of the core concepts of the Observations, Measurements and Samples OGC/ISO specification.
+The API allows for creating, reading, updating and deleting all parts of the data model.
+It also features extensive filtering and response-customisation capabilities.
+
+Even though the SensorThings API was initially designed for IoT, the previous versions have shown to be wel suited for any use case involving time-series data.
 
