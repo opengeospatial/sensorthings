@@ -92,8 +92,3 @@ If a service advertises this requirement in the service document then the servic
 ====
 
 
-
-=== Cross Origin Resource Sharing
-
-=== Authentication & Authorization
-
