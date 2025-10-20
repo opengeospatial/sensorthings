@@ -40,7 +40,6 @@ requirement:: {identifier}/req/datamodel/core/observed-property
 requirement:: {identifier}/req/datamodel/core/observation
 requirement:: {identifier}/req/datamodel/core/feature
 requirement:: {identifier}/req/datamodel/core/feature-type
-requirement:: {identifier}/req/datamodel/core/integrity
 ====
 
 The OGC SensorThings API v2.0 Core data model is depicted in <<img-sta-core>>
