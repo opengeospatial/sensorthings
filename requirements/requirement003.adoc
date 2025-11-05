@@ -4,7 +4,7 @@
 ====
 [%metadata]
 identifier:: /req/req-class-discovery/req-link-self
-part:: An implementation SHALL return the `<Link/>; rel="self"` HTTP header to indicate the ability for subscription.
+part:: An implementation SHALL return the `<Link>; rel="self"` HTTP header to indicate the ability for subscription.
 part:: An implementation SHALL not return the `<Link>; rel="self"` HTTP header if the request URL either contains a denied topic or at least one denied ODATA option. In this case, the implementation SHALL return the `<Link>; rel="help"`.
 part:: An implementation SHALL determine if a request URL is allowed for subscription by first converting the URL into an MQTT topic and test whether the topic is included in the `topics_denied`. If so, the implementation SHALL not return the `<Link>; rel="self"` but the `<Link>; rel="help"` HTTP header.
 part:: An implementation SHALL isolate the query string from the request URL and check if any of the ODATA options is listed in the `odata_denied`. If so, the implementation SHALL not return the `<Link>; rel="self"` but the `<Link>; rel="help"` HTTP header.

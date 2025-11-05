@@ -50,7 +50,7 @@ Subscriber -> Hub: HTTP POST\nhub.mode=subscribe\nhub.callback=http://mywebhook\
 Hub -> Subscriber: HTTP 202 - Accepted
 
 Hub -> "SensorThings API service": HTTP HEAD\nhttp://localhost/sta/v1.1/Observations?\n$select=result
-"SensorThings API service" -> Hub: Link: <http://localhost/sta/v1.1/Observations?\n$select=result/>; rel="self"\nLink: <http://hub//>; rel="hub"
+"SensorThings API service" -> Hub: Link: <http://localhost/sta/v1.1/Observations?\n$select=result>; rel="self"\nLink: <http://hub/>; rel="hub"
 
 opt Link 'self' is present
 Hub -> "SensorThings API service": MQTT subscribe\ntopic=v1.1/Observations?$select=result

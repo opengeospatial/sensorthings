@@ -54,6 +54,6 @@ Host: sta-websub.secd.eu
 
 HTTP/1.1 200 Ok
 Content-type: application/json
-Link: <http://hub.sta-websub.secd.eu/>; rel="hub"
+Link: <http://hub.sta-websub.secd.eu>; rel="hub"
 Link: <http://sta-websub.secd.eu/sta/v1.1/help#topic_denied>; rel="help"
 ----

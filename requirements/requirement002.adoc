@@ -4,5 +4,5 @@
 ====
 [%metadata]
 identifier:: /req/req-class-discovery/req-link-hub
-part:: An implementation SHALL return the `<Link/>; rel="hub"` HTTP header to indicate support for WebSub.
+part:: An implementation SHALL return the `<Link>; rel="hub"` HTTP header to indicate support for WebSub.
 ====

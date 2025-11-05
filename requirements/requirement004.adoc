@@ -4,6 +4,6 @@
 ====
 [%metadata]
 identifier:: /req/req-class-discovery/req-link-help
-part:: An implementation SHALL provide a URL for obtaining help (why the request URL cannot be used for subscription) when returning the `<Link/>; rel="help"` header.
-part:: An implementation SHALL use the `<Link/>; rel="self"` and`<Link/>; rel="help"` HTTP header mutually exclusive.
+part:: An implementation SHALL provide a URL for obtaining help (why the request URL cannot be used for subscription) when returning the `<Link>; rel="help"` header.
+part:: An implementation SHALL use the `<Link>; rel="self"` and`<Link>; rel="help"` HTTP header mutually exclusive.
 ====

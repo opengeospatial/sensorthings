@@ -22,17 +22,17 @@ According to <<W3CWebSub>>, discovery can be achieved via HTTP GET and HEAD meth
 include::../requirements/requirement001.adoc[]
 
 ==== Requirement Link Header 'hub'
-According to <<W3CWebSub>>, discovery always returns `<Link/>; rel="hub"`.
+According to <<W3CWebSub>>, discovery always returns `<Link>; rel="hub"`.
 
 include::../requirements/requirement002.adoc[]
 
 ==== Requirement Link Header 'self'
-According to <<W3CWebSub>>, discovery returns `<Link/>; rel="self"` for a URL that is suitable for subscription.
+According to <<W3CWebSub>>, discovery returns `<Link>; rel="self"` for a URL that is suitable for subscription.
 
 include::../requirements/requirement003.adoc[]
 
 ==== Requirement Link Header 'help'
-Returning the `<Link/>; rel="help"` header (specific to STA-WebSub) indicates the cause why the requested URL is not suitable for subscription.
+Returning the `<Link>; rel="help"` header (specific to STA-WebSub) indicates the cause why the requested URL is not suitable for subscription.
 
 include::../requirements/requirement004.adoc[]
 

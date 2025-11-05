@@ -136,18 +136,18 @@ Subscriber -> "STA Service - HTTP interface\n(Publisher)": http://localhost/sta/
 
 alt HTTP GET
 
-    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: JSON Response\nLink: <http://localhost/sta/v1.1/Things/>; rel="self"\nLink: <http://hub//>; rel="hub" 
+    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: JSON Response\nLink: <http://localhost/sta/v1.1/Things>; rel="self"\nLink: <http://hub/>; rel="hub" 
 
 else HTTP HEAD
 
-    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: Link: <http://localhost/sta/v1.1/Things/>; rel="self"\nLink: <http://hub//>; rel="hub" 
+    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: Link: <http://localhost/sta/v1.1/Things>; rel="self"\nLink: <http://hub/>; rel="hub" 
 
 end
 
 @enduml
 ....
 
-For this URL, the implementation returns the `<Link/>; rel="self"` header.
+For this URL, the implementation returns the `<Link>; rel="self"` header.
 
 ==== Discovery "Error" Handling
 A STA-WebSub hub may receive a subscription request via the `hub.topic` that transforms into a MQTT topic which may not be accepted by the SensorThings API MQTT broker. Which topic URLs are accepted is deployment specific. For example, the subscription to `/Observations` may produce a too high load. Another example is the use of not supported / not allowed ODATA options like `$expand` or `$filter` that may cause that no `Link rel="self"` is returned. The missing `Link rel="self"` header implies that subscription for such a topic URL is not possible. This behavior is perfectly compliant with the W3C WebSub Recommendation. However, any subscriber (user or service/process) may wonder why the discovery response does not include the `Link rel="self"` header. 
@@ -173,20 +173,20 @@ Subscriber -> "STA Service - HTTP interface\n(Publisher)": http://localhost/sta/
 
 alt HTTP GET
 
-    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: JSON Response\nLink: <http://URL for the help page/>; rel="help"\nLink: <http://hub//>; rel="hub" 
+    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: JSON Response\nLink: <http://URL for the help page>; rel="help"\nLink: <http://hub/>; rel="hub" 
 
 else HTTP HEAD
 
-    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: JSON Response\nLink: <http://URL for the help page/>; rel="help"\nLink: <http://hub//>; rel="hub"  
+    "STA Service - HTTP interface\n(Publisher)" -> Subscriber: JSON Response\nLink: <http://URL for the help page>; rel="help"\nLink: <http://hub/>; rel="hub"  
 
 end
 
 @enduml
 ....
 
-Similarly, the implementation does not return the `<Link/>; rel="self"` but the  `<Link/>; rel="help"` header for the discovery of a URL that is using disallowed ODATA option (ODATA option `$expand` is blacklisted): `http://localhost/sta/v1.1/Datastreams(4711)/Observations?$expand=FeatureOfInterest`
+Similarly, the implementation does not return the `<Link>; rel="self"` but the  `<Link>; rel="help"` header for the discovery of a URL that is using disallowed ODATA option (ODATA option `$expand` is blacklisted): `http://localhost/sta/v1.1/Datastreams(4711)/Observations?$expand=FeatureOfInterest`
 
-As for the URL above, the implementation does not return the `<Link/>; rel="self"` but the  `<Link/>; rel="help"` header.
+As for the URL above, the implementation does not return the `<Link>; rel="self"` but the  `<Link>; rel="help"` header.
 
 ==== Subscriptions
 A STA-WebSub Hub implementation must be capable of transforming the W3C WebSub `hub.topic` expressed as a HTTP(S) URL into a MQTT topic pattern accepted by the MQTT broker associated with the SensorThings API service. As the SensorThings API service and the Hub are working in close relation, this transformation should not be too difficult.
