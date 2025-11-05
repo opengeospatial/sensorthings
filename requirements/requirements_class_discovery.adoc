@@ -13,8 +13,6 @@ requirement:: /req/req-class-discovery/req-link-help
 requirement:: /req/req-class-discovery/req-odata-support
 requirement:: /req/req-class-discovery/req-odata-discovery
 requirement:: /req/req-class-discovery/req-odata-blacklisting
-requirement:: /req/req-class-discovery/req-odata-no-blacklisting
 requirement:: /req/req-class-discovery/req-topics-discovery
 requirement:: /req/req-class-discovery/req-topics-blacklisting
-requirement:: /req/req-class-discovery/req-topics-no-blacklisting
 ====
