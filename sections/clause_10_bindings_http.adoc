@@ -92,3 +92,235 @@ If a service advertises this requirement in the service document then the servic
 ====
 
 
+
+[[topic_discovery]]
+=== WebSub Topic Discovery
+This section defines the requirements for a STA 2.0 HTTP interface supporting topic discovery as an extension to <<W3CWebSub>>. With supporting WebSub Topic Discovery, asynchronous messaging over HTTP(S) can be established that allow any client to receive notification data from a STA endpoint based on self-defined topics including ODATA query parameters. The use of self-defined notification topics is a great improvement over PubSub, where topics are static and published by providers. With support for WebSub Topic Discovery, any client can determine if a particular topic - expressed as a SensorThings HTTP URL - can be used for subscribing to future notifications.
+
+NOTE: As defined in <<W3CWebSub>>, building an Asynchronous Messaging System requires a WebSub Hub implementation that accepts subscriptions for self-discovered topics, subscribe to the Sensor Things MQTT broker and distribute the actual notifications to subscribed clients.
+
+
+The `Discovery` requirements class is implemented at the SensorThings API service - HTTP interface to support the W3C WebSub discovery protocol. 
+
+[[req_class_discovery]]
+[requirements_class]
+.Discovery
+====
+[%metadata]
+identifier:: {identifier}/req-class/binding/http/websub/discovery
+subject:: Web API
+inherit:: {identifier}/req/binding/http/request_response
+requirement:: {identifier}/req/binding/http/websub/req-link-hub
+requirement:: {identifier}/req/binding/http/websub/req-link-self
+requirement:: {identifier}/req/binding/http/websub/req-link-help
+requirement:: {identifier}/req/binding/http/websub/req-odata-support
+requirement:: {identifier}/req/binding/http/websub/req-odata-discovery
+requirement:: {identifier}/req/binding/http/websub/req-odata-blacklisting
+requirement:: {identifier}/req/binding/http/websub/req-topics-discovery
+requirement:: {identifier}/req/binding/http/websub/req-topics-blacklisting
+====
+
+
+==== Link Header 'hub'
+According to <<W3CWebSub>>, discovery always returns `<Link>; rel="hub"` in response to HTTP GET and HEAD requests.
+
+[[req_discovery_link_hub]]
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/binding/http/websub/req-link-hub
+part:: An implementation SHALL return the `<Link>; rel="hub"` HTTP header in response to HTTP GET and HEAD requests to indicate support for WebSub.
+====
+
+
+==== Link Header 'self'
+According to <<W3CWebSub>>, discovery returns `<Link>; rel="self"` for a URL that is suitable for subscription.
+
+[[req_discovery_link_self]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/binding/http/websub/req-link-self
+part:: An implementation SHALL return the `<Link>; rel="self"` HTTP header in response to HTTP GET and HEAD requests to indicate the URL can be used for subscription.
+part:: An implementation SHALL not return the `<Link>; rel="self"` HTTP header in response to HTTP GET and HEAD requests if the request URL either contains a denied topic or at least one denied ODATA option. In this case, the implementation SHALL return the `<Link>; rel="help"`.
+part:: An implementation SHALL determine if a request URL is allowed for subscription by first converting the URL into an MQTT topic and test whether the topic is included in the `topics_denied`. If so, the implementation SHALL not return the `<Link>; rel="self"` but the `<Link>; rel="help"` HTTP header  in response to a GET or HEAD request.
+part:: An implementation SHALL isolate the query string from the request URL and check if any of the ODATA options is listed in the `odata_denied`. If so, the implementation SHALL not return the `<Link>; rel="self"` but the `<Link>; rel="help"` HTTP header in response to a GET or HEAD request.
+====
+
+
+==== Link Header 'help'
+Returning the `<Link>; rel="help"` header (specific to STA-WebSub) indicates the cause why the requested URL is not suitable for subscription.
+
+[[req_discovery_link_help]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/binding/http/websub/req-link-help
+part:: An implementation SHALL provide a URL for obtaining help (why the request URL cannot be used for subscription) when returning the `<Link>; rel="help"` header.
+part:: An implementation SHALL use the `<Link>; rel="self"` and `<Link>; rel="help"` HTTP header mutually exclusive.
+====
+
+
+==== ODATA query options support
+
+EDITOR: Check references
+
+[[req_odata_support]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/binding/http/websub/req-odata-support
+part:: An implementation SHALL allow the discovery such that the associated MQTT topic is compliant to OGC SensorThings API v2.0 requirement regarding updates via MQTT with the following extensions:
+
+* URI patterns that addresses an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>) can be extended with a `?` followed by any valid combination of ODATA options that the server support, as defined in <<mqtt_pubsub_select>>, <<mqtt_pubsub_expand>> and <<mqtt_pubsub_filter>>.
+
+* URI patterns that addresses an entity (<<pattern_entity>>, <<pattern_entity_related>>) can be extended with a `?` followed by any valid combination of ODATA options that the server support, as defined in <<mqtt_pubsub_select>>, <<mqtt_pubsub_expand>>.
+
+* URI pattern that addresses a single entity attribute (<<pattern_entity_attribute>>).
+====
+
+
+==== ODATA support advertisement
+
+[[req_odata_discovery]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/binding/http/websub/req-odata-discovery
+part:: An implementation SHALL advertise the support for ODATA query parameter by publishing the string `{identifier}/conf/discovery` in the `serverSettings` section of the root page.
+
+====
+
+
+
+==== ODATA Blacklisting
+A request URL may contain query parameters (after the `?`) presenting ODATA options. An implementation may deny discovery (and thereby later subscription) for certain ODATA options like `$expand` or `$filter`. 
+
+[[req_odata_blacklisting]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/binding/http/websub/req-odata-blacklisting
+part:: An implementation SHALL advertise the existence of denied ODATA options by adding the following key to the root page: `{identifier}/conf/discovery` that includes the key `odata_denied`. This key SHALL contain a JSON array for all denied ODATA options.
+part:: In case no ODATA options are denied,an implementation SHALL advertise the non-existence of denied ODATA options by adding the following key to the root page: `{identifier}/conf/discovery` that includes the key `odata_denied`. This key SHALL contain an empty JSON array.
+====
+
+
+[EXAMPLE]
+====
+Example blacklisting structure for ODATA options
+[source,json]
+----
+{
+    "serverSettings": {
+        "{identifier}/conf/discovery": {
+            "odata_denied": <JSON Array of denied ODATA options>
+        }
+    }
+}
+----
+====
+
+[EXAMPLE]
+====
+For example, the following root page snippet indicates restrictions for `$expand`, `$skip`, `$top` and `$filter`
+
+[source,json]
+----
+{
+    "serverSettings": {
+        "{identifier}/conf/discovery": {
+            "odata_denied": ["$expand", "$skip", "$top", "$filter"]
+        }
+    }
+}
+----
+====
+
+[EXAMPLE]
+====
+The following root page snippet indicates **no** restrictions for ODATA options
+
+[source,json]
+----
+{
+    "serverSettings": {
+        "{identifier}/conf/discovery": {
+            "odata_denied": []
+        }
+    }
+}
+----
+====
+
+==== Topics Blacklisting
+The support for STA-WebSub can be determined from the root page as part of the `Discovery` conformance class.
+
+[[req_topics_discovery]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/binding/http/websub/req-topics-discovery
+part:: An implementation SHALL advertise the support for topics blacklisting by publishing the string `{identifier}/conf/discovery` in the `serverSettings` section of the root page that includes the key `topics_denied`.
+====
+
+
+
+[EXAMPLE]
+====
+Example blacklisting structure for topics
+[source,json]
+----
+{
+    "serverSettings": {
+        "{identifier}/conf/discovery": {
+            "topics_denied": <JSON Array of denied topics>
+        }
+    }
+}
+----
+====
+
+[[req_topics_blacklisting]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/binding/http/websub/req-topics-blacklisting
+part:: A STA topic starts with an URI patterns that addresses an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>).
+part:: An implementation SHALL advertise the existence of denied topics by adding the following key to the root page: `{identifier}/conf/discovery` that includes the key `topics_denied`. This key SHALL contain a JSON array listing all denied topics.
+part:: In case no topics are denied, an implementation SHALL advertise the non-existence of denied topics by adding the following key to the root page: `{identifier}/conf/discovery` that includes the key `topics_denied`. This key SHALL contain an empty JSON array.
+====
+
+
+[EXAMPLE]
+====
+The following root page snippet indicates deny for the topics `v2.0/Observations` and `v2.0/Datastreams('very chatty')/Observations`
+
+[source,json]
+----
+{
+    "serverSettings": {
+        "{identifier}/conf/discovery": {
+            "topics_denied": ["v2.0/Observations", "v2.0/Datastreams('very chatty')/Observations"]
+        }
+    }
+}
+----
+====
+
+[EXAMPLE]
+====
+The following root page snippet indicates **no** deny for topics:
+
+[source,json]
+----
+{
+    "serverSettings": {
+        "{identifier}/conf/discovery": {
+            "topics_denied": []
+        }
+    }
+}
+----
+====

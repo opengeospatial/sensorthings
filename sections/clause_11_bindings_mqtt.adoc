@@ -283,6 +283,7 @@ v2.0/Datastreams(4)/Observations?$select=phenomenonTime,result
 ----
 
 
+[[req_mqtt_pubsub_select]]
 [requirement]
 .MQTT Publish / Subscribe Select
 ====
@@ -306,6 +307,7 @@ v2.0/Datastreams(4)/Observations?$expand=ProximateFeatureOfInterest
 ----
 
 
+[[req_mqtt_pubsub_expand]]
 [requirement]
 .MQTT Publish / Subscribe Expand
 ====
@@ -322,6 +324,7 @@ If a service advertises this requirement in the service document then the servic
 The $filter query option (<<read_options_filter>>) can be used to only receive notification of certain changes.
 
 
+[[req_mqtt_pubsub_filter]]
 [requirement]
 .MQTT Publish / Subscribe Filter
 ====

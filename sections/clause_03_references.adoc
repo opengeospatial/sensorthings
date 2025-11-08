@@ -21,13 +21,15 @@ References are to follow the Springer LNCS style, with the exception that option
 
 * [[[ogc19-072,OGC 19-072]]]
 
-* [[[SweCommon,OGC 24-014]]], SWE-Common, new version. Not yet publised, but expected soon.
+* [[[SweCommon,OGC 24-014]]]
+
+* [[[RFC2818,IETF RFC 2818]]]
+
+* [[[RFC5988,IETF RFC 5988]]]
 
 * [[[RFC6902,IETF RFC 6902]]]
 
 * [[[RFC7240,IETF RFC 7240]]]
-
-* [[[RFC2818,IETF RFC 2818]]]
 
 * [[[ODATAP1,OASIS OData-Part1]]]
 
@@ -38,6 +40,8 @@ References are to follow the Springer LNCS style, with the exception that option
 * [[[MQTT50,OASIS mqtt-v5.0]]]
 
 * [[[OGC06-121r9, OGC 06-121r9]]]
+
+* [[[W3CWebSub,W3C REC-websub-20180123]]]
 
 * [[[ITU-T-Y.2060, ITU-T-Y.2060]]], ITU-T Y.2060: _Overview of the Internet of Things_, 2012. Available Online: https://www.itu.int/rec/t-rec-y.2060-201206-i
 
