@@ -21,3 +21,5 @@ document.presentation.xml
 
 # Deploy key
 deploy_key
+*.pdf
+*.log.txt
