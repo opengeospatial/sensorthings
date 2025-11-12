@@ -1,6 +1,7 @@
 [[http-interface-binding]]
 == HTTP Interface Bindings
 
+[[http_binding_introduction]]
 === Introduction
 
 The HTTP Bindings specify how access the SensorThings API using the HTTP protocol.
@@ -93,7 +94,7 @@ If a service advertises this requirement in the service document then the servic
 
 
 
-[[topic_discovery]]
+[[http_topic_discovery]]
 === WebSub Topic Discovery
 This section defines the requirements for a STA 2.0 HTTP interface supporting topic discovery as an extension to <<W3CWebSub>>. With supporting WebSub Topic Discovery, asynchronous messaging over HTTP(S) can be established that allow any client to receive notification data from a STA endpoint based on self-defined topics including ODATA query parameters. The use of self-defined notification topics is a great improvement over PubSub, where topics are static and published by providers. With support for WebSub Topic Discovery, any client can determine if a particular topic - expressed as a SensorThings HTTP URL - can be used for subscribing to future notifications.
 
@@ -102,7 +103,7 @@ NOTE: As defined in <<W3CWebSub>>, building an Asynchronous Messaging System req
 
 The `Discovery` requirements class is implemented at the SensorThings API service - HTTP interface to support the W3C WebSub discovery protocol. 
 
-[[req_class_discovery]]
+[[http_topic_discovery_req_class]]
 [requirements_class]
 .Discovery
 ====
@@ -121,11 +122,11 @@ requirement:: {identifier}/req/binding/http/websub/req-topics-blacklisting
 ====
 
 
+[[http_link_header_hub]]
 ==== Link Header 'hub'
 According to <<W3CWebSub>>, discovery always returns `<Link>; rel="hub"` in response to HTTP GET and HEAD requests.
 
-[[req_discovery_link_hub]]
-
+[[http_link_header_hub_req]]
 [requirement]
 ====
 [%metadata]
@@ -134,10 +135,13 @@ part:: An implementation SHALL return the `<Link>; rel="hub"` HTTP header in res
 ====
 
 
+
+[[http_link_header_self]]
 ==== Link Header 'self'
 According to <<W3CWebSub>>, discovery returns `<Link>; rel="self"` for a URL that is suitable for subscription.
 
-[[req_discovery_link_self]]
+
+[[http_link_header_req]]
 [requirement]
 ====
 [%metadata]
@@ -149,10 +153,13 @@ part:: An implementation SHALL isolate the query string from the request URL and
 ====
 
 
+
+[[http_link_header_help]]
 ==== Link Header 'help'
 Returning the `<Link>; rel="help"` header (specific to STA-WebSub) indicates the cause why the requested URL is not suitable for subscription.
 
-[[req_discovery_link_help]]
+
+[[http_link_header_help_req]]
 [requirement]
 ====
 [%metadata]
@@ -162,11 +169,12 @@ part:: An implementation SHALL use the `<Link>; rel="self"` and `<Link>; rel="he
 ====
 
 
+
+[[http_subsub_odata_queries]]
 ==== ODATA query options support
 
-EDITOR: Check references
 
-[[req_odata_support]]
+[[http_subsub_odata_queries_req]]
 [requirement]
 ====
 [%metadata]
@@ -181,9 +189,12 @@ part:: An implementation SHALL allow the discovery such that the associated MQTT
 ====
 
 
+
+[[http_subsub_odata_advertisement]]
 ==== ODATA support advertisement
 
-[[req_odata_discovery]]
+
+[[http_subsub_odata_advertisement_req]]
 [requirement]
 ====
 [%metadata]
@@ -194,10 +205,12 @@ part:: An implementation SHALL advertise the support for ODATA query parameter b
 
 
 
+[[http_subsub_odata_blacklisting]]
 ==== ODATA Blacklisting
 A request URL may contain query parameters (after the `?`) presenting ODATA options. An implementation may deny discovery (and thereby later subscription) for certain ODATA options like `$expand` or `$filter`. 
 
-[[req_odata_blacklisting]]
+
+[[http_subsub_odata_blacklisting_req]]
 [requirement]
 ====
 [%metadata]
@@ -207,9 +220,7 @@ part:: In case no ODATA options are denied,an implementation SHALL advertise the
 ====
 
 
-[EXAMPLE]
-====
-Example blacklisting structure for ODATA options
+.Example blacklisting structure for ODATA options.
 [source,json]
 ----
 {
@@ -220,12 +231,9 @@ Example blacklisting structure for ODATA options
     }
 }
 ----
-====
 
-[EXAMPLE]
-====
-For example, the following root page snippet indicates restrictions for `$expand`, `$skip`, `$top` and `$filter`
 
+.Example of a root page snippet indicating restrictions for `$expand`, `$skip`, `$top` and `$filter`
 [source,json]
 ----
 {
@@ -236,12 +244,9 @@ For example, the following root page snippet indicates restrictions for `$expand
     }
 }
 ----
-====
 
-[EXAMPLE]
-====
-The following root page snippet indicates **no** restrictions for ODATA options
 
+.Example of a root page snippet indicating **no** restrictions for ODATA options
 [source,json]
 ----
 {
@@ -252,12 +257,14 @@ The following root page snippet indicates **no** restrictions for ODATA options
     }
 }
 ----
-====
 
+
+[[http_subsub_topic_blacklisting]]
 ==== Topics Blacklisting
 The support for STA-WebSub can be determined from the root page as part of the `Discovery` conformance class.
 
-[[req_topics_discovery]]
+
+[[http_subsub_topic_blacklisting_req]]
 [requirement]
 ====
 [%metadata]
@@ -266,10 +273,7 @@ part:: An implementation SHALL advertise the support for topics blacklisting by 
 ====
 
 
-
-[EXAMPLE]
-====
-Example blacklisting structure for topics
+.Example blacklisting structure for topics
 [source,json]
 ----
 {
@@ -280,7 +284,8 @@ Example blacklisting structure for topics
     }
 }
 ----
-====
+
+
 
 [[req_topics_blacklisting]]
 [requirement]
@@ -293,9 +298,7 @@ part:: In case no topics are denied, an implementation SHALL advertise the non-e
 ====
 
 
-[EXAMPLE]
-====
-The following root page snippet indicates deny for the topics `v2.0/Observations` and `v2.0/Datastreams('very chatty')/Observations`
+.Example of a root page snippet indicating deny for the topics `v2.0/Observations` and `v2.0/Datastreams('very chatty')/Observations`
 
 [source,json]
 ----
@@ -307,11 +310,9 @@ The following root page snippet indicates deny for the topics `v2.0/Observations
     }
 }
 ----
-====
 
-[EXAMPLE]
-====
-The following root page snippet indicates **no** deny for topics:
+
+.Example of a root page snippet indicating **no** deny for topics
 
 [source,json]
 ----
@@ -323,4 +324,4 @@ The following root page snippet indicates **no** deny for topics:
     }
 }
 ----
-====
+
