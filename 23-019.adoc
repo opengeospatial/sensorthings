@@ -11,8 +11,6 @@
 :issued-date: 2029-03-30
 :published-date: 2029-03-30
 :fullname: Hylke van der Schaaf
-:fullname_2: Steve Liang
-:fullname_4: Humaid Kidwai
 :docsubtype: implementation
 :keywords: ogcdoc, OGC document, API, OData, openapi, html, MQTT, iot, internet of things, sensors, swe, sensor webs, sensor web enablement, sensor networks
 :submitting-organizations: Fraunhofer-Gesellschaft, Germany; University of Calgary, Canada; SensorUp Inc., Canada; Keys, USA; DataCove e.U., Austria; Secure Dimensions, Germany; CREAF, Spain

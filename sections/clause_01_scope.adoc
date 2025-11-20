@@ -23,7 +23,7 @@ All questions regarding this submission should be directed to the editors or the
 |===
 | *Name* | *Affiliation*
 | Hylke van der Schaaf _(editor)_ | Fraunhofer-Gesellschaft
-| Steve Liang _(editor)_ | SensorUp Inc.
+| Steve Liang | SensorUp Inc.
 | Kathi Schleidt | Datacove e.U.
 | Andreas Matheus | Secure Dimensions GmbH
 | Joan Maso Pau | Universitat Autònoma de Barcelona (CREAF)
