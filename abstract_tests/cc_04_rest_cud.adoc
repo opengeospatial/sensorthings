@@ -114,7 +114,7 @@ target:: {identifier}/req/api/cud/return_value
 test-purpose:: Validate that the replace capability, if advertised, is correctly implemented.
 test-method::
 
-. For each SensorThings entity type send a repalce request,
+. For each SensorThings entity type send a replace request,
 .. with updated values for varying attributes,
 ... check if the properties provided in the payload corresponding to updatable properties replace the value of the corresponding property in the entity.
 ... check if the missing properties of the containing entity or complex property are removed.

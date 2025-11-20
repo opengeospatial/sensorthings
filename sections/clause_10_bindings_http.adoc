@@ -4,7 +4,7 @@
 [[http_binding_introduction]]
 === Introduction
 
-The HTTP Bindings specify how access the SensorThings API using the HTTP protocol.
+The HTTP Bindings specify how the abstract REST-API specified in the OGC SensorThings API is implemented over the HTTP protocol.
 
 
 [requirements_class]
@@ -24,11 +24,11 @@ requirement:: {identifier}/req/binding/http/request_response
 === HTTP Binding Advertisement
 
 To help a client find the HTTP endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the service documents of all request-response bindings, as described in <<read_service_document>>.
-If the service supports the HTTP interface binding, then the `+serverSettings+` object SHALL contain a attribute of type Object, with the name
+If the service supports the HTTP interface binding, then the `+serverSettings+` object SHALL contain an attribute of type Object, with the name
 
 `{identifier}/req/binding/http`
 
-This Object SHALL contain a attribute named `+endpoints+` of type Array. The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the HTTP service
+This Object SHALL contain an attribute named `+endpoints+` of type Array. The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the HTTP service
 
 
 [requirement]
@@ -89,7 +89,7 @@ If a GET request with the same URL and headers would return an error, the HEAD o
 identifier:: {identifier}/req/binding/http/request_response
 inherit:: {identifier}/req-class/api/abstract
 
-If a service advertises this requirement in the service document then the service SHALL map the request types as defined in the abstract API to HTTP methods as described in  <<http_request_response>>.
+If a service advertises this requirement in the service document then the service SHALL map the request types as defined in the abstract STA API to HTTP methods as described in  <<http_request_response>>.
 ====
 
 
@@ -170,11 +170,11 @@ part:: An implementation SHALL use the `<Link>; rel="self"` and `<Link>; rel="he
 
 
 
-[[http_subsub_odata_queries]]
+[[http_websub_odata_queries]]
 ==== ODATA query options support
 
 
-[[http_subsub_odata_queries_req]]
+[[http_websub_odata_queries_req]]
 [requirement]
 ====
 [%metadata]
@@ -190,11 +190,11 @@ part:: An implementation SHALL allow the discovery such that the associated MQTT
 
 
 
-[[http_subsub_odata_advertisement]]
+[[http_websub_odata_advertisement]]
 ==== ODATA support advertisement
 
 
-[[http_subsub_odata_advertisement_req]]
+[[http_websub_odata_advertisement_req]]
 [requirement]
 ====
 [%metadata]
@@ -205,12 +205,12 @@ part:: An implementation SHALL advertise the support for ODATA query parameter b
 
 
 
-[[http_subsub_odata_blacklisting]]
+[[http_websub_odata_blacklisting]]
 ==== ODATA Blacklisting
 A request URL may contain query parameters (after the `?`) presenting ODATA options. An implementation may deny discovery (and thereby later subscription) for certain ODATA options like `$expand` or `$filter`. 
 
 
-[[http_subsub_odata_blacklisting_req]]
+[[http_websub_odata_blacklisting_req]]
 [requirement]
 ====
 [%metadata]
@@ -259,12 +259,12 @@ part:: In case no ODATA options are denied,an implementation SHALL advertise the
 ----
 
 
-[[http_subsub_topic_blacklisting]]
+[[http_websub_topic_blacklisting]]
 ==== Topics Blacklisting
 The support for STA-WebSub can be determined from the root page as part of the `Discovery` conformance class.
 
 
-[[http_subsub_topic_blacklisting_req]]
+[[http_websub_topic_blacklisting_req1]]
 [requirement]
 ====
 [%metadata]
@@ -287,7 +287,7 @@ part:: An implementation SHALL advertise the support for topics blacklisting by 
 
 
 
-[[req_topics_blacklisting]]
+[[http_websub_topics_blacklisting_req2]]
 [requirement]
 ====
 [%metadata]

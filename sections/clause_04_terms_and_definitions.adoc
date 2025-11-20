@@ -29,7 +29,8 @@ If present in Entity representations, the EntityId is specified in the `@id` ann
 
 === Entity
 
-instance of an `Entity Type`. An Entity can have only one Entity Type.
+instance of an `Entity Type`.
+An Entity can have only one Entity Type.
 
 
 === Entity Set

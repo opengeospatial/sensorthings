@@ -137,7 +137,7 @@ test-method::
 .... Validate that the returned entities are correctly ordered, in decending order, by the given attribute.
 ... Execute read requests with a $orderby containing a single attribute with the `asc` modifier.
 .... Validate that the returned entities are correctly ordered, in ascending order, by the given attribute.
-... Execute read requests with a $orderby containing a two attributes.
+... Execute read requests with a $orderby containing two attributes.
 .... Validate that the returned entities are correctly ordered, in ascending order, by the given attributes.
 
 ====
@@ -153,7 +153,7 @@ test-method::
 . For each binding that supports request-response
 .. For various URL patterns defined in <<api_read_paths>> that return a list of entities
 
-... Execute various read requests containing filter funtions
+... Execute various read requests containing filter functions
 ... Validate that only entities matching the filter are returned.
 
 ====

@@ -3,12 +3,12 @@
 
 === Introduction
 
-The core data model is designed based on the OGC/ISO Observation, Measurements and Samples (OMS) model (<<OgcOMS>> and <<IsoOMS>>).
+The core data model of the STA Standard is based on the OGC/ISO Observation, Measurements and Samples (OMS) model (<<OgcOMS>> and <<IsoOMS>>).
 An Observation is modeled as an act that produces a result whose value is an estimate of a property of a given Feature.
 An Observation instance is characterized by its event time (e.g., resultTime and phenonmenonTime), Feature, ObservedProperty, and the observer that made the Observation (often a Sensor).
 
-The SensorThings API also models Things.
-A Thing draws from the same concept as a Host in OMS where a Host is defined as a collection of Observers (defined as Sensor in SensorThings API).
+The STA Standard also models Things.
+A Thing draws from the same concept as a Host in OMS where a Host is defined as a collection of Observers (defined as Sensor in the STA Standard).
 Formally, its definition follows the ITU-T definition:
 “__an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks__” <<ITU-T-Y.2060>>.
 
@@ -42,21 +42,21 @@ requirement:: {identifier}/req/datamodel/core/feature
 requirement:: {identifier}/req/datamodel/core/feature-type
 ====
 
-The OGC SensorThings API v2.0 Core data model is depicted in <<img-sta-core>>
+The OGC SensorThings API v2.0 Core data model is depicted in <<img-sta-core>>.
 
 [#img-sta-core,link=figures/Datamodel-SensorThingsApi-V2-Core.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='UML class diagram of the SensorThings API Core data model']
 image::figures/Datamodel-SensorThingsApi-V2-Core.drawio.png[Sensing Core, align="center"]
 
 
 
-In this section, we define each entity depicted in <<img-sta-core>> and its relationships with other entities.
-Additionally, we also provide examples to model the entities in different contexts.
+In this section, each entity depicted in <<img-sta-core>> and its relationships with other entities is defined.
+Additionally, examples of modelling the entities in different contexts are provided.
 
 
 === Recurring attributes
 
 Several attributes are used in several classes.
-They always have the same semantic meaning, regarless of the class they are used in.
+They always have the same semantic meaning, regardless of the class they are used in.
 
 `id`:: The primary key of the class.
   An Entity is uniquely identified, among Entities of the same class and in the same service, by its `id` value.
@@ -69,9 +69,9 @@ They always have the same semantic meaning, regarless of the class they are used
 
 `description`:: The description of an Entity is a longer, human readable, character string giving a descriptive text of the Entity.
 
-`definition`:: The definition of an Entity is a unique external identifier, linking the Entity to an external, autorative source.
-  The definition allows for different services to represent different aspects of the same systems.
-  It can, for instance, be a URL to a feature in an OGC API - Features service, or a DID pointing to a crytographically signed resource.
+`definition`:: The definition of an Entity is a unique external identifier, linking the Entity to an external, authoritative source.
+  The definition enables different services to represent different aspects of the same systems.
+  It can, for instance, be a URL to a feature in an OGC API - Features service, or a DID pointing to a cryptographically signed resource.
 
 `properties`:: A set of user-defined named values.
   The values may be of any type, including nested arrays or name-value sets.
@@ -88,22 +88,24 @@ They always have the same semantic meaning, regarless of the class they are used
 [%metadata]
 identifier:: {identifier}/req/datamodel/core/thing
 
-part:: Each Thing entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<thing-attributes>>.
+part:: Each Thing entity shall have the mandatory attributes listed in <<thing-attributes>>.
 
-part:: Each Thing entity SHALL have the direct relation between a Thing entity and other entity types listed in <<thing-relations>>.
+part:: Each Thing entity may have the optional attributes listed in <<thing-attributes>>.
+
+part:: Each Thing entity shall have the direct relation between a Thing entity and other entity types listed in <<thing-relations>>.
 ====
 
 
-The SensorThings API follows the ITU-T definition, i.e., with regard to the Internet of Things, a thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks [ITU-T Y.2060].
-A Thing is related to the Platform entity as described in Section 4.9.2.1 of [OGC 16-079] in a way that any entity that can be modelled as a Thing MAY be subsequently translated to a Platform and vice versa.
+The SensorThings API Standard follows the ITU-T definition with regard to the Internet of Things: A thing is an object of the physical world (physical things) or the information world (virtual things) that is capable of being identified and integrated into communication networks <<ITU-T-Y.2060>>.
+A Thing is related to the Platform entity as described in Section 4.9.2.1 of <<ogc16-079>> in a way that any entity that can be modelled as a Thing may be subsequently translated to a Platform and vice versa.
 
 Examples of the use of Thing are:
 
-- A weather station that houses a varying set of environmental sensors
-- A thermostat in a room, monitoring and controlling the temperature on that room
-- A drone that mounts a LiDAR sensor for mapping purposes
-- A science vessel that has many sensors installed
-- An upstream oil well that is equipped with compound gas detection devices
+- A weather station that houses a varying set of environmental sensors;
+- A thermostat in a room, monitoring and controlling the temperature on that room;
+- A drone that mounts a LiDAR sensor for mapping purposes;
+- A science vessel that has many sensors installed;
+- An upstream oil well that is equipped with compound gas detection devices.
 
 
 [#thing-attributes,reftext='{table-caption} {counter:table-num}']
@@ -121,13 +123,12 @@ Examples of the use of Thing are:
 | 1
 
 | `name`
-| A property provides a label for Thing entity, commonly a descriptive name.
+| The name attribute provides a label for a Thing entity, commonly a descriptive name.
 | String
 | 1
 
 | `definition`
 | The URI linking the Thing to an external definition.
-Dereferencing this URI SHOULD result in a representation of the definition of the Thing.
 | URI
 | 0..1
 
@@ -154,22 +155,20 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 
 | `Location`
 | The Location entity locates the Thing.
-Multiple Things MAY be located at the same Location.
-A Thing MAY not have a Location.
+Multiple Things may be located at the same Location.
 
-A Thing SHOULD have only one physical location, but this location may be described in different ways, using different representations.
-In such case, the Thing MAY have more than one Locations.
+A Thing can only be in one physical location at the same time, but this location may be described in different ways, using different representations.
+In such case, the Thing has more than one Locations.
 | `Location`
 | 0..*
 
 | `HistoricalLocations`
-| A Thing has zero-to-many HistoricalLocations.
-A HistoricalLocation has one-and-only-one Thing.
+| The Locations that the Thing was located at in the past.
 | `HistoricalLocation`
 | 0..*
 
 | `Datastreams`
-| A Thing MAY have zero-to-many Datastreams.
+| The Datastreams associated to the Thing.
 | `Datastream`
 | 0..*
 |====
@@ -206,9 +205,11 @@ A HistoricalLocation has one-and-only-one Thing.
 [%metadata]
 identifier:: {identifier}/req/datamodel/core/location
 
-part:: Each Location entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<location-attributes>>.
+part:: Each Location entity shall have the mandatory attributes listed in <<location-attributes>>.
 
-part:: Each Location entity SHALL have the direct relation between a Location entity and other entity types listed in <<location-relations>>.
+part:: Each Location entity may have the optional attributes listed in <<location-attributes>>.
+
+part:: Each Location entity shall have the direct relation between a Location entity and other entity types listed in <<location-relations>>.
 ====
 
 
@@ -239,18 +240,17 @@ Examples of the use of Location are:
 | 1
 
 | `name`
-| A property provides a label for Location entity, commonly a descriptive name.
+| The name attribute provides a label for a Location entity, commonly a descriptive name.
 | String
 | 1
 
 | `definition`
 | The URI linking the Location to an external definition.
-Dereferencing this URI SHOULD result in a representation of the definition of the Location.
 | URI
 | 0..1
 
 | `encodingType`
-| The encoding type of the Location property.
+| The encoding type of the Location attribute.
 See <<location-encodingType-value-codes>> for some suggested values.
 | IANA-MediaType
 | 1
@@ -261,7 +261,7 @@ See <<location-encodingType-value-codes>> for some suggested values.
 | 1
 
 | `description`
-| The description about the Location
+| Description of the Location.
 | String
 | 0..1
 
@@ -284,7 +284,7 @@ See <<location-encodingType-value-codes>> for some suggested values.
 
 | `Things`
 | The Things located at the source Location.
-Multiple Things MAY locate at the same Location.
+Multiple Things may locate at the same Location.
 | `Thing`
 | 0..*
 
@@ -441,12 +441,12 @@ NOTE: When using a GeoJSON encoding for the location attribute, the value can ei
 [%metadata]
 identifier:: {identifier}/req/datamodel/core/historical-location
 
-part:: Each HistoricalLocation entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<historical-location-attributes>>.
+part:: Each HistoricalLocation entity shall have the mandatory attributes and may have the optional attributes listed in <<historical-location-attributes>>.
 
-part:: Each HistoricalLocation entity SHALL have the direct relation between a HistoricalLocation entity and other entity types listed in <<historical-location-relations>>.
+part:: Each HistoricalLocation entity shall have the direct relation between a HistoricalLocation entity and other entity types listed in <<historical-location-relations>>.
 
-part:: When the Locations relation of a Thing changes, a new HistoricalLocation SHALL be created and added to the Thing automatically by the service.
-The current Location(s) of the Thing SHALL only be added to this autogenerated HistoricalLocation automatically by the service, and SHALL not be created as HistoricalLocation directly by user.
+part:: When the Locations relation of a Thing changes, a new HistoricalLocation shall be created and added to the Thing automatically by the service.
+The current Location(s) of the Thing shall only be added to this autogenerated HistoricalLocation automatically by the service, and shall not be created as HistoricalLocation directly by user.
 
 part:: When a user directly adds new HistoricalLocation, and the time of this new HistoricalLocation is later than the latest HistoricalLocation for the Thing, then the Locations of the Thing are changed to the Locations of this new HistoricalLocation.
 ====
@@ -462,8 +462,8 @@ HistoricalLocation should then record the individual Locations of the drone over
 
 
 The HistoricalLocation can also be created, updated and deleted.
-One use case is to migrate historical observation data from an existing observation data management system to a SensorThings API system.
-Another use case is to track the Location of a Thing, when a permanent network connection is not available.
+A use case is to migrate historical observation data from an existing observation data management system to a SensorThings API enabled system.
+Another use case is to track the Location of a Thing when a permanent network connection is not available.
 If the Location of a Thing is changed at a later time, when a network connection is available again, then the auto-generated Time of the HistoricalLocation entity would not reflect the time when the Thing was actually at the set Location, but only the time at which the change was sent to the server.
 To resolve this, the Location of a Thing can also be changed by adding a HistoricalLocation.
 If the time of a manually created HistoricalLocation is later than the time of all existing HistoricalLocations, then the Location of the Thing is updated to the Location of this manually created HistoricalLocation.
@@ -501,13 +501,11 @@ If the time of a manually created HistoricalLocation is later than the time of a
 
 | Locations
 | The Locations for this HistoricalLocation.
-One HistoricalLocation SHALL have at least one Location.
 | `Location`
 | 1..*
 
 | Thing
 | The Thing this HistoricalLocation positions in time.
-A HistoricalLocation has exactly one Thing.
 | `Thing`
 | 1
 |====
@@ -539,9 +537,13 @@ A HistoricalLocation has exactly one Thing.
 [%metadata]
 identifier:: {identifier}/req/datamodel/core/datastream
 
-part:: Each Datastream entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<datastream-attributes>>.
+part:: Each Datastream entity shall have the mandatory attributes attributes listed in <<datastream-attributes>>.
 
-part:: Each Datastream entity SHALL have the direct relation between a Datastream entity and other entity types listed in <<datastream-relations>>.
+part:: Each Datastream entity may have the optional attributes listed in <<datastream-attributes>>.
+
+part:: Each Datastream entity shall have the direct relation between a Datastream entity and other entity types listed in <<datastream-relations>>.
+
+part:: The service shall ensure the linked ObservedProperties match the definitions used in the `resultType`.
 ====
 
 
@@ -575,18 +577,17 @@ If samples are taken, these samples are the ProximateFeatureOfInterest linked di
 | 1
 
 | `name`
-| A property provides a label for Datastream entity, commonly a descriptive name.
+| The name attribute provides a label for Datastream entity, commonly a descriptive name.
 | String
 | 1
 
 | `definition`
 | The URI linking the Datastream to an external definition.
-Dereferencing this URI SHOULD result in a representation of the definition of the Datastream.
 | URI
 | 0..1
 
 | `description`
-| The description of the Datastream entity.
+| Description of the Datastream entity.
 | String
 | 0..1
 
@@ -603,7 +604,7 @@ The default encoding, used when this attribute is null or empty, is `JSONEncodin
 | 0..1
 
 | `observedArea`
-| The spatial bounding box of the spatial extent of the Feature that belong to the Observations associated with this Datastream.
+| The spatial bounding box of the spatial extent of the Features that belong to the Observations associated with this Datastream.
 This is usually generated by the server.
 | Geometry
 | 0..1
@@ -650,7 +651,7 @@ TM_Period is by default encoded as a complex type with a start (mandatory) and e
 
 | `ObservedProperty`
 | The ObservedProperty of the Observations in this Datastream.
-The Observations in a Datastream may hold values for multiple ObservedProperties, but the ObservedProperties are the same for all Observations in the same Datastream.
+The Observations in a Datastream can hold values for multiple ObservedProperties, but the ObservedProperties are the same for all Observations in the same Datastream.
 The service must ensure the linked ObservedProperties match the definitions used in the `resultType`.
 | `ObservedProperty`
 | 1..*
@@ -672,7 +673,7 @@ The service must ensure the linked ObservedProperties match the definitions used
 |====
 
 
-The resultType defines the result types for specialized single and multi observations based on the JSON encoding of the SWE Common Data Model (<<ogc08-094>> and <<ogc17-011>>, or, once released: <<SweCommon>>).
+The resultType defines the result types for specialized single and multi observations based on the JSON encoding of the SWE Common Data Model (<<SweCommon>>).
 The result of an Observation may be a single simple number or String, or it may contain a complex JSON structure holding multiple values for multiple ObservedProperties.
 The exact definition for this result structure, and which unit of measurement and which ObservedProperty pertains to each value in the result structure is exactly described by this resultType Object.
 
@@ -683,14 +684,12 @@ The values of the definition attributes in the resultType must be valid entity-i
 The structure of the resultType must not be changed once a Datastream has Observations, since the existing Observations would not fit the new structure.
 
 
-EDITOR: Update reference to new SWE-Common: 24-014
-
 In most cases each Observation holds a single numeric result value, measured by a single Sensor.
 In this case the resultType is of the SWE-Common class `Quantity` (though a number could also be a `Count`) and thus must have the attributes `type`, `definition`, `label`, and `uom`.
 
 - The `type` attribute defines the type of the result and has the value `Quantity`.
 - The `definition` must be the same as the `definition` attribute in the single ObservedProperty linked to the Datastream.
-- The `uom` attribute contains the unit of measurement, and is an object that must contain either a `code` attribute with the UCUM code of the unit, or a `href` attribute with a URI pointing to a unit definition.
+- The `uom` attribute contains the unit of measurement and is an object that must contain either a `code` attribute with the UCUM code of the unit, or a `href` attribute with a URI pointing to a unit definition.
 It may also contain the `label` and `symbol` attributes that can be displayed in user interfaces.
 - The `label` attribute is somewhat redundant in this case, but since it is mandatory it can be set to the same value as the ObservedProperty `name`.
 
@@ -724,7 +723,7 @@ It may also contain the `label` and `symbol` attributes that can be displayed in
 
 Another common type of result is a value from a key list.
 An example would be an Observation of the current weather as `Fair` or `Overcast`, or the geological dating of a rock sample to be `Jurassic`.
-In the latter case, the code space that defines the values could be the Sweet ontology.
+In the latter case, the code space that defines the values could be the SWEET footnote:[https://earthportal.eu/ontologies/SWEET] ontology.
 In this example the resultType is a `Category` and thus must have the attributes `type`, `definition`, `label`, and `codeSpace`.
 
 - The `type` attribute defines the type of the result and has the value `Category`.
@@ -878,13 +877,15 @@ The example below specifies a modified JSONEncoding, to mimic the result encodin
 [%metadata]
 identifier:: {identifier}/req/datamodel/core/sensor
 
-part:: Each Sensor entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<sensor-attributes>>.
+part:: Each Sensor entity shall have the mandatory attributes listed in <<sensor-attributes>>.
 
-part:: Each Sensor entity SHALL have the direct relation between a Sensor entity and other entity types listed in <<sensor-relations>>.
+part:: Each Sensor entity may have the optional attributes listed in <<sensor-attributes>>.
+
+part:: Each Sensor entity shall have the direct relation between a Sensor entity and other entity types listed in <<sensor-relations>>.
 ====
 
 A Sensor is an entity that observes a property or phenomenon with the goal of producing an estimate of the value of the property.
-A Sensor may represent a piece of hardware, but a Sensor may also be a human or an algorithm implemented in sofware.
+A Sensor may represent a piece of hardware, but a Sensor may also be a human or an algorithm implemented in software.
 
 A Sensor entity in a SensorThings API deployment can represent either a specific sensor instance, or a more generic sensor type.
 The distinction is generally quite clear from the Sensor metadata.
@@ -906,30 +907,29 @@ Does the entity have detailed metadata that is specific to a sensor instance, li
 | 1
 
 | `name`
-| A property provides a label for Sensor entity, commonly a descriptive name.
+| The name attribute provides a label for a Sensor entity, commonly a descriptive name.
 | String
 | 1
 
 | `definition`
 | The URI linking the Thing to an external definition.
-Dereferencing this URI SHOULD result in a representation of the definition of the Thing.
 | URI
 | 0..1
 
 | `description`
-| The description of the Sensor entity.
+| Description of the Sensor entity.
 | String
 | 0..1
 
 | `encodingType`
-| The encoding type of the metadata property.
+| The encoding type of the metadata attribute.
 If the metadata field is present, an encodingType must be specified.
 See <<sensor-encodingType-value-codes>> for some suggested values.
 | IANA-MediaType
 | 0..1
 
 | `metadata`
-| The detailed description of the Sensor or system.
+| Detailed description of the Sensor or system.
 The metadata type is defined by encodingType.
 | String
 | 0..1
@@ -972,8 +972,8 @@ The metadata type is defined by encodingType.
 |====
 
 
-The Sensor encodingType allows clients to know how to interpret the metadata value.
-Note that the metadata property may contain either a URL to metadata content (e.g., an `https://`, `ftp://`, etc. link to a PDF, SensorML, or HTML document) or the metadata content itself (in the case of text/plain or other encodingTypes that can be represented as valid JSON).
+The Sensor encodingType enables clients to know how to interpret the metadata value.
+Note that the metadata attribute may contain either a URL to metadata content (e.g., an `https://`, `ftp://`, etc. link to a PDF, SensorML, or HTML document) or the metadata content itself (in the case of text/plain or other encodingTypes that can be represented as valid JSON).
 It is up to clients to perform string parsing necessary to properly handle metadata content.
 
 
@@ -1004,12 +1004,14 @@ It is up to clients to perform string parsing necessary to properly handle metad
 [%metadata]
 identifier:: {identifier}/req/datamodel/core/observed-property
 
-part:: Each ObservedProperty entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<observed-property-attributes>>.
+part:: Each ObservedProperty entity shall have the mandatory attributes listed in <<observed-property-attributes>>.
 
-part:: Each ObservedProperty entity SHALL have the direct relation between an ObservedProperty entity and other entity types listed in <<observed-property-relations>>.
+part:: Each ObservedProperty entity may have the optional attributes listed in <<observed-property-attributes>>.
+
+part:: Each ObservedProperty entity shall have the direct relation between an ObservedProperty entity and other entity types listed in <<observed-property-relations>>.
 ====
 
-An ObservedProperty is a property of a Feature that is being observed by a Sensor, such as temperature, humidity, population count or colour.
+An ObservedProperty is a property of a Feature that is being observed by a Sensor, such as temperature, humidity, population count or color.
 It should be uniquely identified by its `definition`, which should point to an external vocabulary by means of a URL, URI or DID.
 
 
@@ -1028,19 +1030,17 @@ It should be uniquely identified by its `definition`, which should point to an e
 | 1
 
 | `name`
-| A property provides a label for ObservedProperty  entity, commonly a descriptive name.
+| The name attribute provides a label for an ObservedProperty  entity, commonly a descriptive name.
 | String
 | 1
 
 | `definition`
 | The URI of the ObservedProperty.
-Dereferencing this URI SHOULD result in a representation of the definition of the ObservedProperty.
-The definition SHOULD be unique in a service.
 | URI
 | 1
 
 | `description`
-| A description about the ObservedProperty.
+| Description of the ObservedProperty.
 | String
 | 0..1
 
@@ -1098,9 +1098,13 @@ The definition SHOULD be unique in a service.
 [%metadata]
 identifier:: {identifier}/req/datamodel/core/observation
 
-part:: Each Observation entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<observation-attributes>>.
+part:: Each Observation entity shall have the mandatory attributes listed in <<observation-attributes>>.
 
-part:: Each Observation entity SHALL have the direct relation between an Observation entity and other entity types listed in <<observation-relations>>.
+part:: Each Observation entity may have the optional attributes listed in <<observation-attributes>>.
+
+part:: Each Observation entity shall have the direct relation between an Observation entity and other entity types listed in <<observation-relations>>.
+
+part:: When a service receives a POST Observations without phenomenonTime, the service shall assign the current server time to the value of the phenomenonTime.
 ====
 
 
@@ -1126,8 +1130,7 @@ This value can be of any type, as described by the resultType of the Datastream 
 | The time instant or period of when the Observation happens.
 
 Note: Many resource-constrained sensing devices do not have a clock.
-As a result, a client may omit phenomenonTime when POST new Observations, even though phenomenonTime is a mandatory property.
-When a SensorThings service receives a POST Observations without phenomenonTime, the service SHALL assign the current server time to the value of the phenomenonTime
+As a result, a client may omit phenomenonTime when POST new Observations, even though phenomenonTime is a mandatory attribute.
 | TM_Object
 | 1
 
@@ -1180,12 +1183,13 @@ This means it always describes a time interval with fixed starting and ending in
 |====
 
 An Observation can be directly linked to a Feature, through the relation `ProximateFeatureOfInterest`.
-Features linked to an Observation in this way are generally samples, either real, physical ones, like water samples taken from a river, or transient ones, to fix the place that a moving Thing happended to be in, when it made a measurement.
+Features linked to an Observation in this way are generally samples, either real, physical ones.
+Examples are water samples taken from a river, or the place that a moving Thing happened to be in, when it made a measurement.
 
-In case the Feature is a domain object, like a river, a building, or a plot of land, the Feature is indirectly linked to the Observation through the `UltimateFeatureOfInterest` or `ProximateFeatureOfInterest` relations on the Datastream.
+In case the Feature is a domain object, such as a river, a building, or a plot of land, the Feature is indirectly linked to the Observation through the `UltimateFeatureOfInterest` or `ProximateFeatureOfInterest` relations on the Datastream.
 It is also possible for all relations to exist, in which case the `ProximateFeatureOfInterest` of the Observation is a sample of the `ProximateFeatureOfInterest` of the Datastream, which is, in turn, a part of the `UltimateFeatureOfInterest`.
 
-A third case is possible, when the target of the observation is (a sub-part of) the Thing itself.
+A third case is possible: When the target of the observation is (a sub-part of) the Thing itself.
 For instance, when the Observation is on the battery-level of a drone.
 In this case neither the `ProximateFeatureOfInterest` on the Observation, nor the `ProximateFeatureOfInterest` or `UltimateFeatureOfInterest` relations on the Datastream need to be set.
 
@@ -1220,29 +1224,31 @@ In this case neither the `ProximateFeatureOfInterest` on the Observation, nor th
 [%metadata]
 identifier:: {identifier}/req/datamodel/core/feature
 
-part:: Each Feature entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<feature-attributes>>.
+part:: Each Feature entity shall have the mandatory attributes listed in <<feature-attributes>>.
 
-part:: Each Feature entity SHALL have the direct relation between a Feature entity and other entity types listed in <<feature-relations>>.
+part:: Each Feature entity may have the optional attributes listed in <<feature-attributes>>.
+
+part:: Each Feature entity shall have the direct relation between a Feature entity and other entity types listed in <<feature-relations>>.
 ====
 
 
 An Observation assigns a value to a property of a subject by applying an ObservingProcedure.
 The subject is the Feature that can take the role of ProximateFeatureOfInterest or UltimateFeatureOfInterest of the Observation [<<OgcOMS>> and <<IsoOMS>>].
-In cases where estimating the value of a property of interest is not possible directly, a proxy feature MAY be used.
+In cases where estimating the value of a property of interest is not possible directly, a proxy feature is used.
 Such an application typically requires taking a sample of the UltimateFeatureOfInterest such that this sample, the ProximateFeatureOfInterest, represents an approximation of the domain feature.
 
 Some examples of features are:
 
-- The Ultimate Feature of a WiFi enabled thermostat, with a built-in temperature sensor, can be the room that the thermostat monitors.
-The exact position of the themostat is captured in a Location entity of the Thing representing the thermostat.
+- The Ultimate Feature of a WiFi enabled thermostat, with a built-in temperature sensor, could be the room that the thermostat monitors.
+The exact position of the thermostat is captured in a Location entity of the Thing representing the thermostat.
 
 - In the case of water quality monitoring, water samples are taken from a river at a specific sampling location.
-The water sample, the sampling location and the river are all Features.
+The water sample, the sampling location, and the river are all Features.
 The river is the UltimateFeatureOfInterest attached to the Datastreams of the Observations taken on the sample.
 The sampling location is the ProximateFeatureOfInterest attached to the Datastreams of the Observations taken on the sample.
 Finally, the sample is the ProximateFeatureOfInterest directly attached to the various Observations.
 
-- In the case of remote sensing, the Feature observed can be the individual geographical parcel or swath that is being sensed, while the Location entity captures the position of the device (drone, sattellite) that hosts the sensors.
+- In the case of remote sensing, the Feature observed can be the individual geographical parcel or swath that is being sensed, while the Location entity captures the position of the device (drone, satellite) that hosts the sensors.
 
 
 
@@ -1261,23 +1267,22 @@ Finally, the sample is the ProximateFeatureOfInterest directly attached to the v
 | 1
 
 | `name`
-| A property provides a label for Feature entity, commonly a descriptive name.
+| The name attribute provides a label for a Feature entity, commonly a descriptive name.
 | String
 | 1
 
 | `definition`
 | The URI linking the Feature to an external definition.
-Dereferencing this URI SHOULD result in a representation of the definition of the Feature.
 | URI
 | 0..1
 
 | `description`
-| The description about the Feature
+| Description of the Feature.
 | String
 | 0..1
 
 | `encodingType`
-| The encoding type of the feature property.
+| The encoding type of the feature attribute.
 See <<location-encodingType-value-codes>> for some suggested values.
 | IANA-MediaType
 | 1
@@ -1375,14 +1380,16 @@ The data type is defined by encodingType.
 [%metadata]
 identifier:: {identifier}/req/datamodel/core/feature-type
 
-part:: Each FeatureType entity SHALL have the mandatory attributes and MAY have the optional attributes listed in <<feature-type-attributes>>.
+part:: Each FeatureType entity shall have the mandatory attributes listed in <<feature-type-attributes>>.
 
-part:: Each FeatureType entity SHALL have the direct relation between a FeatureType entity and other entity types listed in <<feature-type-relations>>.
+part:: Each FeatureType entity may have the optional attributes listed in <<feature-type-attributes>>.
+
+part:: Each FeatureType entity shall have the direct relation between a FeatureType entity and other entity types listed in <<feature-type-relations>>.
 ====
 
 
 The type or types of each Feature can be specified using the FeatureType class.
-The `definition` attribute of the FeatureType should point to an external registry or code list, that defines the Type.
+The `definition` attribute of the FeatureType can be used to point to an external registry or code list, that defines the Type.
 
 
 [#feature-type-attributes,reftext='{table-caption} {counter:table-num}']
@@ -1400,18 +1407,17 @@ The `definition` attribute of the FeatureType should point to an external regist
 | 1
 
 | `name`
-| A property provides a label for Feature entity, commonly a descriptive name.
+| The name attribute provides a label for a FeatureType entity, commonly a descriptive name.
 | String
 | 1
 
 | `definition`
-| The URI the defines this FeatureType.
-Dereferencing this URI SHOULD result in a representation of the definition of the FeatureType.
+| The URI that defines this FeatureType.
 | URI
 | 0..1
 
 | `description`
-| The description about the Feature
+| Description of the FeatureType.
 | String
 | 0..1
 

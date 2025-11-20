@@ -1,12 +1,12 @@
 [[OData-Entity-Model]]
 === OData Entity Model
 
-Every OData service utilizes an entity model which MAY be distributed over several schemas.
+Every OData service utilizes an entity model which can be distributed over several schemas.
 The service describes this model through a metadata document accessible by a simple HTTP _GET_ request to the `<serviceRoot>/$metadata` path.
-This chapter describes an overview of the types of entities in the metadata document that will be used to describe the SensorThings API data model and its data model extensions.
+This Clause describes an overview of the types of entities in the metadata document that will be used to describe the SensorThings API data model and its data model extensions.
 The entities listed below are also used to describe the REST and MQTT bindings of the SensorThings API service.
 
-This section is base on:
+The contents of this Clause are based on:
 
 * https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_DataModel 
 * https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_EntityModel
@@ -15,14 +15,16 @@ NOTE: The OData specification uses the term "property". To avoid confusion with 
 
 The entity model consists of the following elements:
 
-* `Entity Type`: named, structured, keyed element that defines the attributes and relations of Entities.
-  The key of an Entity Type consists of one or more primitive attributes of the Entity Type.
-* `Entity`: instance of an `Entity Type`.
+* `Keyed element`: Element that has a key that uniquely identifies an instance of this element amongst other instances of the same type of element.
+* `Entity Type`: Named, structured, keyed element that defines the attributes and relations of Entities.
+  The key for an Entity Type consists of one or more primitive attributes of the Entity Type.
+* `Entity`: Instance of an `Entity Type`.
   An Entity can have only one Entity Type.
-* `Primitive Type`: unnamed, unstructured type, such as String, Integer or DateTime. The full list can be found at:
+* `Primitive Type`: Unnamed, unstructured type, such as String, Integer or DateTime.
+  The full list can be found at:
   https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_PrimitiveTypes
   An attribute with a Primitive Type is called a primitive attribute.
-* `Complex Type`: named, structured, keyless, element consisting of a set of named attributes.
+* `Complex Type`: Named, structured, keyless, element consisting of a set of named attributes.
   Instances of Complex Types can not be accessed outside of the Entity they are contained in.
   An attribute with a Complex Type is called a complex attribute.
   Examples of complex types / complex attributes are:
@@ -30,18 +32,18 @@ The entity model consists of the following elements:
   ** TM_Object (Observation/resultTime): The complex type TM_Interval has mandatory declared attribute `start` and optional declared attribute `end`.
   ** JSON_Object (properties): The complex type JSON_Object is an open type with no declared attributes.
     That means users can add any attributes they see fit.
-* `Relation`: named connections between Entities.
+* `Relation`: Named connections between Entities.
   Relations are defined as `navigation attributes` in Entity Types.
   Relations have a cardinality.
-* `Attributes`: named elements that are part of structured types (Entity Types and Complex Types).
+* `Attributes`: Named elements that are part of structured types (Entity Types and Complex Types).
   Attributes can be Primitive-, Complex- or Navigation attributes.
   Attributes defined as part of a structured type (Entity/Complex Type) are `declared attributes`.
   A structured type can allow attributes that are added dynamically, as long as these `dynamic attributes` do not have the same name as a declared attribute.
   Structured types that allow dynamic attributes are called `Open Types`.
-* `Entity Set`: a named collection of Entities of the same `Entity Type`.
+* `Entity Set`: A named collection of Entities of the same `Entity Type`.
   Each Entity is uniquely identified among other Entities in the same Entity Set, by its key.
   Entity Sets are the entry points into the data model.
-* `Annotation`: additional information attached to model or instance elements.
+* `Annotation`: Additional information attached to model or instance elements.
   annotations can be identified by the `@` character.
   If the annotation starts with the `@` character, then the annotation pertains to the object containing the annotation.
   If the annotation has an attribute name before the `@` charater, then the annotation pertains the attribute with that name.
@@ -49,7 +51,7 @@ The entity model consists of the following elements:
   A client can ignore any annotations it does not understand.
   The default annotations can be found in <<tab-common-control-annotations>>.
   Additional annotations may be defined in the service metadata.
-* `EntityId`: a globally unique identifier for an Entity.
+* `EntityId`: A globally unique identifier for an Entity.
   If present in Entity representations, the EntityId is specified in the `@id` annotation.
 
 Each Entity has a primary key that is composed of one or more of the `declared attributes` of the entity type.
@@ -77,7 +79,7 @@ See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-
 
 |@id
 |The annotation `@id` is the `entity-id`, an absolute or relative URL of an entity that uniquely resolves to this entity.
-This is was known as the `@selfLink` in SensorThings version 1.
+This was known as the `@selfLink` in SensorThings version 1.
 |URL
 
 |@count
@@ -248,7 +250,9 @@ Encoding rules for constants in resource paths and query options are listed in <
 `-42`
 
 | Datetime
-| Not quoted ISO8601 time with timezone. Special characters (`+`) must be URL-Encoded.
+| ISO8601 time with timezone.
+  Datetimes are not quoted.
+  Special characters (`+`) must be URL-Encoded.
 | `2012-12-03T07:16:23Z` +
 `2012-12-03T07:16:23%2B08:00`
 
@@ -262,15 +266,15 @@ Encoding rules for constants in resource paths and query options are listed in <
 | `null`
 
 | Time Duration
-| the keyword `duration` followed by an ISO8601 Druation in single quotes.
+| The keyword `duration` followed by an ISO8601 Druation in single quotes.
 | `duration'P1DT30M'`
 
 | Geometry
-| the keyword `geometry` followed by WKT in single quotes.
+| The keyword `geometry` followed by Well Known Text (WKT) in single quotes.
 | `geometry'POINT(-122 43)'`
 
 | Geography
-| the keyword `geography` followed by WKT in single quotes.
+| The keyword `geography` followed by WKT in single quotes.
 | `geography'POINT(-122 43)'`
 |====
 

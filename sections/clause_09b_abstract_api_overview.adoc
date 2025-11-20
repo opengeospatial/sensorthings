@@ -3,11 +3,11 @@
 
 ==== Introduction
 
-URL Patterns in the SensorThings API consist of four parts: the Service Root, the API version number, the resource path and query options.
+URL Patterns as defined in the SensorThings API Standard consist of four parts: the Service Root, the STA API version number, the resource path and query options.
 
 The service root URL:: the free to chose base path of the service.
 The API version number:: encoded as: `"v" + majorversionnumber + "." + minorversionnumber`.
-The resource path:: consists of zero to many parts separated with by the slash (`/`) character.
+The resource path:: consists of zero to many parts separated by the slash (`/`) character.
 Resource paths are case sensitive.
 The query options:: start with a question mark (`?`) character.
 At the top level, query options are separated with the ampersant (`&`) character.
@@ -36,7 +36,7 @@ root Topic             resource path           query options
 
 URL Pattern: `<Service Root>/v2.0`
 
-Requests to the URL pattern consisting of just the version number, optionally followed by a slash (`/`) address the service document.
+The URL pattern consisting of just the version number, optionally followed by a slash (`/`), addresses the service document.
 The service document content is described in <<read_service_document>>.
 
 
@@ -45,7 +45,7 @@ The service document content is described in <<read_service_document>>.
 
 URL Pattern: `<Service Root>/v2.0/$metadata`
 
-Requests to the URL pattern consisting of the API version number followed by `/$metadata` address the service metadata document that describes the data model that the service exposes.
+The URL pattern consisting of the STA API version number followed by `/$metadata` addresses the service metadata document that describes the data model that the service exposes.
 The service metadata document is described in <<OData-CSDL>>.
 
 
@@ -54,7 +54,7 @@ The service metadata document is described in <<OData-CSDL>>.
 
 URL Pattern: `<Service Root>/v2.0/EntityTypeName`
 
-Requests to a URL pattern consisting of the API version number followed by `/` and the name of an entity type address the set of all entities of the requested type.
+The URL pattern consisting of the STA API version number followed by `/` and the name of an entity type addresses the set of all entities of the requested type.
 
 .Resource pattern for the Datastreams Entity Set
 [source,text]
@@ -68,7 +68,8 @@ Requests to a URL pattern consisting of the API version number followed by `/` a
 
 URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)`
 
-Requests to a URL pattern consisting of the name of an EntitySet URL, followed by, in brackets, a primary key value fitting the entity type of the set, address the single Entity from the set, that has the given primary key.
+The URL pattern consisting of the name of an EntitySet URL, followed by, in brackets, a primary key value, addresses the single Entity from the set, that has the given primary key.
+
 
 .Resource pattern for a specific Datastream, for a service that uses Integers for the id field of Datastreams
 [source,text]
@@ -88,7 +89,7 @@ Requests to a URL pattern consisting of the name of an EntitySet URL, followed b
 
 URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/entityAttribute`
 
-Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Attribute, address the value of this Entity Attribute of the base Entity.
+The URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Attribute, addresses the value of this Entity Attribute of the base Entity.
 The used URL for the base entity may itself be a related entity URL.
 
 .Resource pattern for the name of a specific Datastream
@@ -109,8 +110,8 @@ The used URL for the base entity may itself be a related entity URL.
 
 URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/entityAttribute/$value`
 
-Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Attribute, followed by `/$value`, address the raw value of this Entity Attribute of the base Entity.
-The used URL for the base entity may itself be a related entity URL.
+The URL pattern consisting of a URL that addresses an Entity (the base entity), followed by an Entity Attribute, followed by `/$value`, addresses the raw value of this Entity Attribute of the base Entity.
+The URL used for the base entity may itself be a related entity URL.
 
 .Resource pattern for the raw name of a specific Datastream
 [source,text]
@@ -130,8 +131,8 @@ The used URL for the base entity may itself be a related entity URL.
 
 URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntityNavigationAttribute`
 
-Requests to a URL pattern consisting of a URL that return an Entity (the base entity), followed by a navigation attribute with a cardinality of one, address the related entity of the base entity.
-The used URL for the base entity may itself be a related entity URL.
+The URL pattern consisting of a URL that returns an Entity (the base entity), followed by a navigation attribute with a cardinality of one, addresses the related entity of the base entity.
+The URL used for the base entity may itself be a related entity URL.
 
 
 .Resource pattern for the Thing of a specific Datastream
@@ -152,8 +153,8 @@ The used URL for the base entity may itself be a related entity URL.
 
 URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/EntitySetNavigationAttribute`
 
-Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation attribute with a cardinality of many, address the related EntitySet of the base entity.
-The used URL for the base entity may itself be a related entity URL.
+The URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation attribute with a cardinality of many, addresses the related EntitySet of the base entity.
+The URL used for the base entity may itself be a related entity URL.
 
 .Resource pattern for the Observations of a specific Datastream
 [source,text]
@@ -173,7 +174,7 @@ The used URL for the base entity may itself be a related entity URL.
 
 URL Pattern: `<Service Root>/v2.0/EntityTypeName(<primaryKey>)/NavigationAttribute/$ref`
 
-Requests to a URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation attribute, followed by `/$ref`, address the entity-id(s) of the related entity or entities of the given navigation attribute.
+The URL pattern consisting of a URL that addresses an Entity (the base entity), followed by a navigation attribute, followed by `/$ref`, addresses the entity-id(s) of the related entity or entities of the given navigation attribute.
 
 .Resource pattern for the association link of the Thing of a specific Datastream
 [source,text]
@@ -187,7 +188,7 @@ Requests to a URL pattern consisting of a URL that addresses an Entity (the base
 <Service Root>/v2.0/Datastreams(4)/Observations/$ref
 ----
 
-For navigation attribute with a cardinality of many, the navigation attribute may be followed by a primary-key in brackets, to address the specific association between the base entity and the related entity.
+For navigation attributes with a cardinality of many, the navigation attribute may be followed by a primary-key in brackets, to address the specific association between the base entity and the related entity.
 
 .Resource pattern for the association link between a specific Datastream and a specific Observation
 [source,text]
@@ -230,7 +231,7 @@ Delete:: Remove the resource.
 
 Execute:: Execute an function on a resource.
 
-NOTE: The Execute request type is not used in the core SensorThings API standard, but may be used in extensions.
+NOTE: The `Execute` request type is not used in the core SensorThings API Standard but may be used in extensions.
 
 
 [[additional_request_parameters]]
@@ -238,10 +239,10 @@ NOTE: The Execute request type is not used in the core SensorThings API standard
 
 Besides the query options, there are a few other request parameters that are used to convey information between client and server.
 
-Content-Type:: Used to indicate the type of the content that is being transferred.
+Content-Type:: Used to indicate the type of content that is being transferred.
 
-Prefer:: Analogous to <<RFC7240>>, used by a client to indicate how it prefers the server to respond to modification requests.
+Prefer:: Analogous to <<RFC7240>>, used by a client to indicate how the server should respond to modification requests.
 
-Location:: Used by the server to convey the self link of a newly created entity.
+Location:: Used by the server to convey the self-link of a newly created entity.
 
 

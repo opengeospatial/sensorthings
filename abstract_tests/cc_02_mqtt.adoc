@@ -26,7 +26,7 @@ test-method::
 For each request-response binding:
 . Construct a path for the service document.
 . Issue a Read request on that path.
-. Validate that the mqtt binding is advertised, and endpoints are set.
+. Validate that the MQTT binding is advertised, and endpoints are set.
 
 ====
 
@@ -37,12 +37,12 @@ For each request-response binding:
 identifier:: {identifier}/conf/binding/mqtt/request_response
 target:: {identifier}/req/binding/mqtt/request_response
 inherit:: {identifier}/conf-class/api/abstract
-test-purpose:: Validate that the MQTT interface implements the request-reponse API.
+test-purpose:: Validate that the MQTT interface implements the request-response API.
 test-method::
 
 . execute an MQTT read request for the path for the service document.
 . Validate that a service document is returned.
-. Validate that the service document contains the request-responce requirement.
+. Validate that the service document contains the request-response requirement.
 
 ====
 
@@ -52,7 +52,7 @@ test-method::
 [%metadata]
 identifier:: {identifier}/conf/binding/mqtt/pub_sub
 target:: {identifier}/req/binding/mqtt/pub_sub
-test-purpose:: Validate that the MQTT interface implements the pub-sub API.
+test-purpose:: Validate that the MQTT interface implements the publish-subscribe bindings described in <<mqtt_publish_subscribe>>.
 test-method::
 
 
@@ -115,7 +115,7 @@ test-method::
 
 . For a variety of paths that address an entity or entity set
 .. Subscribe to the path with MQTT Subscribe, expanding one or more navigation properties using `$expand`,
-.. create a new entity in the subscribed entity set, or update the subscribed entity.
+.. create a new entity in the subscribed entity set or update the subscribed entity.
 .. Check if the JSON representation of the entity, received through MQTT, contains the expanded relation.
 
 ====

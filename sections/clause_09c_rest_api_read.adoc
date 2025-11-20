@@ -65,14 +65,15 @@ A read Requests to the Service Document URL pattern (<<pattern_service_metadata_
 A read Requests to the Service Document URL pattern (<<pattern_service_document>>) returns the service document.
 The Service document is a JSON object with attributes named `@context`, `value`, `serverSettings`.
 
-The `@context` attribute SHALL contain the <<context_url>>; the URL of the OData context document that describes the data model and entry points of the service.
+The `@context` attribute SHALL contain the Context URL (<<context_url>>): The URL of the OData context document that describes the data model and entry points of the service.
 
 The content of the attribute named `value` SHALL be a JSON Array containing one element for each entity set of the SensorThings Service.
-Each element of the `value` array SHALL be a JSON object with at least two name/value pairs, one with name `name` containing the name of the entity set (e.g., Things, Locations, etc.) and one with name `url` containing the URL of the entity set, which may be an absolute or a relative URL.
-(Adapted from OData 4.01-JSON-Format section 5)
+Each element of the `value` array SHALL be a JSON object with at least two name/value pairs. One element has the name `name` containing the name of the entity set (e.g., Things, Locations, etc.) and one element has the name `url` containing the URL of the entity set, which may be an absolute or a relative URL.
+
+Note: Adapted from <<ODATAJSON, section 5>>
 
 The content of the attribute named `serverSettings` SHALL be a JSON Object describing the features the server supports that can not easily be detected by querying the service.
-The serverSettings object SHALL contain the attribute `conformance` of the type Array. It containing the URIs of all requirements classes and optional requirements that the service implements.
+The serverSettings object SHALL contain the attribute `conformance` of the type Array. It contains the URIs of all requirements classes and optional requirements that the service implements.
 Security extensions can modify the list of requirements to only show those requirements that the user is allowed to use.
 For example, if a user is not allowed to delete entities, the security extension can hide the create-update-delete/delete-entity requirement.
 In the most extreme case, a security extension would hide all requirements for a user that is not authenticated, except its own requirement and the instructions on how to authenticate.
@@ -312,8 +313,8 @@ Read requests can be modified using various query options. Query options are add
 [[read_options_precedence]]
 ===== Evaluation Order
 
-The OGC SensorThings API adapts many of OData's system query options and their usage.
-These query options allow refining the request.
+The OGC SensorThings API Standard adapts many of OData's system query options and their usage.
+These query options support refining the request.
 The result of the service request is as if the system query options were evaluated in the following order.
 
 Prior to applying any server-driven pagination:
@@ -352,7 +353,7 @@ In the response, the service SHALL return the specified content, if available.
 Expanded navigation attributes do not need to be added to the `$select` list, they SHALL always be included in the response.
 The `$select` option can be applied to any request that returns an Entity or an EntitySet.
 
-Note: Adapted from OData 4.01-Protocol 11.2.5.1
+Note: Adapted from <<ODATAP1, section 11.2.5.1>>
 
 .Resource pattern returning only the `id` and `name` of the Entities in the Things EntitySet.
 [source,text]
@@ -377,7 +378,7 @@ It is quite useful to give Entities common attributes, like a “type”.
 But when filtering on such a common attribute the client needs to know what the used values are.
 Distinct select allows a client to request all distinct values for a field or a set of fields.
 
-Distinct select can be used in expands, and can be ordered.
+Distinct select can be used in expands and can be ordered.
 When combining $orderby with a distinct select, it is only possible to order by the exact fields that are selected.
 
 Note that selecting distinct values for the primary key field (`id`) makes no sense, since this field is unique for each entity.
@@ -428,7 +429,7 @@ Expanded navigation attributes do not need to be added to `$select`, they are im
 
 The `$expand` option can be applied to any request that returns an Entity or an EntitySet.
 
-Note: Adapted from OData 4.01-Protocol 11.2.5.2
+Note: Adapted from <<ODATAP1, section 11.2.5.2>>
 
 .Resource pattern returning Things, with their Datastreams, and the ObservedProperty for each Datastream.
 [source,text]
@@ -464,7 +465,7 @@ If no unique ordering is imposed through an $orderby query option, the service S
 
 In addition, if the `$top` value exceeds the service-driven pagination limitation (i.e., the largest number of entities the service can return in a single response), the `$top` query option SHALL be discarded and the server-side pagination limitation SHALL be imposed.
 
-Note: Adapted from OData 4.01-Protocol 11.2.6.3
+Note: Adapted from <<ODATAP2, section 11.2.6.3>>
 
 .Resource pattern returning only the first five entities in the Things EntitySet.
 [source,text]
@@ -497,7 +498,7 @@ The value of `$skip` system query option SHALL be a non-negative integer n.
 The service SHALL return items starting at position n+1.
 If no unique ordering is imposed through an `$orderby` query option, the service SHALL impose a stable ordering across requests that include `$skip`.
 
-Note: Adapted from OData 4.01-Protocol 11.2.6.4
+Note: Adapted from <<ODATAP1, section 11.2.6.4>>
 
 .Resource pattern returning Thing entities starting with the sixth Thing entity in the Things EntitySet.
 [source,text]
@@ -532,12 +533,12 @@ The service SHALL reject the request and inform the client that the request is m
 
 The `$count` system query option SHALL ignore any `$top`, `$skip`, or `$expand` query options, and SHALL return the total count of results across all pages including only those results matching any specified `$filter`.
 
-Clients should be aware that the count returned inline may not exactly equal the actual number of items returned, due to latency between calculating the count and enumerating the last value or due to inexact calculations on the service.
+Clients should be aware that the count returned in line may not exactly equal the actual number of items returned, due to latency between calculating the count and enumerating the last value or due to inexact calculations on the service.
 
 For requests to an EntitySet, the count is returned in the `@count` attribute of the returned object.
 When a count is requested on an expanded EntitySet, the count is returned in the `<navigationlink name>@count` attribute of the containing Entity.
 
-Note: Adapted from OData 4.01-Protocol 11.2.6.5
+Note: Adapted from <<ODATAP1, section 11.2.6.5>>
 
 
 [requirement]
@@ -564,7 +565,7 @@ Null values SHALL come before non-null values when sorting in ascending order an
 
 Items SHALL be sorted by the result values of the first expression, and then items with the same value for the first expression SHALL be sorted by the result value of the second expression, and so on.
 
-Note: Adapted from OData 4.01-Protocol 11.2.6.2
+Note: Adapted from <<ODATAP1, section 11.2.6.2>>
 
 .Resource pattern returning all Observations ordered by the result attribute in ascending order.
 [source,text]
@@ -598,14 +599,14 @@ The `$filter` option can be used to filter the entities returned by a request to
 The expression specified with $filter is evaluated for each entity in the collection, and only items where the expression evaluates to true SHALL be included in the response.
 Entities for which the expression evaluates to false or to null, or which reference attributes that are unavailable due to permissions, SHALL be omitted from the response.
 
-[Adapted from Data 4.01-URL Conventions 5.1.1]
+Note: Adapted from <<ODATAP2, section 5.1.1>>
 
 The expression language that is used in $filter operators SHALL support references to attributes and literals.
-The literal values SHALL be strings enclosed in single quotes, numbers, boolean values (true or false), null, datetime values as ISO 8601 time string, duration values or geometry values.
+The literal values SHALL be strings enclosed in single quotes, numbers, Boolean values (true or false), null, datetime values as ISO 8601 time string, duration values or geometry values.
 Encoding rules for constants are listed in <<constants_encoding_rules>>
 Attributes of Entities are addressed by their name.
 
-Note: Adapted from OData 4.01-Protocol 11.2.6.1
+Note: Adapted from <<ODATAP1, section 11.2.6.1>>
 
 
 .Observations of Datastream 42 that have a result greater than 5.
@@ -628,7 +629,7 @@ Sub-proprties of complex attributes are addressed using the complex attribute na
 v2.0/Observations?$filter=validTime/start lt 2012-12-03T07:16:23Z
 ----
 
-Entities can be filtered on attributes of related entities by using the navigationAttribute, followed by a `/`, followed by a attribute of the related entity.
+Entities can be filtered on attributes of related entities by using the navigationAttribute, followed by a `/`, followed by an attribute of the related entity.
 This can be used recursively.
 For filtering on attributes of entities in a related EntitySet see the `any()` function.
 
@@ -648,41 +649,41 @@ v2.0/Observations?$filter=Datastream/Thing/name eq 'House 1'
 [[filter_operations]]
 ====== Built-in filter operations
 
-The OGC SensorThings API supports a set of built-in filter operations, as described in the following table.
-These built-in filter operator usages and definitions follow the [OData Version 4.01. Part 1: Protocol 11.2.6.1.1] and [OData Version 4.01 ABNF].
-The operator precedence is described in [OData Version 4.01. Part 2: URL Conventions Section 5.1.1.17].
+The OGC SensorThings API Standard supports a set of built-in filter operations, as described in the following table.
+These built-in filter operator usages and definitions follow <<ODATAP1, section 11.2.6.1.1>>.
+The operator precedence is described in <<ODATAP2, section 5.1.1.17>>.
 
 
 
 [#tab-built-in-filter-operators,reftext='{table-caption} {counter:table-num}']
 .Built-in Filter Operators
-[cols="<15,<25,<60a",options="header"]
+[cols="<20a,<25,<55a",options="header"]
 |===
 |Operator |Description |Example
 
 3+|**Comparison Operators**
 
-|eq
+|`+eq+`
 |Equal
 |`+/Datastreams?$filter=resultType/type eq 'Quantity'+`
 
-|ne
+|`+ne+`
 |Not equal
 |`+/Datastreams?$filter=resultType/type ne 'Quantity'+`
 
-|gt
+|`+gt+`
 |Greater than
 |`+/Observations?$filter=result gt 20.0+`
 
-|ge
+|`+ge+`
 |Greater than or equal
 |`+/Observations?$filter=result ge 20.0+`
 
-|lt
+|`+lt+`
 |Less than
 |`+/Observations?$filter=result lt 100+`
 
-|le
+|`+le+`
 |Less than or equal
 |`+/Observations?$filter=result le 100+`
 
@@ -695,47 +696,47 @@ Where `proprties/tags` is an array of strings.
 
 3+|**Logical Operators**
 
-|and
+|`+and+`
 |Logical and
 |`+/Observations?$filter=result le 3.5 and FeatureOfInterest/id eq 1+`
 
-|or
+|`+or+`
 |Logical or
 |`+/Observations?$filter=result gt 20 or result le 3.5+`
 
-|not
+|`+not+`
 |Logical negation
 |`+/Things?$filter=not startswith(description,'test')+`
 
 3+|**Arithmetic Operators**
 
-|add
+|`+add+`
 |Addition
 |
 - `+/Observations?$filter=result add 5 gt 10+`
 - `+/Observations?$filter=validTime gt now() add duration'PT1H'+`
 
-|sub
+|`+sub+`
 |Subtraction
 |
 - `+/Observations?$filter=result sub 5 gt 10+` +
 - `+/Observations?$filter=phenomenonTime gt now() sub duration'P1D'+`
 
-|mul
+|`+mul+`
 |Multiplication
 |`+/Observations?$filter=result mul 2 gt 2000+`
 
-|div
+|`+div+`
 |Division
 |`+/Observations?$filter=result div 2 gt 4+`
 
-|mod
+|`+mod+`
 |Modulo
 |`+/Observations?$filter=result mod 2 eq 0+`
 
 3+|**Grouping Operators**
 
-|( )
+|`+( )+`
 |Precedence grouping
 |`+/Observations?$filter=(result sub 5) mul 2 gt 10+`
 |===
@@ -744,17 +745,17 @@ Where `proprties/tags` is an array of strings.
 [[query_functions]]
 ====== Built-in query functions
 
-The OGC SensorThings API supports a set of functions that can be used with the $filter or $orderby query operations.
-The following table lists the available functions and they follows the OData Canonical function definitions listed in link:https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_CanonicalFunctions[OData Version 4.01 Part 2: URL Conventions, Section 5.1.1.4].
+The OGC SensorThings API Standard specifies a set of functions that can be used with the $filter or $orderby query operations.
+The following table lists the available functions and they follows the OData Canonical function definitions listed in <<ODATAP2, section 5.1.1.4>>.
 
-In order to support spatial relationship functions, SensorThings API defines nine additional geospatial functions based on the spatial relationship between two geometry objects.
-The spatial relationship functions are defined in the OGC Simple Feature Access specification [OGC 06-104r4 part 1, clause 6.1.2.3]. The names of these nine functions start with a prefix st_ following the OGC Simple Feature Access specification [OGC 06-104r4].
+In order to support spatial relationship functions, SensorThings API Standard defines nine additional geospatial functions based on the spatial relationship between two geometry objects.
+The spatial relationship functions are defined in the OGC Simple Feature Access Standard <<OGC06-104, clause 6.1.2.3>>. The names of these nine functions start with a prefix `st_` following the OGC Simple Feature Access Standard.
 In addition, the Well-Known Text (WKT) format is the default input geometry for these nine functions.
 
-The results of the time and date functions are time zone dependent, therefore these functions have an optional second argument to specify the time zone to use for the conversion.
+The results of the time and date functions are time zone dependent. Therefore these functions have an optional second argument to specify the time zone to use for the conversion.
 
-In some cases the service may not have enough information to deduce the types of parameters used in functions.
-This may, for instance, happen when combining two values from json objects, or attributes of type `ANY`.
+In some cases, the service may not have enough information to deduce the types of parameters used in functions.
+This may, for instance, happen when combining two values from JSON objects, or attributes of type `ANY`.
 In such cases, the `cast` function can be used.
 
 
@@ -766,31 +767,31 @@ In such cases, the `cast` function can be used.
 
 3+|**String Functions**
 
-| contains
+| `+contains+`
 |`+bool contains(string p0, string p1)+`
 |`+contains(description, 'Sensor Things')+`
 
-| substringof
+| `+substringof+`
 |`+bool substringof(string p0, string p1)+`
 |`+substringof('Sensor Things',description)+`
 
-| endswith
+| `+endswith+`
 |`+bool endswith(string p0, string p1)+`
 |`+endswith(description,'Things')+`
 
-| startswith
+| `+startswith+`
 |`+bool startswith(string p0, string p1)+`
 |`+startswith(description,'Sensor')+`
 
-| length
+| `+length+`
 |`+int length(string p0)+`
 |`+length(description) eq 13+`
 
-| indexof
+| `+indexof+`
 |`+int indexof(string p0, string p1)+`
 |`+indexof(description,'Sensor') eq 1+`
 
-| substring
+| `+substring+`
 |
 - `+string substring(string p0, int p1)+`
 - `+string substring(string p0, int p1, int p2)+`
@@ -799,33 +800,33 @@ In such cases, the `cast` function can be used.
 - `+substring(description,1) eq 'ensor Things'+`
 - `+substring(description,2,4) eq 'nsor'+`
 
-| tolower
+| `+tolower+`
 |`+string tolower(string p0)+`
 |`+tolower(description) eq 'sensor things'+`
 
-| toupper
+| `+toupper+`
 |`+string toupper(string p0)+`
 |`+toupper(description) eq 'SENSOR THINGS'+`
 
-| trim
+| `+trim+`
 |`+string trim(string p0)+`
 |`+trim(description) eq 'Sensor Things'+`
 
-| concat
+| `+concat+`
 |`+string concat(string p0, string p1)+`
 |`+concat(concat(unitOfMeasurement/symbol,', '), unitOfMeasurement/name) eq 'degree, Celsius'+`
 
 3+|**Date Functions**
 
-| now
+| `+now+`
 |`+Edm.DateTimeOffset now()+`
 |`+resultTime ge now()+`
 
-| interval
+| `+interval+`
 |`+TM_Interval interval(start, end or duration)+`
 |`+interval(properties/referenceTime, duration'PT1H')+`
 
-| year
+| `+year+`
 |
 - `+Edm.Int32 year(Edm.DateTimeOffset t)+`
 - `+Edm.Int32 year(Edm.DateTimeOffset t, String zoneId)+`
@@ -833,7 +834,7 @@ In such cases, the `cast` function can be used.
 - `+year(resultTime) eq 2015+`
 - `+year(resultTime, 'CET') eq 2015+`
 
-| month
+| `+month+`
 |
 - `+Edm.Int32 month(Edm.DateTimeOffset t)+`
 - `+Edm.Int32 month(Edm.DateTimeOffset t, String zoneId)+`
@@ -841,7 +842,7 @@ In such cases, the `cast` function can be used.
 - `+month(resultTime) eq 12+`
 - `+month(resultTime, '-09:00') eq 12+`
 
-| day
+| `+day+`
 |
 - `+Edm.Int32 day(Edm.DateTimeOffset t)+`
 - `+Edm.Int32 day(Edm.DateTimeOffset t, String zoneId)+`
@@ -849,7 +850,7 @@ In such cases, the `cast` function can be used.
 - `+day(resultTime) eq 8+`
 - `+day(resultTime, 'America/Santiago') eq 8+`
 
-| hour
+| `+hour+`
 |
 - `+Edm.Int32 hour(Edm.DateTimeOffset t)+`
 - `+Edm.Int32 hour(Edm.DateTimeOffset t, String zoneId)+`
@@ -857,7 +858,7 @@ In such cases, the `cast` function can be used.
 - `+hour(phenomenonTime/start) eq 1+`
 - `+hour(phenomenonTime/start, 'EDT') eq 1+`
 
-| minute
+| `+minute+`
 |
 - `+Edm.Int32 minute(Edm.DateTimeOffset t)+`
 - `+Edm.Int32 minute(Edm.DateTimeOffset t, String zoneId)+`
@@ -865,7 +866,7 @@ In such cases, the `cast` function can be used.
 - `+minute(resultTime) eq 0+`
 - `+minute(resultTime, Datastream/properties/timeZone) eq 0+`
 
-| second
+| `+second+`
 |
 - `+Edm.Int32 second(Edm.DateTimeOffset t)+`
 - `+Edm.Int32 second(Edm.DateTimeOffset t, String zoneId)+`
@@ -873,7 +874,7 @@ In such cases, the `cast` function can be used.
 - `+second(resultTime) eq 0+`
 - `+second(resultTime, 'Asia/Singapore') eq 0+`
 
-| date
+| `+date+`
 |
 - `+Edm.Date date(Edm.DateTimeOffset t)+`
 - `+Edm.Date date(Edm.DateTimeOffset t, String zoneId)+`
@@ -881,7 +882,7 @@ In such cases, the `cast` function can be used.
 - `+date(resultTime) ne date(validTime)+`
 - `+date(resultTime) ne date(validTime, '+10')+`
 
-| time
+| `+time+`
 |
 - `+Edm.TimeOfDay time(Edm.DateTimeOffset t)+`
 - `+Edm.TimeOfDay time(Edm.DateTimeOffset t, String zoneId)+`
@@ -889,7 +890,7 @@ In such cases, the `cast` function can be used.
 - `+time(resultTime) le validTime+`
 - `+time(resultTime, '+5:00') le validTime+`
 
-| totaloffsetminutes
+| `+totaloffsetminutes+`
 |
 - `+Edm.Int32 totaloffsetminutes(Edm.DateTimeOffset t)+`
 - `+Edm.Int32 totaloffsetminutes(Edm.DateTimeOffset t, String zoneId)+`
@@ -897,7 +898,7 @@ In such cases, the `cast` function can be used.
 - `+totaloffsetminutes(resultTime) eq 60+`
 - `+totaloffsetminutes(resultTime, '-03:30') eq 60+`
 
-| fractionalseconds
+| `+fractionalseconds+`
 |
 - `+Edm.Int32 fractionalseconds(Edm.DateTimeOffset t)+`
 - `+Edm.Int32 fractionalseconds(Edm.DateTimeOffset t, String zoneId)+`
@@ -908,31 +909,31 @@ In such cases, the `cast` function can be used.
 
 3+|**Math Functions**
 
-| round
+| `+round+`
 |`+int round(number p0)+`
 |`+round(result) eq 32+`
 
-| floor
+| `+floor+`
 |`+int floor(number p0)+`
 |`+floor(result) eq 32+`
 
-| ceiling
+| `+ceiling+`
 |`+int ceiling(number p0)+`
 |`+ceiling(result) eq 33+`
 
 3+|**Geospatial Functions**
 
-| geo.distance
+| `+geo.distance+`
 |
 - `+double geo.distance(geometry p0, geometry p1)+`
 - `+double geo.distance(geography p0, geography p1)+`
 |`+geo.distance(location, geometry'POINT (30 10)')+`
 
-| geo.length
+| `+geo.length+`
 |`+double geo.length(LineString p0)+`
 |`+geo.length(geometry'LINESTRING (30 10, 10 30, 40 40)')+`
 
-| geo.intersects
+| `+geo.intersects+`
 |
 - `+bool geo.intersects(geometry p0, geometry p1)+`
 - `+bool geo.intersects(geography p0, geography p1)+`
@@ -940,55 +941,55 @@ In such cases, the `cast` function can be used.
 
 3+|**Spatial Relationship Functions**
 
-| st_equals
+| `+st_equals+`
 |
 - `+bool st_equals(geometry p0, geometry p1)+`
 - `+bool st_equals(geography p0, geography p1)+`
 |`+st_equals(location, geometry'POINT (30 10)')+`
 
-| st_disjoint
+| `+st_disjoint+`
 |
 - `+bool st_disjoint(geometry p0, geometry p1)+`
 - `+bool st_disjoint(geography p0, geography p1)+`
 |`+st_disjoint(location, geometry'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
-| st_touches
+| `+st_touches+`
 |
 - `+bool st_touches(geometry p0, geometry p1)+`
 - `+bool st_touches(geography p0, geography p1)+`
 |`+st_touches(location, geometry'LINESTRING (30 10, 10 30, 40 40)')+`
 
-| st_within
+| `+st_within+`
 |
 - `+bool st_within(geometry p0, geometry p1)+`
 - `+bool st_within(geography p0, geography p1)+`
 |`+st_within(location, geometry'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
-| st_overlaps
+| `+st_overlaps+`
 |
 - `+bool st_overlaps(geometry p0, geometry p1)+`
 - `+bool st_overlaps(geography p0, geography p1)+`
 |`+st_overlaps(location, geometry'POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))')+`
 
-| st_crosses
+| `+st_crosses+`
 |
 - `+bool st_crosses(geometry p0, geometry p1)+`
 - `+bool st_crosses(geography p0, geography p1)+`
 |`+st_crosses(location, geometry'LINESTRING (30 10, 10 30, 40 40)')+`
 
-| st_intersects
+| `+st_intersects+`
 |
 - `+bool st_intersects(geometry p0, geometry p1)+`
 - `+bool st_intersects(geography p0, geography p1)+`
 |`+st_intersects(location, geometry'LINESTRING (30 10, 10 30, 40 40)')+`
 
-| st_contains
+| `+st_contains+`
 |
 - `+bool st_contains(geometry p0, geometry p1)+`
 - `+bool st_contains(geography p0, geography p1)+`
 |`+st_contains(location, geometry'POINT (30 10)')+`
 
-| st_relate
+| `+st_relate+`
 |
 - `+bool st_relate(geometry p0, geometry p1, string p2)+`
 - `+bool st_relate(geography p0, geography p1, string p2)+`
@@ -996,13 +997,13 @@ In such cases, the `cast` function can be used.
 
 3+|**Collection Functions**
 
-| any
+| `+any+`
 |`+bool EntitySetNavProp/any(name: expression)+`
 |`+Observations/any(o: o/result gt 5 and o/phenomenonTime gt 2024-01-01T00:00:00Z)+`
 
 3+|**Type Functions**
 
-| cast
+| `+cast+`
 |`+type cast(expression, typeName)+`
 |`+cast(result, Edm.Decimal) gt cast(Datastream/properties/threshold, Edm.Decimal)+`
 |===
@@ -1011,11 +1012,11 @@ In such cases, the `cast` function can be used.
 [[query_function_any]]
 ====== Any
 
-The `any()` function applies a boolean expression to each member of a collection and returns true if the expression returns true for any member of the collection.
-The any function can be used by adding a slash and the `any` keyword after a filter path ending in an EntitySet.
-The argument of the any function is a case-sensitive, alphanumeric lamda variable name, followed by a colon (`:`), followed by a boolean expression that can use the defined variable to access attributes of the entities in the collection.
+The `any()` function applies a Boolean expression to each member of a collection and returns true if the expression returns true for any member of the collection.
+The `any` function can be used by adding a slash and the `any` keyword after a filter path ending in an EntitySet.
+The argument of the any function is a case-sensitive, alphanumeric lambda variable name, followed by a colon (`:`), followed by a Boolean expression that can use the defined variable to access attributes of the entities in the collection.
 
-Path expressions not prefixed by the lambda variable are evaluated in the context of the collection that is the target of the `$filter` containing the any function.
+Path expressions not prefixed by the lambda variable are evaluated in the context of the collection that is the target of the `$filter` containing the `any` function.
 
 .Request for all Datastreams that have at least one Observation that has both a result greater than the threshold custom attribute in the containing Datastream, and a phenomenonTime after 2024-01-01 00:00:00Z
 [source,text]
@@ -1066,9 +1067,9 @@ A service SHALL support the `$format` query option as described in section <<rea
 [[format_json]]
 ====== application/json
 
-This formatter encodes responses in JSON as specified in OData JSON Format Version 4.01.
+This format encodes responses in JSON as specified in OData JSON Format Version 4.01.
 The JSON format can be explicitly requested using the `$format` query option with a value of `application/json`, or the shorter alias `json`.
-The format option allows for the format parameter `metadata` to control the amount of service metadata added to the response.
+The format option allows the format parameter `metadata` to control the amount of service metadata added to the response.
 
 * `$format=application/json;metadata=full` returns the full metadata.
 * `$format=application/json;metadata=minimal` removes all metadata that can be calculated by the client, returning only: context, count (if requested) and nextLink (if applicable)
@@ -1088,7 +1089,7 @@ It contains a URL that allows retrieving the next subset of the requested collec
 SensorThings clients SHALL treat the URL of the nextLink as opaque, and SHALL NOT append system query options to the URL of a next link.
 Services may disallow a change of format on requests for subsequent pages using the next link.
 
-Note: Adapted from OData 4.01-Protocol 11.2.6.7
+Note: Adapted from <<ODATAP1, section 11.2.6.7>>
 
 
 [requirement]

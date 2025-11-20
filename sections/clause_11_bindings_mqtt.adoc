@@ -3,7 +3,7 @@
 
 === Introduction
 
-The MQTT Bindings specify how to access the SensorThings API using the MQTT 5.0 protocol (<<MQTT50>>).
+The MQTT Bindings specify how to access a SensorThings API endpoint using the MQTT 5.0 protocol (<<MQTT50>>).
 This binding consists of three parts that can be implemented independently: <<mqtt_request_response>>, <<mqtt_publish_subscribe>> and <<mqtt_simple_create>>.
 
 
@@ -47,7 +47,7 @@ If a service implements any MQTT bindings, then the MQTT endpoints of the servic
 [[mqtt_request_response]]
 === Request / Response
 
-MQTT 5.0 formalises a request-response pattern over the MQTT protocol (<<MQTT50,section="4.10">>) that allows the use of the REST API over the MQTT protocol.
+MQTT 5.0 formalizes a request-response pattern over the MQTT protocol (<<MQTT50,section="4.10">>) that allows the use of the REST API over the MQTT protocol.
 See <<mqtt5-req-res>> for a basic overview of the request-response pattern in MQTT 5.0.
 
 MQTT 5.0 also defines User Properties (<<MQTT50,section="3.3.2.3.7">>) that can be used to pass application-defined key-value pairs with a published message.
@@ -96,7 +96,7 @@ MQTT 5.0 also defines User Properties (<<MQTT50,section="3.3.2.3.7">>) that can 
 ....
 
 
-Using the basic request-response pattern, and the User Properties of MQTT 5.0, the abstract API defined in <<abstract_api>> can be implemented over the MQTT protocol.
+Using the basic request-response pattern, and the User Properties of MQTT 5.0, the abstract STA API defined in <<abstract_api>> can be implemented over the MQTT protocol.
 
 - Requests are sent to the topic `v2.0/$request`.
 - The URL, including query parameters, for the request is passed in the User Attribute named `url`. The URL does not need to be URL-Encoded.
@@ -107,9 +107,9 @@ Using the basic request-response pattern, and the User Properties of MQTT 5.0, t
 - Content is sent as the payload of the message.
 - The request must contain a response topic that follows the `Response Information` passed by the broker.
 - The request may contain correlation data to help the client associate the response to the request.
-- all URLs pointing to the API start with the version of the API and contain no scheme, host or port and no preceding slash.
+- All URLs pointing to the STA API start with the version of the STA API and contain no scheme, host or port and no preceding slash.
 
-To minimise the size of the returned payload, by default the json format is used with `metadata=none` (<<format_json>>) and clients are advised to use the $select query parameter.
+To minimize the size of the returned payload, by default the JSON format is used with `metadata=none` (<<format_json>>) and clients are advised to use the $select query parameter.
 
 
 .Message requesting the service document
@@ -254,7 +254,7 @@ Payload:
 Since OData URLs are recursive, MQTT wildcards (`#` and `+`) are not allowed in subscriptions in the SensorThings topic tree.
 
 Like HTTP URLs, MQTT topic in the SensorThings API can be extended with query options.
-Query options are separated from the topic with a question mark character (`?`) and separated using an ampersant (`&`).
+Query options are separated from the topic with a question mark character (`?`) and separated using an ampersand (`&`).
 Query options are listed below.
 
 
@@ -274,7 +274,7 @@ If a service advertises this requirement in the service document then the servic
 [[mqtt_pubsub_select]]
 ==== $select
 
-The $select query option (<<read_options_select>>) can be added to topics to reduce the amount of data that is sent.
+The '$select' query option (<<read_options_select>>) can be added to topics to reduce the amount of data that is sent.
 
 .Topic to use for receiving all updates for the Observations of a specific Datastream, limited to only the phenomenonTime and result attributes
 [source,text]
@@ -290,15 +290,15 @@ v2.0/Datastreams(4)/Observations?$select=phenomenonTime,result
 [%metadata]
 identifier:: {identifier}/req/binding/mqtt/pub_sub/select
 
-If a service advertises this requirement in the service document then the service SHALL implement support for the `$select` option as described in <<mqtt_pubsub_select>>.
+If a service advertises <<req_mqtt_pubsub_select>> in the service document then the service SHALL implement support for the `$select` option as described in <<mqtt_pubsub_select>>.
 ====
 
 
 [[mqtt_pubsub_expand]]
 ==== $expand
 
-The $expand query option (<<read_options_expand>>) can be added to topics to indicate that certain entities related to the created or updated entity should be sent.
-This can, for instance, be useful when dealing with moving sensors, to receive new Observations together with their ProximateFeatureOfInterest.
+The `$expand` query option (<<read_options_expand>>) can be added to topics to indicate that certain entities related to the created or updated entity should be sent.
+For example, this can be useful when dealing with moving sensors, to receive new Observations together with their ProximateFeatureOfInterest.
 
 .Topic to use for receiving all updates for the Observations of a specific Datastream
 [source,text]
@@ -314,7 +314,7 @@ v2.0/Datastreams(4)/Observations?$expand=ProximateFeatureOfInterest
 [%metadata]
 identifier:: {identifier}/req/binding/mqtt/pub_sub/expand
 
-If a service advertises this requirement in the service document then the service SHALL implement support for the `$expand` option as described in <<mqtt_pubsub_expand>>.
+If a service advertises <<req_mqtt_pubsub_expand>> in the service document then the service SHALL implement support for the `$expand` option as described in <<mqtt_pubsub_expand>>.
 ====
 
 
@@ -331,14 +331,14 @@ The $filter query option (<<read_options_filter>>) can be used to only receive n
 [%metadata]
 identifier:: {identifier}/req/binding/mqtt/pub_sub/filter
 
-If a service advertises this requirement in the service document then the service SHALL implement support for the `$filter` option as described in <<mqtt_pubsub_filter>>.
+If a service advertises <<req_mqtt_pubsub_filter>> in the service document then the service SHALL implement support for the `$filter` option as described in <<mqtt_pubsub_filter>>.
 ====
 
 
 [[mqtt_simple_create]]
 === Simple Create
 
-Since simple clients, like sensors, may not be capable of handling the full MQTT request/reponse pattern, the simple-create pattern allows for a simpler way to create entities.
+Since simple clients, like sensors, may not be capable of handling the full MQTT request/response pattern, the simple-create pattern allows for a simpler way to create entities.
 Entities can be created by sending a publish request to the topic of an 
 EntitySet (<<pattern_entityset>>, <<pattern_entityset_related>>), without service root, and without a preceding slash (`/`), followed by `/create`.
 
@@ -360,14 +360,13 @@ Payload:
 More advanced clients are adviced to use the MQTT Request/Response pattern to create entities, since it allows the server to return a success or failure response on entity creation.
 
 
+[[req_mqtt_simple_create]]
 [requirement]
 .MQTT Simple Create
 ====
 [%metadata]
 identifier:: {identifier}/req/binding/mqtt/simple_create
 
-If a service advertises this requirement in the service document then the service SHALL implement support simple entity creation as described in <<mqtt_simple_create>>.
+If a service advertises <<req_mqtt_simple_create>> in the service document then the service SHALL implement support simple entity creation as described in <<mqtt_simple_create>>.
 ====
 
-
-=== Authentication & Authorization

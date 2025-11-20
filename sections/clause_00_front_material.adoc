@@ -1,5 +1,8 @@
 .Preface
 
+The OGC SensorThings API provides an open, geospatial-enabled and unified way to interconnect sensor-data producing devices, data, and applications over the Internet.
+Version 2.0 brings updates to version 1.1, improving the data model, the API and the modularity of the standard itself.
+
 ////
 *OGC Declaration*
 ////
@@ -13,7 +16,7 @@ Recipients of this document are requested to submit, with their comments, notifi
 [abstract]
 == Abstract
 
-The OGC SensorThings API provides an open, geospatial-enabled and unified way to interconnect Internet of Things (IoT) devices, data, and applications over the Internet.
+The OGC SensorThings API provides an open, geospatial-enabled and unified way to interconnect sensor-data producing devices, data, and applications over the Internet.
 It contains a core data model, an abstract REST API for accessing data, and bindings for this API for HTTP and MQTT.
 
 The data model is an implementation of the core concepts of the Observations, Measurements and Samples OGC/ISO specification.

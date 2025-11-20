@@ -15,9 +15,9 @@ References are to follow the Springer LNCS style, with the exception that option
 
 * [[[IsoOMS, ISO 19156:2023]]]
 
-* [[[ogc08-094,OGC 08-094r1]]]
+* [[[OGC06-104,OGC 06-104r4]]]
 
-* [[[ogc17-011,OGC 17-011r2]]]
+* [[[ogc16-079,OGC 16-079]]]
 
 * [[[ogc19-072,OGC 19-072]]]
 
@@ -34,6 +34,8 @@ References are to follow the Springer LNCS style, with the exception that option
 * [[[ODATAP1,OASIS OData-Part1]]]
 
 * [[[ODATAP2,OASIS OData-Part2]]]
+
+* [[[ODATAJSON,OASIS OData-JSON-Format-v4.01]]]
 
 * [[[ODATACSDL,OASIS OData-CSDL-JSON-v4.01]]]
 
