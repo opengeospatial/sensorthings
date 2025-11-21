@@ -1,3 +1,4 @@
+[[security_considerations]]
 === Security Considerations
 Writing security considerations for implementing STA 2.0 is challenging.
 This is because the range of uses of a STA 2.0 API implementation cannot be always known.
@@ -8,7 +9,7 @@ All this must be taken into consideration when speaking of security requirements
 
 Given that STA 2.0 provides two different interfaces -- HTTP and MQTT -- and the different use cases, this section is separated into three parts: General considerations, considerations for an HTTP interface, and considerations for an MQTT interface.
 
-
+[[general_security_considerations]]
 ==== General Considerations
 
 Typical security considerations should address the following topics:
@@ -71,6 +72,7 @@ To avoid useless interactions with the STA service, a Web-Application should imp
 A STA deployment should control, via the CORS configuration, which Web-Application to trust.
 
 
+[[http_security_considerations]]
 ==== Considerations for the HTTP Interface
 
 Among the typical security considerations that exist for HTTP interfaces, the STA 2.0 Standard -- as well as previous versions -- specify requirements for the use of ODATA query options.
