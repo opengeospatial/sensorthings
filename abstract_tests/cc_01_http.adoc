@@ -36,5 +36,319 @@ test-purpose:: Validate that the request types defined in the abstract API are m
 test-method::
 . Execute a GET request on the URL for the service document.
 . Validate that a service document is returned.
+====
+
+
+
+[conformance_class]
+====
+[%metadata]
+identifier:: {identifier}/conf-class/binding/http/websub
+target:: {identifier}/req-class/binding/http/websub
+classification:: Target Type:Web API
+inherit:: {identifier}/conf-class/binding/http
+conformance-test:: {identifier}/conf/binding/http/websub/link-hub
+conformance-test:: {identifier}/conf/binding/http/websub/link-help
+conformance-test:: {identifier}/conf/binding/http/websub/link-self
+conformance-test:: {identifier}/conf/binding/http/websub/odata-support
+conformance-test:: {identifier}/conf/binding/http/websub/odata-discovery
+conformance-test:: {identifier}/conf/binding/http/websub/odata-blacklisting
+conformance-test:: {identifier}/conf/binding/http/websub/topics-discovery
+conformance-test:: {identifier}/conf/binding/http/websub/topics-blacklisting
+====
+
+
+[[ats_sta_websub_discovery_get]]
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/http/websub/link-hub
+target:: {identifier}/req/binding/http/websub/link-hub
+test-purpose:: Validate that the STA-WebSub discovery is supported via HTTP GET.
+test-method::
+. Construct a topic URL to be used for subscription.
+. Issue a HTTP HEAD and GET request on that topic URL.
+. Validate that the request method was accepted and that the response headers include the Link headers `hub`.
+
+[NOTE]
+The Link header `hub` must always be returned even for a topic URL that is not allowed for subscription. But for this test, it is sufficient to test that the HTTP method is supported and for that the `hub` header is returned.
+====
+
+
+
+[[ats_sta_websub_discovery_link_self]]
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/http/websub/link-self
+target:: {identifier}/req/binding/http/websub/link-self
+test-purpose:: Validate that the WebSub discovery returns the link headers `hub` and `self` for a topic URL that is **allowed** for subscription.
+test-method::
+. Construct a topic URL that is **allowed** for subscription.
+  A topic URL does not include a query string.
+. Issue a HTTP HEAD and GET request on that topic URL.
+. Validate that the response includes the Link header `hub` and `self`.
+. validate that the Link header `help` is not present!
+
+[NOTE]
+To determine which topics **are allowed**, examine the root page and check the `topics_denied` array.
+====
+
+
+[[ats_sta_websub_discovery_link_help]]
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/http/websub/link-help
+target:: {identifier}/req/binding/http/websub/link-help
+test-purpose:: Validate that the WebSub discovery returns the link headers `hub` and `help` for a topic URL **not allowed** for subscription.
+test-method::
+. Construct a topic URL that is **not allowed** for subscription. 
+. Issue a HTTP HEAD and GET request on that topic URL.
+. Validate that the response includes the Link header `hub` and `help`.
+  In particular validate that the Link header `self` is not present!
+
+[NOTE]
+To determine which topic URLs **are not allowed**, examine the root page. The cause for 'not allowed' SHALL be based on `topics_denied` or `odata_denied`.
 
 ====
+
+.Example for topics and ODATA restrictions
+[source,json]
+----
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub"
+        },
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
+            "topics_denied": ["v1.1/Observations"],
+            "odata_denied": ["$expand"]
+        }
+    }
+}
+----
+
+.Example HTTP request and response for a URL including the denied topic `v1.1/Observations`
+[source,text]
+----
+GET /sta/v1.1/Observations HTTP/1.1
+Host: sta-websub.secd.eu
+
+HTTP/1.1 200 Ok
+Content-type: application/json
+Link: <http://hub.sta-websub.secd.eu>; rel="hub"
+Link: <http://sta-websub.secd.eu/sta/v1.1/help#topic_denied>; rel="help"
+----
+
+.Example HTTP request and response for a URL including the denied ODATA option `$expand`
+[source,text]
+----
+GET /sta/v1.1/Things?$expand=Locations HTTP/1.1
+Host: sta-websub.secd.eu
+
+HTTP/1.1 200 Ok
+Content-type: application/json
+Link: <http://hub.sta-websub.secd.eu>; rel="hub"
+Link: <http://sta-websub.secd.eu/sta/v1.1/help#odata_option_denied>; rel="help"
+----
+
+
+
+[[ats_sta_websub_odata_support]]
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/http/websub/odata-support
+target:: {identifier}/req/binding/http/websub/odata-support
+test-purpose:: Validate that the SensorThings implementation supports the use of ODATA options.
+test-method::
+. Construct SensorThings URLs for each valid and implemented ODATA option(s).
+. Issue a HTTP HEAD and GET request on each URL.
+. Validate the returned content to not contain errors.
+====
+
+
+
+[[ats_sta_websub_odata_discovery]]
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/http/websub/odata-discovery
+target:: {identifier}/req/binding/http/websub/odata-discovery
+test-purpose:: Validate that the disallowed ODATA options are advertised on the root page.
+test-method::
+. Construct a URL to the root page.
+. Issue a HTTP HEAD and GET request on that URL.
+. Validate the contents of the returned document to include the implemented Conformance Class(es) in the `conformance` section of the root page:
+`{identifier}/req/binding/http/websub`
+
+. Validate the contents of the returned document to include the JSON object `{identifier}/req/binding/http/websub` in the `serverSettings` including the key `odata_denied`. 
+
+. Validate that the value of the key `odata_denied` is a JSON array that is either empty ("[]") or contains a list of denied ODATA options.
+====
+
+.Example root page snippet advertising no denied ODATA options
+[source,json]
+----
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub"
+        },
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
+            "topics_denied": [],
+            "odata_denied": []
+        }
+    }
+}
+----
+
+.Example root page snippet advertising `$expand` as a denied ODATA option
+[source,json]
+----
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub"
+        },
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
+            "topics_denied": [],
+            "odata_denied": ["$expand"]
+        }
+    }
+}
+----
+
+
+[[ats_sta_websub_odata_blacklisting]]
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/http/websub/odata-blacklisting
+target:: {identifier}/req/binding/http/websub/odata-blacklisting
+test-purpose:: Validate that the disallowed ODATA options do not return the HTTP link header `rel="self"`.
+test-method::
+. Construct multiple SensorThings URLs each including a supported ODATA option that is listed under the `odata_denied`.
+. Issue HTTP HEAD and GET requests on each URL.
+. Validate the contents of the returned HTTP header to not include the link header `rel="self"` but the link header `rel="help"`.
+====
+
+.Example root page with denied ODATA option `$expand`
+[source,json]
+----
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub"
+        },
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
+            "topics_denied": [],
+            "odata_denied": ["$expand"]
+        }
+    }
+}
+----
+
+.Example HTTP response for a URL including the denied ODATA option `$expand`
+[source,text]
+----
+GET /sta/v1.1/Things?$expand=Locations HTTP/1.1
+Host: sta-websub.secd.eu
+
+HTTP/1.1 200 Ok
+Content-type: application/json
+Link: <http://hub.sta-websub.secd.eu>; rel="hub"
+Link: <http://sta-websub.secd.eu/sta/v1.1/help#odata_option_denied>; rel="help"
+----
+
+
+[[ats_sta_websub_landing_page_discovery]]
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/http/websub/topics-discovery
+target:: {identifier}/req/binding/http/websub/topics-discovery
+test-purpose:: Validate that the implemented STA-WebSub Conformance Class `Discovery` is listed on the root page.
+test-method::
+. Construct a URL to the root page.
+. Issue a HTTP HEAD and GET request on that URL.
+. Validate the contents of the returned document to include the implemented Conformance Class(es) in the `conformance` section of the root page: 
+`{identifier}/req/binding/http/websub`
+. Validate the contents of the returned document to include the JSON object `{identifier}/req/binding/http/websub` in the `serverSettings` including the key `topics_denied`. 
+. Validate that the value of the key `topics_denied` is a JSON array that is either empty ("[]") or contains a list of denied topics.
+====
+
+.Example root page snippet advertising no denied ODATA options
+[source,json]
+----
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub"
+        },
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
+            "topics_denied": [],
+            "odata_denied": []
+        }
+    }
+}
+----
+
+.Example root page snippet advertising `v1.1/Observations` as a denied topic
+[source,json]
+----
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub"
+        },
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
+            "topics_denied": ["v1.1/Observations"],
+            "odata_denied": []
+        }
+    }
+}
+----
+
+
+[[ats_sta_websub_topic_blacklisting]]
+[abstract_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/binding/http/websub/topics-blacklisting
+target:: {identifier}/req/binding/http/websub/topics-blacklisting
+test-purpose:: Validate that the denied topics as advertised on the root page are actually denied for discovery.
+test-method::
+. Construct a URL using a denied topic.
+. Issue a HTTP HEAD and GET request on that URL.
+. Validate the returned link headers to contain the `link rel=help"` and **not** `link rel="self"`.
+====
+
+.Example root page snippet advertising `v1.1/Datastreams(4711)` as a denied topic
+[source,json]
+----
+{
+    "serverSettings": {
+        "conformance": {
+            "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub"
+        },
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
+            "topics_denied": ["v1.1/Datastreams(4711)"],
+            "odata_denied": []
+        }
+    }
+}
+----
+
+.Example HTTP response for a URL including the denied topic `v1.1/Datastreams(4711)`
+[source,text]
+----
+GET /sta/v1.1/Datastreams(4711) HTTP/1.1
+Host: sta-websub.secd.eu
+
+HTTP/1.1 200 Ok
+Content-type: application/json
+Link: <http://hub.sta-websub.secd.eu>; rel="hub"
+Link: <http://sta-websub.secd.eu/sta/v1.1/help#topic_denied>; rel="help"
+----

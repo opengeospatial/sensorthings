@@ -14,7 +14,6 @@ The HTTP Bindings specify how the abstract REST-API specified in the OGC SensorT
 identifier:: {identifier}/req-class/binding/http
 obligation:: requirement
 subject:: Interface Binding
-inherit:: {identifier}/req-class/datamodel/core
 requirement:: {identifier}/req/binding/http/advertisement
 requirement:: {identifier}/req/binding/http/request_response
 ====
@@ -108,17 +107,17 @@ The `Discovery` requirements class is implemented at the SensorThings API servic
 .Discovery
 ====
 [%metadata]
-identifier:: {identifier}/req-class/binding/http/websub/discovery
+identifier:: {identifier}/req-class/binding/http/websub
 subject:: Web API
 inherit:: {identifier}/req/binding/http/request_response
-requirement:: {identifier}/req/binding/http/websub/req-link-hub
-requirement:: {identifier}/req/binding/http/websub/req-link-self
-requirement:: {identifier}/req/binding/http/websub/req-link-help
-requirement:: {identifier}/req/binding/http/websub/req-odata-support
-requirement:: {identifier}/req/binding/http/websub/req-odata-discovery
-requirement:: {identifier}/req/binding/http/websub/req-odata-blacklisting
-requirement:: {identifier}/req/binding/http/websub/req-topics-discovery
-requirement:: {identifier}/req/binding/http/websub/req-topics-blacklisting
+requirement:: {identifier}/req/binding/http/websub/link-hub
+requirement:: {identifier}/req/binding/http/websub/link-self
+requirement:: {identifier}/req/binding/http/websub/link-help
+requirement:: {identifier}/req/binding/http/websub/odata-support
+requirement:: {identifier}/req/binding/http/websub/odata-discovery
+requirement:: {identifier}/req/binding/http/websub/odata-blacklisting
+requirement:: {identifier}/req/binding/http/websub/topics-discovery
+requirement:: {identifier}/req/binding/http/websub/topics-blacklisting
 ====
 
 
@@ -130,7 +129,7 @@ According to <<W3CWebSub>>, discovery always returns `<Link>; rel="hub"` in resp
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/binding/http/websub/req-link-hub
+identifier:: {identifier}/req/binding/http/websub/link-hub
 part:: An implementation SHALL return the `<Link>; rel="hub"` HTTP header in response to HTTP GET and HEAD requests to indicate support for WebSub.
 ====
 
@@ -145,7 +144,7 @@ According to <<W3CWebSub>>, discovery returns `<Link>; rel="self"` for a URL tha
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/binding/http/websub/req-link-self
+identifier:: {identifier}/req/binding/http/websub/link-self
 part:: An implementation SHALL return the `<Link>; rel="self"` HTTP header in response to HTTP GET and HEAD requests to indicate the URL can be used for subscription.
 part:: An implementation SHALL not return the `<Link>; rel="self"` HTTP header in response to HTTP GET and HEAD requests if the request URL either contains a denied topic or at least one denied ODATA option. In this case, the implementation SHALL return the `<Link>; rel="help"`.
 part:: An implementation SHALL determine if a request URL is allowed for subscription by first converting the URL into an MQTT topic and test whether the topic is included in the `topics_denied`. If so, the implementation SHALL not return the `<Link>; rel="self"` but the `<Link>; rel="help"` HTTP header  in response to a GET or HEAD request.
@@ -163,7 +162,7 @@ Returning the `<Link>; rel="help"` header (specific to STA-WebSub) indicates the
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/binding/http/websub/req-link-help
+identifier:: {identifier}/req/binding/http/websub/link-help
 part:: An implementation SHALL provide a URL for obtaining help (why the request URL cannot be used for subscription) when returning the `<Link>; rel="help"` header.
 part:: An implementation SHALL use the `<Link>; rel="self"` and `<Link>; rel="help"` HTTP header mutually exclusive.
 ====
@@ -178,7 +177,7 @@ part:: An implementation SHALL use the `<Link>; rel="self"` and `<Link>; rel="he
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/binding/http/websub/req-odata-support
+identifier:: {identifier}/req/binding/http/websub/odata-support
 part:: An implementation SHALL allow the discovery such that the associated MQTT topic is compliant to OGC SensorThings API v2.0 requirement regarding updates via MQTT with the following extensions:
 
 * URI patterns that addresses an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>) can be extended with a `?` followed by any valid combination of ODATA options that the server support, as defined in <<mqtt_pubsub_select>>, <<mqtt_pubsub_expand>> and <<mqtt_pubsub_filter>>.
@@ -198,8 +197,8 @@ part:: An implementation SHALL allow the discovery such that the associated MQTT
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/binding/http/websub/req-odata-discovery
-part:: An implementation SHALL advertise the support for ODATA query parameter by publishing the string `{identifier}/conf/discovery` in the `serverSettings` section of the root page.
+identifier:: {identifier}/req/binding/http/websub/odata-discovery
+part:: An implementation SHALL advertise the support for ODATA query parameter by publishing the string `{identifier}/req/binding/http/websub` in the `serverSettings` section of the root page.
 
 ====
 
@@ -214,9 +213,9 @@ A request URL may contain query parameters (after the `?`) presenting ODATA opti
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/binding/http/websub/req-odata-blacklisting
-part:: An implementation SHALL advertise the existence of denied ODATA options by adding the following key to the root page: `{identifier}/conf/discovery` that includes the key `odata_denied`. This key SHALL contain a JSON array for all denied ODATA options.
-part:: In case no ODATA options are denied,an implementation SHALL advertise the non-existence of denied ODATA options by adding the following key to the root page: `{identifier}/conf/discovery` that includes the key `odata_denied`. This key SHALL contain an empty JSON array.
+identifier:: {identifier}/req/binding/http/websub/odata-blacklisting
+part:: An implementation SHALL advertise the existence of denied ODATA options by adding the following key to the root page: `{identifier}/req/binding/http/websub` that includes the key `odata_denied`. This key SHALL contain a JSON array for all denied ODATA options.
+part:: In case no ODATA options are denied,an implementation SHALL advertise the non-existence of denied ODATA options by adding the following key to the root page: `{identifier}/req/binding/http/websub` that includes the key `odata_denied`. This key SHALL contain an empty JSON array.
 ====
 
 
@@ -225,7 +224,7 @@ part:: In case no ODATA options are denied,an implementation SHALL advertise the
 ----
 {
     "serverSettings": {
-        "{identifier}/conf/discovery": {
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
             "odata_denied": <JSON Array of denied ODATA options>
         }
     }
@@ -238,7 +237,7 @@ part:: In case no ODATA options are denied,an implementation SHALL advertise the
 ----
 {
     "serverSettings": {
-        "{identifier}/conf/discovery": {
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
             "odata_denied": ["$expand", "$skip", "$top", "$filter"]
         }
     }
@@ -251,7 +250,7 @@ part:: In case no ODATA options are denied,an implementation SHALL advertise the
 ----
 {
     "serverSettings": {
-        "{identifier}/conf/discovery": {
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
             "odata_denied": []
         }
     }
@@ -268,8 +267,8 @@ The support for STA-WebSub can be determined from the root page as part of the `
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/binding/http/websub/req-topics-discovery
-part:: An implementation SHALL advertise the support for topics blacklisting by publishing the string `{identifier}/conf/discovery` in the `serverSettings` section of the root page that includes the key `topics_denied`.
+identifier:: {identifier}/req/binding/http/websub/topics-discovery
+part:: An implementation SHALL advertise the support for topics blacklisting by publishing the string `{identifier}/req/binding/http/websub` in the `serverSettings` section of the root page that includes the key `topics_denied`.
 ====
 
 
@@ -278,7 +277,7 @@ part:: An implementation SHALL advertise the support for topics blacklisting by 
 ----
 {
     "serverSettings": {
-        "{identifier}/conf/discovery": {
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
             "topics_denied": <JSON Array of denied topics>
         }
     }
@@ -291,10 +290,10 @@ part:: An implementation SHALL advertise the support for topics blacklisting by 
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/binding/http/websub/req-topics-blacklisting
+identifier:: {identifier}/req/binding/http/websub/topics-blacklisting
 part:: A STA topic starts with an URI patterns that addresses an entity set (<<pattern_entityset>>, <<pattern_entityset_related>>).
-part:: An implementation SHALL advertise the existence of denied topics by adding the following key to the root page: `{identifier}/conf/discovery` that includes the key `topics_denied`. This key SHALL contain a JSON array listing all denied topics.
-part:: In case no topics are denied, an implementation SHALL advertise the non-existence of denied topics by adding the following key to the root page: `{identifier}/conf/discovery` that includes the key `topics_denied`. This key SHALL contain an empty JSON array.
+part:: An implementation SHALL advertise the existence of denied topics by adding the following key to the root page: `{identifier}/req/binding/http/websub` that includes the key `topics_denied`. This key SHALL contain a JSON array listing all denied topics.
+part:: In case no topics are denied, an implementation SHALL advertise the non-existence of denied topics by adding the following key to the root page: `{identifier}/req/binding/http/websub` that includes the key `topics_denied`. This key SHALL contain an empty JSON array.
 ====
 
 
@@ -304,7 +303,7 @@ part:: In case no topics are denied, an implementation SHALL advertise the non-e
 ----
 {
     "serverSettings": {
-        "{identifier}/conf/discovery": {
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
             "topics_denied": ["v2.0/Observations", "v2.0/Datastreams('very chatty')/Observations"]
         }
     }
@@ -318,7 +317,7 @@ part:: In case no topics are denied, an implementation SHALL advertise the non-e
 ----
 {
     "serverSettings": {
-        "{identifier}/conf/discovery": {
+        "http://www.opengis.net/spec/sensorthings/2.0/req/binding/http/websub": {
             "topics_denied": []
         }
     }

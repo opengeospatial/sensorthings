@@ -14,7 +14,6 @@ This binding consists of three parts that can be implemented independently: <<mq
 identifier:: {identifier}/req-class/binding/mqtt
 obligation:: requirement
 subject:: Interface Binding
-inherit:: {identifier}/req-class/datamodel/core
 requirement:: {identifier}/req/binding/mqtt/advertisement
 requirement:: {identifier}/req/binding/mqtt/request_response
 requirement:: {identifier}/req/binding/mqtt/pub_sub
