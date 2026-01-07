@@ -39,6 +39,7 @@ test-method::
 ====
 
 
+=== Conformance Class: WebSub
 
 [conformance_class]
 ====

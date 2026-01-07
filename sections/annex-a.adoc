@@ -1,19 +1,19 @@
 [appendix]
 == Conformance Class Abstract Test Suite (Normative)
 
-=== Conformance Class A.1: HTTP
+=== Conformance Class: HTTP
 
 include::../abstract_tests/cc_01_http.adoc[]
 
-=== Conformance Class A.2: MQTT
+=== Conformance Class: MQTT
 
 include::../abstract_tests/cc_02_mqtt.adoc[]
 
-=== Conformance Class A.3: Data Model
+=== Conformance Class: Data Model
 
 include::../abstract_tests/cc_03_datamodel.adoc[]
 
-=== Conformance Class A.4: Abstract API
+=== Conformance Class: Abstract API
 
 include::../abstract_tests/cc_04_rest.adoc[]
 
