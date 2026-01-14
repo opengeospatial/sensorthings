@@ -266,7 +266,7 @@ Encoding rules for constants in resource paths and query options are listed in <
 | `null`
 
 | Time Duration
-| The keyword `duration` followed by an ISO8601 Druation in single quotes.
+| The keyword `duration` followed by an ISO8601 Duration in single quotes.
 | `duration'P1DT30M'`
 
 | Geometry
