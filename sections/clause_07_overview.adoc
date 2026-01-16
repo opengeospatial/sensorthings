@@ -1,5 +1,5 @@
 [[overview1]]
-== SensorThings API overview
+== OGC SensorThings API overview
 
 [[what-is-sta]]
 === What is the OGC SensorThings API
@@ -10,13 +10,13 @@ This Standard provides a conceptual model for capturing all relevant information
 The STA Standard addresses the syntactic and semantic interoperability of the Internet of Things, complementing the existing IoT networking protocols such CoAP, MQTT, HTTP, 6LowPAN.
 While the above-mentioned IoT networking protocols are addressing the ability for different IoT systems to exchange information, the OGC SensorThings API Standard addresses the ability for different IoT systems to use and understand the exchanged information.
 This capability is due to the inclusion of OMS concepts.
-The SensorThings API Standard is structured to support easy integration into existing Spatial Data Infrastructures or Geographic Information Systems.
+The OGC SensorThings API Standard is structured to support easy integration into existing Spatial Data Infrastructures or Geographic Information Systems.
 
-While originally conceived within the IoT world, the SensorThings API Standard has been shown to be applicable to a wide range of use cases far beyond IoT.
+While originally conceived within the IoT world, the OGC SensorThings API Standard has been shown to be applicable to a wide range of use cases far beyond IoT.
 While the Standard carries Sensors in its name, its applicability ranges far beyond traditional sensor environments.
 It has been successfully utilized for _ex situ_ measurements performed in the lab as well as field surveys, where humans take on the role of the Sensor.
 While excellent for providing real-time data directly from sensors, implementations of the OGC SensorThings API have also successfully been deployed "on top of" legacy databases.
-Thus, the SensorThings API Standard has evolved from its IoT roots to become a Standard for the provision of observational data, taking into account all relevant measurement metadata as foreseen under the OGC Observations, Measurements and Samples Standard.
+Thus, the OGC SensorThings API Standard has evolved from its IoT roots to become a Standard for the provision of observational data, taking into account all relevant measurement metadata as foreseen under the OGC Observations, Measurements and Samples Standard.
 
 [[who-should-use]]
 === Who should use the OGC SensorThings API
@@ -54,8 +54,8 @@ The core data model assures consistency while the standardized extension points 
 
 * Urban Planning, Smart Cities & Digital Twins: Urban planners & municipal corporations can use implementations of the STA Standard to monitor various environmental and infrastructure metrics, like noise levels, traffic, pollution, or green space usage, helping with sustainable city planning.
 Large buildings or campuses can have digital twins that track HVAC systems, lighting, occupancy, occupancy status and safety conditions.
-Cities are using implementations of the SensorThings API Standard to manage their traffic systems in real-time.
-Implementations of the SensorThings API Standard support efficient, standardized data collection from these disparate systems.
+Cities are using implementations of the OGC SensorThings API Standard to manage their traffic systems in real-time.
+Implementations of the OGC SensorThings API Standard support efficient, standardized data collection from these disparate systems.
 
 * Historical Data Archives: Providing standardized access to historical observation datasets stored in databases.
 The same mechanisms originally designed for IoT devices apply seamlessly to legacy databases.
@@ -64,10 +64,10 @@ The same mechanisms originally designed for IoT devices apply seamlessly to lega
 Extensions to the STA Standard have been created to better support user management in such scenarios.
 
 * Regulatory Compliance: Managing environmental compliance for monitoring data from both automated and manual sampling programs.
-While current reporting systems mostly rely on validated data provided as static datasets, approaches for direct provision of near-real-time data are increasingly being established, for which the SensorThings API is uniquely suited.
+While current reporting systems mostly rely on validated data provided as static datasets, approaches for direct provision of near-real-time data are increasingly being established, for which the OGC SensorThings API is uniquely suited.
 
 In summary, implementations of the OGC SensorThings API Standard are transforming the numerous disjointed networked sensor systems into a fully connected platform where complex tasks can be synchronized and performed.
-The flexible data model and powerful query capabilities make the SensorThings API suitable for any application involving many types of  observations over space and time, regardless of whether networked sensor devices are involved.
+The flexible data model and powerful query capabilities make the OGC SensorThings API suitable for any application involving many types of  observations over space and time, regardless of whether networked sensor devices are involved.
 
 [[benefits]]
 === Benefits of the OGC SensorThings API
@@ -115,7 +115,7 @@ As a standardized data model and interface for sensors in the Web of Things (WoT
 These benefits make the OGC SensorThings API particularly valuable in today's rapidly evolving digital landscape, where organizations increasingly rely on sensor data for decision-making and automation.
 
 [[overview2]]
-=== SensorThings API Overview
+=== OGC SensorThings API Overview
 
 The OGC SensorThings API core specification consists of several parts:
 
@@ -143,19 +143,19 @@ Managing and retrieving observations and metadata from IoT sensor systems is one
 ISO/OGC Observations, Measurements and Samples(OMS) defines conceptual models for the exchange of information describing observation acts, their results, and the (spatial) feature on which the observation was made.
 In addition, a wealth of observational metadata is covered, allowing a user to discover methodologies and devices utilized in obtaining the observational data.
 OMS is Topic 20 of the OGC Abstract Specification, that provides the conceptual foundation for OGC specification development activities related to observations, measurements and samples.
-As a result, SensorThings API is designed based on the OMS model.
+As a result, OGC SensorThings API is designed based on the OMS model.
 
 
-The SensorThings API Standard defines nine entities for the IoT sensing applications and several additional entities in various extensions.
+The OGC SensorThings API Standard defines nine entities for the IoT sensing applications and several additional entities in various extensions.
 In <<sta-oms-compare>>, each entity type is listed along with its relationship with OMS.
 This document uses the term of Sensor to describe the Observer that is used in generating an Observation, instead of using the OMS term of Observer.
 
 
 [#sta-oms-compare,reftext='{table-caption} {counter:table-num}']
-.SensorThings API entities and equivalent concepts in the Observations, Measurements and Samples standard
+.OGC SensorThings API entities and equivalent concepts in the Observations, Measurements and Samples standard
 [cols="10a,10a",options="header"]
 |===
-| SensorThings API Entities | OMS Concepts
+| STA Entities | OMS Concepts
 
 |Thing 
 |Host
@@ -177,7 +177,7 @@ This document uses the term of Sensor to describe the Observer that is used in g
 
 |===
 
-The OMS classes Deployment, Observing Procedure, Sample, Sampling, Sampling Procedure, Preparation Procedure and Preparation Step will be covered in a future extension to the SensorThings API Standard.
+The OMS classes Deployment, Observing Procedure, Sample, Sampling, Sampling Procedure, Preparation Procedure and Preparation Step will be covered in a future extension to the OGC SensorThings API Standard.
 
 
 === Relation to OASIS-OData
@@ -191,18 +191,18 @@ OData uses JSON-encoding by default, and specifies generic rules for encoding re
 
 The OGC SensorThings API v2 interface is not an OData interface and does not claim to be an OData service.
 It specifies a subset of the OData 4.01 specification and extends it at the same time with certain features optimized for accessing sensor data.
-A SensorThings API Server implementation can implement the full OData specification but does not have to.
+A STA Server implementation can implement the full OData specification but does not have to.
 
 
 [[revision-differences]]
 === Changes from Version 1.1
 
-From the SensorThings API version 1.1 (<<STAv1.1>>) to 2.0 changes have been made to both the data model, the specification of the STA API and the document structure.
+From the OGC SensorThings API version 1.1 (<<STAv1.1>>) to 2.0 changes have been made to both the data model, the specification of the STA API and the document structure.
 
 ==== Changes to the document structure
 
-The data model, the specification of the STA API, and the protocol bindings are now independent sections that can be use independently.
-For instance, since MQTT 5 introduced a request/response pattern, it is now possible to use an implementation of the complete SensorThings API over MQTT without using the HTTP bindings to discover content.
+The STA data model, the specification of the STA API, and the protocol bindings are now independent sections that can be use independently.
+For instance, since MQTT 5 introduced a request/response pattern, it is now possible to use an implementation of the complete STA API over MQTT without using the HTTP bindings to discover content.
 Several extensions that were defined directly in the version 1.1 document have now been moved to a separate extension document that will be published at a later date.
 These extensions include, among others, the Batch-Request extension and the DataArrays extension.
 
@@ -215,7 +215,7 @@ The most important change in the API is that the OData `$metadata` page has been
 A second important change is the behavior when updating an Entity (for example using HTTP PATCH or PUT) and specifying a list of related Entities in a navigation property.
 In version 1.1 this would add the specified entities to the collection, while in version 2.0 (as in OData 4.01) this replaces the list of related entities with the specified list. (<<cud_deep_update>>)
 
-The STA API Standard now also has options to directly modify relations between Entities as described in <<cud_edit_relations>>.
+The STA API now also has options to directly modify relations between Entities as described in <<cud_edit_relations>>.
 
 ==== Changes to the Data Model
 
@@ -226,7 +226,7 @@ The first relates to how a Datastream specifies its Observation type.
 Datastreams now contain two attributes that describe the structure and encoding of the result fields in their Observations.
 The `resultType` attribute contains a SWE-Common JSON description of the result structure, while the `resultEncoding` contains the SWE-Common encoding of this result structure.
 The unitOfMeasure is part of the SWE-Common structure description found in `resultType`. Therefore, the `unitOfMeasurement` attribute has been removed.
-Since SWE-Common can be used to describe any structure, also one covering multiple ObservedProperties, the MultiDatastream extension of SensorThings v1.1 is obsolete.
+Since SWE-Common can be used to describe any structure, also one covering multiple ObservedProperties, the MultiDatastream extension of the OGC SensorThings API version 1.1 is obsolete.
 
 The second major change is in how FeatureOfInterest is modelled.
 This is due to an update made to OMS (<<OgcOMS>>) that now defines two roles a Feature can have with the act of Observing: 
@@ -241,7 +241,7 @@ This change allows for a much more detailed modelling of domain features and the
 
 
 [#sta-changes,reftext='{table-caption} {counter:table-num}']
-.Changes in the SensorThings API 2.0 data model compared to v1.1
+.Changes in the OGC SensorThings API 2.0 data model compared to version 1.1
 [width="100%",cols="4,20a",options="header"]
 |====
 | *Entity / Attributes*

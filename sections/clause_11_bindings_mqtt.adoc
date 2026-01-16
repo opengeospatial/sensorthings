@@ -3,7 +3,7 @@
 
 === Introduction
 
-The MQTT Bindings specify how to access a SensorThings API endpoint using the MQTT 5.0 protocol (<<MQTT50>>).
+The MQTT Bindings specify how to access a STA endpoint using the MQTT 5.0 protocol (<<MQTT50>>).
 This binding consists of three parts that can be implemented independently: <<mqtt_request_response>>, <<mqtt_publish_subscribe>> and <<mqtt_simple_create>>.
 
 
@@ -24,7 +24,7 @@ requirement:: {identifier}/req/binding/mqtt/simple_create
 [[mqtt_binding_advertisement]]
 === MQTT Binding Advertisement
 
-To help a client find the MQTT endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the service documents of all request-response bindings, as described in <<read_service_document>>.
+To help a client find the MQTT endpoints of a STA service, the endpoints of the service are documented in the `+serverSettings+` object of the service documents of all request-response bindings, as described in <<read_service_document>>.
 If the service supports any MQTT interface bindings, then the `+serverSettings+` object SHALL contain a attribute of type Object, with the name
 
 `{identifier}/req/binding/mqtt`
@@ -250,9 +250,9 @@ Payload:
 ----
 
 
-Since OData URLs are recursive, MQTT wildcards (`#` and `+`) are not allowed in subscriptions in the SensorThings topic tree.
+Since OData URLs are recursive, MQTT wildcards (`#` and `+`) are not allowed in subscriptions in the STA topic tree.
 
-Like HTTP URLs, MQTT topic in the SensorThings API can be extended with query options.
+Like HTTP URLs, MQTT topics in the OGC SensorThings API can be extended with query options.
 Query options are separated from the topic with a question mark character (`?`) and separated using an ampersand (`&`).
 Query options are listed below.
 

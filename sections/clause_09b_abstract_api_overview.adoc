@@ -3,7 +3,7 @@
 
 ==== Introduction
 
-URL Patterns as defined in the SensorThings API Standard consist of four parts: the Service Root, the STA API version number, the resource path and query options.
+URL Patterns as defined in the OGC SensorThings API Standard consist of four parts: the Service Root, the STA API version number, the resource path and query options.
 
 The service root URL:: the free to chose base path of the service.
 The API version number:: encoded as: `"v" + majorversionnumber + "." + minorversionnumber`.
@@ -231,7 +231,7 @@ Delete:: Remove the resource.
 
 Execute:: Execute an function on a resource.
 
-NOTE: The `Execute` request type is not used in the core SensorThings API Standard but may be used in extensions.
+NOTE: The `Execute` request type is not used in the core STA API but may be used in extensions.
 
 
 [[additional_request_parameters]]

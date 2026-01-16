@@ -22,7 +22,7 @@ requirement:: {identifier}/req/binding/http/request_response
 [[http_binding_advertisement]]
 === HTTP Binding Advertisement
 
-To help a client find the HTTP endpoints of a SensorThings service, the endpoints of the service are documented in the `+serverSettings+` object of the service documents of all request-response bindings, as described in <<read_service_document>>.
+To help a client find the HTTP endpoints of a STA service, the endpoints of the service are documented in the `+serverSettings+` object of the service documents of all request-response bindings, as described in <<read_service_document>>.
 If the service supports the HTTP interface binding, then the `+serverSettings+` object SHALL contain an attribute of type Object, with the name
 
 `{identifier}/req/binding/http`
@@ -95,12 +95,12 @@ If a service advertises this requirement in the service document then the servic
 
 [[http_topic_discovery]]
 === WebSub Topic Discovery
-This section defines the requirements for a STA 2.0 HTTP interface supporting topic discovery as an extension to <<W3CWebSub>>. With supporting WebSub Topic Discovery, asynchronous messaging over HTTP(S) can be established that allow any client to receive notification data from a STA endpoint based on self-defined topics including ODATA query parameters. The use of self-defined notification topics is a great improvement over PubSub, where topics are static and published by providers. With support for WebSub Topic Discovery, any client can determine if a particular topic - expressed as a SensorThings HTTP URL - can be used for subscribing to future notifications.
+This section defines the requirements for a STA HTTP interface supporting topic discovery as an extension to <<W3CWebSub>>. With supporting WebSub Topic Discovery, asynchronous messaging over HTTP(S) can be established that allow any client to receive notification data from a STA endpoint based on self-defined topics including ODATA query parameters. The use of self-defined notification topics is a great improvement over PubSub, where topics are static and published by providers. With support for WebSub Topic Discovery, any client can determine if a particular topic - expressed as a STA HTTP URL - can be used for subscribing to future notifications.
 
-NOTE: As defined in <<W3CWebSub>>, building an Asynchronous Messaging System requires a WebSub Hub implementation that accepts subscriptions for self-discovered topics, subscribe to the Sensor Things MQTT broker and distribute the actual notifications to subscribed clients.
+NOTE: As defined in <<W3CWebSub>>, building an Asynchronous Messaging System requires a WebSub Hub implementation that accepts subscriptions for self-discovered topics, subscribe to the STA MQTT broker and distribute the actual notifications to subscribed clients.
 
 
-The `Discovery` requirements class is implemented at the SensorThings API service - HTTP interface to support the W3C WebSub discovery protocol. 
+The `Discovery` requirements class is implemented at the STA service - HTTP interface to support the W3C WebSub discovery protocol. 
 
 [[http_topic_discovery_req_class]]
 [requirements_class]

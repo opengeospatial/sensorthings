@@ -17,6 +17,7 @@ O&M:: Observations and Measurements
 OMS:: Observations, Measurements and Samples
 PDF:: Portable Document Format
 SensorML:: Sensor Model Language
+STA:: OGC SensorThings API
 SWE:: Sensor Web Enablement
 UCUM:: Unified Code for Units of Measure
 URI:: Uniform Resource Identifier

@@ -3,8 +3,8 @@
 
 Every OData service utilizes an entity model which can be distributed over several schemas.
 The service describes this model through a metadata document accessible by a simple HTTP _GET_ request to the `<serviceRoot>/$metadata` path.
-This Clause describes an overview of the types of entities in the metadata document that will be used to describe the SensorThings API data model and its data model extensions.
-The entities listed below are also used to describe the REST and MQTT bindings of the SensorThings API service.
+This Clause describes an overview of the types of entities in the metadata document that will be used to describe the OGC SensorThings API data model and its data model extensions.
+The entities listed below are also used to describe the REST and MQTT bindings of the STA service.
 
 The contents of this Clause are based on:
 
@@ -79,7 +79,7 @@ See https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-
 
 |@id
 |The annotation `@id` is the `entity-id`, an absolute or relative URL of an entity that uniquely resolves to this entity.
-This was known as the `@selfLink` in SensorThings version 1.
+This was known as the `@selfLink` in STA version 1.
 |URL
 
 |@count
@@ -110,7 +110,7 @@ This was known as the `@selfLink` in SensorThings version 1.
 
 ==== Simple Types
 
-<<table_type_mapping>> lists the mapping of types used in the SensorThings API core data model to OData primitive types.
+<<table_type_mapping>> lists the mapping of types used in the OGC SensorThings API core data model to OData primitive types.
 
 [#table_type_mapping,reftext='{table-caption} {counter:table-num}']
 .mapping of types used in the SensorThings API core data model to OData primitive types
@@ -140,7 +140,7 @@ This was known as the `@selfLink` in SensorThings version 1.
 |====
 
 
-The SensorThings API core data model contains several complex types.
+The STA core data model contains several complex types.
 They are `TM_Interval`, `TM_Object` and `JSON Object`.
 
 
@@ -221,7 +221,7 @@ The data model is specified in the metadata document that can be retrieved from 
 It is described in a machine-readable way using the OData Common Schema Definition Language.
 See https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html
 
-An example CSDL document describing a service hosting a SensorThings API v2.0 core data model can be found in <<sta-core-csdl-example>>.
+An example CSDL document describing a service hosting a STA v2.0 core data model can be found in <<sta-core-csdl-example>>.
 A shortened example with comments can be found in <<csdl-example-short>>.
 
 

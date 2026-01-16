@@ -250,7 +250,7 @@ If a service advertises this requirement in the service document then the servic
 [[cud_json_patch]]
 ==== JSON-Patch
 
-Services MAY additionally support JSON PATCH format <<RFC6902>> to express a sequence of operations to apply to a SensorThings entity.
+Services MAY additionally support JSON PATCH format <<RFC6902>> to express a sequence of operations to apply to an entity.
 
 Entities can be updated with a json-patch  request to an URI pattern that addresses a single entity (<<pattern_entity>> or <<pattern_entity_related>>).
 

@@ -92,3 +92,35 @@ An attribute with a Primitive Type is called a primitive attribute.
 
 Named connection between Entities.
 
+
+=== STA API
+
+The abstract API part of the OGC SensorThings API standard.
+
+
+=== STA data model
+
+The data model part of the OGC SensorThings API standard.
+
+
+=== STA endpoint
+
+A point of connection for a client.
+For example, the HTTP endpoint of a STA service is available at a given domain and path and can be accessed using the HTTP protocol.
+
+
+=== STA implementation
+
+A piece of software that implements the OGC SensorThings API standard, as a client or server.
+
+
+=== STA Service
+
+A deployed STA implementation.
+A single service may expose multiple endpoints.
+
+
+=== STA Standard
+
+The OGC SensorThings API standard (this document).
+
