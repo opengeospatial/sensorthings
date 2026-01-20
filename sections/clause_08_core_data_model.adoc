@@ -912,7 +912,7 @@ Does the entity have detailed metadata that is specific to a sensor instance, li
 | 1
 
 | `definition`
-| The URI linking the Thing to an external definition.
+| The URI linking the Sensor to an external definition.
 | URI
 | 0..1
 
