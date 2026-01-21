@@ -95,7 +95,8 @@ Named connection between Entities.
 
 === STA API
 
-The abstract API part of the OGC SensorThings API standard.
+The API part of the OGC SensorThings API standard.
+Concrete bindings are provided for HTTP and MQTT.
 
 
 === STA data model
@@ -114,7 +115,7 @@ For example, the HTTP endpoint of a STA service is available at a given domain a
 A piece of software that implements the OGC SensorThings API standard, as a client or server.
 
 
-=== STA Service
+=== STA service
 
 A deployed STA implementation.
 A single service may expose multiple endpoints.
@@ -122,5 +123,5 @@ A single service may expose multiple endpoints.
 
 === STA Standard
 
-The OGC SensorThings API standard (this document).
+The OGC SensorThings API Standard (this document).
 
