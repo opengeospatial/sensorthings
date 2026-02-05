@@ -217,6 +217,7 @@ In version 1.1 this would add the specified entities to the collection, while in
 
 The STA API now also has options to directly modify relations between Entities as described in <<cud_edit_relations>>.
 
+[[data_model_changes]]
 ==== Changes to the Data Model
 
 The changes to the data model and its JSON representation are summarised in <<sta-changes>> and <<img-sta-core-changed>>.
@@ -231,12 +232,12 @@ Since SWE-Common can be used to describe any structure, also one covering multip
 The second major change is in how FeatureOfInterest is modelled.
 This is due to an update made to OMS (<<OgcOMS>>) that now defines two roles a Feature can have with the act of Observing: 
 
-* ProximateFeatureOfInterest: entity that is directly of interest in the act of observing 
-* UltimateFeatureOFInterest: entity that is ultimately of interest in the act of observing
+* proximateFeatureOfInterest: entity that is directly of interest in the act of observing 
+* ultimateFeatureOfInterest: entity that is ultimately of interest in the act of observing
 
 Based on this, the Entity Type `FeatureOfInterest` has been renamed to `Feature`, since the "of Interest" part of the name has nothing to do with the Feature directly, but only with the role it has in the process of being observed.
 The "of Interest" is moved to the name of the relation an Observation/Datastream has with the Feature.
-Furthermore, a Feature can now also be linked to Datastreams, as either Proximate- or UltimateFeatureOFInterest, instead of just to Observations as ProximateFeatureOfInterest.
+Furthermore, a Feature can now also be linked to Datastreams, as either proximate- or ultimateFeatureOfInterest, instead of just to Observations as FeatureOfInterest.
 This change allows for a much more detailed modelling of domain features and their relations to the Observations made on them.
 
 
@@ -277,7 +278,7 @@ This change allows for a much more detailed modelling of domain features and the
 - `unitOfMeasurement` SHALL be embedded within the `resultType` attribute and does not exist as an independent attribute within the `Datastream` entity
 - A `Datastream` can link to multiple `ObservedProperties` which was only possible with the `MultiDatastream` entity earlier.
   The SWE-Common based `resultType` and `resultEncoding` attributes eliminate the need for having a separate MultiDatastream entity
-- A `Datastream` can now be linked to the `Feature` it observes as two optional links between `Datastream` and `Feature` are introduced, named `UltimateFeatureOfInterest` and `ProximateFeatureOfInterest`.
+- A `Datastream` can now be linked to the `Feature` it observes as two optional links between `Datastream` and `Feature` are introduced, named `UltimateFeaturesOfInterest` and `ProximateFeatureOfInterest`.
 - `definition` attribute added
 
 | ObservedProperty
@@ -286,12 +287,12 @@ This change allows for a much more detailed modelling of domain features and the
 | Observation
 | 
 - `properties` replaces the `parameters` attribute.
-- An `Observation` may or may not link to any `Feature` in contrast to the mandatory link between `Observation` and `FeatureOfInterest` from v1.x.
+- An `Observation` may or may not link to any `Feature` as ProximateFeatureOfInterest in contrast to the mandatory link between `Observation` and `FeatureOfInterest` from v1.x.
 - `resultTime` is now optional and can be left out completely, instead of defaulting to a `null` value.
 
 | Feature
 | 
-- The `Feature` entity replaces the `FeatureOfInterest` entity from 1.x as it now takes the role of UltimateFeatureOfInterest or ProximateFeatureOfInterest depending upon the context and links with Observation and Datastream entities
+- The `Feature` entity replaces the `FeatureOfInterest` entity from 1.x as it now takes the role of ultimate or proximate feature of interest depending upon the context and links with Observation and Datastream entities
 - `definition` attribute added
 
 | FeatureType

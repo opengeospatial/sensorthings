@@ -7,4 +7,6 @@
 |Date |Release |Editor | Primary clauses modified |Description
 | 2023 - 2025 | 0.1 | Hylke van der Schaaf and others | all | Complete reimagining of the Standard.
 | 2025-11-15 | 0.2 | Hylke van der Schaaf | all | Addressed comments from OAB review.
+| 2026-01-16 | 0.3 | Hylke van der Schaaf | all | Improved the consistency of the use of name of the standard
+| 2026-02-05 | 0.4 | Hylke van der Schaaf | <<data_model_changes>>, <<sensing-core>> | Changed cardinality of Datastream-UltimateFeatureOfInterest to many-to-many and renamed to UltimateFeaturesOfInterest
 |===

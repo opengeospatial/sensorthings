@@ -18,7 +18,7 @@ For the Things whose location changed, the HistoricalLocations entities offer th
 A Thing also can have multiple Datastreams.
 A Datastream is a collection of Observations grouped by the same ObservedProperty, Sensor and optionally by Feature and ObservingProcedure.
 
-An Observation is an event performed by a Sensor that produces a result whose value is an estimate of an ObservedProperty of any given Feature which may be a proximate or ultimate FeatureofInterest.
+An Observation is an event performed by a Sensor that produces a result whose value is an estimate of an ObservedProperty of any given Feature which may be a proximate or ultimate feature of interest.
 Details of each above described entity are provided in the sections below.
 
 All data model requirements are grouped in the following requirements class:
@@ -547,19 +547,23 @@ part:: The service shall ensure the linked ObservedProperties match the definiti
 ====
 
 
-A Datastream groups a collection of Observations into a time series measuring the same ObservedProperties by the same Sensor for the same Thing and the same FeatureOfInterest.
+A Datastream groups a collection of Observations into a time series measuring the same ObservedProperties by the same Sensor for the same Thing.
 Examples of Datastreams could be:
 
 - An air quality monitoring station may have multiple Datastreams, each recording a specific pollutant measured by a specific sensor.
 - A sensor that measures multiple ObservedProperties can generate a single Datastream with a composite resultType.
 
-A Datastream can both have a Proximate- and an UltimateFeatureOfInterest.
-The UltimateFeatureOfInterest is the broadest domain feature that the Observations in the Datastream can be said to represent.
-The ProximateFeatureOfInterest is a more precise specification of a part of the Ultimate Feature.
-An individual Observation can also have a ProximateFeatureOfInterest, which would, in most cases, be a sample with a limited set of Observations taken on it.
+A Datastream can both have a proximate feature of interest and one or more ultimate features of interest.
+An ultimate feature of interest is the broadest domain feature that the Observations in the Datastream can be said to represent.
+The proximate feature of interest is the object on which a measurement is taken as representative of the ultimate feature of interest.
+An individual Observation can also have a proximate feature of interest, which would, in most cases, be a sample with a limited set of Observations taken on it.
 
-For example, in water quality the Ultimate FeatureOfInterest could be a river, while the ProximateFeatureOfInterest is a section of the river, or a specific point in the river where measurements or samples are taken.
-If samples are taken, these samples are the ProximateFeatureOfInterest linked directly to the Observations taken on them.
+For example, in water quality the ultimate feature of interest could be a river, while the proximate feature of interest is a section of the river, or a specific point in the river where measurements or samples are taken.
+If samples are taken, these samples are the proximate feature of interest linked directly to the Observations taken on them.
+
+A Datastream can have multiple ultimate features of interest when its Observations are equally representative for multiple domain features.
+For instance, a well can  intersect multiple aquifers in such a way that the water samples taken from this well can not be clearly assigned to one of these aquifers.
+In this case, Observations on these samples have all the aquifers of the well as ultimate features of interest.
 
 
 [#datastream-attributes,reftext='{table-caption} {counter:table-num}']
@@ -662,14 +666,14 @@ The service must ensure the linked ObservedProperties match the definitions used
 | 0..*
 
 | `ProximateFeatureOfInterest`
-| This relation links to a Feature that has the role ProximateFeatureOfInterest for all the Observations in a Datastream.
+| This relation links to a Feature that has the role proximate feature of interest for all the Observations in a Datastream.
 | `Feature`
 | 0..1
 
-| `UltimateFeatureOfInterest`
-| This relation links to a Feature that has the role UltimateFeatureOfInterest for all the Observations in a Datastream.
+| `UltimateFeaturesOfInterest`
+| This relation links to zero or more Features that have the role ultimate feature of interest for all the Observations in a Datastream.
 | `Feature`
-| 0..1
+| 0..*
 |====
 
 
@@ -1186,12 +1190,12 @@ An Observation can be directly linked to a Feature, through the relation `Proxim
 Features linked to an Observation in this way are generally samples, either real, physical ones.
 Examples are water samples taken from a river, or the place that a moving Thing happened to be in, when it made a measurement.
 
-In case the Feature is a domain object, such as a river, a building, or a plot of land, the Feature is indirectly linked to the Observation through the `UltimateFeatureOfInterest` or `ProximateFeatureOfInterest` relations on the Datastream.
-It is also possible for all relations to exist, in which case the `ProximateFeatureOfInterest` of the Observation is a sample of the `ProximateFeatureOfInterest` of the Datastream, which is, in turn, a part of the `UltimateFeatureOfInterest`.
+In case the Feature is a domain object, such as a river, a building, or a plot of land, the Feature is indirectly linked to the Observation through the `UltimateFeaturesOfInterest` or `ProximateFeatureOfInterest` relations on the Datastream.
+It is also possible for all relations to exist, in which case the `ProximateFeatureOfInterest` of the Observation is a sample of the `ProximateFeatureOfInterest` of the Datastream, which is in turn representative of the `UltimateFeaturesOfInterest`.
 
 A third case is possible: When the target of the observation is (a sub-part of) the Thing itself.
 For instance, when the Observation is on the battery-level of a drone.
-In this case neither the `ProximateFeatureOfInterest` on the Observation, nor the `ProximateFeatureOfInterest` or `UltimateFeatureOfInterest` relations on the Datastream need to be set.
+In this case neither the `ProximateFeatureOfInterest` on the Observation, nor the `ProximateFeatureOfInterest` or `UltimateFeaturesOfInterest` relations on the Datastream need to be set.
 
 
 .Example of an Observation entity returned by a HTTP end point.
@@ -1233,18 +1237,18 @@ part:: Each Feature entity shall have the direct relation between a Feature enti
 
 
 An Observation assigns a value to a property of a subject by applying an ObservingProcedure.
-The subject is the Feature that can take the role of ProximateFeatureOfInterest or UltimateFeatureOfInterest of the Observation [<<OgcOMS>> and <<IsoOMS>>].
+The subject is the Feature that can take the role of proximate feature of interest or ultimate feature of interest of the Observation [<<OgcOMS>> and <<IsoOMS>>].
 In cases where estimating the value of a property of interest is not possible directly, a proxy feature is used.
-Such an application typically requires taking a sample of the UltimateFeatureOfInterest such that this sample, the ProximateFeatureOfInterest, represents an approximation of the domain feature.
+Such an application typically requires taking a sample of the ultimate feature of interest such that this sample, the proximate feature of interest, represents an approximation of the domain feature.
 
 Some examples of features are:
 
-- The Ultimate Feature of a WiFi enabled thermostat, with a built-in temperature sensor, could be the room that the thermostat monitors.
+- The ultimate feature of a WiFi enabled thermostat, with a built-in temperature sensor, could be the room that the thermostat monitors.
 The exact position of the thermostat is captured in a Location entity of the Thing representing the thermostat.
 
 - In the case of water quality monitoring, water samples are taken from a river at a specific sampling location.
 The water sample, the sampling location, and the river are all Features.
-The river is the UltimateFeatureOfInterest attached to the Datastreams of the Observations taken on the sample.
+The river Feature is attached to the Datastreams of the Observations taken on the sample through the UltimateFeaturesOfInterest relation.
 The sampling location is the ProximateFeatureOfInterest attached to the Datastreams of the Observations taken on the sample.
 Finally, the sample is the ProximateFeatureOfInterest directly attached to the various Observations.
 
@@ -1315,12 +1319,12 @@ The data type is defined by encodingType.
 | 0..*
 
 | `DatastreamsProximate`
-| All Datastreams for the Observations of which this Feature is a ProximateFeatureOfInterest.
+| All Datastreams for the Observations of which this Feature is a proximate feature of interest.
 | `Datastream`
 | 0..*
 
 | `DatastreamsUltimate`
-| All Datastreams for the Observations of which this Feature is the UltimateFeatureOfInterest.
+| All Datastreams for the Observations of which this Feature is an ultimate feature of interest.
 | `Datastream`
 | 0..*
 |====
