@@ -7,25 +7,3 @@ Furthermore, it provides support for push notifications for data changes over MQ
 The data model, and the API can be extended by specifying requirements for additional protocol bindings or data encodings.
 Such extensions can be added to future revisions of the Standard, or as separate extension documents.
 
-
-include::./security_considerations.adoc[]
-
-
-[[submitters-section]]
-== Submitters
-
-All questions regarding this submission should be directed to the editors or the submitters:
-
-[#submitters-table,reftext='{table-caption} {counter:table-num}']
-.Submitters
-[width="90%",cols="4,6",options="header"]
-|===
-| *Name* | *Affiliation*
-| Hylke van der Schaaf _(editor)_ | Fraunhofer-Gesellschaft
-| Steve Liang | SensorUp Inc.
-| Kathi Schleidt | Datacove e.U.
-| Andreas Matheus | Secure Dimensions GmbH
-| Joan Maso Pau | Universitat Autònoma de Barcelona (CREAF)
-| Sylvain Grellet | BRGM
-| Humaid Imran Kidwai | University of Calgary
-|===
