@@ -16,7 +16,7 @@ If you maintain a SensorThings service and would like to add it to the list, let
 | County | Owner | Domain | Info | Endpoint URL |
 | --- | --- | --- | --- | --- |
 |Europe | Fraunhofer IOSB | Air Quality | [info](https://datacoveeu.github.io/API4INSPIRE/datanests/ad-hoc.html) | https://airquality-frost.k8s.ilt-dmz.iosb.fraunhofer.de/v1.1/ |
-|Netherlands | RIVM| Air Quality | [info](https://www.samenmeten.nl/dataportaal/api-application-programming-interface) | https://api-samenmeten.rivm.nl/v1.0/ |
+|Netherlands | RIVM| Air Quality | [info](https://www.samenmeten.nl/dataportaal/api-application-programming-interface) | https://api-samenmeten.rivm.nl/v1.0 |
 
 
 ## Statistics
