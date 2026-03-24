@@ -586,7 +586,7 @@ v2.0/Observations?$orderby=Datastreams/id desc, phenomenonTime
 [%metadata]
 identifier:: {identifier}/req/api/read/options/orderby
 
-A service SHALL support the `$count` query option as described in section <<read_options_orderby>>.
+A service SHALL support the `$orderby` query option as described in section <<read_options_orderby>>.
 ====
 
 
