@@ -2,10 +2,10 @@
 [abstract_test]
 ====
 [%metadata]
-label:: /conf/discovery/api-sta-websub-odata
+label:: /conf/discovery/api-sta-websub-odata-blacklisting
 identifier:: /conf/discovery/api-sta-websub-odata-blacklisting
 target:: /req/req-class-discovery/req-odata-blacklisting
-subject:: /req/req-class/discovery
+subject:: /req/req-class-discovery/req-odata-blacklisting
 test-purpose:: Validate that the disallowed ODATA options do not return the HTTP link header `rel="self"`.
 
 [.component,class=test method]
@@ -25,6 +25,11 @@ Issue HTTP HEAD and GET requests on each URL.
 Validate the contents of the returned HTTP header to not include the link header `rel="self"` but the link header `rel="help"`.
 --
 
+[.component,class=step]
+--
+Validate the contents of the returned HTTP header to include the link header `rel="hub"`.
+--
+
 =====
 ====
 
@@ -35,9 +40,9 @@ Validate the contents of the returned HTTP header to not include the link header
 {
     "serverSettings": {
         "conformance": {
-            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+            "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
         },
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "topics_denied": [],
             "odata_denied": ["$expand"]
         }
@@ -50,11 +55,10 @@ Validate the contents of the returned HTTP header to not include the link header
 [source,text]
 ----
 GET /sta/v1.1/Things?$expand=Locations HTTP/1.1
-Host: sta-websub.secd.eu
+Host: localhost
 
 HTTP/1.1 200 Ok
 Content-type: application/json
-Link: <http://hub.sta-websub.secd.eu>; rel="hub"
-Link: <http://sta-websub.secd.eu/sta/v1.1/help#odata_option_denied>; rel="help"
-[source,json]
+Link: <http://hub.localhost>; rel="hub"
+Link: <http://localhost/sta/v1.1/help#odata_option_denied>; rel="help"
 ----

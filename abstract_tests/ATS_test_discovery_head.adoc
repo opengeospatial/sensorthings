@@ -6,7 +6,7 @@ label:: /conf/discovery/api-sta-websub-http-head
 identifier:: /conf/discovery/api-sta-websub-http-head
 target:: /req/req-class-discovery/req-http-methods
 target:: /req/req-class-discovery/req-link-hub
-subject:: /req/req-class/discovery
+subject:: /req/req-class-discovery/req-http-methods
 test-purpose:: Validate that the STA-WebSub discovery is supported via HTTP HEAD.
 
 [.component,class=test method]
@@ -23,9 +23,13 @@ Issue a HTTP HEAD request on that topic URL.
 
 [.component,class=step]
 --
-Validate that the request method was accepted and that the response headers include the Link headers `hub`.
+Validate that the request method was accepted.
 --
-[NOTE]
-The Link header `hub` must always be returned even for a topic URL that is not allowed for subscription. But for this test, it is sufficient to test that the HTTP method is supported and for that the `hub` header is returned.
+
+[.component,class=step]
+--
+Validate that the response headers include the Link header `hub`.
+--
+
 =====
 ====

@@ -1,16 +1,18 @@
-[[ats_sta_websub_landingpage_odata]]
+[[ats_sta_websub_landing_page_odata_discovery]]
 [abstract_test]
 ====
 [%metadata]
-label:: /conf/discovery/api-sta-websub-landing-page
-subject:: /req/req-class/landing-page-odata
-test-purpose:: Validate that the denied ODATA commands are advertised on the Landing Page.
+label:: /conf/discovery/api-sta-websub-landing-page-odata
+identifier:: /conf/discovery/api-sta-websub-landing-page-odata
+target:: /req/req-class-discovery/req-landing-page-odata
+subject:: /req/req-class-discovery/req-landing-page-odata
+test-purpose:: Validate that the denied ODATA commands are advertised on the Root Page.
 
 [.component,class=test method]
 =====
 [.component,class=step]
 --
-Construct a URL to the Landing Page.
+Construct a URL to the Root Page.
 --
 
 [.component,class=step]
@@ -22,48 +24,50 @@ Issue a HTTP HEAD and GET request on that URL.
 --
 Validate the contents of the returned document to include the implemented Conformance Class(es):
 
-`http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery`
+`https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery`
 --
 
 [.component,class=step]
 --
-Validate the contents of the returned document to include the JSON object `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` including the key `odata_denied`. 
+Validate the contents of the returned document to include the JSON object `https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` including the key `odata_denied`. 
 --
 
 [.component,class=step]
 --
-Validate that the value of the key `odata_denied` is a JSON array that is either empty ("[]") or contains a list of denied ODATA commands.
+Validate that the value of the key `odata_denied` is a JSON array that it is either empty ("[]") or contains a list of denied ODATA options.
 --
 
 =====
 ====
 
-==== Example Landing Page snippet advertising no denied ODATA commands
+==== Example Root Page snippet advertising no denied ODATA options
 
-```JSON
+[source,json]
+----
 {
     "serverSettings": {
         "conformance": {
-            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+            "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
         },
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "odata_denied": []
         }
     }
 }
-```
+----
 
-==== Example Landing Page snippet advertising `$expand` as a denied ODATA command
+==== Example Root Page snippet advertising `$expand` as a denied ODATA options
 
-```JSON
+[source,json]
+----
 {
     "serverSettings": {
         "conformance": {
-            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+            "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
         },
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "odata_denied": ["$expand"]
         }
     }
 }
-```
+----

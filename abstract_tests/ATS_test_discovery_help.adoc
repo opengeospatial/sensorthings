@@ -5,28 +5,48 @@
 label:: /conf/discovery/api-sta-websub-link-header-help
 identifier:: /conf/discovery/api-sta-websub-link-header-help
 target:: /req/req-class-discovery/req-link-help
-subject:: /req/req-class/discovery/req-discovery-help
+target:: /req/req-class-discovery/req-link-self
+target:: /req/req-class-discovery/req-link-hub
+subject:: /req/req-class-discovery/req-link-help
 test-purpose:: Validate that the WebSub discovery returns the link headers `hub` and `help` for a topic URL **not allowed** for subscription.
 
 [.component,class=test method]
 =====
 [.component,class=step]
 --
-Construct a topic URL that is **not allowed** for subscription. 
---
-
-[NOTE]
-To determine which topic URLs **are not allowed**, examine the root page. The cause for 'not allowed' SHALL be based on `topics_denied` or `odata_denied`.
-
-[.component,class=step]
---
-Issue a HTTP HEAD and GET request on that topic URL.
+Construct a topic URL that is **not allowed** for subscription based on `topics_denied`. Construct a topic URL that is **not allowed** for subscription based on `odata_denied`. Construct a topic URL that is **not allowed** for subscription if reasons exist to deny subscription other than based on `topics_denied` and `odata_denied`.
 --
 
 [.component,class=step]
 --
-Validate that the response includes the Link header `hub` and `help`. In particular validate that the Link header `self` is not present!
+Issue a HTTP HEAD and GET request for each topic URL.
 --
+
+[.component,class=step]
+--
+Validate that the response includes the Link header `hub`.
+--
+
+[.component,class=step]
+--
+Validate that the response includes the Link header `help`.
+--
+
+[.component,class=step]
+--
+Validate that the URL from the Link header `help` is resolvable.
+--
+
+[.component,class=step]
+--
+Validate that the content from the URL from the Link header `help` contains useful information describing the reason why the Link `self` is not present.
+--
+
+[.component,class=step]
+--
+Validate that the response does **not** include the Link header `self`.
+--
+
 =====
 ====
 
@@ -37,9 +57,9 @@ Validate that the response includes the Link header `hub` and `help`. In particu
 {
     "serverSettings": {
         "conformance": {
-            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+            "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
         },
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "topics_denied": ["v1.1/Observations"],
             "odata_denied": ["$expand"]
         }
@@ -52,12 +72,12 @@ Validate that the response includes the Link header `hub` and `help`. In particu
 [source,text]
 ----
 GET /sta/v1.1/Observations HTTP/1.1
-Host: sta-websub.secd.eu
+Host: localhost
 
 HTTP/1.1 200 Ok
 Content-type: application/json
-Link: <http://hub.sta-websub.secd.eu>; rel="hub"
-Link: <http://sta-websub.secd.eu/sta/v1.1/help#topic_denied>; rel="help"
+Link: <http://hub.localhost>; rel="hub"
+Link: <http://localhost/sta/v1.1/help#topic_denied>; rel="help"
 ----
 
 ==== Example HTTP request and response for a URL including the denied ODATA option `$expand`
@@ -65,10 +85,10 @@ Link: <http://sta-websub.secd.eu/sta/v1.1/help#topic_denied>; rel="help"
 [source,text]
 ----
 GET /sta/v1.1/Things?$expand=Locations HTTP/1.1
-Host: sta-websub.secd.eu
+Host: localhost
 
 HTTP/1.1 200 Ok
 Content-type: application/json
-Link: <http://hub.sta-websub.secd.eu>; rel="hub"
-Link: <http://sta-websub.secd.eu/sta/v1.1/help#odata_option_denied>; rel="help"
+Link: <http://hub.localhost>; rel="hub"
+Link: <http://localhost/sta/v1.1/help#odata_option_denied>; rel="help"
 ----

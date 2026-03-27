@@ -2,18 +2,18 @@
 :doctype: standard
 :encoding: utf-8
 :lang: en
-:status: draft
+:status: approved
 :committee: technical
 :draft: 1.0
-:external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
-:docnumber: 24-032
+:external-id: https://www.opengis.net/spec/sensorthings-websub/1.0
+:docnumber: 24-032r1
 :received-date: 2024-07-03
-:issued-date: 2025-08-25
+:issued-date: 2026-04-01
 :published-date: 2029-12-31
 :fullname: Andreas Matheus
 :fullname_2:
-:docsubtype: Implementation
-:keywords: ogcdoc, OGC document, OGC Standard, API, SensorThings, WebSub, MQTT, Webhook, Publisher, Subscriber, Hub
+:docsubtype: implementation
+:keywords: ogcdoc, OGC document, OGC Standard, API, SensorThings, W3C, WebSub, MQTT, Webhook, Publisher, Subscriber, Hub
 :submitting-organizations: Secure Dimensions GmbH; Centre de Recerca Ecològica i Aplicacions Forestals (CREAF); Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
 :mn-document-class: ogc
 :mn-output-extensions: xml,html,doc,pdf
@@ -22,9 +22,9 @@
 :pdf-uri: ./document.pdf
 :xml-uri: ./document.xml
 :doc-uri: ./document.doc
-:edition: 0.10
+:edition: 1.0
 
-:identifier: http://www.opengis.net/spec/sensorthings-websub/1.0
+:identifier: https://www.opengis.net/spec/sensorthings-websub/1.0
 
 ////
 Make sure to complete each included document

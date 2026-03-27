@@ -14,4 +14,5 @@
 |2025-02-04 |0.8 |Andreas Matheus |Chapter 7 and Annex A |Incorporating feedback from Joan Maso and Hylke van der Schaaf
 |2025-02-25 |0.9 |Andreas Matheus |all |Incorporating editorial improvements from Carl Reed
 |2025-08-28 |0.10|Andreas Matheus |all |Final edits
+|2026-04-01 |1.0 |Andreas Matheus |all |Final edits for publication as OGC Standard
 |===

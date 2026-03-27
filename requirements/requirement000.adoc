@@ -1,0 +1,29 @@
+[[req_discovery_landing_page]]
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/req-class-discovery/req-landing-page-discovery
+part:: An implementation SHALL return a SensorThings API v1.1 compliant root page.
+part:: The root page SHALL include the value `https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` in the `conformance` array.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/req-class-discovery/req-landing-page-topics
+part:: An implementation SHALL include the key `https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` into the `serverSettings` of the root page.
+part:: The key `https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` SHALL contain the key `topics_denied`.
+part:: The key `topics_denied` SHALL include either an empty JSON array or a JSON array that contains all denied topics.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: /req/req-class-discovery/req-landing-page-odata
+part:: An implementation SHALL include the key `https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` into the `serverSettings` of the root page.
+part:: The key `https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` SHALL contain the key `odata_denied`.
+part:: The key `odata_denied` SHALL include either an empty JSON array or a JSON array that contains all denied ODATA options.
+====
+
+NOTE: The root-page requirements group JSON structure obligations together for ease of reference.

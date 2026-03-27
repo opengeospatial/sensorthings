@@ -4,6 +4,6 @@
 ====
 [%metadata]
 identifier:: /req/req-class-discovery/req-odata-discovery
-part:: An implementation SHALL advertise the support for ODATA query parameter by publishing the string `http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` in the `serverSettings` section of the root page.
+part:: An implementation SHALL advertise the support for STA-WebSub by publishing the string `https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery` in the `serverSettings` section of the root page.
 
 ====

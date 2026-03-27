@@ -2,14 +2,19 @@
 [conformance_class]
 ====
 [%metadata]
-label:: http://www.opengis.net/spec/sta-websub/1.0/conf/discovery
-target:: http://www.opengis.net/spec/sta-websub/1.0/req/discovery
+label:: https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery
+target:: https://www.opengis.net/spec/sensorthings-websub/1.0/req/discovery
 subject:: Requirements Class "Discovery"
 classification:: Target Type: Web API
+conformance-test:: /conf/discovery/api-sta-websub-landing-page-discovery
+conformance-test:: /conf/discovery/api-sta-websub-landing-page-topics
+conformance-test:: /conf/discovery/api-sta-websub-landing-page-odata
+
 conformance-test:: /conf/discovery/api-sta-websub-http-get
 conformance-test:: /conf/discovery/api-sta-websub-http-head
-conformance-test:: /conf/discovery/api-sta-websub-link-header-help
+conformance-test:: /conf/discovery/api-sta-websub-link-header-hub
 conformance-test:: /conf/discovery/api-sta-websub-link-header-self
+conformance-test:: /conf/discovery/api-sta-websub-link-header-help
 
 conformance-test:: /conf/discovery/api-sta-websub-odata-support
 conformance-test:: /conf/discovery/api-sta-websub-odata-discovery
@@ -21,6 +26,12 @@ conformance-test:: /conf/discovery/api-sta-websub-topics-blacklisting
 conformance-test:: /conf/discovery/api-sta-websub-topics-no-blacklisting
 ====
 
+==== Root Page
+
+include::./ATS_test_landingpage_discovery.adoc[]
+include::./ATS_test_landingpage_topics.adoc[]
+include::./ATS_test_landingpage_odata.adoc[]
+
 ==== HTTP Methods
 
 include::./ATS_test_discovery_get.adoc[]
@@ -28,6 +39,7 @@ include::./ATS_test_discovery_head.adoc[]
 
 ==== Link Headers
 
+include::./ATS_test_discovery_hub.adoc[]
 include::./ATS_test_discovery_self.adoc[]
 include::./ATS_test_discovery_help.adoc[]
 

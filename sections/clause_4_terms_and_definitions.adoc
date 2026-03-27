@@ -33,11 +33,14 @@ https://www.w3.org/TR/websub/#x3-2-2-subscriber
 [quote, https://www.w3.org/TR/websub/#x3-2-3-hub]
 an implementation that handles subscription requests and distributes the content to subscribers when the corresponding topic URL has been updated.
 
+=== STA-WebSub Hub
+an implementation that is capable to interact with an OGC SensorThings API service to manage subscriptions and receive notifications via MQTT
+
 [.source]
 https://www.w3.org/TR/websub/#x3-2-3-hub
 
 === Topic URL
-a URL used by a Subscriber when subscribing to a Hub. The SensorThings API service returns the topic URL in the HTTP Link header `<Link "topic URL">; rel="self"` for a request URL that is allowed for subscription.
+a URL returned by the SensorThings API service as an HTTP Link header `<Link "topic URL">; rel="self"` in response to a request URL (if allowed for subscription).
 
 === MQTT Topic
-a string used to subscribe to the MQTT broker for receiving update events. The MQTT topic is determined from the request URL.
+a string used to subscribe to the OGC SensorThings API MQTT broker for receiving update events. The STA-WebSub Hub determines the MQTT topic from the request URL.

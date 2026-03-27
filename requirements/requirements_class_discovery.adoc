@@ -4,9 +4,12 @@
 .Requirements Class 'Discovery'
 ====
 [%metadata]
-identifier:: http://www.opengis.net/spec/sta-websub/1.0/req/discovery
+identifier:: https://www.opengis.net/spec/sensorthings-websub/1.0/req/discovery
 subject:: Web API
-requirement:: /req/req-class-discovery/req-req-http-methods
+requirement:: /req/req-class-discovery/req-landing-page-discovery
+requirement:: /req/req-class-discovery/req-landing-page-topics
+requirement:: /req/req-class-discovery/req-landing-page-odata
+requirement:: /req/req-class-discovery/req-http-methods
 requirement:: /req/req-class-discovery/req-link-hub
 requirement:: /req/req-class-discovery/req-link-self
 requirement:: /req/req-class-discovery/req-link-help

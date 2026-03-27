@@ -2,10 +2,10 @@
 [abstract_test]
 ====
 [%metadata]
-label:: /conf/discovery/api-sta-websub-landing-page
+label:: /conf/discovery/api-sta-websub-topics-blacklisting
 identifier:: /conf/discovery/api-sta-websub-topics-blacklisting
 target:: /req/req-class-discovery/req-topics-blacklisting
-subject:: /req/req-class-discovery
+subject:: /req/req-class-discovery/req-topics-blacklisting
 test-purpose:: Validate that the denied topics as advertised on the root page are actually denied for discovery.
 
 [.component,class=test method]
@@ -22,7 +22,12 @@ Issue a HTTP HEAD and GET request on that URL.
 
 [.component,class=step]
 --
-Validate the returned link headers to contain the `link rel=help"` and **not** `link rel="self"`.
+Validate the returned link headers to contain the `link rel="help"` and **not** `link rel="self"`.
+--
+
+[.component,class=step]
+--
+Validate the contents of the returned HTTP header to include the link header `rel="hub"`.
 --
 
 =====
@@ -35,9 +40,9 @@ Validate the returned link headers to contain the `link rel=help"` and **not** `
 {
     "serverSettings": {
         "conformance": {
-            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+            "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
         },
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "topics_denied": ["v1.1/Datastreams(4711)"],
             "odata_denied": []
         }
@@ -50,10 +55,10 @@ Validate the returned link headers to contain the `link rel=help"` and **not** `
 [source,text]
 ----
 GET /sta/v1.1/Datastreams(4711) HTTP/1.1
-Host: sta-websub.secd.eu
+Host: localhost
 
 HTTP/1.1 200 Ok
 Content-type: application/json
-Link: <http://hub.sta-websub.secd.eu>; rel="hub"
-Link: <http://sta-websub.secd.eu/sta/v1.1/help#topic_denied>; rel="help"
+Link: <http://hub.localhost>; rel="hub"
+Link: <http://localhost/sta/v1.1/help#topic_denied>; rel="help"
 ----

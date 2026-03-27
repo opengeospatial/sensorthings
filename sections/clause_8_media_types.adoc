@@ -1,6 +1,6 @@
 == Media Types for any data encoding(s)
 
-This OGC Standard uses Link Header as defined in <<RFC5988>> and <<WebSub>>.
+This OGC Standard uses Link Header as defined in <<RFC5988>> and <<W3CWebSub>>.
 
 In particular, the following HTTP Link headers are used:
 

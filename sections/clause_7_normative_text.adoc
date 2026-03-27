@@ -2,7 +2,7 @@
 == SensorThings API - WebSub Extension (Normative)
 As outlined in <<introduction>>, a system leveraging the SensorThings API Extension: WebSub Asynchronous Messaging (STA-WebSub) is a specialization of the asynchronous messaging system described in the <<W3CWebSub>>. As a W3C WebSub system, the STA-WebSub system is comprised of three parts (Subscriber, Hub, Publisher). In the context of this OGC SensorThings API Extension: WebSub Asynchronous Messaging Standard, the Publisher is the SensorThings API service which can be split into two sub-components: the HTTP interface and the MQTT broker. 
 
-This STA-WebSub extension defines the following requirements class: 
+This STA-WebSub extension defines one requirements class: 
 
 * Discovery Requirements Class (mandatory)
 
@@ -15,6 +15,11 @@ Appendix B provides guidance for implementing a STA-WebSub Hub.
 The `Discovery` requirements class is implemented at the SensorThings API service - HTTP interface to support the W3C WebSub discovery protocol. 
 
 include::../requirements/requirements_class_discovery.adoc[]
+
+==== Root Page Discovery Requirements Class (mandatory)
+According to <<OGC18088>> a compliant implementation returns a root page.
+
+include::../requirements/requirement000.adoc[]
 
 ==== Requirement HTTP Methods
 According to <<W3CWebSub>>, discovery can be achieved via HTTP GET and HEAD methods.
@@ -56,7 +61,7 @@ Example blacklisting structure for ODATA options
 ----
 {
     "serverSettings": {
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "odata_denied": <JSON Array of denied ODATA options>
         }
     }
@@ -72,7 +77,7 @@ For example, the following root page snippet indicates restrictions for `$expand
 ----
 {
     "serverSettings": {
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "odata_denied": ["$expand", "$skip", "$top", "$filter"]
         }
     }
@@ -88,7 +93,7 @@ The following root page snippet indicates **no** restrictions for ODATA options
 ----
 {
     "serverSettings": {
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "odata_denied": []
         }
     }
@@ -108,7 +113,7 @@ Example blacklisting structure for topics
 ----
 {
     "serverSettings": {
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "topics_denied": <JSON Array of denied topics>
         }
     }
@@ -126,7 +131,7 @@ The following root page snippet indicates deny for the topics `v1.1/Observations
 ----
 {
     "serverSettings": {
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "topics_denied": ["v1.1/Observations", "v1.1/Datastreams('very chatty')/Observations"]
         }
     }
@@ -142,7 +147,7 @@ The following root page snippet indicates **no** deny for topics:
 ----
 {
     "serverSettings": {
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "topics_denied": []
         }
     }

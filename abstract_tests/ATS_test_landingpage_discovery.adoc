@@ -3,38 +3,46 @@
 ====
 [%metadata]
 label:: /conf/discovery/api-sta-websub-landing-page-discovery
-subject:: /req/req-class/landing-page
-test-purpose:: Validate that the implemented STA-WebSub Conformance Class `Discovery` is listed on the Landing Page.
+identifier:: /conf/discovery/api-sta-websub-landing-page-discovery
+target:: /req/req-class-discovery/req-landing-page-discovery
+subject:: /req/req-class-discovery/req-landing-page-discovery
+test-purpose:: Validate that the implemented STA-WebSub Conformance Class `Discovery` is listed on the Root Page.
 
 [.component,class=test method]
 =====
 [.component,class=step]
 --
-Construct a URL to the Landing Page.
+Construct a URL to the Root Page.
 --
 
 [.component,class=step]
 --
-Issue a HTTP HEAD and GET request on that URL.
+Issue a HTTP GET request on that URL.
+--
+
+[.component,class=step]
+--
+Validate that the response contains a root page compliant with SensorThings API v1.1.
 --
 
 [.component,class=step]
 --
 Validate the contents of the returned document to include the implemented Conformance Class(es):
 
-`http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery`
+`https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery`
 --
 =====
 ====
 
 ==== Example
 
-```JSON
+[source,json]
+----
 {
     "serverSettings": {
         "conformance": {
-            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+            "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
         }
     }
 }
-```
+----

@@ -2,10 +2,10 @@
 [abstract_test]
 ====
 [%metadata]
-label:: /conf/discovery/api-sta-websub-odata
+label:: /conf/discovery/api-sta-websub-odata-no-blacklisting
 identifier:: /conf/discovery/api-sta-websub-odata-no-blacklisting
 target:: /req/req-class-discovery/req-odata-blacklisting
-subject:: /req/req-class/discovery
+subject:: /req/req-class-discovery/req-odata-blacklisting
 test-purpose:: Validate that the allowed ODATA options do return the HTTP link header `rel="self"`.
 
 [.component,class=test method]
@@ -35,9 +35,9 @@ Validate the contents of the returned HTTP header to include the link header `re
 {
     "serverSettings": {
         "conformance": {
-            "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
+            "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery"
         },
-        "http://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
+        "https://www.opengis.net/spec/sensorthings-websub/1.0/conf/discovery": {
             "topics_denied": [],
             "odata_denied": ["$expand"]
         }
@@ -50,10 +50,10 @@ Validate the contents of the returned HTTP header to include the link header `re
 [source,text]
 ----
 GET /sta/v1.1/Things?$select=name HTTP/1.1
-Host: sta-websub.secd.eu
+Host: localhost
 
 HTTP/1.1 200 Ok
 Content-type: application/json
-Link: <http://hub.sta-websub.secd.eu>; rel="hub"
-Link: <http://sta-websub.secd.eu/sta/v1.1/Things?%24select%3Dname>; rel="self"
+Link: <http://hub.localhost>; rel="hub"
+Link: <http://localhost/sta/v1.1/Things?%24select%3Dname>; rel="self"
 ----

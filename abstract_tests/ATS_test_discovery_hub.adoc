@@ -1,0 +1,39 @@
+[[ats_sta_websub_discovery_link_hub]]
+[abstract_test]
+====
+[%metadata]
+label:: /conf/discovery/api-sta-websub-link-header-hub
+identifier:: /conf/discovery/api-sta-websub-link-header-hub
+target:: /req/req-class-discovery/req-link-hub
+subject:: /req/req-class-discovery/req-link-hub
+test-purpose:: Validate that the WebSub discovery returns the link headers `hub` for any topic URL.
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Construct a topic URL.
+--
+
+[.component,class=step]
+--
+Issue a HTTP HEAD request on that topic URL.
+--
+
+[.component,class=step]
+--
+Validate that the response includes the Link header `hub`.
+--
+
+[.component,class=step]
+--
+Issue a HTTP GET request on that topic URL.
+--
+
+[.component,class=step]
+--
+Validate that the response includes the Link header `hub`.
+--
+
+=====
+====

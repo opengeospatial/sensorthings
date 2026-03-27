@@ -5,23 +5,27 @@
 label:: /conf/discovery/api-sta-websub-odata-support
 identifier:: /conf/discovery/api-sta-websub-odata-support
 target:: /req/req-class-discovery/req-odata-support
+subject:: /req/req-class-discovery/req-odata-support
 test-purpose:: Validate that the SensorThings implementation supports the use of ODATA options.
 
 [.component,class=test method]
 =====
 [.component,class=step]
 --
-Construct SensorThings URLs for each valid and implemented ODATA option(s).
+Construct SensorThings URLs for each valid and implemented ODATA option(s) as advertised on the root page. 
+Construct a topic URL following pattern `SERVICE_VERSION/RESOURCE_PATH/COLLECTION_NAME` for each ODATA option advertised on the root page. 
+Construct a topic URL following pattern `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY` for each ODATA option advertised on the root page.
+Any constructed topic URL must not follow pattern `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY/PROPERTY_NAME`.
 --
 
 [.component,class=step]
 --
-Issue a HTTP HEAD and GET request on each URL.
+Issue a HTTP GET request for each topic URL.
 --
 
 [.component,class=step]
 --
-Validate the returned content to not contain errors.
+Validate that each response for a topic URL following the topic pattern `SERVICE_VERSION/RESOURCE_PATH/COLLECTION_NAME` or `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY` is compliant with SensorThings API v1.1.
 --
 
 =====

@@ -5,27 +5,33 @@
 label:: /conf/discovery/api-sta-websub-link-header-self
 identifier:: /conf/discovery/api-sta-websub-link-header-self
 target:: /req/req-class-discovery/req-link-self
-subject:: /req/req-class/discovery/req-discovery-self
+target:: /req/req-class-discovery/req-link-hub
+subject:: /req/req-class-discovery/req-link-self
 test-purpose:: Validate that the WebSub discovery returns the link headers `hub` and `self` for a topic URL that is **allowed** for subscription.
 
 [.component,class=test method]
 =====
 [.component,class=step]
 --
-Construct a topic URL that is **allowed** for subscription. A topic URL does not include a query string.
---
-
-[NOTE]
-To determine which topics **are allowed**, examine the root page and check the `topics_denied` array.
-
-[.component,class=step]
---
-Issue a HTTP HEAD and GET request on that topic URL.
+Construct topic URLs that are **allowed** for subscription. 
+Construct a topic URL following topic pattern `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY/PROPERTY_NAME` where the topic is not included in `topic_denied`. 
+Construct a topic URL following the topic patterns `SERVICE_VERSION/RESOURCE_PATH/COLLECTION_NAME` and `SERVICE_VERSION/RESOURCE_PATH_TO_AN_ENTITY` excluding ODATA options or including ODATA options that are not listed in `odata_denied`.
 --
 
 [.component,class=step]
 --
-Validate that the response includes the Link header `hub` and `self`. Also validate that the Link header `help` is not present!
+Issue a HTTP HEAD and GET request on each topic URL.
 --
+
+[.component,class=step]
+--
+Validate that the response includes the Link header `hub`.
+--
+
+[.component,class=step]
+--
+Validate that the response includes the Link header `self`.
+--
+
 =====
 ====
