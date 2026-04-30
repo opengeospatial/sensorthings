@@ -306,10 +306,10 @@ Single-valued navigation attributes (<<pattern_entity_related>>) can be updated 
 The "replace" request must contain an entity reference to the single entity that should be the new target of the navigation attribute.
 
 
-.Example of a request setting the UltimateFeatureOfInterest of `Datastream 1` to `Feature 2`.
+.Example of a request setting the ProximateFeatureOfInterest of `Datastream 1` to `Feature 2`.
 [source,text]
 ----
-replace http://host/service/Datastreams(1)/UltimateFeatureOfInterest/$ref
+replace http://host/service/Datastreams(1)/ProximateFeatureOfInterest/$ref
   {"@id": "Features(2)"}
 ----
 
@@ -317,10 +317,10 @@ replace http://host/service/Datastreams(1)/UltimateFeatureOfInterest/$ref
 Single-valued navigation attributes can be un-linked by sending a delete request to the association link.
 This will not remove the entities, only remove the link between the entities.
 
-.Example of a request removing the UltimateFeatureOfInterest from `Datastream 1`.
+.Example of a request removing the ProximateFeatureOfInterest from `Datastream 1`.
 [source,text]
 ----
-delete http://host/service/Datastreams(1)/UltimateFeatureOfInterest/$ref 
+delete http://host/service/Datastreams(1)/ProximateFeatureOfInterest/$ref 
 ----
 
 
