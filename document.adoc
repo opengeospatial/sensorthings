@@ -8,7 +8,7 @@
 :external-id: https://www.opengis.net/spec/sensorthings-websub/1.0
 :docnumber: 24-032r1
 :received-date: 2024-07-03
-:issued-date: 2026-04-01
+:issued-date: 2026-03-05
 :published-date: 2029-12-31
 :fullname: Andreas Matheus
 :fullname_2:

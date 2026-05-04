@@ -1,6 +1,7 @@
 [[introduction]]
 [obligation="informative"]
 == Introduction to a STA-WebSub System (Informative)
+
 This section illustrates how to build a STA-WebSub System using the OGC SensorThings API Extension: WebSub Asynchronous Messaging Standard (STA-WebSub) as defined in this document. This section further outlines a complete system that extends SensorThings API into asynchronous messaging over HTTP(S).
 
 [NOTE]
@@ -54,27 +55,28 @@ Hub -> Subscriber: Hub delivers the contents of topic to each subscriber with a 
 The notification protocol in the W3C WebSub Recommendation is unspecified (see WebSub §6 and __"Publisher notifies the hub of new content"__ as illustrated above) so that basically any protocol can be used between a Publisher and a Hub. A STA-WebSub system leverages this openness to couple the Publisher (an OGC SensorThings API service) and a (STA-WebSub compliant) Hub using MQTT.
 
 === STA-WebSub Overview
+
 An implementation of the SensorThings API Standard supports two protocols: The HTTP interface and the MQTT interface. Compliant with W3C WebSub §6, STA-WebSub specifies to use the MQTT protocol between the Hub and the Publisher. In addition the STA-WebSub extension specifies how the SensorThings API HTTP interface implementation supports the W3C WebSub discovery requirements.
 
-A STA-WebSub system consists of four components:
+A STA-WebSub system consists of four components.
 
 * SensorThings HTTP interface: 
-    ** The W3C discovery protocol gets implemented here. 
+    ** The W3C discovery protocol gets implemented here; and
     ** The STA-WebSub error handling gets implemented here.
 * SensorThings MQTT broker:
-    ** The Hub subscribes (and unsubscribes) for updates on MQTT topics
-    ** The broker sends MQTT notifications to the Hub
+    ** The Hub subscribes (and unsubscribes) for updates on MQTT topics; and
+    ** The broker sends MQTT notifications to the Hub.
 * Hub: 
-    ** The subscription functionality must be extended to transform a W3C topic URL into a SensorThings MQTT topic and the Hub must use the MQTT protocol to subscribe/unsubscribe for topics. 
+    ** The subscription functionality must be extended to transform a W3C topic URL into a SensorThings MQTT topic and the Hub must use the MQTT protocol to subscribe/unsubscribe for topics; and
     ** The notification of distribution events takes place via MQTT. A STA-WebSub Hub must therefore listen to MQTT events received from the associated MQTT broker and distribute the event content to all subscribers using HTTP(S) POST. 
 * Subscriber:
-    ** The Subscriber discovers subscription topics by sending HTTP HEAD and GET request URLs to the HTTP interface of the SensorThings API service
-    ** A URL that can be used for subscription with the Hub (via `hub.topic`) can be obtained from the HTTP Link header `rel="self"` included in the discovery response
-    ** A subscriber may use an `api-key` or `x-api-key` parameter for subscribing to the Hub
+    ** The Subscriber discovers subscription topics by sending HTTP HEAD and GET request URLs to the HTTP interface of the SensorThings API service;
+    ** A URL that can be used for subscription with the Hub (via `hub.topic`) can be obtained from the HTTP Link header `rel="self"` included in the discovery response; and
+    ** A subscriber may use an `api-key` or `x-api-key` parameter for subscribing to the Hub.
 
 The STA-WebSub - SensorThings API extension WebSub - defines additional capabilities in the context of SensorThings API that allow the propagation of updates via HTTP(S) using callback URLs to WebHooks as defined in the W3C WebSub Recommendation. The notification update is based on an event for a MQTT topic as defined in the SensorThings API Standard. 
 
-To make STA-WebSub work, the Subscriber, Publisher and Hub need to implement certain functionalities. In order to understand the requirements better, the following high-level flow diagram illustrates the additions for STA-WebSub:
+To make STA-WebSub work, the Subscriber, Publisher and Hub need to implement certain functionalities. In order to understand the requirements better, the following high-level flow diagram illustrates the additions for STA-WebSub.
 
 [[STA-WebSubOverview]] 
 .STA-WebSub Flow Diagram
@@ -126,9 +128,11 @@ The support for `$select` is mandatory for a SensorThings API service implementa
 ====
 
 === Introduction to Discovery, Subscription and Notification
+
 Certain functional requirements regarding discovery, subscription and notification need to be defined for extending the W3C WebSub protocol to support STA-WebSub.
 
 ==== Discovery
+
 A STA-WebSub compliant SensorThings API HTTP interface (also known as a Publisher) supports W3C WebSub discovery by adding `Link` headers with `rel="hub"` and `rel="self"` to the HTTP response. W3C WebSub additionally requires that these `Link` headers be included either as HTTP response headers or inline in an XHTML encoded response.
 
 Since the typical response format for a SensorThings API implementation is either JSON or GeoJSON, rather than XHTML, the STA-WebSub extension mandates that the `Link` headers be returned as HTTP response headers. Furthermore, W3C WebSub expects these discovery links to be available in response to both HTTP HEAD and GET requests.
@@ -164,6 +168,7 @@ end
 For this URL, the implementation returns the `<Link>; rel="self"` header.
 
 ==== Discovery "Error" Handling
+
 A STA-WebSub hub may receive a subscription request via the `hub.topic`, which translates into an MQTT topic. However, this topic may not be accepted by the SensorThings API MQTT broker. The accepted topic URLs are deployment-specific. For instance, subscribing to `/Observations` might generate an excessive load, resulting in it being disallowed. Additionally, using unsupported or disallowed OData options, such as `$expand` or `$filter`, can cause the absence of a `Link rel="self"` header in the response. The lack of this header indicates that a subscription for that particular topic URL is not possible. This behavior is perfectly in line with the W3C WebSub Recommendation. Nonetheless, any subscriber, whether a user or a service/process, may be puzzled as to why the discovery response does not include the `Link rel="self"` header.
 
 It is important to note that the absence of a `Link rel="self"` header is not considered an error. Therefore, using HTTP 4xx status codes in this case would be inappropriate. Furthermore, the W3C WebSub specification does not provide guidelines for error handling in these scenarios. There should be guidance available to clarify why the `Link rel="self"` header is missing, which would support users or developers implementing a STA-WebSub Subscriber.
@@ -203,6 +208,7 @@ To acknowledge that the topic URL cannot be used for subscription, the implement
 A STA-WebSub compliant implementation does not return the `<Link>; rel="self"` but the  `<Link>; rel="help"` header for the URL above.
 
 ==== Subscriptions
+
 A STA-WebSub Hub implementation must be capable of transforming the W3C WebSub `hub.topic` expressed as an HTTP(S) URL into an MQTT topic pattern that is accepted by the MQTT broker associated with the SensorThings API service. Given that the SensorThings API service and the Hub closely interact, this transformation should not be overly complicated.
 
 To prevent subscriptions to unsupported MQTT topics, the Hub must utilize the discovery protocol and deny any requests if the discovery response does not include the `Link rel="self"` header.
@@ -210,11 +216,13 @@ To prevent subscriptions to unsupported MQTT topics, the Hub must utilize the di
 If the Hub receives an unsubscribe request from a subscriber, it must confirm the intent with the subscriber and proceed to unsubscribe from the MQTT topic linked to the associated SensorThings API service.
 
 ==== Notifications
+
 Once the Hub subscribes to an MQTT topic, it awaits notifications from the MQTT broker associated with the SensorThings API service.
 
 When a notification event occurs (consisting of both the topic and content), the Hub delivers the content to the callback URLs that have subscribed (the subscribers' Webhooks) using an HTTP POST request.
 
 === Root Page
+
 The support for STA-WebSub is advertised on the SensorThings API root page. The SenorThings API root page is the response to an HTTP GET request issued to the service root URI as defined in <<OGC18088>>, §9.
 A compliant implementation and deployment of a SensorThings API service supporting STA-WebSub lists the following conformance classes under the `serverSettings/conformance`:
 
@@ -283,6 +291,7 @@ A STA-WebSub compliant SensorThings API service that has no ODATA options restri
 ====
 
 === Benefits of STA-WebSub
+
 Compared to PubSub, where subscriptions are defined by the Publisher, one of the biggest benefits for STA-WebSub Subscribers is that they can determine whether a self-defined topic is supported for receiving notifications and can receive those notifications via HTTP(S) POST. For providers, there is the advantage of being able to control topic discovery, which allows them to manage the use of the MQTT interface for sending notifications and to scale through STA-WebSub Hub redundancy.
 
 The OGC SensorThings API Standard allows MQTT clients to subscribe to update events, meaning that these events are delivered from the MQTT broker to all subscribed clients. The STA-WebSub extension, as defined in this OGC Standard, facilitates the distribution of MQTT events via HTTP(S). Consequently, the MQTT broker does not directly send update events to subscribers; rather, it is the Hub that handles this distribution using HTTP(S). This separation of duties offers important improvements in terms of usability, security, and scalability.

@@ -1,4 +1,5 @@
 == Conformance
+
 Requirements for one standardization target type are considered:
 
 * A SensorThings API v1.1 service

@@ -1,5 +1,6 @@
 [obligation="normative"]
 == SensorThings API - WebSub Extension (Normative)
+
 As outlined in <<introduction>>, a system leveraging the SensorThings API Extension: WebSub Asynchronous Messaging (STA-WebSub) is a specialization of the asynchronous messaging system described in the <<W3CWebSub>>. As a W3C WebSub system, the STA-WebSub system is comprised of three parts (Subscriber, Hub, Publisher). In the context of this OGC SensorThings API Extension: WebSub Asynchronous Messaging Standard, the Publisher is the SensorThings API service which can be split into two sub-components: the HTTP interface and the MQTT broker. 
 
 This STA-WebSub extension defines one requirements class: 
@@ -12,31 +13,37 @@ Appendix B provides guidance for implementing a STA-WebSub Hub.
 ====
 
 === Discovery Requirements Class (mandatory)
+
 The `Discovery` requirements class is implemented at the SensorThings API service - HTTP interface to support the W3C WebSub discovery protocol. 
 
 include::../requirements/requirements_class_discovery.adoc[]
 
 ==== Root Page Discovery Requirements Class (mandatory)
+
 According to <<OGC18088>> a compliant implementation returns a root page.
 
 include::../requirements/requirement000.adoc[]
 
 ==== Requirement HTTP Methods
+
 According to <<W3CWebSub>>, discovery can be achieved via HTTP GET and HEAD methods.
 
 include::../requirements/requirement001.adoc[]
 
 ==== Requirement Link Header 'hub'
+
 According to <<W3CWebSub>>, discovery always returns `<Link>; rel="hub"`.
 
 include::../requirements/requirement002.adoc[]
 
 ==== Requirement Link Header 'self'
+
 According to <<W3CWebSub>>, discovery returns `<Link>; rel="self"` for a URL that is suitable for subscription.
 
 include::../requirements/requirement003.adoc[]
 
 ==== Requirement Link Header 'help'
+
 Returning the `<Link>; rel="help"` header (specific to STA-WebSub) indicates the cause why the requested URL is not suitable for subscription.
 
 include::../requirements/requirement004.adoc[]
@@ -50,6 +57,7 @@ include::../requirements/requirement100.adoc[]
 include::../requirements/requirement101.adoc[]
 
 ==== Requirement ODATA Blacklisting
+
 A request URL may contain query parameters (after the `?`) presenting ODATA options. An implementation may deny discovery (and thereby later subscription) for certain ODATA options like `$expand` or `$filter`. 
 
 include::../requirements/requirement102.adoc[]
@@ -102,6 +110,7 @@ The following root page snippet indicates **no** restrictions for ODATA options
 ====
 
 ==== Requirement Topics Blacklisting
+
 The support for STA-WebSub can be determined from the root page as part of the `Discovery` conformance class.
 
 include::../requirements/requirement200.adoc[]

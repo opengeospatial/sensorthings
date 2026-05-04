@@ -1,5 +1,6 @@
 [appendix,obligation="informative"]
 == STA-WebSub Hub Implementation Guidance
+
 This appendix provides guidance as to how to implement a STA-WebSub Hub interoperating with a SensorThings API v1.1 service.
 
 [NOTE]
@@ -8,6 +9,7 @@ This appendix uses the natural language word "`MUST`" to indicate de-facto imple
 ====
 
 === Callback Authentication
+
 An implementation MUST accept the `hub.api_key` or `hub.x_api_key` with a subscription request. If both parameters (the `hub.api_key` **and** the `hub.x_api_key`) are used, the implementation MUST deny the subscription and return a HTTP response status code 400.
 
 * If the subscription request includes the `hub.api_key` parameter, the Hub MUST add the HTTP header `Api-Key` to the request send to the Subscriber's callback
@@ -16,6 +18,7 @@ An implementation MUST accept the `hub.api_key` or `hub.x_api_key` with a subscr
 The `hub.api_key` and `hub.x_api_key` parameters MUST be used exclusively and SHOULD only be specified with static callback URLs. The parameter value MUST be less than 200 bytes in length.
 
 === X-Api-Key and X-Hub-Signature
+
 One fundamental runtime functionality for a Hub is its ability to deliver notification content to all Subscribers. The W3C WebSub offers the use of HMAC (Hash-based Message Authentication Code), allowing Subscribers to validate the authenticity of the received content and ensure it comes from the expected Hub. By leveraging HMAC, Subscribers can also verify content integrity, which is crucial when using non-secure communication, such as HTTP instead of HTTPS. The W3C WebSub supports the transmission of the HMAC through the HTTP header `X-Hub-Signature`.
 
 However, the use of HMAC signatures imposes a burden on the CPU and memory of both the Hub and the Subscribers when calculating the HMAC value. This burden also necessitates caching (temporary storage) of large content at both the Hub and Subscriber implementations. As a result, the use of HMAC prevents Subscribers from streaming the received content directly into connected workflow processing. On the Hub side, caching does not introduce a significant resource burden, as an implementation would likely cache the content before distributing it to all Subscribers.
@@ -29,6 +32,7 @@ In cases where refreshing callback URLs is not feasible or too complex, STA-WebS
 Similar to how `hub.secret` shares the secret for HMAC generation between a Subscriber and a Hub, a STA-WebSub subscription may include the parameters `hub.api_key` or `hub.x_api_key` to activate API key usage at the Hub. These parameters prompt the Hub to add the HTTP headers `Api-Key` or `X-Api-Key` when distributing content to the Subscriber.
 
 === Subscription
+
 The STA-WebSub Hub, which is linked to a SensorThings API service, supports the W3C subscribe/unsubscribe protocol and converts a subscription topic URL (`hub.topic`) into an MQTT topic. A compliant implementation must be capable of transforming the absolute HTTP(S) request URL into the corresponding MQTT topic for the associated SensorThings API service.
 
 The Hub utilizes the MQTT protocol to handle subscriptions and unsubscriptions with the MQTT broker that corresponds to the SensorThings API service.
@@ -67,6 +71,7 @@ It is recommended to use the HTTP HEAD method for discovery requests, as this ap
 For new subscriptions or when renewing an existing one (when the Hub receives a subscribe request for an already active subscription), the implementation must set or update the API key and use this value for subsequent content distribution to the Subscriber.
 
 === Notification
+
 The STA-WebSub Hub must support receiving MQTT notifications from the MQTT broker associated with the SensorThings API service.
 
 The implementation must listen for notifications from the MQTT broker of the SensorThings API service.
@@ -97,14 +102,15 @@ If the subscription was initiated using the `hub.api_key` or `hub.x_api_key`, th
 Similarly, the implementation must add the `X-Hub-Signature` header if the subscription was created using the `hub.secret` parameter.
 
 === Implementations
-Prototype implementations that illustrate a STA-WebSub system are available as open source: 
 
-* The STA-WebSub Hub is available as open source from Github: https://github.com/securedimensions/STA-WebSub-Hub
+Prototype implementations that illustrate a STA-WebSub system are available as open source.
+
+* The STA-WebSub Hub is available as open source from Github: https://github.com/securedimensions/STA-WebSub-Hub.
 * The W3C discovery protocol extension for the SensorThings API service is implemented as a plugin to FROST-Server:
-    ** STA-WebSub plugin: https://github.com/securedimensions/FROST-Server-WebSub
-    ** The FROST-Server: https://github.com/FraunhoferIOSB/FROST-Server
-* A simple and generic WebSub Subscriber is available as open source from Github: https://github.com/securedimensions/STA-WebSub-Subscriber
-* A simple and generic client for testing the STA-WebSub discovery protocol is available as open source: https://github.com/securedimensions/STA-WebSub-Discovery
+    ** STA-WebSub plugin: https://github.com/securedimensions/FROST-Server-WebSub; and
+    ** The FROST-Server: https://github.com/FraunhoferIOSB/FROST-Server.
+* A simple and generic WebSub Subscriber is available as open source from Github: https://github.com/securedimensions/STA-WebSub-Subscriber.
+* A simple and generic client for testing the STA-WebSub discovery protocol is available as open source: https://github.com/securedimensions/STA-WebSub-Discovery.
 
 [NOTE]
 ====

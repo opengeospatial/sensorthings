@@ -46,20 +46,10 @@ Leveraging an API key over HTTPS callback URLs might be preferable to using `X-H
 
 All questions regarding this submission should be directed to the editors or the submitters:
 
-[%autowidth,cols="3*"]
+[%autowidth,cols="2*"]
 |===
-|Name |Representing |OGC Member
-
-|Andreas Matheus
-|Secure Dimensions GmbH
-|Yes
-
-|Joan Maso
-|Centre de Recerca Ecològica i Aplicacions Forestals (CREAF)
-|Yes
-
-|Hylke van der Schaaf
-|Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
-|Yes
-
+|Name |Representing
+|Andreas Matheus |Secure Dimensions GmbH
+|Joan Maso |Centre de Recerca Ecològica i Aplicacions Forestals (CREAF)
+|Hylke van der Schaaf |Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
 |===
