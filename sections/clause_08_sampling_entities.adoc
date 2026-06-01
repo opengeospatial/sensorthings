@@ -74,6 +74,11 @@ Its value is computed by the server when creating  the entity unless specified b
 | String
 | 1
 
+| `definition`
+| The URI linking the Sampler to an external definition.
+| String
+| 0..1
+
 | `description`
 | The description of the Sampler entity.
 | String
@@ -87,7 +92,7 @@ Its value is computed by the server when creating  the entity unless specified b
 | `samplerType`
 | The type of sampler.
 | URI
-| 1
+| 0..1
 |====
 
 
@@ -171,32 +176,20 @@ Its value is computed by the server when creating the entity unless specified by
 | String
 | 1
 
-| `description`
-| The description of the SamplingProcedure entity.
+| `definition`
+| The URI linking the SamplingProcedure to an external definition.
 | String
 | 0..1
 
-| `encodingType`
-| The encoding type of the location property.
-If the location attribute is present, the encodingType must also be present.
-| IANA-MediaType
-| 0..1
-
-| `location`
-| The location where the Sampling was executed
-| ANY
+| `description`
+| The description of the SamplingProcedure entity.
+| String
 | 0..1
 
 | `properties`
 | A JSON Object containing user-annotated properties.
 | JSON Object
 | 0..1
-
-| `time`
-| The time at which the sampling was executed.
-It can be a time instant, or, for Samplings that take a longer duration, a time interval.
-| String
-| 1
 |====
 
 
@@ -284,6 +277,11 @@ Its value is computed by the server when creating the entity unless specified by
 | String
 | 1
 
+| `definition`
+| The URI linking the Sampling to an external definition.
+| String
+| 0..1
+
 | `description`
 | The description of the Sampling entity.
 | String
@@ -294,9 +292,21 @@ Its value is computed by the server when creating the entity unless specified by
 | JSON Object
 | 0..1
 
-| `samplerType`
-| The type of sampler.
-| URI
+| `encodingType`
+| The encoding type of the location property.
+If the location attribute is present, the encodingType must also be present.
+| IANA-MediaType
+| 0..1
+
+| `location`
+| The location where the Sampling was executed
+| ANY
+| 0..1
+
+| `time`
+| The time at which the sampling was executed.
+It can be a time instant, or, for Samplings that take a longer duration, a time interval.
+| TM_Object
 | 0..1
 |====
 
@@ -427,15 +437,15 @@ Its value is computed by the server when creating the entity unless specified by
 | String
 | 1
 
-| `description`
-| The description of the PreparationProcedure entity.
-| String
-| 0..1
-
 | `definition`
 | The URI of the PreparationProcedure.
 Dereferencing this URI SHOULD result in a representation of the definition of the PreparationProcedure
 | URI
+| 0..1
+
+| `description`
+| The description of the PreparationProcedure entity.
+| String
 | 0..1
 
 | `properties`
@@ -520,15 +530,15 @@ Its value is computed by the server when creating the entity unless specified by
 | String
 | 1
 
-| `description`
-| The description of the PreparationStep entity.
-| String
-| 0..1
-
 | `definition`
 | The URI defining the PreparationStep.
 Dereferencing this URI SHOULD result in a representation of the definition of the PreparationStep
 | URI
+| 0..1
+
+| `description`
+| The description of the PreparationStep entity.
+| String
 | 0..1
 
 | `properties`
@@ -539,7 +549,7 @@ Dereferencing this URI SHOULD result in a representation of the definition of th
 | `time`
 | The time when the PreparationStep was executed.
 | TM_Instant
-| 1
+| 0..1
 |====
 
 
