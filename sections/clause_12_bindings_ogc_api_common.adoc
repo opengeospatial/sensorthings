@@ -14,7 +14,7 @@ The exact version that an API implementation uses can be found by inspecting the
 The OGC API -- Common (<<ogc19-072>>) Standard specifies several elements for the landing page of an OGC API implementation instance.
 None of the elements specified conflict with any elements specified by the OGC SensorThings API Standard, and can thus be added to the Service Document (<<read_service_document>>) for OGC API -- Common compatibility.
 
-The conformance class from the OGC API -- Common Standard that specified the landing page requirements is:
+The requirements class from the OGC API -- Common Standard that specified the landing page requirements is:
 
 `http://www.opengis.net/spec/ogcapi-common-1/1.0/req/landing-page`
 
