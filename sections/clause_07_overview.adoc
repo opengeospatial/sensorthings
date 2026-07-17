@@ -201,7 +201,7 @@ From the OGC SensorThings API version 1.1 (<<STAv1.1>>) to 2.0 changes have been
 
 ==== Changes to the document structure
 
-The STA data model, the specification of the STA API, and the protocol bindings are now independent sections that can be use independently.
+The STA data model, the specification of the STA API, and the protocol bindings are now independent sections that can be used independently.
 For instance, since MQTT 5 introduced a request/response pattern, it is now possible to use an implementation of the complete STA API over MQTT without using the HTTP bindings to discover content.
 Several extensions that were defined directly in the version 1.1 document have now been moved to a separate extension document that will be published at a later date.
 These extensions include, among others, the Batch-Request extension and the DataArrays extension.
