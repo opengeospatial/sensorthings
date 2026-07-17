@@ -78,10 +78,10 @@ MQTT 5.0 also defines User Properties (<<MQTT50,section="3.3.2.3.7">>) that can 
   ...
 
   == Request-Response ==
-  client -> broker: PUBLISH v2.0/request\ncorrelationData=123xyz\nresponseTopic=responses/userXyz
+  client -> broker: PUBLISH v2.0/$request\ncorrelationData=123xyz\nresponseTopic=responses/userXyz
   client <-- broker: ok
 
-  broker -> rh: PUBLISH v2.0/request\ncorrelationData=123xyz\nresponseTopic=responses/userXyz
+  broker -> rh: PUBLISH v2.0/$request\ncorrelationData=123xyz\nresponseTopic=responses/userXyz
   broker <-- rh: ok
 
   rh -> rh: handle request
