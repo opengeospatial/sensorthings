@@ -64,7 +64,7 @@ MQTT 5.0 also defines User Properties (<<MQTT50,section="3.3.2.3.7">>) that can 
   rh -> broker: CONNECT
   rh <-- broker: CONNACK
 
-  rh -> broker: SUBSCRIBE v2.0/requests
+  rh -> broker: SUBSCRIBE v2.0/$request
   rh <-- broker: ok
 
   == Setup Client ==
