@@ -13,7 +13,8 @@ Possible use cases include:
 
 Relations can link between two Entities in the same service, or link to an external resource.
 
-The entity types, properties and relations added by this extension are depicted in <<img-sta-extension-relations>>.
+The entity types, properties and relations added by this extension are partially depicted in <<img-sta-extension-relations>>.
+For clairty, not all entities are depicted.
 [#img-sta-extension-relations,link=figures/Datamodel-SensorThingsApi-V2-Relations.drawio.png, reftext='{figure-caption} {counter:figure-num}', title='Relations Extension']
 image::figures/Datamodel-SensorThingsApi-V2-Relations.drawio.png[Relations Extension, align="center"]  
 
@@ -37,10 +38,11 @@ The RelationRole Entity holds a name and definition for both directions of the r
 identifier:: {identifier}/req-class/datamodel/relations/relationrole
 obligation:: requirement
 subject:: Target Type: Data Model
-inherit:: {identifier}/req-class/datamodel/sensing/datastream
-inherit:: {identifier}/req-class/datamodel/sensing/feature
-inherit:: {identifier}/req-class/datamodel/sensing/observation
-inherit:: {identifier}/req-class/datamodel/sensing/thing
+inherit:: {identifierSta}/req-class/datamodel/sensing/datastream
+inherit:: {identifierSta}/req-class/datamodel/sensing/feature
+inherit:: {identifierSta}/req-class/datamodel/sensing/observation
+inherit:: {identifierSta}/req-class/datamodel/sensing/observedProperty
+inherit:: {identifierSta}/req-class/datamodel/sensing/thing
 requirement:: {identifier}/req/datamodel/relations/relationrole/properties
 requirement:: {identifier}/req/datamodel/relations/relationrole/relations
 ====
@@ -136,6 +138,11 @@ Generally, this should be a verb so that _Target name Source_ forms a sentence.
 | `ObservationRelations`
 | The list of Observation-Observation relations that this RelationRole describes.
 | `ObservationRelation`
+| 0..*
+
+| `ObservedPropertyRelations`
+| The list of ObservedProperty-ObservedProperty relations that this RelationRole describes.
+| `ObservedPropertyRelation`
 | 0..*
 
 | `ThingRelations`
@@ -450,6 +457,109 @@ This is the inverse of `Source`.
 In other words, following this link leads to the Sources.
 This is the inverse of `Target`.
 | `ObservationRelation`
+| 0..*
+|====
+
+
+
+=== Requirement Class: ObservedPropertyRelation
+
+A ObservedPropertyRelation Entity relates a source ObservedProperty to a target ObservedProperty, or to an external resource, using a RelationRole.
+
+[requirements_class]
+.observedpropertyrelation
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/relations/observedpropertyrelation
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/relations/observedpropertyrelation/properties
+requirement:: {identifier}/req/datamodel/relations/observedpropertyrelation/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/observedpropertyrelation/properties
+
+Each ObservedPropertyRelation entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<observedpropertyrelation-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/observedpropertyrelation/relations
+
+Each ObservedPropertyRelation entity SHALL have the direct relation between a ObservedPropertyRelation entity and other entity types listed in Table <<observedpropertyrelation-relations>>.
+====
+
+
+
+[#observedpropertyrelation-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a ObservedPropertyRelation entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating  the entity unless specified by the client.
+| ANY
+| 1
+
+| `externalTarget`
+| A URL or URI of an external target that acts as the target for this relation.
+If an externalTarget is set, the `Source` relation must not be set.
+| String
+| 0..1
+|====
+
+
+[#observedpropertyrelation-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a ObservedPropertyRelation entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `ObservedPropertyRelation`
+| `Source`
+| The source ObservedProperty for this relation.
+This is the inverse of `TargetObservedPropertyRelations`.
+| `ObservedProperty`
+| 1
+
+| `ObservedPropertyRelation`
+| `Target`
+| The target ObservedProperty for this relation.
+This must be set if, and only if, the externalTarget property is not set.
+This is the inverse of `SourceObservedPropertyRelations`.
+| `ObservedProperty`
+| 0..1
+
+| `ObservedProperty`
+| `TargetObservedPropertyRelations`
+| The list of ObservedPropertyRelation entities where this ObservedProperty is the Source.
+In other words, following this link leads to the Targets.
+This is the inverse of `Source`.
+| `ObservedPropertyRelation`
+| 0..*
+
+| `ObservedProperty`
+| `SourceObservedPropertyRelations`
+| The list of ObservedPropertyRelation entities where this ObservedProperty is the Target.
+In other words, following this link leads to the Sources.
+This is the inverse of `Target`.
+| `ObservedPropertyRelation`
 | 0..*
 |====
 
