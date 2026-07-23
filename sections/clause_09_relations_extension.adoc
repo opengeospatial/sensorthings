@@ -40,8 +40,10 @@ obligation:: requirement
 subject:: Target Type: Data Model
 inherit:: {identifierSta}/req-class/datamodel/sensing/datastream
 inherit:: {identifierSta}/req-class/datamodel/sensing/feature
+inherit:: {identifierSta}/req-class/datamodel/sensing/location
 inherit:: {identifierSta}/req-class/datamodel/sensing/observation
 inherit:: {identifierSta}/req-class/datamodel/sensing/observedProperty
+inherit:: {identifierSta}/req-class/datamodel/sensing/sensor
 inherit:: {identifierSta}/req-class/datamodel/sensing/thing
 requirement:: {identifier}/req/datamodel/relations/relationrole/properties
 requirement:: {identifier}/req/datamodel/relations/relationrole/relations
@@ -359,6 +361,109 @@ This is the inverse of `Target`.
 
 
 
+=== Requirement Class: LocationRelation
+
+A LocationRelation Entity relates a source Location to a target Location, or to an external resource, using a RelationRole.
+
+[requirements_class]
+.locationrelation
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/relations/locationrelation
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/relations/locationrelation/properties
+requirement:: {identifier}/req/datamodel/relations/locationrelation/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/locationrelation/properties
+
+Each LocationRelation entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<locationrelation-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/locationrelation/relations
+
+Each LocationRelation entity SHALL have the direct relation between a LocationRelation entity and other entity types listed in Table <<locationrelation-relations>>.
+====
+
+
+
+[#locationrelation-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a LocationRelation entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating  the entity unless specified by the client.
+| ANY
+| 1
+
+| `externalTarget`
+| A URL or URI of an external target that acts as the target for this relation.
+If an externalTarget is set, the `Source` relation must not be set.
+| String
+| 0..1
+|====
+
+
+[#locationrelation-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a LocationRelation entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `LocationRelation`
+| `Source`
+| The source Location for this relation.
+This is the inverse of `TargetLocationRelations`.
+| `Location`
+| 1
+
+| `LocationRelation`
+| `Target`
+| The target Location for this relation.
+This must be set if, and only if, the externalTarget property is not set.
+This is the inverse of `SourceLocationRelations`.
+| `Location`
+| 0..1
+
+| `Location`
+| `TargetLocationRelations`
+| The list of LocationRelation entities where this Location is the Source.
+In other words, following this link leads to the Targets.
+This is the inverse of `Source`.
+| `LocationRelation`
+| 0..*
+
+| `Location`
+| `SourceLocationRelations`
+| The list of LocationRelation entities where this Location is the Target.
+In other words, following this link leads to the Sources.
+This is the inverse of `Target`.
+| `LocationRelation`
+| 0..*
+|====
+
+
+
 === Requirement Class: ObservationRelation
 
 A ObservationRelation Entity relates a source Observation to a target Observation, or to an external resource, using a RelationRole.
@@ -560,6 +665,109 @@ This is the inverse of `Source`.
 In other words, following this link leads to the Sources.
 This is the inverse of `Target`.
 | `ObservedPropertyRelation`
+| 0..*
+|====
+
+
+
+=== Requirement Class: SensorRelation
+
+A SensorRelation Entity relates a source Sensor to a target Sensor, or to an external resource, using a RelationRole.
+
+[requirements_class]
+.sensorrelation
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/datamodel/relations/sensorrelation
+obligation:: requirement
+subject:: Target Type: Data Model
+requirement:: {identifier}/req/datamodel/relations/sensorrelation/properties
+requirement:: {identifier}/req/datamodel/relations/sensorrelation/relations
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/sensorrelation/properties
+
+Each SensorRelation entity SHALL have the mandatory properties and MAY have the optional properties listed in Table <<sensorrelation-properties>>.
+====
+
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datamodel/relations/sensorrelation/relations
+
+Each SensorRelation entity SHALL have the direct relation between a SensorRelation entity and other entity types listed in Table <<sensorrelation-relations>>.
+====
+
+
+
+[#sensorrelation-properties,reftext='{table-caption} {counter:table-num}']
+.Properties of a SensorRelation entity
+[width="100%",cols="<3a,<20a,<3a,<",options="header"]
+|====
+| *Name*
+| *Description*
+| *Data Type*
+| *Multiplicity*
+
+| `id`
+| A unique, read-only property that serves as an identifier for the entity.
+Its value is computed by the server when creating  the entity unless specified by the client.
+| ANY
+| 1
+
+| `externalTarget`
+| A URL or URI of an external target that acts as the target for this relation.
+If an externalTarget is set, the `Source` relation must not be set.
+| String
+| 0..1
+|====
+
+
+[#sensorrelation-relations,reftext='{table-caption} {counter:table-num}']
+.Direct relation between a SensorRelation entity and other entity types
+[width="100%",cols="<3a,<3a,<20a,<3a,<",options="header"]
+|====
+| *Source Entity Type*
+| *Role*
+| *Description*
+| *Target Entity Type*
+| *Multiplicity*
+
+| `SensorRelation`
+| `Source`
+| The source Sensor for this relation.
+This is the inverse of `TargetSensorRelations`.
+| `Sensor`
+| 1
+
+| `SensorRelation`
+| `Target`
+| The target Sensor for this relation.
+This must be set if, and only if, the externalTarget property is not set.
+This is the inverse of `SourceSensorRelations`.
+| `Sensor`
+| 0..1
+
+| `Sensor`
+| `TargetSensorRelations`
+| The list of SensorRelation entities where this Sensor is the Source.
+In other words, following this link leads to the Targets.
+This is the inverse of `Source`.
+| `SensorRelation`
+| 0..*
+
+| `Sensor`
+| `SourceSensorRelations`
+| The list of SensorRelation entities where this Sensor is the Target.
+In other words, following this link leads to the Sources.
+This is the inverse of `Target`.
+| `SensorRelation`
 | 0..*
 |====
 
