@@ -1,4 +1,4 @@
-:Title: SensorThings v2.0 Charter Task Update
+:Title: SensorThings DGGS and STAplus Charter Task Update
 :titletext: {Title}
 :doctype: book
 :encoding: utf-8
@@ -17,7 +17,7 @@
 |[big]*Open Geospatial Consortium*
 |Submission Date: 2024-06-27
 |Approval Date:   <yyyy-mm-dd>
-|Internal reference number of this OGC(R) document:     22-034r1
+|Internal reference number of this OGC(R) document:     22-034r2
 |Category: OGC(R) Standards Working Group Charter
 |Authors:   Steve Liang, Hylke van der Schaaf
 |===
@@ -92,22 +92,6 @@ The following activities are in scope of the working group.
 
 One important activity of the SWG is to incorporate the learned lessons, feature requests, and latest technology trends, and develop new versions of the standard. When the SWG would like to develop a new version of the standard, the OGC SWG Task approval process will be followed. The SWG will collect all outstanding Change Request Proposals (CRPs), evaluate each of the proposals, and make edits to the Standard based on CRPs and related decisions of the SWG membership. The SWG may also ask the membership for any additional change requests that have not been previous submitted. The final deliverable of this Scope of Work (SOW) will be a revision of the candidate standard for consideration by the membership for adoption.
 
-More specifically the SWG plan to develop the next version (v2.0). 
-
-The development of sensing v2.0 will consider the following:
-
-* *Lessons learned from developing v1.0 and v1.1:* Details can be accessed here: https://github.com/opengeospatial/sensorthings/issues
-* *Pub-sub first:* In sensing v1.1, the publish-subscribe pattern using MQTT is an extension, and the compliance classes are dependent with the RESTful request-response pattern. The SWG learned that many IoT use cases are in fact publish-subscribe first and request-response second. An re-organizataion of the compliance classes will be considered.
-* *The OGC Observations, Measurements and Samples (OMS):* O&M has been updated to OMS. As it is the underlying data mode of the SensorThings API, a new version of the sensing should be developed based on the latest version of OMS.
-* *Harmonization of SensorThings API and the OGC API:* The OGC SensorThings API Part 1 - Sensing was published in 2016, and that was three years before the publication date of the OGC API - Features - Part 1:Core [17-069r3]. The SWG has done prelimenary work demonstrating that SensorThings API can be compatible with the OGC API. When the SWG start developing the sensing v2.0, the OGC API pattern will be considered in the design.
-* *OData v4.0.1, MQTT v5.0, Security, and JSON-LD*
-
-The tentative timeline is as follows:
-
-* first draft in Q1 2022
-* public review by Q3 2022
-* submission to TC for approval vote by Q4 2022
-
 *2. Develop new parts of the OGC SensorThings API multipart standard*
 
 Currently SensorThings API has two parts: 1. Part 1 - Sensing, and 2. Part 2 - Tasking Core. In the SWG roadmap, two additional parts are planned, namely 3. Part 3 - Rules Engine, and Part 4 - Tasking Extensions. When the SWG decide to start working on the new parts of the standad, the OGC SWG Task approval process will be followed.
@@ -157,9 +141,8 @@ The SWG can be inactivated once the final multipart standard has been developed,
 
 The SWG has the following deliverables:
 
-* The OGC SensorThings API Part 1 - Sensing version 2.0 (note: timeline can be found in the Scope of Work section.)
-* 24-032 SensorThings API Extension: WebSub 1.0 (timeline: end of 2024)
-* 23-019 SensorThings API Extension: Data Quality 1.0 (timeline: end of 2024)
+* 26-057 SensorThings API Extension: DGGS 1.0 (timeline: end of 2026)
+* 26-040 SensorThings API Extension: STAplus 1.1 (timeline: end of 2026)
 
 === Initial Deliverables
 
@@ -171,13 +154,15 @@ N/A
 
 (note: timeline can be found in the Scope of Work section.)
 
-==== Create an extension (_24-032 SensorThings API Extension: WebSub 1.0_)
+==== Create an extension (_26-057 SensorThings API Extension: DGGS 1.0_)
 
-This extension will allow to use the W3C WebSub Recommendation with a SensorThings API service. Essentially, the extension allows a subscriber to receive HTTP(S) update notifications via Webhook for any HTTP(S) request to a SensorThings Service. Any compliant SensorThings applications will support the subscription to conditions for update notifications based on ODATA queries. Example: Subscribe to notifications for air temperature > 35°C.
+The DGGS 1.0 data model extension introduces a concept of distributing observations in pre-defined topological areas - aka cells. Therefore, the main extension to the data model is the entity type Cells which, from a conceptual point of view, are independent from the actual system. Current work is using Geohash and H3 in the proof of concept. The use of cells allows a spatial obfuscation of observations taken by sensors. The DGGS extension can be used to obfuscate sensors that are operated anonymously but in particular can be used in combination with STAplus 1.1 to obfuscate the location of roaming users or stationary sensors in the home or garden.
 
-==== Create an extension (_23-019 SensorThings API Extension: Data Quality 1.0_)
+For this extension, the liaison with the OGC DGGS DWG is intended.
 
-This extension will allow to express quality for observations and sensors in a standardized way. The data model extension defines Data Quality related entities that can be created and queried. Also, the extension supports timeseries of data quality – so basically to explore quality of sensors and observations over time.
+==== Create an extension (_26-040 SensorThings API Extension: STAplus 1.1_)
+
+The STAPlus 1.1 data model extension will add two new entity types: PartyLocation and PartyActivity. In the context of Citizen Science, users (represented as Party) roam around while carrying a sensor that is recording the observations. In order to support that each user can view their own observations at a particular location, the exact location can now be captured using the PartyLocation. As the combination of Observation.phenonmeonTime + PartyLocation.position must be considered PII under GDPR, an implementation must include access control for PartyLocation. The use of PartyLocation allows to clearly separate the use of FeatureOfInterest. For example, for a roaming user in the English Gardens in Munich, the FoI would be “Englischer Garten” and for each Observation, the PartyLocation expresses the exact location within the park. Public access to the FoI is not a problem as it is a public feature that can be (and is) accessed by many people. The PartyActivity is an important context in Citizen Science to understand why recordings are how they are. For example, when PMs are recorded indoors and the user starts cooking, the PMs inevitably jump to a much higher value. In order to understand why, the activity, i.e. cooking, can be recorded with the observations.
 
 == IPR Policy for this SWG
 
