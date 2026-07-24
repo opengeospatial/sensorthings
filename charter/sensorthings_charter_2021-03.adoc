@@ -15,9 +15,9 @@
 |===
 |{set:cellbgcolor:#FFFFFF}
 |[big]*Open Geospatial Consortium*
-|Submission Date: 2022-07-30
+|Submission Date: 2024-06-27
 |Approval Date:   <yyyy-mm-dd>
-|Internal reference number of this OGC(R) document:     22-034
+|Internal reference number of this OGC(R) document:     22-034r1
 |Category: OGC(R) Standards Working Group Charter
 |Authors:   Steve Liang, Hylke van der Schaaf
 |===
@@ -30,7 +30,7 @@
 [cols = "^", frame = "none", grid = "none"]
 |===
 |*Copyright notice*
-|Copyright (C) 2021 Open Geospatial Consortium
+|Copyright (C) 2024 Open Geospatial Consortium
 |To obtain additional rights of use, visit http://www.opengeospatial.org/legal/
 |===
 
@@ -98,7 +98,7 @@ The development of sensing v2.0 will consider the following:
 
 * *Lessons learned from developing v1.0 and v1.1:* Details can be accessed here: https://github.com/opengeospatial/sensorthings/issues
 * *Pub-sub first:* In sensing v1.1, the publish-subscribe pattern using MQTT is an extension, and the compliance classes are dependent with the RESTful request-response pattern. The SWG learned that many IoT use cases are in fact publish-subscribe first and request-response second. An re-organizataion of the compliance classes will be considered.
-* *The OGC Observations and Measurements (O&M) v3.0:* O&M has been updated to v3.0. As it is the underlying data mode of the SensorThings API, a new version of the sensing should be developed based on the latest version of O&M.
+* *The OGC Observations, Measurements and Samples (OMS):* O&M has been updated to OMS. As it is the underlying data mode of the SensorThings API, a new version of the sensing should be developed based on the latest version of OMS.
 * *Harmonization of SensorThings API and the OGC API:* The OGC SensorThings API Part 1 - Sensing was published in 2016, and that was three years before the publication date of the OGC API - Features - Part 1:Core [17-069r3]. The SWG has done prelimenary work demonstrating that SensorThings API can be compatible with the OGC API. When the SWG start developing the sensing v2.0, the OGC API pattern will be considered in the design.
 * *OData v4.0.1, MQTT v5.0, Security, and JSON-LD*
 
@@ -158,7 +158,8 @@ The SWG can be inactivated once the final multipart standard has been developed,
 The SWG has the following deliverables:
 
 * The OGC SensorThings API Part 1 - Sensing version 2.0 (note: timeline can be found in the Scope of Work section.)
-* Best Practice of the OGC SensorThings API - Methane Emissions (draft ready - Q2 2021, submission to TC for approval vote - Q3 2021 )
+* 24-032 SensorThings API Extension: WebSub 1.0 (timeline: end of 2024)
+* 23-019 SensorThings API Extension: Data Quality 1.0 (timeline: end of 2024)
 
 === Initial Deliverables
 
@@ -166,9 +167,17 @@ N/A
 
 === Additional SWG Tasks
 
-* The OGC SensorThings API Part 1 - Sensing version 2.0 (note: timeline can be found in the Scope of Work section.)
-* Best Practice of the OGC SensorThings API - Methane Emissions (draft ready - Q2 2021, submission to TC for approval vote - Q3 2021 )
-* Create an extension (_22-022 SensortThings API - PLUS Extension_) from _21-068 OGC Best Practice for using Sensor Things API with Citizen Science_.
+==== The OGC SensorThings API Part 1 - Sensing version 2.0
+
+(note: timeline can be found in the Scope of Work section.)
+
+==== Create an extension (_24-032 SensorThings API Extension: WebSub 1.0_)
+
+This extension will allow to use the W3C WebSub Recommendation with a SensorThings API service. Essentially, the extension allows a subscriber to receive HTTP(S) update notifications via Webhook for any HTTP(S) request to a SensorThings Service. Any compliant SensorThings applications will support the subscription to conditions for update notifications based on ODATA queries. Example: Subscribe to notifications for air temperature > 35°C.
+
+==== Create an extension (_23-019 SensorThings API Extension: Data Quality 1.0_)
+
+This extension will allow to express quality for observations and sensors in a standardized way. The data model extension defines Data Quality related entities that can be created and queried. Also, the extension supports timeseries of data quality – so basically to explore quality of sensors and observations over time.
 
 == IPR Policy for this SWG
 
@@ -240,5 +249,3 @@ The following people support this proposal and are committed to the Charter and 
 
 * Steve Liang, SensorUp
 * Hylke van der Schaaf, Fraunhofer IOSB
-
-
