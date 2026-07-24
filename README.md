@@ -24,7 +24,7 @@ Implementating and certified servers are also listed on OGC website:
 * OGC SensorThings API Part 1: Sensing 1.1 [(Implementing)](https://portal.ogc.org/public_ogc/compliance/implementing.php?specid=1183)
 * OGC SensorThings API Part 2: Tasking Core 1.0 [(Compliant)](https://portal.ogc.org/public_ogc/compliance/compliant.php?specid=971) [(Implementing)](https://portal.ogc.org/public_ogc/compliance/implementing.php?specid=971)
 * OGC SensorThings API STAplus [Implemented](https://github.com/securedimensions/FROST-Server-PLUS)
-* OGC SensorThings API STA-WebSub [Implemented](OGC SensorThings API STAplus)
+* OGC SensorThings API STA-WebSub [Implemented](https://github.com/securedimensions/FROST-Server-WebSub)
 
 Some client implementations exist:
 * [FROST-Client](https://github.com/FraunhoferIOSB/FROST-Client) is a Java client library for communicating with a SensorThings API compatible server.
