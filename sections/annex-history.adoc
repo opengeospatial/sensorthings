@@ -10,4 +10,5 @@
 | 2026-01-16 | 0.3 | Hylke van der Schaaf | all | Improved the consistency of the use of name of the standard
 | 2026-02-05 | 0.4 | Hylke van der Schaaf | <<data_model_changes>>, <<sensing-core>> | Changed cardinality of Datastream-UltimateFeatureOfInterest to many-to-many and renamed to UltimateFeaturesOfInterest
 | 2026-02-05 | 0.4 | Hylke van der Schaaf | <<mqtt_publish_subscribe>> | Fixed subscription example missing the `@id` attribute
+| 2026-08-31 | 0.4 | Hylke van der Schaaf | <<cud_edit_relations>> | Fixed missing `s` in `Features(1)` in examples
 |===

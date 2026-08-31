@@ -331,7 +331,7 @@ If the two entities are already related, the operation has no effect and returns
 .Example of a request adding `FeatureType 3` as FeatureType of `Feature 1`.
 [source,text]
 ----
-create http://host/service/Feature(1)/FeatureTypes/$ref
+create http://host/service/Features(1)/FeatureTypes/$ref
   {"@id": "FeatureTypes(3)"}
 ----
 
@@ -342,7 +342,7 @@ The replace request must contain a list of entity references, like the one retur
 .Example changing the set of `FeatureTypes` of `Feature 1` to contain exactly `FeatureType 1` and `FeatureType 2`.
 [source,text]
 ----
-replace http://host/service/Feature(1)/FeatureTypes/$ref
+replace http://host/service/Features(1)/FeatureTypes/$ref
   {"value": [
     {"@id": "FeatureTypes(1)"},
     {"@id": "FeatureTypes(2)"}
@@ -354,8 +354,8 @@ A single relation can be removed from an EntitySet-type navigation attribute by 
 .Examples of the two ways to remove `FeatureType 2` from an EntitySet-typed navigation attribute `FeatureTypes` of `Feature 1`.
 [source,text]
 ----
-delete http://host/service/Feature(1)/FeatureTypes(2)/$ref
-delete http://host/service/Feature(1)/FeatureTypes/$ref?$id=../../FeatureTypes(2)
+delete http://host/service/Features(1)/FeatureTypes(2)/$ref
+delete http://host/service/Features(1)/FeatureTypes/$ref?$id=../../FeatureTypes(2)
 ----
 
 
@@ -364,7 +364,7 @@ All relations can be removed from an EntitySet-type navigation attribute by send
 .Example removing all `FeatureTypes` from `Feature 1`.
 [source,text]
 ----
-delete http://host/service/Feature(1)/FeatureTypes/$ref
+delete http://host/service/Features(1)/FeatureTypes/$ref
 ----
 
 For any change of relations data integrity MUST be maintained.
