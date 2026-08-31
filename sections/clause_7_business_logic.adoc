@@ -5,9 +5,13 @@
 
 The STAplus extension is defined based on requirements from the Citizen Science community. One major requirement from the Citizen Science community is that an implementation of STAplus can be used by many users simultaneously to read, create, update, and delete observations. To ensure integrity of all entities and to prevent inconsistencies in the observations, it is important that an implementation is not only compliant with this Standard but also has functionality that ensures entity consistency.
 
-Even though the business logic can be very complex and most likely depend on many factors, it should be possible providing a hint to developers and guiding end users of the implementation in case a request results in an unexpected response.
+Even though the business logic can be very complex and most likely depend on many factors, it should be possible add:[to] del:[providing] add:[provide] a hint to developers and add:[to] del:[guiding] add:[guide] end users of the implementation in case a request results in an unexpected response.
 
-As a machine readable and understandable description of the implemented business logic is preferred, the idea of the business logic requirements class is to allow the description of the logic in English text.
+As a machine del:[] add:[-]readable and understandable description of the implemented business logic is preferred, the idea of the business logic requirements class is to allow the description of the logic in English text.
+
+NOTE: add:[When a `Thing` is associated with a `Party` whose `role` is equal to `individual`, the `Location` and `HistoricalLocation` of that `Thing` become personal data. In that case the implementation needs to restrict public access to `Location` and `HistoricalLocation` and allow access only when `Party/authId` is identical to the authenticated user identifier (`REMOTE_USER`). Advertising this GDPR compliance note as part of the Business Logic exposes it on the endpoint so that the deployment can run towards GDPR compliance.]
+
+NOTE: add:[`License` entities created by the implementation are templates and are read-only. When `License/definition` does not identify an attribution license, the template is associated as-is; a party-specific instance and `attributionText` are not used. When `License/definition` identifies an attribution license, each use is a party-specific instance of the template with a non-empty `attributionText`; the writable properties of that instance are `attributionText` and `description`, which the associated `Party` may update. Creator identification is always that `attributionText`. `Party/displayName` and `Party/authId` are not used as creator identification. For an aggregate `MultiDatastream` whose license requires attribution, that instance contains the copyright naming of contributors whose source license requires attribution. A personal name in `attributionText` of an individual party is personal data. Advertising this License attribution note as part of the Business Logic exposes the capture rule on the endpoint.]
 
 [[business-logic]]
 === Requirements Class *Business Logic*
@@ -17,11 +21,13 @@ As a machine readable and understandable description of the implemented business
 
 ====
 [%metadata]
-identifier:: {identifier}/req-class/business-logic
+identifier:: {identifier-corrigendum}/req-class/business-logic
 obligation:: requirement
 subject:: Target Type: Implementation
 requirement:: {identifier}/req/business-logic/definition
 requirement:: {identifier}/req/business-logic/location
+requirement:: {identifier-corrigendum}/req/business-logic/gdpr-note
+requirement:: {identifier-corrigendum}/req/business-logic/attribution
 ====
 
 
@@ -38,5 +44,7 @@ The implementation's business logic SHALL be described in English text.
 [%metadata]
 identifier:: {identifier}/req/business-logic/location
 
-The STAplus implementation SHALL provide a JSON object in the `serverSettings` object on the root URI with the name `{identifier}/conf/business-logic` that contains a property `href` which value is the URL of the HTML page describing the business logic.
+The STAplus implementation SHALL provide a JSON object in the `serverSettings` object on the root URI with the name del:[`{identifier}/conf/business-logic`] add:[`{identifier-corrigendum}/conf/business-logic`] that contains a property `href` del:[which] add:[whose] value is the URL of the HTML page describing the business logic.
 ====
+
+NOTE: add:[Requirements `{identifier-corrigendum}/req/business-logic/gdpr-note` and `{identifier-corrigendum}/req/business-logic/attribution` belong to this Requirements Class. They are specified after the last original requirement of this Standard (see <<req-business-logic-gdpr-note>> and <<req-business-logic-attribution>>) so that the requirement numbers of STAplus 1.0 remain unchanged.]

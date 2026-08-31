@@ -1,5 +1,5 @@
-# 22-022: OGC SensorThings API Extension: STAplus (approved draft)
+# 22-022r2: OGC SensorThings API Extension: STAplus 1.0 corrigendum
 
-This branch tracks the document 22-022: OGC SensorThings API Extension: STAplus (approved draft). Nightly build is available [here](https://docs.ogc.org/DRAFTS/22-022.html)
+This branch tracks the document 22-0222 OGC SensorThings API Extension: STAplus 1.0 corrigendum (approved draft). Nightly build is available [here](https://docs.ogc.org/DRAFTS/22-022r2.html)
 
-Further details about STAplus can be obtained in the [OGC Best Practice for using SensorThings API with Citizen Science](https://docs.ogc.org/bp/21-068.pdf).
+Further details about STAplus can be obtained in the [OGC SensorThings API Extension: STAplus 1.0](https://docs.ogc.org/is/22-022r1/22-022r1.html).

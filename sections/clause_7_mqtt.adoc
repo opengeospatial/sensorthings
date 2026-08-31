@@ -1,7 +1,7 @@
 [[staplus-mqtt]]
 == STAplus MQTT Requirements
 
-The MQTT capability defined in this Standard allows that a client receives changes on STAplus entities via MQTT. 
+The MQTT capability defined in this Standard allows del:[that] a client del:[receives] add:[to receive] changes del:[on] add:[to] STAplus entities via MQTT. 
 
 NOTE: The ability for the creation of observations via MQTT is inherited from the SensorThings API Part 1: Sensing and Sensing v1.1 Standard.
 
@@ -29,7 +29,7 @@ requirement:: {identifier}/req/mqtt-subscribe-sta-10
 [%metadata]
 identifier:: {identifier}/req/mqtt-subscribe-sta-10
 
-For the entities defined in STAplus, a STAplus implementation SHALL support the receiving of entity updates with MQTT Subscribe as defined in  http://www.opengis.net/spec/iot_sensing/1.0/req/receive-updates-via-mqtt.
+For the entities defined in STAplus, a STAplus implementation SHALL support del:[the] receiving del:[of] entity updates with MQTT Subscribe as defined in http://www.opengis.net/spec/iot_sensing/1.0/req/receive-updates-via-mqtt.
 ====
 
 [[mqtt-subscribe-11]]
@@ -52,5 +52,5 @@ requirement:: {identifier}/req/mqtt-subscribe-sta-11
 [%metadata]
 identifier:: {identifier}/req/mqtt-subscribe-sta-11
 
-For the entities defined in STAplus, a STAplus implementation SHALL support the receiving of entity updates with MQTT Subscribe as defined in http://www.opengis.net/spec/iot_sensing/1.1/req/receive-updates-via-mqtt.
+For the entities defined in STAplus, a STAplus implementation SHALL support del:[the] receiving del:[of] entity updates with MQTT Subscribe as defined in http://www.opengis.net/spec/iot_sensing/1.1/req/receive-updates-via-mqtt.
 ====

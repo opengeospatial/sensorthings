@@ -9,7 +9,7 @@ An event or an activity that results in or is linked to a collection of `MultiDa
 
 ==== License
 
-An agreement between a party and other parties to gain access and use primarily observations but also groups of observations and campaigns. The agreement can include, among others, clauses about how to share data with others not involved in the licensing agreement, the capability to execute commercial activities, the authorization to share modified versions of the data, and the need for attributing the original authors. Associating a license with a `MultiDatastream`, `Datastream` expresses re-use conditions for all associated observations. Associating a license to an `ObservationGroup` or a `Campaign` expresses their re-use conditions.
+An agreement between a party and other parties to gain access and use primarily observations but also groups of observations and campaigns. The agreement can include, among others, clauses about how to share data with others not involved in the licensing agreement, the capability to execute commercial activities, the authorization to share modified versions of the data, and the need for attributing the original authors. Associating a license with a `MultiDatastream`del:[,] add:[ or] `Datastream` expresses del:[re-use] add:[reuse] conditions for all associated observations. Associating a license to an `ObservationGroup` or a `Campaign` expresses their del:[re-use] add:[reuse] conditions.
 
 ==== ObservationGroup
 
@@ -21,12 +21,13 @@ The right of possession over entities such as things, campaigns, observation gro
 
 ==== Party
 
-A user, interacting with the service facilitating the creation of observations and managing owned resources. A party can own a thing, decide on the license of a datastream of observations, manage a campaign, be responsible of an observation group, etc.
+A user add:[or an autonomously acting computer, process, or similar], interacting with the service facilitating the creation of observations and managing owned resources. A party can own a thing, decide on the license of a datastream of observations, manage a campaign, be responsible del:[of] add:[for] an observation group, etc. add:[The `role` property distinguishes `individual`, `institutional`, and `system` parties.]
 
 ==== Relation
 
 A relationship established between two observations or an observation and an external resource for a particular reason.
 
+[abbreviations]
 === Abbreviated terms
 
 API:: Application Programming Interface
@@ -35,5 +36,5 @@ CRUD:: Create Read Update Delete
 DID:: Decentralized Identifier
 GDPR:: European General Data Protection Regulation
 MQTT:: Message Queuing Telemetry Transport
-STA:: Sensor Things API
-STAplus:: Sensor Things API PLUS extension
+STA:: Sensor del:[] Things API
+STAplus:: Sensor del:[] Things API PLUS extension

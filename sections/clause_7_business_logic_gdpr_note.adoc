@@ -1,0 +1,31 @@
+[[staplus-business-logic-gdpr-note]]
+== Additional Business Logic requirements
+
+add:[These requirements belong to Requirements Class <<business-logic>>. They are specified after the last original requirement of STAplus 1.0 so that existing requirement numbers remain unchanged.]
+
+[[req-business-logic-gdpr-note]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier-corrigendum}/req/business-logic/gdpr-note
+
+add:[The advertised Business Logic SHALL state that when a `Thing` is associated with a `Party` whose `role` is equal to `individual`, the `Location` and `HistoricalLocation` of that `Thing` are personal data. The advertised Business Logic SHALL state that public access to those entities SHALL be restricted and that access SHALL be allowed only when `Thing/Party/authId` is identical to the authenticated user identifier (`REMOTE_USER`).]
+====
+
+[[req-business-logic-attribution]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier-corrigendum}/req/business-logic/attribution
+
+add:[The advertised Business Logic SHALL state all of the following:]
+
+* add:[`License` entities created by the implementation are templates. A template is read-only.]
+* add:[When `License/definition` does not identify an attribution license, each use of that `License` on a `Datastream`, `MultiDatastream`, `ObservationGroup`, or `Campaign` SHALL associate the template. The implementation SHALL NOT require a party-specific `License` instance or a non-empty `attributionText`.]
+* add:[When `License/definition` identifies an attribution license, a `Party` SHALL construct its own `License` instance from the template. Each use of that license on a `Datastream`, `MultiDatastream`, `ObservationGroup`, or `Campaign` SHALL be such an instance. That instance SHALL have a non-empty `attributionText`.]
+* add:[For a party-specific instance of an attribution license, the writable properties are `attributionText` and `description`. Those properties MAY be updated only by the `Party` that is associated with the `License` through a `Datastream`, `MultiDatastream`, `Thing`, `ObservationGroup`, or `Campaign`.]
+* add:[When `License/definition` identifies an attribution license, creator identification SHALL always be the `attributionText` of that `License` instance. `Party/displayName` and `Party/authId` SHALL NOT be used as creator identification.]
+* add:[A template `License` SHALL NOT store a party-specific name in `attributionText`.]
+* add:[The `Party` of a derived or aggregate `Datastream` or `MultiDatastream` is the producer of that derived work. When the `License/definition` of an aggregate `MultiDatastream` identifies an attribution license, that `License` SHALL contain in `attributionText` the copyright naming of all contributors whose source `License/definition` identifies an attribution license. Those names SHALL be collected by expanding each such source `Datastream` or `MultiDatastream` to its `License`, or each grouped `Observation` to its `Datastream` and `License`, and SHALL be stored in the aggregate work's own `License/attributionText` at the time of derivation.]
+* add:[When `License/definition` identifies an attribution license and a `Party` whose `role` is equal to `individual` has a personal name in `attributionText` used as creator identification, that name is personal data. A `License` entity, `termsOfUse`, or `privacyPolicy` is not a legal basis for publishing that name. The legal basis is recorded in the authentication system that supplies `Party/authId`, or in another system aligned with that identifier. The advertised Business Logic SHALL state that the party is informed that this `attributionText` will appear on the associated stream and on derived productions.]
+====

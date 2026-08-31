@@ -32,7 +32,7 @@ requirement:: {identifier}/req/authentication/id-delete
 [%metadata]
 identifier:: {identifier}/req/authentication/id
 
-The STAplus authentication SHALL provide a user identifier permanent for same user but different for each user.
+The STAplus authentication SHALL provide a user identifier add:[that is] permanent for del:[same] add:[a given] user del:[but different for each user] add:[and unique across users].
 ====
 
 [requirement]

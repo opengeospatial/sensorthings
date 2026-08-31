@@ -5,13 +5,99 @@
 |===
 |Date |Release |Editor | Primary clauses modified |Description
 |2022-09-21 |0.1 |Andreas Matheus |all |Initial version
-|2022-10-21 |0.2 |Andreas Matheus |mainly Annex A, B |Updating conformance class structure and abstract test site
-|2022-11-03 |0.3 |Andreas Matheus |section Business Logic, Annex A, B |Section added for Business Logic, Control Information and Authentication, Updating conformance class structure and abstract test site to include Business Logic, Adding Requirements and Tests for accessing personal data
+|2022-10-21 |0.2 |Andreas Matheus |mainly Annex A, B |Updating conformance class structure and abstract test suite
+|2022-11-03 |0.3 |Andreas Matheus |section Business Logic, Annex A, B |Section added for Business Logic, Control Information and Authentication, Updating conformance class structure and abstract test suite to include Business Logic, Adding Requirements and Tests for accessing personal data
 |2022-12-19|0.4|Andreas Matheus|STAplus Feature and Location Encoding, Annex A, Annex B, Conformance|incorporating requirements for encoding Feature and Location entities reflecting results from SensorThings SWG session on 7 December 2022
 |2023-01-17 |0.5 |Andreas Matheus | Mainly normative sections and Annex A, B| Applied OGC NA-Policy using Metanorma annotations, Annex-B merged into Annex-A, Conformance Class definition now in section Conformance
-|2023-01-20 |0.6 |Andreas Matheus | All sections| Title adopted to include versions, updated requirements for Business Logic and CRS conformance classes, incorporated proof read from Hylke van der Schaaf
+|2023-01-20 |0.6 |Andreas Matheus | All sections| Title adapted to include versions, updated requirements for Business Logic and CRS conformance classes, incorporated proofreading from Hylke van der Schaaf
 |2023-02-06 |0.7 |Andreas Matheus | All sections| Carl Reed comments incorporated
-|2023-05-10 |0.8 |Andreas Matheus | All sections| Results from RFC incorporated, `Party` entity property `personalData` removed, Authentication class requirements and conformance tests adopted accordingly, security considerations section extended
+|2023-05-10 |0.8 |Andreas Matheus | All sections| Results from RFC incorporated, `Party` entity property `personalData` removed, Authentication class requirements and conformance tests adapted accordingly, security considerations section extended
 |2023-07-26 |0.9 |Andreas Matheus | All sections| Final edits to adopt the motion of the STA SWG from 19th July (changes in data model: Project into Campaign, Group into ObservationGroup, fixed Subject and Object associations); adding tables to improve association definitions from STA to STAplus entity types, improved wording
+|2026-08-17 |1.0.1 |Andreas Matheus | All sections| Editorial English review and `Party.role` value `system`. See <<editorial-changes-1-0-1>>.
+|2026-08-21 |1.0.1 |Andreas Matheus | Business Logic, Security Considerations, Annex A | GDPR compliance note advertised as part of Business Logic. See <<additional-changes-1-0-1>>.
+|2026-08-23 |1.0.1 |Andreas Matheus | Business Logic, Licensing, Security Considerations, Annex A | License attribution of contributors on licensed streams and derived productions advertised as part of Business Logic. See <<additional-changes-1-0-1>>.
+|2026-08-27 |1.0.1 |Andreas Matheus | Conformance | Informative summary of existing service-root advertisements. No Landing Page Conformance Class. See <<editorial-changes-1-0-1>>.
 
 |===
+
+[[additional-changes-1-0-1]]
+=== Additional changes in release 1.0.1
+
+This corrigendum includes the following normative additions and corrections that are not editorial.
+
+==== Party role code
+
+* Extended `Party.role` with the value `system`. A `Party` with `role` equal to `system` represents an autonomously acting computer, process, or similar. The allowed values are `individual`, `institutional`, and `system`.
+* Updated the `Party` term and the Party requirements class introduction accordingly.
+* Added `system` to the `PartyRoleCode` enumeration in the UML.
+
+==== Relation Subject cardinality
+
+* Corrected Table 12 (`tab-relations-from-relation`): the `Subject` cardinality of a `Relation` is One. STAplus 1.0 listed Zero or One, which contradicted the requirement that a `Relation` has one `Subject`.
+
+==== GDPR compliance note in Business Logic
+
+* Added requirement `{identifier-corrigendum}/req/business-logic/gdpr-note`: the advertised Business Logic states that when a `Thing` is associated with a `Party` whose `role` is equal to `individual`, the `Location` and `HistoricalLocation` of that `Thing` are personal data. Public access to those entities is restricted. Access is allowed only when `Party/authId` is identical to the authenticated user identifier (`REMOTE_USER`).
+* The note is advertised through the existing Business Logic `serverSettings` object, so an endpoint that claims Business Logic exposes the GDPR compliance note and can run towards GDPR compliance.
+
+==== License attribution note in Business Logic
+
+* Added requirement `{identifier-corrigendum}/req/business-logic/attribution`: the advertised Business Logic states that system `License` entities are templates and are read-only, that a `License` whose `definition` does not identify an attribution license is associated as the template with no party-specific instance and no `attributionText`, that each use of an attribution license is a party-specific instance with `attributionText` filled, that the writable properties of that instance are `attributionText` and `description` and that the associated `Party` may update them, that creator identification is always that `attributionText`, that `Party/displayName` and `Party/authId` are not used as creator identification, that a template does not store a party-specific name, that an aggregate `MultiDatastream` whose license requires attribution stores the copyright naming of contributors whose source license requires attribution in its own `License/attributionText`, and that a personal name in `attributionText` of an individual party is personal data for which a `License` is not a legal basis.
+* The note is advertised through the existing Business Logic `serverSettings` object. The data model is unchanged.
+
+==== Business Logic Requirements Class identifier
+
+* The Requirements Class identifier is `{identifier-corrigendum}/req-class/business-logic` and the Conformance Class identifier is `{identifier-corrigendum}/conf/business-logic` because those classes now include the 1.0.1 requirements `{identifier-corrigendum}/req/business-logic/gdpr-note` and `{identifier-corrigendum}/req/business-logic/attribution` and the corresponding abstract tests.
+
+This corrigendum does not renumber existing conformance classes, requirements, or abstract tests. Existing identifiers remain those of STAplus 1.0 (`{identifier}`), except the Business Logic Requirements Class and the Business Logic Conformance Class, whose identifiers are `{identifier-corrigendum}/req-class/business-logic` and `{identifier-corrigendum}/conf/business-logic` because those classes now include the 1.0.1 requirements and tests. The other new identifiers introduced by this corrigendum use `{identifier-corrigendum}`. Requirement `{identifier-corrigendum}/req/business-logic/gdpr-note` follows the last original requirement (`{identifier}/req/geometry-wkt/out`). Requirement `{identifier-corrigendum}/req/business-logic/attribution` follows `{identifier-corrigendum}/req/business-logic/gdpr-note`. The corresponding abstract tests (`{identifier-corrigendum}/conf/business-logic/gdpr-note` and `{identifier-corrigendum}/conf/business-logic/attribution`) are appended after the last original Annex A test (`{identifier}/conf/mqtt-subscribe-sta-11/definition`).
+
+[[editorial-changes-1-0-1]]
+=== Editorial changes in release 1.0.1
+
+This release also applies an editorial English review. The technical meaning of the remaining requirements is unchanged except where a wording error contradicted the stated rule.
+
+==== Identifier, table, and abstract test suite markup
+
+* Corrected the Default-CRS requirements class title (`.Defaul-CRS` to `.Default-CRS`).
+* Corrected the Geometry-WKT requirements class listing so that it references `{identifier}/req/geometry-wkt/crs-definition` (previously `crs-defintion`).
+* Removed the extra slash from the Geometry-FG media-type conformance test URI (`{identifier}/conf/geometry-fg/media-type`) in Clause 2 and Annex A.
+* Restored the missing table cell delimiter on the last row of the Campaign properties table.
+* Pointed the PUT update requirement at the SensorThings PUT requirement anchor (`#req-create-update-delete-update-entity-put`).
+* Marked the missing MQTT Subscribe abstract test steps as `part::`.
+* Added an informative summary in Clause 2 of the advertisements that existing requirements already place on the SensorThings service root URI. This corrigendum does not add a Landing Page Requirements Class or Conformance Class.
+
+==== Grammar, spelling, and OGC style
+
+* Replaced German-influenced phrasing (for example compatible to, compliant to, supports to create, allows that, resp., emphasizes on, responsible of, included into).
+* Corrected articles and collocations (for example an HTTP, an ObservationGroup, constrain/constraint, the latter, whose value).
+* Aligned spelling and naming: reuse (not re-use), SensorThings API, Well-Known Text, Geometry-FG, Geometry-WKT, machine-readable, terms of use.
+* Corrected revision history wording in earlier rows (abstract test suite, adapted, proofreading).
+
+==== Paragraph rewrites
+
+The following passages were rewritten for clarity while keeping the original technical intent:
+
+* Abstract: FAIR (Interoperability and Reusability) sentence.
+* Scope: opening paragraph on relating and grouping observations.
+* Security Considerations: `Party` entity and personal-data handling; W3C DID sentence; misuse of observation values; attribution of a personal name in `attributionText`.
+* Introduction: licensing paragraph (URI-based identifier and constraining license proliferation); template `License` entities; instance `attributionText` only when `definition` identifies an attribution license.
+* `Party/displayName` and `License/attributionText` definitions: clarified that `displayName` is not used as creator identification, that `attributionText` applies when `definition` identifies an attribution license, and that a non-attribution license uses the template as-is, without changing cardinality.
+* Authentication: user identifier permanence and uniqueness requirement.
+
+==== Alignment with the UML
+
+* Updated the UML diagrams to include the identified model fixes (`License.description` 0..1, `ObservationGroup.creationTime` 1..1, singular `license`, `PartyRoleCode`, and `ObservationGroup.endTime` as `TM_Instant`).
+* Updated the Campaign requirements class introduction so that `Campaign` is described as a container of `Datastream`, `MultiDatastream`, and `ObservationGroup` entities, matching the relations table and the UML.
+* Association role names in the Clause 7 relation tables remain STA PascalCase (`Datastreams`, `Subject`) as used in the JSON encoding. UML association ends may use camelCase (`datastreams`, `subject`).
+
+==== Abstract Test Suite and conformance class identifiers
+
+* Removed the extra MQTT Subscribe conformance-test URIs that duplicated the conformance class identifiers (`conf/mqtt-subscribe-sta-10` and `conf/mqtt-subscribe-sta-11`). The tests remain `…/definition`.
+* Pointed the Authentication `id-create` abstract test at `conf/authentication` instead of `conf/core`.
+* Corrected the Update PUT abstract test method to use HTTP PUT.
+
+==== JSON-FG
+
+* Replaced the draft JSON-FG bibliography entry with the published Implementation Standard <<OGC21-045r1>> (https://docs.ogc.org/is/21-045r1/21-045r1.html[OGC 21-045r1]) as a normative reference.
+* Removed the notes that treated Geometry-FG as informative until JSON-FG was adopted.
+* Changed the Geometry-FG `encodingType` ValueCode from `application/vnd.ogc.fg+json` to `application/geo+json`.

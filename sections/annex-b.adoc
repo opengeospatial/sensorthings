@@ -1,7 +1,7 @@
 [appendix,obligation="informative"]
 == STAplus Data Model (informative)
 
-This appendix contains the Data Model UML diagrams in large for improved readability.
+This appendix contains the Data Model UML diagrams del:[in large] add:[at a larger scale] for improved readability.
 
 === STAplus Data Model connected to `Datastream`
 [[fig-staplus-datastream-entities-landscape]]

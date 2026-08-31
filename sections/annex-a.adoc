@@ -66,7 +66,7 @@ target:: {identifier}/req/read/entity
 
 test-purpose:: Verify that the implementation supports reading STAplus entities via HTTP GET.
 test-method-type:: Manually Inspect
-test-method:: Evaluate that the implementation accepts a Sensor Things API compliant HTTP Get request to the STAplus entities:
+test-method:: Evaluate that the implementation accepts a Sensor del:[] Things API compliant HTTP del:[Get] add:[GET] request to the STAplus entities:
 
 part:: Construct a URL to the `Party` entity and verify the response.
 part:: Construct a URL to the `License` entity and verify the response.
@@ -137,7 +137,7 @@ target:: {identifier}/req/default-crs/processing
 test-purpose:: Verify that the implementation stores geometry that is encoded in the default-CRS and axis-order without processing.
 test-method:: Evaluate that the implementation stores geometry that is encoded in the default-CRS and axis-order without processing.
 
-part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is stores the geometry data without processing.
+part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation del:[is] stores the geometry data without processing.
 part:: Construct a `FeatureOfInterest` entity that contains a `feature` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is storing the geometry data without a CRS transformation.
 ====
 
@@ -167,10 +167,10 @@ test-method:: For each STAplus entity:
 
 part:: Create an entity instance by following the integrity constraints and creating the related entities with a single request (__i.e.__, deep insert), check if the entity instance is successfully created and the implementation responds as defined in this Standard.
 
-part:: Create an entity instance and its related entities with a deep insert request that does not conform to the Standard (e.g., missing a mandatory property), check if the service fails the request without creating any entity within the deep insert request and responds the appropriate HTTP status code.
+part:: Create an entity instance and its related entities with a deep insert request that does not conform to the Standard (e.g., missing a mandatory property), check if the service fails the request without creating any entity within the deep insert request and responds with the appropriate HTTP status code.
 
 
-part:: Issue an entity creation request that does not follow the integrity constraints with deep insert, check if the service fails the request without creating any entity within the deep insert request and responds the appropriate HTTP status code.
+part:: Issue an entity creation request that does not follow the integrity constraints with deep insert, check if the service fails the request without creating any entity within the deep insert request and responds with the appropriate HTTP status code.
 
 
 part:: Create an entity instance by linking to existing entities with a single request, check if the server responds as defined in this Standard.
@@ -195,7 +195,7 @@ target:: {identifier}/req/update/entity-put
 test-purpose:: To verify that the service implementation supports the update of entities as defined in this Standard.
 test-method:: For each STAplus entity:
 
-part:: Send an update request with HTTP PATCH and check if the service responds as defined.
+part:: Send an update request with HTTP del:[PATCH] add:[PUT] and check if the service responds as defined.
 ====
 
 [conformance_test]
@@ -262,7 +262,7 @@ part:: Compare the user identifier for different users and verify that the ident
 ====
 [%metadata]
 identifier:: {identifier}/conf/authentication/id-create
-target:: {identifier}/conf/core
+target:: {identifier}/conf/authentication
 
 target:: {identifier}/req/authentication/id-create
 
@@ -270,11 +270,11 @@ target:: {identifier}/req/authentication/id-create
 test-purpose:: To verify that the identifier value stored in `Party/authId` is the value set by the authentication.
 test-method:: For a non-existing `Party` entity:
 
-part:: Submit a HTTP POST request to create a `Party` entity where the `authId` is not set.
+part:: Submit an HTTP POST request to create a `Party` entity where the `authId` is not set.
 part:: Observe the response to find the location URI for the created `Party` entity.
-part:: Issue a HTTP GET request to the location URI and verify that the `Party/authId` is set with the unique identifier that represents the user.
+part:: Issue an HTTP GET request to the location URI and verify that the `Party/authId` is set with the unique identifier that represents the user.
 
-part:: Submit a HTTP POST request to create a `Party` entity where the `authId` is set with some value.
+part:: Submit an HTTP POST request to create a `Party` entity where the `authId` is set with some value.
 part:: Observe the response status code and verify it is 400.
 
 ====
@@ -291,7 +291,7 @@ target:: {identifier}/req/authentication/id-read
 test-purpose:: To verify that the `Party/authId` is exposed in a response.
 test-method:: Verify that response from any `Party` entity includes the `authId`:
 
-part:: Construct a HTTP GET request to some `Party` entity and verify that the `authId` is contained in the response.
+part:: Construct an HTTP GET request to some `Party` entity and verify that the `authId` is contained in the response.
 ====
 
 [conformance_test]
@@ -306,14 +306,14 @@ test-purpose:: To verify that a user can *not* update the identifier stored in `
 test-method:: Verify that changing the `authId` is not possible for the user itself:
 
 part:: Have the user authenticate and identify the corresponding `Party`.
-part:: Construct a HTTP PATCH request to that **same** `Party` entity where the `authId` is set with some value.
-part:: Issue a HTTP GET request to that `Party` and verify that the value of the `authId` has not changed.
+part:: Construct an HTTP PATCH request to that **same** `Party` entity where the `authId` is set with some value.
+part:: Issue an HTTP GET request to that `Party` and verify that the value of the `authId` has not changed.
 
 test-method:: Verify that changing the `authId` is not possible for any other user:
 
 part:: Have the user authenticate and identify the corresponding `Party`.
-part:: Construct a HTTP PATCH request to *another* existing `Party` entity where the `authId` is set with some value.
-part:: Issue a HTTP GET request to that other `Party` and verify that the value of the `authId` has not changed.
+part:: Construct an HTTP PATCH request to *another* existing `Party` entity where the `authId` is set with some value.
+part:: Issue an HTTP GET request to that other `Party` and verify that the value of the `authId` has not changed.
 ====
 
 [conformance_test]
@@ -328,14 +328,14 @@ test-purpose:: To verify that a user can *not* delete the identifier stored in `
 test-method:: Verify that deleting the `authId` is not possible for the user itself:
 
 part:: Have the user authenticate and identify the corresponding `Party`.
-part:: Construct a HTTP DELETE request to that `Party` entity.
-part:: Issue a HTTP GET request to that `Party` and verify that the entity still exists.
+part:: Construct an HTTP DELETE request to that `Party` entity.
+part:: Issue an HTTP GET request to that `Party` and verify that the entity still exists.
 
 test-method:: Verify that deleting the `authId` is not possible for any other user:
 
 part:: Have the user authenticate and identify the corresponding `Party`.
-part:: Construct a HTTP DELETE request to *another* existing `Party`.
-part:: Issue a HTTP GET request to that other `Party` and verify that the entity still exists.
+part:: Construct an HTTP DELETE request to *another* existing `Party`.
+part:: Issue an HTTP GET request to that other `Party` and verify that the entity still exists.
 ====
 
 
@@ -345,7 +345,7 @@ part:: Issue a HTTP GET request to that other `Party` and verify that the entity
 ====
 [%metadata]
 identifier:: {identifier}/conf/business-logic/definition
-target:: {identifier}/conf/business-logic
+target:: {identifier-corrigendum}/conf/business-logic
 
 target:: {identifier}/req/business-logic/definition
 
@@ -357,25 +357,25 @@ test-method:: Verify that the HTML page for the business logic is in English lan
 ====
 [%metadata]
 identifier:: {identifier}/conf/business-logic/location
-target:: {identifier}/conf/business-logic
+target:: {identifier-corrigendum}/conf/business-logic
 
 target:: {identifier}/req/business-logic/location
 
 test-purpose:: To verify that the business logic is available from the provided URL.
-test-method:: On the service root URI, find the JSON object with name `{identifier}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page contains the description of the business logic.
+test-method:: On the service root URI, find the JSON object with name del:[`{identifier}/conf/business-logic`] add:[`{identifier-corrigendum}/conf/business-logic`] and follow the link provided in the `href` property. Verify that the loaded HTML page contains the description of the business logic.
 ====
 
 
 
 
-=== STAplus *Geometry FG* Conformance Class Tests
+=== STAplus *Geometry-FG* Conformance Class Tests
 
-NOTE: These Conformance Class Tests remain informative until <<FG>> is an adopted OGC Standard.
+del:[These Conformance Class Tests remain informative until <<FG>> is an adopted OGC Standard.]
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/geometry-fg//media-type
+identifier:: {identifier}/conf/geometry-fg/media-type
 target:: {identifier}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/media-type
@@ -419,8 +419,7 @@ target:: {identifier}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/crs-error
 
-test-purpose:: To verify that no additional CRS, as advertised in the conformance page, 
-are accepted.
+test-purpose:: To verify that no additional CRS, as advertised in the conformance page, are accepted.
 test-method:: Verify that the implementation *does not* accept geometry encodings for `Feature` and `Location` that are not listed as supported. For a CRS *not* listed as supported:
 
 part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is *rejected* by the implementation.
@@ -437,7 +436,7 @@ target:: {identifier}/req/geometry-fg/processing
 test-purpose:: To verify that a geometry not encoded in the default-CRS is transformed before storage.
 test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location` that use a supported CRS:
 
-part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted and transformed to the default-CRS before processed and stored by the implementation.
+part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted and transformed to the default-CRS before add:[being] processed and stored by the implementation.
 ====
 
 [conformance_test]
@@ -449,11 +448,11 @@ target:: {identifier}/conf/geometry-fg
 target:: {identifier}/req/geometry-fg/out
 
 test-purpose:: To verify that a geometry included in a response is encoded in the default-CRS.
-test-method:: Verify that the geometry data for a `Feature` and `Location` is using default-CRS, independent from the geometry CRS used with the creation or updating of the entity.
+test-method:: Verify that the geometry data for a `Feature` and `Location` is using default-CRS, independent del:[from] add:[of] the geometry CRS used with the creation or updating of the entity.
 ====
 
 
-=== STAplus *Geometry WKT* Conformance Class Tests
+=== STAplus *Geometry-WKT* Conformance Class Tests
 
 
 [conformance_test]
@@ -538,7 +537,7 @@ target:: {identifier}/conf/geometry-wkt
 
 target:: {identifier}/req/geometry-wkt/value
 
-test-purpose:: To verify that the geometry value, compliant to WKT is accepted as value for the `feature` and `location` property.
+test-purpose:: To verify that the geometry value, compliant del:[to] add:[with] WKT is accepted as value for the `feature` and `location` property.
 test-method:: Verify that the implementation accepts WKT geometry values for `feature` and `location` properties.
 ====
 
@@ -554,7 +553,7 @@ target:: {identifier}/req/geometry-wkt/processing
 test-purpose:: To verify that a geometry not encoded in the default-CRS is transformed before storage.
 test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location` that use a supported CRS:
 
-part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data in the `location` and `feature` properties is accepted and transformed to the default-CRS before processed and stored by the implementation.
+part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data in the `location` and `feature` properties is accepted and transformed to the default-CRS before add:[being] processed and stored by the implementation.
 ====
 
 [conformance_test]
@@ -566,7 +565,7 @@ target:: {identifier}/conf/geometry-wkt
 target:: {identifier}/req/geometry-wkt/out
 
 test-purpose:: To verify that a geometry included in a response is encoded in the default-CRS.
-test-method:: Verify that the geometry data for a `feature` and `location` properties is using default-CRS, independent from the geometry CRS used with the creation or updating of the entity.
+test-method:: Verify that the geometry data for a `feature` and `location` properties is using default-CRS, independent del:[from] add:[of] the geometry CRS used with the creation or updating of the entity.
 ====
 
 
@@ -586,9 +585,9 @@ part:: Subscribe to an entity set with MQTT Subscribe. Then create a new entity 
 
 part:: Subscribe to an entity set with MQTT Subscribe. Then update an existing entity of the subscribed entity set. Check if a complete JSON representation of the updated entity through MQTT is received.
 
-part::  Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
+part:: Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
 
-Subscribe to multiple properties of an entity set with MQTT Subscribe. Then create a new entity of the entity set.  Check if a JSON object of the subscribed properties is received.
+part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then create a new entity of the entity set. Check if a JSON object of the subscribed properties is received.
 
 part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then update an existing entity of the entity set with PATCH. Check if a JSON object of the subscribed properties is received.
 ====
@@ -611,7 +610,37 @@ part:: Subscribe to an entity set with MQTT Subscribe. Then update an existing e
 
 part:: Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
 
-Subscribe to multiple properties of an entity set with MQTT Subscribe. Then create a new entity of the entity set.  Check if a JSON object of the subscribed properties is received.
+part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then create a new entity of the entity set. Check if a JSON object of the subscribed properties is received.
 
 part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then update an existing entity of the entity set with PATCH. Check if a JSON object of the subscribed properties is received.
 ====
+
+=== Additional STAplus *Business Logic* Conformance Class Tests
+
+add:[These tests belong to the Business Logic Conformance Class. They are specified after the last original abstract test of STAplus 1.0 so that existing abstract test numbers remain unchanged.]
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier-corrigendum}/conf/business-logic/gdpr-note
+target:: {identifier-corrigendum}/conf/business-logic
+
+target:: {identifier-corrigendum}/req/business-logic/gdpr-note
+
+test-purpose:: add:[To verify that the advertised Business Logic includes the GDPR compliance note for `Location` and `HistoricalLocation` of an individual party's `Thing`.]
+test-method:: add:[On the service root URI, find the JSON object with name `{identifier-corrigendum}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page states that `Location` and `HistoricalLocation` of a `Thing` associated with a `Party` whose `role` is equal to `individual` are personal data, that public access to those entities is restricted, and that access is allowed only when `Party/authId` is identical to the authenticated user identifier (`REMOTE_USER`).]
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier-corrigendum}/conf/business-logic/attribution
+target:: {identifier-corrigendum}/conf/business-logic
+
+target:: {identifier-corrigendum}/req/business-logic/attribution
+
+test-purpose:: add:[To verify that the advertised Business Logic includes the License attribution note for creator identification when `License/definition` identifies an attribution license.]
+test-method:: add:[On the service root URI, find the JSON object with name `{identifier-corrigendum}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page states that `License` entities created by the implementation are templates and are read-only, that when `License/definition` does not identify an attribution license the template is associated as-is with no party-specific instance and no `attributionText`, that when `License/definition` identifies an attribution license each use is a party-specific instance of the template with a non-empty `attributionText`, that the writable properties of that instance are `attributionText` and `description` and that the associated `Party` may update them, that creator identification is always that `attributionText`, that `Party/displayName` and `Party/authId` are not used as creator identification, that a template does not store a party-specific name, that for an aggregate `MultiDatastream` whose license requires attribution the `License/attributionText` contains the copyright naming of contributors whose source license requires attribution, and that a personal name in `attributionText` of a `Party` whose `role` is equal to `individual` is personal data for which a `License` is not a legal basis.]
+====
+
+
