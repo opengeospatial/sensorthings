@@ -1,12 +1,9 @@
 [[staplus-auth]]
 == STAplus Authentication Requirements
 
-
 === Overview
 
-To regulate access to entities using CRUD operations, implementations may wish to use information from user / client application authentication to make access control decisions. 
-
-In addition, some implementations may wish to link the authentication identifier (e.g., `REMOTE_USER`) with the `Party/authId`. Therefore, the STAplus authentication must provide service-wide unique user identifiers.
+The Authentication Requirements Class is inherited from <<OGC22-022r2>> without change.
 
 [[auth]]
 === Requirements Class *Authentication*
@@ -19,12 +16,8 @@ In addition, some implementations may wish to link the authentication identifier
 identifier:: {identifier}/req-class/authentication
 obligation:: requirement
 subject:: Target Type: Implementation
-inherit:: {identifier}/req-class/party
+inherit:: {identifier-101}/req-class/authentication
 requirement:: {identifier}/req/authentication/id
-requirement:: {identifier}/req/authentication/id-create
-requirement:: {identifier}/req/authentication/id-read
-requirement:: {identifier}/req/authentication/id-update
-requirement:: {identifier}/req/authentication/id-delete
 ====
 
 [requirement]
@@ -32,37 +25,5 @@ requirement:: {identifier}/req/authentication/id-delete
 [%metadata]
 identifier:: {identifier}/req/authentication/id
 
-The STAplus authentication SHALL provide a user identifier add:[that is] permanent for del:[same] add:[a given] user del:[but different for each user] add:[and unique across users].
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/authentication/id-read
-
-The STAplus implementation SHALL ensure that the `Party/authId` property is exposed in any response and can be used in STA operators such as `$filter` or `$select`.
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/authentication/id-create
-
-The STAplus implementation SHALL overwrite any existing value and SHALL set the `Party/authId` property with the user's identification value provided by the authentication (e.g., `REMOTE_USER`). 
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/authentication/id-update
-
-The STAplus implementation SHALL ensure that the `Party/authId` property cannot be changed (ensure read-only).
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/authentication/id-delete
-
-The STAplus implementation SHALL ensure that the `Party/authId` property cannot be deleted.
+The implementation SHALL conform to the Authentication Requirements Class of <<OGC22-022r2>>.
 ====

@@ -1,19 +1,63 @@
 [appendix,obligation="normative"]
 == Conformance Class Abstract Test Suite
 
-This normative section defines the STAplus 1.0 Conformance Class tests.
+This normative section defines the STAplus 1.1 Conformance Class tests. These tests apply to the entity types defined in this Standard. An implementation that claims this Standard also passes the Abstract Test Suite of <<OGC22-022r2>>.
 
 [NOTE]
-A STAplus compliant implementation must also be compliant with the SensorThings API conformance as defined in <<OGC15-078r6>>, respectively <<OGC18-088>>.
+A STAplus 1.1 compliant implementation must also be compliant with the SensorThings API conformance as defined in <<OGC15-078r6>>, respectively <<OGC18-088>>, and with STAplus 1.0.1 as defined in <<OGC22-022r2>>.
 
-=== STAplus *Core* Conformance Class Tests
+=== STAplus *Landing Page* Conformance Class Tests
 
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/common-control-information
-target:: {identifier}/conf/core
+identifier:: {identifier}/conf/landing-page/encoding-type
+target:: {identifier}/conf/landing-page
+
+target:: {identifier}/req/encoding-type
+
+
+test-purpose:: To verify that the implementation advertises the supported geometry `encodingType` ValueCodes as a JSON array on the landing page.
+test-method:: Inspect the landing page (the root URI):
+
+part:: Find the JSON array in the `serverSettings` object with the name `{identifier}/req/encoding-type`.
+
+part:: Verify that the value is a JSON array and that each element is a media type listed in <<media-types>>.
+
+part:: Verify that the implementation accepts each advertised ValueCode as the `encodingType` of a geometry property of `FeatureOfInterest`, `Location`, or `PartyLocation`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/landing-page/environment
+target:: {identifier}/conf/landing-page
+
+target:: {identifier}/req/environment
+
+
+test-purpose:: To verify that the implementation advertises the accepted `PartyLocation` `environment` EnvCodes as a JSON array on the landing page.
+test-method:: Inspect the landing page (the root URI):
+
+part:: Find the JSON array in the `serverSettings` object with the name `{identifier}/req/environment`.
+
+part:: Verify that the value is a JSON array.
+
+part:: If the array is not empty, construct a `PartyLocation` entity for each advertised EnvCode and verify that the implementation accepts that `environment` value. Construct a `PartyLocation` entity whose `environment` is not in the array and verify that the implementation rejects it.
+
+part:: If the array is empty, construct a `PartyLocation` entity with an `environment` value and verify that the implementation does not constrain the code list.
+====
+
+
+=== STAplus *Party Context* Conformance Class Tests
+
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/party-context/common-control-information
+target:: {identifier}/conf/party-context
 
 target:: {identifier}/req/common-control-information
 
@@ -25,127 +69,129 @@ test-method:: Inspect the full JSON object of the entity sets (__i.e.__, without
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/entities
-inherit:: {identifier}/conf/core/common-control-information
-target:: {identifier}/conf/core
+identifier:: {identifier}/conf/party-context/entities
+inherit:: {identifier}/conf/party-context/common-control-information
+target:: {identifier}/conf/party-context
 
-target:: {identifier}/req/party/properties
+target:: {identifier}/req/party-location/properties
+target:: {identifier}/req/party-location/relations
+
+target:: {identifier}/req/party-activity/properties
+target:: {identifier}/req/party-activity/relations
+
+target:: {identifier}/req/observation/relations
 target:: {identifier}/req/party/relations
 
-target:: {identifier}/req/license/properties
-target:: {identifier}/req/license/relations
-
-target:: {identifier}/req/group/properties
-target:: {identifier}/req/group/relations
-
-target:: {identifier}/req/relation/properties
-target:: {identifier}/req/relation/relations
-
-target:: {identifier}/req/campaign/properties
-target:: {identifier}/req/campaign/relations
-
-test-purpose:: Verify that each STAplus entity has the mandatory properties and mandatory relations as defined in this Standard.
+test-purpose:: Verify that each STAplus 1.1 entity has the mandatory properties and mandatory relations as defined in this Standard.
 test-method-type:: Manually Inspect
-test-method:: Evaluate for each STAplus entity:
+test-method:: Evaluate for each STAplus 1.1 entity:
 
 part:: Inspect the full JSON object of the entity sets (__i.e.__, without $select) to identify, if each entity has the mandatory properties defined in the corresponding requirement.
 
 part:: Inspect the full JSON object of each entity set (__i.e.__, without using the $select query option) to identify, if each entity has the mandatory relations (__i.e.__, @iot.navigationLink) defined in the corresponding requirement.
+
+part:: Inspect an `Observation` entity and verify that the `PartyLocation` and `PartyActivity` navigation links are present.
+
+part:: Inspect a `Party` entity and verify that the `PartyLocations` and `PartyActivities` navigation links are present.
 ====
 
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/read
-inherit:: {identifier}/conf/core/entities
-target:: {identifier}/conf/core
+identifier:: {identifier}/conf/party-context/read
+inherit:: {identifier}/conf/party-context/entities
+target:: {identifier}/conf/party-context
 
 target:: {identifier}/req/read/entity
 
 
-test-purpose:: Verify that the implementation supports reading STAplus entities via HTTP GET.
+test-purpose:: Verify that the implementation supports reading STAplus 1.1 entities via HTTP GET.
 test-method-type:: Manually Inspect
-test-method:: Evaluate that the implementation accepts a Sensor del:[] Things API compliant HTTP del:[Get] add:[GET] request to the STAplus entities:
+test-method:: Evaluate that the implementation accepts a SensorThings API compliant HTTP GET request to the STAplus 1.1 entities:
 
-part:: Construct a URL to the `Party` entity and verify the response.
-part:: Construct a URL to the `License` entity and verify the response.
-part:: Construct a URL to the `ObservationGroup` entity and verify the response.
-part:: Construct a URL to the `Relation` entity and verify the response.
-part:: Construct a URL to the `Campaign` entity and verify the response.
+part:: Construct a URL to the `PartyLocation` entity and verify the response.
+part:: Construct a URL to the `PartyActivity` entity and verify the response.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/party-context/individual-gdpr
+target:: {identifier}/conf/party-context
+
+target:: {identifier}/req/party-context/individual-gdpr
+
+
+test-purpose:: To verify that an implementation that accepts an individual `Party` also conforms to the GDPR Conformance Class.
+test-method:: Inspect the `Parties` entity set:
+
+part:: If no `Party` has `role` equal to `individual`, the test passes.
+
+part:: If any `Party` has `role` equal to `individual`, execute the tests of <<conformance_class_gdpr>> and verify that they pass.
 ====
 
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/default-crs/crs-definition
-target:: {identifier}/conf/core
+identifier:: {identifier}/conf/party-context/default-crs/crs-definition
+target:: {identifier}/conf/party-context
 
 target:: {identifier}/req/default-crs/crs-definition
 
 
-test-purpose:: Verify that the implementation supports and uses the default-CRS.
+test-purpose:: Verify that the implementation supports and uses the default-CRS for `PartyLocation`.
 test-method:: Evaluate that the implementation uses the default-CRS.
 
-part:: Construct a `Location` entity that contains a `Location` property whose geometry is encoded using the default-CRS and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS.
-part:: Construct a `FeatureOfInterest` entity that contains a `Feature` property whose geometry is encoded using the default-CRS and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS.
+part:: Construct a `PartyLocation` entity that contains a `position` property whose geometry is encoded using the default-CRS and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS.
 ====
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/default-crs/axis-order
-target:: {identifier}/conf/core
+identifier:: {identifier}/conf/party-context/default-crs/axis-order
+target:: {identifier}/conf/party-context
 
 target:: {identifier}/req/default-crs/axis-order
 
 
-test-purpose:: Verify that the implementation supports and uses the default axis-order.
+test-purpose:: Verify that the implementation supports and uses the default axis-order for `PartyLocation`.
 test-method:: Evaluate that the implementation uses the default axis-order.
 
-part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS.
-part:: Construct a `FeatureOfInterest` entity that contains a `feature` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS.
+part:: Construct a `PartyLocation` entity that contains a `position` property whose geometry is encoded using the default axis-order and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS.
 ====
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/default-crs/media-type
-target:: {identifier}/conf/core
+identifier:: {identifier}/conf/party-context/default-crs/media-type
+target:: {identifier}/conf/party-context
 
 target:: {identifier}/req/default-crs/media-type
 
 
-test-purpose:: Verify that the implementation supports and uses the default media-type.
+test-purpose:: Verify that the implementation supports and uses the default media-type for `PartyLocation`.
 test-method:: Evaluate that the implementation uses the default media-type.
 
-part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS and axis-order.
-part:: Construct a `FeatureOfInterest` entity that contains a `feature` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS and axis-order.
+part:: Construct a `PartyLocation` entity that contains a `position` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is processing the geometry accordingly and that the geometry data is stored using the default-CRS and axis-order.
 ====
 
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/default-crs/processing
-target:: {identifier}/conf/core
+identifier:: {identifier}/conf/party-context/default-crs/processing
+target:: {identifier}/conf/party-context
 
 target:: {identifier}/req/default-crs/processing
 
 
-test-purpose:: Verify that the implementation stores geometry that is encoded in the default-CRS and axis-order without processing.
+test-purpose:: Verify that the implementation stores `PartyLocation` geometry that is encoded in the default-CRS and axis-order without processing.
 test-method:: Evaluate that the implementation stores geometry that is encoded in the default-CRS and axis-order without processing.
 
-part:: Construct a `Location` entity that contains a `location` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation del:[is] stores the geometry data without processing.
-part:: Construct a `FeatureOfInterest` entity that contains a `feature` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation is storing the geometry data without a CRS transformation.
+part:: Construct a `PartyLocation` entity that contains a `position` property whose geometry is encoded using the default-CRS and axis-order where the `encodingType` property's value is `application/geo+json` and check that the implementation stores the geometry data without processing.
 ====
-
-
-
-
-
-
 
 
 === STAplus *Create* Conformance Class Tests
@@ -162,8 +208,8 @@ target:: {identifier}/req/create/deep-insert
 target:: {identifier}/req/create/deep-insert-status-code
 
 
-test-purpose:: To verify that the service implementation supports the creation of entities as defined in this Standard.
-test-method:: For each STAplus entity:
+test-purpose:: To verify that the service implementation supports the creation of STAplus 1.1 entities as defined in this Standard.
+test-method:: For each STAplus 1.1 entity:
 
 part:: Create an entity instance by following the integrity constraints and creating the related entities with a single request (__i.e.__, deep insert), check if the entity instance is successfully created and the implementation responds as defined in this Standard.
 
@@ -192,10 +238,10 @@ target:: {identifier}/req/update/entity
 target:: {identifier}/req/update/entity-put
 
 
-test-purpose:: To verify that the service implementation supports the update of entities as defined in this Standard.
-test-method:: For each STAplus entity:
+test-purpose:: To verify that the service implementation supports the update of STAplus 1.1 entities as defined in this Standard.
+test-method:: For each STAplus 1.1 entity:
 
-part:: Send an update request with HTTP del:[PATCH] add:[PUT] and check if the service responds as defined.
+part:: Send an update request with HTTP PUT and check if the service responds as defined.
 ====
 
 [conformance_test]
@@ -208,8 +254,8 @@ target:: {identifier}/req/update/entity
 target:: {identifier}/req/update/entity-jsonpatch
 
 
-test-purpose:: To verify that the service implementation supports the update of entities as defined in this Standard.
-test-method:: For each STAplus entity:
+test-purpose:: To verify that the service implementation supports the update of STAplus 1.1 entities as defined in this Standard.
+test-method:: For each STAplus 1.1 entity:
 
 part:: Send an update request with PATCH, check (1) if the properties provided in the payload corresponding to updatable properties replace the value of the corresponding property in the entity and (2) if the missing properties of the containing entity or complex property are not directly altered.
 
@@ -217,7 +263,6 @@ part:: Send an update request with PATCH that contains related entities as inlin
 
 part:: Send an update request with PATCH that contains binding information for navigation properties, check if the service updates the navigationLink accordingly.
 ====
-
 
 
 === STAplus *Delete* Conformance Class Tests
@@ -231,12 +276,11 @@ target:: {identifier}/conf/delete
 target:: {identifier}/req/delete/entity
 
 
-test-purpose:: To verify that the service implementation supports the deletion of entities as defined.
-test-method:: For each STAplus entity:
+test-purpose:: To verify that the service implementation supports the deletion of STAplus 1.1 entities as defined.
+test-method:: For each STAplus 1.1 entity:
 
 part:: Delete an entity instance, and check if the service responds as defined.
 ====
-
 
 
 === STAplus *Authentication* Conformance Class Tests
@@ -250,127 +294,12 @@ target:: {identifier}/conf/authentication
 target:: {identifier}/req/authentication/id
 
 
-test-purpose:: To verify that the user's identifier is permanent and unique.
-test-method:: Verify the following:
-
-part:: Compare the user identifier after repeated login of the same user and verify that the identifier is identical.
-part:: Compare the user identifier for different users and verify that the identifiers are different.
+test-purpose:: To verify that the implementation conforms to the Authentication Requirements Class of <<OGC22-022r2>>.
+test-method:: Execute the Authentication Conformance Class tests of <<OGC22-022r2>>.
 ====
-
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/authentication/id-create
-target:: {identifier}/conf/authentication
-
-target:: {identifier}/req/authentication/id-create
-
-
-test-purpose:: To verify that the identifier value stored in `Party/authId` is the value set by the authentication.
-test-method:: For a non-existing `Party` entity:
-
-part:: Submit an HTTP POST request to create a `Party` entity where the `authId` is not set.
-part:: Observe the response to find the location URI for the created `Party` entity.
-part:: Issue an HTTP GET request to the location URI and verify that the `Party/authId` is set with the unique identifier that represents the user.
-
-part:: Submit an HTTP POST request to create a `Party` entity where the `authId` is set with some value.
-part:: Observe the response status code and verify it is 400.
-
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/authentication/id-read
-target:: {identifier}/conf/authentication
-
-target:: {identifier}/req/authentication/id-read
-
-
-test-purpose:: To verify that the `Party/authId` is exposed in a response.
-test-method:: Verify that response from any `Party` entity includes the `authId`:
-
-part:: Construct an HTTP GET request to some `Party` entity and verify that the `authId` is contained in the response.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/authentication/id-update
-target:: {identifier}/conf/authentication
-
-target:: {identifier}/req/authentication/id-update
-
-test-purpose:: To verify that a user can *not* update the identifier stored in `Party/authId`.
-test-method:: Verify that changing the `authId` is not possible for the user itself:
-
-part:: Have the user authenticate and identify the corresponding `Party`.
-part:: Construct an HTTP PATCH request to that **same** `Party` entity where the `authId` is set with some value.
-part:: Issue an HTTP GET request to that `Party` and verify that the value of the `authId` has not changed.
-
-test-method:: Verify that changing the `authId` is not possible for any other user:
-
-part:: Have the user authenticate and identify the corresponding `Party`.
-part:: Construct an HTTP PATCH request to *another* existing `Party` entity where the `authId` is set with some value.
-part:: Issue an HTTP GET request to that other `Party` and verify that the value of the `authId` has not changed.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/authentication/id-delete
-target:: {identifier}/conf/authentication
-
-target:: {identifier}/req/authentication/id-delete
-
-test-purpose:: To verify that a user can *not* delete the identifier stored in `Party/authId`.
-test-method:: Verify that deleting the `authId` is not possible for the user itself:
-
-part:: Have the user authenticate and identify the corresponding `Party`.
-part:: Construct an HTTP DELETE request to that `Party` entity.
-part:: Issue an HTTP GET request to that `Party` and verify that the entity still exists.
-
-test-method:: Verify that deleting the `authId` is not possible for any other user:
-
-part:: Have the user authenticate and identify the corresponding `Party`.
-part:: Construct an HTTP DELETE request to *another* existing `Party`.
-part:: Issue an HTTP GET request to that other `Party` and verify that the entity still exists.
-====
-
-
-=== STAplus *Business Logic* Conformance Class Tests
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/business-logic/definition
-target:: {identifier-corrigendum}/conf/business-logic
-
-target:: {identifier}/req/business-logic/definition
-
-test-purpose:: To verify that the description of the business logic is human readable and in English.
-test-method:: Verify that the HTML page for the business logic is in English language.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/business-logic/location
-target:: {identifier-corrigendum}/conf/business-logic
-
-target:: {identifier}/req/business-logic/location
-
-test-purpose:: To verify that the business logic is available from the provided URL.
-test-method:: On the service root URI, find the JSON object with name del:[`{identifier}/conf/business-logic`] add:[`{identifier-corrigendum}/conf/business-logic`] and follow the link provided in the `href` property. Verify that the loaded HTML page contains the description of the business logic.
-====
-
-
 
 
 === STAplus *Geometry-FG* Conformance Class Tests
-
-del:[These Conformance Class Tests remain informative until <<FG>> is an adopted OGC Standard.]
 
 [conformance_test]
 ====
@@ -380,49 +309,11 @@ target:: {identifier}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/media-type
 
-test-purpose:: To verify that the implementation accepts media-type for Geometry-FG.
-test-method:: Verify that the implementation supports the use of the media-type for Geometry-FG.
-====
 
+test-purpose:: Verify that the implementation accepts Features and Geometries JSON encoding for `PartyLocation`.
+test-method:: Evaluate that the implementation accepts the Geometry-FG media-type.
 
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/geometry-fg/default-crs
-target:: {identifier}/conf/geometry-fg
-
-target:: {identifier}/req/geometry-fg/default-crs
-
-test-purpose:: To verify that the default-CRS is used for processing geometry data from `Feature` and `Location`.
-test-method:: Verify that the implementation applies the default-CRS advertised in the conformance page to the geometry data from `Feature` and `Location`.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/geometry-fg/supported-crs
-target:: {identifier}/conf/geometry-fg
-
-target:: {identifier}/req/geometry-fg/supported-crs
-
-test-purpose:: To verify that all CRS, advertised as supported in the conformance page are accepted.
-test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location`. For each supported CRS:
-
-part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted by the implementation.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/geometry-fg/crs-error
-target:: {identifier}/conf/geometry-fg
-
-target:: {identifier}/req/geometry-fg/crs-error
-
-test-purpose:: To verify that no additional CRS, as advertised in the conformance page, are accepted.
-test-method:: Verify that the implementation *does not* accept geometry encodings for `Feature` and `Location` that are not listed as supported. For a CRS *not* listed as supported:
-
-part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is *rejected* by the implementation.
+part:: Construct a `PartyLocation` entity that contains a `position` property whose geometry is encoded as Features and Geometries JSON where the `encodingType` property's value is `application/vnd.ogc.fg+json` and check that the implementation processes the geometry accordingly.
 ====
 
 [conformance_test]
@@ -433,27 +324,13 @@ target:: {identifier}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/processing
 
-test-purpose:: To verify that a geometry not encoded in the default-CRS is transformed before storage.
-test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location` that use a supported CRS:
 
-part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data is accepted and transformed to the default-CRS before add:[being] processed and stored by the implementation.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/geometry-fg/out
-target:: {identifier}/conf/geometry-fg
-
-target:: {identifier}/req/geometry-fg/out
-
-test-purpose:: To verify that a geometry included in a response is encoded in the default-CRS.
-test-method:: Verify that the geometry data for a `Feature` and `Location` is using default-CRS, independent del:[from] add:[of] the geometry CRS used with the creation or updating of the entity.
+test-purpose:: Verify that the Geometry-FG processing requirements of <<OGC22-022r2>> apply to `PartyLocation/position`.
+test-method:: Execute the Geometry-FG Conformance Class tests of <<OGC22-022r2>> using a `PartyLocation` entity and the `position` property.
 ====
 
 
 === STAplus *Geometry-WKT* Conformance Class Tests
-
 
 [conformance_test]
 ====
@@ -463,84 +340,12 @@ target:: {identifier}/conf/geometry-wkt
 
 target:: {identifier}/req/geometry-wkt/media-type
 
-test-purpose:: To verify that the implementation accepts media-type for WKT.
-test-method:: Verify that the implementation supports the use of the media-type for WKT.
+
+test-purpose:: Verify that the implementation accepts Well-Known Text encoding for `PartyLocation`.
+test-method:: Evaluate that the implementation accepts the Geometry-WKT media-type.
+
+part:: Construct a `PartyLocation` entity that contains a `position` property whose geometry is encoded as Well-Known Text where the `encodingType` property's value is `application/wkt` and check that the implementation processes the geometry accordingly.
 ====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/geometry-wkt/crs-definition
-target:: {identifier}/conf/geometry-wkt
-
-target:: {identifier}/req/geometry-wkt/crs-definition
-
-test-purpose:: To verify that the implementation accepts CRS definition provided in the associated property.
-test-method:: Verify that the implementation supports the use of the CRS property.
-
-part:: Construct a WKT geometry in a CRS different from the `default-crs`.
-part:: Set the `crs` property to the CRS identifier.
-part:: Verify that the implementation processes the geometry honoring the CRS identified by the `crs` value.
-part:: Set the `srid` property to the CRS identifier number.
-part:: Verify that the implementation processes the geometry honoring the CRS identified by the `srid` value.
-====
-
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/geometry-wkt/default-crs
-target:: {identifier}/conf/geometry-wkt
-
-target:: {identifier}/req/geometry-wkt/default-crs
-
-test-purpose:: To verify that the default-CRS is used for processing geometry data from `feature` and `location` property.
-test-method:: Verify that the implementation defines and applies the default-CRS to the geometry data from `feature` and `location` property.
-
-part:: Find the JSON object in the `serverSettings` object on the root URI with the name `{identifier}/conf/geometry-wkt` and check the value of the property `default-crs`.
-part:: Verify that the `default-crs` is applied to a WKT geometry if no `crs` or `srid` property is used.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/geometry-wkt/supported-crs
-target:: {identifier}/conf/geometry-wkt
-
-target:: {identifier}/req/geometry-wkt/supported-crs
-
-test-purpose:: To verify that all supported CRS are accepted.
-test-method:: Verify that the implementation accepts geometry encodings for `feature` and `location` properties. For each supported CRS:
-
-part:: Execute test {identifier}/conf/geometry-wkt/crs-definition and verify that the implementation processes the geometry correctly.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/geometry-wkt/crs-error
-target:: {identifier}/conf/geometry-wkt
-
-target:: {identifier}/req/geometry-wkt/crs-error
-
-test-purpose:: To verify that only supported CRSs are accepted.
-test-method:: Verify that the implementation *does not* accept geometry encodings for `feature` and `location` properties that are not listed as supported. For a CRS *not* listed as supported:
-
-part:: Execute test {identifier}/conf/geometry-wkt/crs-definition and verify that the geometry data is *rejected* by the implementation.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/geometry-wkt/value
-target:: {identifier}/conf/geometry-wkt
-
-target:: {identifier}/req/geometry-wkt/value
-
-test-purpose:: To verify that the geometry value, compliant del:[to] add:[with] WKT is accepted as value for the `feature` and `location` property.
-test-method:: Verify that the implementation accepts WKT geometry values for `feature` and `location` properties.
-====
-
 
 [conformance_test]
 ====
@@ -550,22 +355,9 @@ target:: {identifier}/conf/geometry-wkt
 
 target:: {identifier}/req/geometry-wkt/processing
 
-test-purpose:: To verify that a geometry not encoded in the default-CRS is transformed before storage.
-test-method:: Verify that the implementation accepts geometry encodings for `Feature` and `Location` that use a supported CRS:
 
-part:: Construct a geometry and create a `Location` and `FeatureOfInterest` entity. Verify that the geometry data in the `location` and `feature` properties is accepted and transformed to the default-CRS before add:[being] processed and stored by the implementation.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/geometry-wkt/out
-target:: {identifier}/conf/geometry-wkt
-
-target:: {identifier}/req/geometry-wkt/out
-
-test-purpose:: To verify that a geometry included in a response is encoded in the default-CRS.
-test-method:: Verify that the geometry data for a `feature` and `location` properties is using default-CRS, independent del:[from] add:[of] the geometry CRS used with the creation or updating of the entity.
+test-purpose:: Verify that the Geometry-WKT processing requirements of <<OGC22-022r2>> apply to `PartyLocation/position`.
+test-method:: Execute the Geometry-WKT Conformance Class tests of <<OGC22-022r2>> using a `PartyLocation` entity and the `position` property.
 ====
 
 
@@ -576,21 +368,16 @@ test-method:: Verify that the geometry data for a `feature` and `location` prope
 [%metadata]
 identifier:: {identifier}/conf/mqtt-subscribe-sta-10/definition
 target:: {identifier}/conf/mqtt-subscribe-sta-10
+
 target:: {identifier}/req/mqtt-subscribe-sta-10
 
-test-purpose:: To verify that a client can receive notifications for the updates of a STAplus entity set or an individual entity with MQTT.
-test-method:: For each STAplus entity:
 
-part:: Subscribe to an entity set with MQTT Subscribe. Then create a new entity of the subscribed entity set. Check if a complete JSON representation of the newly created entity through MQTT is received.
+test-purpose:: To verify that the service implementation supports receiving STAplus 1.1 entity updates with MQTT Subscribe as defined in SensorThings API v1.0.
+test-method:: For each STAplus 1.1 entity:
 
-part:: Subscribe to an entity set with MQTT Subscribe. Then update an existing entity of the subscribed entity set. Check if a complete JSON representation of the updated entity through MQTT is received.
-
-part:: Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
-
-part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then create a new entity of the entity set. Check if a JSON object of the subscribed properties is received.
-
-part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then update an existing entity of the entity set with PATCH. Check if a JSON object of the subscribed properties is received.
+part:: Subscribe to the entity set and create, update, and delete an entity instance, and check if the service sends the corresponding MQTT messages as defined.
 ====
+
 
 === STAplus *MQTT Subscribe* STA v1.1 Conformance Class Tests
 
@@ -599,48 +386,658 @@ part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Th
 [%metadata]
 identifier:: {identifier}/conf/mqtt-subscribe-sta-11/definition
 target:: {identifier}/conf/mqtt-subscribe-sta-11
+
 target:: {identifier}/req/mqtt-subscribe-sta-11
 
-test-purpose:: To verify that a client can receive notifications for the updates of a STAplus entity set or an individual entity with MQTT.
-test-method:: For each STAplus entity:
 
-part:: Subscribe to an entity set with MQTT Subscribe. Then create a new entity of the subscribed entity set. Check if a complete JSON representation of the newly created entity through MQTT is received.
+test-purpose:: To verify that the service implementation supports receiving STAplus 1.1 entity updates with MQTT Subscribe as defined in SensorThings API v1.1.
+test-method:: For each STAplus 1.1 entity:
 
-part:: Subscribe to an entity set with MQTT Subscribe. Then update an existing entity of the subscribed entity set. Check if a complete JSON representation of the updated entity through MQTT is received.
-
-part:: Subscribe to an entity’s property with MQTT Subscribe. Then update the property with PATCH. Check if the JSON object of the updated property is received.
-
-part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then create a new entity of the entity set. Check if a JSON object of the subscribed properties is received.
-
-part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then update an existing entity of the entity set with PATCH. Check if a JSON object of the subscribed properties is received.
+part:: Subscribe to the entity set and create, update, and delete an entity instance, and check if the service sends the corresponding MQTT messages as defined.
 ====
 
-=== Additional STAplus *Business Logic* Conformance Class Tests
 
-add:[These tests belong to the Business Logic Conformance Class. They are specified after the last original abstract test of STAplus 1.0 so that existing abstract test numbers remain unchanged.]
+=== STAplus *Business Logic* Conformance Class Tests
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier-corrigendum}/conf/business-logic/gdpr-note
-target:: {identifier-corrigendum}/conf/business-logic
+identifier:: {identifier}/conf/business-logic/definition
+target:: {identifier}/conf/business-logic
 
-target:: {identifier-corrigendum}/req/business-logic/gdpr-note
+target:: {identifier}/req/business-logic/definition
 
-test-purpose:: add:[To verify that the advertised Business Logic includes the GDPR compliance note for `Location` and `HistoricalLocation` of an individual party's `Thing`.]
-test-method:: add:[On the service root URI, find the JSON object with name `{identifier-corrigendum}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page states that `Location` and `HistoricalLocation` of a `Thing` associated with a `Party` whose `role` is equal to `individual` are personal data, that public access to those entities is restricted, and that access is allowed only when `Party/authId` is identical to the authenticated user identifier (`REMOTE_USER`).]
+
+test-purpose:: To verify that the implementation conforms to the Business Logic Requirements Class of <<OGC22-022r2>>.
+test-method:: Execute the Business Logic Conformance Class tests of <<OGC22-022r2>>.
 ====
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier-corrigendum}/conf/business-logic/attribution
-target:: {identifier-corrigendum}/conf/business-logic
+identifier:: {identifier}/conf/business-logic/gdpr-note
+target:: {identifier}/conf/business-logic
 
-target:: {identifier-corrigendum}/req/business-logic/attribution
+target:: {identifier-101}/req/business-logic/gdpr-note
 
-test-purpose:: add:[To verify that the advertised Business Logic includes the License attribution note for creator identification when `License/definition` identifies an attribution license.]
-test-method:: add:[On the service root URI, find the JSON object with name `{identifier-corrigendum}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page states that `License` entities created by the implementation are templates and are read-only, that when `License/definition` does not identify an attribution license the template is associated as-is with no party-specific instance and no `attributionText`, that when `License/definition` identifies an attribution license each use is a party-specific instance of the template with a non-empty `attributionText`, that the writable properties of that instance are `attributionText` and `description` and that the associated `Party` may update them, that creator identification is always that `attributionText`, that `Party/displayName` and `Party/authId` are not used as creator identification, that a template does not store a party-specific name, that for an aggregate `MultiDatastream` whose license requires attribution the `License/attributionText` contains the copyright naming of contributors whose source license requires attribution, and that a personal name in `attributionText` of a `Party` whose `role` is equal to `individual` is personal data for which a `License` is not a legal basis.]
+
+test-purpose:: To verify that the advertised Business Logic includes the GDPR compliance note of <<OGC22-022r2>>.
+test-method:: Execute the Business Logic `gdpr-note` Conformance Class test of <<OGC22-022r2>>.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/business-logic/attribution
+target:: {identifier}/conf/business-logic
+
+target:: {identifier-101}/req/business-logic/attribution
+
+
+test-purpose:: To verify that the advertised Business Logic includes the License attribution note of <<OGC22-022r2>>.
+test-method:: Execute the Business Logic `attribution` Conformance Class test of <<OGC22-022r2>>.
 ====
 
 
+=== STAplus *GDPR* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/authentication
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/authentication
+
+
+test-purpose:: To verify that Read, Create, Update, and Delete of `Location` and `HistoricalLocation` of a `Thing` owned by an individual party, and of `PartyLocation` and `PartyActivity`, require authentication.
+test-method:: Authenticate as a user whose `Party/role` is `individual` and who owns a `Thing` that has a `Location`:
+
+part:: Issue an unauthenticated HTTP GET request to that `Location` and verify that the service denies access.
+
+part:: Issue unauthenticated HTTP POST, PATCH, and DELETE requests to the `Locations` of that `Thing` and verify that the service denies access.
+
+test-method:: For `PartyLocation` and `PartyActivity`:
+
+part:: Issue an unauthenticated HTTP GET request to the entity collection and verify that the service denies access.
+
+part:: Issue unauthenticated HTTP POST, PATCH, and DELETE requests and verify that the service denies access.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/thing-location
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/thing-location
+
+
+test-purpose:: To verify that `Location` and `HistoricalLocation` of a `Thing` owned by an individual party are restricted to that party.
+test-method:: Authenticate as a user whose `Party/role` is `individual` and who owns a `Thing`:
+
+part:: Read the `Locations` and `HistoricalLocations` of that `Thing`, and verify that the service returns them.
+
+part:: Authenticate as a different user, request those `Locations` and `HistoricalLocations` via the entity URL, a navigationLink, and `$expand`, and verify that the service denies access.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/party
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/party
+
+
+test-purpose:: To verify that access is restricted to the `Party` whose `authId` is identical to the authenticated user identifier, except where Sharing Party Context grants access.
+test-method:: Authenticate as a user whose identifier is identical to a `Party/authId`:
+
+part:: Verify that Read, Create, Update, and Delete succeed only for `PartyLocation` and `PartyActivity` entities linked to that `Party`.
+
+part:: Authenticate as a different user and verify that access to those entities is denied, unless the implementation conforms to Sharing Party Context and a valid `Share` grants Read or Update.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/read
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/read
+
+
+test-purpose:: To verify that Read of `PartyLocation` and `PartyActivity` returns only entities of the authenticated party, except where Sharing Party Context grants access.
+test-method:: Authenticate as a user and:
+
+part:: Issue HTTP GET requests to the `PartyLocations` and `PartyActivities` collections and verify that every returned entity is linked to the `Party` whose `authId` is identical to the authenticated user identifier, except where the implementation conforms to Sharing Party Context and a valid `Share` grants Read.
+
+part:: Issue HTTP GET requests via entity URLs and navigationLinks to `PartyLocation` and `PartyActivity` entities of another party and verify that the service denies access, except where the implementation conforms to Sharing Party Context and a valid `Share` grants Read.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/create
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/create
+
+
+test-purpose:: To verify that Create of `PartyLocation` and `PartyActivity` is restricted to the authenticated party.
+test-method:: Authenticate as a user:
+
+part:: Create a `PartyLocation` and a `PartyActivity` linked to the `Party` whose `authId` is identical to the authenticated user identifier, and verify that the service accepts the request.
+
+part:: Attempt to create a `PartyLocation` or `PartyActivity` linked to a `Party` whose `authId` is not identical to the authenticated user identifier, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/update
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/update
+
+
+test-purpose:: To verify that Update of `PartyLocation` and `PartyActivity` is restricted to the authenticated party.
+test-method:: Authenticate as a user:
+
+part:: Update a `PartyLocation` and a `PartyActivity` linked to that user's `Party`, and verify that the service accepts the request.
+
+part:: Attempt to update a `PartyLocation` or `PartyActivity` linked to another `Party`, and verify that the service denies the request, except where the implementation conforms to Sharing Party Context and a valid `Share` with `permission` equal to `update` grants that access.
+
+part:: Attempt to change the `Party` association to another `Party`, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/delete
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/delete
+
+
+test-purpose:: To verify that Delete of `PartyLocation` and `PartyActivity` is restricted to the authenticated party.
+test-method:: Authenticate as a user:
+
+part:: Delete a `PartyLocation` and a `PartyActivity` linked to that user's `Party`, and verify that the service accepts the request.
+
+part:: Attempt to delete a `PartyLocation` or `PartyActivity` linked to another `Party`, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/no-leak
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/no-leak
+
+
+test-purpose:: To verify that a `Location` or `HistoricalLocation` of an individual party's `Thing`, or a `PartyLocation` or `PartyActivity`, is not leaked through `$expand`, a navigationLink, or deep insert.
+test-method:: Authenticate as a user who is not the `Party` of a `Thing` whose `role` is `individual`:
+
+part:: Issue HTTP GET to that `Thing` with `$expand=Locations,HistoricalLocations`, and verify that those location representations are not included.
+
+part:: Issue HTTP GET to the `Thing`/`Locations` navigationLink, and verify that the service denies access.
+
+part:: Attempt to create a `Location` for that `Thing` by deep insert, and verify that the service denies the request and creates no entity.
+
+test-method:: Authenticate as a user who is not the linked `Party` of a `PartyLocation` and is not a recipient of a valid `Share` for that entity:
+
+part:: Issue HTTP GET to an `Observation` that links to that `PartyLocation` with `$expand=PartyLocation`, and verify that the `PartyLocation` representation is not included.
+
+part:: Issue HTTP GET to the `Observation`/`PartyLocation` navigationLink, and verify that the service denies access.
+
+part:: Attempt to create an `Observation` by deep insert of a `PartyLocation` linked to another `Party`, and verify that the service denies the request and creates no entity.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/cascade
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/cascade
+
+
+test-purpose:: To verify that delete of a `Location` of an individual party's `Thing`, or of a `PartyLocation` or `PartyActivity`, cascades as specified.
+test-method:: If the implementation supports MQTT: Authenticate as the owning party, delete a `Location` of that party's `Thing`, and verify that an MQTT retained message for that entity is not delivered to a subsequent subscriber.
+
+test-method:: Authenticate as the linked `Party`:
+
+part:: Create a `PartyLocation` linked to an `Observation`. If Sharing Party Context is implemented, create a `Share` that targets that `PartyLocation`.
+
+part:: Delete the `PartyLocation` and verify that the `Share` is deleted, that the `Observation` no longer links to the `PartyLocation`, and that an MQTT retained message for that entity is not delivered to a subsequent subscriber.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/mqtt
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/mqtt
+
+
+test-purpose:: To verify that MQTT uses the same authorization as HTTP when MQTT is supported.
+test-method:: If the implementation supports MQTT Subscribe:
+
+part:: Authenticate as the owning party of a `Thing` whose `Party/role` is `individual` and subscribe to the `Location` of that `Thing`, then update that entity, and verify that the owner receives the MQTT message.
+
+part:: Attempt to subscribe without authentication, and as a different party, and verify that the service denies the subscription.
+
+part:: If the implementation supports MQTT Create, attempt to create a `Location` for another party's `Thing` via MQTT, and verify that the service denies the request.
+
+test-method:: If the implementation supports MQTT Subscribe for STAplus 1.1 entities:
+
+part:: Authenticate as the linked `Party` and subscribe to a `PartyLocation`, then update that entity, and verify that the owner receives the MQTT message.
+
+part:: Attempt to subscribe without authentication, and as a different party who is not a recipient of a valid `Share`, and verify that the service denies the subscription.
+
+part:: If the implementation supports MQTT Create, attempt to create a `PartyLocation` for another `Party` via MQTT, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/business-logic
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/business-logic
+
+
+test-purpose:: To verify that the Business Logic does not grant access beyond this Conformance Class.
+test-method:: Inspect the implemented Business Logic and the service behaviour:
+
+part:: Verify that any additional access restriction is narrower than the GDPR Requirements Class.
+
+part:: Verify that the Business Logic does not permit Read, Create, Update, or Delete of a `Location` or `HistoricalLocation` of a `Thing` whose `Party/role` is equal to `individual` for a user whose identifier is not identical to that `Party/authId`.
+
+part:: Verify that the Business Logic does not permit Read, Create, Update, or Delete of a `PartyLocation` or `PartyActivity` for a user whose identifier is not identical to the linked `Party/authId`, except where the implementation also conforms to Sharing Party Context and a valid `Share` grants Read or Update.
+
+part:: Verify that the Business Logic describes the legal-basis mechanism and states the conditions of `{identifier}/req/gdpr/foi-assertion`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/retention-time
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/retention-time
+
+
+test-purpose:: To verify that a `PartyLocation` or `PartyActivity` whose `retentionTime` has passed is not returned and is deleted.
+test-method:: Authenticate as a user, create a `PartyLocation` whose `retentionTime` is in the past, and verify that a subsequent GET does not return the entity.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/historical-location-retention
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/historical-location-retention
+
+
+test-purpose:: To verify that an expired `HistoricalLocation` of an individual party's `Thing` is deleted, and that a current `Location` is not auto-deleted.
+test-method:: Inspect the privacy-notice `retentionPeriod`. If the value is an ISO 8601 duration, use that duration. Otherwise use the duration stated in the Business Logic.
+
+part:: Authenticate as a user whose `Party/role` is equal to `individual`. Create a `Thing` of that `Party` with a current `Location`. Create a `HistoricalLocation` of that `Thing` whose `time` is earlier than the current time by more than that duration.
+
+part:: Verify that a subsequent GET does not return that `HistoricalLocation`.
+
+part:: Verify that a subsequent GET still returns the current `Location` of that `Thing`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/restriction
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/restriction
+
+
+test-purpose:: To verify that `restricted` equal to true limits access to the linked `Party` and invalidates shares.
+test-method:: Authenticate as the linked `Party`, set `restricted` to true on a `PartyLocation`, and:
+
+part:: Verify that the owner can still Read the entity.
+
+part:: If Sharing Party Context is implemented, authenticate as a recipient of a `Share` that targeted that entity and verify that Read is denied. Attempt to create a new `Share` for that entity and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/privacy-notice
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/privacy-notice
+
+
+test-purpose:: To verify that the landing page advertises the privacy-notice object.
+test-method:: Inspect the landing page (the root URI):
+
+part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/req/gdpr/privacy-notice`.
+
+part:: Verify that `privacyPolicy.href`, `controller.name`, `controller.contact`, `retentionPeriod`, and `legalBasis` are present, and that `privacyPolicy.href` identifies an HTML document.
+
+part:: Verify that the Business Logic states that `retentionPeriod` and `legalBasis` apply to `Location` and `HistoricalLocation` of an individual party's `Thing`, and to `PartyLocation` and `PartyActivity`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/legal-basis
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/legal-basis
+
+
+test-purpose:: To verify that Create of an individual `Party`, of that party's `Thing` locations, and of `PartyLocation` and `PartyActivity` is refused when no current legal basis exists.
+test-method:: Inspect the Business Logic for the legal-basis mechanism. Using that mechanism, authenticate as a user for whom no current legal basis exists, attempt to create a `Party` with `role` equal to `individual`, a `Location` of such a party's `Thing`, a `PartyLocation`, and a `PartyActivity`, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/erasure-set
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/erasure-set
+
+
+test-purpose:: To verify that the owner can delete all `Location` and `HistoricalLocation` entities of their `Thing`, and all of their `PartyLocation` and `PartyActivity` entities.
+test-method:: Authenticate as a user whose `Party/role` is `individual` and who owns a `Thing` that has at least one `Location`. Issue HTTP DELETE to `Things({id})/Locations` and to `Things({id})/HistoricalLocations`, and verify that those collections are empty for that `Thing` and that the cascade of `{identifier}/req/gdpr/cascade` was applied.
+
+test-method:: Authenticate as a user who owns at least one `PartyLocation` and one `PartyActivity`. Issue HTTP DELETE to `Parties({id})/PartyLocations` and to `Parties({id})/PartyActivities`, and verify that those collections are empty for that `Party` and that the cascade of `{identifier}/req/gdpr/cascade` was applied.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/portability
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/portability
+
+
+test-purpose:: To verify that the owner can export their thing graph and party-context graph and that another party cannot.
+test-method:: Authenticate as a user:
+
+part:: Issue HTTP GET to that user's `Party` with `$expand` of `Things` and with `$expand` of `Locations`, `HistoricalLocations`, `Datastreams`, `MultiDatastreams`, and `Observations` on those `Things`, and with `$expand=PartyLocations,PartyActivities,Shares,ReceivedShares` and with `$expand` of `Observations` on `PartyLocations` and `PartyActivities`, and verify that the response includes those related entities that the user is permitted to Read.
+
+part:: Authenticate as a different user, issue the same request to the first user's `Party`, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/party-location-required
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/party-location-required
+
+
+test-purpose:: To verify that an `Observation` of an individual party has a `PartyLocation`.
+test-method:: Authenticate as a user whose `Party/role` is `individual`:
+
+part:: Create a `Datastream` for that `Party` and create an `Observation` with a `PartyLocation`, and verify that the service accepts the request.
+
+part:: Attempt to create an `Observation` on that `Datastream` without a `PartyLocation`, and verify that the service denies the request.
+
+part:: Attempt to update that `Observation` to remove the `PartyLocation` association, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/foi-public
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/foi-public
+
+
+test-purpose:: To verify that `FeatureOfInterest` is a public resource and is not restricted by `Party`.
+test-method:: Create a `FeatureOfInterest`. Authenticate as a different user, or issue an unauthenticated request if the service allows it, and:
+
+part:: Issue HTTP GET to that `FeatureOfInterest` via the entity URL, the collection URL, and `$expand`, and verify that the service returns the entity.
+
+part:: Verify that Read is not denied on the grounds that the requester's identifier is not identical to a `Party/authId`.
+
+part:: Inspect the Business Logic and verify that it states the conditions of `{identifier}/req/gdpr/foi-assertion` as the meaning of Create and Update of `FeatureOfInterest`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/gdpr/foi-assertion
+target:: {identifier}/conf/gdpr
+
+target:: {identifier}/req/gdpr/foi-assertion
+
+
+test-purpose:: To verify that the Business Logic states the `FeatureOfInterest` assertion of this Standard, including that observer position is recorded in `PartyLocation`.
+test-method:: Inspect the Business Logic and the service behaviour:
+
+part:: Verify that the Business Logic states the conditions of `{identifier}/req/gdpr/foi-assertion` as the meaning of Create and Update of `FeatureOfInterest`.
+
+part:: Authenticate as a user whose `Party/role` is `individual`, create a `FeatureOfInterest` whose `feature` contains a geometry, and verify that the stored `feature` retains that geometry.
+====
+
+=== STAplus *Sharing Party Context* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/properties
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/share/properties
+
+
+test-purpose:: To verify that each `Share` entity has the mandatory properties.
+test-method-type:: Manually Inspect
+test-method:: Inspect the full JSON object of the `Shares` entity set (__i.e.__, without $select) and verify that each entity has the mandatory properties defined in Requirement Class <<share>>.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/relations
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/share/relations
+
+
+test-purpose:: To verify that each `Share` entity has the mandatory relations.
+test-method-type:: Manually Inspect
+test-method:: Inspect the full JSON object of each `Share` (__i.e.__, without using the $select query option):
+
+part:: Verify that the `Party` and `Recipients` navigation links are present.
+
+part:: Inspect a `Party` entity and verify that the `Shares` and `ReceivedShares` navigation links are present.
+
+part:: Inspect a `PartyLocation` entity and a `PartyActivity` entity and verify that the `Shares` navigation links are present.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/target
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/share/target
+
+
+test-purpose:: To verify that a `Share` has exactly one of `PartyLocation` or `PartyActivity`.
+test-method:: Authenticate as a grantor:
+
+part:: Create a `Share` with a `PartyLocation` and no `PartyActivity`, and verify that the service accepts the request.
+
+part:: Create a `Share` with a `PartyActivity` and no `PartyLocation`, and verify that the service accepts the request.
+
+part:: Attempt to create a `Share` with both `PartyLocation` and `PartyActivity`, and verify that the service denies the request.
+
+part:: Attempt to create a `Share` with neither `PartyLocation` nor `PartyActivity`, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/authentication
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/sharing/authentication
+
+
+test-purpose:: To verify that access to `Share` and to a shared target requires authentication.
+test-method:: Issue unauthenticated HTTP GET requests to the `Shares` collection and to a `PartyLocation` or `PartyActivity` that is the target of a `Share`, and verify that the service denies access.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/valid
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/sharing/valid
+
+
+test-purpose:: To verify that a `Share` is valid only for a recipient, an unexpired grant, a covered permission, and an unrestricted target.
+test-method:: Authenticate as a recipient of a `Share` whose `endTime` is in the past, and verify that Read of the target is denied. Authenticate as a party that is not a recipient, and verify that Read of the target is denied. Authenticate as a recipient of a `Share` whose target has `restricted` equal to true, and verify that Read of the target is denied.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/read-share
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/sharing/read-share
+
+
+test-purpose:: To verify that Read of `Share` is restricted to the grantor and the recipients.
+test-method:: Authenticate as the grantor and verify that the `Share` is returned. Authenticate as a recipient and verify that the `Share` is returned. Authenticate as another party and verify that the service denies access.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/create
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/sharing/create
+
+
+test-purpose:: To verify that Create of `Share` is restricted to the owner of an unrestricted target, with a non-empty `purpose`.
+test-method:: Authenticate as the `Party` of a `PartyLocation` and create a `Share` that targets that `PartyLocation`, and verify that the service accepts the request. Authenticate as a different user and attempt to create a `Share` for that `PartyLocation`, and verify that the service denies the request. Authenticate as the owner and attempt to create a `Share` with an empty `purpose`, and verify that the service denies the request. Authenticate as the owner of a `PartyLocation` whose `restricted` is true and attempt to create a `Share` that targets it, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/update-share
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/sharing/update-share
+
+
+test-purpose:: To verify that Update of `Share` is restricted to the grantor.
+test-method:: Authenticate as the grantor and update the `Share`, and verify that the service accepts the request. Authenticate as a recipient and attempt to update the `Share`, and verify that the service denies the request. Authenticate as the grantor and attempt to change the `Party` association to another `Party`, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/delete-share
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/sharing/delete-share
+
+
+test-purpose:: To verify that Delete of `Share` is restricted to the grantor.
+test-method:: Authenticate as a recipient and attempt to delete the `Share`, and verify that the service denies the request. Authenticate as the grantor and delete the `Share`, and verify that the service accepts the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/read-target
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/sharing/read-target
+
+
+test-purpose:: To verify that a recipient can Read the target of a valid `Share` and cannot delete it.
+test-method:: Authenticate as a recipient of a valid `Share` with `permission` equal to `read`:
+
+part:: Issue HTTP GET requests to the target `PartyLocation` or `PartyActivity` via the entity URL, the collection URL, and a navigationLink, and verify that the service returns the entity.
+
+part:: Attempt to delete the target, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/update-target
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/sharing/update-target
+
+
+test-purpose:: To verify that a recipient can Update the target only when `permission` is `update`, and cannot change the owning `Party`.
+test-method:: Authenticate as a recipient of a valid `Share` with `permission` equal to `read` and attempt to update the target, and verify that the service denies the request. Authenticate as a recipient of a valid `Share` with `permission` equal to `update`, update the target, and verify that the service accepts the request. Attempt to change the `Party` association of the target, and verify that the service denies the request.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/no-inheritance
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/sharing/no-inheritance
+
+
+test-purpose:: To verify that access granted by a `Share` does not inherit through related entities.
+test-method:: Authenticate as a recipient of a valid `Share` whose target is a `PartyActivity` that is linked to a `PartyLocation` which is not itself the target of a valid `Share` for that recipient. Request the `PartyLocation` through `$expand` or a navigationLink, and verify that the service denies access to that `PartyLocation`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/mqtt
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/sharing/mqtt
+
+
+test-purpose:: To verify that MQTT Subscribe uses the same authorization as HTTP Read when MQTT is supported.
+test-method:: If the implementation supports MQTT Subscribe for STAplus 1.1 entities:
+
+part:: Authenticate as a recipient of a valid `Share` and subscribe to the target entity, then update the target as the grantor, and verify that the recipient receives the MQTT message.
+
+part:: Authenticate as a party that is not a recipient and attempt to subscribe to the target, and verify that the service denies the subscription.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/sharing-party-context/business-logic
+target:: {identifier}/conf/sharing-party-context
+
+target:: {identifier}/req/sharing/business-logic
+
+
+test-purpose:: To verify that the Business Logic does not grant access beyond Sharing Party Context and GDPR.
+test-method:: Inspect the implemented Business Logic and the service behaviour:
+
+part:: Verify that any additional access restriction is narrower than the Sharing Requirements Class.
+
+part:: Verify that the Business Logic does not permit Read of a `PartyLocation` or `PartyActivity` for a user who is neither the owning party nor a recipient of a valid `Share`.
+====

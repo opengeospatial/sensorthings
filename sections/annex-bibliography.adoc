@@ -2,8 +2,12 @@
 [[Bibliography]]
 == Bibliography
 
-* [[[OGC21-068, OGC Best Practice for using SensorThings API with Citizen Science]]], OGC, _Best Practice for using SensorThings API with Citizen Science_, (2022), https://docs.ogc.org/bp/21-068.pdf
+* [[[ISO19156, Geographic information - Observations and measurements]]], ISO, _Geographic information — Observations and measurements_, ISO 19156, https://www.iso.org/standard/32574.html
 
 * [[[ODATA, OData Version 4.01. Part 1: Protocol]]], OASIS, _OData Version 4.01. Part 1: Protocol_, (2020), http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html.
 
+* [[[OGC21-068, OGC Best Practice for using SensorThings API with Citizen Science]]], OGC, _Best Practice for using SensorThings API with Citizen Science_, (2022), https://docs.ogc.org/bp/21-068.pdf
+
 * [[[W3C-DID, Decentralized Identifiers (DIDs) v1.0]]], W3C, _Decentralized Identifiers (DIDs) v1.0_, (2022), https://www.w3.org/TR/did-core/
+
+* [[[GDPR, Regulation (EU) 2016/679]]], European Union, _Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data (General Data Protection Regulation)_, (2016), https://eur-lex.europa.eu/eli/reg/2016/679/oj

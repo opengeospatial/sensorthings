@@ -1,0 +1,270 @@
+[[staplus-share]]
+== STAplus Share Requirements
+
+=== Overview
+
+The GDPR Requirements Class restricts Read, Create, Update, and Delete of `PartyLocation` and `PartyActivity` to the linked party. A contributor may still need to grant named other parties access to that personal context, for example a campaign coordinator or a research group. A `License` expresses reuse of data that is already readable. It does not grant Read of a GDPR-locked entity.
+
+The `Share` entity is a grant. The grantor is the `Party` that owns the target. The `Recipients` are the parties that receive the permission. A `Share` targets exactly one of `PartyLocation` or `PartyActivity`. To share both a location and an activity, the grantor creates two `Share` entities. To share several location-activity pairs, the grantor creates one `Share` per entity.
+
+This clause defines the `Share` entity and the access that a valid `Share` grants. That access is an exception to the GDPR Requirements Class. It is not a Business Logic extension of GDPR.
+
+NOTE: The Requirements Classes in this section are part of the Conformance Class <<conformance_class_sharing_party_context>>.
+
+[[share]]
+=== Requirements Class *Share*
+
+The `Share` entity records a permission that a party grants to one or more other parties on exactly one `PartyLocation` or `PartyActivity`. The `permission` property is `read` or `update`. The value `update` includes `read`. The `purpose` property records why the grant exists. The optional `endTime` expires the grant. Deleting the `Share` revokes it.
+
+[requirements_class]
+.Share
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/share
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/entity-control-information
+inherit:: {identifier}/req-class/party-location
+inherit:: {identifier}/req-class/party-activity
+requirement:: {identifier}/req/share/properties
+requirement:: {identifier}/req/share/relations
+requirement:: {identifier}/req/share/target
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/share/properties
+
+Each `Share` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-share>>.
+====
+
+[[tab-properties-share]]
+.Properties of a `Share` entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Cardinality and use
+
+|permission
+|The access granted to the recipients. The value `read` permits Read of the target. The value `update` includes `read` and permits Read and Update of the target. Delete of the target remains with the grantor.
+|SharePermissionCode
+|One (mandatory)
+
+|purpose
+|The purpose of the grant. This records why the recipients may access the target. The value is not empty.
+|CharacterString
+|One (mandatory)
+
+|creationTime
+|The time when the `Share` was created
+|TM Instant
+|One (mandatory)
+
+|endTime
+|The time when the grant expires. If this property is absent, the grant remains in force until the `Share` is deleted.
+|TM Instant
+|Zero or One (optional)
+
+|description
+|A short description of the `Share`
+|CharacterString
+|Zero or One (optional)
+
+|===
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/share/relations
+
+An implementation SHALL allow each `Share` to have direct associations to other entity types listed in <<tab-relations-from-share>> and <<tab-relations-to-share>>.
+====
+
+[[tab-relations-from-share]]
+.Direct relation from a `Share` entity to other entity types
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Entity type |Cardinality |Description
+
+|Party
+|Party
+|One
+|A `Share` has one `Party`. That party is the grantor and is the `Party` of the target `PartyLocation` or `PartyActivity`.
+
+|Recipients
+|Party
+|One to Many
+|A `Share` has one-to-many recipient `Parties`.
+
+|PartyLocation
+|PartyLocation
+|Zero or One
+|A `Share` has zero-to-one `PartyLocation`. See <<req-share-target>>.
+
+|PartyActivity
+|PartyActivity
+|Zero or One
+|A `Share` has zero-to-one `PartyActivity`. See <<req-share-target>>.
+|===
+
+[[tab-relations-to-share]]
+.Direct relation from a SensorThings or STAplus entity type to `Share`
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Source Entity type |Cardinality |Description
+
+|Shares
+|Party
+|Zero to Many
+|A `Party` has zero-to-many `Shares` for which that party is the grantor.
+
+|ReceivedShares
+|Party
+|Zero to Many
+|A `Party` has zero-to-many `Shares` for which that party is a recipient.
+
+|Shares
+|PartyLocation
+|Zero to Many
+|A `PartyLocation` has zero-to-many `Shares`.
+
+|Shares
+|PartyActivity
+|Zero to Many
+|A `PartyActivity` has zero-to-many `Shares`.
+|===
+
+[[req-share-target]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/share/target
+
+A `Share` SHALL have exactly one of `PartyLocation` or `PartyActivity`. The count of those associations SHALL be 1. Access to a `PartyLocation` does not grant access to a `PartyActivity`, and access to a `PartyActivity` does not grant access to a `PartyLocation`.
+====
+
+NOTE: The STAplus 1.1 UML records this as the invariant `count(partyLocation)+count(partyActivity)==1`. A grant can be selective to one activity at one location, or to one location for an activity. Multiple `Share` entities are required to share a pair of `PartyLocation` and `PartyActivity`.
+
+[[sharing]]
+=== Requirements Class *Sharing*
+
+The Sharing Requirements Class defines the access that a valid `Share` grants. A `Share` is valid when the grantor owns the target, the authenticated user is a recipient, `endTime` is absent or in the future, and `permission` covers the requested operation.
+
+[requirements_class]
+.Sharing
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/sharing
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/share
+inherit:: {identifier}/req-class/gdpr
+inherit:: {identifier}/req-class/authentication
+requirement:: {identifier}/req/sharing/authentication
+requirement:: {identifier}/req/sharing/valid
+requirement:: {identifier}/req/sharing/read-share
+requirement:: {identifier}/req/sharing/create
+requirement:: {identifier}/req/sharing/update-share
+requirement:: {identifier}/req/sharing/delete-share
+requirement:: {identifier}/req/sharing/read-target
+requirement:: {identifier}/req/sharing/update-target
+requirement:: {identifier}/req/sharing/no-inheritance
+requirement:: {identifier}/req/sharing/mqtt
+requirement:: {identifier}/req/sharing/business-logic
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/sharing/authentication
+
+Read, Create, Update, and Delete access to a `Share` entity SHALL require that the user is authenticated. Read of a `PartyLocation` or `PartyActivity` under a `Share` SHALL require that the user is authenticated.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/sharing/valid
+
+A `Share` SHALL be valid for an authenticated user and a requested operation only when all of the following hold:
+
+* the `Party` association identifies the `Party` of the target `PartyLocation` or `PartyActivity`;
+* the authenticated user identifier (e.g., `REMOTE_USER`) is identical to the `authId` of a `Party` in `Recipients`;
+* `endTime` is absent, or the current time is before `endTime`;
+* `permission` is `read` and the operation is Read, or `permission` is `update` and the operation is Read or Update;
+* `restricted` on the target is absent or false.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/sharing/read-share
+
+If the implementation supports Read of `Share`, it SHALL return a `Share` to the grantor whose `Party/authId` is identical to the authenticated user identifier, and to each recipient whose `Party/authId` is identical to the authenticated user identifier. The implementation SHALL NOT return a `Share` to any other user. This includes access via an entity URL, a collection URL, and a navigationLink.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/sharing/create
+
+If the implementation supports Create of `Share`, it SHALL create the entity only when the `Party` association identifies the `Party` whose `authId` is identical to the authenticated user identifier, that `Party` is the `Party` of the target `PartyLocation` or `PartyActivity`, `purpose` is a non-empty CharacterString, and `restricted` on the target is absent or false. The collection URL SHALL be `Shares`.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/sharing/update-share
+
+If the implementation supports Update of `Share`, it SHALL update the entity only when the grantor `Party/authId` is identical to the authenticated user identifier. The implementation SHALL NOT change the `Party` association to a `Party` whose `authId` is not identical to the authenticated user identifier.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/sharing/delete-share
+
+If the implementation supports Delete of `Share`, it SHALL delete the entity only when the grantor `Party/authId` is identical to the authenticated user identifier.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/sharing/read-target
+
+If a `Share` is valid for Read, the implementation SHALL permit the authenticated recipient to Read the target `PartyLocation` or `PartyActivity`. This includes access via an entity URL, a collection URL, and a navigationLink. Delete of the target SHALL remain restricted to the grantor as defined in the GDPR Requirements Class.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/sharing/update-target
+
+If a `Share` is valid for Update, the implementation SHALL permit the authenticated recipient to Update the target `PartyLocation` or `PartyActivity`. The implementation SHALL NOT permit a recipient to change the `Party` association of the target.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/sharing/no-inheritance
+
+Access granted by a `Share` SHALL apply only to the target `PartyLocation` or `PartyActivity` of that `Share`. The implementation SHALL NOT grant access to a related entity through `$expand` or a navigationLink unless a valid `Share` exists for that related entity.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/sharing/mqtt
+
+If the implementation supports MQTT Subscribe for STAplus 1.1 entities, it SHALL apply the same authorization to MQTT Subscribe of `Share`, `PartyLocation`, and `PartyActivity` as this Requirements Class applies to HTTP Read.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/sharing/business-logic
+
+Access that this Requirements Class permits MAY be further restricted by the implementation's Business Logic. The Business Logic SHALL NOT grant Read, Create, Update, or Delete access to a `Share`, `PartyLocation`, or `PartyActivity` beyond the restrictions of this Requirements Class and the GDPR Requirements Class.
+====

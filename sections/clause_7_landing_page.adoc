@@ -1,0 +1,60 @@
+[[staplus-landing-page]]
+== STAplus Landing Page Requirements
+
+=== Overview
+
+The landing page is the resource at the SensorThings API service root URI. The last path segment of that URI is the SensorThings version (`v1.0` or `v1.1`). This Standard does not change the service root URI.
+
+A client that creates or updates geometry needs to know which `encodingType` ValueCodes the implementation accepts. A client that creates or updates a `PartyLocation` also needs to know which `environment` EnvCodes the implementation accepts. This Requirements Class requires those code lists to be advertised as JSON arrays on the landing page.
+
+The arrays are properties of the `serverSettings` object. Each array is identified by the dedicated URI of the corresponding requirement.
+
+NOTE: The Requirements Class in this section is part of the Conformance Class <<conformance_class_landing_page>>. STAplus 1.0.1 does not define a Landing Page Conformance Class. This Requirements Class is introduced by this Standard.
+
+[[landing-page]]
+=== Requirements Class *Landing Page*
+
+[requirements_class]
+.Landing Page
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/landing-page
+obligation:: requirement
+subject:: Target Type: Implementation
+requirement:: {identifier}/req/encoding-type
+requirement:: {identifier}/req/environment
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/encoding-type
+
+The STAplus implementation SHALL provide a JSON array in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/encoding-type`. The array SHALL contain the `encodingType` ValueCodes that the implementation accepts for geometry encoding of `FeatureOfInterest/feature`, `Location/location`, and `PartyLocation/position`. Each array element SHALL be a media type listed in <<media-types>>.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/environment
+
+The STAplus implementation SHALL provide a JSON array in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/environment`. The array SHALL contain the `environment` EnvCodes that the implementation accepts for `PartyLocation`. If the implementation does not constrain the `environment` code list, the array SHALL be empty.
+====
+
+.Example `serverSettings` on the landing page
+====
+[source,json]
+----
+{
+  "http://www.opengis.net/spec/sensorthings-staplus/1.1/req/encoding-type": [
+    "application/geo+json",
+    "application/wkt"
+  ],
+  "http://www.opengis.net/spec/sensorthings-staplus/1.1/req/environment": [
+    "indoor",
+    "outdoor"
+  ]
+}
+----
+====

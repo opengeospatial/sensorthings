@@ -1,0 +1,327 @@
+[[staplus-gdpr]]
+== STAplus GDPR Requirements
+
+=== Overview
+
+When a `Party` has `role` equal to `individual`, the SensorThings `Location` and `HistoricalLocation` of a `Thing` owned by that party can be personal data: they are the location of a device associated with a natural person. `PartyLocation` and `PartyActivity` can identify where a party was and what a party was doing. That information can also be personal data. `FeatureOfInterest` has no `Party` association and is a public resource. Identity data and the record of a legal basis are not stored on `Party`. They can be held in the authentication system that supplies `Party/authId`, as described in the Security Considerations of <<OGC22-022r2>>.
+
+STAplus 1.0.1 advertises this situation as a GDPR compliance note in the Business Logic. This Standard defines the full GDPR Conformance Class: access restrictions, no leak, cascade, MQTT authorization, a landing-page privacy notice, a legal-basis gate, retention of `HistoricalLocation` from `HistoricalLocation/time` and the advertised `retentionPeriod`, and the observer-context lifecycle measures.
+
+This clause restricts Read, Create, Update, and Delete of `Location` and `HistoricalLocation` of a `Thing` owned by an individual `Party` to that authenticated party. It also restricts Read, Create, Update, and Delete of `PartyLocation` and `PartyActivity` to the authenticated owner, except where a valid `Share` grants access.
+
+The implementation's Business Logic can further restrict access. It does not grant access beyond this clause, except where the implementation also conforms to the Sharing Requirements Class and a valid `Share` grants that access.
+
+A `License` entity, `Campaign/termsOfUse`, and `Campaign/privacyPolicy` are not a legal basis for processing that location or observer-context data. This Standard does not define a consent entity.
+
+Conformance to this clause is a set of testable technical measures. It is not a certification of compliance with <<GDPR>>. The remaining controller obligations are listed in <<annex-gdpr>>.
+
+NOTE: The Requirements Classes in this section are part of the Conformance Class <<conformance_class_gdpr>>. An implementation that accepts a `Party` whose `role` is equal to `individual` also claims that Conformance Class, as specified in <<conformance_class_party_context>>.
+
+[[gdpr]]
+=== Requirements Class *GDPR*
+
+[requirements_class]
+.GDPR
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/gdpr
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/authentication
+inherit:: {identifier}/req-class/party-location
+inherit:: {identifier}/req-class/party-activity
+inherit:: {identifier}/req-class/create
+inherit:: {identifier}/req-class/update
+inherit:: {identifier}/req-class/delete
+inherit:: {identifier}/req-class/business-logic
+inherit:: {identifier}/req-class/landing-page
+requirement:: {identifier}/req/gdpr/authentication
+requirement:: {identifier}/req/gdpr/thing-location
+requirement:: {identifier}/req/gdpr/party
+requirement:: {identifier}/req/gdpr/read
+requirement:: {identifier}/req/gdpr/create
+requirement:: {identifier}/req/gdpr/update
+requirement:: {identifier}/req/gdpr/delete
+requirement:: {identifier}/req/gdpr/no-leak
+requirement:: {identifier}/req/gdpr/cascade
+requirement:: {identifier}/req/gdpr/mqtt
+requirement:: {identifier}/req/gdpr/business-logic
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/authentication
+
+If a `Thing` has a `Party` whose `role` is equal to `individual`, Read, Create, Update, and Delete access to the `Location` and `HistoricalLocation` entities of that `Thing` SHALL require that the user is authenticated.
+
+Read, Create, Update, and Delete access to a `PartyLocation` or `PartyActivity` entity SHALL require that the user is authenticated.
+====
+
+[[req-gdpr-thing-location]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/thing-location
+
+If a `Thing` has a `Party` whose `role` is equal to `individual`, Read, Create, Update, and Delete of the `Location` and `HistoricalLocation` entities of that `Thing` SHALL require that the authenticated user identifier is identical to that `Party/authId`. This includes access via an entity URL, a collection URL, a navigationLink, `$expand`, and MQTT Subscribe.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/party
+
+Read, Create, Update, and Delete access to a `PartyLocation` or `PartyActivity` entity SHALL be restricted to the `Party` linked via the `Party` association, except as specified by the Sharing Requirements Class. The authenticated user identifier (e.g., `REMOTE_USER`) SHALL be identical to that `Party/authId`, except as specified by the Sharing Requirements Class.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/read
+
+The implementation SHALL return only those `PartyLocation` and `PartyActivity` entities whose linked `Party/authId` is identical to the authenticated user identifier, except as specified by the Sharing Requirements Class. This includes access via an entity URL, a collection URL, and a navigationLink.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/create
+
+The implementation SHALL create a `PartyLocation` or `PartyActivity` only when the `Party` association identifies the `Party` whose `authId` is identical to the authenticated user identifier.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/update
+
+The implementation SHALL update a `PartyLocation` or `PartyActivity` only when the linked `Party/authId` is identical to the authenticated user identifier, except as specified by the Sharing Requirements Class. The implementation SHALL NOT change the `Party` association to a `Party` whose `authId` is not identical to the authenticated user identifier.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/delete
+
+The implementation SHALL delete a `PartyLocation` or `PartyActivity` only when the linked `Party/authId` is identical to the authenticated user identifier.
+====
+
+[[req-gdpr-no-leak]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/no-leak
+
+The implementation SHALL NOT include a `Location` or `HistoricalLocation` representation of a `Thing` whose `Party/role` is equal to `individual` in a response to a user who is not permitted to Read that entity. The implementation SHALL NOT include a `PartyLocation` or `PartyActivity` representation in a response to a user who is not permitted to Read that entity. This includes `$expand`, a navigationLink, and the response to a deep insert. The implementation SHALL NOT create such an entity through deep insert unless the Create restriction of this Requirements Class is satisfied.
+====
+
+[[req-gdpr-cascade]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/cascade
+
+When the implementation deletes a `Location` or `HistoricalLocation` of a `Thing` whose `Party/role` is equal to `individual`, it SHALL clear any MQTT retained message for that entity.
+
+When the implementation deletes a `PartyLocation` or `PartyActivity`, it SHALL delete each `Share` that has that entity as its target, SHALL remove the association from every `Observation` that linked to that entity, and SHALL clear any MQTT retained message for that entity.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/mqtt
+
+If the implementation supports MQTT Subscribe, it SHALL apply the same authorization to MQTT Subscribe of `Location` and `HistoricalLocation` of a `Thing` whose `Party/role` is equal to `individual`, and to MQTT Subscribe of `PartyLocation` and `PartyActivity`, as this Requirements Class applies to HTTP Read. If the implementation supports MQTT Create, it SHALL apply the same authorization to MQTT Create as this Requirements Class applies to HTTP Create.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/business-logic
+
+Access that this Requirements Class permits MAY be further restricted by the implementation's Business Logic. The Business Logic SHALL NOT grant Read, Create, Update, or Delete access to a `Location` or `HistoricalLocation` of a `Thing` whose `Party/role` is equal to `individual` beyond the restrictions of this Requirements Class. The Business Logic SHALL NOT grant Read, Create, Update, or Delete access to a `PartyLocation` or `PartyActivity` beyond the restrictions of this Requirements Class, except where the implementation also conforms to the Sharing Requirements Class and a valid `Share` grants that access. The Business Logic SHALL describe the legal-basis mechanism of <<req-gdpr-legal-basis>> and SHALL state the conditions of <<req-gdpr-foi-assertion>> as the meaning of Create and Update of `FeatureOfInterest`.
+====
+
+[[personal-data-lifecycle]]
+=== Requirements Class *Personal Data Lifecycle*
+
+The Personal Data Lifecycle Requirements Class adds the privacy notice, the legal-basis gate, portability, bulk erasure, `FeatureOfInterest` as a public resource, retention of `HistoricalLocation` from `HistoricalLocation/time` and the advertised `retentionPeriod`, and the observer-context properties and operations that this Standard defines on `PartyLocation` and `PartyActivity`. It does not store a personal profile on `Party`. It does not record consent as an STA entity.
+
+[requirements_class]
+.Personal Data Lifecycle
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/personal-data-lifecycle
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/gdpr
+inherit:: {identifier}/req-class/business-logic
+inherit:: {identifier}/req-class/landing-page
+requirement:: {identifier}/req/gdpr/retention-time
+requirement:: {identifier}/req/gdpr/historical-location-retention
+requirement:: {identifier}/req/gdpr/restriction
+requirement:: {identifier}/req/gdpr/privacy-notice
+requirement:: {identifier}/req/gdpr/legal-basis
+requirement:: {identifier}/req/gdpr/erasure-set
+requirement:: {identifier}/req/gdpr/portability
+requirement:: {identifier}/req/gdpr/party-location-required
+requirement:: {identifier}/req/gdpr/foi-public
+requirement:: {identifier}/req/gdpr/foi-assertion
+====
+
+[[req-gdpr-retention-time]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/retention-time
+
+If `retentionTime` is present on a `PartyLocation` or `PartyActivity` and the current time is not before `retentionTime`, the implementation SHALL NOT return the entity and SHALL delete it. The delete SHALL apply the cascade of <<req-gdpr-cascade>>.
+====
+
+[[req-gdpr-historical-location-retention]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/historical-location-retention
+
+If a `Thing` has a `Party` whose `role` is equal to `individual`, the implementation SHALL determine a retention instant for each `HistoricalLocation` of that `Thing` by adding the advertised `retentionPeriod` of <<req-gdpr-privacy-notice>> to the latest instant of `HistoricalLocation/time`. If that `retentionPeriod` is an ISO 8601 duration, the implementation SHALL use that duration. If that `retentionPeriod` is not an ISO 8601 duration, the Business Logic SHALL state the ISO 8601 duration that the implementation applies, and the implementation SHALL use that duration.
+
+If the current time is not before that retention instant, the implementation SHALL NOT return the `HistoricalLocation` and SHALL delete it. The delete SHALL apply the cascade of <<req-gdpr-cascade>>.
+
+The implementation SHALL NOT delete a `Location` of such a `Thing` solely because that duration has elapsed. A current `Location` remains until the owner deletes it, until a bulk delete of <<req-gdpr-erasure-set>> deletes it, or until it is recorded as a `HistoricalLocation`, after which this requirement applies to that `HistoricalLocation`.
+====
+
+[[req-gdpr-restriction]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/restriction
+
+If `restricted` is true on a `PartyLocation` or `PartyActivity`, the implementation SHALL permit Read, Update, and Delete of that entity only to the linked `Party`, SHALL NOT treat a `Share` of that entity as valid, and SHALL NOT create a `Share` that targets that entity. If `restricted` is absent, the implementation SHALL treat it as false.
+====
+
+[[req-gdpr-privacy-notice]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/privacy-notice
+
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/gdpr/privacy-notice`. The object SHALL contain the properties listed in <<tab-gdpr-privacy-notice>>. The `privacyPolicy` `href` SHALL identify an HTML document. The `retentionPeriod` SHALL cover `Location` and `HistoricalLocation` of a `Thing` whose `Party/role` is equal to `individual`, and SHALL cover `PartyLocation` and `PartyActivity`. The `legalBasis` array SHALL include the codes that the implementation accepts for Create of an individual `Party`, of those `Thing` locations, and of `PartyLocation` and `PartyActivity`.
+====
+
+[[tab-gdpr-privacy-notice]]
+.Properties of the landing-page privacy-notice object
+[cols="25a,50a,25a"]
+|===
+|Name |Definition |Data type
+
+|privacyPolicy
+|An object with an `href` property whose value is the URL of the service privacy policy
+|JSON Object
+
+|controller
+|An object with `name` and `contact` properties that identify the controller of the personal data processed by the service
+|JSON Object
+
+|retentionPeriod
+|The retention period applied to `Location` and `HistoricalLocation` of a `Thing` whose `Party/role` is equal to `individual`, and to `PartyLocation` and `PartyActivity`, as an ISO 8601 duration, or an `href` of a policy that states that period
+|CharacterString or JSON Object
+
+|legalBasis
+|The Art. 6 legal-basis codes that the implementation accepts for Create of a `Party` whose `role` is equal to `individual`, for Create of `Location` and `HistoricalLocation` of a `Thing` of such a party, and for Create of `PartyLocation` and `PartyActivity`
+|JSON Array of CharacterString
+
+|===
+
+.Example privacy-notice object on the landing page
+====
+[source,json]
+----
+{
+  "http://www.opengis.net/spec/sensorthings-staplus/1.1/req/gdpr/privacy-notice": {
+    "privacyPolicy": {
+      "href": "https://example.example/privacy"
+    },
+    "controller": {
+      "name": "Example Citizen Observatory",
+      "contact": "privacy@example.example"
+    },
+    "retentionPeriod": "P2Y",
+    "legalBasis": [
+      "consent",
+      "public_task"
+    ]
+  }
+}
+----
+====
+
+NOTE: Recommended `legalBasis` values correspond to <<GDPR>> Article 6(1): `consent`, `contract`, `legal_obligation`, `vital_interest`, `public_task`, and `legitimate_interest`. An implementation can use other codes if the Business Logic defines them.
+
+[[req-gdpr-legal-basis]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/legal-basis
+
+The implementation SHALL create a `Party` whose `role` is equal to `individual`, SHALL create a `Location` or `HistoricalLocation` of a `Thing` of such a party, and SHALL create a `PartyLocation` or `PartyActivity`, only when it has a current legal basis for that `Party`. The mechanism MAY be provided by the authentication system that supplies `Party/authId`. The Business Logic SHALL describe the mechanism. The implementation SHALL NOT treat a `License`, `termsOfUse`, or `privacyPolicy` property as that legal basis.
+====
+
+[[req-gdpr-erasure-set]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/erasure-set
+
+The implementation SHALL accept an HTTP DELETE request to `Things({id})/Locations` and to `Things({id})/HistoricalLocations` when the `Thing` has a `Party` whose `role` is equal to `individual` and whose `authId` is identical to the authenticated user identifier. The request SHALL delete every `Location` or `HistoricalLocation` of that `Thing` and SHALL apply the cascade of <<req-gdpr-cascade>>.
+
+The implementation SHALL accept an HTTP DELETE request to `Parties({id})/PartyLocations` and to `Parties({id})/PartyActivities` when the authenticated user identifier is identical to that `Party/authId`. The request SHALL delete every `PartyLocation` or `PartyActivity` of that `Party` and SHALL apply the cascade of <<req-gdpr-cascade>>.
+====
+
+[[req-gdpr-portability]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/portability
+
+The implementation SHALL accept an authenticated HTTP GET request to a `Party` whose `authId` is identical to the authenticated user identifier with `$expand` of `Things`, and with `$expand` of `Locations`, `HistoricalLocations`, `Datastreams`, `MultiDatastreams`, and `Observations` on those `Things`, and with `$expand` of `PartyLocations`, `PartyActivities`, `Shares`, and `ReceivedShares`, and with `$expand` of `Observations` on `PartyLocations` and `PartyActivities`. The response SHALL include those related entities that the requester is permitted to Read. The implementation SHALL deny the same request when the authenticated user identifier is not identical to that `Party/authId`.
+====
+
+[[req-gdpr-party-location-required]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/party-location-required
+
+If the `Party` of the `Datastream` or `MultiDatastream` of an `Observation` has `role` equal to `individual`, the `Observation` SHALL have a `PartyLocation`. The implementation SHALL reject Create or Update of such an `Observation` that omits `PartyLocation` or that removes the `PartyLocation` association. This includes MQTT Create and deep insert.
+====
+
+[[req-gdpr-foi-public]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/foi-public
+
+`FeatureOfInterest` has no `Party` association. The implementation SHALL treat each `FeatureOfInterest` as a public resource. The implementation SHALL NOT restrict Read of a `FeatureOfInterest` by `Party/authId`. This includes access via an entity URL, a collection URL, a navigationLink, `$expand`, and MQTT Subscribe. The implementation SHALL NOT strip a supplied `FeatureOfInterest` geometry. The Business Logic SHALL state the conditions of <<req-gdpr-foi-assertion>> as the meaning of Create and Update of `FeatureOfInterest`.
+====
+
+[[req-gdpr-foi-assertion]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/gdpr/foi-assertion
+subject:: Target Type: Client
+
+A client that creates or updates a `FeatureOfInterest` SHALL thereby assert that all of the following hold:
+
+* the feature is a publicly observable real-world object or area (for example a park, a lake, or a sampling plot);
+* the feature is not a personal location;
+* the `feature` geometry is not the location of the observing user.
+
+If the geometry would be the location of the observing user, the client SHALL set that geometry to null and SHALL record the observer's position in `PartyLocation`.
+====
+
+NOTE: The implementation cannot verify that assertion. `PartyLocation` remains the observer's position. `FeatureOfInterest` remains the observed feature and is public.

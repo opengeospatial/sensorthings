@@ -1,0 +1,88 @@
+= OGC SensorThings API Extension: STAplus 1.1
+:doctype: standard
+:encoding: utf-8
+:lang: en
+:status: draft
+:committee: technical
+:draft: 1.0
+:external-id: http://www.opengis.net/doc/is/sensorthings-staplus/1.1
+:docnumber: 26-040
+:received-date: 2026-08-17
+:issued-date: 2026-08-17
+:published-date: 2026-08-17
+:fullname: Andreas Matheus
+:docsubtype: Implementation
+:keywords: OGC Standard, API, SensorThings, STAplus, Share, GDPR
+:submitting-organizations: Secure Dimensions GmbH; Centre de Recerca Ecològica i Aplicacions Forestals (CREAF); Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+:mn-document-class: ogc
+:mn-output-extensions: html,pdf
+:local-cache-only:
+:data-uri-image:
+:pdf-uri: ./26-040.pdf
+:edition: 1.1
+
+:CRS84: urn:ogc:def:crs:OGC::CRS84
+:identifier: http://www.opengis.net/spec/sensorthings-staplus/1.1
+:identifier-101: http://www.opengis.net/spec/sensorthings-staplus/1.0.1
+
+[.preface]
+== metanorma-extension
+
+[[_misccontainer_anchor_aliases]]
+.Anchor aliases
+|===
+|common-control-information|{identifier}/req/common-control-information
+|party-location|{identifier}/req-class/party-location
+|party-activity|{identifier}/req-class/party-activity
+|observation-relations|{identifier}/req-class/observation-relations
+|landing-page|{identifier}/req-class/landing-page
+|encoding-type|{identifier}/req/encoding-type
+|environment|{identifier}/req/environment
+|gdpr|{identifier}/req-class/gdpr
+|personal-data-lifecycle|{identifier}/req-class/personal-data-lifecycle
+|share|{identifier}/req-class/share
+|sharing|{identifier}/req-class/sharing
+|===
+
+////
+Make sure to complete each included document
+////
+include::sections/clause_0_front_material.adoc[]
+
+include::sections/clause_1_scope.adoc[]
+
+include::sections/clause_2_conformance.adoc[]
+
+include::sections/clause_3_references.adoc[]
+
+include::sections/clause_4_terms_and_definitions.adoc[]
+
+include::sections/clause_5_conventions.adoc[]
+
+include::sections/clause_6_informative_text.adoc[]
+
+include::sections/clause_7_entities.adoc[]
+include::sections/clause_7_read_create_update_delete.adoc[]
+include::sections/clause_7_mqtt.adoc[]
+include::sections/clause_7_business_logic.adoc[]
+include::sections/clause_7_auth.adoc[]
+include::sections/clause_7_gdpr.adoc[]
+include::sections/clause_7_share.adoc[]
+include::sections/clause_7_feature_of_interest_location.adoc[]
+include::sections/clause_7_landing_page.adoc[]
+
+include::sections/clause_8_media_types.adoc[]
+
+////
+add or remove annexes after "A" as necessary
+////
+include::sections/annex-a.adoc[]
+include::sections/annex-b.adoc[]
+include::sections/annex-c.adoc[]
+////
+Revision History should be the last annex before the Bibliography
+Bibliography should be the last annex
+////
+include::sections/annex-history.adoc[]
+
+include::sections/annex-bibliography.adoc[]

@@ -1,0 +1,105 @@
+[appendix,obligation="informative"]
+[[annex-gdpr]]
+== Relationship to the GDPR (informative)
+
+=== Overview
+
+This annex maps the technical measures of the <<conformance_class_gdpr>> Conformance Class to <<GDPR>>. It also lists controller obligations that this Standard does not specify and cannot test.
+
+Conformance to this Standard is not a certification of compliance with <<GDPR>>. Legal compliance of a deployment remains with the controller.
+
+This Standard does not define a consent entity. <<OGC22-022r2>> places identity data outside `Party` and advertises a GDPR compliance note as part of the Business Logic. The legal-basis gate of <<req-gdpr-legal-basis>> may be implemented by the authentication system that supplies `Party/authId`. A `License` entity is a reuse condition for data that is already readable. It is not a legal basis for processing `Location` of a `Thing` owned by an individual party, or for processing `PartyLocation` or `PartyActivity`.
+
+=== Technical measures specified by this Standard
+
+.Technical measures of the GDPR Conformance Class mapped to <<GDPR>>
+[cols="20a,35a,45a"]
+|===
+|<<GDPR>> provision |Obligation |STAplus 1.1 measure
+
+|Art. 5(1)(b)
+|Purpose limitation
+|Landing-page privacy notice and legal-basis gate. This Standard does not store collection purpose on `PartyLocation` or `PartyActivity`. `Share/purpose` records the purpose of a disclosure.
+
+|Art. 5(1)(c)
+|Data minimisation
+|`Share` targets exactly one entity. Location and activity are separate. An `Observation` of an individual party has a `PartyLocation`. `Thing/Location` of an individual party's `Thing` is owner-only. `FeatureOfInterest` is public. If `FeatureOfInterest` geometry would be the observing user's location, it is null and the position is stored in `PartyLocation`.
+
+|Art. 5(1)(e)
+|Storage limitation
+|Optional `retentionTime` on `PartyLocation` and `PartyActivity`, with delete when that time is reached. `HistoricalLocation/time` plus landing-page `retentionPeriod` for an individual party's `Thing`, with delete when that instant is reached. A current `Location` is not auto-deleted. Owner bulk delete of `Thing` locations and of party context.
+
+|Art. 5(1)(f), Art. 32
+|Integrity and confidentiality
+|Authentication. Owner-only CRUD. No leak through `$expand`, navigation, deep insert, or MQTT. Immutable `Party/authId` as specified in <<OGC22-022r2>>.
+
+|Art. 5(2)
+|Accountability
+|Published Business Logic, including the GDPR compliance note of <<OGC22-022r2>>. Landing-page privacy notice and controller identification. This annex.
+
+|Art. 6, Art. 7
+|Legal basis; conditions for consent
+|Create of an individual `Party`, of that party's `Thing` locations, and of `PartyLocation` or `PartyActivity` is refused unless a current legal basis exists for that `Party`. The mechanism may be the identity system. Consent is not an STA entity.
+
+|Art. 12–14
+|Transparent information
+|Landing-page `privacyPolicy` href, controller name and contact, `retentionPeriod`, and accepted `legalBasis` codes. `Campaign/privacyPolicy` remains available as specified in <<OGC22-022r2>>.
+
+|Art. 15, Art. 20
+|Access; data portability
+|Authenticated `$expand` export of the party's things, locations, activities, shares, and linked observation identifiers.
+
+|Art. 16
+|Rectification
+|Update of own `Thing` locations and of own `PartyLocation` and `PartyActivity`. `Party/authId` remains immutable.
+
+|Art. 17
+|Erasure
+|Delete of own entities, cascade of shares and observation links, bulk delete of a thing's locations and of a party's context, and MQTT retained-message clearance.
+
+|Art. 18, Art. 21
+|Restriction; objection
+|`restricted` on `PartyLocation` and `PartyActivity` suspends `Share` access. Delete of a `Share` or reaching `Share/endTime` revokes a disclosure.
+
+|Art. 25
+|Data protection by design and by default
+|GDPR Conformance Class is required when `Party/role` is `individual`. Personal context is owner-only unless a valid `Share` grants access.
+
+|===
+
+=== Controller obligations not specified by this Standard
+
+The following obligations remain with the controller. An Abstract Test Suite cannot verify them.
+
+.Controller obligations outside the scope of this Standard
+[cols="20a,80a"]
+|===
+|<<GDPR>> provision |Controller obligation
+
+|Art. 4, Art. 26, Art. 28
+|Identify the controller and any joint controllers. Conclude processor contracts with hosting, identity, backup, and MQTT operators.
+
+|Art. 8
+|Children's consent and age verification, if the deployment includes minors.
+
+|Art. 9
+|Special-category data, if activity types or observation values reveal health or similar information.
+
+|Art. 30
+|Record of processing activities.
+
+|Art. 33, Art. 34
+|Personal-data breach detection and notification.
+
+|Art. 35, Art. 36
+|Data protection impact assessment. Systematic tracking of where natural persons are is a typical high-risk case.
+
+|Art. 37
+|Data Protection Officer, where required (public authority, or large-scale regular monitoring of people).
+
+|Art. 44–49
+|International transfers, if the identity system or hosting is outside the EEA.
+
+|===
+
+Copies of personal context that a recipient, or any other user, has already retrieved cannot be recalled by the API. The privacy policy should state that fact.

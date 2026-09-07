@@ -1,7 +1,10 @@
-== Media Types for FeatureOfInterest and Location Encoding
+[[media-types]]
+== Media Types for FeatureOfInterest, Location and PartyLocation Encoding
 
-This Standard offers support for different structuring of the `FeatureOfInterest` and `Location` entities. To indicate the support for a particular structure, an implementation can use one of the following media-types:
+This Standard offers support for different structuring of the `FeatureOfInterest`, `Location`, and `PartyLocation` entities. To indicate the support for a particular structure, an implementation can use one of the following media-types:
 
 * `application/geo+json` 
-* del:[`application/vnd.ogc.fg+json`]
+* `application/vnd.ogc.fg+json`
 * `application/wkt` footnote:[Pending approval by IANA.]
+
+The implementation advertises the media types it accepts as `encodingType` ValueCodes as specified in <<encoding-type>>.

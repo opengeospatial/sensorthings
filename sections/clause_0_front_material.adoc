@@ -1,29 +1,21 @@
 [preface]
 == Preface
 
-NOTE: In this corrigendum, insertions and substitutions relative to STAplus 1.0 are marked at the changed word or phrase: added text is typically rendered in red, deleted text typically struck through. Unchanged wording is not marked.
+STAplus 1.1 extends <<OGC22-022r2>> (OGC SensorThings API Extension: STAplus 1.0.1 corrigendum) with two entity types that record where a party was and what a party was doing when an observation was made. When those entities relate to a natural person, this Standard specifies the full GDPR Conformance Class: testable technical measures for `Thing` location of an individual party and for observer context. Conformance to those measures is not a certification of legal compliance.
 
-STAplus - OGC SensorThings API Extension: STAplus 1.0 - defines a SensorThings data model extension to improve FAIR principles when exchanging sensor data including licensing and ownership information. 
-
-The STAplus extension is fully backwards compatible del:[to] add:[with] the existing OGC SensorThings API Part 1: Sensing as well as Sensing Version 1.1 and thereby offers existing deployments an easy upgrade to STAplus.
+STAplus 1.1 is fully backwards compatible with STAplus 1.0.1 and with the OGC SensorThings API Part 1: Sensing and Sensing Version 1.1. An implementation that conforms to this Standard also conforms to STAplus 1.0.1. The service root URI remains the SensorThings API service root.
 
 
 [abstract]
 == Abstract
 
-The OGC SensorThings API Extension: STAplus 1.0 Standard specifies a backwards-compatible extension to the OGC Standard SensorThings API Part 1: Sensing and Sensing 1.1 data model.
+The OGC SensorThings API Extension: STAplus 1.1 Standard specifies a backwards-compatible extension to <<OGC22-022r2>>.
 
-The motivation for specifying this STAplus extension is based on requirements from the Citizen Science community.
+STAplus 1.0.1 already supports ownership, licensing, grouping, relations, campaigns, and a GDPR compliance note in the Business Logic for `Thing` location of an individual party. STAplus 1.1 adds the `PartyLocation` and `PartyActivity` entity types so that an `Observation` can be linked to the observer's position and to the activity the party was performing. These links are distinct from the SensorThings `Location` of a `Thing` and from the `FeatureOfInterest`. The GDPR Conformance Class of this Standard is required when a `Party` has `role` equal to `individual`. It restricts access to `Thing` location of an individual party and to that observer context. The optional `Share` entity allows the owner of a `PartyLocation` or `PartyActivity` to grant named other parties access to that personal context.
 
-The dominant use for the OGC SensorThings API data model and API can be coined with the use case “single authority provides sensor readings to consumers.” However, in Citizen Science there are many contributors (citizens) who – together – create the big picture with their observations.
+All other STAplus 1.0.1 entity types, requirements, and conformance classes remain in force. This Standard defines the additional entity types, their relations, the corresponding Read, Create, Update, Delete, MQTT, and geometry-encoding requirements, the Landing Page Conformance Class, the GDPR Conformance Class, and the optional Sharing Party Context Conformance Class. Conformance to this Standard is not a certification of compliance with the European General Data Protection Regulation.
 
-The STAplus extension is designed to support a model in which observations are owned by different users. This results in requirements for the ownership concept. In addition to the ownership, users may express a license for ensuring proper del:[re-use] add:[reuse] of their observations. The STAplus extension also supports expressing explicit relations between observations as well as between observations and external resources. Relations can enrich observations to enable future extensions supporting Linked Data, RDF and SPARQL. Observation group(s) allow the grouping of observations that belong together.
-
-del:[The STAplus extension is believed to be an  important contribution towards the realization of the FAIR principles as STAplus strengthens the “I” (Interoperability) through a common data model and API as well as the “R” (Re-usability) by allowing expressing standards-based queries that may consider licensing conditions which is relevant for reuse of other users’ observations.] add:[STAplus is an important contribution to the FAIR principles. It strengthens Interoperability (I) through a common data model and API, and Reusability (R) by enabling standards-based queries that can take licensing conditions into account when reusing other users’ observations.] 
-
-The STAplus Data Model and Business Logic also enriches existing deployments as the extension can be seamlessly added and thereby offers new capabilities to create and manage the “big picture” with multi-user capabilities.
-
-The key work for crafting this OGC Standard was undertaken in the _Co-designed Citizen Observatories Services for the EOS-Cloud_ (Cos4Cloud) project, which received funding from the European Union’s Horizon 2020 research and innovation program and the _Enhancing Citizen Observatories for healthy, sustainable, resilient and inclusive cities_ (CitiObs) project, which received funding from the European Union’s Horizon Europe research and innovation program. Testing of this extension was done with data from the Framework biodiversity project, which received funding from the European Union’s Horizon 2020 research and innovation program.
+The key work for crafting this OGC Standard was undertaken in the _Enhancing Citizen Observatories for healthy, sustainable, resilient and inclusive cities_ (CitiObs) project, which received funding from the European Union’s Horizon Europe research and innovation program.
 
 [[submitters]]
 == Submitters

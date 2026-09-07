@@ -1,15 +1,29 @@
 [appendix,obligation="informative"]
+[[annex-b]]
 == STAplus Data Model (informative)
 
-This appendix contains the Data Model UML diagrams del:[in large] add:[at a larger scale] for improved readability.
+=== Overview
+
+This appendix contains the Data Model UML diagrams at a larger scale for improved readability.
+
+The Clause 7 property tables are normative. The figures may omit `PartyLocation` and `PartyActivity` properties added for the GDPR Conformance Class (`time` on `PartyLocation`, `retentionTime`, and `restricted`).
 
 === STAplus Data Model connected to `Datastream`
 [[fig-staplus-datastream-entities-landscape]]
+.STAplus 1.1 entities connected to Datastream
 [.text-center]
-image::./figures/STAplusSensingEntities.png[STAplus Entities connected to Datastream,scale=90%]
+image::./figures/STAplusV11SensingEntities.png[STAplus 1.1 Entities connected to Datastream,scale=90%]
 
 
 === STAplus Data Model connected to `MultiDatastream`
 [[fig-staplus-multidatastream-entities-landscape]]
+.STAplus 1.1 entities connected to MultiDatastream
 [.text-center]
-image::./figures/STAplusMultiDatastreamExtensionEntities.png[STAplus Entities connected to MultiDatastream,scale=90%]
+image::./figures/STAplusV11MultiDatastreamExtensionEntities.png[STAplus 1.1 Entities connected to MultiDatastream,scale=90%]
+
+
+=== Party Context Sharing
+[[fig-staplus-sharing-party-context]]
+.Party Context Sharing
+[.text-center]
+image::./figures/STAplusV11Sharing.png[Party Context Sharing,scale=90%]
