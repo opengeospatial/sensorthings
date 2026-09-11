@@ -133,7 +133,7 @@ target:: {identifier}/req-class/entity-control-information
 target:: {identifier-corrigendum}/req-class/party
 target:: {identifier}/req-class/license
 target:: {identifier}/req-class/group
-target:: {identifier}/req-class/relation
+target:: {identifier-corrigendum}/req-class/relation
 target:: {identifier}/req-class/campaign
 target:: {identifier}/req-class/read
 target:: {identifier}/req-class/default-crs
