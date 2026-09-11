@@ -9,4 +9,14 @@ The normative provisions in this standard are denoted by the URI
 
 All requirements and conformance tests that appear in this document are denoted by absolute URIs which are compliant del:[to] add:[with] this base.
 
-add:[This corrigendum retains the STAplus 1.0 identifiers for all requirements classes, requirements, conformance classes, and abstract tests that already existed in 1.0, except the Business Logic Requirements Class and the Business Logic Conformance Class. Those class identifiers are `{identifier-corrigendum}/req-class/business-logic` and `{identifier-corrigendum}/conf/business-logic` because those classes now include the 1.0.1 requirements and tests. All other new identifiers introduced by this corrigendum also use `{identifier-corrigendum}` as the base URI.]
+add:[This corrigendum retains the STAplus 1.0 identifiers for all requirements classes, requirements, conformance classes, and abstract tests that already existed in 1.0, except the following identifiers that now include 1.0.1 provisions:] 
+
+add:[* `{identifier-corrigendum}/conf/core`]
+add:[* `{identifier-corrigendum}/req-class/party`, `{identifier-corrigendum}/req/party/properties`]
+add:[* `{identifier-corrigendum}/req-class/business-logic`, `{identifier-corrigendum}/conf/business-logic`]
+add:[* `{identifier-corrigendum}/req/relation/relations`, `{identifier-corrigendum}/req-class/relation`]
+add:[* `{identifier-corrigendum}/req-class/geometry-fg`, `{identifier-corrigendum}/req/geometry-fg/media-type`, `{identifier-corrigendum}/conf/geometry-fg`]
+
+add:[All other new identifiers introduced by this corrigendum use `{identifier-corrigendum}` as the base URI.]
+
+add:[Abstract tests whose target conformance-class is in `1.0.1` also use `{identifier-corrigendum}` as the base URI.]

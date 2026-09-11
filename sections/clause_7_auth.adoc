@@ -19,7 +19,7 @@ In addition, some implementations may wish to link the authentication identifier
 identifier:: {identifier}/req-class/authentication
 obligation:: requirement
 subject:: Target Type: Implementation
-inherit:: {identifier}/req-class/party
+inherit:: {identifier-corrigendum}/req-class/party
 requirement:: {identifier}/req/authentication/id
 requirement:: {identifier}/req/authentication/id-create
 requirement:: {identifier}/req/authentication/id-read

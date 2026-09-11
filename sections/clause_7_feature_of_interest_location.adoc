@@ -78,11 +78,11 @@ This Requirements Class defines the use of geometry encoding compliant with del:
 
 ====
 [%metadata]
-identifier:: {identifier}/req-class/geometry-fg
+identifier:: {identifier-corrigendum}/req-class/geometry-fg
 obligation:: requirement
 subject:: Target Type: Implementation
 inherit:: <<OGC21-045r1>>
-requirement:: {identifier}/req/geometry-fg/media-type
+requirement:: {identifier-corrigendum}/req/geometry-fg/media-type
 requirement:: {identifier}/req/geometry-fg/default-crs
 requirement:: {identifier}/req/geometry-fg/supported-crs
 requirement:: {identifier}/req/geometry-fg/crs-error
@@ -93,7 +93,7 @@ requirement:: {identifier}/req/geometry-fg/out
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/geometry-fg/media-type
+identifier:: {identifier-corrigendum}/req/geometry-fg/media-type
 
 The STAplus implementation SHALL accept the media-type del:[`application/vnd.ogc.fg+json`] add:[`application/geo+json`] as value to the `encodingType` property of the `FeatureOfInterest` and `Location` entities to indicate that the structuring of the geometry is del:[be] compliant with del:[<<FG>>] add:[<<OGC21-045r1>>].
 ====

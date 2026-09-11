@@ -67,18 +67,18 @@ One example for ownership is that a satellite `Thing` is owned by a space agency
 
 ====
 [%metadata]
-identifier:: {identifier}/req-class/party
+identifier:: {identifier-corrigendum}/req-class/party
 obligation:: requirement
 subject:: Target Type: Implementation
 inherit:: {identifier}/req-class/entity-control-information
-requirement:: {identifier}/req/party/properties
+requirement:: {identifier-corrigendum}/req/party/properties
 requirement:: {identifier}/req/party/relations
 ====
 
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/party/properties
+identifier:: {identifier-corrigendum}/req/party/properties
 
 Each `Party` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-party>>.
 ====
@@ -430,12 +430,12 @@ The `Relation` entity can either be used to describe relationships between two o
 
 ====
 [%metadata]
-identifier:: {identifier}/req-class/relation
+identifier:: {identifier-corrigendum}/req-class/relation
 obligation:: requirement
 subject:: Target Type: Implementation
 inherit:: {identifier}/req-class/entity-control-information
 requirement:: {identifier}/req/relation/properties
-requirement:: {identifier}/req/relation/relations
+requirement:: {identifier-corrigendum}/req/relation/relations
 ====
 
 [requirement]
@@ -478,7 +478,7 @@ NOTE: The subject of a relation entity is always an observation. For expressing 
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/relation/relations
+identifier:: {identifier-corrigendum}/req/relation/relations
 
 An implementation SHALL allow each `Relation` to have direct associations to other entity types listed in <<tab-relations-from-relation>>.
 ====
@@ -528,7 +528,7 @@ NOTE: For expressing the object of a relation, the following del:[constrain] add
 [[campaign]]
 === Requirements Class *Campaign*
 
-The `Campaign` entity is a container of `Datastream`del:[ or] add:[,] `MultiDatastream`add:[, and `ObservationGroup`] entities. A Campaign can have a particular purpose and a managing party.
+The `Campaign` entity is a container of `Datastream` del:[ or] add:[,] `MultiDatastream` add:[, and `ObservationGroup`] entities. A Campaign can have a particular purpose and a managing party.
 
 [requirements_class]
 .Campaign

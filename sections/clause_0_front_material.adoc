@@ -7,6 +7,7 @@ STAplus - OGC SensorThings API Extension: STAplus 1.0 - defines a SensorThings d
 
 The STAplus extension is fully backwards compatible del:[to] add:[with] the existing OGC SensorThings API Part 1: Sensing as well as Sensing Version 1.1 and thereby offers existing deployments an easy upgrade to STAplus.
 
+:add[This Standard is a corrigendum for STAplus 1.0. It is written as a replacement for STAplus 1.0 (OGC #22-022r1). All changes relative to STAplus 1.0 are summarized in Annex C.]
 
 [abstract]
 == Abstract
@@ -19,7 +20,7 @@ The dominant use for the OGC SensorThings API data model and API can be coined w
 
 The STAplus extension is designed to support a model in which observations are owned by different users. This results in requirements for the ownership concept. In addition to the ownership, users may express a license for ensuring proper del:[re-use] add:[reuse] of their observations. The STAplus extension also supports expressing explicit relations between observations as well as between observations and external resources. Relations can enrich observations to enable future extensions supporting Linked Data, RDF and SPARQL. Observation group(s) allow the grouping of observations that belong together.
 
-del:[The STAplus extension is believed to be an  important contribution towards the realization of the FAIR principles as STAplus strengthens the “I” (Interoperability) through a common data model and API as well as the “R” (Re-usability) by allowing expressing standards-based queries that may consider licensing conditions which is relevant for reuse of other users’ observations.] add:[STAplus is an important contribution to the FAIR principles. It strengthens Interoperability (I) through a common data model and API, and Reusability (R) by enabling standards-based queries that can take licensing conditions into account when reusing other users’ observations.] 
+del:[The STAplus extension is believed to be an  important contribution towards the realization of the FAIR principles as STAplus strengthens the “I” (Interoperability) through a common data model and API as well as the “R” (Re-usability) by allowing expressing standards-based queries that may consider licensing conditions which is relevant for reuse of other users’ observations.] add:[STAplus is an important contribution to the FAIR principles. It strengthens Interoperability through a common data model and API, and Reusability by enabling standards-based queries that can take licensing conditions into account when reusing other users’ observations.] 
 
 The STAplus Data Model and Business Logic also enriches existing deployments as the extension can be seamlessly added and thereby offers new capabilities to create and manage the “big picture” with multi-user capabilities.
 

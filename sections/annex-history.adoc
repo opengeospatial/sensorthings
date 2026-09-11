@@ -1,5 +1,10 @@
 [appendix]
+[[annex-history]]
 == Revision History
+
+This section provides detailed information about the different revisions.
+
+=== Revision summary
 
 [width="90%",options="header"]
 |===
@@ -14,16 +19,21 @@
 |2023-05-10 |0.8 |Andreas Matheus | All sections| Results from RFC incorporated, `Party` entity property `personalData` removed, Authentication class requirements and conformance tests adapted accordingly, security considerations section extended
 |2023-07-26 |0.9 |Andreas Matheus | All sections| Final edits to adopt the motion of the STA SWG from 19th July (changes in data model: Project into Campaign, Group into ObservationGroup, fixed Subject and Object associations); adding tables to improve association definitions from STA to STAplus entity types, improved wording
 |2026-08-17 |1.0.1 |Andreas Matheus | All sections| Editorial English review and `Party.role` value `system`. See <<editorial-changes-1-0-1>>.
-|2026-08-21 |1.0.1 |Andreas Matheus | Business Logic, Security Considerations, Annex A | GDPR compliance note advertised as part of Business Logic. See <<additional-changes-1-0-1>>.
-|2026-08-23 |1.0.1 |Andreas Matheus | Business Logic, Licensing, Security Considerations, Annex A | License attribution of contributors on licensed streams and derived productions advertised as part of Business Logic. See <<additional-changes-1-0-1>>.
+|2026-08-21 |1.0.1 |Andreas Matheus | Business Logic, Security Considerations, Annex A | GDPR compliance note advertised as part of Business Logic. See <<changes-1-0-1>>.
+|2026-08-23 |1.0.1 |Andreas Matheus | Business Logic, Licensing, Security Considerations, Annex A | License attribution of contributors on licensed streams and derived productions advertised as part of Business Logic. See <<changes-1-0-1>>.
 |2026-08-27 |1.0.1 |Andreas Matheus | Conformance | Informative summary of existing service-root advertisements. No Landing Page Conformance Class. See <<editorial-changes-1-0-1>>.
+|2026-09-10 |1.0.1 |Andreas Matheus | Scope, Conformance, Party, Business Logic, Geometry-FG, Annex A | Review results from the OGC SensorThings SWG: this document is written as a replacement for STAplus 1.0 (OGC #22-022r1). Identifiers updated to `1.0.1`: `{identifier-corrigendum}/conf/core`, `{identifier-corrigendum}/req-class/party`, `{identifier-corrigendum}/req/party/properties`, `{identifier-corrigendum}/req-class/business-logic`, `{identifier-corrigendum}/conf/business-logic`, `{identifier-corrigendum}/req/relation/relations`, `{identifier-corrigendum}/req-class/relation`, `{identifier-corrigendum}/req-class/geometry-fg`, `{identifier-corrigendum}/req/geometry-fg/media-type`, and `{identifier-corrigendum}/conf/geometry-fg`. Also abstract test URIs updated to `1.0.1` whose conformance-class target or requirements uses `1.0.1`. See <<changes-1-0-1>>.
 
 |===
 
-[[additional-changes-1-0-1]]
-=== Additional changes in release 1.0.1
+[[changes-1-0-1]]
+=== Changes in release 1.0.1
 
 This corrigendum includes the following normative additions and corrections that are not editorial.
+
+==== Replacement of STAplus 1.0
+
+* Review results from the OGC SensorThings SWG: this Standard is a corrigendum for STAplus 1.0 and is written as a replacement for STAplus 1.0 (OGC #22-022r1). All changes relative to STAplus 1.0 are summarized in this annex.
 
 ==== Party role code
 
@@ -47,9 +57,21 @@ This corrigendum includes the following normative additions and corrections that
 
 ==== Business Logic Requirements Class identifier
 
-* The Requirements Class identifier is `{identifier-corrigendum}/req-class/business-logic` and the Conformance Class identifier is `{identifier-corrigendum}/conf/business-logic` because those classes now include the 1.0.1 requirements `{identifier-corrigendum}/req/business-logic/gdpr-note` and `{identifier-corrigendum}/req/business-logic/attribution` and the corresponding abstract tests.
+* Review results from the OGC SensorThings SWG: the Requirements Class identifier is `{identifier-corrigendum}/req-class/business-logic` and the Conformance Class identifier is `{identifier-corrigendum}/conf/business-logic` because those classes now include the 1.0.1 requirements `{identifier-corrigendum}/req/business-logic/gdpr-note` and `{identifier-corrigendum}/req/business-logic/attribution` and the corresponding abstract tests.
 
-This corrigendum does not renumber existing conformance classes, requirements, or abstract tests. Existing identifiers remain those of STAplus 1.0 (`{identifier}`), except the Business Logic Requirements Class and the Business Logic Conformance Class, whose identifiers are `{identifier-corrigendum}/req-class/business-logic` and `{identifier-corrigendum}/conf/business-logic` because those classes now include the 1.0.1 requirements and tests. The other new identifiers introduced by this corrigendum use `{identifier-corrigendum}`. Requirement `{identifier-corrigendum}/req/business-logic/gdpr-note` follows the last original requirement (`{identifier}/req/geometry-wkt/out`). Requirement `{identifier-corrigendum}/req/business-logic/attribution` follows `{identifier-corrigendum}/req/business-logic/gdpr-note`. The corresponding abstract tests (`{identifier-corrigendum}/conf/business-logic/gdpr-note` and `{identifier-corrigendum}/conf/business-logic/attribution`) are appended after the last original Annex A test (`{identifier}/conf/mqtt-subscribe-sta-11/definition`).
+==== JSON-FG
+
+* Replaced the draft JSON-FG bibliography entry with the published Implementation Standard <<OGC21-045r1>> (https://docs.ogc.org/is/21-045r1/21-045r1.html[OGC 21-045r1]) as a normative reference.
+* Removed the notes that treated Geometry-FG as informative until JSON-FG was adopted.
+* Changed the Geometry-FG `encodingType` ValueCode from `application/vnd.ogc.fg+json` to `application/geo+json`.
+* Changed requirement URI for media-type to `{identifier-corrigendum}/req/geometry-fg/media-type` and as a consequence the requirements class URI to `{identifier-corrigendum}/req-class/geometry-fg` as well as the conformance class URI to `{identifier-corrigendum}/conf/geometry-fg`
+
+==== Identifiers updated to 1.0.1
+
+* Review results from the OGC SensorThings SWG: `{identifier-corrigendum}/conf/core`, `{identifier-corrigendum}/req-class/party`, and `{identifier-corrigendum}/req/party/properties` use the 1.0.1 base URI because the Party requirements now include the `system` role. `{identifier-corrigendum}/req-class/geometry-fg`, `{identifier-corrigendum}/req/geometry-fg/media-type`, and `{identifier-corrigendum}/conf/geometry-fg` use the 1.0.1 base URI because the Geometry-FG media type is `application/geo+json`.
+* ATS identifiers changed from `1.0` to `1.0.1` if at least one requirement or requirements class uses version `1.0.1` now.
+
+This corrigendum does not renumber existing conformance classes, requirements, or abstract tests. Existing identifiers remain those of STAplus 1.0 (`{identifier}`), except `{identifier-corrigendum}/conf/core`, `{identifier-corrigendum}/req-class/party`, `{identifier-corrigendum}/req/party/properties`, `{identifier-corrigendum}/req-class/business-logic`, `{identifier-corrigendum}/conf/business-logic`, `{identifier-corrigendum}/req-class/geometry-fg`, `{identifier-corrigendum}/req/geometry-fg/media-type`, `{identifier-corrigendum}/conf/geometry-fg`, and the abstract tests that have at least one 1.0.1 requirement, requirements class, or conformance class as a target. The other new identifiers introduced by this corrigendum use `{identifier-corrigendum}`. Requirement `{identifier-corrigendum}/req/business-logic/gdpr-note` follows the last original requirement (`{identifier}/req/geometry-wkt/out`). Requirement `{identifier-corrigendum}/req/business-logic/attribution` follows `{identifier-corrigendum}/req/business-logic/gdpr-note`. The corresponding abstract tests (`{identifier-corrigendum}/conf/business-logic/gdpr-note` and `{identifier-corrigendum}/conf/business-logic/attribution`) are appended after the last original Annex A test (`{identifier}/conf/mqtt-subscribe-sta-11/definition`).
 
 [[editorial-changes-1-0-1]]
 === Editorial changes in release 1.0.1
@@ -60,7 +82,7 @@ This release also applies an editorial English review. The technical meaning of 
 
 * Corrected the Default-CRS requirements class title (`.Defaul-CRS` to `.Default-CRS`).
 * Corrected the Geometry-WKT requirements class listing so that it references `{identifier}/req/geometry-wkt/crs-definition` (previously `crs-defintion`).
-* Removed the extra slash from the Geometry-FG media-type conformance test URI (`{identifier}/conf/geometry-fg/media-type`) in Clause 2 and Annex A.
+* Removed the extra slash from the Geometry-FG media-type conformance test URI (`{identifier-corrigendum}/conf/geometry-fg/media-type`) in Clause 2 and Annex A.
 * Restored the missing table cell delimiter on the last row of the Campaign properties table.
 * Pointed the PUT update requirement at the SensorThings PUT requirement anchor (`#req-create-update-delete-update-entity-put`).
 * Marked the missing MQTT Subscribe abstract test steps as `part::`.
@@ -92,12 +114,6 @@ The following passages were rewritten for clarity while keeping the original tec
 
 ==== Abstract Test Suite and conformance class identifiers
 
-* Removed the extra MQTT Subscribe conformance-test URIs that duplicated the conformance class identifiers (`conf/mqtt-subscribe-sta-10` and `conf/mqtt-subscribe-sta-11`). The tests remain `…/definition`.
 * Pointed the Authentication `id-create` abstract test at `conf/authentication` instead of `conf/core`.
 * Corrected the Update PUT abstract test method to use HTTP PUT.
 
-==== JSON-FG
-
-* Replaced the draft JSON-FG bibliography entry with the published Implementation Standard <<OGC21-045r1>> (https://docs.ogc.org/is/21-045r1/21-045r1.html[OGC 21-045r1]) as a normative reference.
-* Removed the notes that treated Geometry-FG as informative until JSON-FG was adopted.
-* Changed the Geometry-FG `encodingType` ValueCode from `application/vnd.ogc.fg+json` to `application/geo+json`.

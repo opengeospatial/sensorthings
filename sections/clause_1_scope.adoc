@@ -1,4 +1,6 @@
 == Scope
+add:[This Standard is a corrigendum for STAplus 1.0. It is written as a replacement for STAplus 1.0 (OGC #22-022r1). All changes relative to STAplus 1.0 are summarized in <<annex-history>>.]
+
 While the OGC SensorThings API provides an open Standard-based and geospatial-enabled framework to interconnect the Internet of Things, OGC STAplus extends the scope of SensorThings API to use cases where sensors are deployed by different actors structured in one or more campaigns. The STAplus Standard also allows del:[for relating observations to other internal or external observations and group observations] add:[observations to be related to other internal observations or external resources and to be grouped]. The open STAplus Standard is backwards-compatible with SensorThings API and uses the same web API and MQTT mechanisms. The grouping and relations can be used for linking sensor data beyond the original link to semantic definitions in ObservedProperty and unitOfMeasurement, and includes terms of use and licenses. Both additions improve the reusability aspect of the FAIR principles. This Standard also emphasizes del:[on] how to use an implementation in multi-user environments.
 
 === Security Considerations

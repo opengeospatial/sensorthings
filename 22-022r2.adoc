@@ -1,4 +1,4 @@
-= OGC SensorThings API Extension: STAplus 1.0.1 corrigendum
+= OGC SensorThings API Extension: STAplus 1.0 corrigendum
 :doctype: standard
 :encoding: utf-8
 :lang: en
@@ -7,9 +7,9 @@
 :draft: 1.0.1
 :external-id: http://www.opengis.net/doc/is/sensorthings-staplus/1.0.1
 :docnumber: 22-022r2
-:received-date: 2026-08-27
-:issued-date: 2026-08-23
-:published-date: 2026-08-23
+:received-date: 2026-09-10
+:issued-date: 2026-09-10
+:published-date: 2026-09-10
 :fullname: Andreas Matheus
 :docsubtype: Implementation
 :keywords: OGC Standard, API, SensorThings, STAplus
@@ -25,6 +25,8 @@
 :identifier: http://www.opengis.net/spec/sensorthings-staplus/1.0
 :identifier-corrigendum: http://www.opengis.net/spec/sensorthings-staplus/1.0.1
 
+:literal-R: (R)
+
 [.preface]
 == metanorma-extension
 
@@ -32,10 +34,10 @@
 .Anchor aliases
 |===
 |common-control-information|{identifier}/req/common-control-information
-|party|{identifier}/req-class/party
+|party|{identifier-corrigendum}/req-class/party
 |license|{identifier}/req-class/license
 |group|{identifier}/req-class/group
-|relation|{identifier}/req-class/relation
+|relation|{identifier-corrigendum}/req-class/relation
 |campaign|{identifier}/req-class/campaign
 |business-logic-gdpr-note|{identifier-corrigendum}/req/business-logic/gdpr-note
 |business-logic-attribution|{identifier-corrigendum}/req/business-logic/attribution

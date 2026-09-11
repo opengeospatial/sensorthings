@@ -12,8 +12,8 @@ A STAplus compliant implementation must also be compliant with the SensorThings 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/common-control-information
-target:: {identifier}/conf/core
+identifier:: {identifier-corrigendum}/conf/core/common-control-information
+target:: {identifier-corrigendum}/conf/core
 
 target:: {identifier}/req/common-control-information
 
@@ -25,11 +25,11 @@ test-method:: Inspect the full JSON object of the entity sets (__i.e.__, without
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/entities
-inherit:: {identifier}/conf/core/common-control-information
-target:: {identifier}/conf/core
+identifier:: {identifier-corrigendum}/conf/core/entities
+inherit:: {identifier-corrigendum}/conf/core/common-control-information
+target:: {identifier-corrigendum}/conf/core
 
-target:: {identifier}/req/party/properties
+target:: {identifier-corrigendum}/req/party/properties
 target:: {identifier}/req/party/relations
 
 target:: {identifier}/req/license/properties
@@ -39,7 +39,7 @@ target:: {identifier}/req/group/properties
 target:: {identifier}/req/group/relations
 
 target:: {identifier}/req/relation/properties
-target:: {identifier}/req/relation/relations
+target:: {identifier-corrigendum}/req/relation/relations
 
 target:: {identifier}/req/campaign/properties
 target:: {identifier}/req/campaign/relations
@@ -57,9 +57,9 @@ part:: Inspect the full JSON object of each entity set (__i.e.__, without using 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/read
-inherit:: {identifier}/conf/core/entities
-target:: {identifier}/conf/core
+identifier:: {identifier-corrigendum}/conf/core/read
+inherit:: {identifier-corrigendum}/conf/core/entities
+target:: {identifier-corrigendum}/conf/core
 
 target:: {identifier}/req/read/entity
 
@@ -79,8 +79,8 @@ part:: Construct a URL to the `Campaign` entity and verify the response.
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/default-crs/crs-definition
-target:: {identifier}/conf/core
+identifier:: {identifier-corrigendum}/conf/core/default-crs/crs-definition
+target:: {identifier-corrigendum}/conf/core
 
 target:: {identifier}/req/default-crs/crs-definition
 
@@ -95,8 +95,8 @@ part:: Construct a `FeatureOfInterest` entity that contains a `Feature` property
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/default-crs/axis-order
-target:: {identifier}/conf/core
+identifier:: {identifier-corrigendum}/conf/core/default-crs/axis-order
+target:: {identifier-corrigendum}/conf/core
 
 target:: {identifier}/req/default-crs/axis-order
 
@@ -111,8 +111,8 @@ part:: Construct a `FeatureOfInterest` entity that contains a `feature` property
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/default-crs/media-type
-target:: {identifier}/conf/core
+identifier:: {identifier-corrigendum}/conf/core/default-crs/media-type
+target:: {identifier-corrigendum}/conf/core
 
 target:: {identifier}/req/default-crs/media-type
 
@@ -128,8 +128,8 @@ part:: Construct a `FeatureOfInterest` entity that contains a `feature` property
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/core/default-crs/processing
-target:: {identifier}/conf/core
+identifier:: {identifier-corrigendum}/conf/core/default-crs/processing
+target:: {identifier-corrigendum}/conf/core
 
 target:: {identifier}/req/default-crs/processing
 
@@ -344,7 +344,7 @@ part:: Issue an HTTP GET request to that other `Party` and verify that the entit
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/business-logic/definition
+identifier:: {identifier-corrigendum}/conf/business-logic/definition
 target:: {identifier-corrigendum}/conf/business-logic
 
 target:: {identifier}/req/business-logic/definition
@@ -356,7 +356,7 @@ test-method:: Verify that the HTML page for the business logic is in English lan
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/business-logic/location
+identifier:: {identifier-corrigendum}/conf/business-logic/location
 target:: {identifier-corrigendum}/conf/business-logic
 
 target:: {identifier}/req/business-logic/location
@@ -375,10 +375,10 @@ del:[These Conformance Class Tests remain informative until <<FG>> is an adopted
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/geometry-fg/media-type
-target:: {identifier}/conf/geometry-fg
+identifier:: {identifier-corrigendum}/conf/geometry-fg/media-type
+target:: {identifier-corrigendum}/conf/geometry-fg
 
-target:: {identifier}/req/geometry-fg/media-type
+target:: {identifier-corrigendum}/req/geometry-fg/media-type
 
 test-purpose:: To verify that the implementation accepts media-type for Geometry-FG.
 test-method:: Verify that the implementation supports the use of the media-type for Geometry-FG.
@@ -388,8 +388,8 @@ test-method:: Verify that the implementation supports the use of the media-type 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/geometry-fg/default-crs
-target:: {identifier}/conf/geometry-fg
+identifier:: {identifier-corrigendum}/conf/geometry-fg/default-crs
+target:: {identifier-corrigendum}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/default-crs
 
@@ -400,8 +400,8 @@ test-method:: Verify that the implementation applies the default-CRS advertised 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/geometry-fg/supported-crs
-target:: {identifier}/conf/geometry-fg
+identifier:: {identifier-corrigendum}/conf/geometry-fg/supported-crs
+target:: {identifier-corrigendum}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/supported-crs
 
@@ -414,8 +414,8 @@ part:: Construct a geometry and create a `Location` and `FeatureOfInterest` enti
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/geometry-fg/crs-error
-target:: {identifier}/conf/geometry-fg
+identifier:: {identifier-corrigendum}/conf/geometry-fg/crs-error
+target:: {identifier-corrigendum}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/crs-error
 
@@ -428,8 +428,8 @@ part:: Construct a geometry and create a `Location` and `FeatureOfInterest` enti
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/geometry-fg/processing
-target:: {identifier}/conf/geometry-fg
+identifier:: {identifier-corrigendum}/conf/geometry-fg/processing
+target:: {identifier-corrigendum}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/processing
 
@@ -442,8 +442,8 @@ part:: Construct a geometry and create a `Location` and `FeatureOfInterest` enti
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/geometry-fg/out
-target:: {identifier}/conf/geometry-fg
+identifier:: {identifier-corrigendum}/conf/geometry-fg/out
+target:: {identifier-corrigendum}/conf/geometry-fg
 
 target:: {identifier}/req/geometry-fg/out
 

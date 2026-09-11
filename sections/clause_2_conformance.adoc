@@ -56,7 +56,7 @@ add:[The following table lists, for each STAplus Conformance Class, the addition
 |Conformance class |Advertisement on the service root URI
 
 |Core +
-`{identifier}/conf/core`
+`{identifier-corrigendum}/conf/core`
 |The STAplus entity sets (`Parties`, `Licenses`, `ObservationGroups`, `Relations`, `Campaigns`) in the SensorThings `value` array. Default-CRS `{CRS84}` and `encodingType` `application/geo+json` follow from the Default-CRS Requirements Class.
 
 |Create +
@@ -76,7 +76,7 @@ add:[The following table lists, for each STAplus Conformance Class, the addition
 |None beyond claiming the class.
 
 |Geometry-FG +
-`{identifier}/conf/geometry-fg`
+`{identifier-corrigendum}/conf/geometry-fg`
 |The default-CRS and the list of supported CRS, advertised on the conformance page (the service root URI).
 
 |Geometry-WKT +
@@ -103,7 +103,7 @@ add:[The following table lists, for each STAplus Conformance Class, the addition
 ----
 {
   "conformance": [
-    "http://www.opengis.net/spec/sensorthings-staplus/1.0/conf/core",
+    "http://www.opengis.net/spec/sensorthings-staplus/1.0.1/conf/core",
     "http://www.opengis.net/spec/sensorthings-staplus/1.0/conf/geometry-wkt",
     "http://www.opengis.net/spec/sensorthings-staplus/1.0.1/conf/business-logic"
   ],
@@ -128,9 +128,9 @@ The `Core` Conformance Class is defined as follows:
 .Core
 ====
 [%metadata]
-identifier:: {identifier}/conf/core
+identifier:: {identifier-corrigendum}/conf/core
 target:: {identifier}/req-class/entity-control-information
-target:: {identifier}/req-class/party
+target:: {identifier-corrigendum}/req-class/party
 target:: {identifier}/req-class/license
 target:: {identifier}/req-class/group
 target:: {identifier}/req-class/relation
@@ -139,13 +139,13 @@ target:: {identifier}/req-class/read
 target:: {identifier}/req-class/default-crs
 
 classification:: Target Type: Implementation
-conformance-test:: {identifier}/conf/core/common-control-information
-conformance-test:: {identifier}/conf/core/entities
-conformance-test:: {identifier}/conf/core/read
-conformance-test:: {identifier}/conf/core/default-crs/crs-definition
-conformance-test:: {identifier}/conf/core/default-crs/axis-order
-conformance-test:: {identifier}/conf/core/default-crs/media-type
-conformance-test:: {identifier}/conf/core/default-crs/processing
+conformance-test:: {identifier-corrigendum}/conf/core/common-control-information
+conformance-test:: {identifier-corrigendum}/conf/core/entities
+conformance-test:: {identifier-corrigendum}/conf/core/read
+conformance-test:: {identifier-corrigendum}/conf/core/default-crs/crs-definition
+conformance-test:: {identifier-corrigendum}/conf/core/default-crs/axis-order
+conformance-test:: {identifier-corrigendum}/conf/core/default-crs/media-type
+conformance-test:: {identifier-corrigendum}/conf/core/default-crs/processing
 ====
 
 ==== Conformance Class *Create*
@@ -156,7 +156,7 @@ The `Create` Conformance Class is defined as follows:
 ====
 [%metadata]
 identifier:: {identifier}/conf/create
-inherit:: {identifier}/conf/core
+inherit:: {identifier-corrigendum}/conf/core
 target:: {identifier}/req-class/create
 
 classification:: Target Type: Implementation
@@ -171,7 +171,7 @@ The `Update` Conformance Class is defined as follows:
 ====
 [%metadata]
 identifier:: {identifier}/conf/update
-inherit:: {identifier}/conf/core
+inherit:: {identifier-corrigendum}/conf/core
 target:: {identifier}/req-class/update
 
 classification:: Target Type: Implementation
@@ -187,7 +187,7 @@ The `Delete` Conformance Class is defined as follows:
 ====
 [%metadata]
 identifier:: {identifier}/conf/delete
-inherit:: {identifier}/conf/core
+inherit:: {identifier-corrigendum}/conf/core
 target:: {identifier}/req-class/delete
 
 classification:: Target Type: Implementation
@@ -202,7 +202,7 @@ The `Authentication` Conformance Class is defined as follows:
 ====
 [%metadata]
 identifier:: {identifier}/conf/authentication
-inherit:: {identifier}/conf/core
+inherit:: {identifier-corrigendum}/conf/core
 target:: {identifier}/req-class/authentication
 
 classification:: Target Type: Implementation
@@ -220,17 +220,17 @@ The `Geometry-FG` Conformance Class is defined as follows:
 .Geometry-FG
 ====
 [%metadata]
-identifier:: {identifier}/conf/geometry-fg
-inherit:: {identifier}/conf/core
-target:: {identifier}/req-class/geometry-fg
+identifier:: {identifier-corrigendum}/conf/geometry-fg
+inherit:: {identifier-corrigendum}/conf/core
+target:: {identifier-corrigendum}/req-class/geometry-fg
 
 classification:: Target Type: Implementation
-conformance-test:: {identifier}/conf/geometry-fg/media-type
-conformance-test:: {identifier}/conf/geometry-fg/default-crs
-conformance-test:: {identifier}/conf/geometry-fg/supported-crs
-conformance-test:: {identifier}/conf/geometry-fg/crs-error
-conformance-test:: {identifier}/conf/geometry-fg/processing
-conformance-test:: {identifier}/conf/geometry-fg/out
+conformance-test:: {identifier-corrigendum}/conf/geometry-fg/media-type
+conformance-test:: {identifier-corrigendum}/conf/geometry-fg/default-crs
+conformance-test:: {identifier-corrigendum}/conf/geometry-fg/supported-crs
+conformance-test:: {identifier-corrigendum}/conf/geometry-fg/crs-error
+conformance-test:: {identifier-corrigendum}/conf/geometry-fg/processing
+conformance-test:: {identifier-corrigendum}/conf/geometry-fg/out
 ====
 
 ==== Conformance Class *Geometry-WKT*
@@ -241,7 +241,7 @@ The `Geometry-WKT` Conformance Class is defined as follows:
 ====
 [%metadata]
 identifier:: {identifier}/conf/geometry-wkt
-inherit:: {identifier}/conf/core
+inherit:: {identifier-corrigendum}/conf/core
 target:: {identifier}/req-class/geometry-wkt
 
 classification:: Target Type: Implementation
@@ -263,7 +263,7 @@ The `MQTT Subscribe` STA v1.0 Conformance Class is defined as follows:
 ====
 [%metadata]
 identifier:: {identifier}/conf/mqtt-subscribe-sta-10
-inherit:: {identifier}/conf/core
+inherit:: {identifier-corrigendum}/conf/core
 target:: {identifier}/req-class/mqtt-subscribe-sta-10
 
 classification:: Target Type: Implementation
@@ -278,7 +278,7 @@ The `MQTT Subscribe` STA v1.1 Conformance Class is defined as follows:
 ====
 [%metadata]
 identifier:: {identifier}/conf/mqtt-subscribe-sta-11
-inherit:: {identifier}/conf/core
+inherit:: {identifier-corrigendum}/conf/core
 target:: {identifier}/req-class/mqtt-subscribe-sta-11
 
 classification:: Target Type: Implementation
@@ -293,12 +293,12 @@ The `Business Logic` Conformance Class is defined as follows:
 ====
 [%metadata]
 identifier:: {identifier-corrigendum}/conf/business-logic
-inherit:: {identifier}/conf/core
+inherit:: {identifier-corrigendum}/conf/core
 target:: {identifier-corrigendum}/req-class/business-logic
 
 classification:: Target Type: Implementation
-conformance-test:: {identifier}/conf/business-logic/definition
-conformance-test:: {identifier}/conf/business-logic/location
+conformance-test:: {identifier-corrigendum}/conf/business-logic/definition
+conformance-test:: {identifier-corrigendum}/conf/business-logic/location
 conformance-test:: {identifier-corrigendum}/conf/business-logic/gdpr-note
 conformance-test:: {identifier-corrigendum}/conf/business-logic/attribution
 ====
