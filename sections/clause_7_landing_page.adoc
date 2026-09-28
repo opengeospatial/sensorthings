@@ -1,0 +1,201 @@
+[[dggs-landing-page]]
+== DGGS Landing Page Requirements
+
+=== Overview
+
+A client that links an `Observation`, a `Datastream`, or a `MultiDatastream` to a `Cell` needs to know which Discrete Global Grid System the implementation deploys, and the coarsest and finest zone levels that the implementation uses. This Requirements Class requires that information to be advertised as a JSON object on the landing page.
+
+This Requirements Class also requires the implementation to advertise a geometry that defines the area within which a `Cell` can be created. That geometry SHALL be a Polygon or a MultiPolygon and MAY contain holes.
+
+The landing page is the resource at the root URI, as specified in <<OGC18-088>> §9.2.1. Extensions that need to expose additional server settings do so in a property of the `serverSettings` object that is named after the URI of the requirement that defines the setting.
+
+The `conformance` array of `serverSettings` SHALL include the Conformance Class URIs of this Standard that the implementation claims, as specified in <<OGC18-088>> §9.2.1.
+
+This clause also defines the <<aggregate-functions>> Requirements Class. That class advertises each aggregate function with a definition identifier and a well-accepted mathematical equation, and it registers the entity links that connect a base `ObservedProperty` to the derived `ObservedProperty` of each function.
+
+NOTE: The Requirements Classes in this section are part of the Conformance Class <<conformance_class_landing_page>>.
+
+[[landing-page]]
+=== Requirements Class *Landing Page*
+
+[requirements_class]
+.Landing Page
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/landing-page
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier-sta}/req/resource-path/resource-path-to-entities
+requirement:: {identifier}/req/grid-system
+requirement:: {identifier}/req/cell-create-boundary
+====
+
+[[grid-system]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/grid-system
+
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/grid-system`. That object SHALL contain:
+
+* a property `gridSystem` whose value is a CharacterString that identifies the Discrete Global Grid System deployed by the implementation (for example `H3` or `GEOHASH`);
+* a property `coarsestZoneLevel` whose value is an Integer that identifies the coarsest zone level at which the implementation materializes parent cells;
+* a property `finestZoneLevel` whose value is an Integer that identifies the finest zone level at which the implementation materializes cells.
+
+The advertised `finestZoneLevel` SHALL be greater than or equal to the advertised `coarsestZoneLevel`.
+
+Every `Cell/system` value SHALL be identical to the advertised `gridSystem`.
+====
+
+[[cell-create-boundary]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell-create-boundary
+
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/cell-create-boundary`. That object SHALL contain:
+
+* a property `encodingType` whose value is a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>> (for example `application/geo+json`);
+* a property `boundary` whose value is a geometry that defines the area within which a `Cell` can be created.
+
+The advertised `boundary` SHALL be a Polygon or a MultiPolygon. A Polygon MAY be a simple polygon (one exterior ring and no holes). A Polygon or a MultiPolygon MAY contain holes (interior rings).
+====
+
+[[aggregate-functions]]
+=== Requirements Class *Aggregate Functions*
+
+[requirements_class]
+.Aggregate Functions
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/aggregate-functions
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/landing-page
+requirement:: {identifier}/req/aggregate-functions
+requirement:: {identifier}/req/entity-linking
+====
+
+[[req-aggregate-functions]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/aggregate-functions
+
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/aggregate-functions`. That object SHALL contain a property `functions` whose value is a JSON array. The array SHALL contain one object for each of the aggregate functions `min`, `max`, `avg`, `stddev`, and `count`, in that order.
+
+Each object in `functions` SHALL contain:
+
+* a property `id` whose value is the CharacterString `min`, `max`, `avg`, `stddev`, or `count`;
+* a property `definition` whose value is a URI that identifies that aggregate function;
+* a property `equation` whose value is a CharacterString that is a well-accepted mathematical equation for that function;
+* a property `method` whose value is a CharacterString that names the function (for example `MIN`, `MAX`, `AVG`, `STDDEV`, `COUNT`).
+
+The equations SHALL be:
+
+* `min`: the minimum of the contributing numeric results;
+* `max`: the maximum of the contributing numeric results;
+* `avg`: the arithmetic mean of the contributing numeric results;
+* `stddev`: the sample standard deviation of the contributing numeric results, or null if fewer than two results contribute;
+* `count`: the number of contributing raw observations.
+
+The `definition` URI of each function SHALL be the identifier that an `ObservedProperty` uses to link to that function, as specified in <<conformance_class_observed_properties>>.
+====
+
+[[req-entity-linking]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/entity-linking
+
+The implementation SHALL implement entity linking as specified in https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md[<<INSIDE-EntityLinking>>].
+
+The `conformance` array of `serverSettings` SHALL include `https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md`.
+
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page with that name. That object SHALL contain a property `registeredLinks` whose value is a JSON object that SHALL include the following entity links, each with `targetType` equal to `ObservedProperty`:
+
+* `ObservedProperty/properties/derivations/derivation`: forward link from a base `ObservedProperty` to a derived aggregate `ObservedProperty`;
+* `ObservedProperty/properties/prov:wasDerivedFrom`: link from a derived `ObservedProperty` to the base `ObservedProperty`;
+* `ObservedProperty/properties/prov:qualifiedDerivation/prov:wasDerivedFrom`: provenance link from a derived `ObservedProperty` to the base `ObservedProperty`.
+====
+
+.Example `serverSettings` on the landing page
+====
+[source,json]
+----
+{
+  "conformance": [
+    "http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel",
+    "http://www.opengis.net/spec/iot_sensing/1.1/req/resource-path/resource-path-to-entities",
+    "http://www.opengis.net/spec/iot_sensing/1.1/req/request-data",
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/landing-page",
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell",
+    "https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md"
+  ],
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/req/grid-system": {
+    "gridSystem": "H3",
+    "coarsestZoneLevel": 4,
+    "finestZoneLevel": 15
+  },
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/req/cell-create-boundary": {
+    "encodingType": "application/geo+json",
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [[[8.0, 49.0], [9.0, 49.0], [9.0, 50.0], [8.0, 50.0], [8.0, 49.0]]]
+    }
+  },
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/req/aggregate-functions": {
+    "functions": [
+      {
+        "id": "min",
+        "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/min",
+        "equation": "min(x_1, ..., x_n)",
+        "method": "MIN"
+      },
+      {
+        "id": "max",
+        "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/max",
+        "equation": "max(x_1, ..., x_n)",
+        "method": "MAX"
+      },
+      {
+        "id": "avg",
+        "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/avg",
+        "equation": "(1/n) * sum(x_i)",
+        "method": "AVG"
+      },
+      {
+        "id": "stddev",
+        "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/stddev",
+        "equation": "sqrt( 1/(n-1) * sum( (x_i - avg)^2 ) ) for n >= 2; null otherwise",
+        "method": "STDDEV"
+      },
+      {
+        "id": "count",
+        "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/count",
+        "equation": "n",
+        "method": "COUNT"
+      }
+    ]
+  },
+  "https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md": {
+    "registeredLinks": {
+      "ObservedProperty/properties/derivations/derivation": {
+        "targetType": "ObservedProperty",
+        "description": "Forward link mapping from a base variable to its statistical aggregations."
+      },
+      "ObservedProperty/properties/prov:wasDerivedFrom": {
+        "targetType": "ObservedProperty",
+        "description": "Provenance link mapping back to the primary source or base ObservedProperty."
+      },
+      "ObservedProperty/properties/prov:qualifiedDerivation/prov:wasDerivedFrom": {
+        "targetType": "ObservedProperty",
+        "description": "Provenance link mapping back to the primary source or base ObservedProperty."
+      }
+    }
+  }
+}
+----
+====

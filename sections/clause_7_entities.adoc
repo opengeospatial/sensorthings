@@ -1,0 +1,303 @@
+[[dggs-entities]]
+== DGGS Entity Type Requirements
+
+`Cell` is the entity type of the <<conformance_class_cell>> Conformance Class. This clause also defines the additional direct relations from `Observation`, `Datastream`, and `MultiDatastream` that this Standard adds. The SensorThings entity types of <<OGC18-088>> remain as defined in that Standard.
+
+NOTE: Please be aware that all of the Requirements Classes in this section are part of the Conformance Class <<conformance_class_cell>>.
+
+[[common-control-information]]
+=== Requirements Class *Entity Control Information*
+
+NOTE: For more information, please see https://docs.ogc.org/is/18-088/18-088.html#common-control-information[<<OGC18-088, OGC SensorThings API Part 1: Sensing Version 1.1, §8.1>>].
+
+[requirements_class]
+.Entity Control Information
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/entity-control-information
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier-sta}/req/datamodel/entity-control-information
+requirement:: {identifier}/req/common-control-information
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/common-control-information
+
+Each `Cell` entity SHALL have the common control information defined in <<OGC18-088>> §8.1 (`@iot.id`, `@iot.selfLink`, and `@iot.navigationLink` for each association). The `@iot.id` of a `Cell` SHALL be a CharacterString as specified in <<cell-id-type>>.
+====
+
+[[cell]]
+=== Requirements Class *Cell*
+
+The `Cell` entity represents one zone of the Discrete Global Grid System deployed by the implementation. It is used to spatially group observations: an `Observation`, a `Datastream`, or a `MultiDatastream` linked to a `Cell` belongs somewhere in that cell.
+
+The `zoneId` property is the string representation of the cell identifier in the deployed grid system. It SHALL be identical to `@iot.id`. For H3, `zoneId` is the hexadecimal H3 index. For Geohash, `zoneId` is the geohash string.
+
+The `@iot.id` of a `Cell` SHALL be a CharacterString, encoded as a JSON string. That encoding ensures that a JavaScript client can parse the identifier without issues that BigInt indexes would cause.
+
+The `system` property identifies the deployed grid system. Its value SHALL be the `gridSystem` value advertised on the landing page as specified in <<grid-system>>.
+
+The `zoneLevel` property is the hierarchical resolution of the zone. A smaller value is a coarser zone. A larger value is a finer zone. `zoneLevel` is optional because some grid systems encode the level in the identifier.
+
+The `boundary` property is the geometry of the DGGS zone. It uses the same encoding rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>. The `encodingType` property indicates the encoding of `boundary`. If `boundary` is present, `encodingType` SHALL be present.
+
+[requirements_class]
+.Cell
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/cell
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/entity-control-information
+requirement:: {identifier}/req/cell/properties
+requirement:: {identifier}/req/cell/id-type
+requirement:: {identifier}/req/cell/relations
+requirement:: {identifier}/req/cell/consistency
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell/properties
+
+Each `Cell` entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-properties-cell>>.
+====
+
+[[tab-properties-cell]]
+.Properties of a `Cell` entity
+[cols="20a,45a,20a,15a"]
+|===
+|Name |Definition |Data type |Cardinality and use
+
+|zoneId
+|The string representation of the DGGS zone identifier. The value SHALL be identical to `@iot.id`
+|CharacterString
+|One (mandatory)
+
+|zoneLevel
+|The hierarchical resolution of the zone in the deployed grid system. A smaller value is coarser
+|Integer
+|Zero or One (optional)
+
+|system
+|The identifier of the deployed grid system. The value SHALL be identical to the `gridSystem` advertised on the landing page
+|CharacterString
+|One (mandatory)
+
+|boundary
+|The geometry of the DGGS zone. The encoding SHALL follow the same rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>
+|Any
+|Zero or One (optional)
+
+|encodingType
+|The encoding type of the `boundary` property. The value SHALL be a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>> (for example `application/geo+json`). If `boundary` is present, `encodingType` SHALL be present
+|ValueCode
+|Zero or One (optional)
+
+|properties
+|A JSON object containing application-specific annotations as name/value pairs
+|JSON_Object
+|Zero or One (optional)
+
+|===
+
+[[cell-id-type]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell/id-type
+
+The `@iot.id` of a `Cell` SHALL be of type CharacterString. In the JSON encoding, `@iot.id` SHALL be a JSON string, not a JSON number. This requirement ensures that a JavaScript client can parse the identifier without loss of precision.
+
+The `zoneId` of a `Cell` SHALL be identical to `@iot.id`.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell/relations
+
+An implementation SHALL allow each `Cell` to have direct associations to other entity types listed in <<tab-relations-from-cell>> and <<tab-relations-to-cell>>.
+====
+
+[[tab-relations-from-cell]]
+.Direct relation from a `Cell` entity to other entity types
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Entity type |Cardinality |Description
+
+|Parent
+|Cell
+|Zero or One
+|A `Cell` has zero-to-one parent `Cell` at the next coarser zone level. A cell at the coarsest zone level has no parent.
+
+|Children
+|Cell
+|Zero to Many
+|A `Cell` has zero-to-many child `Cells` at the next finer zone level.
+
+|Observations
+|Observation
+|Zero to Many
+|A `Cell` has zero-to-many `Observations`.
+
+|Datastreams
+|Datastream
+|Zero to Many
+|A `Cell` has zero-to-many `Datastreams`.
+
+|MultiDatastreams
+|MultiDatastream
+|Zero to Many
+|A `Cell` has zero-to-many `MultiDatastreams`. This relation applies if the implementation conforms to the MultiDatastream Requirements Class of <<OGC18-088>>.
+|===
+
+[[tab-relations-to-cell]]
+.Direct relation from a SensorThings entity type to `Cell`
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Source Entity type |Cardinality |Description
+
+|Cell
+|Observation
+|Zero or One
+|An `Observation` has zero-to-one `Cell`.
+
+|Cell
+|Datastream
+|Zero or One
+|A `Datastream` has zero-to-one `Cell`.
+
+|Cell
+|MultiDatastream
+|Zero or One
+|A `MultiDatastream` has zero-to-one `Cell`. This relation applies if the implementation conforms to the MultiDatastream Requirements Class of <<OGC18-088>>.
+
+|Parent
+|Cell
+|Zero or One
+|A child `Cell` has zero-to-one parent `Cell`.
+
+|Children
+|Cell
+|Zero to Many
+|A parent `Cell` has zero-to-many child `Cells`.
+|===
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell/consistency
+
+Datastreams that are linked to the same `Cell` and that observe the same `ObservedProperty` SHALL use the same `unitOfMeasurement`.
+
+MultiDatastreams that are linked to the same `Cell` and that represent the same aggregate of the same base `ObservedProperty` SHALL use the same `ObservedProperties` array and the same `unitOfMeasurements` array.
+====
+
+.Example `Cell` entity
+====
+[source,json]
+----
+{
+  "@iot.id": "891f8d7a49bffff",
+  "@iot.selfLink": "http://example.org/v1.1/Cells('891f8d7a49bffff')",
+  "Parent@iot.navigationLink": "Cells('891f8d7a49bffff')/Parent",
+  "Children@iot.navigationLink": "Cells('891f8d7a49bffff')/Children",
+  "Observations@iot.navigationLink": "Cells('891f8d7a49bffff')/Observations",
+  "Datastreams@iot.navigationLink": "Cells('891f8d7a49bffff')/Datastreams",
+  "MultiDatastreams@iot.navigationLink": "Cells('891f8d7a49bffff')/MultiDatastreams",
+  "zoneId": "891f8d7a49bffff",
+  "zoneLevel": 9,
+  "system": "H3",
+  "encodingType": "application/geo+json",
+  "boundary": {
+    "type": "Polygon",
+    "coordinates": [[[8.68, 49.41], [8.69, 49.41], [8.69, 49.42], [8.68, 49.42], [8.68, 49.41]]]
+  }
+}
+----
+====
+
+[[cell-relations]]
+=== Requirements Class *Observation, Datastream and MultiDatastream relations*
+
+This Standard extends the SensorThings `Observation` and `Datastream` entities, and the `MultiDatastream` entity of <<OGC18-088>> Clause 12, with the navigation properties defined in <<tab-relations-observation-dggs>>, <<tab-relations-datastream-dggs>>, and <<tab-relations-multidatastream-dggs>>. The relations defined in <<OGC18-088>> remain in force.
+
+[requirements_class]
+.Observation, Datastream and MultiDatastream relations
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/cell-relations
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/cell
+requirement:: {identifier}/req/observation/relations
+requirement:: {identifier}/req/datastream/relations
+requirement:: {identifier}/req/multidatastream/relations
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/observation/relations
+
+An implementation SHALL allow each `Observation` to have the direct association listed in <<tab-relations-observation-dggs>>.
+====
+
+[[tab-relations-observation-dggs]]
+.Direct relation from an `Observation` entity to `Cell`
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Entity type |Cardinality |Description
+
+|Cell
+|Cell
+|Zero or One
+|An `Observation` has zero-to-one `Cell`. The observation belongs somewhere in that cell.
+|===
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/datastream/relations
+
+An implementation SHALL allow each `Datastream` to have the direct association listed in <<tab-relations-datastream-dggs>>.
+====
+
+[[tab-relations-datastream-dggs]]
+.Direct relation from a `Datastream` entity to `Cell`
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Entity type |Cardinality |Description
+
+|Cell
+|Cell
+|Zero or One
+|A `Datastream` has zero-to-one `Cell`. The observations of the datastream are grouped in that cell.
+|===
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/multidatastream/relations
+
+If the implementation conforms to the MultiDatastream Requirements Class of <<OGC18-088>>, the implementation SHALL allow each `MultiDatastream` to have the direct association listed in <<tab-relations-multidatastream-dggs>>.
+====
+
+[[tab-relations-multidatastream-dggs]]
+.Direct relation from a `MultiDatastream` entity to `Cell`
+[cols="25a,25a,20a,30a"]
+|===
+|Relation name| Entity type |Cardinality |Description
+
+|Cell
+|Cell
+|Zero or One
+|A `MultiDatastream` has zero-to-one `Cell`. The observations of the multi-datastream are grouped in that cell.
+|===

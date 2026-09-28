@@ -1,0 +1,86 @@
+= OGC SensorThings API extension: DGGS 1.0
+:doctype: standard
+:encoding: utf-8
+:lang: en
+:status: swg-draft
+:committee: technical
+:draft: 1.0
+:external-id: http://www.opengis.net/doc/is/sensorthings-dggs/1.0
+:docnumber: 26-057
+:received-date: 2026-08-19
+:issued-date: 2026-09-24
+:published-date: 2026-09-24
+:fullname: Andreas Matheus
+:docsubtype: Implementation
+:keywords: OGC Standard, API, SensorThings, DGGS, Cell, Aggregation, H3, Geohash, STAplus
+:submitting-organizations: Secure Dimensions GmbH; Centre de Recerca Ecològica i Aplicacions Forestals (CREAF); Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+:mn-document-class: ogc
+:mn-output-extensions: html,pdf
+:local-cache-only:
+:data-uri-image:
+:pdf-uri: ./26-057.pdf
+:edition: 1.0
+
+:identifier: http://www.opengis.net/spec/sensorthings-dggs/1.0
+:identifier-sta: http://www.opengis.net/spec/iot_sensing/1.1
+:identifier-staplus: http://www.opengis.net/spec/sensorthings-staplus/1.0.1
+
+[.preface]
+== metanorma-extension
+
+[[_misccontainer_anchor_aliases]]
+.Anchor aliases
+|===
+|common-control-information|{identifier}/req/common-control-information
+|cell|{identifier}/req-class/cell
+|cell-relations|{identifier}/req-class/cell-relations
+|landing-page|{identifier}/req-class/landing-page
+|grid-system|{identifier}/req/grid-system
+|cell-create-boundary|{identifier}/req/cell-create-boundary
+|cell-id-type|{identifier}/req/cell/id-type
+|cell-cud|{identifier}/req-class/cell-cud
+|read|{identifier}/req-class/read
+|authentication|{identifier}/req-class/authentication
+|aggregate-functions|{identifier}/req-class/aggregate-functions
+|observed-properties|{identifier}/req-class/observed-properties
+|aggregation|{identifier}/req-class/aggregation
+|staplus|{identifier}/req-class/staplus
+|===
+
+////
+Make sure to complete each included document
+////
+include::sections/clause_0_front_material.adoc[]
+
+include::sections/clause_1_scope.adoc[]
+
+include::sections/clause_2_conformance.adoc[]
+
+include::sections/clause_3_references.adoc[]
+
+include::sections/clause_4_terms_and_definitions.adoc[]
+
+include::sections/clause_5_conventions.adoc[]
+
+include::sections/clause_6_informative_text.adoc[]
+
+include::sections/clause_7_entities.adoc[]
+include::sections/clause_7_landing_page.adoc[]
+include::sections/clause_7_cell_crud.adoc[]
+include::sections/clause_7_auth.adoc[]
+include::sections/clause_7_observed_properties.adoc[]
+include::sections/clause_7_aggregation.adoc[]
+include::sections/clause_7_staplus.adoc[]
+
+////
+add or remove annexes after "A" as necessary
+////
+include::sections/annex-a.adoc[]
+include::sections/annex-b.adoc[]
+////
+Revision History should be the last annex before the Bibliography
+Bibliography should be the last annex
+////
+include::sections/annex-history.adoc[]
+
+include::sections/annex-bibliography.adoc[]

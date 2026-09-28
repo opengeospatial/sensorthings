@@ -1,0 +1,75 @@
+[[terms-and-definitions]]
+== Terms, definitions and abbreviated terms
+
+=== Terms and definitions
+
+The terms and definitions of <<OGC18-088>> apply. The following terms are added by this Standard.
+
+==== Cell
+
+A SensorThings entity that represents one zone of the Discrete Global Grid System deployed by the implementation. An `Observation`, a `Datastream`, or a `MultiDatastream` linked to a `Cell` is spatially grouped as belonging somewhere in that cell. The optional `Cell/boundary` property is the geometry of that zone.
+
+==== zone identifier
+
+The string representation of a DGGS zone identifier in the deployed grid system, stored as `Cell/zoneId`. The value SHALL be identical to `Cell/@iot.id`.
+
+==== zone level
+
+The hierarchical resolution of a zone in the deployed grid system, stored as `Cell/zoneLevel`. A smaller zone level is a coarser (larger) zone. A larger zone level is a finer (smaller) zone.
+
+==== boundary
+
+The geometry of a DGGS zone, stored as `Cell/boundary`. The encoding SHALL follow the same rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>.
+
+==== encodingType
+
+The encoding type of `Cell/boundary`. The value SHALL be a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>. If `boundary` is present, `encodingType` SHALL be present.
+
+==== cell-create boundary
+
+The Polygon or MultiPolygon advertised on the landing page that defines the area within which a `Cell` can be created. A simple polygon or a multi-polygon with holes is permitted.
+
+==== parent cell
+
+The unique coarser zone that contains a given zone at the next coarser zone level of the same grid system.
+
+==== coarsest zone level
+
+The lowest zone level at which the implementation materializes cells and, if the <<conformance_class_aggregation>> Conformance Class is claimed, at which materializing of parent cells and aggregation stops. Advertised as `coarsestZoneLevel` on the landing page.
+
+==== finest zone level
+
+The highest zone level at which the implementation materializes cells. Advertised as `finestZoneLevel` on the landing page. A larger zone level is a finer (smaller) zone.
+
+==== aggregate interval
+
+A configured duration or calendar period over which raw observation results that are linked to a cell are summarized (for example one minute, one hour, one day, one month, or one year).
+
+==== aggregate observation
+
+An `Observation` whose result is calculated from raw observation results that are linked to a cell, for one aggregate interval and one set of aggregate functions. An aggregate observation is published on a `MultiDatastream` that is linked to the `Cell`.
+
+==== aggregate function
+
+A well-accepted mathematical function that is calculated from the numeric raw observation results that contribute to a cell in an aggregate interval. This Standard advertises `min`, `max`, `avg`, `stddev`, and `count` on the landing page, each with a definition identifier and an equation.
+
+==== base ObservedProperty
+
+An `ObservedProperty` of contributing raw observations (`properties.role` equal to `base`). It identifies the derived `ObservedProperty` of each aggregate function.
+
+==== derived ObservedProperty
+
+An `ObservedProperty` of one aggregate function applied to a base `ObservedProperty` (`properties.role` equal to `aggregate`). It is linked to the base property by entity linking and to the aggregate function by the function's definition identifier.
+
+[abbreviations]
+=== Abbreviated terms
+
+API:: Application Programming Interface
+CRUD:: Create Read Update Delete
+CUD:: Create Update Delete
+DGGS:: Discrete Global Grid System
+H3:: Hexagonal Hierarchical Geospatial Indexing System
+MQTT:: Message Queuing Telemetry Transport
+O&M:: Observations and Measurements
+STA:: SensorThings API
+UoM:: Unit of Measurement

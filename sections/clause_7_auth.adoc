@@ -1,0 +1,33 @@
+[[dggs-auth]]
+== DGGS Authentication Requirements
+
+=== Overview
+
+Creation of a `Cell` by reference can be performed by many clients at once. Anonymous creation is throttled as specified in `{identifier}/req/cell-cud/create-by-reference`. This Requirements Class exempts an authenticated client from that throttle. Creating a `Cell` does not record a user identifier and does not associate the `Cell` with a `Party`.
+
+When an implementation also claims the Authentication Requirements Class of <<OGC22-022r2>>, `Party/authId`, the random `Party/@iot.id`, and `me()` remain as specified in that Requirements Class.
+
+NOTE: The Requirements Class in this section is part of the Conformance Class <<conformance_class_authentication>>.
+
+[[auth]]
+=== Requirements Class *Authentication*
+
+[requirements_class]
+.Authentication
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/authentication
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/cell-cud
+requirement:: {identifier}/req/authentication/cell-create
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/authentication/cell-create
+
+Authenticated creation of a `Cell` by reference, as specified in `{identifier}/req/cell-cud/create-by-reference`, SHALL NOT be throttled.
+====

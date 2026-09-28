@@ -1,0 +1,139 @@
+[[dggs-observed-properties]]
+== DGGS ObservedProperties Requirements
+
+=== Overview
+
+An aggregate `MultiDatastream` has a result array whose order is the advertised aggregate functions, for example `[min, max, avg, stddev, count]`. Each position in that array is an `ObservedProperty`. That `ObservedProperty` SHALL be linked to the aggregate function that is advertised on the landing page with the same definition identifier, as specified in <<req-aggregate-functions>>.
+
+A base `ObservedProperty` is the property of the contributing raw observations. Each aggregate function applied to that base property has a derived `ObservedProperty`. The two are linked with entity linking as specified in <<INSIDE-EntityLinking>> and registered on the landing page. Create, Update, and Delete of a derived `ObservedProperty` are limited to the implementation itself and to an administrator, because those entities are used by aggregate `MultiDatastreams`.
+
+NOTE: The Requirements Class in this section is part of the Conformance Class <<conformance_class_observed_properties>>.
+
+[[observed-properties]]
+=== Requirements Class *ObservedProperties*
+
+[requirements_class]
+.ObservedProperties
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/observed-properties
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/aggregate-functions
+requirement:: {identifier}/req/observed-properties/base
+requirement:: {identifier}/req/observed-properties/derived
+requirement:: {identifier}/req/observed-properties/derived-cud
+requirement:: {identifier}/req/observed-properties/multidatastream
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/observed-properties/base
+
+A base `ObservedProperty` for which the implementation calculates aggregates SHALL have `properties.role` equal to the CharacterString `base`.
+
+The `properties` object of that `ObservedProperty` SHALL contain:
+
+* a property `derivations` whose value is a JSON array. The array SHALL contain one object for each advertised aggregate function. Each object SHALL contain the entity link `derivation.ObservedProperty@iot.id` whose value is the `@iot.id` of the derived `ObservedProperty` for that function;
+* a property `aggregations` whose value is a JSON object. Each name SHALL be the `id` of an advertised aggregate function (`min`, `max`, `avg`, `stddev`, `count`). Each value SHALL be a JSON object that contains:
+** a property `method` whose value is identical to the advertised function `method`;
+** a property `target_id` whose value is identical to the `@iot.id` of the derived `ObservedProperty` for that function;
+** a property `label` whose value is a CharacterString (optional).
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/observed-properties/derived
+
+Each derived `ObservedProperty` SHALL have `properties.role` equal to the CharacterString `aggregate`.
+
+The `properties` object of that `ObservedProperty` SHALL contain:
+
+* a property `aggregation_method` whose value is identical to the advertised function `method` (for example `MIN` for `min`);
+* a property `aggregation_function` whose value is identical to the advertised function `definition` URI;
+* the entity link `prov:wasDerivedFrom.ObservedProperty@iot.id` whose value is the `@iot.id` of the base `ObservedProperty`.
+
+The derived `ObservedProperty` MAY contain a `prov:qualifiedDerivation` object. If present, that object SHALL contain the entity link `prov:wasDerivedFrom.ObservedProperty@iot.id` whose value is the `@iot.id` of the base `ObservedProperty`.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/observed-properties/derived-cud
+
+Create, Update, and Delete of a derived `ObservedProperty` SHALL be performed only by the implementation itself or by an administrator. Derived `ObservedProperty` entities are used by aggregate `MultiDatastreams` and SHALL not be modified by other clients.
+
+A request from any other client that would create, update, or delete a derived `ObservedProperty` SHALL be rejected with HTTP 403 Forbidden.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/observed-properties/multidatastream
+
+The `ObservedProperties` array of an aggregate `MultiDatastream` SHALL contain the derived `ObservedProperty` entities in the same order as the advertised `functions` array on the landing page.
+
+Each derived `ObservedProperty` in that array SHALL be linked to the aggregate function at the same position: `properties.aggregation_function` SHALL be identical to that function's `definition`, and `properties.aggregation_method` SHALL be identical to that function's `method`.
+====
+
+.Example base `ObservedProperty` with derived aggregate properties
+====
+[source,json]
+----
+{
+  "@iot.id": 1100,
+  "name": "Air Temperature",
+  "definition": "https://vocabs.lter-europe.net/EnvThes/en/page/22035",
+  "description": "The temperature of the atmosphere",
+  "properties": {
+    "role": "base",
+    "derivations": [
+      { "derivation.ObservedProperty@iot.id": 1101 },
+      { "derivation.ObservedProperty@iot.id": 1102 },
+      { "derivation.ObservedProperty@iot.id": 1103 },
+      { "derivation.ObservedProperty@iot.id": 1104 },
+      { "derivation.ObservedProperty@iot.id": 1105 }
+    ],
+    "aggregations": {
+      "min": { "label": "Minimum Temperature", "method": "MIN", "target_id": 1101 },
+      "max": { "label": "Maximum Temperature", "method": "MAX", "target_id": 1102 },
+      "avg": { "label": "Average Temperature", "method": "AVG", "target_id": 1103 },
+      "stddev": { "label": "Standard Deviation of Temperature", "method": "STDDEV", "target_id": 1104 },
+      "count": { "label": "Temperature Reading Count", "method": "COUNT", "target_id": 1105 }
+    }
+  }
+}
+----
+====
+
+.Example derived `ObservedProperty` for `min`
+====
+[source,json]
+----
+{
+  "@iot.id": 1101,
+  "name": "Air Temperature Min",
+  "definition": "http://vocabs.lter-europe.net/EnvThes/21532",
+  "description": "The lowest recorded air temperature over a given interval.",
+  "properties": {
+    "role": "aggregate",
+    "aggregation_method": "MIN",
+    "aggregation_function": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/min",
+    "prov:wasDerivedFrom.ObservedProperty@iot.id": 1100,
+    "prov:qualifiedDerivation": {
+      "@type": "prov:Derivation",
+      "prov:hadRole": "aggregate",
+      "prov:hadActivity": {
+        "@type": "prov:Activity",
+        "rdfs:label": "Temporal Aggregation Process",
+        "prov:hadPlan": "prov:Plan#min"
+      },
+      "prov:wasDerivedFrom.ObservedProperty@iot.id": 1100
+    }
+  }
+}
+----
+====

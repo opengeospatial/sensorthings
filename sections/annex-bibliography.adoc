@@ -1,0 +1,13 @@
+[bibliography]
+[[Bibliography]]
+== Bibliography
+
+* [[[ODATA, OData Version 4.01. Part 1: Protocol]]], OASIS, _OData Version 4.01. Part 1: Protocol_, (2020), http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html.
+
+* [[[OGC15-078r6,OGC SensorThings API Part 1: Sensing]]], OGC, _OGC SensorThings API Part 1: Sensing_, OGC (2016), https://docs.ogc.org/is/15-078r6/15-078r6.html
+
+* [[[OGC21-038r1, OGC API — Discrete Global Grid Systems — Part 1: Core]]], OGC, _OGC API — Discrete Global Grid Systems — Part 1: Core_, OGC (2023), https://docs.ogc.org/is/21-038r1/21-038r1.html
+
+* [[[OGC26-040,OGC SensorThings API Extension: STAplus 1.1]]], OGC, _OGC SensorThings API Extension: STAplus 1.1_, OGC (2026)
+
+* [[[INSIDE-EntityLinking,SensorThings API Entity Linking]]], INSIDE information systems, _Custom Entity Linking_, https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md

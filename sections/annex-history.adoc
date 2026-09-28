@@ -1,0 +1,9 @@
+[appendix]
+== Revision History
+
+.Revision history
+[width="90%",options="header"]
+|===
+|Date |Release |Editor | Primary clauses modified |Description
+|2026-08-19 |0.1 |Andreas Matheus |all |Initial draft of OGC SensorThings API extension: DGGS 1.0
+|===

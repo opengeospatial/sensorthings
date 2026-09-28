@@ -1,0 +1,166 @@
+[[dggs-aggregation]]
+== DGGS Aggregation Requirements
+
+=== Overview
+
+The <<conformance_class_aggregation>> Conformance Class defines how an implementation calculates aggregate values from raw `Observation` entities that are linked to a `Cell`. Aggregation is a SensorThings behaviour. This Standard does not specify a storage architecture, a database product, or an internal job scheduler.
+
+An implementation that claims this Conformance Class SHALL also conform to <<conformance_class_cell_crud>>, to <<conformance_class_observed_properties>>, and to the MultiDatastream Requirements Class of <<OGC18-088>>.
+
+The implementation is configured with a set of aggregate intervals and with the zone levels at which each interval applies. When a raw observation is linked to a cell, aggregation starts at that cell (the finest resolution in the request) and visits every parent up to the advertised `coarsestZoneLevel`. For each visited cell and each interval that applies at that zone level, the implementation calculates the aggregate functions advertised on the landing page from the raw observations that contribute to that cell, and publishes the result as an `Observation` of a `MultiDatastream` that is linked to that `Cell`. Each value in that result is linked to the corresponding derived `ObservedProperty`, and that `ObservedProperty` is linked to the function definition advertised on the landing page.
+
+NOTE: The Requirements Class in this section is part of the Conformance Class <<conformance_class_aggregation>>.
+
+[[aggregation]]
+=== Requirements Class *Aggregation*
+
+[requirements_class]
+.Aggregation
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/aggregation
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/cell-cud
+inherit:: {identifier}/req-class/observed-properties
+inherit:: {identifier-sta}/req/multi-datastream
+requirement:: {identifier}/req/aggregation/intervals
+requirement:: {identifier}/req/aggregation/functions
+requirement:: {identifier}/req/aggregation/traversal
+requirement:: {identifier}/req/aggregation/multidatastream
+requirement:: {identifier}/req/aggregation/consistency
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/aggregation/intervals
+
+The implementation SHALL be configured with a non-empty set of aggregate intervals. Each interval SHALL be a duration or a calendar period (for example `1min`, `1hour`, `1day`, `1month`, `1year`).
+
+The implementation SHALL be configured with the zone levels at which each interval applies. An interval MAY apply to one or more zone levels. A zone level MAY have zero, one, or many intervals.
+
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/aggregation/intervals`. That object SHALL contain:
+
+* a property `intervals` whose value is a JSON array of the configured interval identifiers;
+* a property `zoneLevels` whose value is a JSON object. Each name is a zone level encoded as a string. Each value is a JSON array of the interval identifiers that apply at that zone level.
+====
+
+.Example interval configuration on the landing page
+====
+[source,json]
+----
+{
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/req/aggregation/intervals": {
+    "intervals": ["1min", "1hour", "1day", "1month", "1year"],
+    "zoneLevels": {
+      "4": ["1month", "1year"],
+      "5": ["1month", "1year"],
+      "6": ["1day", "1month"],
+      "7": ["1hour", "1day"],
+      "8": ["1min", "1hour"],
+      "9": ["1min", "1hour"]
+    }
+  }
+}
+----
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/aggregation/functions
+
+For each visited cell and each applicable interval, the implementation SHALL calculate the aggregate functions advertised on the landing page as specified in <<req-aggregate-functions>>, from the numeric raw observation results that contribute to that cell in that interval. The calculation of each function SHALL match the advertised `equation` of that function.
+
+Raw observations that contribute to a cell are the observations linked to that cell and the observations linked to any descendant of that cell that fall in the interval. Only observations whose `result` is numeric SHALL contribute. Observations that are not linked to a `Cell`, directly or through their `Datastream`, SHALL NOT contribute.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/aggregation/traversal
+
+When a raw `Observation` is created or updated with a link to a `Cell`, or when a raw `Observation` is created or updated in a `Datastream` that is linked to a `Cell`, the implementation SHALL calculate aggregates for that `Cell` and for every ancestor `Cell` obtained by following `Parent` until the advertised `coarsestZoneLevel`.
+
+Traversal SHALL start at the finest resolution (the linked `Cell`) and SHALL visit each parent in turn up to the coarsest resolution. For each visited cell, the implementation SHALL calculate the aggregate functions for every interval that applies at that cell's `zoneLevel`.
+
+If a parent `Cell` does not yet exist, the implementation SHALL materialize it as specified in `{identifier}/req/cell-cud/parent-materialization` before publishing aggregates for that parent.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/aggregation/multidatastream
+
+The implementation SHALL publish each aggregate as an `Observation` of a `MultiDatastream` that is linked to the visited `Cell`.
+
+That `MultiDatastream` SHALL:
+
+* have `observationType` equal to `http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_ComplexObservation`;
+* have an `ObservedProperties` array of derived `ObservedProperty` entities in the order of the advertised aggregate functions, as specified in `{identifier}/req/observed-properties/multidatastream`;
+* have a `unitOfMeasurements` array that matches that `ObservedProperties` array as specified in <<OGC18-088>> Req 42. The unit of `count` SHALL be unity;
+* have a `Cell` association to the visited `Cell`.
+
+Each aggregate `Observation` SHALL:
+
+* have `phenomenonTime` equal to the time period of the aggregate interval;
+* have `result` equal to a JSON array of values in the same order as the advertised aggregate functions.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/aggregation/consistency
+
+Datastreams whose raw observations contribute to aggregates of the same `Cell` and the same base `ObservedProperty` SHALL use the same `unitOfMeasurement`.
+
+MultiDatastreams that publish aggregates of the same `Cell` and the same base `ObservedProperty` SHALL use the same `ObservedProperties` array and the same `unitOfMeasurements` array, regardless of the aggregate interval.
+====
+
+.Example aggregate `MultiDatastream` linked to a cell
+====
+[source,json]
+----
+{
+  "@iot.id": 42,
+  "name": "H3 891f8d7a49bffff 1hour aggregate",
+  "description": "Aggregated observations (min/max/avg/stddev/count) for H3 cell 891f8d7a49bffff at interval 1hour",
+  "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_ComplexObservation",
+  "multiObservationDataTypes": [
+    "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+    "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+    "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+    "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+    "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CountObservation"
+  ],
+  "unitOfMeasurements": [
+    { "name": "degree Celsius", "symbol": "degC", "definition": "http://www.qudt.org/vocab/unit/DEG_C" },
+    { "name": "degree Celsius", "symbol": "degC", "definition": "http://www.qudt.org/vocab/unit/DEG_C" },
+    { "name": "degree Celsius", "symbol": "degC", "definition": "http://www.qudt.org/vocab/unit/DEG_C" },
+    { "name": "degree Celsius", "symbol": "degC", "definition": "http://www.qudt.org/vocab/unit/DEG_C" },
+    { "name": "count", "symbol": "n", "definition": "http://www.opengis.net/def/uom/OGC/1.0/unity" }
+  ],
+  "properties": {
+    "dggs.system": "H3",
+    "dggs.cell": "891f8d7a49bffff",
+    "dggs.interval": "1hour"
+  },
+  "Cell": { "@iot.id": "891f8d7a49bffff" }
+}
+----
+====
+
+.Example aggregate `Observation`
+====
+[source,json]
+----
+{
+  "phenomenonTime": "2026-08-19T08:00:00.000Z/2026-08-19T09:00:00.000Z",
+  "resultTime": "2026-08-19T09:00:00.000Z",
+  "result": [19.2, 23.8, 21.41, 1.07, 48],
+  "MultiDatastream": { "@iot.id": 42 }
+}
+----
+====

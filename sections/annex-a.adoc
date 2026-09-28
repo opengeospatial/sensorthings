@@ -1,0 +1,545 @@
+[appendix,obligation="normative"]
+== Conformance Class Abstract Test Suite
+
+This normative section defines the DGGS 1.0 Conformance Class tests. These tests apply to the entity types and behaviours defined in this Standard. An implementation SHALL also pass the applicable Abstract Test Suite of <<OGC18-088>>.
+
+[NOTE]
+A DGGS 1.0 compliant implementation must also be compliant with the SensorThings API Sensing data model as defined in <<OGC18-088>>. An implementation that claims the Aggregation Conformance Class must also be compliant with the MultiDatastream Requirements Class of <<OGC18-088>> and with the ObservedProperties Conformance Class of this Standard.
+
+=== DGGS *Landing Page* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/landing-page/grid-system
+target:: {identifier}/conf/landing-page
+
+target:: {identifier}/req/grid-system
+
+
+test-purpose:: To verify that the implementation advertises the deployed grid system, the coarsest zone level, and the finest zone level as a JSON object on the landing page.
+test-method:: Inspect the landing page (the root URI):
+
+part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/req/grid-system`.
+
+part:: Verify that the object has a property `gridSystem` whose value is a non-empty CharacterString (for example `H3` or `GEOHASH`).
+
+part:: Verify that the object has a property `coarsestZoneLevel` whose value is an Integer.
+
+part:: Verify that the object has a property `finestZoneLevel` whose value is an Integer.
+
+part:: Verify that `finestZoneLevel` is greater than or equal to `coarsestZoneLevel`.
+
+part:: Verify that the `conformance` array of `serverSettings` contains `{identifier}/conf/landing-page`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/landing-page/cell-create-boundary
+target:: {identifier}/conf/landing-page
+
+target:: {identifier}/req/cell-create-boundary
+
+
+test-purpose:: To verify that the implementation advertises a Polygon or MultiPolygon that defines the area within which a `Cell` can be created.
+test-method:: Inspect the landing page (the root URI):
+
+part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/req/cell-create-boundary`.
+
+part:: Verify that the object has a property `encodingType` whose value is a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>.
+
+part:: Verify that the object has a property `boundary` whose value is a Polygon or a MultiPolygon, encoded as indicated by `encodingType`. A simple polygon or a multi-polygon with holes is permitted.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/landing-page/aggregate-functions
+target:: {identifier}/conf/landing-page
+
+target:: {identifier}/req/aggregate-functions
+
+
+test-purpose:: To verify that the implementation advertises each aggregate function with a definition identifier and a well-accepted mathematical equation.
+test-method:: Inspect the landing page (the root URI):
+
+part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/req/aggregate-functions`.
+
+part:: Verify that `functions` is a JSON array of five objects whose `id` values are `min`, `max`, `avg`, `stddev`, and `count`, in that order.
+
+part:: For each object, verify that `definition` is a URI, that `equation` is a non-empty CharacterString, and that `method` is a non-empty CharacterString.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/landing-page/entity-linking
+target:: {identifier}/conf/landing-page
+
+target:: {identifier}/req/entity-linking
+
+
+test-purpose:: To verify that the implementation advertises entity linking as specified in <<INSIDE-EntityLinking>>.
+test-method:: Inspect the landing page (the root URI):
+
+part:: Verify that the `conformance` array of `serverSettings` contains `https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md`.
+
+part:: Find the JSON object in the `serverSettings` object with that name and verify that `registeredLinks` includes `ObservedProperty/properties/derivations/derivation`, `ObservedProperty/properties/prov:wasDerivedFrom`, and `ObservedProperty/properties/prov:qualifiedDerivation/prov:wasDerivedFrom`.
+
+part:: Verify that each of those registered links has `targetType` equal to `ObservedProperty`.
+====
+
+
+
+=== DGGS *Cell* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell/common-control-information
+target:: {identifier}/conf/cell
+
+target:: {identifier}/req/common-control-information
+
+test-purpose:: To verify that the common control information is available as defined in the requirement.
+test-method-type:: Manually Inspect
+test-method:: Inspect the full JSON object of the `Cells` entity set (__i.e.__, without $select) to identify, if each entity has the common control information defined in Requirement Class <<common-control-information>> and the service sends appropriate responses as defined in this Standard.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell/entities
+inherit:: {identifier}/conf/cell/common-control-information
+target:: {identifier}/conf/cell
+
+target:: {identifier}/req/cell/properties
+target:: {identifier}/req/cell/relations
+target:: {identifier}/req/cell/consistency
+
+target:: {identifier}/req/observation/relations
+target:: {identifier}/req/datastream/relations
+target:: {identifier}/req/multidatastream/relations
+
+test-purpose:: Verify that each `Cell` entity has the mandatory properties and mandatory relations as defined in this Standard.
+test-method-type:: Manually Inspect
+test-method:: Evaluate for each `Cell` entity:
+
+part:: Inspect the full JSON object of the `Cells` entity set (__i.e.__, without $select) to identify, if each entity has the mandatory properties defined in Requirement Class <<cell>> (`zoneId` and `system`).
+
+part:: If a `Cell` has a `boundary` property, verify that `encodingType` is present and that the encoding of `boundary` follows the same rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>.
+
+part:: Inspect the full JSON object of each `Cell` (__i.e.__, without using the $select query option) to identify, if each entity has the mandatory relations (__i.e.__, `@iot.navigationLink`) defined in Requirement Class <<cell>> (`Parent`, `Children`, `Observations`, `Datastreams`, and `MultiDatastreams` if MultiDatastream is implemented).
+
+part:: Inspect an `Observation` entity and a `Datastream` entity and verify that the `Cell` navigation link is present.
+
+part:: If the implementation conforms to the MultiDatastream Requirements Class of <<OGC18-088>>, inspect a `MultiDatastream` entity and verify that the `Cell` navigation link is present.
+
+part:: Verify that `Cell/system` is identical to the `gridSystem` advertised on the landing page.
+
+part:: If two or more `Datastreams` are linked to the same `Cell` and observe the same `ObservedProperty`, verify that they use the same `unitOfMeasurement`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell/id-type
+inherit:: {identifier}/conf/cell/entities
+target:: {identifier}/conf/cell
+
+target:: {identifier}/req/cell/id-type
+
+
+test-purpose:: To verify that `Cell/@iot.id` is a CharacterString and is identical to `zoneId`.
+test-method-type:: Manually Inspect
+test-method:: Inspect `Cell` entities in the JSON encoding:
+
+part:: Verify that `@iot.id` is a JSON string, not a JSON number.
+
+part:: Verify that `zoneId` is identical to `@iot.id`.
+====
+
+
+=== DGGS *Cell CRUD* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell-crud/read
+inherit:: {identifier}/conf/cell/entities
+target:: {identifier}/conf/cell-crud
+
+target:: {identifier}/req/read/entity
+
+
+test-purpose:: Verify that the implementation supports reading `Cell` entities via HTTP GET.
+test-method-type:: Manually Inspect
+test-method:: Evaluate that the implementation accepts a SensorThings API compliant HTTP GET request to `Cell` entities:
+
+part:: Inspect the landing page `value` array and verify that it includes an element whose `name` is `Cells`.
+
+part:: Construct a URL to the `Cell` entity type and verify that the response is a SensorThings entity type as defined in <<OGC18-088>>.
+
+part:: Construct a URL to a `Cell` entity and verify the response.
+
+part:: Construct a URL to a non-existing `Cell` and verify that the service responds with HTTP 404, as specified in <<OGC18-088>>.
+
+part:: Construct a navigationLink URL `Cells({id})/Parent`, `Cells({id})/Children`, `Cells({id})/Observations`, and `Cells({id})/Datastreams`, and verify the responses.
+====
+
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell-crud/direct-create
+target:: {identifier}/conf/cell-crud
+
+target:: {identifier}/req/cell-cud/actor
+target:: {identifier}/req/cell-cud/direct-create
+
+
+test-purpose:: To verify that a non-administrator client cannot create a `Cell` by posting to the `Cell` entity type.
+test-method:: As a client that is not an administrator:
+
+part:: Send an HTTP POST request to the `Cell` entity type with a valid `Cell` representation and verify that the service responds with HTTP 403 Forbidden and does not create a `Cell`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell-crud/inline-create
+target:: {identifier}/conf/cell-crud
+
+target:: {identifier}/req/cell-cud/inline-create
+
+
+test-purpose:: To verify that inline creation of a `Cell` is rejected.
+test-method:: As a client that is not an administrator:
+
+part:: Create an `Observation` whose body contains an inline `Cell` representation that sets a property other than `@iot.id`, and verify that the service responds with HTTP 403 Forbidden and does not create the `Observation` or the `Cell`.
+
+part:: Repeat the test with a `Datastream`. If the implementation conforms to the MultiDatastream Requirements Class of <<OGC18-088>>, repeat the test with a `MultiDatastream`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell-crud/create-by-reference
+target:: {identifier}/conf/cell-crud
+
+target:: {identifier}/req/cell-cud/create-by-reference
+
+
+test-purpose:: To verify that a `Cell` is created by reference only, with `zoneId` identical to `@iot.id`, from the implementation template.
+test-method:: As a client that is not an administrator, using a `Cell` `@iot.id` that does not yet exist and whose geometry is spatially within the advertised cell-create boundary:
+
+part:: Create an `Observation` whose body contains `"Cell": { "@iot.id": "309f09" }` and no other `Cell` property. Verify that the service accepts the request as specified in <<OGC18-088>>.
+
+part:: Issue HTTP GET to `Cells('309f09')` and verify that the `Cell` exists, that `@iot.id` is the JSON string `"309f09"`, that `zoneId` is `"309f09"`, and that `system` is identical to the advertised `gridSystem`. If the `Cell` has a `boundary` property, verify that `encodingType` is present.
+
+part:: Repeat the create-by-reference request with the same `@iot.id` and verify that the existing `Cell` is reused (no second `Cell` with that identifier).
+
+part:: If the implementation also claims the <<conformance_class_authentication>> Conformance Class, perform this test as an authenticated client whose `Cell` is spatially within the advertised cell-create boundary.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell-crud/parent-materialization
+target:: {identifier}/conf/cell-crud
+
+target:: {identifier}/req/cell-cud/parent-materialization
+
+
+test-purpose:: To verify that missing parent cells are materialized down to the advertised coarsest zone level.
+test-method:: After creating a `Cell` by reference at a zone level finer than `coarsestZoneLevel`:
+
+part:: Follow the `Parent` navigationLink from the created `Cell` until there is no parent.
+
+part:: Verify that each visited parent exists, that its `zoneLevel` is coarser than its child, and that the last cell in the chain has `zoneLevel` less than or equal to the advertised `coarsestZoneLevel` and has no `Parent`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell-crud/create-boundary
+target:: {identifier}/conf/cell-crud
+
+target:: {identifier}/req/cell-cud/create-by-reference
+
+
+test-purpose:: To verify that a created `Cell` is spatially within the advertised cell-create boundary.
+test-method:: As a client that is not an administrator:
+
+part:: Submit a create-by-reference request for a `Cell` that is not spatially within the advertised cell-create boundary and verify that the service responds with HTTP 403 Forbidden and does not create the `Cell`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell-crud/anonymous
+target:: {identifier}/conf/cell-crud
+
+target:: {identifier}/req/cell-cud/create-by-reference
+
+
+test-purpose:: To verify that anonymous creation of a `Cell` is throttled.
+test-method:: As an unauthenticated client, using a `Cell` `@iot.id` that does not yet exist and whose geometry is spatially within the advertised cell-create boundary:
+
+part:: Repeatedly create an `Observation` whose body contains `"Cell": { "@iot.id": "<new-id>" }` until the implementation throttles the request.
+
+part:: Verify that the throttled response is HTTP 429 Too Many Requests and that the `Cell` was not created.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell-crud/update
+target:: {identifier}/conf/cell-crud
+
+target:: {identifier}/req/cell-cud/update
+
+
+test-purpose:: To verify that a non-administrator client cannot update a `Cell`.
+test-method:: As a client that is not an administrator:
+
+part:: Send an HTTP PATCH request to an existing `Cell` and verify that the service responds with HTTP 403 Forbidden and that the `Cell` is unchanged.
+
+part:: Send an HTTP PUT request to an existing `Cell` and verify that the service responds with HTTP 403 Forbidden and that the `Cell` is unchanged.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/cell-crud/delete
+target:: {identifier}/conf/cell-crud
+
+target:: {identifier}/req/cell-cud/delete
+
+
+test-purpose:: To verify that a non-administrator client cannot delete a `Cell`.
+test-method:: As a client that is not an administrator:
+
+part:: Send an HTTP DELETE request to an existing `Cell` and verify that the service responds with HTTP 403 Forbidden and that a subsequent HTTP GET returns the `Cell`.
+====
+
+
+=== DGGS *Authentication* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/authentication/cell-create
+target:: {identifier}/conf/authentication
+
+target:: {identifier}/req/authentication/cell-create
+
+
+test-purpose:: To verify that create-by-reference of a `Cell` by an authenticated client is not throttled.
+test-method:: As an authenticated client, using a `Cell` `@iot.id` that does not yet exist and whose geometry is spatially within the advertised cell-create boundary:
+
+part:: Create an `Observation` whose body contains `"Cell": { "@iot.id": "309f09" }` and no other `Cell` property.
+
+part:: Repeatedly submit create-by-reference requests and verify that the service does not respond with HTTP 429 Too Many Requests.
+====
+
+
+=== DGGS *ObservedProperties* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/observed-properties/base
+target:: {identifier}/conf/observed-properties
+
+target:: {identifier}/req/observed-properties/base
+
+
+test-purpose:: To verify that a base `ObservedProperty` identifies the derived aggregate `ObservedProperty` entities with entity linking.
+test-method:: Inspect a base `ObservedProperty` for which the implementation calculates aggregates:
+
+part:: Verify that `properties.role` is `base`.
+
+part:: Verify that `properties.derivations` is a JSON array with one `derivation.ObservedProperty@iot.id` for each advertised aggregate function.
+
+part:: Verify that `properties.aggregations` has an entry for `min`, `max`, `avg`, `stddev`, and `count`, that each `method` matches the advertised function `method`, and that each `target_id` is the `@iot.id` of the corresponding derived `ObservedProperty`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/observed-properties/derived
+target:: {identifier}/conf/observed-properties
+
+target:: {identifier}/req/observed-properties/derived
+
+
+test-purpose:: To verify that each derived `ObservedProperty` is linked to the base `ObservedProperty` and to the advertised aggregate function.
+test-method:: Inspect each derived `ObservedProperty` of that base property:
+
+part:: Verify that `properties.role` is `aggregate`.
+
+part:: Verify that `properties.aggregation_method` is identical to the advertised function `method`.
+
+part:: Verify that `properties.aggregation_function` is identical to the advertised function `definition` URI.
+
+part:: Verify that `prov:wasDerivedFrom.ObservedProperty@iot.id` is the `@iot.id` of the base `ObservedProperty`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/observed-properties/derived-cud
+target:: {identifier}/conf/observed-properties
+
+target:: {identifier}/req/observed-properties/derived-cud
+
+
+test-purpose:: To verify that a non-administrator client cannot create, update, or delete a derived `ObservedProperty`.
+test-method:: As a client that is not an administrator:
+
+part:: Send an HTTP POST request to the `ObservedProperty` entity type with a representation whose `properties.role` is `aggregate` and verify that the service responds with HTTP 403 Forbidden and does not create the `ObservedProperty`.
+
+part:: Send an HTTP PATCH or PUT request to an existing derived `ObservedProperty` and verify that the service responds with HTTP 403 Forbidden and that the entity is unchanged.
+
+part:: Send an HTTP DELETE request to an existing derived `ObservedProperty` and verify that the service responds with HTTP 403 Forbidden and that a subsequent HTTP GET returns the entity.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/observed-properties/multidatastream
+target:: {identifier}/conf/observed-properties
+
+target:: {identifier}/req/observed-properties/multidatastream
+
+
+test-purpose:: To verify that each value of an aggregate `MultiDatastream` is linked to the advertised aggregate function through its `ObservedProperty`.
+test-method:: Inspect an aggregate `MultiDatastream`:
+
+part:: Verify that the `ObservedProperties` array has the same length and order as the advertised `functions` array.
+
+part:: For each position, verify that the `ObservedProperty` at that position has `properties.aggregation_function` identical to the `definition` of the function at that position.
+====
+
+
+=== DGGS *Aggregation* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/aggregation/intervals
+target:: {identifier}/conf/aggregation
+
+target:: {identifier}/req/aggregation/intervals
+
+
+test-purpose:: To verify that the implementation advertises the configured aggregate intervals and the zone levels at which they apply.
+test-method:: Inspect the landing page (the root URI):
+
+part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/req/aggregation/intervals`.
+
+part:: Verify that `intervals` is a non-empty JSON array of CharacterString values.
+
+part:: Verify that `zoneLevels` is a JSON object whose values are JSON arrays of interval identifiers, and that every interval identifier in those arrays is listed in `intervals`.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/aggregation/functions
+target:: {identifier}/conf/aggregation
+
+target:: {identifier}/req/aggregation/functions
+
+
+test-purpose:: To verify that aggregate results match the advertised aggregate functions calculated from the contributing raw observations.
+test-method:: Create two or more numeric raw `Observation` entities linked by reference to the same `Cell`, with `phenomenonTime` values that fall in one advertised interval that applies at that cell's `zoneLevel`. After the implementation has published the aggregate:
+
+part:: Read the aggregate `Observation` of the `MultiDatastream` linked to that `Cell` for that interval.
+
+part:: Verify that `result` is a JSON array whose length equals the number of advertised aggregate functions and whose order is `min`, `max`, `avg`, `stddev`, `count`.
+
+part:: Verify that min, max, avg, and count match the contributing raw results and the advertised equations. If two or more raw results contribute, verify that stddev is the sample standard deviation. If fewer than two raw results contribute, verify that stddev is null.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/aggregation/traversal
+target:: {identifier}/conf/aggregation
+
+target:: {identifier}/req/aggregation/traversal
+
+
+test-purpose:: To verify that aggregation starts at the finest cell and visits every parent up to the coarsest zone level.
+test-method:: Create a numeric raw `Observation` linked by reference to a `Cell` whose `zoneLevel` is finer than the advertised `coarsestZoneLevel`. After the implementation has published aggregates:
+
+part:: Follow `Parent` from the linked `Cell` to the coarsest cell.
+
+part:: For each cell on that path, verify that a `MultiDatastream` linked to that `Cell` has an aggregate `Observation` for each interval that the landing page lists for that cell's `zoneLevel`.
+
+part:: Verify that no aggregate `MultiDatastream` is required for an interval that the landing page does not list for that zone level.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/aggregation/multidatastream
+target:: {identifier}/conf/aggregation
+
+target:: {identifier}/req/aggregation/multidatastream
+
+
+test-purpose:: To verify that aggregates are published as `Observation` entities of a `MultiDatastream` linked to the cell.
+test-method:: Inspect an aggregate `MultiDatastream` and one of its `Observation` entities:
+
+part:: Verify that `observationType` is `http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_ComplexObservation`.
+
+part:: Verify that the `ObservedProperties` array has one derived `ObservedProperty` for each advertised aggregate function, in that order, and that `unitOfMeasurements` matches as specified in <<OGC18-088>> Req 42.
+
+part:: Verify that the `MultiDatastream` has a `Cell` association to the visited `Cell`.
+
+part:: Verify that the aggregate `Observation` has a `phenomenonTime` period equal to the aggregate interval and a `result` array whose length equals the number of advertised aggregate functions.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/aggregation/consistency
+target:: {identifier}/conf/aggregation
+
+target:: {identifier}/req/aggregation/consistency
+target:: {identifier}/req/cell/consistency
+
+
+test-purpose:: To verify that Datastreams and MultiDatastreams linked to the same cell for the same base ObservedProperty use the same units and the same ObservedProperty array.
+test-method:: For a `Cell` that has more than one contributing `Datastream` for the same base `ObservedProperty`, and more than one aggregate `MultiDatastream` for that property:
+
+part:: Verify that the contributing `Datastreams` use the same `unitOfMeasurement`.
+
+part:: Verify that the aggregate `MultiDatastreams` use the same `ObservedProperties` array and the same `unitOfMeasurements` array.
+====
+
+
+=== DGGS *STAplus* Conformance Class Tests
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/staplus/aggregate-party
+target:: {identifier}/conf/staplus
+
+target:: {identifier}/req/staplus/aggregate-party
+
+
+test-purpose:: To verify that each aggregate `MultiDatastream` is owned by a `Party` whose `role` is `system`.
+test-method:: Inspect each aggregate `MultiDatastream`:
+
+part:: Verify that the `MultiDatastream` has a `Party` association.
+
+part:: Follow that association and verify that `Party/role` is the CharacterString `system`.
+
+part:: If the implementation claims <<OGC22-022r2>> and the `MultiDatastream` has a `License` whose `definition` identifies an attribution license, verify that `License/attributionText` does not copy the `attributionText` of a contributing source `License`, and that those source `License` entities remain reachable by expanding the contributing `Datastream` or `MultiDatastream`.
+====

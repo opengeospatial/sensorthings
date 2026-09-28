@@ -1,0 +1,44 @@
+[preface]
+== Preface
+
+This Standard extends <<OGC18-088>> (OGC SensorThings API Part 1: Sensing Version 1.1) with the `Cell` entity type so that observations can be spatially grouped into Discrete Global Grid System (DGGS) zones. A `Cell` represents a zone of a deployed grid system such as H3 or Geohash. An `Observation`, a `Datastream`, and a `MultiDatastream` may each be linked to zero-or-one `Cell`. That link expresses that the observation or stream belongs somewhere in that cell.
+
+The extension is fully backwards compatible with <<OGC18-088>>. An implementation that conforms to this Standard also conforms to the SensorThings Sensing data model of <<OGC18-088>>. This extension can also be used together with <<OGC22-022r2>> (STAplus 1.0.1) and with <<OGC26-040>> (STAplus 1.1).
+
+
+[abstract]
+== Abstract
+
+The OGC SensorThings API extension: DGGS 1.0 Standard specifies a backwards-compatible extension to <<OGC18-088>>. The extension can also be used with <<OGC22-022r2>> (STAplus 1.0.1) and with <<OGC26-040>> (STAplus 1.1).
+
+<<OGC18-088>> associates an observation with `Location/location` of a `Thing` and with `FeatureOfInterest/feature`. Neither of those geometries groups observations by a DGGS zone. This Standard adds the `Cell` entity so that observations can be spatially grouped: an observation linked to a `Cell`, or an observation of a `Datastream` or `MultiDatastream` linked to a `Cell`, was made somewhere in that cell. The optional `Cell/boundary` property is the geometry of that zone.
+
+The `Cell` entity records the zone identifier (`zoneId`), an optional zone level (`zoneLevel`), the grid system (`system`), the optional zone geometry (`boundary`) with its `encodingType`, and optional `properties`. `Cell/boundary` uses the same encoding rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>. A `Cell` has zero-or-one parent `Cell` and zero-to-many children, so the DGGS hierarchy is navigable through the SensorThings API. `Observation`, `Datastream`, and `MultiDatastream` each have a zero-or-one association to `Cell`.
+
+This Standard defines seven Conformance Classes. The mandatory `Cell` Conformance Class defines the data model extension. The mandatory `Landing Page` Conformance Class requires the implementation to advertise the deployed grid system (for example H3 or Geohash) on the landing page, to advertise a Polygon or MultiPolygon that defines the area within which a `Cell` can be created, to advertise each aggregate function with a definition identifier and a well-accepted mathematical equation, and to register entity linking. The `Cell CRUD` Conformance Class defines the Read of `Cell` via HTTP GET and restricts Create, Update, and Delete of a `Cell` to the implementation itself and to an administrator, so that cells remain uniform; a cell is created by reference only from an `Observation`, a `Datastream`, or a `MultiDatastream` (`{"@iot.id": "309f09"}` creates the `Cell` with `zoneId` equal to `"309f09"` from a template), and inline creation is rejected. A created `Cell` SHALL be within the advertised cell-create boundary. Anonymous creation is throttled (HTTP 429). The `Authentication` Conformance Class exempts authenticated creation of a `Cell` from throttling. The `ObservedProperties` Conformance Class defines how a base `ObservedProperty` is linked to the derived `ObservedProperty` of each aggregate function, and how that derived property is linked to the function advertised on the landing page. Create, Update, and Delete of a derived `ObservedProperty` are limited to the implementation itself and to an administrator. The `Aggregation` Conformance Class defines how an implementation calculates aggregate values from raw observations linked to a cell: the implementation is configured with aggregate intervals, and aggregation traverses from the finest resolution up to the coarsest resolution, visiting all parents. The optional `STAplus` Conformance Class applies when STAplus is enabled: each aggregate `MultiDatastream` is owned by a `Party` whose `role` is `system`.
+
+The key work for crafting this OGC Standard was undertaken in the _Enhancing Citizen Observatories for healthy, sustainable, resilient and inclusive cities_ (CitiObs) project, which received funding from the European Union’s Horizon Europe research and innovation program.
+
+[[submitters]]
+== Submitters
+
+All questions regarding this submission should be directed to the editors or the submitters:
+
+.Submitters
+[%autowidth,cols="3*"]
+|===
+|Name |Representing |OGC Member
+
+|Andreas Matheus
+|Secure Dimensions GmbH
+|Yes
+
+|Joan Maso
+|Centre de Recerca Ecològica i Aplicacions Forestals (CREAF)
+|Yes
+
+|Hylke van der Schaaf
+|Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+|Yes
+
+|===

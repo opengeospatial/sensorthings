@@ -1,0 +1,20 @@
+== Conventions
+
+This Clause provides details and examples for any conventions used in the document. Examples of conventions are symbols, abbreviations, use of XML schema, or special notes regarding how to read the document.
+
+=== Identifiers
+The normative provisions in this standard are denoted by the URI
+
+`{identifier}`
+
+All requirements and conformance tests that appear in this document are denoted by absolute URIs which are compliant with this base.
+
+Provisions inherited from <<OGC18-088>> are denoted by the URI `{identifier-sta}`.
+
+=== JSON encoding of relation names
+
+Association role names in the Clause 7 relation tables use STA PascalCase (`Cell`, `Observations`, `Datastreams`, `MultiDatastreams`, `Parent`, `Children`) as used in the JSON encoding. UML association ends in <<OGC18-088>> and in the DGGS 1.0 UML may use camelCase (`cell`, `observations`, `datastreams`, `multiDatastreams`, `parent`, `children`).
+
+=== Entity type URL
+
+The URL of the `Cell` entity type SHALL use the entity-set name `Cells`.

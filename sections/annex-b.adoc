@@ -1,0 +1,18 @@
+[appendix,obligation="informative"]
+[[annex-b]]
+== DGGS Data Model (informative)
+
+This appendix contains the Data Model UML diagrams at a larger scale for improved readability. The diagrams are derived from the Enterprise Architect model in `STA-DGGS.xml`.
+
+=== DGGS Data Model connected to `Datastream`
+[[fig-dggs-datastream-entities]]
+.DGGS 1.0 entities connected to Datastream
+[.text-center]
+image::./figures/STADGGSSensingEntities.png[DGGS 1.0 Entities connected to Datastream,scale=90%]
+
+
+=== DGGS Data Model connected to `MultiDatastream`
+[[fig-dggs-multidatastream-entities]]
+.DGGS 1.0 entities connected to MultiDatastream
+[.text-center]
+image::./figures/STADGGSMultiDatastreamExtensionEntities.png[DGGS 1.0 Entities connected to MultiDatastream,scale=90%]

@@ -1,0 +1,65 @@
+[[dggs-staplus]]
+== DGGS STAplus Requirements
+
+=== Overview
+
+The <<conformance_class_staplus>> Conformance Class is optional. An implementation that claims it SHALL also conform to <<OGC22-022r2>> (STAplus 1.0.1). An implementation that conforms to <<OGC26-040>> (STAplus 1.1) uses the same `Party` model, including `role` `system`. Contributor citation on an attribution license follows the Business Logic of the STAplus standard that the implementation claims.
+
+When this Conformance Class is claimed, each aggregate `MultiDatastream` is owned by a `Party` whose `role` is `system`. That `Party` is the producer of the aggregate. That association identifies aggregate `MultiDatastreams` among other streams.
+
+Creator identification of the aggregate follows `{identifier-staplus}/req/business-logic/attribution` in <<OGC22-022r2>>. `Party/displayName` and `Party/authId` are not creator identification. When the `License` of the aggregate identifies an attribution license, contributors are identified by reference to the source `License` instances. Their `attributionText` is not copied onto the aggregate.
+
+NOTE: The Requirements Class in this section is part of the Conformance Class <<conformance_class_staplus>>.
+
+[[staplus]]
+=== Requirements Class *STAplus*
+
+[requirements_class]
+.STAplus
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/staplus
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/aggregation
+inherit:: {identifier-staplus}/req-class/party
+requirement:: {identifier}/req/staplus/aggregate-party
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/staplus/aggregate-party
+
+Each aggregate `MultiDatastream` SHALL be owned by a `Party`. That `Party` SHALL have `role` equal to the CharacterString `system`. That `Party` is the producer of the aggregate.
+
+`Party/displayName` and `Party/authId` SHALL NOT be used as creator identification of the aggregate. When the `License` of the aggregate identifies an attribution license, contributor identification SHALL follow the attribution requirement of the STAplus standard that the implementation claims. For <<OGC22-022r2>>, that requirement is `{identifier-staplus}/req/business-logic/attribution`: contributors are identified by reference to the source `License` instances, and the aggregate `License` does not receive a copy of their `attributionText`.
+====
+
+.Example aggregate `MultiDatastream` owned by a system `Party`
+====
+[source,json]
+----
+{
+  "@iot.id": 42,
+  "name": "H3 891f8d7a49bffff 1hour aggregate",
+  "description": "Aggregated observations (min/max/avg/stddev/count) for H3 cell 891f8d7a49bffff at interval 1hour",
+  "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_ComplexObservation",
+  "Cell": { "@iot.id": "891f8d7a49bffff" },
+  "Party": { "@iot.id": 1 }
+}
+----
+
+The associated `Party`:
+
+[source,json]
+----
+{
+  "@iot.id": 1,
+  "displayName": "DGGS aggregation",
+  "role": "system",
+  "description": "Autonomous process that publishes aggregate MultiDatastreams"
+}
+----
+====

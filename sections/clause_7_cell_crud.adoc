@@ -1,0 +1,218 @@
+[[dggs-cell-crud]]
+== DGGS Cell CRUD Requirements
+
+=== Overview
+
+This clause defines the Read of `Cell` via HTTP GET and the restrictions on Create, Update, and Delete of a `Cell`.
+
+A Discrete Global Grid System is useful only if every `Cell` with a given identifier is the same zone of the same system at the same level. Create, Update, and Delete of a `Cell` are therefore limited to the implementation itself and to an administrator.
+
+A client SHALL NOT create a `Cell` by posting a `Cell` representation to the `Cell` entity type. A client SHALL NOT create a `Cell` inline in the body of an `Observation`, a `Datastream`, or a `MultiDatastream`. A client SHALL create a `Cell` by reference only, using the link-to-existing-entities pattern of <<OGC18-088>>:
+
+[source,json]
+----
+"Cell": { "@iot.id": "309f09" }
+----
+
+If the referenced `Cell` does not exist, the implementation SHALL create it from a template: `zoneId` SHALL be identical to `@iot.id`, and the remaining properties SHALL be filled from the advertised grid system. The implementation SHALL also create every parent `Cell` down to the advertised `coarsestZoneLevel`.
+
+A created `Cell` SHALL be spatially within the advertised cell-create boundary. Anonymous creation is throttled (HTTP 429). If the <<conformance_class_authentication>> Conformance Class is claimed, authenticated creation is not throttled.
+
+NOTE: The Requirements Classes in this section are part of the Conformance Class <<conformance_class_cell_crud>>.
+
+[[read-entity]]
+=== Requirements Class *Read*
+
+[requirements_class]
+.Read
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/read
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/entity-control-information
+inherit:: {identifier-sta}/req/resource-path
+inherit:: {identifier-sta}/req/request-data
+requirement:: {identifier}/req/read/entity
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/read/entity
+
+To read a `Cell` entity or the `Cell` entity type, the client SHALL send an HTTP GET request to that entity or the URL of the `Cell` entity type as defined in <<OGC18-088>>. The URL of the `Cell` entity type SHALL use the entity-set name `Cells`. The landing page `value` array specified in <<OGC18-088>> §9.2.1 SHALL include an element for the `Cells` entity set.
+
+If the target URL for the `Cell` entity type is a navigationLink, the entity is automatically linked to the entity or entities represented by the navigationLink.
+
+Upon successful completion, the response SHALL contain the representation of the entity or entities.
+
+NOTE: A read of a non-existing `Cell` SHALL return HTTP 404, compliant with <<OGC18-088>>.
+====
+
+[[cell-cud]]
+=== Requirements Class *Cell CUD*
+
+[requirements_class]
+.Cell CUD
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/cell-cud
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/cell
+inherit:: {identifier-sta}/req/create-update-delete/link-to-existing-entities
+requirement:: {identifier}/req/cell-cud/actor
+requirement:: {identifier}/req/cell-cud/direct-create
+requirement:: {identifier}/req/cell-cud/inline-create
+requirement:: {identifier}/req/cell-cud/create-by-reference
+requirement:: {identifier}/req/cell-cud/parent-materialization
+requirement:: {identifier}/req/cell-cud/update
+requirement:: {identifier}/req/cell-cud/delete
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell-cud/actor
+
+Create, Update, and Delete of a `Cell` by posting, putting, patching, or deleting the `Cell` entity type SHALL be performed only by the implementation itself or by an administrator. A request from any other client that would create, update, or delete a `Cell` in that way SHALL be rejected. The HTTP status code SHALL be 403 Forbidden.
+
+Creation of a `Cell` by reference, as specified in `{identifier}/req/cell-cud/create-by-reference`, SHALL be allowed, except where that requirement rejects the request. That creation is performed by the implementation from the template.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell-cud/direct-create
+
+An HTTP POST request to the `Cell` entity type from a client that is not an administrator SHALL be rejected with HTTP 403 Forbidden.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell-cud/inline-create
+
+A request that creates or updates an `Observation`, a `Datastream`, or a `MultiDatastream` SHALL NOT include an inline `Cell` representation. An inline `Cell` representation is a nested object that sets any property other than `@iot.id`, or that sets any navigation property. Such a request SHALL be rejected with HTTP 403 Forbidden.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell-cud/create-by-reference
+
+A request that creates or updates an `Observation`, a `Datastream`, or a `MultiDatastream` SHALL be allowed to create a `Cell` by reference only. The nested object SHALL contain `@iot.id` as a JSON string and SHALL NOT contain any other property or navigation property.
+
+If a `Cell` with that `@iot.id` already exists, the implementation SHALL link to that `Cell`.
+
+If a `Cell` with that `@iot.id` does not exist, the implementation SHALL create the `Cell` from a template. The created `Cell` SHALL have:
+
+* `@iot.id` equal to the referenced JSON string;
+* `zoneId` identical to `@iot.id`;
+* `system` equal to the advertised `gridSystem`;
+* `zoneLevel` equal to the resolution of that identifier in the deployed grid system, if the implementation stores `zoneLevel`;
+* `boundary` and `encodingType` filled by the implementation from the advertised grid system, if the implementation stores the zone geometry;
+* any other properties filled by the implementation from the advertised grid system.
+
+The created `Cell` SHALL be spatially within the cell-create boundary advertised as specified in <<cell-create-boundary>>. A request that would create a `Cell` that is not within that boundary SHALL be rejected with HTTP 403 Forbidden and SHALL not create the `Cell`.
+
+Anonymous creation of a `Cell` SHALL be throttled. A throttled request SHALL be rejected with HTTP 429 Too Many Requests and SHALL not create the `Cell`.
+
+The HTTP response of the creating request SHALL be as specified for entity creation in <<OGC18-088>>, except where this requirement rejects the request.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell-cud/parent-materialization
+
+When the implementation creates a `Cell` as specified in `{identifier}/req/cell-cud/create-by-reference`, the implementation SHALL also create every missing parent `Cell` from the next coarser zone level down to the advertised `coarsestZoneLevel`. Each created parent SHALL be linked through the `Parent` association. A `Cell` whose `zoneLevel` is less than or equal to `coarsestZoneLevel` SHALL have no `Parent`.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell-cud/update
+
+An HTTP PUT or PATCH request to a `Cell` entity from a client that is not an administrator SHALL be rejected with HTTP 403 Forbidden.
+====
+
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell-cud/delete
+
+An HTTP DELETE request to a `Cell` entity from a client that is not an administrator SHALL be rejected with HTTP 403 Forbidden. The `Cell` SHALL remain.
+====
+
+.Example — forbidden direct create
+====
+[source,http]
+----
+POST /v1.1/Cells HTTP/1.1
+Content-Type: application/json
+
+{
+  "@iot.id": "891f8d7a49bffff",
+  "zoneId": "891f8d7a49bffff",
+  "zoneLevel": 9,
+  "system": "H3"
+}
+----
+
+Response: HTTP 403 Forbidden
+====
+
+.Example — forbidden inline create
+====
+[source,json]
+----
+{
+  "phenomenonTime": "2026-08-19T08:00:00.000Z",
+  "resultTime": "2026-08-19T08:00:01.000Z",
+  "result": 21.5,
+  "Datastream": { "@iot.id": 1 },
+  "Cell": {
+    "@iot.id": "891f8d7a49bffff",
+    "zoneId": "891f8d7a49bffff",
+    "zoneLevel": 9,
+    "system": "H3"
+  }
+}
+----
+
+Response: HTTP 403 Forbidden
+====
+
+.Example — allowed create by reference
+====
+[source,json]
+----
+{
+  "phenomenonTime": "2026-08-19T08:00:00.000Z",
+  "resultTime": "2026-08-19T08:00:01.000Z",
+  "result": 21.5,
+  "Datastream": { "@iot.id": 1 },
+  "Cell": { "@iot.id": "309f09" }
+}
+----
+
+The implementation creates the `Observation` and materializes `Cells('309f09')` from the template if it does not exist: `zoneId` is `"309f09"`. The implementation also materializes every parent down to `coarsestZoneLevel`. A subsequent `GET /v1.1/Cells('309f09')` returns HTTP 200.
+====
+
+.Example — `Cell` outside the advertised cell-create boundary
+====
+A client creates an `Observation` with `"Cell": { "@iot.id": "309f09" }` for a `Cell` that is not spatially within the advertised cell-create boundary.
+
+Response: HTTP 403 Forbidden. The `Cell` is not created.
+====
+
+.Example — throttled anonymous create by reference
+====
+An unauthenticated client creates an `Observation` with `"Cell": { "@iot.id": "309f09" }` for a `Cell` that does not yet exist.
+
+Response: HTTP 429 Too Many Requests. The `Cell` is not created.
+====

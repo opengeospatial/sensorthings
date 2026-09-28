@@ -1,0 +1,56 @@
+[obligation=informative]
+== Introduction
+
+The SensorThings API extension: DGGS 1.0 extends <<OGC18-088>> so that observations can be spatially grouped: an observation linked to a `Cell` directly or indirectly via `Datastream` or `MultiDatastream` was made somewhere in that cell.
+
+The same `Cell` model can also be used with <<OGC22-022r2>> (STAplus 1.0.1) and with <<OGC26-040>> (STAplus 1.1). STAplus adds party, licence, grouping, and related entity types on top of SensorThings. An implementation may therefore deploy DGGS on SensorThings alone, or together with either STAplus 1.0.1 or STAplus 1.1. The optional <<conformance_class_staplus>> Conformance Class applies when STAplus is enabled.
+
+=== Motivation
+
+<<OGC18-088>> already has two spatial concepts. `Location/location` is the geometry of a `Thing`. `FeatureOfInterest/feature` is the geometry of the real-world object or area that was observed. Neither of those geometries answers the question that many dense, opportunistic, or privacy-sensitive observation collections actually ask: *which observations belong together because they occurred somewhere in the same region of a Discrete Global Grid?*
+
+That question is different from “where is the sensor?” and different from “what was observed?”. A mobile contributor may record an observation whose `FeatureOfInterest` is a lake, a street segment, or an unnamed phenomenon, while the only spatial statement that can honestly be made about the observation itself is that it happened *somewhere in this cell*. The same statement applies when coordinates are deliberately coarsened, when many independent observers contribute to the same area, or when a client wants a stable spatial key that does not depend on administrative boundaries.
+
+A Discrete Global Grid System, as specified in <<OGC20-040r3>>, partitions the Earth into a hierarchy of zones. Each zone has a compact identifier, a resolution (zone level), and exactly one parent at the next coarser level. Grouping observations by those zones gives SensorThings a spatial index that is uniform, hierarchical, and independent of `Location/location` and of `FeatureOfInterest/feature`. The optional `Cell/boundary` property is the geometry of that zone. It uses the same encoding rules as `Location/location` and `FeatureOfInterest/feature`.
+
+This extension therefore adds the `Cell` entity as that spatial grouping. Linking an `Observation` to a `Cell` means: this observation belongs somewhere in this cell. Linking a `Datastream` or a `MultiDatastream` to a `Cell` means: the observations of that stream are grouped in this cell. The parent/children association on `Cell` makes the DGGS hierarchy navigable with the same REST binding as the rest of the SensorThings API.
+
+=== Data model
+
+The UML diagrams in <<annex-b>> show the DGGS 1.0 data model connected to `Datastream` and to `MultiDatastream`. The `Cell` entity has:
+
+- **zoneId**: the string representation of the cell identifier in the deployed grid system. The value is identical to `@iot.id`. For H3 this is the hexadecimal index. For Geohash this is the geohash string. `@iot.id` is always a CharacterString so that a JavaScript client can parse it without loss of precision.
+- **zoneLevel**: the hierarchical resolution of the zone. This property is optional in the data model because some grid systems encode the level in the identifier (for example the length of a Geohash).
+- **system**: the identifier of the deployed grid system (for example `H3` or `GEOHASH`).
+- **boundary**: the geometry of the DGGS zone. It uses the same encoding rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>.
+- **encodingType**: the encoding type of `boundary`, as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>.
+- **properties**: optional application-specific annotations.
+
+A `Cell` has zero-or-one `Parent` and zero-to-many `Children`. An `Observation`, a `Datastream`, and a `MultiDatastream` each have zero-or-one `Cell`.
+
+Datastreams that are linked to the same `Cell` and that observe the same `ObservedProperty` use the same unit of measurement. MultiDatastreams that are linked to the same `Cell` and that represent the same aggregate of the same base `ObservedProperty` use the same `ObservedProperties` array and the same `unitOfMeasurements` array.
+
+=== Uniform cells
+
+A DGGS is useful only if every cell with a given identifier is the same zone of the same system at the same level. If clients were free to create, update, or delete `Cell` entities with arbitrary properties, two observations could be linked to the same `@iot.id` and still mean different zones. The <<conformance_class_cell_crud>> Conformance Class therefore limits Create, Update, and Delete of a `Cell` to the implementation itself and to an administrator.
+
+Clients do not POST a `Cell` body. Clients do not nest a full `Cell` representation inside an `Observation`, a `Datastream`, or a `MultiDatastream`. Clients create a `Cell` by reference only:
+
+[source,json]
+----
+"Cell": { "@iot.id": "309f09" }
+----
+
+If that `Cell` does not yet exist, the implementation materializes it from a template: `zoneId` is set to `@iot.id`, and the remaining properties (`system`, `zoneLevel`, `Parent`, optional `boundary` and `encodingType`, and any implementation-managed properties) are filled from the advertised grid system. The implementation also materializes every parent down to the configured coarsest zone level. Inline creation is rejected.
+
+Uncontrolled create-by-reference can flood the database. The <<conformance_class_landing_page>> Conformance Class therefore advertises a Polygon or MultiPolygon that defines the area within which a `Cell` can be created. The <<conformance_class_cell_crud>> Conformance Class requires that a created `Cell` is within that boundary and that anonymous creation is throttled. The <<conformance_class_authentication>> Conformance Class exempts authenticated creation of a `Cell` from throttling. Creating a `Cell` records neither a user identifier nor a `Party`.
+
+=== Aggregation
+
+Once observations are grouped by cell, an implementation can calculate summary values for each cell and for every coarser parent. The <<conformance_class_aggregation>> Conformance Class defines that behaviour without prescribing a storage architecture.
+
+The implementation is configured with a set of aggregate intervals and with the zone levels at which each interval applies. Short intervals typically apply to fine cells. Long intervals typically apply to coarse cells. When a raw observation is linked to a cell, aggregation starts at that cell (the finest resolution in the request) and visits every parent up to the coarsest configured zone level. For each visited cell and each applicable interval, the implementation calculates the aggregate functions advertised on the landing page and publishes the result as an `Observation` of a `MultiDatastream` that is linked to that `Cell`. Each value in that result is linked to a derived `ObservedProperty`, and that property is linked to the function definition identifier advertised on the landing page.
+
+The use of STAplus eases the aggregate `MultiDatastream` identification as an associated `Party` SHALL use the role `system`. That `Party` is the producer of the aggregate. Creator identification follows <<OGC22-022r2>>: `License/attributionText` when the license is an attribution license, by reference to the source `License` instances. `Party/displayName` and `Party/authId` are not creator identification. That association is specified in the optional <<conformance_class_staplus>> Conformance Class.
+
+The UML diagrams in <<annex-b>> show the DGGS 1.0 data model connected to `Datastream` and to `MultiDatastream`.

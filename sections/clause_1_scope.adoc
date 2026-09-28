@@ -1,0 +1,43 @@
+== Scope
+This Standard extends <<OGC18-088>> with the `Cell` entity type and with the corresponding associations from `Observation`, `Datastream`, and `MultiDatastream`. It also defines how an implementation advertises the deployed Discrete Global Grid System (DGGS), how Create, Update, and Delete of a `Cell` are restricted so that cells remain uniform, and how an implementation calculates aggregate values from raw observations linked to a cell.
+
+This Standard does not replace <<OGC18-088>>. All SensorThings Sensing requirements of <<OGC18-088>> remain in force unless this Standard explicitly extends them. This Standard does not require a particular DGGS (H3, Geohash, S2, ISEA3H, or any other). The deployed grid system and the cell-create boundary SHALL be advertised as specified in the <<conformance_class_landing_page>> Conformance Class.
+
+This Standard can also be used with <<OGC22-022r2>> (STAplus 1.0.1) and with <<OGC26-040>> (STAplus 1.1). <<OGC22-022r2>> is a normative reference for an implementation that claims the <<conformance_class_staplus>> Conformance Class. <<OGC22-022r2>> replaces STAplus 1.0 (OGC 22-022r1). This Standard inherits the Party Requirements Class at `{identifier-staplus}/req-class/party`. An implementation that combines this extension with STAplus remains subject to the STAplus requirements that it claims.
+
+This Standard does not specify a particular storage architecture, database product, or internal scheduling mechanism for aggregation.
+
+=== Security Considerations
+The Security Considerations of <<OGC18-088>> apply.
+
+The <<conformance_class_cell_crud>> Conformance Class restricts Create, Update, and Delete of a `Cell` to the implementation itself and to an administrator. That restriction is a uniformity control, not an access-control framework for observations. Access to `Observation`, `Datastream`, and `MultiDatastream` remains as defined in <<OGC18-088>> and in any security extension that the implementation advertises.
+
+Create by reference still materializes a `Cell` whenever a client creates an `Observation`, a `Datastream`, or a `MultiDatastream` with `"Cell": { "@iot.id": "..." }` for an identifier that does not yet exist. Uncontrolled creation of `Cell` entities can cause a denial of service. The implementation inserts a row for each new zone and for every missing parent down to `coarsestZoneLevel`. The database can be flooded.
+
+The number of possible cells at a fine zone level is very large. For H3, the number of cells at resolution _r_ is 2 + 120 × 7^r^ (see https://h3geo.org/docs/core-library/restable/[H3 cell statistics]). That is 33,897,029,882 cells at resolution 10, 237,279,209,162 cells at resolution 11, and 1,660,954,464,122 cells at resolution 12. For Geohash, each character of the identifier selects one of 32 cells. A Geohash of length 15 therefore names one of 32^15^ = 37,778,931,862,957,161,709,568 cells.
+
+.Number of possible cells at selected zone levels
+[cols="2,2,4",options="header"]
+|===
+|Grid system |Zone level |Number of cells
+
+|H3
+|10
+|33,897,029,882
+
+|H3
+|11
+|237,279,209,162
+
+|H3
+|12
+|1,660,954,464,122
+
+|Geohash
+|15
+|37,778,931,862,957,161,709,568
+|===
+
+Therefore, anonymous creation of a `Cell` is throttled. The implementation responds with HTTP 429 Too Many Requests. Authenticated creation of a `Cell` is not throttled. A created `Cell` SHALL be within the cell-create boundary advertised on the landing page.
+
+Those create restrictions are specified in the <<conformance_class_cell_crud>> and <<conformance_class_authentication>> Conformance Classes. The cell-create boundary is advertised as specified in the <<conformance_class_landing_page>> Conformance Class. The <<conformance_class_authentication>> Conformance Class exempts authenticated creation of a `Cell` from throttling. Creating a `Cell` records neither a user identifier nor a `Party`.
