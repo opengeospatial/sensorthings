@@ -1,0 +1,34 @@
+[[ats_accepted-clients_writeprofile-immutable]]
+[abstract_test]
+.Immutability of WriteProfiles
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/writeprofile-immutable
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-immutable
+test-purpose:: Verify that a WriteProfile cannot be changed after creation, so that provenance remains interpretable.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As OP, PATCH WP1 with a changed `entitySchemas`. Verify HTTP 400 and that `entitySchemas` is unchanged.
+--
+
+[.component,class=step]
+--
+As OP, PATCH WP1 with a changed `ObservedProperties` association. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As OP, DELETE WP1 while D1 is associated with it. Verify that the request is rejected (HTTP 400 or 409) and that WP1 still exists.
+--
+
+[.component,class=step]
+--
+As OP, create WP2 for C1 and PATCH WP2 with `status` = `superseded`. As U1 using C1, create a Datastream that references WP2. Verify HTTP 400. PATCH WP2 with `status` = `active`. Verify HTTP 400.
+--
+
+=====
+====

@@ -1,0 +1,11 @@
+[[req_accepted-clients_writeprofile-properties]]
+[requirement]
+.WriteProfile properties
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-properties
+part:: Each WriteProfile entity SHALL have the common control information defined in `http://www.opengis.net/spec/sensorthings-staplus/1.0/req/common-control-information`.
+part:: Each WriteProfile entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-writeprofile-properties>>, with the data types and values defined there. A WriteProfile entity SHALL NOT have a `properties` property.
+part:: Each member name of `entitySchemas` SHALL be a value of `entityTypes`, and each member value SHALL be a JSON Schema (draft 2020-12) document.
+part:: Each value of `entityTypes` SHALL be a member name of `entitySchemas`. The implementation SHALL reject the creation of a WriteProfile that does not satisfy this condition with HTTP 400.
+====

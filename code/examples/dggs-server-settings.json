@@ -1,0 +1,27 @@
+{
+  "conformance": [
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/landing-page",
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell",
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell-crud",
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/authentication",
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation",
+    "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr",
+    "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs"
+  ],
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/req/grid-system": {
+    "gridSystem": "H3",
+    "coarsestZoneLevel": 4,
+    "finestZoneLevel": 12
+  },
+  "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr": {
+    "privacyNotice": "https://example.org/staplus/privacy.html",
+    "locationGeneralization": {
+      "method": "dggs",
+      "zoneLevel": 7
+    },
+    "timeGeneralization": {
+      "resolution": "PT1H"
+    },
+    "minimumContributors": 5
+  }
+}

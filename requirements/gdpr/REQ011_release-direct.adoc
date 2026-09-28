@@ -1,0 +1,10 @@
+[[req_gdpr_release-direct]]
+[requirement]
+.Release of direct personal data
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-direct
+part:: The implementation SHALL NOT release a value of a direct personal data property of an entity attributable to a Party `P` whose `role` is `individual` to a requester `r` that is not the data subject of `P`, unless an Agreement of `P` exists that is effective for that property path, the operation `publish` and `r`.
+part:: This requirement SHALL apply to every response, including responses to requests with `$select`, `$expand` at any depth, navigation links, and MQTT payloads.
+part:: A value that is not released SHALL be omitted from the entity representation. It SHALL NOT be replaced by `null` or by a placeholder value.
+====

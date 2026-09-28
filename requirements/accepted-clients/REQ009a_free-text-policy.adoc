@@ -1,0 +1,11 @@
+[[req_accepted-clients_free-text-policy]]
+[requirement]
+.Verified free-text policy
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/free-text-policy
+part:: If `freeTextPolicy` is `none` or `controlled-vocabulary`, the implementation SHALL reject the creation of the WriteProfile with HTTP 400 unless every schema in `entitySchemas` for an entity type that has free-text properties (see <<tab-register>>) satisfies the following conditions: (a) `name` and `description` are either not admitted or constrained by `const` or `enum`, and so are, for Relation, `externalResource` and, for ObservationGroup, `purpose`; (b) `properties`, and for ObservationGroup `dataQuality`, is either not admitted, or every string value that it admits, at any depth and including array items, is constrained by `const` or `enum`, or by `format` with one of the values `date-time`, `date`, `time` or `duration`, and every JSON object value that it admits, including `properties` itself, is constrained by `additionalProperties` with the value `false`.
+part:: The implementation MAY reject a schema for which it cannot determine whether conditions (a) and (b) are satisfied.
+part:: A free-text value of an entity SHALL be exempt from <<req_gdpr_release-free-text>> if the request that last created or updated the entity was accepted from an accepted Client under a WriteProfile whose `freeTextPolicy` is `none` or `controlled-vocabulary` and the entity validated against the schema of that WriteProfile. For a Datastream or MultiDatastream, that WriteProfile SHALL be the WriteProfile bound to it.
+part:: A value written under a WriteProfile whose `freeTextPolicy` is `moderated` or `free`, or by a request to which <<req_accepted-clients_rights-exemption>> applies, SHALL NOT be exempt.
+====

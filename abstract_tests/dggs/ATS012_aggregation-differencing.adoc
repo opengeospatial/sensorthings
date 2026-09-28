@@ -1,0 +1,29 @@
+[[ats_dggs_aggregation-differencing]]
+[abstract_test]
+.Protection against differencing
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/aggregation-differencing
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/aggregation-differencing
+test-purpose:: Verify that a withheld aggregate cannot be derived from a released parent aggregate and its siblings.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Skip this test if the implementation does not claim `http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation`.
+--
+
+[.component,class=step]
+--
+Select a level-8 Cell c8 with children. Create Observations in one interval so that exactly one child c9a has fewer than k contributing individual Parties and all other children and c8 have at least k.
+--
+
+[.component,class=step]
+--
+As A, request the aggregates of c8 and of all its children for that interval. Verify that either the aggregate of c8 is withheld, or the aggregate of at least one further child of c8 is withheld in addition to c9a.
+--
+
+=====
+====

@@ -1,0 +1,9 @@
+[[req_dggs_query-consistency]]
+[requirement]
+.Query evaluation on released Cells
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/query-consistency
+part:: The implementation SHALL evaluate `$filter`, `$orderby` and `$count`, including expressions that navigate through `Cell`, `Parent` or `Children`, against the Cell associations as released to the requester.
+part:: The navigation `Cells(c)/Observations`, `Cells(c)/Datastreams` and `Cells(c)/MultiDatastreams` SHALL contain an attributable entity only if its Cell association is released to the requester as `c`.
+====

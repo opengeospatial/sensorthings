@@ -1,0 +1,8 @@
+[[rec_accepted-clients_software-statement]]
+[recommendation]
+.Software statements
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/accepted-clients/software-statement
+part:: The authorization server SHOULD register clients only with a software statement (<<RFC7591>>) signed by the operator, and the Client entity SHOULD carry that software statement, so that `software_id` and `software_version` are asserted by the operator rather than by the client.
+====

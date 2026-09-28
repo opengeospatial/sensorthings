@@ -1,0 +1,59 @@
+[[ats_dggs_write-zone-level]]
+[abstract_test]
+.Client-side obfuscation
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/write-zone-level
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/write-zone-level
+test-purpose:: Verify that a WriteProfile can limit the precision that a client sends to the endpoint.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Skip this test if the implementation does not claim the Accepted Clients conformance class.
+--
+
+[.component,class=step]
+--
+Precondition: WriteProfile WP5 of client C5 has `maxZoneLevel` = 9 and `locationPolicy` = `cell-only`.
+--
+
+[.component,class=step]
+--
+As U1 using C5, create an Observation linked to a level-10 Cell. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As U1 using C5, create an Observation with an inline FeatureOfInterest containing a Point. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As U1 using C5, create an Observation in a Datastream without Cell and without a Cell reference. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1 using C5, create an Observation linked to a level-9 Cell c9. Verify HTTP 201. As U1, verify that the FeatureOfInterest of the Observation has `feature` equal to the boundary of c9.
+--
+
+[.component,class=step]
+--
+Precondition: C5 is also associated with a WriteProfile WP6 with `locationPolicy` = `precise` that permits Location and FeatureOfInterest. As U1 using C5, create a FeatureOfInterest F1 with a Point `feature` under WP6. Verify HTTP 201. Create an Observation in the Datastream bound to WP5, linked to c9 and referencing F1. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As U1 using C5, create a Location L1 with a Point under WP6 and associate it with the Thing of the Datastream bound to WP5. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As U1 using C5, create a Thing T6 with a Location under WP6, then create a Datastream on T6 bound to WP5. Verify HTTP 403.
+--
+
+=====
+====

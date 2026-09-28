@@ -1,0 +1,54 @@
+[[ats_accepted-clients_client-acceptance]]
+[abstract_test]
+.Client acceptance
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/client-acceptance
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-acceptance
+test-purpose:: Verify that only accepted client releases, identified strictly by client identifier and software version or software identifier resolved from the credential, can write.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Obtain credentials for U1 that resolve to (a) the client identifier of C1 with the accepted software version `2.3.1`, (b) the same client identifier with software version `2.3.2`, which is not in the catalog, (c) the same client identifier with software version `2.3.1-beta`, and (d) a client identifier that is not in the catalog.
+--
+
+[.component,class=step]
+--
+With credential (a), create an Observation on D1 that satisfies WP1. Verify HTTP 201.
+--
+
+[.component,class=step]
+--
+With credential (a), repeat the request with an additional header or query parameter that states the software version `2.3.2`, for example a `User-Agent` header. Verify HTTP 201, that is, the implementation does not use the additional information.
+--
+
+[.component,class=step]
+--
+With credentials (b), (c) and (d), repeat the request. Verify HTTP 403 in each case and, as U1, that no additional Observation exists in D1.
+--
+
+[.component,class=step]
+--
+If the catalog contains a Client CS identified by `clientId` and `softwareId` only, obtain credentials that resolve to CS with the accepted software identifier and with a different software identifier. Verify that the first creates an Observation and the second receives HTTP 403.
+--
+
+[.component,class=step]
+--
+With a credential that resolves to U1 but to no client identification, repeat the request. Verify HTTP 401.
+--
+
+[.component,class=step]
+--
+If S writes with a credential managed by the operator that is bound to PS and to an accepted Client, create an Observation in a Datastream of PS that satisfies the WriteProfile of that Client. Verify HTTP 201.
+--
+
+[.component,class=step]
+--
+Without a credential, repeat the request. Verify HTTP 401.
+--
+
+=====
+====

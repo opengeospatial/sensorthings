@@ -1,0 +1,10 @@
+[[req_gdpr_advertisement]]
+[requirement]
+.Advertisement on the service root URI
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/advertisement
+part:: The `conformance` array of the `serverSettings` object on the service root URI SHALL contain `http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr`.
+part:: The `serverSettings` object SHALL contain a JSON object with the name `http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr` that contains the members listed in <<tab-gdpr-settings>>.
+part:: The HTML page describing the Business Logic, advertised according to `http://www.opengis.net/spec/sensorthings-staplus/1.0/req/business-logic/location`, SHALL contain a hyperlink to the privacy notice.
+====

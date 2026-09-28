@@ -1,0 +1,12 @@
+[[req_gdpr_campaign-participation]]
+[requirement]
+.Participation in Campaigns
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/campaign-participation
+part:: The implementation SHALL treat the associations `Datastream/Campaigns`, `MultiDatastream/Campaigns` and `ObservationGroup/Campaigns` of an entity attributable to a Party `P` whose `role` is `individual` as indirect personal data (see <<tab-register>>). It SHALL NOT release such an association to a requester `r` other than the data subject of `P` and the principal represented by the Party of the Campaign, unless an Agreement of `P` exists that is effective for the property path, the operation `publish` and `r`.
+part:: Where the association is not released, the entity SHALL NOT be contained in the navigation properties `Datastreams`, `MultiDatastreams` and `ObservationGroups` of the Campaign, the navigation property `Campaigns` of the entity SHALL NOT contain the Campaign, and query options and expressions that navigate through these associations, including `$expand` and `$count`, SHALL be evaluated as if the association did not exist.
+part:: Only the data subject of `P` SHALL be able to create such an association, including by deep insert and by update. A request by any other requester that would create it SHALL be rejected with HTTP 403.
+part:: The data subject of `P` and the principal represented by the Party of the Campaign SHALL each be able to remove the association at any time.
+part:: If the `classification` of a Campaign has a value that the privacy notice declares as sensitive, an Agreement SHALL be effective for the operation `publish` for property values of an entity that belongs to that Campaign, and for its association with that Campaign, only if its `legalBasis` is `explicit-consent`.
+====

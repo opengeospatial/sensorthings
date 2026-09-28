@@ -1,0 +1,9 @@
+[[req_gdpr_transport-security]]
+[requirement]
+.Transport security
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/transport-security
+part:: The implementation SHALL accept HTTP requests only over TLS (HTTPS) with TLS version 1.2 or later. A request received without TLS SHALL NOT be processed; the implementation SHALL either refuse the connection or respond with a redirect to the corresponding HTTPS URL without a response body containing entity data.
+part:: If the implementation claims an MQTT conformance class, the MQTT broker SHALL accept connections only over TLS (MQTT over TLS or MQTT over secure WebSockets).
+====

@@ -1,0 +1,34 @@
+[[ats_gdpr_agreement-relations]]
+[abstract_test]
+.Agreement relations
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-relations
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-relations
+test-purpose:: Verify that Agreement entities expose the defined navigation links and that the inverse navigation works for the data subject.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create an Agreement G1 for P1 that is associated with an existing Campaign C1.
+--
+
+[.component,class=step]
+--
+As U1, request G1 and verify that `Party@iot.navigationLink` and `Campaign@iot.navigationLink` are present.
+--
+
+[.component,class=step]
+--
+As U1, follow `Party@iot.navigationLink` and verify that P1 is returned. Follow `Campaign@iot.navigationLink` and verify that C1 is returned.
+--
+
+[.component,class=step]
+--
+As U1, request `Parties(P1)/Agreements` and `Campaigns(C1)/Agreements` and verify that each collection contains G1.
+--
+
+=====
+====

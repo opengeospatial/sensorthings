@@ -1,0 +1,10 @@
+[[req_accepted-clients_status-change]]
+[requirement]
+.Suspension and revocation
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/status-change
+part:: When the `status` of a Client changes to `suspended` or `revoked`, the implementation SHALL set `statusTime` and SHALL reject every subsequent create or update request from that Client with HTTP 403, including requests to Datastreams and MultiDatastreams created by that Client.
+part:: A Client whose `status` is `revoked` SHALL NOT change to another `status`. A Client whose `status` is `suspended` MAY change to `accepted`.
+part:: Suspension or revocation SHALL NOT delete entities created by the Client and SHALL NOT change their WriteProfile association.
+====

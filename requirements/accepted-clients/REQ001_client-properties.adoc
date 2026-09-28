@@ -1,0 +1,11 @@
+[[req_accepted-clients_client-properties]]
+[requirement]
+.Client properties
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-properties
+part:: Each Client entity SHALL have the common control information defined in `http://www.opengis.net/spec/sensorthings-staplus/1.0/req/common-control-information`.
+part:: Each Client entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-client-properties>>, with the data types and values defined there. A Client entity SHALL NOT have a `properties` property.
+part:: Each Client entity SHALL have at least one of the properties `softwareId` and `softwareVersion`.
+part:: No two Client entities SHALL have identical values for the combination of `clientId`, `softwareId` and `softwareVersion`, where an absent property counts as a distinct value.
+====

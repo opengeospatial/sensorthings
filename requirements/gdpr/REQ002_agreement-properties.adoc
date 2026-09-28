@@ -1,0 +1,12 @@
+[[req_gdpr_agreement-properties]]
+[requirement]
+.Agreement properties
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-properties
+part:: Each Agreement entity SHALL have the common control information defined in `http://www.opengis.net/spec/sensorthings-staplus/1.0/req/common-control-information`.
+part:: Each Agreement entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-agreement-properties>>, with the data types and values defined there.
+part:: The `audience` property SHALL be present if `permittedOperations` contains `publish`.
+part:: Each value of `coveredProperties` SHALL be a property path of <<tab-register>> whose column _Agreement-controlled_ is _yes_.
+part:: An Agreement entity SHALL NOT have a `properties` property.
+====

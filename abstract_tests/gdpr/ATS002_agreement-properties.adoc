@@ -1,0 +1,34 @@
+[[ats_gdpr_agreement-properties]]
+[abstract_test]
+.Agreement properties
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-properties
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-properties
+test-purpose:: Verify that an Agreement has the mandatory and optional properties with the defined data types and value domains.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create an Agreement for P1 with all mandatory properties and with the optional properties `name`, `description`, `effectiveTime` and `expiryTime`.
+--
+
+[.component,class=step]
+--
+As U1, request the created Agreement without `$select`. Verify that `@iot.id`, `@iot.selfLink`, `legalBasis`, `purpose`, `definition`, `coveredProperties`, `permittedOperations`, `audience`, `grantedTime`, `effectiveTime` and `status` are present.
+--
+
+[.component,class=step]
+--
+Verify that `legalBasis` is one of `consent`, `explicit-consent`, `contract`; that `permittedOperations` is a non-empty array of values from `store`, `publish`; that `audience` is one of `public`, `authenticated`; that `status` is one of `active`, `withdrawn`; that `definition` is an absolute URI; and that `grantedTime`, `effectiveTime` and `expiryTime` are ISO 8601 instants.
+--
+
+[.component,class=step]
+--
+Verify that no `properties` member is present.
+--
+
+=====
+====

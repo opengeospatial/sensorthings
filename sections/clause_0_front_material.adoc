@@ -1,0 +1,49 @@
+[abstract]
+== Abstract
+
+The OGC SensorThings API Extension: STAplus 1.0 Standard (corrigendum 1.0.1) supports multi-user deployments in which observations are owned by different parties, typically citizens. STAplus deliberately avoids storing personal data in an uncontrolled way, but it leaves the identification of personal data and the legal basis for processing them to the operator of the endpoint.
+
+This GDPR Profile closes that gap for deployments that are subject to the European General Data Protection Regulation (GDPR). It identifies the direct personal data of the STAplus data model, most prominently the properties of the `Party` entity type and the `attributionText` of party-specific `License` instances, and the indirect personal data that are captured in location and time properties inherited from SensorThings API. It adds the entity type `Agreement`, which records the authorization of a data subject for storing and publishing specific personal data, and it makes an effective `Agreement` the legal basis before an implementation releases, for example, `Party/displayName` or `License/attributionText`. Without an `Agreement`, precise location and time values are either generalized or withheld.
+
+The Profile defines one mandatory conformance class, _GDPR_, with requirements and abstract tests for the personal data register, the `Agreement` life cycle (creation, access, withdrawal, expiry), the release control for direct and indirect personal data, query evaluation that cannot be used as an oracle, attribution integrity, MQTT, the data subject rights of access, rectification and erasure, the advertisement of a privacy notice, and transport security. It specifies which STAplus 1.0.1 conformance classes an implementation of the GDPR conformance class shall implement.
+
+The optional conformance class _Accepted Clients_ addresses the fact that the operator of an endpoint usually does not know what applications write into free-text properties, `parameters` and observation results. Each endpoint keeps a public catalog of accepted client applications, identified strictly by their OAuth 2.0 `client_id` and software version or software identifier, together with `WriteProfile` entities that declare and enforce, by JSON Schema, what each application may write. Write requests from any other client are rejected with HTTP 403, and every `Datastream` and `MultiDatastream` is bound to the `WriteProfile` under which it was created.
+
+The optional conformance class _DGGS_ uses the cells of the OGC SensorThings API Extension: DGGS 1.0 (OGC 26-057) for spatial obfuscation. Locations are released as the cell of an advertised public zone level instead of coordinates; data subjects can authorize finer or coarser zone levels and define privacy zones in their Agreements; the Cell associations, cell navigation and the materialization of fine cells are controlled as personal data; accepted clients can be limited to sending cells only; and DGGS aggregates are released only when they cover a minimum number of distinct individuals.
+
+== Preface
+
+STAplus was designed with privacy in mind: the `Party` entity type omits the generic `properties` member, `Party/authId` is never exposed to other users, and the Business Logic conformance class of the corrigendum requires the operator to state that it is responsible for identifying personal data and for their lawful processing. Claiming the STAplus Business Logic conformance class explicitly does not constitute GDPR compliance of a deployment.
+
+Citizen science deployments, such as those of the Cos4Cloud and CitiObs projects, nevertheless need interoperable answers to recurring questions: Which STAplus and SensorThings properties are personal data? When may a display name or an attribution text be shown to others? How precise may the location of a citizen's sensor be when published? How does a citizen withdraw consent or erase their contributions? This Profile answers these questions in a testable way so that implementations behave identically and clients can rely on that behaviour.
+
+Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
+
+Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
+
+== Security considerations
+
+This Profile addresses the protection of personal data. It builds on the security considerations of STAplus 1.0.1, which remain applicable.
+
+Conformance with the GDPR conformance class demonstrates that an implementation provides the technical and data-model measures specified in this Profile, which are mapped to articles of the GDPR in <<annex-gdpr-mapping>>. It does not by itself demonstrate that a deployment complies with the GDPR. The controller (the operator of the endpoint) remains responsible for organisational obligations that cannot be tested at the API level, among them accountability (GDPR Article 5(2)), the records of processing activities (Article 30), contracts with processors (Article 28), notification of personal data breaches (Articles 33 and 34), the data protection impact assessment (Article 35), transfers to third countries (Chapter V), and the correctness of the privacy notice.
+
+Generalization of location and time values reduces, but does not eliminate, the risk of re-identification. A generalized location that remains linked to a `Party` through the ownership model is still personal data (pseudonymous data). Research on human mobility has shown that few spatio-temporal points suffice to single out most individuals <<deMontjoye2013>> and that coarse home and work locations can identify persons <<Golle2009>>. The operator therefore needs to choose the advertised resolutions based on a risk assessment of the deployment and needs to declare a legal basis for releasing generalized values (see <<req_gdpr_privacy-notice>>).
+
+The ownership model of STAplus makes `Party/@iot.id` and the navigation between a `Party` and its entities public. Even though STAplus requires `Party/@iot.id` to be a random identifier that is not correlated to the user identification, it links all contributions of one person. This Profile does not hide these associations, because doing so would break the ownership model; instead, the privacy notice needs to declare the legal basis for publishing them.
+
+An implementation needs to protect the values that are not released as carefully as the released ones: server logs, error messages, caches, backups, search indexes and administrative interfaces are outside of the API but can disclose the same data.
+
+Values of free-text properties (for example `Thing/description` or `Observation/parameters`) and `Observation/result` values such as images or audio recordings can contain personal data, including special categories of personal data. Free-text values of attributable entities are therefore released to others only on the basis of an `Agreement`. Observation results and parameters are not controlled by `Agreement` entities in this version of the Profile; the operator needs to classify them in the privacy notice. The Accepted Clients conformance class allows the operator to restrict such values to what accepted applications have declared, and to validate them on every write.
+
+The strength of the Accepted Clients conformance class depends on how reliably the credential identifies the software. The `client_id` of a public client, such as a mobile or browser application, is not a secret and can be reused by other software unless the client is authenticated with attestation and sender-constrained access tokens. An API key or other credential embedded in a public application can be extracted in the same way. Accepting a client is a statement of the operator about declared behaviour; the enforcement by JSON Schema is what the implementation guarantees. A schema cannot prevent a user from entering personal data where free text is permitted.
+
+DGGS cells make obfuscation standard and verifiable, but a coarse cell remains personal data while it is linked to a Party, and a sequence of coarse cells over time can still reveal routines. The public zone level therefore needs to be chosen together with the time generalization. Aggregates of DGGS cells are only anonymous if enough distinct individuals contribute; counting observations is not sufficient.
+
+== Submitters
+
+All questions regarding this submission should be directed to the editor or the submitters:
+
+|===
+|*Name* |*Affiliation* |*OGC Member*
+|Andreas Matheus |Secure Dimensions GmbH |Yes
+|===

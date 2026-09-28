@@ -1,0 +1,54 @@
+[[ats_accepted-clients_link-conformance]]
+[abstract_test]
+.Conformance of linked entities
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/link-conformance
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/link-conformance
+test-purpose:: Verify that an entity created without a Datastream is checked against the WriteProfile of every Datastream it is linked to.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Precondition: an accepted Client CX is associated with two WriteProfiles. WPA has `freeTextPolicy` = `free` and permits Thing, Location and FeatureOfInterest with schemas that admit any `name` and `description`. WPB has `freeTextPolicy` = `none`, permits Thing, Datastream and Observation, and its schema for Thing restricts `name` and `description` to the constant value `Station`.
+--
+
+[.component,class=step]
+--
+As U1 using CX, create a Thing T1 with `name` = `My garden`. Verify HTTP 201 (permitted by WPA).
+--
+
+[.component,class=step]
+--
+As U1 using CX, create a Datastream on T1 that references WPB. Verify HTTP 400 (T1 does not validate against WPB).
+--
+
+[.component,class=step]
+--
+As U1 using CX, create a Thing T2 with `name` and `description` = `Station`, and a Datastream D2 on T2 that references WPB. Verify HTTP 201 for both.
+--
+
+[.component,class=step]
+--
+As U1 using CX, PATCH T2 with `name` = `My garden`. Verify HTTP 400 and that `name` is unchanged.
+--
+
+[.component,class=step]
+--
+As U1 using CX, create a Location L1 without a Thing. Verify HTTP 201 (permitted by WPA). Associate L1 with T2. Verify HTTP 403 (Location is not permitted by WPB) and that T2 has no Location.
+--
+
+[.component,class=step]
+--
+As U1 using CX, create a FeatureOfInterest F1 without an Observation. Verify HTTP 201. Create an Observation on D2 that references F1. Verify HTTP 403 (FeatureOfInterest is not permitted by WPB) and that no Observation was created.
+--
+
+[.component,class=step]
+--
+As U1 using CX, create an Observation on D2 without a FeatureOfInterest. Verify that the request is not rejected under this requirement because of the FeatureOfInterest that the implementation generates.
+--
+
+=====
+====

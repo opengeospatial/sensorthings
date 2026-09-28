@@ -1,0 +1,44 @@
+[[ats_gdpr_agreement-immutable]]
+[abstract_test]
+.Immutability of Agreements
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-immutable
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-immutable
+test-purpose:: Verify that the content of an Agreement cannot be changed and that other users cannot modify or delete it.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create an active Agreement G1 for P1.
+--
+
+[.component,class=step]
+--
+As U1, PATCH G1 with a new value for `purpose`. Verify HTTP 400 and that `purpose` is unchanged.
+--
+
+[.component,class=step]
+--
+As U1, PATCH G1 with `coveredProperties` extended by one path. Verify HTTP 400 and that `coveredProperties` is unchanged.
+--
+
+[.component,class=step]
+--
+As U2, PATCH G1 with `status` = `withdrawn`. Verify HTTP 404. As U1, verify that `status` is still `active`.
+--
+
+[.component,class=step]
+--
+As U2, DELETE G1. Verify HTTP 404. As U1, verify that G1 still exists.
+--
+
+[.component,class=step]
+--
+As U1, PATCH G1 with `status` = `withdrawn`, then PATCH G1 with `status` = `active`. Verify HTTP 400 for the second request and that `status` is `withdrawn`.
+--
+
+=====
+====

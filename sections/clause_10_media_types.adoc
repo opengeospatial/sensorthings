@@ -1,0 +1,5 @@
+== Media types
+
+This Profile does not define new media types. `Agreement` entities are encoded in JSON with the media type `application/json`, as all other SensorThings API and STAplus entities. The privacy notice is an HTML page with the media type `text/html`.
+
+Generalized locations are encoded with the `encodingType` values for `FeatureOfInterest` and `Location` defined in STAplus 1.0.1 (`application/geo+json` and, where the Geometry-WKT conformance class is claimed, `application/wkt`), in the default-CRS.

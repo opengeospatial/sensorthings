@@ -1,0 +1,297 @@
+[[clause-accepted-clients]]
+== Requirements Class Accepted Clients
+
+=== Overview
+
+The Accepted Clients requirements class lets the operator of an endpoint know which software writes to the endpoint and what that software is allowed to write. It adds two entity types:
+
+* `Client`: an application release that the operator has accepted, identified by its client identifier together with its software version, its software identifier, or both, for example the OAuth 2.0 `client_id` (<<RFC6749>>) and the `software_version` and `software_id` (<<RFC7591>>); and
+* `WriteProfile`: the declared and enforced write behaviour of one or more Clients: which entity types, ObservedProperties and observation types they may write, and JSON Schemas (<<JSONSchema>>) that every written entity has to satisfy, including `result`, `parameters`, `properties`, `name` and `description`.
+
+Each endpoint keeps its own catalog of Client and WriteProfile entities. The catalog is public: any requester can read it through the SensorThings API. Only catalog administrators appointed by the operator can change it.
+
+The implementation resolves, from the single credential presented with each create or update request, both the principal (a user or, for a Party whose `role` is `institutional` or `system`, the organisation or system) and the client release, and accepts the request only if the catalog contains an accepted Client with an identical client identifier and an identical software version or software identifier. There are no version ranges: every accepted release is a separate Client entity. Every Datastream and MultiDatastream is bound, at creation, to the WriteProfile under which it was created. This provenance cannot be changed, and only Clients that implement that WriteProfile can add observations to it.
+
+Requests with which data subjects exercise their rights (deletion, creation and withdrawal of Agreements, rectification) are exempt, so that the catalog can never prevent a data subject from exercising a GDPR right.
+
+[[fig-accepted-clients]]
+.Write request processing with Accepted Clients
+[source]
+----
+credential ──► principal identifier, client identifier, software version / software identifier
+              (for example JWT claims, token introspection, registered credential)
+                        │
+      credential resolves to both principal and client?  ── no ──► HTTP 401
+                        │
+                        ▼
+      Client in own catalog with status "accepted" and identical identification?  ── no ──► HTTP 403
+                        │ yes
+                        ▼
+      WriteProfile of that Client permits entity type, ObservedProperty, observationType? ── no ──► HTTP 403
+                        │ yes
+                        ▼
+      Entity validates against the WriteProfile's JSON Schema?  ── no ──► HTTP 400
+                        │ yes
+                        ▼
+      Observation: Client implements the WriteProfile bound to the Datastream?  ── no ──► HTTP 403
+                        │ yes
+                        ▼
+      GDPR requirements class (Agreements, storage rules) ──► entity created / updated
+----
+
+include::../requirements/accepted-clients/requirements_class_accepted-clients.adoc[]
+
+=== Entity type Client
+
+[[tab-client-properties]]
+.Properties of a Client entity
+[cols="20,38,24,18",options="header"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|`clientId`
+|The identifier of the client application, as bound to the credential by the issuer of the credential, for example the OAuth 2.0 client identifier (<<RFC6749>>, Section 2.2).
+|CharacterString
+|One (mandatory)
+
+|`name`
+|A human-readable name of the application.
+|CharacterString
+|One (mandatory)
+
+|`description`
+|A short description of the application and its purpose.
+|CharacterString
+|Zero or one (optional)
+
+|`url`
+|The home page of the application.
+|URL
+|Zero or one (optional)
+
+|`softwareId`
+|The software identifier of the accepted application, as bound to the credential, for example the `software_id` of <<RFC7591>>.
+|CharacterString
+|Zero or one; at least one of `softwareId` and `softwareVersion` is present
+
+|`softwareVersion`
+|The software version of the accepted release, as bound to the credential, for example the `software_version` of <<RFC7591>>.
+|CharacterString
+|Zero or one; at least one of `softwareId` and `softwareVersion` is present
+
+|`clientType`
+|The client type (<<RFC6749>>, Section 2.1): `confidential` if the client can keep its credentials secret, `public` otherwise.
+|ValueCode [`confidential`, `public`]
+|One (mandatory)
+
+|`authenticationMethod`
+|The method with which the client proves its identity to the issuer of the credential. The values are the `token_endpoint_auth_method` values of <<RFC7591>>, the value `attestation` for platform or key attestation, and the value `registered-credential` for a credential that the operator issues and binds to one user and one Client, such as an API key.
+|ValueCode [`client_secret_basic`, `client_secret_post`, `client_secret_jwt`, `private_key_jwt`, `tls_client_auth`, `self_signed_tls_client_auth`, `attestation`, `registered-credential`, `none`]
+|One (mandatory)
+
+|`status`
+|The acceptance state of the Client.
+|ValueCode [`accepted`, `suspended`, `revoked`]
+|One (mandatory)
+
+|`acceptedTime`
+|The time at which the Client was accepted.
+|TM_Instant
+|One (mandatory)
+
+|`statusTime`
+|The time of the last change of `status`.
+|TM_Instant
+|Zero or one; present after a change of `status`
+
+|`softwareStatement`
+|The software statement (<<RFC7591>>, Section 2.3) in JWS compact serialization with which the client was registered.
+|CharacterString
+|Zero or one (optional)
+|===
+
+[[tab-client-relations]]
+.Direct relation from a Client entity to other entity types
+[cols="20,20,20,40",options="header"]
+|===
+|Relation name |Entity type |Cardinality |Description
+
+|`Party` |Party |Zero or One |A Client has zero-to-one Party: the provider of the application, with the `role` `institutional`.
+|`WriteProfiles` |WriteProfile |Zero to Many |A Client has zero-to-many WriteProfiles that it implements.
+|===
+
+[[tab-relations-to-client]]
+.Direct relation from a STAplus entity type to Client
+[cols="20,20,20,40",options="header"]
+|===
+|Relation name |Source entity type |Cardinality |Description
+
+|`Clients` |Party |Zero to Many |A Party has zero-to-many Clients that it provides.
+|===
+
+include::../requirements/accepted-clients/REQ001_client-properties.adoc[]
+
+include::../requirements/accepted-clients/REQ002_client-relations.adoc[]
+
+=== Entity type WriteProfile
+
+A WriteProfile describes the write behaviour that one or more Clients have declared and that the implementation enforces. Several releases of the same application can implement the same WriteProfile; a new WriteProfile is needed only when the write behaviour changes. Because Datastreams and MultiDatastreams are bound to a WriteProfile, a WriteProfile cannot be changed after creation; it can only be superseded.
+
+The `entitySchemas` are the enforcement mechanism for content that the implementation cannot otherwise interpret. For example, a schema for `Observation` can restrict `result` to a number range and `parameters` to a closed set of members, and a schema for `Datastream` can restrict `name` and `description` to an enumeration or a pattern. `resultCategory` and `clientSideProcessing` are declarations that make the behaviour of the Client transparent to data consumers and data subjects. `freeTextPolicy` is verified: for `none` and `controlled-vocabulary`, the implementation checks when the WriteProfile is created that its schemas admit no free text (<<req_accepted-clients_free-text-policy>>). Names, descriptions and properties written under such a WriteProfile are not the text of a user and are released without an Agreement of the data subject; text written under `moderated` or `free` is released only with an Agreement (<<req_gdpr_release-free-text>>).
+
+[[tab-writeprofile-properties]]
+.Properties of a WriteProfile entity
+[cols="20,38,24,18",options="header"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|`name`
+|A label for the WriteProfile.
+|CharacterString
+|One (mandatory)
+
+|`description`
+|A short description of the WriteProfile.
+|CharacterString
+|Zero or one (optional)
+
+|`entityTypes`
+|The SensorThings API and STAplus entity types that Clients implementing this WriteProfile may create or update, for example `Thing`, `Location`, `Datastream`, `Observation`, `FeatureOfInterest`.
+|Array of CharacterString, at least one element
+|One (mandatory)
+
+|`observationTypes`
+|The permitted values of `Datastream/observationType` and `MultiDatastream/multiObservationDataTypes`.
+|Array of URI
+|Zero or one; mandatory if `entityTypes` contains `Datastream` or `MultiDatastream`
+
+|`resultCategory`
+|The declared nature of the observation results: `environmental` (the result describes the environment), `subject-related` (the result describes the data subject, for example physiological values or the position of the person), or `media` (images, audio or video that can show persons).
+|ValueCode [`environmental`, `subject-related`, `media`]
+|One (mandatory)
+
+|`freeTextPolicy`
+|The handling of user-entered text: `none` (no user-entered text), `controlled-vocabulary` (values from a fixed list), `moderated` (text is reviewed before it is written), or `free`. `none` and `controlled-vocabulary` are verified against `entitySchemas`.
+|ValueCode [`none`, `controlled-vocabulary`, `moderated`, `free`]
+|One (mandatory)
+
+|`entitySchemas`
+|For each entity type in `entityTypes`, a JSON Schema (draft 2020-12) that every created or updated entity of that type validates against. Navigation properties are excluded from validation.
+|JSON Object (member name: entity type; member value: JSON Schema)
+|One (mandatory)
+
+|`clientSideProcessing`
+|The declared processing on the device before upload, with the optional members `locationResolution` (Number, metres) and `mediaAnonymization` (Array of ValueCode [`faces`, `license-plates`, `voices`]).
+|JSON Object
+|Zero or one (optional)
+
+|`creationTime`
+|The time at which the WriteProfile was created.
+|TM_Instant
+|One (mandatory)
+
+|`status`
+|The state of the WriteProfile. A superseded WriteProfile is not bound to new Datastreams or MultiDatastreams.
+|ValueCode [`active`, `superseded`]
+|One (mandatory)
+|===
+
+[[tab-writeprofile-relations]]
+.Direct relation from a WriteProfile entity to other entity types
+[cols="22,20,18,40",options="header"]
+|===
+|Relation name |Entity type |Cardinality |Description
+
+|`Clients` |Client |One to Many |A WriteProfile has one-to-many Clients that implement it.
+|`ObservedProperties` |ObservedProperty |Zero to Many |A WriteProfile has zero-to-many ObservedProperties that Datastreams and MultiDatastreams bound to it may observe.
+|`Datastreams` |Datastream |Zero to Many |A WriteProfile has zero-to-many Datastreams bound to it.
+|`MultiDatastreams` |MultiDatastream |Zero to Many |A WriteProfile has zero-to-many MultiDatastreams bound to it.
+|===
+
+[[tab-relations-to-writeprofile]]
+.Direct relation from a SensorThings API or STAplus entity type to WriteProfile
+[cols="22,22,18,38",options="header"]
+|===
+|Relation name |Source entity type |Cardinality |Description
+
+|`WriteProfiles` |Client |Zero to Many |A Client has zero-to-many WriteProfiles.
+|`WriteProfiles` |ObservedProperty |Zero to Many |An ObservedProperty has zero-to-many WriteProfiles that permit it.
+|`WriteProfile` |Datastream |Zero or One |A Datastream has zero-to-one WriteProfile: the WriteProfile under which it was created (provenance).
+|`WriteProfile` |MultiDatastream |Zero or One |A MultiDatastream has zero-to-one WriteProfile: the WriteProfile under which it was created (provenance).
+|===
+
+NOTE: A Datastream or MultiDatastream created by an implementation of this requirements class always has a WriteProfile. The cardinality Zero or One accommodates entities that existed before the implementation claimed this requirements class.
+
+include::../requirements/accepted-clients/REQ003_writeprofile-properties.adoc[]
+
+include::../requirements/accepted-clients/REQ004_writeprofile-relations.adoc[]
+
+include::../requirements/accepted-clients/REQ005_entity-sets.adoc[]
+
+=== The client catalog
+
+include::../requirements/accepted-clients/REQ006_registry-access.adoc[]
+
+include::../requirements/accepted-clients/REQ007_writeprofile-immutable.adoc[]
+
+=== Client acceptance and write enforcement
+
+The identification relies on a single credential that resolves to both the principal and the client release. How the implementation resolves it is not specified. With OAuth 2.0, the implementation reads `client_id` from a JWT access token (<<RFC9068>>) or obtains it by token introspection (<<RFC7662>>); `software_id` and `software_version` are client metadata defined in <<RFC7591>>, which the authorization server adds to the token or the introspection response, or which the implementation obtains from the client registration. With a credential registered by the operator, such as an API key or a local account used with HTTP Basic authentication, the implementation looks up the principal and the Client to which the credential is bound. For an autonomous system, the principal and the client can be the same software; the OAuth 2.0 client credentials grant, whose access token has the client as subject, is an example. In every case, the client identification comes from the binding made by the issuer of the credential, never from other parts of the request such as a `User-Agent` header. How strongly the client identifier is bound to the actual software depends on how the client proves its identity to the issuer (see <<rec_accepted-clients_client-authentication>>).
+
+include::../requirements/accepted-clients/REQ008_client-acceptance.adoc[]
+
+include::../requirements/accepted-clients/REQ009_writeprofile-enforcement.adoc[]
+
+include::../requirements/accepted-clients/REQ009a_free-text-policy.adoc[]
+
+include::../requirements/accepted-clients/REQ010_provenance-binding.adoc[]
+
+include::../requirements/accepted-clients/REQ011_bound-writes.adoc[]
+
+Things, Locations and FeaturesOfInterest can be created without a Datastream. Such an entity is accepted if any WriteProfile of the Client permits it. A Client with several WriteProfiles could therefore create a Location with precise coordinates, or a Thing with free text, under a lenient WriteProfile and later link it to a Datastream whose WriteProfile does not permit it. The implementation therefore checks each entity again when it is linked: an entity has to conform to every WriteProfile that governs it through the Datastreams and Observations it is associated with. The check applies in both directions, when a Location or FeatureOfInterest is linked to a governed Thing or Observation, and when a Datastream is created on an existing Thing.
+
+include::../requirements/accepted-clients/REQ011a_link-conformance.adoc[]
+
+NOTE: Because an entity has to conform to every WriteProfile that governs it, the stricter WriteProfile always prevails. This has two consequences. First, a Thing cannot carry Datastreams of two applications whose WriteProfiles contain conflicting schemas for Thing, for example two different constant values for `name`; each application then uses its own Thing, which corresponds to the usual modelling of one Thing per device or application. Catalog administrators who want applications to share Things should accept only WriteProfiles whose schemas for Thing, Location and FeatureOfInterest are compatible. Second, a later application can never loosen what an earlier one has declared: once a Thing carries a Datastream bound to a WriteProfile with `locationPolicy` `cell-only` (<<clause-dggs>>), it cannot be associated with a precise Location, even by an application whose own WriteProfile permits precise positions.
+
+include::../requirements/accepted-clients/REQ012_rights-exemption.adoc[]
+
+include::../requirements/accepted-clients/REQ013_status-change.adoc[]
+
+include::../requirements/accepted-clients/REC_client-authentication.adoc[]
+
+include::../requirements/accepted-clients/REC_software-statement.adoc[]
+
+=== Provenance and personal data
+
+The application that a person uses to contribute can itself reveal information about the person, for example the use of a health application. The association of a Datastream or MultiDatastream with its WriteProfile is therefore part of the personal data register (<<tab-register>>) and released to others only with an Agreement. The catalog itself contains no personal data: the provider of an application is an institutional Party.
+
+include::../requirements/accepted-clients/REQ014_provenance-release.adoc[]
+
+include::../requirements/accepted-clients/REQ015_mqtt-create.adoc[]
+
+=== Agreements restricted to applications
+
+An Agreement of the GDPR requirements class releases a value to every requester of its `audience`, whatever application the requester uses. With the client catalog, a data subject can restrict the release further to named applications, for example "`show my display name to registered users of the AirBuddy app`". The implementation then resolves the client identification also for read requests and releases the value only if the request comes through one of the listed applications.
+
+The Agreement refers to client identifiers, not to Client entities. A Client entity describes one release, whereas a data subject agrees to an application; an Agreement that referenced a release would stop being effective with the next release. Because Agreements are immutable, the reference to the application keeps the Agreement valid across releases, and the status of the Client entities decides whether a release is currently trusted.
+
+[[tab-agreement-ac-properties]]
+.Additional property of an Agreement entity (Accepted Clients)
+[cols="17,38,23,22",options="header"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|`clientIds`
+|The client identifiers of the applications through which the covered values may be released. If absent, the release is not restricted to applications.
+|Array of CharacterString, at least one element
+|Zero or one (optional); only with `audience` `authenticated`
+|===
+
+include::../requirements/accepted-clients/REQ015a_client-restricted-agreements.adoc[]
+
+NOTE: A restriction to applications controls to which applications the implementation releases a value, not what those applications do with it. The provider of a listed application becomes a recipient of the value; the privacy notice (GDPR Article 13(1)(e)) and the terms of the application need to cover this. The restriction is only as strong as the identification of the client: a public client without attestation can be impersonated by other software that uses its client identifier (see <<rec_accepted-clients_client-authentication>>).
+
+=== Advertisement
+
+include::../requirements/accepted-clients/REQ016_advertisement.adoc[]

@@ -1,0 +1,10 @@
+[[req_accepted-clients_registry-access]]
+[requirement]
+.Access to the client catalog
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/registry-access
+part:: The implementation SHALL allow any requester, including unauthenticated requesters, to read Client and WriteProfile entities, including requests with `$filter`, `$expand`, `$select`, `$orderby` and `$count`.
+part:: The implementation SHALL accept the creation, update and deletion of Client and WriteProfile entities only from requesters that the operator has authorized as catalog administrators. Such requests from other requesters SHALL be rejected with HTTP 403 (authenticated) or HTTP 401 (unauthenticated).
+part:: Each endpoint SHALL maintain its own catalog. Client and WriteProfile entities of another endpoint SHALL NOT be used to decide whether a write request is accepted.
+====

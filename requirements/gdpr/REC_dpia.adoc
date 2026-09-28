@@ -1,0 +1,8 @@
+[[rec_gdpr_dpia]]
+[recommendation]
+.Data protection impact assessment
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/gdpr/dpia
+part:: The operator SHOULD carry out a data protection impact assessment before deploying the implementation, because the processing of location and time data of citizen observers can amount to systematic monitoring.
+====

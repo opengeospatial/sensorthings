@@ -1,0 +1,9 @@
+[[req_dggs_cell-visibility]]
+[requirement]
+.Visibility of fine Cells
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/cell-visibility
+part:: The implementation SHALL withhold a Cell whose `zoneLevel` is larger than the public zone level from a requester `r`, unless (a) the Cell is associated with at least one Observation, Datastream or MultiDatastream whose Cell association is released to `r` as that Cell, or (b) the Cell was created by the implementation for an entity that is not attributable to a Party whose `role` is `individual`, or by an administrator.
+part:: A withheld Cell SHALL be omitted from the Cell collection, from `Parent` and `Children` navigation and from `$expand`, SHALL be answered with HTTP 404 when requested directly, and SHALL NOT be counted in `@iot.count`.
+====

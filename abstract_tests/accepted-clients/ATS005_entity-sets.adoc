@@ -1,0 +1,24 @@
+[[ats_accepted-clients_entity-sets]]
+[abstract_test]
+.Client and WriteProfile entity sets
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/entity-sets
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/entity-sets
+test-purpose:: Verify that the Clients and WriteProfiles entity sets are advertised.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Issue an HTTP GET request to the service root URI.
+--
+
+[.component,class=step]
+--
+Verify that the `value` array contains objects with `name` = `Clients` and `name` = `WriteProfiles` whose `url` values resolve to the respective collections.
+--
+
+=====
+====

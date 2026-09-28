@@ -1,0 +1,34 @@
+[[ats_accepted-clients_mqtt-create]]
+[abstract_test]
+.MQTT create
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/mqtt-create
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/mqtt-create
+test-purpose:: Verify that MQTT publish is subject to the same client acceptance as HTTP.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Skip this test if the implementation does not support the creation of Observations via MQTT publish.
+--
+
+[.component,class=step]
+--
+Connect to the broker with a credential that resolves to U1 and C1 (accepted). Publish a valid Observation to `Datastreams(D1)/Observations`. As U1, verify via HTTP that the Observation was created.
+--
+
+[.component,class=step]
+--
+Connect with a credential that resolves to U1 and to the client identifier of C1 with a software version that is not in the catalog. Publish a valid Observation. Verify that no Observation was created and, for MQTT version 5, that the PUBACK carries reason code `0x87`.
+--
+
+[.component,class=step]
+--
+Connect with the accepted credential and publish an Observation whose `result` violates the schema of WP1. Verify that no Observation was created and, for MQTT version 5, that the PUBACK carries reason code `0x99`.
+--
+
+=====
+====

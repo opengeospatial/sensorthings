@@ -1,0 +1,44 @@
+[[ats_gdpr_attribution-filter]]
+[abstract_test]
+.No query on attribution text
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/attribution-filter
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/attribution-filter
+test-purpose:: Verify that a request whose `$filter` or `$orderby` references `License/attributionText` is rejected and is not evaluated.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create a party-specific License instance LI1 of an attribution license template with `attributionText` set to a unique value `T`, and an Agreement for `License/attributionText` with `permittedOperations` = `["store","publish"]` and `audience` = `authenticated`. Associate LI1 with Datastream D1 of P1.
+--
+
+[.component,class=step]
+--
+As U2, as A, and as U1, request `Licenses?$filter=attributionText eq 'T'`. Verify HTTP 400 for each request.
+--
+
+[.component,class=step]
+--
+As A, request `Datastreams?$filter=License/attributionText eq 'T'` and `Things?$expand=Datastreams($filter=License/attributionText ne null)`. Verify HTTP 400 for each request.
+--
+
+[.component,class=step]
+--
+As U2, request `Licenses?$filter=substringof('x',attributionText)`, `Licenses?$filter=length(attributionText) gt 0` and `Datastreams?$filter=startswith(tolower(License/attributionText),'t')`. Verify HTTP 400 for each request.
+--
+
+[.component,class=step]
+--
+As A, request `Licenses?$orderby=attributionText`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U2, request `Datastreams(D1)?$expand=License` and verify that `attributionText` is present and equal to `T`.
+--
+
+=====
+====

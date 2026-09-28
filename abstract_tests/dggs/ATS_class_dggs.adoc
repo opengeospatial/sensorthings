@@ -1,0 +1,26 @@
+[[cc_dggs]]
+[conformance_class]
+.DGGS
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req-class/dggs
+classification:: Target Type:Implementation
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr
+inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/landing-page
+inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell
+inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell-crud
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/advertisement
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/cell-register
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/agreement-zone-level
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/cell-release
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/privacy-zones
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/geometry-release
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/cell-visibility
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/query-consistency
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/erasure
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/write-zone-level
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/aggregation-threshold
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/aggregation-differencing
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/privacy-notice
+====

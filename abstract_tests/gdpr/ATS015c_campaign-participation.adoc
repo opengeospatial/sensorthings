@@ -1,0 +1,49 @@
+[[ats_gdpr_campaign-participation]]
+[abstract_test]
+.Participation in Campaigns
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/campaign-participation
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/campaign-participation
+test-purpose:: Verify that participation in a Campaign is released only with an Agreement and is controlled by the participant.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U2, create a Campaign CB associated with P2. As U1, create a Datastream D3 associated with P1.
+--
+
+[.component,class=step]
+--
+As U2, PATCH D3 to associate it with CB, or POST the association to `Campaigns(CB)/Datastreams`. Verify HTTP 403 and, as U1, that D3 is not associated with CB.
+--
+
+[.component,class=step]
+--
+As U1, associate D3 with CB. Verify a success status code.
+--
+
+[.component,class=step]
+--
+As A, request `Campaigns(CB)/Datastreams`, `Campaigns(CB)?$expand=Datastreams($count=true)` and `Datastreams(D3)/Campaigns`. Verify that D3 and CB are not contained and not counted. As U2, request `Campaigns(CB)/Datastreams` and verify that D3 is contained.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement for `Datastream/Campaigns` with `permittedOperations` = `["publish"]` and `audience` = `public`. As A, verify that D3 is contained in `Campaigns(CB)/Datastreams`.
+--
+
+[.component,class=step]
+--
+If the privacy notice declares a sensitive `classification` value, as U2 set the `classification` of CB to that value. As A, verify that D3 is no longer contained. As U1, create the same Agreement with `legalBasis` = `explicit-consent`. As A, verify that D3 is contained.
+--
+
+[.component,class=step]
+--
+As U1, remove the association of D3 with CB. As U2, verify that D3 is no longer contained in `Campaigns(CB)/Datastreams`.
+--
+
+=====
+====

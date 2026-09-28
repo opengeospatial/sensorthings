@@ -1,0 +1,29 @@
+[[ats_gdpr_transport-security]]
+[abstract_test]
+.Transport security
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/transport-security
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/transport-security
+test-purpose:: Verify that personal data are only exchanged over encrypted connections.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Issue an HTTP GET request to `Parties` using the `http` scheme on the host of the service root URI. Verify that the connection is refused, or that the response is a redirect (HTTP 301, 302, 307 or 308) to an `https` URL and does not contain entity data.
+--
+
+[.component,class=step]
+--
+Connect to the service root URI with TLS 1.1 or lower and verify that the handshake fails.
+--
+
+[.component,class=step]
+--
+If an MQTT conformance class is claimed: attempt an MQTT connection without TLS (for example on port 1883) and verify that the connection is refused.
+--
+
+=====
+====

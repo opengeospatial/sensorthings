@@ -1,0 +1,29 @@
+[[ats_gdpr_privacy-notice]]
+[abstract_test]
+.Privacy notice
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/privacy-notice
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/privacy-notice
+test-purpose:: Verify that the privacy notice provides the information required for transparency.
+test-method-type:: Manual Inspection
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Follow the `privacyNotice` URL without authentication and verify HTTP 200 with an HTML page in English.
+--
+
+[.component,class=step]
+--
+Inspect the page and verify that each item (a) to (m) of the requirement is stated.
+--
+
+[.component,class=step]
+--
+Verify that the personal data register on the page contains at least all property paths of <<tab-register>>.
+--
+
+=====
+====

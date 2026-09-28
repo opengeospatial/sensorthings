@@ -1,0 +1,34 @@
+[[ats_dggs_advertisement]]
+[abstract_test]
+.Advertisement of the DGGS obfuscation
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/advertisement
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/advertisement
+test-purpose:: Verify that the DGGS obfuscation parameters are advertised consistently with the grid system of the endpoint.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Issue an HTTP GET request to the service root URI. Verify that `serverSettings/conformance` contains `http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs`.
+--
+
+[.component,class=step]
+--
+Verify that `serverSettings` contains the object `http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr` with `locationGeneralization/method` = `dggs` and an Integer `locationGeneralization/zoneLevel`.
+--
+
+[.component,class=step]
+--
+Verify that `serverSettings` contains the object `http://www.opengis.net/spec/sensorthings-dggs/1.0/req/grid-system` and that `coarsestZoneLevel` <= `locationGeneralization/zoneLevel` <= `finestZoneLevel`.
+--
+
+[.component,class=step]
+--
+If `serverSettings/conformance` contains `http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation`, verify that `minimumContributors` is an Integer not smaller than 2.
+--
+
+=====
+====

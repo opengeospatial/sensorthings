@@ -1,0 +1,49 @@
+[[ats_gdpr_personal-data-register]]
+[abstract_test]
+.Personal data register
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/personal-data-register
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/personal-data-register
+test-purpose:: Verify that the implementation applies the personal data register along the attribution chain, including co-attribution.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Precondition: user U1 is authenticated and represented by Party P1 (`role` = `individual`); user U2 is authenticated and represented by Party P2 (`role` = `individual`); client A is unauthenticated. P1 and P2 have no Agreements.
+--
+
+[.component,class=step]
+--
+As U1, create a Thing T1 that is not associated with any Party, with a Location L1 whose `location` is a GeoJSON Point with coordinates given to seven decimal places, and a Datastream D1 on T1 that is associated with P1.
+--
+
+[.component,class=step]
+--
+As A, request `Things(T1)/Locations`. Verify that L1 is either not contained in the response or that `L1/location` is not identical to the submitted geometry (T1 is attributable to P1 by rule (5)).
+--
+
+[.component,class=step]
+--
+As U1, create an Observation O1 on D1 with a new FeatureOfInterest F1 whose `feature` is a GeoJSON Point with coordinates given to seven decimal places. As U2, create a Datastream D2 associated with P2 and an Observation O2 on D2 that is linked to the existing F1.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement for P1 with `coveredProperties` = `["FeatureOfInterest/feature"]`, `permittedOperations` = `["publish"]` and `audience` = `public`.
+--
+
+[.component,class=step]
+--
+As A, request `FeaturesOfInterest(F1)`. Verify that the response is either HTTP 404 or that `feature` is not identical to the submitted geometry, because P2 has not agreed (co-attribution).
+--
+
+[.component,class=step]
+--
+Using a Thing T3 that is associated with a Party whose `role` is `institutional` (provided by the operator of the implementation under test) and has a Location L3, request `Things(T3)/Locations` as A and verify that `L3/location` is released as stored.
+--
+
+=====
+====

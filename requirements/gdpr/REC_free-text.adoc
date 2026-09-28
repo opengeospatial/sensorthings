@@ -1,0 +1,8 @@
+[[rec_gdpr_free-text]]
+[recommendation]
+.Free-text properties
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/gdpr/free-text
+part:: The implementation SHOULD inform the user, at the time of submission, that free-text values of attributable entities become visible to others only when the user creates an Agreement for their publication, and that they are then released without generalization. It SHOULD offer to reject submissions in which such values contain e-mail addresses, telephone numbers or postal addresses.
+====

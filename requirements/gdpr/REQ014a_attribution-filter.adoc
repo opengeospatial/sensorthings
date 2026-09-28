@@ -1,0 +1,9 @@
+[[req_gdpr_attribution-filter]]
+[requirement]
+.No query on attribution text
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/attribution-filter
+part:: The implementation SHALL reject with HTTP 400 a request that references `License/attributionText` in a `$filter` or `$orderby` expression. This includes a navigation path, such as `Datastream/License/attributionText`, and a `$filter` or `$orderby` nested in `$expand`.
+part:: The rejection SHALL apply to every requester, including the data subject. The implementation SHALL NOT evaluate the expression against the stored value or against the value as released under <<req_gdpr_query-consistency>>.
+====

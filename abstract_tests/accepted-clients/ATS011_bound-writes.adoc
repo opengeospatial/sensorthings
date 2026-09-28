@@ -1,0 +1,34 @@
+[[ats_accepted-clients_bound-writes]]
+[abstract_test]
+.Writes to bound Datastreams
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/bound-writes
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/bound-writes
+test-purpose:: Verify that only clients implementing the bound WriteProfile can add observations to a Datastream.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Precondition: Client C3 is accepted and associated only with WP3; Client C4 (another accepted software version of the same application) is associated with WP1.
+--
+
+[.component,class=step]
+--
+As U1 using C3, create an Observation on D1 (bound to WP1). Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As U1 using C4, create an Observation on D1. Verify HTTP 201.
+--
+
+[.component,class=step]
+--
+As OP, set the `status` of WP1 to `superseded`. As U1 using C1, create an Observation on D1. Verify HTTP 201.
+--
+
+=====
+====

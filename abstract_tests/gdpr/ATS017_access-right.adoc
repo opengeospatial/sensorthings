@@ -1,0 +1,29 @@
+[[ats_gdpr_access-right]]
+[abstract_test]
+.Right of access
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/access-right
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/access-right
+test-purpose:: Verify that the data subject receives all of their personal data, including Agreements, in full precision.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, store `P1/displayName` with an Agreement that permits `store` only; create a Location L1 for a Thing of P1 and an Observation O1 attributable to P1, both without Agreements for location or time.
+--
+
+[.component,class=step]
+--
+As U1, request `Parties?$filter=authId eq me()&$expand=Agreements`. Verify that the response contains P1 with `displayName` and all Agreements of P1.
+--
+
+[.component,class=step]
+--
+As U1, request `Locations(L1)` and `Observations(O1)` and verify that `location` and `phenomenonTime` are identical to the submitted values.
+--
+
+=====
+====

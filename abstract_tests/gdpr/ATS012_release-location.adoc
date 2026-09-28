@@ -1,0 +1,44 @@
+[[ats_gdpr_release-location]]
+[abstract_test]
+.Release of indirect location data
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/release-location
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-location
+test-purpose:: Verify that precise locations are released only with an Agreement and that otherwise a deterministic generalized value is released or the entity is withheld.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Request the service root URI and record whether `locationGeneralization` is advertised and, if so, its `resolution` in metres. If `locationGeneralization/method` is `dggs`, replace the distance check below by the checks of <<ats_dggs_geometry-release>>.
+--
+
+[.component,class=step]
+--
+As U1, create a Thing T1 associated with P1 with a Location L1 whose `location` is a GeoJSON Point with coordinates given to seven decimal places, and an Observation with a new FeatureOfInterest F1 with a Point `feature` given to seven decimal places. P1 has no Agreement for location properties.
+--
+
+[.component,class=step]
+--
+If `locationGeneralization` is advertised: as A, request `Locations(L1)` and `FeaturesOfInterest(F1)`. Verify that the released geometry is not identical to the submitted geometry, and that the distance between the released and the submitted position does not exceed two times `resolution`.
+--
+
+[.component,class=step]
+--
+If `locationGeneralization` is advertised: repeat the requests as A and as U2 and verify that all released geometries are identical.
+--
+
+[.component,class=step]
+--
+If `locationGeneralization` is not advertised: as A, request `Locations(L1)` and `FeaturesOfInterest(F1)` and verify HTTP 404; request `Things(T1)/Locations` and verify that L1 is not contained.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement for P1 with `coveredProperties` = `["Location/location","FeatureOfInterest/feature"]`, `permittedOperations` = `["publish"]` and `audience` = `public`. As A, verify that the released geometries are identical to the submitted geometries.
+--
+
+=====
+====

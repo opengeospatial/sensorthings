@@ -1,0 +1,49 @@
+[[ats_gdpr_attribution-integrity]]
+[abstract_test]
+.Attribution integrity
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/attribution-integrity
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/attribution-integrity
+test-purpose:: Verify that observations and groups under an attribution license are not released to requesters who cannot see the attribution.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create a party-specific License instance LI1 of a CC-BY template with `attributionText` and an Agreement for `License/attributionText` with `permittedOperations` = `["store","publish"]` and `audience` = `authenticated`. Associate LI1 with Datastream D1 (associated with P1) and create Observation O1 on D1.
+--
+
+[.component,class=step]
+--
+As A, request `Datastreams(D1)/Observations` and verify that O1 is not contained; request `Observations(O1)` and verify HTTP 404.
+--
+
+[.component,class=step]
+--
+As U2, request `Datastreams(D1)/Observations?$expand=Datastream/License` and verify that O1 is contained and that `attributionText` is present.
+--
+
+[.component,class=step]
+--
+As U1, withdraw the Agreement for `License/attributionText`. As U2, request `Datastreams(D1)/Observations` and verify that O1 is not contained.
+--
+
+[.component,class=step]
+--
+As U2, create a Datastream D2 associated with P2 without a License and an Observation O2 on D2. As U1, create a party-specific License instance LI2 of an attribution license template with `attributionText`, without an Agreement for `publish`, and an ObservationGroup G1 associated with P1 and LI2 that contains O2.
+--
+
+[.component,class=step]
+--
+As A, request `ObservationGroups(G1)/Observations`, `ObservationGroups(G1)?$expand=Observations($count=true)` and `ObservationGroups?$filter=Observations/any(o: o/id eq O2)`. Verify that O2 is not contained, not counted and that G1 is not found. Request `Observations(O2)` and verify that O2 is released, because its own License does not require attribution.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement for `License/attributionText` with `permittedOperations` = `["store","publish"]` and `audience` = `public`. As A, request `ObservationGroups(G1)/Observations` and verify that O2 is contained.
+--
+
+=====
+====

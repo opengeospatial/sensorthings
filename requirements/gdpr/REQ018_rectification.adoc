@@ -1,0 +1,9 @@
+[[req_gdpr_rectification]]
+[requirement]
+.Right to rectification
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/rectification
+part:: The data subject of a Party `P` SHALL be able to update, by HTTP PATCH, the direct personal data properties of `P` and of the party-specific License instances attributable to `P`, subject to <<req_gdpr_store-direct>>.
+part:: The implementation SHALL reject such an update by a requester that is not the data subject with HTTP 403 and SHALL leave the entity unchanged.
+====

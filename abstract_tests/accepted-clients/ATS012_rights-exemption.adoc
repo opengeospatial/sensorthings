@@ -1,0 +1,39 @@
+[[ats_accepted-clients_rights-exemption]]
+[abstract_test]
+.Exemption for data subject rights
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/rights-exemption
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/rights-exemption
+test-purpose:: Verify that the client catalog cannot block the exercise of data subject rights.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Obtain a credential for U1 that resolves to a client identifier that is not in the catalog.
+--
+
+[.component,class=step]
+--
+With that credential, create an Agreement for P1 and withdraw it. Verify success status codes.
+--
+
+[.component,class=step]
+--
+With that credential, PATCH `Parties(P1)` with a new `displayName` (with an Agreement permitting `store`). Verify a success status code.
+--
+
+[.component,class=step]
+--
+With that credential, DELETE an Observation of D1. Verify a success status code.
+--
+
+[.component,class=step]
+--
+With that credential, create an Observation on D1. Verify HTTP 403.
+--
+
+=====
+====

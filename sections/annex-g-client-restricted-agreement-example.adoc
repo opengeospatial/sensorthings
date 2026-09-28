@@ -1,0 +1,222 @@
+[[annex-client-restricted-agreement-example]]
+[appendix,obligation="informative"]
+== Example of an Agreement restricted to applications
+
+=== General
+
+This annex illustrates <<req_accepted-clients_client-restricted-agreements>>. Jane, the data subject of <<annex-agreement-example>>, wants her display name to appear next to her measurements in the AirBuddy application of <<annex-accepted-clients-example>>, but not in any other application and not on the open web. With an Agreement of the GDPR requirements class alone, this cannot be expressed: `audience` `authenticated` releases the name to every registered user, whatever application that user reads with. With the Accepted Clients conformance class, the Agreement can name the application.
+
+All names, identifiers and URLs are fictitious.
+
+=== The client catalog
+
+The catalog of the endpoint contains, among others, the following Client entities. The application whose client identifier is listed in the Agreement has two accepted releases; a second application is accepted as well.
+
+[[tab-cra-catalog]]
+.Client entities used in this example
+[cols="25,20,15,15,25",options="header"]
+|===
+|Client |`clientId` |`softwareVersion` |`status` |Remark
+|AirBuddy 2.3.1 |`airbuddy-mobile` |`2.3.1` |`accepted` |release used by most users
+|AirBuddy 2.3.2 |`airbuddy-mobile` |`2.3.2` |`accepted` |current release
+|CityMap 5.0.0 |`citymap-web` |`5.0.0` |`accepted` |map viewer of a third party, reads and writes
+|===
+
+=== Creating the Agreement
+
+Jane already has an Agreement that permits `store` for `Party/displayName`, so that her display name is stored but not released. She now creates an Agreement that permits `publish`, restricted to AirBuddy:
+
+[[example-cra-create]]
+.Agreement that releases the display name only through AirBuddy
+[source,http]
+----
+POST /v1.1/Parties('6c9e2f70-8a41-4d0b-b3e5-7f1a9c2d8e03')/Agreements
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6ImF0K2p3dCJ9...
+Content-Type: application/json
+----
+
+[source,json]
+----
+{
+  "name": "Show my display name in AirBuddy",
+  "legalBasis": "consent",
+  "purpose": "Show my display name to registered users of the AirBuddy app",
+  "definition": "https://sta.musterstadt.example/consent/display-name-airbuddy/v1",
+  "coveredProperties": ["Party/displayName"],
+  "permittedOperations": ["publish"],
+  "audience": "authenticated",
+  "clientIds": ["airbuddy-mobile"]
+}
+----
+
+The implementation checks that `airbuddy-mobile` is a `clientId` in its catalog and that `audience` is `authenticated`, and stores the Agreement:
+
+[source,json]
+----
+{
+  "@iot.id": "a4c1e9f2-6b3d-4e70-9a58-2d7f1c0b8e64",
+  "name": "Show my display name in AirBuddy",
+  "legalBasis": "consent",
+  "purpose": "Show my display name to registered users of the AirBuddy app",
+  "definition": "https://sta.musterstadt.example/consent/display-name-airbuddy/v1",
+  "coveredProperties": ["Party/displayName"],
+  "permittedOperations": ["publish"],
+  "audience": "authenticated",
+  "clientIds": ["airbuddy-mobile"],
+  "grantedTime": "2026-09-25T18:40:02Z",
+  "effectiveTime": "2026-09-25T18:40:02Z",
+  "status": "active"
+}
+----
+
+The Agreement refers to the application `airbuddy-mobile`, not to one of its releases. It therefore remains valid when further releases of AirBuddy are accepted.
+
+Two variants of the request are rejected with HTTP 400: `clientIds` = `["airbuddy-mobil"]`, because no Client with that `clientId` exists, and `audience` = `public` together with `clientIds`, because an unauthenticated request carries no credential from which the application could be determined.
+
+=== How a read request is evaluated
+
+For every requester other than Jane, the implementation decides per request whether the display name is released:
+
+[[fig-cra-evaluation]]
+.Evaluation of the Agreement for a read request
+[source]
+----
+request ──► credential present?                                  ── no ──► not released
+                  │ yes
+                  ▼
+            resolves to a principal and a client identification?  ── no ──► not released
+                  │ yes
+                  ▼
+            status active, effectiveTime reached, not expired,
+            covers Party/displayName and publish?                 ── no ──► not released
+                  │ yes
+                  ▼
+            client identifier contained in clientIds?             ── no ──► not released
+                  │ yes
+                  ▼
+            matching Client release has status "accepted"?        ── no ──► not released
+                  │ yes
+                  ▼
+            released; response carries Cache-Control: private
+----
+
+A read request without a client identification is not rejected. It receives the Party without the display name, as any other requester for whom no Agreement is effective.
+
+=== What different requesters receive
+
+Bob is a registered user of the endpoint. He reads Jane's Party with different applications. The access token that AirBuddy 2.3.1 presents for Bob contains:
+
+[source,json]
+----
+{
+  "iss": "https://auth.musterstadt.example",
+  "sub": "user-5522",
+  "client_id": "airbuddy-mobile",
+  "software_id": "4NRB1-0XZABZI9E6-5SM3R",
+  "software_version": "2.3.1",
+  "scope": "sta:read sta:write",
+  "exp": 1790370000
+}
+----
+
+The request
+
+[source,http]
+----
+GET /v1.1/Parties('6c9e2f70-8a41-4d0b-b3e5-7f1a9c2d8e03')?$select=role,displayName
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6ImF0K2p3dCJ9...
+----
+
+returns, through AirBuddy 2.3.1:
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: private
+----
+
+[source,json]
+----
+{
+  "role": "individual",
+  "displayName": "Jane D."
+}
+----
+
+and, through CityMap 5.0.0, whose credential resolves to the client identifier `citymap-web`:
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+----
+
+[source,json]
+----
+{
+  "role": "individual"
+}
+----
+
+<<tab-cra-requests>> summarizes the responses for further requesters and situations.
+
+[[tab-cra-requests]]
+.Release of Jane's display name
+[cols="4,44,14,38",options="header"]
+|===
+|# |Request |`displayName` |Reason
+
+|a
+|Bob reads through AirBuddy 2.3.1.
+|"`Jane D.`"
+|`airbuddy-mobile` is listed and the release is accepted.
+
+|b
+|Bob reads through AirBuddy 2.3.2.
+|"`Jane D.`"
+|Same client identifier; the Agreement covers every accepted release of the application.
+
+|c
+|Bob reads through CityMap 5.0.0.
+|omitted
+|`citymap-web` is not listed.
+
+|d
+|Bob reads with a personal access token that is bound to him but to no application.
+|omitted
+|The credential resolves to no client identification. The request is not rejected.
+
+|e
+|An unauthenticated requester reads the Party.
+|omitted
+|`audience` is `authenticated`, and there is no credential.
+
+|f
+|Bob, through CityMap, requests `Parties?$filter=displayName eq 'Jane D.'&$count=true`.
+|—
+|Empty collection and `@iot.count` 0: the filter is evaluated against the value as released to this request (<<req_gdpr_query-consistency>>).
+
+|g
+|Bob subscribes through AirBuddy 2.3.1 to `Parties('6c9e2f70-…')` via MQTT.
+|"`Jane D.`"
+|The credential presented when the MQTT connection was established resolves to `airbuddy-mobile` 2.3.1.
+
+|h
+|The operator suspends AirBuddy 2.3.1. Bob reads through AirBuddy 2.3.1.
+|omitted
+|The matching release is no longer `accepted`. Through AirBuddy 2.3.2 the name is still released.
+
+|i
+|Jane withdraws the Agreement. Bob reads through AirBuddy 2.3.2.
+|omitted
+|No effective Agreement for `publish` exists. The name remains stored under Jane's `store` Agreement and visible to Jane.
+|===
+
+Jane herself receives her display name through every application and without restriction (<<req_gdpr_access-right>>).
+
+=== What the restriction does and does not achieve
+
+The Agreement guarantees that the implementation releases the display name only to requests that come through an accepted release of AirBuddy. It does not control what AirBuddy does with the name once received; the provider of AirBuddy, Stadtwerke Musterstadt, becomes a recipient and has to be named in the privacy notice. The restriction is only as strong as the identification of the client: because AirBuddy is a public client, the operator accepted it only with platform attestation (`authenticationMethod` `attestation`), so that other software cannot present itself as `airbuddy-mobile` (<<rec_accepted-clients_client-authentication>>).
+
+Because the response to the same URL now differs by application, the implementation marks it with `Cache-Control: private`, so that a shared cache does not serve the AirBuddy response to a CityMap user.

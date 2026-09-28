@@ -1,0 +1,11 @@
+[[req_gdpr_agreement-withdrawal]]
+[requirement]
+.Withdrawal of an Agreement
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-withdrawal
+part:: The data subject SHALL be able to withdraw an Agreement at any time, either by an HTTP PATCH request that sets `status` to `withdrawn` or by an HTTP DELETE request to the Agreement.
+part:: When an Agreement is withdrawn by HTTP PATCH, the implementation SHALL set `withdrawalTime` to the time of withdrawal.
+part:: When an Agreement is withdrawn by HTTP DELETE, the implementation SHALL respond to subsequent requests of the data subject for that Agreement with HTTP 404. The implementation MAY retain a record of the withdrawn Agreement to demonstrate the earlier consent, as declared in the privacy notice, but SHALL NOT use it as legal basis.
+part:: A withdrawal SHALL take effect for every HTTP request and every MQTT message processed after the response to the withdrawal request has been sent.
+====

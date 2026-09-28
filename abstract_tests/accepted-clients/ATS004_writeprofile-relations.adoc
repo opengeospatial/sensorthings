@@ -1,0 +1,29 @@
+[[ats_accepted-clients_writeprofile-relations]]
+[abstract_test]
+.WriteProfile relations
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/writeprofile-relations
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-relations
+test-purpose:: Verify the navigation between WriteProfile, Client, ObservedProperty, Datastream and MultiDatastream.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As A, request `WriteProfiles(WP1)?$expand=Clients,ObservedProperties`. Verify that C1 and the ObservedProperty OPM are contained.
+--
+
+[.component,class=step]
+--
+As A, request `ObservedProperties(OPM)/WriteProfiles` and verify that WP1 is contained.
+--
+
+[.component,class=step]
+--
+As U1 using C1, create a Datastream D1 permitted by WP1. As U1, request `Datastreams(D1)/WriteProfile` and verify that WP1 is returned; request `WriteProfiles(WP1)/Datastreams` as U1 and verify that D1 is contained.
+--
+
+=====
+====

@@ -1,0 +1,139 @@
+== Conformance
+
+=== General
+
+This Standard defines three conformance classes: _GDPR_, which is mandatory, and _Accepted Clients_ and _DGGS_, which are optional. The standardization target of all conformance classes is an implementation of the OGC SensorThings API Extension: STAplus 1.0 (corrigendum 1.0.1), that is, a STAplus service endpoint.
+
+Conformance with this Standard shall be checked using all the relevant tests specified in <<annex-ats>> (normative) of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC Compliance Testing web site.
+
+In order to conform to this OGC Standard, a software implementation shall:
+
+* implement the mandatory conformance class GDPR, and optionally the conformance classes Accepted Clients and DGGS;
+* implement the STAplus 1.0.1 conformance classes listed as _required_ in <<tab-staplus-dependencies>>;
+* pass all applicable tests specified in <<annex-ats>>; and
+* pass all applicable tests of the STAplus 1.0.1 conformance classes it implements, including the tests of the conditional classes it claims.
+
+All requirements-classes and conformance-classes described in this document are owned by the standard(s) identified.
+
+=== Conformance class GDPR
+
+The GDPR conformance class (`http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr`) tests the GDPR requirements class specified in <<clause-gdpr>>. The requirements class adds the entity type `Agreement` to the STAplus data model and constrains the behaviour of the STAplus entity types and the SensorThings API core entity types for entities that are attributable to a `Party` representing a natural person.
+
+An implementation that claims the GDPR conformance class advertises this claim in the `conformance` array of the `serverSettings` object on the service root URI, as specified in <<req_gdpr_advertisement>>.
+
+=== Conformance class Accepted Clients
+
+The Accepted Clients conformance class (`http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients`) tests the Accepted Clients requirements class specified in <<clause-accepted-clients>>. Its prerequisite is the GDPR conformance class. It adds the entity types `Client` and `WriteProfile`, a public per-endpoint catalog of accepted client applications, the rejection with HTTP 403 of create and update requests from clients that are not in the catalog, the validation of written entities against declared JSON Schemas, and the binding of each `Datastream` and `MultiDatastream` to the `WriteProfile` under which it was created.
+
+In addition to the STAplus conformance classes required by the GDPR conformance class, an implementation of the Accepted Clients conformance class requires credentials that each resolve to exactly one principal (a user, or an organisation or system with an operator-managed identity) and one client release. An OAuth 2.0 access token (<<RFC6749>>) satisfies this when the implementation can determine `client_id` and `software_id` or `software_version` from it, as JWT claims (<<RFC9068>>), by token introspection (<<RFC7662>>) or from the client registration (<<RFC7591>>). A credential registered by the operator, such as an API key or a local account bound to one principal and one Client, satisfies it as well. The STAplus Authentication conformance class continues to identify the principal.
+
+=== Conformance class DGGS
+
+The DGGS conformance class (`http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs`) tests the DGGS requirements class specified in <<clause-dggs>>. Its prerequisite is the GDPR conformance class. It uses the Cell entity type of the OGC SensorThings API Extension: DGGS 1.0 (<<OGC26-057>>) for spatial obfuscation. <<tab-dggs-dependencies>> lists the conformance classes of <<OGC26-057>> that an implementation of the DGGS conformance class has to implement. Because <<OGC26-057>> extends OGC SensorThings API Part 1: Sensing Version 1.1, the DGGS conformance class requires SensorThings API 1.1.
+
+[[tab-dggs-dependencies]]
+.DGGS 1.0 conformance classes used by the DGGS conformance class
+[cols="18,33,11,38",options="header"]
+|===
+|DGGS 1.0 conformance class |Identifier |Obligation |Reason
+
+|Landing Page
+|`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/landing-page`
+|required
+|Advertises the grid system, the coarsest and finest zone levels and the cell-create boundary against which the public zone level is defined.
+
+|Cell
+|`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell`
+|required
+|Defines the Cell entity type and the Cell associations of Observation, Datastream and MultiDatastream that carry the obfuscated location.
+
+|Cell CRUD
+|`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell-crud`
+|required
+|Keeps Cells uniform: only the implementation and administrators create, update and delete Cells; clients create them by reference only, within the cell-create boundary.
+
+|Authentication
+|`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/authentication`
+|recommended
+|Exempts authenticated creation of a Cell by reference from throttling. Not needed for obfuscation: creating a Cell records neither a user identifier nor a Party, and the users of a GDPR implementation are identified by the STAplus Authentication conformance class.
+
+|ObservedProperties
+|`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/observedproperties`
+|conditional
+|Required by Aggregation.
+
+|Aggregation
+|`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation`
+|conditional
+|Not required. If claimed, <<req_dggs_aggregation-threshold>> and <<req_dggs_aggregation-differencing>> apply.
+
+|STAplus
+|`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/staplus`
+|conditional
+|Recommended with Aggregation: aggregate MultiDatastreams are owned by a Party with `role` `system` and are therefore not attributable to contributing individuals.
+|===
+
+=== Required STAplus 1.0.1 conformance classes
+
+The GDPR conformance class depends on capabilities that STAplus defines in optional conformance classes. <<tab-staplus-dependencies>> lists, for each conformance class of STAplus 1.0.1, whether an implementation of the GDPR conformance class has to implement it, and why. The identifiers are those of the STAplus 1.0.1 corrigendum; the identifiers of the Create, Update and Delete conformance classes retain the STAplus 1.0 base URI.
+
+[[tab-staplus-dependencies]]
+.STAplus 1.0.1 conformance classes used by the GDPR conformance class
+[cols="18,33,11,38",options="header"]
+|===
+|STAplus conformance class |Identifier |Obligation |Reason
+
+|Core
+|`http://www.opengis.net/spec/sensorthings-staplus/1.0.1/conf/core`
+|required
+|Defines the `Party` (including the `role` value `individual`), `License`, `ObservationGroup`, `Relation` and `Campaign` entity types that carry direct personal data and that establish the attribution chain; the Read requirements class; and the Default-CRS requirements class, which defines the coordinate reference system and axis order in which generalized locations are computed and encoded.
+
+|Create
+|`http://www.opengis.net/spec/sensorthings-staplus/1.0/conf/create`
+|required
+|Creation of `Agreement` entities, including deep insert of an `Agreement` together with a `Party`, so that direct personal data can be stored in the same request as the authorization.
+
+|Update
+|`http://www.opengis.net/spec/sensorthings-staplus/1.0/conf/update`
+|required
+|Withdrawal of an `Agreement` by HTTP PATCH and rectification of direct personal data by the data subject.
+
+|Delete
+|`http://www.opengis.net/spec/sensorthings-staplus/1.0/conf/delete`
+|required
+|Withdrawal of an `Agreement` by HTTP DELETE and erasure of a `Party` with its attributable entities.
+
+|Authentication
+|`http://www.opengis.net/spec/sensorthings-staplus/1.0.1/conf/authentication`
+|required
+|Identification of the data subject: a permanent and unique user identifier, `Party/authId` set from the authentication and never exposed to other users, a `Party/@iot.id` that is not correlated to the user identification, and the `me()` function that lets the data subject locate their own `Party`.
+
+|Business Logic
+|`http://www.opengis.net/spec/sensorthings-staplus/1.0.1/conf/business-logic`
+|required
+|The advertised Business Logic states the operator's responsibility for personal data (`gdpr-note`), the rule that a `Party` is deleted only by its own user, and the template and party-specific instance model of `License` entities (`attribution`) on which the attribution requirements of this Profile build. The Business Logic page links to the privacy notice.
+
+|MQTT Subscribe STA v1.0
+|`http://www.opengis.net/spec/sensorthings-staplus/1.0/conf/mqtt-subscribe-sta-10`
+|conditional
+|Not required. If claimed, the release rules of this Profile apply to MQTT payloads (<<req_gdpr_mqtt>>) and the broker is reachable only over TLS.
+
+|MQTT Subscribe STA v1.1
+|`http://www.opengis.net/spec/sensorthings-staplus/1.0/conf/mqtt-subscribe-sta-11`
+|conditional
+|As for MQTT Subscribe STA v1.0.
+
+|Geometry-FG
+|`http://www.opengis.net/spec/sensorthings-staplus/1.0.1/conf/geometry-fg`
+|not required
+|Independent of this Profile. If claimed, generalization applies to the stored geometry regardless of the encoding in which it was submitted.
+
+|Geometry-WKT
+|`http://www.opengis.net/spec/sensorthings-staplus/1.0/conf/geometry-wkt`
+|not required
+|As for Geometry-FG.
+|===
+
+In addition, as required by STAplus, the implementation has to conform to OGC SensorThings API Part 1: Sensing (<<OGC15-078r6>>) or OGC SensorThings API Part 1: Sensing Version 1.1 (<<OGC18-088>>), including the SensorThings API create-update-delete capabilities for the core entity types (`Thing`, `Location`, `Datastream`, `Observation`, `FeatureOfInterest`), because data subjects create the entities that carry indirect personal data.
+
+NOTE: STAplus requirement `http://www.opengis.net/spec/sensorthings-staplus/1.0.1/req/business-logic/gdpr-note` requires the Business Logic to state that claiming the STAplus Business Logic conformance class does not constitute GDPR compliance of the deployment. That statement remains correct for an implementation of this Profile: the GDPR conformance class covers the technical measures specified here, while the controller's organisational obligations remain (see Security considerations).

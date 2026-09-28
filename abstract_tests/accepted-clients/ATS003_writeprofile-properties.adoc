@@ -1,0 +1,29 @@
+[[ats_accepted-clients_writeprofile-properties]]
+[abstract_test]
+.WriteProfile properties
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/writeprofile-properties
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-properties
+test-purpose:: Verify that a WriteProfile has the mandatory and optional properties with the defined data types and value domains.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As A, request WP1 without `$select`. Verify that `@iot.id`, `@iot.selfLink`, `name`, `entityTypes`, `resultCategory`, `freeTextPolicy`, `entitySchemas`, `creationTime` and `status` are present and within the value domains of <<tab-writeprofile-properties>>.
+--
+
+[.component,class=step]
+--
+Verify that every member name of `entitySchemas` is contained in `entityTypes`, that every value of `entityTypes` is a member name of `entitySchemas`, and that every member value is a valid JSON Schema (draft 2020-12). Verify that no `properties` member is present.
+--
+
+[.component,class=step]
+--
+As OP, POST a WriteProfile for C1 whose `entityTypes` contains `Thing` and whose `entitySchemas` has no member `Thing`. Verify HTTP 400.
+--
+
+=====
+====

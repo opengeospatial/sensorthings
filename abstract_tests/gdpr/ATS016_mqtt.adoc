@@ -1,0 +1,39 @@
+[[ats_gdpr_mqtt]]
+[abstract_test]
+.MQTT
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/mqtt
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/mqtt
+test-purpose:: Verify that MQTT subscriptions are subject to the same release rules as HTTP responses.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Skip this test if the implementation claims neither MQTT Subscribe STA v1.0 nor MQTT Subscribe STA v1.1.
+--
+
+[.component,class=step]
+--
+Connect client A to the MQTT broker without authentication and subscribe to the topics `Parties`, `Agreements`, `Locations` and `Datastreams(D1)/Observations`. Connect client U2 authenticated as U2 and subscribe to the same topics.
+--
+
+[.component,class=step]
+--
+As U1 via HTTP, create an Agreement for P1 and update `P1/displayName` (with an Agreement that permits `store` only). Verify that neither A nor U2 receives a message about the Agreement, and that no received Party payload contains `displayName`.
+--
+
+[.component,class=step]
+--
+As U1, create a Location for a Thing of P1 without a location Agreement. Verify that received payloads contain either no message for that Location or a generalized `location`, consistent with the HTTP behaviour determined in <<ats_gdpr_release-location>>.
+--
+
+[.component,class=step]
+--
+Set up the situation of <<ats_gdpr_attribution-integrity>> with `audience` = `authenticated` and create an Observation on D1. Verify that A does not receive the Observation and that U2 does.
+--
+
+=====
+====

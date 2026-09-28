@@ -1,0 +1,34 @@
+[[ats_accepted-clients_provenance-release]]
+[abstract_test]
+.Release of the provenance association
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/provenance-release
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/provenance-release
+test-purpose:: Verify that the application a person uses is disclosed only with an Agreement.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1 using C1, create D1 bound to WP1. P1 has no Agreement for `Datastream/WriteProfile`.
+--
+
+[.component,class=step]
+--
+As A, request `Datastreams(D1)/WriteProfile` and verify HTTP 404; request `Datastreams(D1)?$expand=WriteProfile` and verify that no WriteProfile is expanded; request `WriteProfiles(WP1)/Datastreams` and verify that D1 is not contained; request `Datastreams?$filter=WriteProfile/resultCategory eq 'environmental'` and verify that D1 is not contained.
+--
+
+[.component,class=step]
+--
+As U1, request `Datastreams(D1)/WriteProfile` and verify that WP1 is returned.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement for P1 with `coveredProperties` = `["Datastream/WriteProfile"]`, `permittedOperations` = `["publish"]` and `audience` = `public`. As A, repeat the requests of the second step and verify that WP1 and D1 are returned.
+--
+
+=====
+====

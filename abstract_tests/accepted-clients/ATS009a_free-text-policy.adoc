@@ -1,0 +1,49 @@
+[[ats_accepted-clients_free-text-policy]]
+[abstract_test]
+.Verified free-text policy
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/free-text-policy
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/free-text-policy
+test-purpose:: Verify that a declared free-text policy is checked against the schemas and that only text written under a verified policy is released without an Agreement.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As OP, POST a WriteProfile for C1 with `freeTextPolicy` = `none` whose schema for Thing admits any string as `description`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As OP, POST a WriteProfile for C1 with `freeTextPolicy` = `controlled-vocabulary` whose schema for Thing restricts `name` and `description` by `enum` but admits `properties` without `additionalProperties` = `false`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As OP, POST a WriteProfile WPN for C1 with `freeTextPolicy` = `none` whose schema for Thing restricts `name` and `description` by `const` and does not admit `properties`. Verify HTTP 201.
+--
+
+[.component,class=step]
+--
+As OP, create a Client CF with a WriteProfile WPF whose `freeTextPolicy` is `free` and whose schema for Thing admits any string as `description`.
+--
+
+[.component,class=step]
+--
+As U1 using C1, create a Thing T1 associated with P1 under WPN. As A, request T1 and verify that `name` and `description` have the constant values of WPN, without an Agreement of P1.
+--
+
+[.component,class=step]
+--
+As U1 using CF, create a Thing T2 associated with P1 with `description` = a unique value `D`. As A, verify that `description` of T2 is the empty string.
+--
+
+[.component,class=step]
+--
+As U1 using CF, PATCH T1 with `description` = `D`. As A, verify that `description` of T1 is the empty string.
+--
+
+=====
+====

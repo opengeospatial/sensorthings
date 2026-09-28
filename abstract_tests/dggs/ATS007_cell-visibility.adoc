@@ -1,0 +1,34 @@
+[[ats_dggs_cell-visibility]]
+[abstract_test]
+.Visibility of fine Cells
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/cell-visibility
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/cell-visibility
+test-purpose:: Verify that the materialization of fine Cells by create-by-reference does not reveal the presence of a person.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Select a zone c11 at level 11 for which `Cells(c11)` returns HTTP 404. As U1, create an Observation on D1 linked to c11 by reference. P1 has no Agreement.
+--
+
+[.component,class=step]
+--
+As U1, request `Cells(c11)` and verify HTTP 200.
+--
+
+[.component,class=step]
+--
+As A, request `Cells(c11)` and the ancestors of c11 at the levels 8 to 10. Verify HTTP 404 for each.
+--
+
+[.component,class=step]
+--
+As A, request `Cells(c7)/Children` for the level-7 ancestor c7 and `Cells?$filter=zoneLevel gt 7&$count=true`. Verify that none of the ancestors at levels 8 to 11 is contained or counted.
+--
+
+=====
+====

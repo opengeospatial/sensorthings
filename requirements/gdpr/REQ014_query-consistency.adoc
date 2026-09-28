@@ -1,0 +1,10 @@
+[[req_gdpr_query-consistency]]
+[requirement]
+.Query evaluation on released values
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/query-consistency
+part:: The implementation SHALL evaluate `$filter` and `$orderby` expressions, including spatial and temporal functions and expressions in nested `$expand` options, against the property values as released to the requester according to <<req_gdpr_agreement-access>>, <<req_gdpr_release-direct>>, <<req_gdpr_release-free-text>>, <<req_gdpr_release-location>>, <<req_gdpr_release-time>> and <<req_gdpr_attribution-integrity>>: an omitted value SHALL evaluate to `null`, a value released as the empty string SHALL evaluate to the empty string, a generalized value SHALL be used instead of the stored value, and a withheld entity SHALL NOT be part of the result.
+part:: A request rejected under <<req_gdpr_attribution-filter>> SHALL NOT be evaluated under this requirement.
+part:: `@iot.count` SHALL count only the entities that are included in the result for the requester.
+====

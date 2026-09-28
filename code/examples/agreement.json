@@ -1,0 +1,15 @@
+{
+  "@iot.id": "b7e2c1a0-4f53-4d7e-9a61-2f0c8d4e9f11",
+  "@iot.selfLink": "https://example.org/staplus/v1.1/Agreements('b7e2c1a0-4f53-4d7e-9a61-2f0c8d4e9f11')",
+  "name": "Show my display name",
+  "legalBasis": "consent",
+  "purpose": "Show my display name to all registered users of this endpoint, next to my air-quality contributions",
+  "definition": "https://example.org/staplus/consent/display-name/v2",
+  "coveredProperties": [ "Party/displayName" ],
+  "permittedOperations": [ "store", "publish" ],
+  "audience": "authenticated",
+  "grantedTime": "2026-09-23T10:02:11Z",
+  "status": "active",
+  "Party@iot.navigationLink": "https://example.org/staplus/v1.1/Agreements('b7e2c1a0-4f53-4d7e-9a61-2f0c8d4e9f11')/Party",
+  "Campaign@iot.navigationLink": "https://example.org/staplus/v1.1/Agreements('b7e2c1a0-4f53-4d7e-9a61-2f0c8d4e9f11')/Campaign"
+}

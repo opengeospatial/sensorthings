@@ -1,0 +1,34 @@
+[[ats_dggs_geometry-release]]
+[abstract_test]
+.Release of generalized geometries
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/geometry-release
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/geometry-release
+test-purpose:: Verify that locations are released as DGGS cell boundaries at the release level.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create a Thing of P1 with a Location L1 whose `location` is a Point with seven decimal places, and an Observation with a FeatureOfInterest F1 with a Point `feature`. P1 has no Agreement for location properties.
+--
+
+[.component,class=step]
+--
+As A, request L1 and F1. Verify that `location` and `feature` are Polygons identical to the boundary of the level-7 cell that contains the submitted point, as computed with the grid system, and that `encodingType` is `application/geo+json`.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement covering `Location/location` with `audience` = `public` and `zoneLevel` = 9. As A, verify that `location` of L1 is the boundary of the level-9 cell containing the point.
+--
+
+[.component,class=step]
+--
+Repeat the requests as U2 and verify identical results.
+--
+
+=====
+====

@@ -1,0 +1,15 @@
+[appendix,obligation="informative"]
+== STAplus 1.0 - GDPR Profile Data Model (informative)
+
+This appendix contains the Data Model UML diagrams at a larger scale for improved readability.
+
+=== STAplus 1.0 - GDPR Profile Data Model connected to `Datastream`
+[[fig-staplus-datastream-entities-landscape]]
+[.text-center]
+image::./figures/STAplusGDPRProfileDatastreamEntities.png[STAplus 1.0 - GDPR Profile Entities connected to Datastream,scale=90%]
+
+
+=== STAplus 1.0 - GDPR Profile Data Model connected to `MultiDatastream`
+[[fig-staplus-multidatastream-entities-landscape]]
+[.text-center]
+image::./figures/STAplusGDPRProfileMultiDatastreamEntities.png[STAplus 1.0 - GDPR Profile Entities connected to MultiDatastream,scale=90%]

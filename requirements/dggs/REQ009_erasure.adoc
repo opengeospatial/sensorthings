@@ -1,0 +1,9 @@
+[[req_dggs_erasure]]
+[requirement]
+.Anonymization with Cells
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/erasure
+part:: When the implementation anonymizes an entity according to <<req_gdpr_erasure>>, it SHALL replace a stored Cell association by the ancestor at the public zone level and SHALL replace the stored values of indirect location properties by the generalized values according to <<req_dggs_geometry-release>> at the public zone level.
+part:: Fine Cells that are no longer associated with any entity after the anonymization SHALL remain withheld according to <<req_dggs_cell-visibility>>.
+====

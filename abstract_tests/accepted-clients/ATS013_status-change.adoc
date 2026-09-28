@@ -1,0 +1,44 @@
+[[ats_accepted-clients_status-change]]
+[abstract_test]
+.Suspension and revocation
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/status-change
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/status-change
+test-purpose:: Verify that suspension and revocation take effect immediately and remain visible in the catalog.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As OP, PATCH `Clients(C1)` with `status` = `suspended`. As A, verify that `status` is `suspended` and `statusTime` is present.
+--
+
+[.component,class=step]
+--
+As U1 using C1, create an Observation on D1. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As OP, PATCH `Clients(C1)` with `status` = `accepted`. As U1 using C1, create an Observation on D1. Verify HTTP 201.
+--
+
+[.component,class=step]
+--
+As OP, PATCH `Clients(C1)` with `status` = `revoked`. As U1 using C1, create an Observation on D1. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As OP, PATCH `Clients(C1)` with `status` = `accepted`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1, request D1 and its Observations and verify that they still exist and that D1 is still bound to WP1.
+--
+
+=====
+====

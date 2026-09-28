@@ -1,0 +1,29 @@
+[[ats_accepted-clients_client-relations]]
+[abstract_test]
+.Client relations
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/client-relations
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-relations
+test-purpose:: Verify the navigation between Client, Party and WriteProfile.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As A, request `Clients(C1)?$expand=Party,WriteProfiles`. Verify that the provider Party is expanded, that its `role` is `institutional`, and that WP1 is contained in `WriteProfiles`.
+--
+
+[.component,class=step]
+--
+As A, request `Parties(PP)/Clients`, where PP is the provider Party, and verify that C1 is contained.
+--
+
+[.component,class=step]
+--
+As OP, POST a Client that is associated with a Party whose `role` is `individual`. Verify HTTP 400.
+--
+
+=====
+====

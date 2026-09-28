@@ -1,0 +1,21 @@
+{
+  "value": [
+    {
+      "@iot.id": "5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8",
+      "@iot.selfLink": "https://example.org/staplus/v1.1/Parties('5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8')",
+      "role": "individual",
+      "displayName": "Jane D.",
+      "authId": "did:example:123456789abcdefghi",
+      "Datastreams@iot.navigationLink": "https://example.org/staplus/v1.1/Parties('5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8')/Datastreams",
+      "Things@iot.navigationLink": "https://example.org/staplus/v1.1/Parties('5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8')/Things",
+      "Agreements": [
+        {
+          "@iot.id": "b7e2c1a0-4f53-4d7e-9a61-2f0c8d4e9f11",
+          "coveredProperties": [ "Party/displayName" ],
+          "audience": "authenticated",
+          "status": "active"
+        }
+      ]
+    }
+  ]
+}

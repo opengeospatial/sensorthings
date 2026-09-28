@@ -1,0 +1,8 @@
+[[req_gdpr_agreement-entity-set]]
+[requirement]
+.Agreement entity set
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-entity-set
+part:: The `value` array of the service root URI SHALL contain an entry with `name` equal to `Agreements` and with `url` equal to the URL of the Agreement collection.
+====

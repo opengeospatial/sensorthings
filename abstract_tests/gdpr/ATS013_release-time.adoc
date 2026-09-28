@@ -1,0 +1,39 @@
+[[ats_gdpr_release-time]]
+[abstract_test]
+.Release of indirect time data
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/release-time
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-time
+test-purpose:: Verify that precise times are released only with an Agreement and that otherwise a truncated time is released or the entity is withheld.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Request the service root URI and record whether `timeGeneralization` is advertised and, if so, its `resolution`.
+--
+
+[.component,class=step]
+--
+As U1, create an Observation O1 on Datastream D1 (associated with P1) with `phenomenonTime` = `2026-09-23T10:17:42.123Z` and an Observation O2 with `phenomenonTime` = `2026-09-23T10:17:42.123Z/2026-09-23T10:47:13Z`. P1 has no Agreement for time properties.
+--
+
+[.component,class=step]
+--
+If `timeGeneralization` is advertised with `resolution` = `PT1H`: as A, request O1 and O2 and verify that `phenomenonTime` of O1 is `2026-09-23T10:00:00Z` and of O2 is `2026-09-23T10:00:00Z/2026-09-23T11:00:00Z`. For any other `resolution`, verify the values computed according to the requirement.
+--
+
+[.component,class=step]
+--
+If `timeGeneralization` is not advertised: as A, request `Observations(O1)` and verify HTTP 404; request `Datastreams(D1)/Observations` and verify that O1 and O2 are not contained.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement for P1 with `coveredProperties` = `["Observation/phenomenonTime"]`, `permittedOperations` = `["publish"]` and `audience` = `public`. As A, verify that `phenomenonTime` of O1 and O2 is identical to the submitted values.
+--
+
+=====
+====

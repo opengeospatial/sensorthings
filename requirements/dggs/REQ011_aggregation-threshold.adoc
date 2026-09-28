@@ -1,0 +1,10 @@
+[[req_dggs_aggregation-threshold]]
+[requirement]
+.Minimum number of contributors
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/aggregation-threshold
+part:: If the implementation claims the conformance class `http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation`, it SHALL withhold an aggregate Observation for a Cell and an aggregate interval if at least one contributing raw Observation is attributable to a Party whose `role` is `individual` and the number of distinct Parties whose `role` is `individual` and whose raw Observations contribute is smaller than `minimumContributors`.
+part:: The number of contributing Parties SHALL be determined from the raw Observations as stored, not from the released Cell associations.
+part:: If the implementation claims the conformance class `http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/staplus`, aggregate MultiDatastreams owned by a Party whose `role` is `system` SHALL NOT be treated as attributable to the contributing Parties.
+====

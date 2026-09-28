@@ -1,0 +1,59 @@
+[[ats_accepted-clients_writeprofile-enforcement]]
+[abstract_test]
+.WriteProfile enforcement
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/writeprofile-enforcement
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-enforcement
+test-purpose:: Verify that the endpoint enforces the declared write behaviour of an accepted client.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Precondition: WP1 permits Thing, Location, Datastream, Observation and FeatureOfInterest; is associated with the ObservedProperty OPM (PM2.5); permits the `observationType` `OM_Measurement`; its schema for Observation requires `result` to be a number between 0 and 1000 and allows `parameters` only with the member `sampling` of value `1min` or `10min`; its schema for Datastream restricts `description` to an enumeration of three values.
+--
+
+[.component,class=step]
+--
+As U1 using C1, create a Datastream with an ObservedProperty that is not associated with WP1. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As U1 using C1, create a Datastream with `observationType` `OM_CategoryObservation`. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As U1 using C1, create a Sensor as a separate entity, which is not in `entityTypes`. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As U1 using C1, create an Observation on D1 with `result` = `"Jane lives here"`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1 using C1, create an Observation on D1 with `parameters` = `{"note": "call 0123"}`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1 using C1, create a Datastream whose `description` is not one of the enumerated values. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1 using C1, PATCH an existing Observation of D1 with `result` = `-5`. Verify HTTP 400 and that the stored `result` is unchanged.
+--
+
+[.component,class=step]
+--
+As U1 using C1, create an Observation on D1 with `result` = `12.4` and `parameters` = `{"sampling": "10min"}`. Verify HTTP 201.
+--
+
+=====
+====

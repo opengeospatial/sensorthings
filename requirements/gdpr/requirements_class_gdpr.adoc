@@ -1,0 +1,53 @@
+[[rc_gdpr]]
+[requirements_class]
+.GDPR
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req-class/gdpr
+subject:: Implementation
+obligation:: requirement
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0/req-class/entity-control-information
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0.1/req-class/party
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0/req-class/license
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0/req-class/group
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0/req-class/campaign
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0/req-class/read
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0/req-class/create
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0/req-class/update
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0/req-class/delete
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0.1/req-class/authentication
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0.1/req-class/business-logic
+inherit:: http://www.opengis.net/spec/sensorthings-staplus/1.0/req-class/default-crs
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/personal-data-register
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/party-role
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-properties
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-relations
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-entity-set
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-create
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-access
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-immutable
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-withdrawal
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-effective
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/store-direct
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-direct
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-free-text
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-location
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-time
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/query-consistency
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/attribution-filter
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/attribution-integrity
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/relation-release
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/group-linking
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/campaign-participation
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/mqtt
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/access-right
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/rectification
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/erasure
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/advertisement
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/privacy-notice
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/transport-security
+recommendation:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/gdpr/dpia
+recommendation:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/gdpr/proof
+recommendation:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/gdpr/relation-role
+recommendation:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/gdpr/free-text
+====

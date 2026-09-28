@@ -1,0 +1,254 @@
+[obligation=informative]
+[[clause-analysis]]
+== Personal data in STAplus
+
+=== Approach
+
+This clause analyses which properties of the STAplus 1.0.1 data model, including the SensorThings API entity types it extends, contain personal data. The result of the analysis is the normative personal data register in <<tab-register>>.
+
+The GDPR protects natural persons. In STAplus, a natural person is represented by a `Party` whose `role` is `individual`; the corrigendum distinguishes this role from `institutional` (an organisation) and `system` (an autonomously acting computer or process). The ownership model of STAplus associates a `Party` with `Datastream`, `MultiDatastream`, `Thing`, `ObservationGroup` and `Campaign` entities, and through them with `Observation`, `FeatureOfInterest`, `Location`, `HistoricalLocation` and party-specific `License` entities. Every value of such an entity relates to the natural person represented by the `Party`.
+
+The analysis distinguishes:
+
+* *direct personal data*: values that on their own name, identify or describe the person, such as a display name or an attribution text;
+* *indirect personal data*: location and time values that do not name the person, but that become personal data through the attribution to the `Party` and allow the person to be identified or profiled when combined, for example the location of a home or the times at which a person is present at a place;
+* *free text*: `name`, `description` and `properties` of attributable entities, whose content is written by the user and may or may not contain personal data, for example "`Sensor on my balcony, Lindenweg 5`"; and
+* *operator-classified data*: observation results and parameters and `Sensor/metadata`, whose content is the observation data itself or belongs to shared entities.
+
+=== Direct personal data in the Party entity type
+
+The `Party` entity type is the central carrier of direct personal data. STAplus already omits the generic `properties` member from `Party` so that personal data cannot be stored there in an uncontrolled way. <<tab-party-analysis>> analyses each remaining property and association.
+
+[[tab-party-analysis]]
+.Personal data in the Party entity type (role `individual`)
+[cols="17,19,64",options="header"]
+|===
+|Property |Category |Analysis
+
+|`authId`
+|direct (online identifier)
+|The user identifier from the authentication (for example `REMOTE_USER`, the OpenID Connect `sub` claim or a DID). It is permanent and unique for a user (STAplus requirement `/req/authentication/id`) and therefore an online identifier in the sense of GDPR Article 4(1). Its exposure would allow tracking of the person across services. STAplus already prohibits exposing it to other users (`/req/authentication/id-read`). It cannot be made releasable by an `Agreement` in this Profile.
+
+|`displayName`
+|direct
+|A name chosen by the user to be displayed in user interfaces. It is frequently the real name or a nickname that is used elsewhere. STAplus 1.0.1 states that it is not used as creator identification. Storage and release require an `Agreement`.
+
+|`description`
+|direct (free text)
+|A short description of the party, written by the user. It can contain names, affiliations or contact details. Storage and release require an `Agreement`.
+
+|`role`
+|not personal data on its own
+|The value `individual` indicates that the other values of the `Party` and its attributable entities relate to a natural person. It is the trigger for the requirements of this Profile and is released.
+
+|`@iot.id`
+|indirect (pseudonymous identifier)
+|STAplus 1.0.1 requires a random identifier that is not correlated to the user identification (`/req/authentication/id-create`). It does not identify the person, but it links all contributions of the person. Pseudonymous data remains personal data (GDPR Recital 26). It is released because the ownership model depends on it; the privacy notice declares the legal basis.
+
+|`Datastreams`, `MultiDatastreams`, `Things`, `ObservationGroups`, `Campaigns`
+|linkage
+|The associations enumerate the contributions of the person. They are released; the entities they point to are subject to the release rules of this Profile.
+
+|`Agreements` (added by this Profile)
+|direct
+|The decisions of the person on the use of their data. Only the data subject can see them (<<req_gdpr_agreement-access>>).
+|===
+
+=== Direct personal data in other STAplus entity types
+
+*License.* STAplus 1.0.1 distinguishes read-only template License entities, created by the implementation, from party-specific License instances that a `Party` constructs from a template when the `definition` identifies an attribution license. Creator identification is always the `attributionText` of the party-specific instance; `Party/displayName` and `Party/authId` are not used as creator identification. The corrigendum explicitly leaves open whether `attributionText` is personal data and what the legal basis for publishing it is. Because an attribution text typically names the creator (for example "`© Jane Doe, CC BY 4.0`"), this Profile classifies `attributionText` and the writable `description` of a party-specific instance as direct personal data. A template License must not store a party-specific name (STAplus `/req/business-logic/attribution`) and therefore contains no personal data.
+
+The tension between an attribution license and privacy is resolved by <<req_gdpr_attribution-integrity>>: observations that are licensed under an attribution license are released only to those requesters to whom the attribution text is released. A data subject therefore decides, with a single `Agreement`, whether their attributed contributions are public, visible to authenticated users only, or visible to nobody else.
+
+*Licenses of ObservationGroups and Campaigns.* In STAplus, the License of an ObservationGroup or a Campaign expresses the reuse conditions of the group or the campaign as a compilation; the License of each Observation, given by its Datastream or MultiDatastream, still has to be followed. An ObservationGroup can therefore carry two layers of licensing, for example a group curated by Bob under CC0 that contains Observations of Jane under CC BY. For the release of Jane's Observations, her License and her attribution always take precedence: <<req_gdpr_attribution-integrity>> withholds each of her attributed Observations from a requester who cannot see her `attributionText`, also when the Observation is reached through a group. Conversely, if the curator of a group is an individual with an attribution license, the group's membership is not released to requesters who cannot see the curator's `attributionText`, while the member Observations remain available through their own Datastreams under their own rules.
+
+STAplus allows a group to contain Observations either by linking or as a deep copy. A copy that is detached from the Datastream of the contributor would escape the contributor's Agreements, the generalization of location and time, the contributor's License and attribution, and the right to erasure. This Profile therefore permits grouping only by linking (<<req_gdpr_group-linking>>).
+
+*Campaign.* A Campaign is an activity, commonly limited in space and time, that groups Datastreams, MultiDatastreams and ObservationGroups and is managed by at most one Party. Several aspects of it concern personal data:
+
+* Participation is personal data of the participant. The association of a citizen's Datastream with a Campaign reveals that the citizen takes part, and, for a campaign such as "`air quality for asthma patients`", it can reveal special categories of personal data (GDPR Article 9). This Profile therefore treats the `Campaigns` associations of attributable Datastreams, MultiDatastreams and ObservationGroups as indirect personal data that is released only with an Agreement; the manager of the Campaign always sees its members.
+* Participation has to be the participant's decision. Only the data subject can associate their Datastream with a Campaign; both the participant and the manager can end the association at any time (<<req_gdpr_campaign-participation>>).
+* `Campaign/classification` marks campaigns whose data are sensitive. For such campaigns, publication needs explicit consent (GDPR Article 9(2)(a)); the privacy notice declares which classification values are sensitive.
+* `termsOfUse` and `privacyPolicy` inform participants but are no legal basis for the implementation (<<req_gdpr_agreement-effective>>). An institution that manages a Campaign and uses the participants' data for its own purpose is a separate or joint controller (GDPR Article 26), or a processor (GDPR Article 28); the privacy notice states its role.
+* The License of a Campaign is the license of the Campaign as a compilation. The Licenses of the member Datastreams take precedence for the release of their Observations, and an attribution license of an individual manager withholds the membership from requesters who cannot see the manager's `attributionText` (<<req_gdpr_attribution-integrity>>).
+
+*Campaign, ObservationGroup.* These entity types contain free-text properties (`name`, `description`, `purpose`, `termsOfUse`, `privacyPolicy`, `url`, `properties`) whose content is chosen by the managing party. Where the managing party is an individual, `name`, `description` and `properties` are free text in the sense of this Profile; `purpose` and `dataQuality` of an ObservationGroup are free text as well; `termsOfUse`, `privacyPolicy` and `url` are addressed to participants and are released.
+
+*Relation.* A Relation links an Observation (its Subject) to another Observation (its Object) or to an external resource identified by a URI, with a `role`, an optional `description` and optional `properties`. It has no association with a Party, so STAplus does not record who created it, and it would fall outside an attribution chain that starts at the Party. Yet a Relation can carry personal data in several ways:
+
+* its `description` and `properties` can describe the person, for example "`measured at Jane's flat`";
+* its `externalResource` can identify the person, for example a researcher profile or a `mailto:` URI, or point to a record elsewhere that contains the precise location and time of the same observation, which would defeat the generalization of this Profile;
+* a Relation between Observations of two persons reveals a connection between them, for example that they were at the same place at the same time; and
+* its Subject and Object references reveal the existence of Observations that are withheld.
+
+This Profile therefore treats a Relation as attributable to the Parties of its Subject and Object Observations. Its `description`, `properties` and `externalResource` are free text that is released only with an Agreement, and with co-attribution, a Relation between the Observations of two persons needs the Agreement of both. A Relation is withheld whenever its Subject or Object is withheld. Because anyone permitted by the business logic can attach a Relation to an Observation, the data subjects of the Subject and of the Object decide about it: each of them can delete it, whoever created it (<<req_gdpr_relation-release>>). The `role` is a URI from a vocabulary and is released; <<rec_gdpr_relation-role>> recommends limiting it to declared vocabularies.
+
+*SensorThings API core entity types.* `Thing`, `Location`, `Sensor`, `Datastream`, `ObservedProperty` and `FeatureOfInterest` have free-text `name`, `description` and `properties` members. A user who describes a Thing as "`PM2.5 sensor on my balcony, Lindenweg 5`" has written an address. This Profile therefore treats these members of attributable entities as free text: they are stored, but released to others only on the basis of an `Agreement` for `publish` (<<req_gdpr_release-free-text>>). Mandatory members are released as the empty string, so that SensorThings API clients continue to work; optional members are omitted. Text that is not written by the user, because the implementation generated it or because an accepted client wrote it under a verified free-text policy, is released without an `Agreement`. `Sensor` and `ObservedProperty` are shared entities that are not attributable to a Party; `Sensor/metadata` can nevertheless contain serial numbers that link a device to its owner. `Observation/result` can contain images, audio recordings or text that show or describe persons, and `Observation/parameters` is an unconstrained JSON object. These are operator-classified.
+
+=== Indirect personal data in location properties
+
+Location values become personal data when the entity is attributable to a natural person. For citizen observatories they are among the most sensitive values: a stationary air-quality sensor is usually mounted at the home of the citizen, and a mobile sensor records the trajectory of the person carrying it. <<tab-location-analysis>> lists the location properties.
+
+[[tab-location-analysis]]
+.Indirect personal data in location properties
+[cols="28,12,60",options="header"]
+|===
+|Property |Mandatory in STA |Inference risk
+
+|`Location/location`
+|yes
+|Position of a `Thing` owned by the person. For stationary citizen sensors typically the home address; combined with public registers it identifies the household.
+
+|`HistoricalLocation` (via its `Locations`)
+|—
+|Sequence of positions of a `Thing`; combined with `HistoricalLocation/time` it forms a movement profile.
+
+|`FeatureOfInterest/feature`
+|yes
+|Position of the observation. For mobile sensing and for species observations it records where the person was.
+
+|`Datastream/observedArea`, `MultiDatastream/observedArea`
+|no (computed)
+|Spatial extent of all features of interest of the stream. A small extent reveals the home; a large extent reveals the activity range.
+
+|`Observation/result` of a position-valued observed property
+|yes
+|For example a GPS track stored as observations. Operator-classified, because the implementation cannot in general recognise position-valued results.
+|===
+
+STAplus requires that geometries are stored in the default-CRS (`urn:ogc:def:crs:OGC::CRS84`, longitude/latitude axis order). This Profile relies on that requirement: generalization operates on stored values in a known CRS, independent of whether a client submitted GeoJSON, Features and Geometries JSON or Well-Known Text.
+
+=== Indirect personal data in time properties
+
+Time values alone rarely identify a person, but they reveal behaviour: when a person is at home, when they commute, when they visited a place. Combined with location they form spatio-temporal points, of which few suffice to single out an individual in large populations (<<deMontjoye2013>>). <<tab-time-analysis>> lists the time properties.
+
+[[tab-time-analysis]]
+.Indirect personal data in time properties
+[cols="30,12,58",options="header"]
+|===
+|Property |Mandatory in STA |Inference risk
+
+|`Observation/phenomenonTime`
+|yes
+|When the observation was made; for manual observations when the person was at the feature of interest.
+
+|`Observation/resultTime`
+|yes
+|When the result was produced, often when the person uploaded or processed it.
+
+|`Observation/validTime`
+|no
+|Validity period chosen by the person.
+
+|`HistoricalLocation/time`
+|yes
+|When the `Thing` of the person moved; together with the location a trajectory.
+
+|`Datastream/phenomenonTime`, `Datastream/resultTime`, `MultiDatastream/phenomenonTime`, `MultiDatastream/resultTime`
+|no (computed)
+|Activity window of the person.
+
+|`ObservationGroup/creationTime`
+|yes
+|When the person created the group, for example a camera-trap event.
+
+|`ObservationGroup/endTime`
+|no
+|End of the group, semantics defined by the Business Logic.
+|===
+
+`Campaign/creationTime`, `Campaign/startTime` and `Campaign/endTime` are not classified as indirect personal data, because they describe the public schedule of a campaign rather than the behaviour of the managing person. The time properties of an `Agreement` are visible to the data subject only.
+
+=== Linkage and inference
+
+Controlling the release of individual properties is not sufficient, because the API offers several ways to infer values that are not released. The requirements of <<clause-gdpr>> address the following channels.
+
+Query oracle:: A requester who cannot see `displayName` could test a guessed name with `$filter=displayName eq 'Jane Doe'`, or narrow a precise location with a sequence of `st_within` filters, or a precise time with range filters. <<req_gdpr_query-consistency>> requires that those queries are evaluated against the released value only, and that `@iot.count` counts only released entities. The same evaluation is not sufficient for `License/attributionText`. A released citation typically contains the name of the data subject, and an expression on it would let any requester collect all Datastreams and MultiDatastreams of that person. The Agreement for `publish` covers displaying the citation with the data, not locating data by the citation. <<req_gdpr_attribution-filter>> therefore rejects a request whose `$filter` or `$orderby` references `License/attributionText`.
+
+Averaging:: If a location were obfuscated with random noise drawn anew for each request, repeated requests would average the noise out. Generalization is therefore required to be deterministic (<<req_gdpr_release-location>>).
+
+Expansion and navigation:: A value hidden in `Parties(...)` must also be hidden in `Datastreams(...)?$expand=Party` and in any other path (<<req_gdpr_release-direct>>).
+
+MQTT:: Subscribers receive entity representations without a request; they are subject to the same rules (<<req_gdpr_mqtt>>).
+
+Linkage through the ownership model:: `Party/@iot.id` links all attributable entities of one person. Even generalized locations of many observations can reveal a home when combined. The operator needs to consider this in choosing the resolution; <<rec_gdpr_dpia>> recommends a data protection impact assessment.
+
+Co-attribution:: A `FeatureOfInterest` can be shared by observations of several persons. Its location is released precisely only if every person has agreed (<<req_gdpr_personal-data-register>>).
+
+=== The Agreement entity type
+
+The entity type `Agreement` records, in a machine-readable way, the authorization that a data subject gives for the storage and publication of specified personal data. It is the legal basis that this Profile requires before an implementation
+
+* stores a direct personal data value, for example `Party/displayName` or `License/attributionText` (operation `store`); and
+* releases a direct personal data value, a precise location or a precise time to anyone other than the data subject (operation `publish`).
+
+An `Agreement` states the legal basis (`consent`, `explicit-consent` for special categories of personal data according to GDPR Article 9(2)(a), or `contract`), a specific `purpose`, the `definition` URI of the text the data subject agreed to, the `coveredProperties` it applies to, the `permittedOperations`, and for publication the `audience` (`public` or `authenticated`). The implementation sets `grantedTime` and `status`. The data subject may set an `effectiveTime` from which the Agreement applies, for example the start of a campaign, and an `expiryTime` after which it no longer applies. `grantedTime` records when the data subject gave the authorization; `effectiveTime` records when processing under it may begin. An `effectiveTime` earlier than `grantedTime` is rejected, because an authorization cannot legitimize processing that has already taken place.
+
+An `Agreement` has no `properties` member, for the same reason as `Party`: it must not become a store for uncontrolled personal data. The optional `proof` member can carry evidence created by the data subject, for example a signature with a key bound to a Decentralized Identifier (<<DID>>), which strengthens the controller's ability to demonstrate consent (GDPR Article 7(1)).
+
+.Life cycle of an Agreement
+[cols="20,30,50",options="header"]
+|===
+|State |Transition |Effect
+
+|—
+|creation by the data subject (HTTP POST or deep insert)
+|`status` = `active`, `grantedTime` set by the implementation, `effectiveTime` set to `grantedTime` unless supplied. From `effectiveTime` on, the Agreement is effective for its covered properties and operations.
+
+|active
+|`effectiveTime` passes (if later than `grantedTime`)
+|The Agreement becomes effective. No request is needed. Privacy zones of the Agreement (DGGS) apply from creation, because they only restrict release.
+
+|active
+|`expiryTime` passes
+|The Agreement is no longer effective. Stored direct personal data covered only by this Agreement is erased; released values revert to generalized or withheld.
+
+|active
+|withdrawal by the data subject (HTTP PATCH `status` = `withdrawn`), also before `effectiveTime`
+|`withdrawalTime` set; effects as for expiry, immediately.
+
+|active or withdrawn
+|HTTP DELETE by the data subject
+|Treated as withdrawal; the Agreement is no longer visible through the API. A record may be retained to demonstrate the earlier consent.
+|===
+
+The content of an `Agreement` cannot be changed after creation. A data subject who wants to change the scope, purpose or audience creates a new `Agreement` and withdraws the old one. This keeps each `Agreement` a faithful record of what the data subject agreed to at `grantedTime`.
+
+An `Agreement` may be associated with a `Campaign`. It then applies only to the Campaign and to the entities that belong to it, for example the Datastream with which a citizen takes part in a measurement campaign. A citizen can thereby publish precise locations for the campaign without publishing them for any other contribution. An `Agreement` that is not associated with a `Campaign` applies to all contributions of the data subject.
+
+[[clause-trust-in-clients]]
+=== Knowing what is written
+
+The GDPR requirements class controls what an implementation stores and releases, but it cannot interpret free-text properties, `properties` members, `Observation/parameters` or `Observation/result`. The operator of a SensorThings API endpoint usually does not know whether a result is an air temperature or a heart rate, whether a description contains a telephone number, or whether an image shows bystanders. Such values cannot be generalized, because they are the core of the observation data.
+
+The optional Accepted Clients requirements class addresses this at the point where data is written. A credential such as an OAuth 2.0 access token carries two identities in every request: the principal, a user or an operator-managed organisation or system, whose identifier becomes `Party/authId`, and the client application, identified by its client identifier, for example the OAuth 2.0 `client_id`. Any credential that resolves to both, such as an API key or a local account that the operator has bound to one principal and one application release, serves the same purpose. By accepting client applications beforehand, the operator obtains a declaration of what each application writes. By validating every write against JSON Schemas attached to that declaration, the implementation enforces it:
+
+* the operator knows, per application release, which entity types, ObservedProperties and observation types can occur, and the permitted structure and value ranges of results, parameters, properties and texts;
+* the declared nature of results (`environmental`, `subject-related`, `media`) and the declared on-device processing (for example location coarsening or face blurring) become transparent to data consumers and data subjects;
+* each Datastream and MultiDatastream records the write profile under which it was created, so that data written by an application that is later found to misbehave can be identified, and every Thing, Location and FeatureOfInterest linked to it has to conform to that write profile; and
+* the catalog is public and queryable through the SensorThings API, so that anyone can see which applications may write to the endpoint and under which rules.
+
+Each endpoint keeps its own catalog; acceptance by one endpoint has no effect on another. Acceptance is strict: a client release is identified by its client identifier together with its software version, its software identifier, or both, and every accepted release has its own Client entity. A new release that does not change the write behaviour is accepted by creating a Client entity associated with the existing WriteProfile, so that it can continue to write to existing Datastreams.
+
+The approach has limits. The client identifier of a public client can be reused by other software unless the client uses attestation and sender-constrained tokens; a key embedded in a public application can be extracted. A JSON Schema can restrict structure and values, but where free text is permitted, it cannot prevent a user from entering personal data. Such text is therefore released only with an `Agreement`; only a free-text policy of `none` or `controlled-vocabulary`, verified against the schemas, lets names and descriptions be released without one. And restricting write access to accepted applications reduces the openness of an endpoint; the published acceptance policy keeps the criteria transparent, and read access remains unaffected.
+
+[[clause-dggs-obfuscation]]
+=== Spatial obfuscation with DGGS cells
+
+The GDPR requirements class releases locations of data subjects who have not agreed to their publication as generalized values. The OGC SensorThings API Extension: DGGS 1.0 (<<OGC26-057>>) provides a standard basis for this generalization. A Discrete Global Grid System partitions the Earth into a hierarchy of zones; each zone has a compact identifier, a zone level and exactly one parent. <<OGC26-057>> adds the Cell entity type, links Observations, Datastreams and MultiDatastreams to Cells, and advertises the deployed grid system on the service root URI.
+
+Used for obfuscation, DGGS cells have several advantages over an implementation-specific grid:
+
+* the released value is a region, which states honestly that the observation was made somewhere in it, rather than a representative point that suggests a precision it does not have;
+* the grid system, the zone identifiers and the zone levels are standard and advertised, so the release is deterministic and can be verified exactly by computing the ancestor of a zone;
+* the hierarchy allows the precision to become a parameter of the Agreement: a data subject can authorize publication at a finer level, keep the default, or choose a coarser level, and can define privacy zones around places such as the home;
+* Cells are shared, uniform and cannot be edited by users; they are never attributable to a Party, so the co-attribution problem of shared FeaturesOfInterest does not arise; and
+* accepted clients can send Cell references only, so that the precise location never reaches the endpoint.
+
+<<OGC26-057>> also introduces new ways in which a location can be disclosed, which the DGGS requirements class controls:
+
+* the Cell association of an attributable Observation, Datastream or MultiDatastream is itself location data, at the precision of the referenced zone level;
+* navigation from a Cell to its Observations and queries on `Cell/zoneId` can reveal the stored Cell even when the association is released at a coarser level;
+* create-by-reference materializes a fine Cell and its parents the first time the zone is referenced; although <<OGC26-057>> records neither a user identifier nor a Party for that creation, the appearance of a new fine Cell reveals that someone has just been there; and
+* aggregates count Observations, not persons, so an aggregate of many Observations of a single individual discloses that individual's values; and withheld aggregates can be recovered by subtraction from released aggregates of the parent Cell or of a longer interval.
+

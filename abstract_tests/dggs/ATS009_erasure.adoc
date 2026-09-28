@@ -1,0 +1,34 @@
+[[ats_dggs_erasure]]
+[abstract_test]
+.Anonymization with Cells
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/erasure
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/erasure
+test-purpose:: Verify that anonymization on erasure keeps only public-level Cells.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create O1 linked to c10 and a Location with a precise Point for a Thing of P1.
+--
+
+[.component,class=step]
+--
+As U1, DELETE `Parties(P1)`.
+--
+
+[.component,class=step]
+--
+If O1 still exists, request it with `$expand=Cell` as any requester and verify that the Cell is c7. If the Location still exists, verify that its `location` is the boundary of the level-7 cell.
+--
+
+[.component,class=step]
+--
+As A, request `Cells(c10)`. Verify HTTP 404.
+--
+
+=====
+====

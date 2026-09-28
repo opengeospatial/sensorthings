@@ -1,0 +1,34 @@
+[[ats_accepted-clients_registry-access]]
+[abstract_test]
+.Access to the client catalog
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/registry-access
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/registry-access
+test-purpose:: Verify that the catalog is public for reading and writable only by catalog administrators.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As A, request `Clients?$filter=status eq 'accepted'&$expand=WriteProfiles&$count=true`. Verify HTTP 200 and that C1 is contained.
+--
+
+[.component,class=step]
+--
+As U1 (not a catalog administrator), POST a Client. Verify HTTP 403. As A, POST a Client. Verify HTTP 401.
+--
+
+[.component,class=step]
+--
+As U1, PATCH `Clients(C1)` with `status` = `revoked`. Verify HTTP 403 and that `status` is unchanged.
+--
+
+[.component,class=step]
+--
+As OP, POST a valid Client C2 with `status` = `accepted`. Verify HTTP 201.
+--
+
+=====
+====

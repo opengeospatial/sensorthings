@@ -1,0 +1,10 @@
+[[req_gdpr_store-direct]]
+[requirement]
+.Storage of direct personal data
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/store-direct
+part:: The implementation SHALL NOT store a value of a direct personal data property (see <<tab-register>>) of an entity attributable to a Party `P` whose `role` is `individual`, unless an Agreement of `P` exists that is effective for that property path and the operation `store` at the completion of the request. Agreements created by deep insert in the same request SHALL be taken into account.
+part:: The implementation SHALL reject a create or update request that would store such a value without an effective Agreement with HTTP 409. No entity of that request SHALL be created or changed.
+part:: When no Agreement effective for the property path and `store` exists any longer, because of withdrawal or expiry, the implementation SHALL erase the stored value. In case of withdrawal, the erasure SHALL be completed before the response to the withdrawal request is sent.
+====

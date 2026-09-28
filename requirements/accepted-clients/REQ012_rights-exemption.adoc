@@ -1,0 +1,8 @@
+[[req_accepted-clients_rights-exemption]]
+[requirement]
+.Exemption for data subject rights
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/rights-exemption
+part:: The implementation SHALL NOT reject the following requests of a data subject on the grounds of <<req_accepted-clients_client-acceptance>>, <<req_accepted-clients_writeprofile-enforcement>> or <<req_accepted-clients_bound-writes>>: HTTP DELETE requests for entities attributable to the Party of the data subject; HTTP DELETE requests for Relations according to <<req_gdpr_relation-release>>; the removal of a Campaign association according to <<req_gdpr_campaign-participation>>; the creation of an Agreement; the withdrawal of an Agreement; and updates of direct personal data according to <<req_gdpr_rectification>>.
+====

@@ -1,0 +1,15 @@
+{
+  "role": "individual",
+  "displayName": "Jane D.",
+  "Agreements": [
+    {
+      "name": "Show my display name",
+      "legalBasis": "consent",
+      "purpose": "Show my display name to all registered users of this endpoint, next to my air-quality contributions",
+      "definition": "https://example.org/staplus/consent/display-name/v2",
+      "coveredProperties": [ "Party/displayName" ],
+      "permittedOperations": [ "store", "publish" ],
+      "audience": "authenticated"
+    }
+  ]
+}

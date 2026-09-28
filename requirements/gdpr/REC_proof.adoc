@@ -1,0 +1,8 @@
+[[rec_gdpr_proof]]
+[recommendation]
+.Verifiable Agreements
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/gdpr/proof
+part:: The client SHOULD provide a `proof` for each Agreement that the data subject signs with a key bound to the authenticated identity (for example a W3C Decentralized Identifier), and the implementation SHOULD verify the `proof` before accepting the Agreement.
+====

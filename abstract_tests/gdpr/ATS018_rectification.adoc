@@ -1,0 +1,29 @@
+[[ats_gdpr_rectification]]
+[abstract_test]
+.Right to rectification
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/rectification
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/rectification
+test-purpose:: Verify that only the data subject can rectify their direct personal data.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, store `P1/displayName` = `X` with an Agreement that permits `store`.
+--
+
+[.component,class=step]
+--
+As U1, PATCH `Parties(P1)` with `displayName` = `Y`. Verify a success status code and, as U1, that `displayName` is `Y`.
+--
+
+[.component,class=step]
+--
+As U2, PATCH `Parties(P1)` with `displayName` = `Z`. Verify HTTP 403 and, as U1, that `displayName` is still `Y`.
+--
+
+=====
+====

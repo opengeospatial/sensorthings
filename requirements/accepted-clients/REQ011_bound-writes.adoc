@@ -1,0 +1,9 @@
+[[req_accepted-clients_bound-writes]]
+[requirement]
+.Writes to bound Datastreams
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/bound-writes
+part:: The implementation SHALL accept the creation or update of an Observation of a Datastream or MultiDatastream, and the update of a Datastream or MultiDatastream, only from an accepted Client that is associated with the WriteProfile bound to that Datastream or MultiDatastream. Otherwise, it SHALL reject the request with HTTP 403.
+part:: Writes to a Datastream or MultiDatastream that is bound to a superseded WriteProfile SHALL continue to be accepted from the accepted Clients associated with that WriteProfile.
+====

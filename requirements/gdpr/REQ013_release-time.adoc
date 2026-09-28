@@ -1,0 +1,10 @@
+[[req_gdpr_release-time]]
+[requirement]
+.Release of indirect time data
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-time
+part:: The implementation SHALL NOT release the stored value of an indirect time property (see <<tab-register>>) of an entity attributable to a Party `P` whose `role` is `individual` to a requester `r` that is not the data subject of `P`, unless an Agreement of `P` exists that is effective for that property path, the operation `publish` and `r`.
+part:: Where the stored value is not released and the implementation advertises `timeGeneralization` (see <<req_gdpr_advertisement>>), the implementation SHALL release the generalized value instead. Otherwise, the implementation SHALL omit the property if it is optional and SHALL withhold the entity if the property is mandatory, as indicated in <<tab-register>>.
+part:: The generalized value of a time instant SHALL be the instant truncated to the largest multiple of the advertised `resolution` counted from `1970-01-01T00:00:00Z` that is not later than the instant. The generalized value of a time interval SHALL be the interval from the generalized start instant to the smallest such multiple that is not earlier than the end instant. Generalized values SHALL be encoded in UTC.
+====

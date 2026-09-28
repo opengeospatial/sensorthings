@@ -1,0 +1,12 @@
+{
+  "@iot.id": "c41e7d2a-0b9f-4a36-8e15-3d7f6b2a9c04",
+  "@iot.selfLink": "https://example.org/staplus/v1.1/Locations('c41e7d2a-0b9f-4a36-8e15-3d7f6b2a9c04')",
+  "name": "Balcony sensor",
+  "description": "Low-cost PM2.5 sensor",
+  "encodingType": "application/geo+json",
+  "location": {
+    "type": "Point",
+    "coordinates": [ 2.172946, 41.380704 ]
+  },
+  "Things@iot.navigationLink": "https://example.org/staplus/v1.1/Locations('c41e7d2a-0b9f-4a36-8e15-3d7f6b2a9c04')/Things"
+}

@@ -1,0 +1,9 @@
+[[req_gdpr_group-linking]]
+[requirement]
+.Grouping by linking
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/group-linking
+part:: The implementation SHALL add an Observation or a Relation to an ObservationGroup only by associating the existing entity with the ObservationGroup. It SHALL NOT create a copy of an Observation or a Relation for an ObservationGroup. A request that would create such a copy SHALL be rejected with HTTP 400.
+part:: An Observation or Relation created by deep insert together with an ObservationGroup SHALL be created as an entity in its own right, with its Datastream or MultiDatastream, and SHALL be subject to all requirements of this Requirements Class as if it had been created separately.
+====

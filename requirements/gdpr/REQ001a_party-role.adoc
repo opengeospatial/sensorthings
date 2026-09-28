@@ -1,0 +1,11 @@
+[[req_gdpr_party-role]]
+[requirement]
+.Assignment of the Party role
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/party-role
+part:: The implementation SHALL create a Party whose `role` is `institutional` or `system` only for a principal whose identity is managed by the operator, for example a local account that the operator has created. A request by any other principal to create such a Party, or to change the `role` of a Party to `institutional` or `system`, SHALL be rejected with HTTP 403.
+part:: The implementation SHALL NOT change the `role` of a Party from `individual` to another value. Such a request SHALL be rejected with HTTP 403.
+part:: If the implementation accepts principals from more than one authentication source, it SHALL qualify `Party/authId` by the source, for example by the issuer of an OAuth 2.0 access token and its subject, or by a local realm and the account name, so that principals of different sources never share a Party.
+part:: An identity managed by the operator MAY represent a natural person. Whatever the authentication source, a Party that represents a natural person, or a device or process that writes on behalf of a natural person, SHALL have the `role` `individual`.
+====

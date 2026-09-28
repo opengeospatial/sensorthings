@@ -1,0 +1,11 @@
+[[req_gdpr_relation-release]]
+[requirement]
+.Release of Relations
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/relation-release
+part:: The implementation SHALL release a Relation that is attributable to a Party whose `role` is `individual` to a requester `r` that is not a data subject of that Relation only if its Subject and, if present, its Object are released to `r`. Otherwise, the Relation SHALL be withheld.
+part:: A withheld Relation SHALL NOT be contained in any response, including the Relation collection, the navigation properties `Objects` and `Subjects` of an Observation, the `Relations` of an ObservationGroup, and `$expand` at any depth. A request for it, or a request whose resource path traverses it, SHALL be answered with HTTP 404. Query options and expressions that navigate to Relations, including `$count`, SHALL be evaluated as if withheld Relations did not exist.
+part:: The data subject of a Party to which the Subject or the Object of a Relation is attributable SHALL be able to delete that Relation by HTTP DELETE, regardless of which principal created it.
+part:: When the Subject or the Object of a Relation is deleted, the implementation SHALL delete the Relation.
+====

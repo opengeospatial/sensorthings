@@ -1,0 +1,29 @@
+[[ats_gdpr_group-linking]]
+[abstract_test]
+.Grouping by linking
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/group-linking
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/group-linking
+test-purpose:: Verify that ObservationGroups link Observations instead of copying them.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create an Observation O1 on D1. Request `Observations?$count=true` as U1 and note the count.
+--
+
+[.component,class=step]
+--
+As U2, create an ObservationGroup G2 associated with P2 that references O1 by `@iot.id`. Verify that `ObservationGroups(G2)/Observations` contains an Observation with the `@iot.id` of O1, and, as U1, that the count of `Observations` is unchanged.
+--
+
+[.component,class=step]
+--
+As U1, delete O1. As U2, verify that `ObservationGroups(G2)/Observations` no longer contains it.
+--
+
+=====
+====

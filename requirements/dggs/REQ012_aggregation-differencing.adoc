@@ -1,0 +1,9 @@
+[[req_dggs_aggregation-differencing]]
+[requirement]
+.Protection against differencing
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/aggregation-differencing
+part:: If the implementation claims the conformance class `http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation`, for each released aggregate Observation of a Cell `c` and an interval `i`, the implementation SHALL ensure that among the parts of that aggregate the number of withheld parts is not exactly one. The parts are (a) the aggregates of the children of `c` for `i`, together with the aggregate of the raw Observations linked directly to `c` for `i`; and (b) the aggregates of `c` for each configured shorter interval that partitions `i`.
+part:: Where this condition is not met, the implementation SHALL withhold a further part or the aggregate of `c` for `i`.
+====

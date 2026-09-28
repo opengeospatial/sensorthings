@@ -1,0 +1,9 @@
+[[req_dggs_privacy-zones]]
+[requirement]
+.Privacy zones
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/privacy-zones
+part:: The privacy zones of a Party are the zone identifiers in `privacyZones` of all Agreements of the Party whose `status` is `active` and whose `expiryTime` is absent or later than the current time, irrespective of their `effectiveTime`.
+part:: If the stored Cell `c` of a Cell association, or the Cell that contains a stored position of an indirect location property, is equal to or a descendant of a privacy zone `z` of the Party, the release level for a requester that is not the data subject SHALL NOT be larger than the zone level of `z`.
+====

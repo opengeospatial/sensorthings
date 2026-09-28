@@ -1,0 +1,8 @@
+[[req_accepted-clients_entity-sets]]
+[requirement]
+.Client and WriteProfile entity sets
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/entity-sets
+part:: The `value` array of the service root URI SHALL contain an entry with `name` equal to `Clients` and an entry with `name` equal to `WriteProfiles`, each with the `url` of the corresponding collection.
+====

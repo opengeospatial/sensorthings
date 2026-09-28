@@ -1,0 +1,34 @@
+[[ats_dggs_aggregation-threshold]]
+[abstract_test]
+.Minimum number of contributors
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/aggregation-threshold
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/aggregation-threshold
+test-purpose:: Verify that aggregates of fewer than k distinct individuals are withheld, independent of the number of observations.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Skip this test if the implementation does not claim `http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation`. Let k be `minimumContributors`.
+--
+
+[.component,class=step]
+--
+Select a Cell c9 without observations. As U1, create 50 numeric Observations in one aggregate interval linked to c9. Wait until the aggregation has run.
+--
+
+[.component,class=step]
+--
+As A, request the aggregate MultiDatastreams linked to c9 and their Observations for that interval. Verify that no aggregate Observation for that interval is returned.
+--
+
+[.component,class=step]
+--
+As k - 1 further users with individual Parties, create one Observation each in the same interval linked to c9. Verify that the aggregate Observation for that interval is released and that its `count` equals the total number of contributing Observations.
+--
+
+=====
+====

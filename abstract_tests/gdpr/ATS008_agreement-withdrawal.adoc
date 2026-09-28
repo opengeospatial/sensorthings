@@ -1,0 +1,49 @@
+[[ats_gdpr_agreement-withdrawal]]
+[abstract_test]
+.Withdrawal of an Agreement
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-withdrawal
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-withdrawal
+test-purpose:: Verify that the data subject can withdraw an Agreement by PATCH and by DELETE, and that the withdrawal takes effect immediately.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, set `P1/displayName` to a unique value together with an Agreement G1 for P1 with `coveredProperties` = `["Party/displayName"]`, `permittedOperations` = `["store","publish"]` and `audience` = `public`.
+--
+
+[.component,class=step]
+--
+As A, request `Parties(P1)` and verify that `displayName` is present.
+--
+
+[.component,class=step]
+--
+As U1, PATCH G1 with `status` = `withdrawn`. Verify a success status code.
+--
+
+[.component,class=step]
+--
+As U1, request G1 and verify that `status` is `withdrawn` and that `withdrawalTime` is present.
+--
+
+[.component,class=step]
+--
+As A, request `Parties(P1)` and verify that `displayName` is absent.
+--
+
+[.component,class=step]
+--
+As U1, repeat the first step with a new Agreement G2, verify that A receives `displayName`, then DELETE G2 as U1. Verify a success status code.
+--
+
+[.component,class=step]
+--
+As U1, request G2 and verify HTTP 404. As A, request `Parties(P1)` and verify that `displayName` is absent.
+--
+
+=====
+====

@@ -1,0 +1,10 @@
+[[req_accepted-clients_writeprofile-enforcement]]
+[requirement]
+.WriteProfile enforcement
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-enforcement
+part:: The implementation SHALL accept a create or update request from an accepted Client only if at least one WriteProfile associated with that Client permits it. A WriteProfile permits a request if the entity type of every created or updated entity, including entities created by deep insert, is contained in `entityTypes`; for a Datastream or MultiDatastream, the associated ObservedProperty entities are associated with the WriteProfile and the `observationType` (or each value of `multiObservationDataTypes`) is contained in `observationTypes`; and every created or updated entity validates against the JSON Schema of its entity type in `entitySchemas`. In addition, every entity SHALL conform to the WriteProfiles that govern it according to <<req_accepted-clients_link-conformance>>.
+part:: For an update, the entity representation after applying the update SHALL be validated.
+part:: The implementation SHALL reject a request whose entity type, ObservedProperty or observation type is not permitted with HTTP 403, and a request whose entity does not validate against the JSON Schema with HTTP 400. No entity of the request SHALL be created or changed.
+====

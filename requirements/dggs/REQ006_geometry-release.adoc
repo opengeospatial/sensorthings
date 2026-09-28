@@ -1,0 +1,10 @@
+[[req_dggs_geometry-release]]
+[requirement]
+.Release of generalized geometries
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/geometry-release
+part:: Where <<req_gdpr_release-location>> requires a generalized value of an indirect location property, the generalized value SHALL be the boundary of the Cell at the release level that contains the stored position. For a geometry with more than one position, the generalized value SHALL be the union of the boundaries of the Cells at the release level that contain its positions, encoded as a Polygon or MultiPolygon.
+part:: The release level SHALL be determined according to <<req_dggs_cell-release>> and <<req_dggs_privacy-zones>> for the property path of the indirect location property. An effective Agreement with a `zoneLevel` SHALL release the generalized value at that level instead of the stored value.
+part:: The generalized value SHALL be encoded in the default-CRS as a GeoJSON geometry with `encodingType` `application/geo+json`.
+====

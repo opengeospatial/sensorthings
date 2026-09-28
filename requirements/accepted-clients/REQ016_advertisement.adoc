@@ -1,0 +1,10 @@
+[[req_accepted-clients_advertisement]]
+[requirement]
+.Advertisement of the client catalog
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/advertisement
+part:: The `conformance` array of the `serverSettings` object on the service root URI SHALL contain `http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients`.
+part:: The JSON object named `http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr` in `serverSettings` SHALL contain a member `acceptancePolicy` whose value is the URL of an HTML page, retrievable without authentication, that states the criteria for accepting a client, the procedure to apply for acceptance, and the conditions for suspension and revocation.
+part:: The privacy notice SHALL link to the acceptance policy and SHALL state that the application used to write a Datastream or MultiDatastream is recorded.
+====

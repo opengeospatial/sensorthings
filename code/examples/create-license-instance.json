@@ -1,0 +1,10 @@
+{
+  "name": "CC BY 4.0",
+  "definition": "https://creativecommons.org/licenses/by/4.0/",
+  "logo": "https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by.png",
+  "attributionText": "© Jane Doe, CC BY 4.0",
+  "description": "Air-quality observations from my balcony",
+  "Datastreams": [
+    { "@iot.id": "9a1d3c7e-2b4f-4e68-a5c9-0d2e7f1b6a38" }
+  ]
+}

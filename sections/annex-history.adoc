@@ -1,0 +1,8 @@
+[appendix,obligation="informative"]
+== Revision History
+
+[width="90%",options="header"]
+|===
+|Date |Release |Editor |Primary clauses modified |Description
+|2026-09-25 |0.1 |Andreas Matheus |all |creation
+|===

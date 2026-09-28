@@ -1,0 +1,8 @@
+[[rec_accepted-clients_client-authentication]]
+[recommendation]
+.Strong client authentication
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/accepted-clients/client-authentication
+part:: Confidential clients SHOULD authenticate with `private_key_jwt` or mutual-TLS client authentication (<<RFC8705>>). Public clients SHOULD only be accepted with platform or key attestation and sender-constrained access tokens (for example DPoP, <<RFC9449>>, or certificate-bound tokens, <<RFC8705>>), because the `client_id` of a public client is not a secret. Where the credential is registered by the operator instead of issued by an authorization server, for example an API key, the operator SHOULD issue one credential per user and client release, or per device and firmware release, and replace it with each release; the credential SHOULD be transmitted in a request header and never in the URL, where it would be recorded in logs; and the acceptance policy SHOULD state the risk that a credential embedded in a public application can be extracted.
+====

@@ -1,0 +1,44 @@
+[[ats_gdpr_release-free-text]]
+[abstract_test]
+.Release of free-text values
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/release-free-text
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-free-text
+test-purpose:: Verify that free-text values of attributable entities are released to others only on the basis of an effective Agreement.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+If the implementation claims the Accepted Clients conformance class, U1 writes in this test using an accepted Client whose WriteProfile has `freeTextPolicy` = `free`.
+--
+
+[.component,class=step]
+--
+As U1, create a Thing T1 associated with P1 with `name` = a unique value `N`, `description` = a unique value `D` and `properties` = `{"note": "x"}`, without an Agreement. Verify HTTP 201.
+--
+
+[.component,class=step]
+--
+As U1, request T1 and verify that `name`, `description` and `properties` are present with the submitted values.
+--
+
+[.component,class=step]
+--
+As A and as U2, request T1, `Things?$select=name,description` and `Parties(P1)/Things?$expand=Locations`. Verify that `name` and `description` of T1 are the empty string and that `properties` is absent.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement for `Thing/description` with `permittedOperations` = `["publish"]` and `audience` = `authenticated`. As U2, verify that `description` is `D` and that `name` is the empty string. As A, verify that `description` is the empty string.
+--
+
+[.component,class=step]
+--
+As U1, withdraw the Agreement. As U2, verify that `description` is the empty string. As U1, verify that `description` is still `D`.
+--
+
+=====
+====

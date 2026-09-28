@@ -1,0 +1,29 @@
+[[ats_accepted-clients_advertisement]]
+[abstract_test]
+.Advertisement of the client catalog
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/advertisement
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/advertisement
+test-purpose:: Verify that the Accepted Clients conformance class and its acceptance policy are advertised.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Issue an HTTP GET request to the service root URI. Verify that `serverSettings/conformance` contains `http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients`.
+--
+
+[.component,class=step]
+--
+Verify that the GDPR object in `serverSettings` contains `acceptancePolicy` with an absolute HTTPS URL. Follow it without authentication and verify an HTML page that states acceptance criteria, application procedure and suspension and revocation conditions.
+--
+
+[.component,class=step]
+--
+Follow `privacyNotice` and verify that it links to the acceptance policy and states that the writing application is recorded.
+--
+
+=====
+====

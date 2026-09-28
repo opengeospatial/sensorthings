@@ -1,0 +1,195 @@
+== Terms, definitions and abbreviated terms
+
+This document uses the terms defined in OGC Policy Directive 49, which is based on the ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards. In particular, the word "`shall`" (not "`must`") is the verb form used to indicate a requirement to be strictly followed to conform to this document and OGC documents do not use the equivalent phrases in the ISO/IEC Directives, Part 2.
+
+This document also uses terms defined in the OGC Standard for Modular specifications (OGC 08-131r3), also known as the 'ModSpec'. The definitions of terms such as standard, specification, requirement, and conformance test are provided in the ModSpec.
+
+This document uses the terms Campaign, License, ObservationGroup, Ownership, Party and Relation as defined in <<OGC22-022r2>>.
+
+For the purposes of this document, the following additional terms and definitions apply.
+
+=== Terms and definitions
+
+==== personal data
+
+any information relating to an identified or identifiable natural person ('data subject'); an identifiable natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data, an online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person
+
+[.source]
+<<GDPR>>
+
+NOTE: This definition is GDPR Article 4(1).
+
+==== data subject
+
+natural person to whom personal data relate
+
+NOTE: In this document, the data subject of a Party whose `role` is `individual` is the natural person represented by that Party. A requester is the data subject of a Party if it is authenticated and its user identifier (`REMOTE_USER`) is identical to the `authId` of that Party.
+
+==== processing
+
+any operation or set of operations which is performed on personal data or on sets of personal data, whether or not by automated means, such as collection, recording, organisation, structuring, storage, adaptation or alteration, retrieval, consultation, use, disclosure by transmission, dissemination or otherwise making available, alignment or combination, restriction, erasure or destruction
+
+[.source]
+<<GDPR>>
+
+NOTE: This definition is GDPR Article 4(2).
+
+==== consent
+
+any freely given, specific, informed and unambiguous indication of the data subject's wishes by which he or she, by a statement or by a clear affirmative action, signifies agreement to the processing of personal data relating to him or her
+
+[.source]
+<<GDPR>>
+
+NOTE: This definition is GDPR Article 4(11).
+
+==== controller
+
+natural or legal person, public authority, agency or other body which, alone or jointly with others, determines the purposes and means of the processing of personal data
+
+[.source]
+<<GDPR>>, modified — In this document, the controller is the operator of the STAplus endpoint.
+
+==== direct personal data
+
+personal data contained in a property value that, on its own, names, identifies or describes the data subject
+
+EXAMPLE: `Party/displayName`, `License/attributionText` of a party-specific License instance.
+
+==== indirect personal data
+
+personal data contained in a location or time property value that does not identify the data subject on its own but relates to the data subject through the attribution of the entity and allows the data subject to be identified or profiled when combined with other information
+
+==== attributable entity
+
+entity that is associated with a Party through the ownership model of STAplus according to the rules of <<req_gdpr_personal-data-register>>
+
+==== Agreement
+
+entity that records the authorization, given by a data subject, for the storage or the publication of specified personal data for a specified purpose
+
+==== effective Agreement
+
+Agreement that fulfils all conditions of <<req_gdpr_agreement-effective>> for a given property path, operation and requester
+
+==== release
+
+inclusion of a property value in an HTTP response body or in an MQTT message payload
+
+==== withheld entity
+
+entity that the implementation does not release to a requester: it is omitted from collections, `$expand` results and MQTT messages, a request to its URL is answered with HTTP 404, and it is not counted in `@iot.count`
+
+==== generalization
+
+deterministic transformation of a location or time value that reduces its precision to an advertised resolution
+
+==== principal
+
+authenticated user or system whose permanent and unique identifier, taken from the authentication, becomes `Party/authId`
+
+NOTE: A principal is a natural person for a Party whose `role` is `individual`, and an organisation or an autonomously acting system for a Party whose `role` is `institutional` or `system`.
+
+==== operator-managed identity
+
+identity of a principal that the operator of the endpoint has created and controls, for example a local account, as opposed to an identity that a person registers with an external identity provider
+
+==== requester
+
+user or system on whose behalf the implementation processes an HTTP request or delivers an MQTT message; a requester is either the data subject, another authenticated user, or unauthenticated
+
+==== template License
+
+License entity created by the implementation, which is read-only
+
+[.source]
+<<OGC22-022r2>>
+
+==== party-specific License instance
+
+License entity constructed by a Party from a template License, for a License whose `definition` identifies an attribution license, with a non-empty `attributionText`
+
+[.source]
+<<OGC22-022r2>>
+
+==== client
+
+application that requests access to the implementation on behalf of a user, identified by a client identifier that is bound to the credential of the request, for example an OAuth 2.0 client identifier
+
+[.source]
+<<RFC6749>>, modified — reduced to the aspects relevant for this document.
+
+==== accepted client
+
+client release for which the client catalog of an endpoint contains a Client entity with `status` `accepted`
+
+==== client catalog
+
+set of Client and WriteProfile entities maintained by one endpoint
+
+==== catalog administrator
+
+requester authorized by the operator of an endpoint to create, update and delete Client and WriteProfile entities
+
+==== write profile
+
+declared and enforced write behaviour of one or more clients, consisting of the permitted entity types, ObservedProperties and observation types and of JSON Schemas for the written entities
+
+==== provenance
+
+association of a Datastream or MultiDatastream with the write profile under which it was created
+
+==== Cell
+
+SensorThings entity that represents one zone of the Discrete Global Grid System deployed by the implementation
+
+[.source]
+<<OGC26-057>>
+
+==== zone level
+
+hierarchical resolution of a zone in the deployed grid system; a smaller zone level is a coarser zone
+
+[.source]
+<<OGC26-057>>
+
+==== public zone level
+
+zone level at which Cell associations and generalized geometries are released to requesters other than the data subject when no Agreement authorizes a different zone level
+
+==== release level
+
+zone level at which a Cell association or a generalized geometry is released to a given requester
+
+==== privacy zone
+
+zone chosen by a data subject inside which no location of the data subject is released at a level finer than the zone itself
+
+==== contributor
+
+Party whose raw Observations contribute to an aggregate Observation of a Cell
+
+==== property path
+
+string of the form `EntityType/property` that identifies a property of an entity type, for example `Party/displayName`
+
+=== Abbreviated terms
+
+API:: Application Programming Interface
+CC:: Creative Commons
+CRS:: Coordinate Reference System
+DGGS:: Discrete Global Grid System
+DID:: Decentralized Identifier
+DPIA:: Data Protection Impact Assessment
+DPO:: Data Protection Officer
+GDPR:: General Data Protection Regulation (Regulation (EU) 2016/679)
+HTTP:: Hypertext Transfer Protocol
+JSON:: JavaScript Object Notation
+JWS:: JSON Web Signature
+JWT:: JSON Web Token
+MQTT:: Message Queuing Telemetry Transport
+OAuth:: Open Authorization
+STA:: SensorThings API
+STAplus:: SensorThings API PLUS extension
+TLS:: Transport Layer Security
+UTC:: Coordinated Universal Time

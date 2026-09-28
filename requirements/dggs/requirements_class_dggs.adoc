@@ -1,0 +1,28 @@
+[[rc_dggs]]
+[requirements_class]
+.DGGS
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req-class/dggs
+subject:: Implementation
+obligation:: requirement
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req-class/gdpr
+inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/req-class/landing-page
+inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/req-class/cell
+inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/req-class/cell-relations
+inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/req-class/read
+inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/req-class/cell-cud
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/advertisement
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/cell-register
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/agreement-zone-level
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/cell-release
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/privacy-zones
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/geometry-release
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/cell-visibility
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/query-consistency
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/erasure
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/write-zone-level
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/aggregation-threshold
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/aggregation-differencing
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/privacy-notice
+====

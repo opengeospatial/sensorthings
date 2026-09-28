@@ -1,0 +1,9 @@
+[[req_accepted-clients_client-relations]]
+[requirement]
+.Client relations
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-relations
+part:: An implementation SHALL allow each Client to have the direct associations listed in <<tab-client-relations>> and SHALL allow each Party to have the direct association to Client listed in <<tab-relations-to-client>>.
+part:: The Party associated with a Client SHALL have the `role` `institutional`.
+====

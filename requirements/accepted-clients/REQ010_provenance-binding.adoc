@@ -1,0 +1,9 @@
+[[req_accepted-clients_provenance-binding]]
+[requirement]
+.Provenance binding
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/provenance-binding
+part:: When a Datastream or MultiDatastream is created, the implementation SHALL associate it with exactly one active WriteProfile that permits the request and that is associated with the accepted Client of the request. If the request references a WriteProfile, that WriteProfile SHALL be used; if the request does not reference one and more than one WriteProfile of the Client permits the request, the implementation SHALL reject the request with HTTP 400.
+part:: The association of a Datastream or MultiDatastream with its WriteProfile SHALL NOT be changed or removed after creation. A request that attempts to change it SHALL be rejected with HTTP 400.
+====

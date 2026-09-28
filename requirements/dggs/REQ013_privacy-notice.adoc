@@ -1,0 +1,8 @@
+[[req_dggs_privacy-notice]]
+[requirement]
+.Privacy notice for DGGS obfuscation
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/privacy-notice
+part:: The privacy notice (<<req_gdpr_privacy-notice>>) SHALL additionally state the grid system, the public zone level and the approximate size of a Cell at that level, how Agreements with `zoneLevel` and `privacyZones` affect the release, and, if aggregation is performed, the value of `minimumContributors`, the legal basis for including contributions in aggregates, and whether aggregates are recomputed after an Agreement is withdrawn or a Party is erased.
+====

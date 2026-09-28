@@ -1,0 +1,24 @@
+[[ats_dggs_privacy-notice]]
+[abstract_test]
+.Privacy notice for DGGS obfuscation
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/privacy-notice
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/privacy-notice
+test-purpose:: Verify that the privacy notice explains the DGGS obfuscation.
+test-method-type:: Manual Inspection
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Follow the `privacyNotice` URL without authentication.
+--
+
+[.component,class=step]
+--
+Verify that the page states the grid system, the public zone level with the approximate Cell size, the effect of `zoneLevel` and `privacyZones`, and, if aggregation is claimed, `minimumContributors`, the legal basis for aggregation and the behaviour on withdrawal and erasure.
+--
+
+=====
+====

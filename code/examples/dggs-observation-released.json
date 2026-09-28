@@ -1,0 +1,23 @@
+{
+  "@iot.id": "0f6a2b9d-71e4-4c58-a3d0-9b8e5c1f7a26",
+  "phenomenonTime": "2026-09-24T10:00:00Z",
+  "resultTime": "2026-09-24T10:00:00Z",
+  "result": 12.4,
+  "Cell": {
+    "@iot.id": "87394460effffff",
+    "zoneId": "87394460effffff",
+    "zoneLevel": 7,
+    "system": "H3"
+  },
+  "FeatureOfInterest": {
+    "encodingType": "application/geo+json",
+    "feature": {
+      "type": "Polygon",
+      "coordinates": [[
+        [2.165596, 41.395681], [2.167897, 41.383233], [2.1831, 41.379249],
+        [2.196006, 41.387713], [2.193709, 41.400162], [2.178501, 41.404146],
+        [2.165596, 41.395681]
+      ]]
+    }
+  }
+}

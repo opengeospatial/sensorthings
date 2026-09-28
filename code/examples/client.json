@@ -1,0 +1,16 @@
+{
+  "@iot.id": "1c7e4b2a-93d5-4f08-b6a1-5e2d9c0f7a31",
+  "@iot.selfLink": "https://example.org/staplus/v1.1/Clients('1c7e4b2a-93d5-4f08-b6a1-5e2d9c0f7a31')",
+  "clientId": "citiobs-airquality-app",
+  "name": "CitiObs Air Quality",
+  "description": "Mobile app that uploads PM2.5 readings of low-cost sensors",
+  "url": "https://example.org/apps/airquality",
+  "softwareId": "4f2a1d9e-6b0c-4c3e-9a57-8e1f0d2b6c44",
+  "softwareVersion": "2.3.1",
+  "clientType": "public",
+  "authenticationMethod": "attestation",
+  "status": "accepted",
+  "acceptedTime": "2026-09-01T09:00:00Z",
+  "Party@iot.navigationLink": "https://example.org/staplus/v1.1/Clients('1c7e4b2a-93d5-4f08-b6a1-5e2d9c0f7a31')/Party",
+  "WriteProfiles@iot.navigationLink": "https://example.org/staplus/v1.1/Clients('1c7e4b2a-93d5-4f08-b6a1-5e2d9c0f7a31')/WriteProfiles"
+}

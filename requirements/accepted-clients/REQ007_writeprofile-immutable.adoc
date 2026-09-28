@@ -1,0 +1,10 @@
+[[req_accepted-clients_writeprofile-immutable]]
+[requirement]
+.Immutability of WriteProfiles
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-immutable
+part:: Except for `status` and the association with Clients, the properties and associations of a WriteProfile SHALL NOT be changed after creation. A request that changes any of them SHALL be rejected with HTTP 400.
+part:: The `status` of a WriteProfile SHALL only change from `active` to `superseded`. A superseded WriteProfile SHALL NOT be associated with a Datastream or MultiDatastream created after the change.
+part:: A WriteProfile that is associated with a Datastream or MultiDatastream SHALL NOT be deleted.
+====

@@ -1,0 +1,11 @@
+[[req_dggs_write-zone-level]]
+[requirement]
+.Client-side obfuscation
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/write-zone-level
+part:: If the implementation claims the Accepted Clients conformance class, the implementation SHALL allow each WriteProfile to have the optional properties `maxZoneLevel` and `locationPolicy` listed in <<tab-writeprofile-dggs-properties>>.
+part:: The implementation SHALL reject with HTTP 403 a create or update request of a client whose WriteProfile has a `maxZoneLevel` if the request references a Cell whose zone level is larger than `maxZoneLevel`.
+part:: If `locationPolicy` is `cell-only`, the implementation SHALL reject with HTTP 403 a request that contains a `Location/location` or `FeatureOfInterest/feature` value, and SHALL reject with HTTP 400 the creation of an Observation that has no Cell association, directly or through its Datastream or MultiDatastream. For each such Observation, the implementation SHALL create or reuse a FeatureOfInterest whose `feature` is the boundary of the associated Cell and whose `encodingType` is `application/geo+json`.
+part:: If a WriteProfile with `locationPolicy` `cell-only` governs an entity according to <<req_accepted-clients_link-conformance>>, the implementation SHALL reject with HTTP 403 a request that associates a Thing governed by it with a Location, and a request that associates an Observation governed by it with a FeatureOfInterest that the implementation did not generate from the boundary of a Cell. It SHALL reject with HTTP 403 the creation of a Datastream or MultiDatastream bound to such a WriteProfile on a Thing that has a Location.
+====

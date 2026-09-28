@@ -1,0 +1,140 @@
+[[annex-gdpr-mapping]]
+[appendix,obligation="informative"]
+== Mapping to the GDPR
+
+This annex maps provisions of the GDPR (<<GDPR>>) to the requirements of this Profile. The mapping indicates which technical measures the GDPR conformance class provides; it is not legal advice and it does not replace the assessment by the controller.
+
+[[tab-gdpr-mapping]]
+.GDPR provisions and the requirements of this Profile
+[cols="25,45,30",options="header"]
+|===
+|GDPR provision |Measure in this Profile |Requirements
+
+|Art. 4(1) personal data, Recital 26 pseudonymous data
+|Personal data register including indirect location and time data and the attribution chain; the roles that take data out of scope only for operator-managed identities
+|<<req_gdpr_personal-data-register>>, <<req_gdpr_party-role>>
+
+|Art. 5(1)(a) lawfulness, fairness, transparency
+|Effective Agreement as legal basis for storage and publication; privacy notice
+|<<req_gdpr_agreement-effective>>, <<req_gdpr_store-direct>>, <<req_gdpr_release-direct>>, <<req_gdpr_privacy-notice>>
+
+|Art. 5(1)(b) purpose limitation
+|`Agreement/purpose` and immutable Agreements; no query that indexes `License/attributionText`
+|<<req_gdpr_agreement-properties>>, <<req_gdpr_agreement-immutable>>, <<req_gdpr_attribution-filter>>
+
+|Art. 5(1)(c) data minimisation
+|No storage of direct personal data without Agreement; generalization of location and time
+|<<req_gdpr_store-direct>>, <<req_gdpr_release-location>>, <<req_gdpr_release-time>>
+
+|Art. 5(1)(e) storage limitation
+|Erasure on withdrawal or expiry; erasure or anonymization on deletion of the Party
+|<<req_gdpr_store-direct>>, <<req_gdpr_erasure>>
+
+|Art. 5(1)(f) integrity and confidentiality
+|Access control for Agreements; release control; query consistency; no query on attribution text; TLS
+|<<req_gdpr_agreement-access>>, <<req_gdpr_release-direct>>, <<req_gdpr_query-consistency>>, <<req_gdpr_attribution-filter>>, <<req_gdpr_mqtt>>, <<req_gdpr_transport-security>>
+
+|Art. 5(2) accountability; Art. 7(1) demonstrating consent
+|Agreement record with `grantedTime`, `definition` and optional `proof`; retention of withdrawn records
+|<<req_gdpr_agreement-create>>, <<req_gdpr_agreement-withdrawal>>, <<rec_gdpr_proof>>
+
+|Art. 6(1)(a) consent, Art. 6(1)(b) contract
+|`Agreement/legalBasis` values `consent` and `contract`
+|<<req_gdpr_agreement-properties>>
+
+|Art. 7(2) distinguishable, specific consent
+|One Agreement per purpose, property set, operation set and audience
+|<<req_gdpr_agreement-properties>>
+
+|Art. 7(3) withdrawal of consent
+|Withdrawal by PATCH or DELETE, effective immediately
+|<<req_gdpr_agreement-withdrawal>>
+
+|Art. 9(2)(a) explicit consent for special categories
+|`Agreement/legalBasis` value `explicit-consent`; classification in privacy notice; explicit consent for publication in Campaigns classified as sensitive
+|<<req_gdpr_agreement-properties>>, <<req_gdpr_privacy-notice>>, <<req_gdpr_campaign-participation>>
+
+|Art. 12 to 14 transparent information
+|Privacy notice advertised on the service root URI and linked from the Business Logic
+|<<req_gdpr_advertisement>>, <<req_gdpr_privacy-notice>>
+
+|Art. 15 right of access
+|Full-precision access to own data and Agreements via `me()`
+|<<req_gdpr_access-right>>
+
+|Art. 16 right to rectification
+|Update of direct personal data by the data subject only
+|<<req_gdpr_rectification>>
+
+|Art. 17 right to erasure
+|Erasure of Party, Agreements and direct personal data; deletion or anonymization of attributable entities
+|<<req_gdpr_erasure>>, <<req_gdpr_store-direct>>, <<req_gdpr_relation-release>>, <<req_gdpr_group-linking>>
+
+|Art. 18 right to restriction
+|Partially: withdrawal of `publish` Agreements restricts release; further restriction is organisational
+|<<req_gdpr_agreement-withdrawal>>, <<req_gdpr_privacy-notice>>
+
+|Art. 20 right to data portability
+|Data returned to the data subject in the structured, machine-readable SensorThings JSON encoding
+|<<req_gdpr_access-right>>
+
+|Art. 21 right to object
+|Withdrawal of Agreements; deletion of Relations attached to one's Observations by others; leaving a Campaign; objection to other processing declared in the privacy notice
+|<<req_gdpr_agreement-withdrawal>>, <<req_gdpr_relation-release>>, <<req_gdpr_campaign-participation>>, <<req_gdpr_privacy-notice>>
+
+|Art. 25 data protection by design and by default
+|Default non-release of direct personal data, free text and precise location and time; deterministic generalization
+|<<req_gdpr_release-direct>>, <<req_gdpr_release-free-text>>, <<req_gdpr_release-location>>, <<req_gdpr_release-time>>
+
+|Art. 32 security of processing
+|Authentication (STAplus), TLS, pseudonymous `Party/@iot.id`, `authId` never exposed
+|<<req_gdpr_transport-security>>; STAplus Authentication conformance class
+
+|Art. 35 data protection impact assessment
+|Recommendation
+|<<rec_gdpr_dpia>>
+
+|Art. 5(2) accountability, Art. 30 records of processing (Accepted Clients)
+|Public catalog of accepted client releases and their write profiles; provenance of every Datastream and MultiDatastream
+|<<req_accepted-clients_registry-access>>, <<req_accepted-clients_provenance-binding>>
+
+|Art. 25 data protection by design (Accepted Clients)
+|Write access only for accepted client releases; enforcement of declared JSON Schemas for results, parameters, properties and texts; verified absence of free text; declared on-device processing
+|<<req_accepted-clients_client-acceptance>>, <<req_accepted-clients_writeprofile-enforcement>>, <<req_accepted-clients_free-text-policy>>, <<req_accepted-clients_bound-writes>>
+
+|Art. 26, 28 joint controllers and processors (Accepted Clients)
+|Explicit acceptance of each application provider (institutional Party) creates the basis for the contractual relationship; the contract itself is organisational
+|<<req_accepted-clients_client-relations>>, <<req_accepted-clients_advertisement>>
+
+|Art. 7(2) specific consent, Art. 5(1)(b) purpose limitation (Accepted Clients)
+|Release of covered values only through the applications named in the Agreement
+|<<req_accepted-clients_client-restricted-agreements>>
+
+|Art. 12, 15 to 17, 21 (Accepted Clients)
+|Data subject rights cannot be blocked by the client catalog
+|<<req_accepted-clients_rights-exemption>>
+
+|Art. 5(1)(c) data minimisation, Art. 25 by design and by default (DGGS)
+|Release of locations as DGGS Cells at the public zone level; client-side obfuscation with Cell-only writes; privacy zones
+|<<req_dggs_cell-release>>, <<req_dggs_geometry-release>>, <<req_dggs_privacy-zones>>, <<req_dggs_write-zone-level>>
+
+|Art. 7(2), 6(1)(a) specific consent (DGGS)
+|Precision of publication as a parameter of the Agreement (`zoneLevel`)
+|<<req_dggs_agreement-zone-level>>
+
+|Art. 5(1)(f) confidentiality, Recital 26 anonymous information (DGGS)
+|Control of Cell navigation and fine Cells; minimum number of distinct contributors and protection against differencing for aggregates
+|<<req_dggs_cell-visibility>>, <<req_dggs_query-consistency>>, <<req_dggs_aggregation-threshold>>, <<req_dggs_aggregation-differencing>>
+
+|Art. 89 safeguards for statistical purposes (DGGS)
+|Legal basis for aggregation and minimum number of contributors stated in the privacy notice
+|<<req_dggs_privacy-notice>>
+
+|Art. 26 joint controllers, Art. 28 processors (Campaigns)
+|Role of institutions that manage Campaigns stated in the privacy notice
+|<<req_gdpr_privacy-notice>>
+
+|Art. 30, 33, 34, Chapter V
+|Not addressed; organisational obligations of the controller
+|—
+|===

@@ -1,0 +1,44 @@
+[[ats_gdpr_store-direct]]
+[abstract_test]
+.Storage of direct personal data
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/store-direct
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/store-direct
+test-purpose:: Verify that direct personal data is stored only with an Agreement and erased when the Agreement ends.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1 (P1 without Agreements), PATCH `Parties(P1)` with `displayName` = a unique value. Verify HTTP 409. Request `Parties(P1)` as U1 and verify that `displayName` is absent.
+--
+
+[.component,class=step]
+--
+As U3 (an authenticated user without a Party), POST a Party with `role` = `individual` and `displayName`, without Agreements. Verify HTTP 409 and, as U3, that `Parties?$filter=authId eq me()` returns an empty collection.
+--
+
+[.component,class=step]
+--
+As U3, POST a Party with `role` = `individual`, `displayName` and a deep-inserted Agreement for `Party/displayName` with `permittedOperations` = `["store"]`. Verify HTTP 201. As U3, verify that `displayName` is present.
+--
+
+[.component,class=step]
+--
+As U3, withdraw that Agreement. As U3, request the Party and verify that `displayName` is absent.
+--
+
+[.component,class=step]
+--
+As U3, create an Agreement for `Party/displayName` with `permittedOperations` = `["store"]` and `effectiveTime` two minutes in the future, and PATCH the Party with `displayName`. Verify HTTP 409. Wait until `effectiveTime` has passed, repeat the PATCH and verify HTTP 200 and that `displayName` is present.
+--
+
+[.component,class=step]
+--
+As U1, POST a party-specific License instance of an attribution license template with `attributionText`, associated with a Datastream of P1, without an Agreement for `License/attributionText`. Verify HTTP 409.
+--
+
+=====
+====

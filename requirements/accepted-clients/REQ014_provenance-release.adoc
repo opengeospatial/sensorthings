@@ -1,0 +1,10 @@
+[[req_accepted-clients_provenance-release]]
+[requirement]
+.Release of the provenance association
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/provenance-release
+part:: The implementation SHALL treat the association of a Datastream or MultiDatastream with its WriteProfile (`Datastream/WriteProfile`, `MultiDatastream/WriteProfile`) as indirect personal data when the Datastream or MultiDatastream is attributable to a Party whose `role` is `individual`.
+part:: The implementation SHALL NOT release this association to a requester `r` that is not the data subject, unless an Agreement of the Party exists that is effective for the property path, the operation `publish` and `r` according to <<req_gdpr_agreement-effective>>. Where the association is not released, the navigation link SHALL return no entity (HTTP 404 for the single-valued navigation), `$expand` SHALL omit it, and `$filter` expressions that navigate through it SHALL evaluate as if no WriteProfile were associated.
+part:: Correspondingly, the `Datastreams` and `MultiDatastreams` navigation of a WriteProfile SHALL only contain entities for which the association is released to the requester.
+====

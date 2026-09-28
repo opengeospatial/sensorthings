@@ -1,0 +1,84 @@
+[[ats_gdpr_agreement-create]]
+[abstract_test]
+.Creating an Agreement
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-create
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-create
+test-purpose:: Verify that only the data subject can create an Agreement and that the implementation controls the server-managed properties.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As A, POST an otherwise valid Agreement for P1. Verify HTTP 401.
+--
+
+[.component,class=step]
+--
+As U2, POST an otherwise valid Agreement for P1. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As U1, request `Parties(P1)/Agreements` and verify that neither of the two previous requests created an Agreement.
+--
+
+[.component,class=step]
+--
+As U1, POST an Agreement for P1 with `coveredProperties` = `["Party/authId"]`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1, POST an Agreement for P1 with `permittedOperations` = `["publish"]` and without `audience`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1, POST an Agreement for P1 with `expiryTime` set to a time in the past. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1, POST an Agreement for P1 with `effectiveTime` set to one hour before the time of the request. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1, POST an Agreement for P1 with `effectiveTime` two days and `expiryTime` one day in the future. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1, POST an Agreement for P1 with `legalBasis` = `legitimate-interest`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1, POST an Agreement that is associated with a Party whose `role` is `institutional`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1, POST a valid Agreement for P1 that additionally contains `grantedTime` = `2000-01-01T00:00:00Z`, `status` = `withdrawn` and `withdrawalTime` = `2000-01-02T00:00:00Z`. Verify HTTP 201 (or 204 with a `Location` header).
+--
+
+[.component,class=step]
+--
+As U1, request the created Agreement. Verify that `grantedTime` lies within a few minutes of the time of the request, that `effectiveTime` is equal to `grantedTime`, that `status` is `active` and that `withdrawalTime` is absent.
+--
+
+[.component,class=step]
+--
+Inspect the `@iot.id` of the created Agreement and verify that it is not equal to, and not derived from, the `authId` of P1.
+--
+
+[.component,class=step]
+--
+As U3 (an authenticated user without a Party), POST a Party with `role` = `individual` that contains a deep-inserted valid Agreement. Verify that the Party and the Agreement are created and associated.
+--
+
+=====
+====

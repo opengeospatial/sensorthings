@@ -1,0 +1,12 @@
+[[req_accepted-clients_client-acceptance]]
+[requirement]
+.Client acceptance
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-acceptance
+part:: For each request that creates or updates an entity, the implementation SHALL resolve, from the credential presented with the request, both the principal identifier required by the STAplus Authentication conformance class and the client identification, consisting of a client identifier and a software version, a software identifier, or both. The mechanism of resolution, for example the claims of a JWT, token introspection, or the lookup of a registered credential, is not specified by this Standard.
+part:: The client identification SHALL be bound to the credential by the issuer of the credential. The implementation SHALL NOT determine the client identification from any other part of the request, such as headers, query parameters or the request body.
+part:: The implementation SHALL reject a request whose credential does not resolve to both a principal identifier and a client identification with HTTP 401.
+part:: The implementation SHALL accept the request only if there is a Client entity in its own catalog whose `status` is `accepted`, whose `clientId` is identical to the client identifier, whose `softwareId`, if present, is identical to the software identifier, and whose `softwareVersion`, if present, is identical to the software version. Values SHALL be compared as case-sensitive character strings without normalization; version ranges, prefixes and wildcards SHALL NOT be applied. Otherwise, the implementation SHALL reject the request with HTTP 403 and SHALL NOT create or change any entity.
+part:: This requirement SHALL NOT apply to the requests listed in <<req_accepted-clients_rights-exemption>>.
+====

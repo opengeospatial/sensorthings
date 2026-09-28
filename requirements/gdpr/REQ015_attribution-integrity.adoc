@@ -1,0 +1,10 @@
+[[req_gdpr_attribution-integrity]]
+[requirement]
+.Attribution integrity
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/attribution-integrity
+part:: The implementation SHALL NOT release an Observation of a Datastream or MultiDatastream whose License is a party-specific License instance of an attribution license, attributable to a Party `P` whose `role` is `individual`, to a requester `r` that is not the data subject of `P`, unless the `attributionText` of that License instance is released to `r` according to <<req_gdpr_release-direct>>. Such an Observation SHALL be withheld.
+part:: The implementation SHALL NOT release the membership of an ObservationGroup or a Campaign whose License is a party-specific License instance of an attribution license, attributable to a Party `P` whose `role` is `individual`, to a requester `r` that is not the data subject of `P`, unless the `attributionText` of that License instance is released to `r`. The membership of an ObservationGroup consists of its `Observations` and `Relations`; the membership of a Campaign consists of its `Datastreams`, `MultiDatastreams` and `ObservationGroups`. Where the membership is not released, these navigation properties SHALL be empty for `r`, including in `$expand`, and query options and expressions that navigate through them SHALL be evaluated as if they were empty. The member entities themselves SHALL remain subject to the requirements of this Requirements Class for their own attribution.
+part:: This requirement SHALL also apply when the `attributionText` has been erased according to <<req_gdpr_store-direct>>, until the data subject has stored a new `attributionText` with an effective Agreement or has associated a License template whose `definition` does not identify an attribution license.
+====

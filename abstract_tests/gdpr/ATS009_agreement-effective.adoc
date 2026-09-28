@@ -1,0 +1,49 @@
+[[ats_gdpr_agreement-effective]]
+[abstract_test]
+.Effective Agreement
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-effective
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-effective
+test-purpose:: Verify that the implementation evaluates operation, audience, start and expiry of an Agreement.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, store `P1/displayName` with an Agreement G1 that permits `store` only. As A and as U2, request `Parties(P1)` and verify that `displayName` is absent.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement G2 for `Party/displayName` with `permittedOperations` = `["publish"]` and `audience` = `authenticated`. As A, verify that `displayName` is absent. As U2, verify that `displayName` is present.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement G3 for `Party/displayName` with `permittedOperations` = `["publish"]`, `audience` = `public` and `expiryTime` two minutes in the future. As A, verify that `displayName` is present.
+--
+
+[.component,class=step]
+--
+Wait until `expiryTime` has passed. As A, verify that `displayName` is absent.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement G4 for `Party/displayName` with `permittedOperations` = `["publish"]`, `audience` = `public` and `effectiveTime` two minutes in the future. As A, verify that `displayName` is absent.
+--
+
+[.component,class=step]
+--
+Wait until `effectiveTime` has passed. As A, verify that `displayName` is present.
+--
+
+[.component,class=step]
+--
+As U1, create a Campaign CA associated with P1, Datastreams DA (associated with CA) and DB (not associated with CA), each with an Observation whose FeatureOfInterest has a precise Point. Create an Agreement G5 associated with CA for `FeatureOfInterest/feature` with `permittedOperations` = `["publish"]` and `audience` = `public`. As A, verify that the FeatureOfInterest of the Observation in DA is released as submitted and that the FeatureOfInterest of the Observation in DB is generalized or withheld.
+--
+
+=====
+====

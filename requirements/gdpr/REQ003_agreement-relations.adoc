@@ -1,0 +1,9 @@
+[[req_gdpr_agreement-relations]]
+[requirement]
+.Agreement relations
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-relations
+part:: An implementation SHALL allow each Agreement to have the direct associations to other entity types listed in <<tab-agreement-relations>>, and SHALL allow each Party and each Campaign to have the direct association to Agreement listed in <<tab-relations-to-agreement>>.
+part:: Each Agreement SHALL be associated with exactly one Party. The `role` of that Party SHALL be `individual`.
+====

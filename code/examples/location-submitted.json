@@ -1,0 +1,9 @@
+{
+  "name": "Balcony sensor",
+  "description": "Low-cost PM2.5 sensor",
+  "encodingType": "application/geo+json",
+  "location": {
+    "type": "Point",
+    "coordinates": [ 2.1734035, 41.3850639 ]
+  }
+}

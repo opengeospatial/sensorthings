@@ -1,0 +1,39 @@
+[[ats_gdpr_advertisement]]
+[abstract_test]
+.Advertisement on the service root URI
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/advertisement
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/advertisement
+test-purpose:: Verify that the GDPR conformance class, the privacy notice and the generalization parameters are advertised.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Issue an HTTP GET request to the service root URI.
+--
+
+[.component,class=step]
+--
+Verify that `serverSettings/conformance` contains `http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr`.
+--
+
+[.component,class=step]
+--
+Verify that `serverSettings` contains an object named `http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr` with a `privacyNotice` member whose value is an absolute HTTPS URL.
+--
+
+[.component,class=step]
+--
+If `locationGeneralization` is present, verify that it contains `method` (string) and `resolution` (positive number). If `timeGeneralization` is present, verify that `resolution` is an ISO 8601 duration of the form `PnD`, `PTnH` or `PTnM` that is not shorter than `PT1M`.
+--
+
+[.component,class=step]
+--
+Follow the Business Logic `href` and verify that the page contains a hyperlink to the `privacyNotice` URL.
+--
+
+=====
+====

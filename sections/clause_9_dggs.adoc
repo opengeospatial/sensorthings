@@ -1,0 +1,160 @@
+[[clause-dggs]]
+== Requirements Class DGGS
+
+=== Overview
+
+The DGGS requirements class uses the Discrete Global Grid System (DGGS) cells of the OGC SensorThings API Extension: DGGS 1.0 (<<OGC26-057>>) for spatial obfuscation. It replaces the implementation-specific grid of the GDPR requirements class by the grid system that the endpoint advertises, and it releases locations as cells: the statement "the observation was made somewhere in this cell" is precise about its own imprecision, whereas a snapped point pretends a precision that it does not have.
+
+The class specifies:
+
+* the public zone level: the zone level at which Cell associations and generalized geometries are released to requesters other than the data subject when no Agreement authorizes more;
+* the Agreement properties `zoneLevel`, which lets a data subject authorize release at a finer (or coarser) zone level, and `privacyZones`, which caps the release level inside zones chosen by the data subject, for example around the home;
+* the control of the location channels that <<OGC26-057>> adds: the Cell associations of Observation, Datastream and MultiDatastream, navigation from a Cell to its Observations, queries on `Cell/zoneId`, and the materialization of fine Cells by create-by-reference;
+* for implementations that claim the Accepted Clients conformance class, client-side obfuscation through the WriteProfile properties `maxZoneLevel` and `locationPolicy`; and
+* for implementations that claim the Aggregation conformance class of <<OGC26-057>>, a minimum number of distinct contributing individuals per aggregate and protection against differencing between parent and child Cells and between aggregate intervals.
+
+Cell entities are shared, uniform and immutable for users (<<OGC26-057>>, Cell CRUD conformance class). They are not attributable to any Party. Only the association between an attributable entity and a Cell is personal data. Creating a Cell by reference records neither a user identifier nor a Party (<<OGC26-057>>, Authentication conformance class), so the Cell itself carries no trace of who created it. Its existence can still reveal presence, which <<req_dggs_cell-visibility>> addresses.
+
+The release level of a Cell association or of a generalized geometry is determined as follows:
+
+[[fig-release-level]]
+.Determination of the release level for a requester that is not the data subject
+[source]
+----
+L  = zone level of the stored Cell (or finestZoneLevel for a stored geometry)
+if an effective Agreement (property path, publish, requester) exists:
+      R = max(zoneLevel of those Agreements; absent zoneLevel counts as L)
+else: R = public zone level
+R  = min(R, L)
+for each privacy zone z of the Party that contains the stored Cell or position:
+      R = min(R, zoneLevel(z))
+release: ancestor Cell at level R (Cell association) or its boundary (geometry);
+         nothing, if R < coarsestZoneLevel
+----
+
+include::../requirements/dggs/requirements_class_dggs.adoc[]
+
+include::../requirements/dggs/REQ001_advertisement.adoc[]
+
+=== Cell associations and the personal data register
+
+include::../requirements/dggs/REQ002_cell-register.adoc[]
+
+=== Agreement extension
+
+[[tab-agreement-dggs-properties]]
+.Additional properties of an Agreement entity (DGGS)
+[cols="17,38,23,22",options="header"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|`zoneLevel`
+|The zone level at which the covered location properties and Cell associations are released under this Agreement. If absent, the Agreement authorizes release at the stored precision.
+|Integer
+|Zero or one (optional)
+
+|`privacyZones`
+|Zone identifiers of the advertised grid system inside which no location of the data subject is released at a level finer than the zone itself, whatever other Agreements authorize.
+|Array of CharacterString
+|Zero or one (optional)
+|===
+
+NOTE: `privacyZones` is a property and not an association with Cell, so that the zones chosen by a data subject never materialize a Cell and cannot be discovered by navigating from a Cell. Agreements are visible only to their data subject (<<req_gdpr_agreement-access>>).
+
+include::../requirements/dggs/REQ003_agreement-zone-level.adoc[]
+
+=== Release of Cells and geometries
+
+include::../requirements/dggs/REQ004_cell-release.adoc[]
+
+include::../requirements/dggs/REQ005_privacy-zones.adoc[]
+
+include::../requirements/dggs/REQ006_geometry-release.adoc[]
+
+include::../requirements/dggs/REQ007_cell-visibility.adoc[]
+
+include::../requirements/dggs/REQ008_query-consistency.adoc[]
+
+include::../requirements/dggs/REQ009_erasure.adoc[]
+
+=== Client-side obfuscation
+
+The strongest obfuscation is the one that happens before the data leaves the device. With `locationPolicy` `cell-only`, an accepted client sends only a Cell reference and no coordinates, and the implementation derives the FeatureOfInterest from the boundary of the Cell. The precise location is then never stored.
+
+[[tab-writeprofile-dggs-properties]]
+.Additional properties of a WriteProfile entity (DGGS)
+[cols="17,38,23,22",options="header"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|`maxZoneLevel`
+|The finest zone level of a Cell that clients implementing the WriteProfile may reference.
+|Integer
+|Zero or one (optional)
+
+|`locationPolicy`
+|`precise`: the client may send `Location/location` and `FeatureOfInterest/feature`; `cell-only`: the client sends only Cell references and the implementation derives the FeatureOfInterest from the Cell boundary. If absent, `precise` applies.
+|ValueCode [`precise`, `cell-only`]
+|Zero or one (optional)
+|===
+
+include::../requirements/dggs/REQ010_write-zone-level.adoc[]
+
+=== Aggregation
+
+The Aggregation conformance class of <<OGC26-057>> publishes `min`, `max`, `avg`, `stddev` and `count` for each Cell and each configured aggregate interval. `count` counts Observations, not persons: a single citizen with 48 readings in a Cell produces an aggregate whose `min`, `max` and `avg` describe only that citizen. The following requirements make aggregates releasable only when they cover enough distinct individuals, and prevent a withheld aggregate from being recovered by subtracting released aggregates of siblings from the aggregate of their parent, or of shorter intervals from a longer one.
+
+include::../requirements/dggs/REQ011_aggregation-threshold.adoc[]
+
+include::../requirements/dggs/REQ012_aggregation-differencing.adoc[]
+
+=== Transparency
+
+include::../requirements/dggs/REQ013_privacy-notice.adoc[]
+
+=== Examples
+
+This subclause is informative. The examples use the H3 grid system; the zone identifiers are consistent, that is, each coarser zone is the ancestor of the finer one.
+
+[[tab-dggs-example-zones]]
+.H3 zones used in the examples
+[cols="15,35,50",options="header"]
+|===
+|Zone level |Zone identifier |Role in the examples
+|10 |`8a394460e407fff` |Cell referenced by the client (about 15 000 m²)
+|9 |`89394460e43ffff` |—
+|8 |`88394460e5fffff` |Privacy zone chosen by the data subject
+|7 |`87394460effffff` |Public zone level (about 5.2 km²)
+|===
+
+.serverSettings: grid system of OGC 26-057 and DGGS obfuscation parameters of this Profile
+[source,json]
+----
+include::../code/examples/dggs-server-settings.json[]
+----
+
+.Agreement authorizing release at zone level 10 to authenticated users, with a privacy zone at level 8
+[source,json]
+----
+include::../code/examples/dggs-agreement.json[]
+----
+
+.Observation created by an accepted client with locationPolicy cell-only: no coordinates, only a Cell reference
+[source,json]
+----
+include::../code/examples/dggs-observation-cell-only.json[]
+----
+
+The implementation stores the Cell association to `8a394460e407fff` and creates a FeatureOfInterest from the boundary of that Cell. The Cells of levels 8 to 10 that are materialized by the reference remain withheld from other requesters (<<req_dggs_cell-visibility>>).
+
+The release level differs by requester:
+
+* the data subject receives the Cell `8a394460e407fff` (level 10);
+* an authenticated requester would receive level 10 under the Agreement, but the Cell lies inside the privacy zone `88394460e5fffff`, so the release level is capped at 8: `88394460e5fffff`;
+* an unauthenticated requester receives the public zone level 7: `87394460effffff`, and the FeatureOfInterest as the boundary of that Cell.
+
+.Observation?$expand=Cell,FeatureOfInterest as released to an unauthenticated requester (time generalized to PT1H)
+[source,json]
+----
+include::../code/examples/dggs-observation-released.json[]
+----

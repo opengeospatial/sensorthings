@@ -1,0 +1,12 @@
+[[req_gdpr_release-location]]
+[requirement]
+.Release of indirect location data
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-location
+part:: The implementation SHALL NOT release the stored value of an indirect location property (see <<tab-register>>) of an entity attributable to a Party `P` whose `role` is `individual` to a requester `r` that is not the data subject of `P`, unless an Agreement of `P` exists that is effective for that property path, the operation `publish` and `r`.
+part:: Where the stored value is not released and the implementation advertises `locationGeneralization` (see <<req_gdpr_advertisement>>), the implementation SHALL release the generalized value instead. Otherwise, the implementation SHALL omit the property if it is optional (`Datastream/observedArea`, `MultiDatastream/observedArea`) and SHALL withhold the entity if the property is mandatory (`Location/location`, `FeatureOfInterest/feature`).
+part:: The generalized value SHALL be computed with the advertised method; each stored position SHALL be replaced by the representative position of the cell that contains it, in a partition of the Earth surface whose cells have a nominal edge length not smaller than the advertised `resolution`. If the implementation claims the DGGS conformance class, the generalized value SHALL instead be computed according to <<req_dggs_geometry-release>>, which also applies to Agreements that authorize release at a zone level.
+part:: The generalized value SHALL be deterministic: the same stored value SHALL result in the same generalized value for every request and every requester.
+part:: The generalized value SHALL be encoded in the default-CRS as defined in `http://www.opengis.net/spec/sensorthings-staplus/1.0/req-class/default-crs`, independent of the encoding in which the stored value was submitted.
+====

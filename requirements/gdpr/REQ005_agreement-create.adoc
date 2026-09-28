@@ -1,0 +1,13 @@
+[[req_gdpr_agreement-create]]
+[requirement]
+.Creating an Agreement
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-create
+part:: The implementation SHALL accept the creation of an Agreement, by HTTP POST to the Agreement collection, by HTTP POST to the `Agreements` navigation link of a Party, or by deep insert together with a Party, only if the requester is the data subject of the associated Party.
+part:: The implementation SHALL reject a creation request from an unauthenticated requester with HTTP 401 and a creation request from an authenticated requester that is not the data subject of the associated Party with HTTP 403. In both cases no entity SHALL be created.
+part:: The implementation SHALL reject with HTTP 400 a creation request in which a mandatory property is missing, a value is outside the value domain defined in <<tab-agreement-properties>>, a value of `coveredProperties` is not an Agreement-controlled property path of <<tab-register>>, `audience` is missing while `permittedOperations` contains `publish`, `effectiveTime` is earlier than the time of creation, `expiryTime` is not later than the current time or not later than `effectiveTime`, or the associated Party does not have the `role` `individual`.
+part:: The implementation SHALL set `grantedTime` to the time of creation, SHALL set `status` to `active`, and SHALL ignore any values for `grantedTime`, `status` and `withdrawalTime` supplied by the client.
+part:: If the client does not supply `effectiveTime`, the implementation SHALL set `effectiveTime` to the value of `grantedTime`.
+part:: The implementation SHALL set `@iot.id` of the Agreement to a random identifier that is not correlated to the user identification of the data subject.
+====

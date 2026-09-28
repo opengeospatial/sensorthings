@@ -1,0 +1,39 @@
+[[ats_gdpr_party-role]]
+[abstract_test]
+.Assignment of the Party role
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/party-role
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/party-role
+test-purpose:: Verify that the roles that take entities out of the scope of this Requirements Class can only be assigned to identities managed by the operator.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U3, POST a Party with `role` = `system`. Verify HTTP 403 and, as U3, that `Parties?$filter=authId eq me()` returns an empty collection. Repeat with `role` = `institutional`. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+As U1, PATCH `Parties(P1)` with `role` = `system`. Verify HTTP 403 and that `role` is still `individual`.
+--
+
+[.component,class=step]
+--
+As S, request `Parties?$filter=authId eq me()` and verify that PS is returned with `role` = `system`. As S, PATCH PS with a new `description`. Verify a success status code.
+--
+
+[.component,class=step]
+--
+If the implementation supports operator-managed identities for natural persons, obtain such an identity L and, as L, POST a Party with `role` = `individual`. Verify HTTP 201. As L, PATCH that Party with `role` = `system`. Verify HTTP 403.
+--
+
+[.component,class=step]
+--
+If the implementation accepts principals from more than one authentication source, obtain a principal of each source whose subject or account name is the same character string. Verify that `Parties?$filter=authId eq me()` returns different Parties, or no Party, for the two principals.
+--
+
+=====
+====

@@ -1,0 +1,49 @@
+[[ats_gdpr_release-direct]]
+[abstract_test]
+.Release of direct personal data
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/release-direct
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-direct
+test-purpose:: Verify that `Party/displayName` and `License/attributionText` are released only on the basis of an effective Agreement.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, store `P1/displayName` with an Agreement that permits `store` only.
+--
+
+[.component,class=step]
+--
+As A, request `Parties(P1)`, `Parties(P1)?$select=displayName` and `Datastreams(D1)?$expand=Party`. Verify that `displayName` is absent in every response and that no `displayName` member with value `null` is present.
+--
+
+[.component,class=step]
+--
+As U1, request `Parties(P1)` and verify that `displayName` is present.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement for `Party/displayName` with `permittedOperations` = `["publish"]` and `audience` = `public`. As A, verify that `displayName` is present in all three responses.
+--
+
+[.component,class=step]
+--
+As U1, create a party-specific License instance LI1 of an attribution license template with `attributionText` and an Agreement for `License/attributionText` that permits `store` only; associate LI1 with D1.
+--
+
+[.component,class=step]
+--
+As U2, request `Datastreams(D1)?$expand=License` and verify that `attributionText` is absent.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement for `License/attributionText` with `permittedOperations` = `["publish"]` and `audience` = `authenticated`. As U2, verify that `attributionText` is present; as A, verify that it is absent.
+--
+
+=====
+====

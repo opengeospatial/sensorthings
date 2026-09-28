@@ -1,0 +1,44 @@
+[[ats_dggs_cell-release]]
+[abstract_test]
+.Release of Cell associations
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/cell-release
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/cell-release
+test-purpose:: Verify that the Cell association is released at the public zone level, or at the level authorized by an Agreement.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Precondition: public zone level 7. As U1, create O1 on D1 linked to c10 (level 10). Compute the ancestors c9, c8 and c7 with the grid system.
+--
+
+[.component,class=step]
+--
+As A and as U2, request `Observations(O1)?$expand=Cell`. Verify that the expanded Cell is c7.
+--
+
+[.component,class=step]
+--
+As U1, request `Observations(O1)/Cell`. Verify that c10 is returned.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement covering `Observation/Cell` with `permittedOperations` = `["publish"]`, `audience` = `authenticated` and `zoneLevel` = 9. As U2, verify that the Cell is c9. As A, verify that it is c7.
+--
+
+[.component,class=step]
+--
+As U1, create an Agreement covering `Observation/Cell` with `audience` = `public` and no `zoneLevel`. As A, verify that the Cell is c10.
+--
+
+[.component,class=step]
+--
+If an MQTT conformance class is claimed: subscribe as A to `Observations?$expand=Cell` and create a new Observation linked to c10. Verify that the payload contains c7 (after withdrawing the Agreements of the previous steps).
+--
+
+=====
+====

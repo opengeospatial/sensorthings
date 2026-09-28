@@ -1,0 +1,8 @@
+[[rec_gdpr_relation-role]]
+[recommendation]
+.Relation roles
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/gdpr/relation-role
+part:: The implementation SHOULD accept as `Relation/role` only URIs of vocabularies that the operator has declared in the privacy notice, because `role` is released without an Agreement.
+====

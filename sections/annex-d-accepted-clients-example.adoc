@@ -1,0 +1,286 @@
+[[annex-accepted-clients-example]]
+[appendix,obligation="informative"]
+== Example of the Accepted Clients conformance class
+
+=== General
+
+This annex illustrates the Accepted Clients conformance class (<<clause-accepted-clients>>) with a citizen science application for air quality. The municipal utility of the fictitious city of Musterstadt operates a STAplus endpoint and provides the smartphone application _AirBuddy_, which uploads the readings of a clip-on PM2.5 sensor. All names, identifiers and URLs are fictitious.
+
+The example shows the public catalog entries for the application, the access token that the application presents, the processing of a set of write requests, and the release of the provenance association.
+
+=== The client catalog
+
+The operator accepts exactly one release of the application. The Client entity identifies that release by `clientId`, `softwareId` and `softwareVersion`, and it is associated with the institutional Party that provides the application and with the WriteProfile that the release implements. Any requester can read the catalog (<<req_accepted-clients_registry-access>>).
+
+[source,http]
+----
+GET /v1.1/Clients?$expand=Party,WriteProfiles($select=name,status)
+----
+
+[[example-ac-client]]
+.The accepted Client
+[source,json]
+----
+{
+  "value": [{
+    "@iot.id": 7,
+    "clientId": "airbuddy-mobile",
+    "name": "AirBuddy",
+    "description": "Smartphone app that uploads readings of a clip-on PM2.5 sensor",
+    "url": "https://airbuddy.example.org",
+    "softwareId": "4NRB1-0XZABZI9E6-5SM3R",
+    "softwareVersion": "2.3.1",
+    "clientType": "public",
+    "authenticationMethod": "attestation",
+    "status": "accepted",
+    "acceptedTime": "2026-09-01T10:00:00Z",
+    "Party": {
+      "@iot.id": "b1f0c2a4-5d1e-4c7a-9f3b-2e8d6a0c4f11",
+      "displayName": "Stadtwerke Musterstadt",
+      "role": "institutional"
+    },
+    "WriteProfiles": [
+      { "@iot.id": 3, "name": "AirBuddy PM2.5 v1", "status": "active" }
+    ]
+  }]
+}
+----
+
+The WriteProfile declares what the release is allowed to write. It permits the entity types `Thing`, `Location`, `Datastream` and `Observation`, the observation type `OM_Measurement` and, through its `ObservedProperties` association, only the ObservedProperty "PM2.5 mass concentration". The JSON Schemas restrict the name and description of a Datastream to fixed values, the `result` of an Observation to a number between 0 and 1000 µg/m³, and the `parameters` to a single numeric member `humidity`. The application declares that it rounds positions on the device to 100 m before upload.
+
+[[example-ac-writeprofile]]
+.The WriteProfile of the accepted Client
+[source,json]
+----
+{
+  "@iot.id": 3,
+  "name": "AirBuddy PM2.5 v1",
+  "description": "PM2.5 mass concentration from the AirBuddy clip-on sensor",
+  "entityTypes": ["Thing", "Location", "Datastream", "Observation"],
+  "observationTypes": [
+    "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
+  ],
+  "resultCategory": "environmental",
+  "freeTextPolicy": "controlled-vocabulary",
+  "clientSideProcessing": { "locationResolution": 100 },
+  "creationTime": "2026-09-01T09:55:00Z",
+  "status": "active",
+  "entitySchemas": {
+    "Thing": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "name":        { "const": "AirBuddy sensor" },
+        "description": { "const": "Clip-on PM2.5 sensor paired with the AirBuddy app" }
+      },
+      "required": ["name", "description"],
+      "not": { "required": ["properties"] }
+    },
+    "Location": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "name":         { "const": "AirBuddy position" },
+        "description":  { "const": "Position of the AirBuddy sensor" },
+        "encodingType": { "const": "application/geo+json" },
+        "location": {
+          "type": "object",
+          "properties": { "type": { "const": "Point" } },
+          "required": ["type", "coordinates"]
+        }
+      },
+      "required": ["name", "description", "encodingType", "location"],
+      "not": { "required": ["properties"] }
+    },
+    "Datastream": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "name":        { "const": "PM2.5 AirBuddy" },
+        "description": { "const": "PM2.5 measured with the AirBuddy clip-on sensor" },
+        "unitOfMeasurement": {
+          "type": "object",
+          "properties": { "symbol": { "const": "µg/m³" } },
+          "required": ["symbol"]
+        }
+      },
+      "required": ["name", "description", "unitOfMeasurement"],
+      "not": { "required": ["properties"] }
+    },
+    "Observation": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "result": { "type": "number", "minimum": 0, "maximum": 1000 },
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "humidity": { "type": "number", "minimum": 0, "maximum": 100 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["result"]
+    }
+  }
+}
+----
+
+Because `freeTextPolicy` is `controlled-vocabulary`, the implementation checked, when the operator created WriteProfile 3, that each schema restricts `name` and `description` to fixed values and does not admit `properties` (<<req_accepted-clients_free-text-policy>>). Names and descriptions written by AirBuddy therefore contain no text entered by a user and are released to everyone without an Agreement of the data subject. Text written with a client whose WriteProfile permits free text would be released to others only with such an Agreement (<<req_gdpr_release-free-text>>).
+
+The associated ObservedProperty is listed with:
+
+[source,http]
+----
+GET /v1.1/WriteProfiles(3)/ObservedProperties?$select=name,definition
+----
+
+[source,json]
+----
+{
+  "value": [{
+    "@iot.id": 21,
+    "name": "PM2.5 mass concentration",
+    "definition": "http://vocab.nerc.ac.uk/collection/P01/current/PMLCLTBX/"
+  }]
+}
+----
+
+=== The access token
+
+The application obtains an access token from the authorization server of the operator. With a JWT access token (<<RFC9068>>), the implementation reads the identification of the client directly from the claims; with an opaque token, it obtains the same members from token introspection (<<RFC7662>>). The claim `sub` identifies the user, as required by the STAplus Authentication conformance class; the claims `client_id`, `software_id` and `software_version` identify the application.
+
+[[example-ac-token]]
+.Claims of the access token presented by AirBuddy 2.3.1
+[source,json]
+----
+{
+  "iss": "https://auth.musterstadt.example",
+  "sub": "user-4711",
+  "aud": "https://sta.musterstadt.example/v1.1",
+  "client_id": "airbuddy-mobile",
+  "software_id": "4NRB1-0XZABZI9E6-5SM3R",
+  "software_version": "2.3.1",
+  "scope": "sta:write",
+  "iat": 1790346400,
+  "exp": 1790350000
+}
+----
+
+=== Processing of write requests
+
+The data subject has signed in with AirBuddy 2.3.1 and creates a Datastream for the sensor. The request references the WriteProfile explicitly; because the Client implements only one WriteProfile that permits the request, the reference could also be omitted (<<req_accepted-clients_provenance-binding>>).
+
+[[example-ac-datastream]]
+.Creation of a Datastream by AirBuddy 2.3.1
+[source,http]
+----
+POST /v1.1/Datastreams
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6ImF0K2p3dCJ9...
+Content-Type: application/json
+----
+
+[source,json]
+----
+{
+  "name": "PM2.5 AirBuddy",
+  "description": "PM2.5 measured with the AirBuddy clip-on sensor",
+  "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+  "unitOfMeasurement": {
+    "name": "microgram per cubic metre",
+    "symbol": "µg/m³",
+    "definition": "http://qudt.org/vocab/unit/MicroGM-PER-M3"
+  },
+  "Thing": { "@iot.id": 101 },
+  "Sensor": { "@iot.id": 5 },
+  "ObservedProperty": { "@iot.id": 21 },
+  "Party": { "@iot.id": "6c9e2f70-8a41-4d0b-b3e5-7f1a9c2d8e03" },
+  "WriteProfile": { "@iot.id": 3 }
+}
+----
+
+The implementation responds with HTTP 201 and binds the new Datastream, `Datastreams(42)`, to WriteProfile 3. This binding cannot be changed afterwards. The application then adds Observations:
+
+[[example-ac-observation]]
+.Creation of an Observation by AirBuddy 2.3.1
+[source,http]
+----
+POST /v1.1/Datastreams(42)/Observations
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6ImF0K2p3dCJ9...
+Content-Type: application/json
+----
+
+[source,json]
+----
+{
+  "phenomenonTime": "2026-09-25T16:05:00Z",
+  "result": 12.4,
+  "parameters": { "humidity": 61 }
+}
+----
+
+<<tab-ac-example-requests>> lists this request and further requests together with the response of the implementation.
+
+[[tab-ac-example-requests]]
+.Write requests and responses
+[cols="4,34,10,52",options="header"]
+|===
+|# |Request |Response |Reason
+
+|a
+|AirBuddy 2.3.1 creates `Datastreams(42)` as in <<example-ac-datastream>>.
+|201
+|The Client matches `client_id`, `software_id` and `software_version` exactly. Entity type, ObservedProperty, observation type and schema are permitted by WriteProfile 3 (<<req_accepted-clients_client-acceptance>>, <<req_accepted-clients_writeprofile-enforcement>>). The Datastream is bound to WriteProfile 3 (<<req_accepted-clients_provenance-binding>>).
+
+|b
+|AirBuddy 2.3.1 creates the Observation of <<example-ac-observation>>.
+|201
+|The Observation validates against the schema for `Observation`, and the Client implements the WriteProfile bound to `Datastreams(42)` (<<req_accepted-clients_bound-writes>>).
+
+|c
+|AirBuddy 2.3.1 creates an Observation with `"parameters": {"note": "at home, Lindenweg 5"}`.
+|400
+|The schema for `Observation` does not permit the member `note` (`additionalProperties` is `false`). The free text is not stored.
+
+|d
+|AirBuddy 2.3.1 creates an Observation with `"result": "12.4 ug/m3"`.
+|400
+|The schema for `Observation` requires a number for `result`.
+
+|e
+|AirBuddy 2.3.2, which the operator has not yet accepted, creates an Observation of `Datastreams(42)`.
+|403
+|No Client with `softwareVersion` `2.3.2` exists. Version ranges, prefixes and wildcards are not applied (<<req_accepted-clients_client-acceptance>>).
+
+|f
+|A generic SensorThings client with `client_id` `sta-explorer`, accepted with its own WriteProfile, creates an Observation of `Datastreams(42)`.
+|403
+|`Datastreams(42)` is bound to WriteProfile 3, and `sta-explorer` does not implement that WriteProfile (<<req_accepted-clients_bound-writes>>).
+
+|g
+|AirBuddy 2.3.1 creates a Datastream for the ObservedProperty "heart rate".
+|403
+|The ObservedProperty is not associated with WriteProfile 3 (<<req_accepted-clients_writeprofile-enforcement>>).
+
+|h
+|The data subject deletes their Party, or withdraws an Agreement, with any client, including one that is not in the catalog.
+|200 or 204
+|Requests with which a data subject exercises a GDPR right are exempt from client acceptance (<<req_accepted-clients_rights-exemption>>).
+|===
+
+When release 2.3.2 of the application is published with unchanged write behaviour, the operator creates a second Client entity with `softwareVersion` `2.3.2` and associates it with WriteProfile 3. Request (e) is then accepted, and the Datastreams created with release 2.3.1 remain writable by both releases. A new WriteProfile is needed only when the write behaviour changes, for example when the application adds a temperature sensor. The operator then creates WriteProfile 4 and sets the `status` of WriteProfile 3 to `superseded`: new Datastreams are bound to WriteProfile 4, while `Datastreams(42)` stays bound to WriteProfile 3 and continues to accept Observations from the Clients that implement it.
+
+=== Release of the provenance association
+
+The catalog contains no personal data: the provider of the application is an institutional Party. The association between a Datastream of an individual and its WriteProfile, however, reveals which application the person uses and is therefore part of the personal data register (<<tab-register>>). Without an Agreement of the data subject for `Datastream/WriteProfile` with the operation `publish`, the association is not released to others (<<req_accepted-clients_provenance-release>>):
+
+[source,http]
+----
+GET /v1.1/Datastreams(42)/WriteProfile
+----
+
+* data subject: HTTP 200 with WriteProfile 3;
+* any other requester without an effective Agreement: HTTP 404;
+* any other requester after the data subject has created an Agreement with `coveredProperties` `["Datastream/WriteProfile"]`, `permittedOperations` `["publish"]` and a matching `audience`: HTTP 200 with WriteProfile 3.
+
+Correspondingly, `GET /v1.1/WriteProfiles(3)/Datastreams` lists `Datastreams(42)` only for requesters to whom the association is released. A data consumer can therefore see that all data on the endpoint was written by declared applications, and what each application is permitted to write, without learning which person uses which application.

@@ -1,0 +1,34 @@
+[[ats_accepted-clients_provenance-binding]]
+[abstract_test]
+.Provenance binding
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/provenance-binding
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/provenance-binding
+test-purpose:: Verify that every Datastream and MultiDatastream is bound to the WriteProfile under which it was created.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1 using C1 (with the single active profile WP1), create a Datastream D2 without referencing a WriteProfile. As U1, verify that `Datastreams(D2)/WriteProfile` returns WP1.
+--
+
+[.component,class=step]
+--
+As OP, create a second active WriteProfile WP3 for C1 that also permits the request. As U1 using C1, create a Datastream without referencing a WriteProfile. Verify HTTP 400. Repeat with a reference to WP3 and verify that the Datastream is created and bound to WP3.
+--
+
+[.component,class=step]
+--
+As U1 using C1, PATCH D2 to reference WP3. Verify HTTP 400 and that D2 is still bound to WP1.
+--
+
+[.component,class=step]
+--
+If MultiDatastream is supported, repeat the first step for a MultiDatastream.
+--
+
+=====
+====

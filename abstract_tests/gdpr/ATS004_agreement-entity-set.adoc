@@ -1,0 +1,24 @@
+[[ats_gdpr_agreement-entity-set]]
+[abstract_test]
+.Agreement entity set
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-entity-set
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-entity-set
+test-purpose:: Verify that the Agreements entity set is advertised on the service root URI.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Issue an HTTP GET request to the service root URI.
+--
+
+[.component,class=step]
+--
+Verify that the `value` array contains an object with `name` = `Agreements` and a `url` that resolves to the Agreement collection.
+--
+
+=====
+====

@@ -1,0 +1,49 @@
+[[ats_gdpr_relation-release]]
+[abstract_test]
+.Release of Relations
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/relation-release
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/relation-release
+test-purpose:: Verify that Relations are withheld together with the Observations they link and that the affected data subjects can delete them.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create an Observation O1 on D1 (attributable to P1). As U2, create a Datastream D2 associated with P2 and an Observation O2 on D2.
+--
+
+[.component,class=step]
+--
+As U2, create a Relation R1 with Subject O2, Object O1, a `role` URI and `description` = a unique value `D`. As U1, create a Relation R2 with Subject O1 and `externalResource` = `https://example.org/records/42`.
+--
+
+[.component,class=step]
+--
+As A, request `Relations(R1)` and `Relations(R2)`. Verify that `description` of R1 and `externalResource` of R2 are absent (<<req_gdpr_release-free-text>>). As U1, create an Agreement for `Relation/description` with `permittedOperations` = `["publish"]` and `audience` = `public`. As A, verify that `description` of R1 is still absent, because P2 has not agreed (co-attribution).
+--
+
+[.component,class=step]
+--
+As U1, create in a Datastream of P1 whose License is a party-specific instance of an attribution license, without an Agreement for `License/attributionText`, an Observation O3, which is therefore withheld from A (<<req_gdpr_attribution-integrity>>). As U2, create a Relation R3 with Subject O2 and Object O3.
+--
+
+[.component,class=step]
+--
+As A, request `Relations`, `Relations(R3)`, `Relations(R3)/Subject`, `Observations(O2)/Objects` and `Observations(O2)?$expand=Objects($count=true)`. Verify that R3 is not contained, that it is not counted, and that the requests for R3 and for the path through R3 are answered with HTTP 404.
+--
+
+[.component,class=step]
+--
+As U1, DELETE R1, which U2 created and whose Object is O1. Verify a success status code and, as U2, that R1 no longer exists.
+--
+
+[.component,class=step]
+--
+As U2, DELETE O2. As U1, verify that R3 no longer exists.
+--
+
+=====
+====

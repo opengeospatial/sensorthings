@@ -1,0 +1,54 @@
+{
+  "value": [
+    {
+      "name": "Things",
+      "url": "https://example.org/staplus/v1.1/Things"
+    },
+    {
+      "name": "Parties",
+      "url": "https://example.org/staplus/v1.1/Parties"
+    },
+    {
+      "name": "Licenses",
+      "url": "https://example.org/staplus/v1.1/Licenses"
+    },
+    {
+      "name": "Agreements",
+      "url": "https://example.org/staplus/v1.1/Agreements"
+    },
+    {
+      "name": "Clients",
+      "url": "https://example.org/staplus/v1.1/Clients"
+    },
+    {
+      "name": "WriteProfiles",
+      "url": "https://example.org/staplus/v1.1/WriteProfiles"
+    }
+  ],
+  "serverSettings": {
+    "conformance": [
+      "http://www.opengis.net/spec/sensorthings-staplus/1.0.1/conf/core",
+      "http://www.opengis.net/spec/sensorthings-staplus/1.0/conf/create",
+      "http://www.opengis.net/spec/sensorthings-staplus/1.0/conf/update",
+      "http://www.opengis.net/spec/sensorthings-staplus/1.0/conf/delete",
+      "http://www.opengis.net/spec/sensorthings-staplus/1.0.1/conf/authentication",
+      "http://www.opengis.net/spec/sensorthings-staplus/1.0.1/conf/business-logic",
+      "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr",
+      "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients"
+    ],
+    "http://www.opengis.net/spec/sensorthings-staplus/1.0.1/conf/business-logic": {
+      "href": "https://example.org/staplus/business-logic.html"
+    },
+    "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr": {
+      "privacyNotice": "https://example.org/staplus/privacy.html",
+      "locationGeneralization": {
+        "method": "grid",
+        "resolution": 1000
+      },
+      "timeGeneralization": {
+        "resolution": "PT1H"
+      },
+      "acceptancePolicy": "https://example.org/staplus/client-acceptance.html"
+    }
+  }
+}

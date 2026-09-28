@@ -1,0 +1,44 @@
+[[ats_dggs_privacy-zones]]
+[abstract_test]
+.Privacy zones
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/privacy-zones
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/privacy-zones
+test-purpose:: Verify that privacy zones cap the release level even when an Agreement authorizes finer release.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create an Agreement covering `Observation/Cell` and `FeatureOfInterest/feature` with `audience` = `public`, `zoneLevel` = 10 and `privacyZones` = `[c8]`, where c8 is a level 8 zone.
+--
+
+[.component,class=step]
+--
+As U1, create O1 linked to a level-10 descendant of c8, and O2 linked to a level-10 zone outside c8.
+--
+
+[.component,class=step]
+--
+As A, verify that the Cell of O1 is c8 and that the Cell of O2 is the level-10 zone.
+--
+
+[.component,class=step]
+--
+As A, verify that the `feature` of the FeatureOfInterest of O1 is the boundary of c8.
+--
+
+[.component,class=step]
+--
+As U1, create a second Agreement covering `Observation/Cell` with `permittedOperations` = `["publish"]`, `audience` = `authenticated`, `effectiveTime` one day in the future and `privacyZones` = `[d8]`, where d8 is the level 8 zone that contains the Cell of O2. As A, verify that the Cell of O2 is d8.
+--
+
+[.component,class=step]
+--
+As U1, withdraw both Agreements. As A, verify that the Cells of O1 and O2 are at the public zone level.
+--
+
+=====
+====

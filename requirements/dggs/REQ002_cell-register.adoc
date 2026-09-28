@@ -1,0 +1,9 @@
+[[req_dggs_cell-register]]
+[requirement]
+.Cell associations as personal data
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/cell-register
+part:: The implementation SHALL treat the associations `Observation/Cell`, `Datastream/Cell` and `MultiDatastream/Cell` as indirect location data (see <<tab-register>>) when the Observation, Datastream or MultiDatastream is attributable to a Party whose `role` is `individual`.
+part:: The implementation SHALL NOT treat the Cell entities themselves (`zoneId`, `zoneLevel`, `system`, `boundary`, `encodingType`) as attributable to any Party.
+====

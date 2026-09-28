@@ -1,0 +1,38 @@
+[bibliography]
+== Normative references
+
+The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.
+
+* [[[OGC22-022r2,nofetch(OGC 22-022r2)]]], _OGC SensorThings API Extension: STAplus 1.0 (corrigendum 1.0.1)_. Matheus, A. (ed.), OGC (2026). http://www.opengis.net/doc/is/sensorthings-staplus/1.0.1
+
+* [[[OGC15-078r6,nofetch(OGC 15-078r6)]]], _OGC SensorThings API Part 1: Sensing_. OGC (2016). https://docs.ogc.org/is/15-078r6/15-078r6.html
+
+* [[[OGC18-088,nofetch(OGC 18-088)]]], _OGC SensorThings API Part 1: Sensing Version 1.1_. OGC (2020). https://docs.ogc.org/is/18-088/18-088.html
+
+* [[[GDPR,nofetch(Regulation (EU) 2016/679)]]], _Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation)_. Official Journal of the European Union, L 119, 4 May 2016, pp. 1–88. https://eur-lex.europa.eu/eli/reg/2016/679/oj
+
+* [[[RFC7946,nofetch(IETF RFC 7946)]]], _The GeoJSON Format_. Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., Schaub, T. IETF (2016). https://www.rfc-editor.org/rfc/rfc7946
+
+* [[[RFC9110,nofetch(IETF RFC 9110)]]], _HTTP Semantics_. Fielding, R., Nottingham, M., Reschke, J. (eds.). IETF (2022). https://www.rfc-editor.org/rfc/rfc9110
+
+* [[[RFC8446,nofetch(IETF RFC 8446)]]], _The Transport Layer Security (TLS) Protocol Version 1.3_. Rescorla, E. IETF (2018). https://www.rfc-editor.org/rfc/rfc8446
+
+* [[[RFC5246,nofetch(IETF RFC 5246)]]], _The Transport Layer Security (TLS) Protocol Version 1.2_. Dierks, T., Rescorla, E. IETF (2008). https://www.rfc-editor.org/rfc/rfc5246
+
+* [[[ISO8601-1,nofetch(ISO 8601-1:2019)]]], _Date and time — Representations for information interchange — Part 1: Basic rules_. ISO (2019).
+
+* [[[RFC6749,nofetch(IETF RFC 6749)]]], _The OAuth 2.0 Authorization Framework_. Hardt, D. (ed.). IETF (2012). https://www.rfc-editor.org/rfc/rfc6749
+
+* [[[RFC7591,nofetch(IETF RFC 7591)]]], _OAuth 2.0 Dynamic Client Registration Protocol_. Richer, J. (ed.), Jones, M., Bradley, J., Machulak, M., Hunt, P. IETF (2015). https://www.rfc-editor.org/rfc/rfc7591
+
+* [[[RFC7662,nofetch(IETF RFC 7662)]]], _OAuth 2.0 Token Introspection_. Richer, J. (ed.). IETF (2015). https://www.rfc-editor.org/rfc/rfc7662
+
+* [[[RFC9068,nofetch(IETF RFC 9068)]]], _JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens_. Bertocci, V. IETF (2021). https://www.rfc-editor.org/rfc/rfc9068
+
+* [[[JSONSchema,nofetch(JSON Schema 2020-12)]]], _JSON Schema: A Media Type for Describing JSON Documents_ and _JSON Schema Validation: A Vocabulary for Structural Validation of JSON_, draft 2020-12. Wright, A., Andrews, H., Hutton, B., Dennis, G. (2022). https://json-schema.org/specification-links#2020-12
+
+* [[[MQTT5,nofetch(OASIS MQTT 5.0)]]], _MQTT Version 5.0_. OASIS Standard (2019). https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html
+
+* [[[OGC26-057,nofetch(OGC 26-057)]]], _OGC SensorThings API Extension: DGGS 1.0_. Matheus, A. (ed.), OGC (2026). http://www.opengis.net/doc/is/sensorthings-dggs/1.0
+
+* [[[OGC20-040r3,nofetch(OGC 20-040r3)]]], _OGC Abstract Specification Topic 21: Discrete Global Grid Systems — Part 1 Core Reference system and Operations and Equal Area Earth Reference System_. OGC (2021). https://docs.ogc.org/as/20-040r3/20-040r3.html

@@ -1,0 +1,34 @@
+[[ats_accepted-clients_client-properties]]
+[abstract_test]
+.Client properties
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/client-properties
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-properties
+test-purpose:: Verify that a Client has the mandatory and optional properties and that the identification is unambiguous.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As A, request the Client collection and select a Client entity. Verify that `@iot.id`, `@iot.selfLink`, `clientId`, `name`, `clientType`, `authenticationMethod`, `status` and `acceptedTime` are present and that the values are within the value domains of <<tab-client-properties>>.
+--
+
+[.component,class=step]
+--
+Verify that at least one of `softwareId` and `softwareVersion` is present and that no `properties` member is present.
+--
+
+[.component,class=step]
+--
+As OP, POST a Client with `clientId`, `name` and all other mandatory properties but without `softwareId` and `softwareVersion`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As OP, POST a Client whose `clientId`, `softwareId` and `softwareVersion` equal those of an existing Client. Verify HTTP 400 or HTTP 409 and that no Client is created.
+--
+
+=====
+====

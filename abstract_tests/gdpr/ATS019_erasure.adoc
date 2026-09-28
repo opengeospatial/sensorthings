@@ -1,0 +1,44 @@
+[[ats_gdpr_erasure]]
+[abstract_test]
+.Right to erasure
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/erasure
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/erasure
+test-purpose:: Verify that deleting a Party erases the data subject's direct personal data and deletes or anonymizes all attributable entities.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, set up P1 with a stored `displayName`, Agreements, a party-specific License instance LI1 with `attributionText`, a Thing T1 with Location L1 and a unique `description` `D`, a Datastream D1 with License LI1 and an Observation O1 with a precise `phenomenonTime`.
+--
+
+[.component,class=step]
+--
+As U1, DELETE `Parties(P1)`. Verify a success status code.
+--
+
+[.component,class=step]
+--
+As U1, request `Parties(P1)` and verify HTTP 404; request `Parties?$filter=authId eq me()` and verify an empty collection; request each former Agreement of P1 and verify HTTP 404.
+--
+
+[.component,class=step]
+--
+As U1, request LI1 and verify HTTP 404 or that `attributionText` is absent.
+--
+
+[.component,class=step]
+--
+As U1, request D1, T1, L1 and O1. For each, verify either HTTP 404, or that the entity has no association with a Party and that its location and time values are the generalized values (not the submitted values). Compare with the declaration in the privacy notice.
+--
+
+[.component,class=step]
+--
+If T1 still exists, verify as U1 and as A that its `description` is not `D`.
+--
+
+=====
+====

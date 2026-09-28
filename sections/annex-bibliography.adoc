@@ -1,0 +1,23 @@
+[bibliography]
+[[Bibliography]]
+== Bibliography
+
+* [[[OGC21-068,nofetch(OGC 21-068)]]], _OGC Best Practice for using SensorThings API with Citizen Science_. OGC (2022). https://docs.ogc.org/bp/21-068.pdf
+
+* [[[DID,nofetch(W3C DID Core)]]], _Decentralized Identifiers (DIDs) v1.0_. W3C Recommendation (2022). https://www.w3.org/TR/did-core/
+
+* [[[VC-DI,nofetch(W3C VC Data Integrity)]]], _Verifiable Credential Data Integrity 1.0_. W3C Recommendation (2025). https://www.w3.org/TR/vc-data-integrity/
+
+* [[[OData,nofetch(OASIS OData 4.01 Part 1)]]], _OData Version 4.01. Part 1: Protocol_. OASIS (2020). https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
+
+* [[[EDPB-Consent,nofetch(EDPB Guidelines 05/2020)]]], _Guidelines 05/2020 on consent under Regulation 2016/679_, Version 1.1. European Data Protection Board (2020). https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-052020-consent-under-regulation-2016679_en
+
+* [[[WP216,nofetch(Article 29 WP 216)]]], _Opinion 05/2014 on Anonymisation Techniques_ (WP216). Article 29 Data Protection Working Party (2014).
+
+* [[[RFC9449,nofetch(IETF RFC 9449)]]], _OAuth 2.0 Demonstrating Proof of Possession (DPoP)_. Fett, D., Campbell, B., Bradley, J., Lodderstedt, T., Jones, M., Waite, D. IETF (2023). https://www.rfc-editor.org/rfc/rfc9449
+
+* [[[RFC8705,nofetch(IETF RFC 8705)]]], _OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens_. Campbell, B., Bradley, J., Sakimura, N., Lodderstedt, T. IETF (2020). https://www.rfc-editor.org/rfc/rfc8705
+
+* [[[deMontjoye2013,nofetch(de Montjoye et al. 2013)]]], de Montjoye, Y.-A., Hidalgo, C.A., Verleysen, M., Blondel, V.D.: Unique in the Crowd: The privacy bounds of human mobility. Scientific Reports 3, 1376 (2013). https://doi.org/10.1038/srep01376
+
+* [[[Golle2009,nofetch(Golle and Partridge 2009)]]], Golle, P., Partridge, K.: On the Anonymity of Home/Work Location Pairs. In: Pervasive Computing 2009. LNCS, vol. 5538, pp. 390–397. Springer, Heidelberg (2009)

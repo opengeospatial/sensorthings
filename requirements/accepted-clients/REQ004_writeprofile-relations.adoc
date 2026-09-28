@@ -1,0 +1,9 @@
+[[req_accepted-clients_writeprofile-relations]]
+[requirement]
+.WriteProfile relations
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-relations
+part:: An implementation SHALL allow each WriteProfile to have the direct associations listed in <<tab-writeprofile-relations>>, and SHALL allow each Client, ObservedProperty, Datastream and MultiDatastream to have the direct association to WriteProfile listed in <<tab-relations-to-writeprofile>>.
+part:: Each WriteProfile SHALL be associated with at least one Client.
+====

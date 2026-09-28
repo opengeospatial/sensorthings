@@ -1,0 +1,39 @@
+[[ats_dggs_query-consistency]]
+[abstract_test]
+.Query evaluation on released Cells
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/query-consistency
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/query-consistency
+test-purpose:: Verify that queries on Cells cannot be used as an oracle for the stored Cell.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create O1 linked to c10. P1 has no Agreement.
+--
+
+[.component,class=step]
+--
+As A, request `Observations?$filter=Cell/zoneId eq 'c10'`. Verify that O1 is not contained.
+--
+
+[.component,class=step]
+--
+As A, request `Observations?$filter=Cell/zoneId eq 'c7'`. Verify that O1 is contained.
+--
+
+[.component,class=step]
+--
+As A, request `Cells(c7)/Observations?$count=true`. Verify that O1 is contained and counted.
+--
+
+[.component,class=step]
+--
+As U1, request `Observations?$filter=Cell/zoneId eq 'c10'`. Verify that O1 is contained.
+--
+
+=====
+====

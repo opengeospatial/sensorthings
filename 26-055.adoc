@@ -1,0 +1,73 @@
+= OGC SensorThings API Extension: STAplus 1.0 — GDPR Profile
+:doctype: standard
+:encoding: utf-8
+:lang: en
+:status: swg-draft
+:committee: technical
+:draft: 0.1
+:external-id: http://www.opengis.net/doc/is/sensorthings-staplus-gdpr/1.0
+:docnumber: 26-055
+:received-date: 2026-09-23
+:issued-date: 2026-09-25
+:published-date: 2026-09-25
+:fullname: Andreas Matheus
+:role: editor
+:docsubtype: profile-with-extension
+:keywords: OGC Standard, API, SensorThings, STAplus, GDPR, personal data, privacy, consent, agreement, OAuth 2.0, provenance, DGGS, spatial obfuscation, citizen science
+:submitting-organizations: Secure Dimensions GmbH
+:mn-document-class: ogc
+:mn-output-extensions: xml,html,doc,pdf
+:local-cache-only:
+:data-uri-image:
+:pdf-uri: ./document.pdf
+:xml-uri: ./document.xml
+:doc-uri: ./document.doc
+:edition: 1.0
+:toc-figures:
+:toc-tables:
+
+////
+Base URI of all normative provisions of this Standard:
+http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0
+The OGC document number (26-055) is a placeholder until assigned by the OGC.
+////
+
+include::sections/clause_0_front_material.adoc[]
+
+include::sections/clause_1_scope.adoc[]
+
+include::sections/clause_2_conformance.adoc[]
+
+include::sections/clause_3_references.adoc[]
+
+include::sections/clause_4_terms_and_definitions.adoc[]
+
+include::sections/clause_5_conventions.adoc[]
+
+include::sections/clause_6_informative_text.adoc[]
+
+include::sections/clause_7_normative_text.adoc[]
+
+include::sections/clause_8_accepted_clients.adoc[]
+
+include::sections/clause_9_dggs.adoc[]
+
+include::sections/clause_10_media_types.adoc[]
+
+include::sections/annex-a.adoc[]
+
+include::sections/annex-b.adoc[]
+
+include::sections/annex-c-gdpr-mapping.adoc[]
+
+include::sections/annex-d-accepted-clients-example.adoc[]
+
+include::sections/annex-e-agreement-example.adoc[]
+
+include::sections/annex-f-accepted-client-dggs-example.adoc[]
+
+include::sections/annex-g-client-restricted-agreement-example.adoc[]
+
+include::sections/annex-history.adoc[]
+
+include::sections/annex-bibliography.adoc[]

@@ -1,0 +1,69 @@
+[[ats_gdpr_agreement-access]]
+[abstract_test]
+.Access to Agreements
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-access
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-access
+test-purpose:: Verify that Agreements are visible only to their data subject.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create a Campaign CA and an active Agreement G1 for P1 that is associated with CA. P2 has no Agreement.
+--
+
+[.component,class=step]
+--
+As U2 and as A, request the Agreement collection. Verify that G1 is not contained and that `@iot.count` (with `$count=true`) does not count G1.
+--
+
+[.component,class=step]
+--
+As U2 and as A, request `Agreements(G1)`. Verify HTTP 404.
+--
+
+[.component,class=step]
+--
+As U2, request `Parties(P1)?$expand=Agreements` and `Parties(P1)/Agreements`. Verify that no Agreement is contained.
+--
+
+[.component,class=step]
+--
+As U2, request `Parties?$filter=Agreements/any(a:a/status eq 'active')`. Verify that P1 is not contained.
+--
+
+[.component,class=step]
+--
+As U2, request `Campaigns(CA)/Agreements` and `Campaigns(CA)?$expand=Agreements($count=true)`. Verify that no Agreement is contained and that `Agreements@iot.count`, if present, is 0.
+--
+
+[.component,class=step]
+--
+As U2, request `Things?$expand=Party($expand=Agreements)` for a Thing of P1. Verify that no Agreement is contained.
+--
+
+[.component,class=step]
+--
+As U2, request `Parties?$filter=Agreements/$count gt 0`. Verify that P1 is not contained.
+--
+
+[.component,class=step]
+--
+As U2, request `Parties?$orderby=Agreements/$count desc,@iot.id` and `Parties?$orderby=@iot.id`, restricted by `$filter` to P1 and P2. Verify that both requests return P1 and P2 in the same order, or that the first request is rejected with HTTP 400 because the implementation does not support ordering by the count of a navigation property.
+--
+
+[.component,class=step]
+--
+As U2 and as A, request `Agreements(G1)/Party` and `Agreements(G1)/Campaign`. Verify HTTP 404.
+--
+
+[.component,class=step]
+--
+As U1, request `Agreements(G1)`, `Agreements(G1)/Party` and `Campaigns(CA)/Agreements`. Verify that G1 and P1 are returned.
+--
+
+=====
+====

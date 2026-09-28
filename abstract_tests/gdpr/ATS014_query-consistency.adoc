@@ -1,0 +1,39 @@
+[[ats_gdpr_query-consistency]]
+[abstract_test]
+.Query evaluation on released values
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/query-consistency
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/query-consistency
+test-purpose:: Verify that queries cannot be used as an oracle for values that are not released.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, store `P1/displayName` = a unique value `X` with an Agreement that permits `store` only.
+--
+
+[.component,class=step]
+--
+As A, request `Parties?$filter=displayName eq 'X'&$count=true`. Verify that the collection is empty and that `@iot.count` is 0. As U1, repeat and verify that P1 is contained.
+--
+
+[.component,class=step]
+--
+As U1, create a FeatureOfInterest F1 attributable to P1 with a Point `feature` at the precise position `Q`, without a location Agreement. As A, request `FeaturesOfInterest?$filter=st_equals(feature, geography'POINT(Q)')` using the precise coordinates. Verify that F1 is not contained.
+--
+
+[.component,class=step]
+--
+As U1, create an Observation O1 attributable to P1 with `phenomenonTime` = `T` (with milliseconds), without a time Agreement. As A, request `Observations?$filter=phenomenonTime eq T` and verify that O1 is not contained.
+--
+
+[.component,class=step]
+--
+As U1, create a Thing T1 associated with P1 with `description` = a unique value `D`, without an Agreement for `Thing/description`. As A, request `Things?$filter=substringof('D',description)&$count=true` and verify that T1 is not contained and not counted.
+--
+
+=====
+====

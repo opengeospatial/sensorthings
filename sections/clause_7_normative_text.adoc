@@ -1,0 +1,274 @@
+[[clause-gdpr]]
+== Requirements Class GDPR
+
+=== Overview
+
+The GDPR requirements class applies to a STAplus implementation that processes entities attributable to Parties whose `role` is `individual`. It adds the entity type `Agreement` and constrains how the implementation stores and releases the personal data identified in <<clause-analysis>>.
+
+include::../requirements/gdpr/requirements_class_gdpr.adoc[]
+
+=== Personal data register
+
+<<tab-register>> is the normative personal data register. The column _Agreement-controlled_ indicates whether the property path may be used as a value of `Agreement/coveredProperties`. The column _Without effective Agreement_ indicates how the value is treated for requesters other than the data subject.
+
+[[tab-register]]
+.Personal data register
+[cols="27,14,11,13,35",options="header"]
+|===
+|Property path |Category |Mandatory in STA/STAplus |Agreement-controlled |Without effective Agreement
+
+|`Party/authId` |direct |no |no |never released to others (STAplus `/req/authentication/id-read`)
+|`Party/displayName` |direct |no |yes |not stored; not released
+|`Party/description` |direct |no |yes |not stored; not released
+|`License/attributionText` (party-specific instance) |direct |no |yes |not stored; not released; licensed observations withheld
+|`License/description` (party-specific instance) |direct |no |yes |not stored; not released
+|`Thing/name`, `Location/name`, `FeatureOfInterest/name`, `Datastream/name`, `MultiDatastream/name`, `ObservationGroup/name`, `Campaign/name` |free text |yes |yes |released as the empty string (<<req_gdpr_release-free-text>>)
+|`Thing/description`, `Location/description`, `FeatureOfInterest/description`, `Datastream/description`, `MultiDatastream/description`, `ObservationGroup/description`, `Campaign/description` |free text |depends on the version |yes |released as the empty string if mandatory, otherwise omitted
+|`Thing/properties`, `Location/properties`, `FeatureOfInterest/properties`, `Datastream/properties`, `MultiDatastream/properties`, `ObservationGroup/properties`, `Campaign/properties` |free text |no |yes |omitted
+|`ObservationGroup/purpose`, `ObservationGroup/dataQuality` |free text |no |yes |omitted
+|`Relation/description`, `Relation/properties` |free text |no |yes |omitted; the Relation is withheld unless its Subject and Object are released (<<req_gdpr_relation-release>>)
+|`Relation/externalResource` |free text |no |yes |omitted (<<req_gdpr_release-free-text>>); an identifier that can point to the person or to precise data about them
+|`Location/location` |indirect location |yes |yes |generalized, or entity withheld
+|`FeatureOfInterest/feature` |indirect location |yes |yes |generalized, or entity withheld
+|`Datastream/observedArea` |indirect location |no |yes |generalized, or omitted
+|`MultiDatastream/observedArea` |indirect location |no |yes |generalized, or omitted
+|`Observation/phenomenonTime` |indirect time |yes |yes |generalized, or entity withheld
+|`Observation/resultTime` |indirect time |yes |yes |generalized, or entity withheld
+|`Observation/validTime` |indirect time |no |yes |generalized, or omitted
+|`HistoricalLocation/time` |indirect time |yes |yes |generalized, or entity withheld
+|`Datastream/phenomenonTime` |indirect time |no |yes |generalized, or omitted
+|`Datastream/resultTime` |indirect time |no |yes |generalized, or omitted
+|`MultiDatastream/phenomenonTime` |indirect time |no |yes |generalized, or omitted
+|`MultiDatastream/resultTime` |indirect time |no |yes |generalized, or omitted
+|`ObservationGroup/creationTime` |indirect time |yes |yes |generalized, or entity withheld
+|`ObservationGroup/endTime` |indirect time |no |yes |generalized, or omitted
+|`Datastream/Campaigns`, `MultiDatastream/Campaigns`, `ObservationGroup/Campaigns` |indirect participation |no |yes |association not released, except to the manager of the Campaign (<<req_gdpr_campaign-participation>>)
+|`Datastream/WriteProfile` (Accepted Clients only) |indirect provenance |no |yes |association not released (<<req_accepted-clients_provenance-release>>)
+|`MultiDatastream/WriteProfile` (Accepted Clients only) |indirect provenance |no |yes |association not released (<<req_accepted-clients_provenance-release>>)
+|`Observation/Cell` (DGGS only) |indirect location |no |yes |released as the ancestor Cell at the public zone level (<<req_dggs_cell-release>>)
+|`Datastream/Cell` (DGGS only) |indirect location |no |yes |released as the ancestor Cell at the public zone level (<<req_dggs_cell-release>>)
+|`MultiDatastream/Cell` (DGGS only) |indirect location |no |yes |released as the ancestor Cell at the public zone level (<<req_dggs_cell-release>>)
+|===
+
+NOTE: `Party/@iot.id`, `Party/role` and the associations of a Party are released without an Agreement; the privacy notice declares their legal basis. Free-text values are stored without an Agreement; they are released to others as shown above unless they were generated by the implementation or, with the Accepted Clients conformance class, written under a verified free-text policy (<<req_gdpr_release-free-text>>). `Sensor/metadata`, `Observation/result` and `Observation/parameters` are classified by the operator in the privacy notice (see <<req_gdpr_privacy-notice>> and <<rec_gdpr_free-text>>).
+
+NOTE: Independent of any Agreement, no requester, including the data subject, can use `License/attributionText` in a `$filter` or `$orderby` expression (<<req_gdpr_attribution-filter>>).
+
+include::../requirements/gdpr/REQ001_personal-data-register.adoc[]
+
+=== Party roles
+
+The requirements of this Requirements Class apply to entities attributable to a Party whose `role` is `individual`. A Party with the `role` `institutional` or `system` takes its entities out of that scope. The role therefore must not be chosen by the principal itself: only identities managed by the operator can be institutions or systems, and every other principal is an individual. An identity managed by the operator can also be an individual, for example a citizen who has a local account.
+
+include::../requirements/gdpr/REQ001a_party-role.adoc[]
+
+NOTE: A typical deployment accepts two authentication sources. Citizens authenticate with an external OAuth 2.0 or OpenID Connect provider; their Parties are always `individual`. Institutions, such as a municipal environmental office, and autonomous systems, such as the station network of an operator or an aggregation service, authenticate with local accounts that the operator creates, for example with HTTP Basic authentication over TLS; their Parties are `institutional` or `system`. The operator can also create local accounts for citizens who do not use the external provider; their Parties are `individual`, like those of external identities. `Party/authId` is qualified by the source, for example `https://login.example.org#4711` for an external subject and `local:station-network` for a local account. If the implementation claims the Accepted Clients conformance class, the operator binds each local account to the Client of the software release it runs, so that the credential resolves to both the principal and the client release (<<req_accepted-clients_client-acceptance>>). A sensor that belongs to a citizen and writes autonomously is not a system in this sense: it writes as the `individual` Party of its owner, with a credential bound to the owner and to the Client of its firmware release.
+
+=== Entity type Agreement
+
+The `Agreement` entity type records the authorization of a data subject. <<tab-agreement-properties>> defines its properties; <<tab-agreement-relations>> and <<tab-relations-to-agreement>> define its associations.
+
+[[tab-agreement-properties]]
+.Properties of an Agreement entity
+[cols="17,38,23,22",options="header"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|`name`
+|A label for the Agreement.
+|CharacterString
+|Zero or one (optional)
+
+|`description`
+|A short description of the Agreement.
+|CharacterString
+|Zero or one (optional)
+
+|`legalBasis`
+|The legal basis on which the data subject authorizes the processing: `consent` (GDPR Article 6(1)(a)), `explicit-consent` (Article 9(2)(a), for special categories of personal data), or `contract` (Article 6(1)(b)).
+|ValueCode [`consent`, `explicit-consent`, `contract`]
+|One (mandatory)
+
+|`purpose`
+|The specific purpose for which the covered personal data may be processed, as stated to the data subject. It is not evaluated by the implementation (see the NOTE below).
+|CharacterString
+|One (mandatory)
+
+|`definition`
+|The URI of the text the data subject was informed with and agreed to, for example a versioned consent text or the privacy notice.
+|URI
+|One (mandatory)
+
+|`coveredProperties`
+|The property paths of <<tab-register>> to which the Agreement applies.
+|Array of CharacterString (property paths), at least one element
+|One (mandatory)
+
+|`permittedOperations`
+|The operations that the Agreement authorizes: `store` (storage of direct personal data) and `publish` (release to requesters other than the data subject).
+|Array of ValueCode [`store`, `publish`], at least one element
+|One (mandatory)
+
+|`audience`
+|The requesters to whom covered values may be released: `public` (any requester, including unauthenticated) or `authenticated` (any authenticated requester).
+|ValueCode [`public`, `authenticated`]
+|Zero or one; mandatory if `permittedOperations` contains `publish`
+
+|`grantedTime`
+|The time at which the Agreement was created. Set by the implementation.
+|TM_Instant
+|One (mandatory)
+
+|`effectiveTime`
+|The time from which the Agreement is effective. Set by the data subject at creation; not earlier than `grantedTime`. Set to `grantedTime` by the implementation if not supplied.
+|TM_Instant
+|One (mandatory)
+
+|`expiryTime`
+|The time after which the Agreement is no longer effective. Set by the data subject at creation; later than `effectiveTime`.
+|TM_Instant
+|Zero or one (optional)
+
+|`status`
+|The state of the Agreement. Set to `active` by the implementation at creation; set to `withdrawn` by withdrawal.
+|ValueCode [`active`, `withdrawn`]
+|One (mandatory)
+
+|`withdrawalTime`
+|The time of withdrawal. Set by the implementation.
+|TM_Instant
+|Zero or one; present if `status` is `withdrawn`
+
+|`proof`
+|Evidence of the authorization created by the data subject, for example a JSON Web Signature or a W3C Verifiable Credential Data Integrity proof over the other properties.
+|JSON Object
+|Zero or one (optional)
+|===
+
+[[tab-agreement-relations]]
+.Direct relation from an Agreement entity to other entity types
+[cols="20,20,20,40",options="header"]
+|===
+|Relation name |Entity type |Cardinality |Description
+
+|`Party` |Party |One |An Agreement has exactly one Party: the Party that represents the data subject.
+|`Campaign` |Campaign |Zero or One |An Agreement has zero-to-one Campaign. If present, the Agreement applies only to the Campaign and the entities that belong to it (<<req_gdpr_agreement-effective>>).
+|===
+
+[[tab-relations-to-agreement]]
+.Direct relation from a STAplus entity type to Agreement
+[cols="20,20,20,40",options="header"]
+|===
+|Relation name |Source entity type |Cardinality |Description
+
+|`Agreements` |Party |Zero to Many |A Party has zero-to-many Agreements.
+|`Agreements` |Campaign |Zero to Many |A Campaign has zero-to-many Agreements.
+|===
+
+NOTE: The implementation enforces an Agreement only through `coveredProperties`, `permittedOperations`, `audience`, `effectiveTime` and `expiryTime`. The `purpose` and the document referenced by `definition` record what the data subject was told and agreed to, but they cannot restrict the release further. A released value is available to every requester of the `audience`, whatever application that requester uses and whatever the requester does with it. Consent texts and purposes therefore need to describe the release that these properties actually express, for example "`show my display name to all registered users of this endpoint`", and must not promise restrictions to particular applications, recipients or uses that the implementation cannot enforce. An implementation that claims the Accepted Clients conformance class can restrict the release to named applications (<<req_accepted-clients_client-restricted-agreements>>).
+
+include::../requirements/gdpr/REQ002_agreement-properties.adoc[]
+
+include::../requirements/gdpr/REQ003_agreement-relations.adoc[]
+
+include::../requirements/gdpr/REQ004_agreement-entity-set.adoc[]
+
+=== Agreement life cycle
+
+include::../requirements/gdpr/REQ005_agreement-create.adoc[]
+
+include::../requirements/gdpr/REQ006_agreement-access.adoc[]
+
+include::../requirements/gdpr/REQ007_agreement-immutable.adoc[]
+
+include::../requirements/gdpr/REQ008_agreement-withdrawal.adoc[]
+
+include::../requirements/gdpr/REQ009_agreement-effective.adoc[]
+
+include::../requirements/gdpr/REC_proof.adoc[]
+
+=== Storage and release of personal data
+
+The following requirements make an effective Agreement the legal basis for storing direct personal data and for releasing personal data to requesters other than the data subject. By default, and in accordance with data protection by default (GDPR Article 25(2)), nothing covered by the register is released with full precision.
+
+include::../requirements/gdpr/REQ010_store-direct.adoc[]
+
+include::../requirements/gdpr/REQ011_release-direct.adoc[]
+
+include::../requirements/gdpr/REQ011a_release-free-text.adoc[]
+
+include::../requirements/gdpr/REQ012_release-location.adoc[]
+
+include::../requirements/gdpr/REQ013_release-time.adoc[]
+
+include::../requirements/gdpr/REQ014_query-consistency.adoc[]
+
+include::../requirements/gdpr/REQ014a_attribution-filter.adoc[]
+
+include::../requirements/gdpr/REQ015_attribution-integrity.adoc[]
+
+include::../requirements/gdpr/REQ015a_relation-release.adoc[]
+
+include::../requirements/gdpr/REQ015b_group-linking.adoc[]
+
+include::../requirements/gdpr/REQ015c_campaign-participation.adoc[]
+
+include::../requirements/gdpr/REQ016_mqtt.adoc[]
+
+include::../requirements/gdpr/REC_free-text.adoc[]
+
+include::../requirements/gdpr/REC_relation-role.adoc[]
+
+=== Rights of the data subject
+
+include::../requirements/gdpr/REQ017_access-right.adoc[]
+
+include::../requirements/gdpr/REQ018_rectification.adoc[]
+
+include::../requirements/gdpr/REQ019_erasure.adoc[]
+
+=== Transparency and advertisement
+
+The implementation advertises its GDPR capabilities in a JSON object in the `serverSettings` object on the service root URI, following the pattern that STAplus uses for the Geometry-WKT and Business Logic conformance classes. <<tab-gdpr-settings>> defines the members of that object.
+
+[[tab-gdpr-settings]]
+.Members of the GDPR object in serverSettings
+[cols="22,40,20,18",options="header"]
+|===
+|Name |Definition |Data type |Multiplicity and use
+
+|`privacyNotice`
+|The URL of the HTML page that contains the privacy notice.
+|URL
+|One (mandatory)
+
+|`locationGeneralization`
+|The location generalization applied to indirect location properties released without an effective Agreement. If absent, such entities are withheld or such optional properties omitted.
+|JSON Object with members `method` (CharacterString, for example `grid`) and `resolution` (Number, the nominal cell edge length in metres, greater than zero); or, if the DGGS conformance class is claimed, with members `method` = `dggs` and `zoneLevel` (Integer, the public zone level, see <<req_dggs_advertisement>>)
+|Zero or one; mandatory if the DGGS conformance class is claimed
+
+|`timeGeneralization`
+|The time generalization applied to indirect time properties released without an effective Agreement. If absent, such entities are withheld or such optional properties omitted.
+|JSON Object with member `resolution` (ISO 8601 duration of the form `PnD`, `PTnH` or `PTnM`, not shorter than `PT1M`)
+|Zero or one (optional)
+
+|`acceptancePolicy`
+|The URL of the HTML page that states the criteria and procedure for accepting client applications (see <<clause-accepted-clients>>).
+|URL
+|Zero or one; mandatory if the Accepted Clients conformance class is claimed
+
+|`minimumContributors`
+|The minimum number of distinct contributing individuals for the release of a DGGS aggregate (see <<req_dggs_aggregation-threshold>>).
+|Integer, not smaller than 2
+|Zero or one; mandatory if the DGGS conformance class and the Aggregation conformance class of <<OGC26-057>> are claimed
+|===
+
+include::../requirements/gdpr/REQ020_advertisement.adoc[]
+
+include::../requirements/gdpr/REQ021_privacy-notice.adoc[]
+
+include::../requirements/gdpr/REC_dpia.adoc[]
+
+=== Transport security
+
+include::../requirements/gdpr/REQ022_transport-security.adoc[]

@@ -1,0 +1,12 @@
+[[req_accepted-clients_link-conformance]]
+[requirement]
+.Conformance of linked entities
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/link-conformance
+part:: The WriteProfiles that govern an entity SHALL be: for a Datastream or MultiDatastream, the WriteProfile bound to it; for an Observation, the WriteProfile bound to its Datastream or MultiDatastream; for a Thing, the WriteProfiles bound to its Datastreams and MultiDatastreams; for a Location or HistoricalLocation, the WriteProfiles that govern the Things associated with it; for a Relation, the WriteProfiles that govern its Subject and its Object; for a FeatureOfInterest, the WriteProfiles that govern the Observations associated with it. An entity that is not associated with any of these entities is not governed by a WriteProfile.
+part:: When a request creates or changes an entity or an association, including by deep insert, by reference, by update and by the creation of a Datastream or MultiDatastream, the implementation SHALL determine, for every entity that is created, changed or newly associated by the request, the WriteProfiles that govern it after the request. The implementation SHALL accept the request only if, for each such entity and each such WriteProfile, the entity type is contained in `entityTypes` and the entity, as it is after the request, validates against the schema of its entity type in `entitySchemas`.
+part:: The implementation SHALL reject a request that does not satisfy this condition with HTTP 403 if an entity type is not contained in `entityTypes`, and with HTTP 400 if an entity does not validate against a schema. No entity of the request SHALL be created or changed.
+part:: Entities that the implementation creates itself, such as a FeatureOfInterest generated from the Location of a Thing or from a Cell, and HistoricalLocations, SHALL NOT be subject to this requirement.
+part:: This requirement SHALL NOT apply to the requests listed in <<req_accepted-clients_rights-exemption>>.
+====

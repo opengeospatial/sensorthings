@@ -1,0 +1,11 @@
+[[req_gdpr_agreement-access]]
+[requirement]
+.Access to Agreements
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-access
+part:: The implementation SHALL NOT include an Agreement, or any property of an Agreement, in a response to a requester that is not the data subject of the associated Party. This applies to requests to the Agreement collection, to individual Agreements, to the navigation links `Parties(...)/Agreements` and `Campaigns(...)/Agreements`, and to `$expand` at any depth.
+part:: A request by a requester that is not the data subject to an individual Agreement SHALL be answered with HTTP 404.
+part:: The implementation SHALL evaluate every query option (`$filter`, `$orderby`, `$count`, `$expand`, `$select`, `$top` and `$skip`) and every expression in it that navigates to Agreements, including the lambda operators `any` and `all`, the `$count` of a navigation property and functions, as if the Agreements of other data subjects did not exist.
+part:: A request by a requester that is not the data subject whose resource path traverses an Agreement, for example `Agreements(...)/Party` or `Agreements(...)/Campaign`, SHALL be answered with HTTP 404.
+====

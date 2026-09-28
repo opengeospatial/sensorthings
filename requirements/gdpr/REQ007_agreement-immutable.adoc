@@ -1,0 +1,10 @@
+[[req_gdpr_agreement-immutable]]
+[requirement]
+.Immutability of Agreements
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/agreement-immutable
+part:: Except for `status`, the properties and the Party and Campaign associations of an Agreement SHALL NOT be changed after creation. An HTTP PUT or PATCH request by the data subject that changes any of them SHALL be rejected with HTTP 400 and SHALL leave the Agreement unchanged.
+part:: The `status` of an Agreement SHALL only change from `active` to `withdrawn`. A request that sets `status` from `withdrawn` to `active` SHALL be rejected with HTTP 400.
+part:: An HTTP PUT, PATCH or DELETE request to an Agreement by a requester that is not the data subject SHALL be answered with HTTP 404 and SHALL leave the Agreement unchanged.
+====

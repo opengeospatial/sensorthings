@@ -1,0 +1,9 @@
+[[req_accepted-clients_mqtt-create]]
+[requirement]
+.MQTT create
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/mqtt-create
+part:: If the implementation supports the creation of Observations via MQTT publish as inherited from SensorThings API, <<req_accepted-clients_client-acceptance>>, <<req_accepted-clients_writeprofile-enforcement>> and <<req_accepted-clients_bound-writes>> SHALL apply to each MQTT publish that creates an Observation, using the credential presented when the MQTT connection was established.
+part:: The implementation SHALL NOT create an Observation from a publish that is not accepted. For MQTT version 5 (<<MQTT5>>), it SHALL respond with the reason code `0x87` (Not authorized) for a rejected client and `0x99` (Payload format invalid) for a payload that does not validate against the WriteProfile.
+====

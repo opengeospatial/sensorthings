@@ -1,0 +1,31 @@
+[[rc_accepted-clients]]
+[requirements_class]
+.Accepted Clients
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req-class/accepted-clients
+subject:: Implementation
+obligation:: requirement
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req-class/gdpr
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-properties
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-relations
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-properties
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-relations
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/entity-sets
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/registry-access
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-immutable
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-acceptance
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-enforcement
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/free-text-policy
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/provenance-binding
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/bound-writes
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/link-conformance
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/rights-exemption
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/status-change
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/provenance-release
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/mqtt-create
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-restricted-agreements
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/advertisement
+recommendation:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/accepted-clients/client-authentication
+recommendation:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/accepted-clients/software-statement
+====

@@ -1,0 +1,43 @@
+== Conventions
+
+=== Identifiers
+
+The normative provisions in this standard are denoted by the URI
+
+`http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0`
+
+All requirements and conformance tests that appear in this document are denoted by absolute URIs which are compliant with this base.
+
+Normative provisions of STAplus are referenced by their identifiers as defined in <<OGC22-022r2>>. STAplus 1.0.1 retains the base URI `http://www.opengis.net/spec/sensorthings-staplus/1.0` for all provisions that were not changed by the corrigendum; changed and new provisions use `http://www.opengis.net/spec/sensorthings-staplus/1.0.1`.
+
+=== Property paths
+
+A property of an entity type is denoted by the entity type name, a slash and the property name, for example `Party/displayName` or `License/attributionText`. The same notation is used as value of `Agreement/coveredProperties`.
+
+[[clause-conventions-requesters]]
+=== Requesters in abstract tests
+
+The abstract tests in <<annex-ats>> use the following requesters and entities unless stated otherwise:
+
+U1:: an authenticated user that is represented by the Party P1 whose `role` is `individual`;
+U2:: another authenticated user that is represented by the Party P2 whose `role` is `individual`;
+U3:: an authenticated user that is not (yet) represented by a Party;
+A:: an unauthenticated client;
+S:: a principal with an operator-managed identity that is represented by the Party PS whose `role` is `system`.
+
+Before each test, P1 and P2 have no Agreements unless the test creates them. D1 denotes a Datastream associated with P1.
+
+The abstract tests of the Accepted Clients conformance class additionally use:
+
+OP:: a catalog administrator;
+C1:: an accepted Client with `softwareVersion` `2.3.1`, implementing the WriteProfile WP1; unless stated otherwise, U1 and U2 write using credentials that resolve to C1;
+WP1:: an active WriteProfile that is associated with C1 and with the ObservedProperty OPM, to which D1 is bound;
+PP:: the Party with `role` `institutional` that provides C1.
+
+In the Accepted Clients tests, "As U1 using C1" means a request with a credential that resolves to the principal U1 and the client C1.
+
+The abstract tests of the DGGS conformance class assume a public zone level of 7 and use `cN` for a zone at level N; for a given zone, its ancestors are computed with the advertised grid system (for H3, for example, with the function `cellToParent`). If the implementation under test advertises another public zone level, the levels in the tests are shifted accordingly.
+
+=== Data types
+
+The data types CharacterString, Integer, URI, TM_Instant, ValueCode and JSON Object are used as in <<OGC18-088>>. A value of type TM_Instant is encoded as an ISO 8601 date and time in UTC (<<ISO8601-1>>).

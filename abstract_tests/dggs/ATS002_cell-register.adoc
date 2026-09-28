@@ -1,0 +1,29 @@
+[[ats_dggs_cell-register]]
+[abstract_test]
+.Cell associations as personal data
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/cell-register
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/cell-register
+test-purpose:: Verify that the Cell association of attributable entities is subject to the release rules while Cells remain public.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, create an Observation O1 on D1 with `"Cell": {"@iot.id": c10}`, where c10 is a zone at level 10 inside the cell-create boundary. P1 has no Agreement for `Observation/Cell`.
+--
+
+[.component,class=step]
+--
+As A, request `Observations(O1)/Cell`. Verify that the returned Cell is not c10.
+--
+
+[.component,class=step]
+--
+As A, request `Cells(c7)`, where c7 is the ancestor of c10 at the public zone level. Verify HTTP 200 with `zoneId`, `system` and, if stored, `boundary`.
+--
+
+=====
+====

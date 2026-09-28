@@ -1,0 +1,10 @@
+[[req_gdpr_mqtt]]
+[requirement]
+.MQTT
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/mqtt
+part:: If the implementation claims the STAplus conformance class MQTT Subscribe STA v1.0 or MQTT Subscribe STA v1.1, the requirements <<req_gdpr_agreement-access>>, <<req_gdpr_release-direct>>, <<req_gdpr_release-free-text>>, <<req_gdpr_release-location>>, <<req_gdpr_release-time>>, <<req_gdpr_attribution-integrity>>, <<req_gdpr_relation-release>> and <<req_gdpr_campaign-participation>> SHALL apply to every MQTT message payload as to an HTTP response for the subscribing MQTT client.
+part:: An MQTT client that is not authenticated SHALL be treated as an unauthenticated requester. An authenticated MQTT client SHALL be treated as the user it is authenticated as.
+part:: A message about an entity that is withheld for the subscribing client SHALL NOT be delivered to that client.
+====

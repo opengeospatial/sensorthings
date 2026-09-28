@@ -1,0 +1,44 @@
+[[ats_accepted-clients_client-restricted-agreements]]
+[abstract_test]
+.Agreements restricted to applications
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/client-restricted-agreements
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-restricted-agreements
+test-purpose:: Verify that an Agreement restricted to applications releases values only through the listed applications.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+Precondition: in addition to C1, the catalog contains an accepted Client CO with a different `clientId`.
+--
+
+[.component,class=step]
+--
+As U1, POST an Agreement for `Party/displayName` with `permittedOperations` = `["publish"]`, `audience` = `authenticated` and `clientIds` containing a client identifier that is not in the catalog. Verify HTTP 400. Repeat with `audience` = `public` and `clientIds` = the `clientId` of C1. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1, store `P1/displayName` = a unique value `X` with an Agreement that permits `store` only, and create an Agreement G1 for `Party/displayName` with `permittedOperations` = `["publish"]`, `audience` = `authenticated` and `clientIds` = the `clientId` of C1. Verify HTTP 201.
+--
+
+[.component,class=step]
+--
+As U2 using C1, request `Parties(P1)`. Verify that `displayName` is `X` and that the response carries `Cache-Control` with `private` or `no-store`.
+--
+
+[.component,class=step]
+--
+As U2 using CO, request `Parties(P1)` and `Parties?$filter=displayName eq 'X'&$count=true`. Verify that `displayName` is absent, that P1 is not contained in the filtered collection and that `@iot.count` is 0. As A, verify that `displayName` is absent.
+--
+
+[.component,class=step]
+--
+As OP, set the `status` of C1 to `suspended`. As U2 using C1, request `Parties(P1)`. Verify that `displayName` is absent.
+--
+
+=====
+====
