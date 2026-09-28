@@ -5,6 +5,8 @@ The MQTT capability defined in this Standard allows del:[that] a client del:[rec
 
 NOTE: The ability for the creation of observations via MQTT is inherited from the SensorThings API Part 1: Sensing and Sensing v1.1 Standard.
 
+NOTE: add:[When Requirements Class Authentication is claimed, MQTT payloads are responses in the sense of `{identifier-corrigendum}/req/authentication/id-read`. An unauthenticated MQTT client is not the user represented by a `Party`. Creation of observations via MQTT, when implemented as inherited from SensorThings API, is an access path covered by the advertised Business Logic in `{identifier-corrigendum}/req/business-logic/gdpr-note`.]
+
 === Overview
 
 In the context of MQTT, all STAplus entities as defined in this Standard are equivalent to the STA entities. Therefore, the implementation of MQTT capabilities must be compliant with the SensorThings API Part 1: Sensing and Sensing v1.1 Standard. 

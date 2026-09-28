@@ -142,7 +142,7 @@ The STAplus implementation SHALL use the default-CRS to encode the `feature` and
 [[GeometryWKT]]
 === Geometry-WKT Requirements Class
 
-This Requirements Class defines the use of geometry encoding compliant with Well del:[] add:[-]Known Text (WKT).
+This Requirements Class defines the use of geometry encoding compliant with Welladd:[-]Known Text (WKT).
 
 [requirements_class]
 .Geometry-WKT

@@ -36,5 +36,5 @@ CRUD:: Create Read Update Delete
 DID:: Decentralized Identifier
 GDPR:: European General Data Protection Regulation
 MQTT:: Message Queuing Telemetry Transport
-STA:: Sensor del:[] Things API
-STAplus:: Sensor del:[] Things API PLUS extension
+STA:: SensorThings API
+STAplus:: SensorThings API PLUS extension

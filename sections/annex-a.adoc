@@ -66,7 +66,7 @@ target:: {identifier}/req/read/entity
 
 test-purpose:: Verify that the implementation supports reading STAplus entities via HTTP GET.
 test-method-type:: Manually Inspect
-test-method:: Evaluate that the implementation accepts a Sensor del:[] Things API compliant HTTP del:[Get] add:[GET] request to the STAplus entities:
+test-method:: Evaluate that the implementation accepts a SensorThings API compliant HTTP del:[Get] add:[GET] request to the STAplus entities:
 
 part:: Construct a URL to the `Party` entity and verify the response.
 part:: Construct a URL to the `License` entity and verify the response.
@@ -244,8 +244,8 @@ part:: Delete an entity instance, and check if the service responds as defined.
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/authentication/id
-target:: {identifier}/conf/authentication
+identifier:: {identifier-corrigendum}/conf/authentication/id
+target:: {identifier-corrigendum}/conf/authentication
 
 target:: {identifier}/req/authentication/id
 
@@ -261,10 +261,10 @@ part:: Compare the user identifier for different users and verify that the ident
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/authentication/id-create
-target:: {identifier}/conf/authentication
+identifier:: {identifier-corrigendum}/conf/authentication/id-create
+target:: {identifier-corrigendum}/conf/authentication
 
-target:: {identifier}/req/authentication/id-create
+target:: {identifier-corrigendum}/req/authentication/id-create
 
 
 test-purpose:: To verify that the identifier value stored in `Party/authId` is the value set by the authentication.
@@ -273,6 +273,7 @@ test-method:: For a non-existing `Party` entity:
 part:: Submit an HTTP POST request to create a `Party` entity where the `authId` is not set.
 part:: Observe the response to find the location URI for the created `Party` entity.
 part:: Issue an HTTP GET request to the location URI and verify that the `Party/authId` is set with the unique identifier that represents the user.
+part:: Issue an HTTP GET request to the location URI and verify that `Party/@iot.id` is a random identifier that is not correlated to the user identification.
 
 part:: Submit an HTTP POST request to create a `Party` entity where the `authId` is set with some value.
 part:: Observe the response status code and verify it is 400.
@@ -282,23 +283,29 @@ part:: Observe the response status code and verify it is 400.
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/authentication/id-read
-target:: {identifier}/conf/authentication
+identifier:: {identifier-corrigendum}/conf/authentication/id-read
+target:: {identifier-corrigendum}/conf/authentication
 
-target:: {identifier}/req/authentication/id-read
+target:: {identifier-corrigendum}/req/authentication/id-read
 
 
-test-purpose:: To verify that the `Party/authId` is exposed in a response.
-test-method:: Verify that response from any `Party` entity includes the `authId`:
+test-purpose:: To verify that the `Party/authId` is not exposed except to the `Party` that represents the requesting user.
+test-method:: Verify the following:
 
-part:: Construct an HTTP GET request to some `Party` entity and verify that the `authId` is contained in the response.
+part:: Construct an HTTP GET request to a `Party` entity that does not represent the requesting user and verify that the `authId` is not contained in the response.
+part:: Construct an HTTP GET request to the `Party` entity that represents the requesting user and verify that the `authId` is contained in the response.
+
+test-method:: add:[If the implementation claims MQTT Subscribe STA v1.0 or MQTT Subscribe STA v1.1:]
+
+part:: add:[Subscribe to a `Party` entity that does not represent the MQTT client and verify that the MQTT payload does not contain `authId`.]
+part:: add:[If the MQTT client is authenticated as the user represented by a `Party`, subscribe to that `Party` and verify that the MQTT payload contains `authId`.]
 ====
 
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/authentication/id-update
-target:: {identifier}/conf/authentication
+identifier:: {identifier-corrigendum}/conf/authentication/id-update
+target:: {identifier-corrigendum}/conf/authentication
 
 target:: {identifier}/req/authentication/id-update
 
@@ -319,8 +326,8 @@ part:: Issue an HTTP GET request to that other `Party` and verify that the value
 [conformance_test]
 ====
 [%metadata]
-identifier:: {identifier}/conf/authentication/id-delete
-target:: {identifier}/conf/authentication
+identifier:: {identifier-corrigendum}/conf/authentication/id-delete
+target:: {identifier-corrigendum}/conf/authentication
 
 target:: {identifier}/req/authentication/id-delete
 
@@ -328,14 +335,14 @@ test-purpose:: To verify that a user can *not* delete the identifier stored in `
 test-method:: Verify that deleting the `authId` is not possible for the user itself:
 
 part:: Have the user authenticate and identify the corresponding `Party`.
-part:: Construct an HTTP DELETE request to that `Party` entity.
-part:: Issue an HTTP GET request to that `Party` and verify that the entity still exists.
+part:: Construct an HTTP PATCH request to that **same** `Party` entity that omits or nulls the `authId`.
+part:: Issue an HTTP GET request to that `Party` and verify that the `authId` is still set.
 
 test-method:: Verify that deleting the `authId` is not possible for any other user:
 
 part:: Have the user authenticate and identify the corresponding `Party`.
-part:: Construct an HTTP DELETE request to *another* existing `Party`.
-part:: Issue an HTTP GET request to that other `Party` and verify that the entity still exists.
+part:: Construct an HTTP PATCH request to *another* existing `Party` entity that omits or nulls the `authId`.
+part:: Issue an HTTP GET request to that other `Party` and verify that the `authId` is still set.
 ====
 
 
@@ -592,6 +599,8 @@ part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Th
 part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then update an existing entity of the entity set with PATCH. Check if a JSON object of the subscribed properties is received.
 ====
 
+add:[A complete JSON representation is the entity as HTTP GET would return it to that client. This test SHALL NOT require properties that another claimed Conformance Class forbids in a response, in particular `Party/authId` under Authentication.]
+
 === STAplus *MQTT Subscribe* STA v1.1 Conformance Class Tests
 
 [conformance_test]
@@ -615,6 +624,8 @@ part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Th
 part:: Subscribe to multiple properties of an entity set with MQTT Subscribe. Then update an existing entity of the entity set with PATCH. Check if a JSON object of the subscribed properties is received.
 ====
 
+add:[A complete JSON representation is the entity as HTTP GET would return it to that client. This test SHALL NOT require properties that another claimed Conformance Class forbids in a response, in particular `Party/authId` under Authentication.]
+
 === Additional STAplus *Business Logic* Conformance Class Tests
 
 add:[These tests belong to the Business Logic Conformance Class. They are specified after the last original abstract test of STAplus 1.0 so that existing abstract test numbers remain unchanged.]
@@ -627,8 +638,15 @@ target:: {identifier-corrigendum}/conf/business-logic
 
 target:: {identifier-corrigendum}/req/business-logic/gdpr-note
 
-test-purpose:: add:[To verify that the advertised Business Logic includes the GDPR compliance note for `Location` and `HistoricalLocation` of an individual party's `Thing`.]
-test-method:: add:[On the service root URI, find the JSON object with name `{identifier-corrigendum}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page states that `Location` and `HistoricalLocation` of a `Thing` associated with a `Party` whose `role` is equal to `individual` are personal data, that public access to those entities is restricted, and that access is allowed only when `Party/authId` is identical to the authenticated user identifier (`REMOTE_USER`).]
+test-purpose:: add:[To verify that the advertised Business Logic includes the personal-data note.]
+test-method:: add:[On the service root URI, find the JSON object with name `{identifier-corrigendum}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page states the following:]
+
+part:: add:[This Standard does not determine which entities or properties are personal data.]
+part:: add:[The operator of the endpoint is responsible for identifying personal data and for their lawful processing.]
+part:: add:[Lawful processing is achieved by access control, by a legal basis determined by the operator, or by both.]
+part:: add:[Access control and lawful processing apply to HTTP operations and to MQTT publish and subscribe.]
+part:: add:[A `Party` entity is deleted only when `REMOTE_USER` is identical to that `Party/authId`. An HTTP DELETE of a `Party` is rejected when that condition is not met.]
+part:: add:[Claiming this Conformance Class does not constitute GDPR compliance of the deployment.]
 ====
 
 [conformance_test]
@@ -640,7 +658,48 @@ target:: {identifier-corrigendum}/conf/business-logic
 target:: {identifier-corrigendum}/req/business-logic/attribution
 
 test-purpose:: add:[To verify that the advertised Business Logic includes the License attribution note for creator identification when `License/definition` identifies an attribution license.]
-test-method:: add:[On the service root URI, find the JSON object with name `{identifier-corrigendum}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page states that `License` entities created by the implementation are templates and are read-only, that when `License/definition` does not identify an attribution license the template is associated as-is with no party-specific instance and no `attributionText`, that when `License/definition` identifies an attribution license each use is a party-specific instance of the template with a non-empty `attributionText`, that the writable properties of that instance are `attributionText` and `description` and that the associated `Party` may update them, that creator identification is always that `attributionText`, that `Party/displayName` and `Party/authId` are not used as creator identification, that a template does not store a party-specific name, that for an aggregate `MultiDatastream` whose license requires attribution the `License/attributionText` contains the copyright naming of contributors whose source license requires attribution, and that a personal name in `attributionText` of a `Party` whose `role` is equal to `individual` is personal data for which a `License` is not a legal basis.]
+test-method:: add:[On the service root URI, find the JSON object with name `{identifier-corrigendum}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page states the following:]
+
+part:: add:[`License` entities created by the implementation are templates and are read-only.]
+part:: add:[When `License/definition` does not identify an attribution license, the template is associated as-is with no party-specific instance and no `attributionText`.]
+part:: add:[When `License/definition` identifies an attribution license, each use is a party-specific instance of the template with a non-empty `attributionText`.]
+part:: add:[The writable properties of that instance are `attributionText` and `description`, and the associated `Party` may update them.]
+part:: add:[Creator identification is always that `attributionText`. `Party/displayName` and `Party/authId` are not used as creator identification.]
+part:: add:[A template does not store a party-specific name.]
+part:: add:[For an aggregate `MultiDatastream` whose license requires attribution, contributors whose source license requires attribution are identified by reference to those source `License` instances, not by copying their `attributionText`.]
+part:: add:[Lawful processing of `attributionText` used as creator identification is the operator's responsibility.]
+====
+
+=== Additional STAplus *Authentication* Conformance Class Tests
+
+add:[These tests belong to the Authentication Conformance Class. They are specified after the last original abstract test of STAplus 1.0 so that existing abstract test numbers remain unchanged.]
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier-corrigendum}/conf/authentication/me
+target:: {identifier-corrigendum}/conf/authentication
+
+target:: {identifier-corrigendum}/req/authentication/me
+
+test-purpose:: add:[To verify that an authenticated user locates their `Party` with `me()`, that an authenticated user with no `Party` receives an empty collection, and that unauthenticated `me()` is rejected.]
+
+test-method:: add:[Verify that an authenticated user can filter with `me()`:]
+
+part:: add:[Have the user authenticate.]
+part:: add:[Construct an HTTP GET request to `Parties?$filter=authId eq me()`.]
+part:: add:[Verify HTTP 200 and that the collection contains the `Party` whose `authId` is identical to `REMOTE_USER`.]
+
+test-method:: add:[Verify that an authenticated user with no `Party` receives an empty collection:]
+
+part:: add:[Have a user authenticate who has no `Party` entity.]
+part:: add:[Construct an HTTP GET request to `Parties?$filter=authId eq me()`.]
+part:: add:[Verify HTTP 200 and that the collection is empty.]
+
+test-method:: add:[Verify that an unauthenticated request that applies `me()` is rejected:]
+
+part:: add:[Construct an HTTP GET request to `Parties?$filter=authId eq me()` without authentication.]
+part:: add:[Verify HTTP 404.]
 ====
 
 

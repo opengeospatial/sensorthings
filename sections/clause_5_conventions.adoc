@@ -11,11 +11,21 @@ All requirements and conformance tests that appear in this document are denoted 
 
 add:[This corrigendum retains the STAplus 1.0 identifiers for all requirements classes, requirements, conformance classes, and abstract tests that already existed in 1.0, except the following identifiers that now include 1.0.1 provisions:] 
 
-add:[* `{identifier-corrigendum}/conf/core`]
-add:[* `{identifier-corrigendum}/req-class/party`, `{identifier-corrigendum}/req/party/properties`]
-add:[* `{identifier-corrigendum}/req-class/business-logic`, `{identifier-corrigendum}/conf/business-logic`]
-add:[* `{identifier-corrigendum}/req/relation/relations`, `{identifier-corrigendum}/req-class/relation`]
-add:[* `{identifier-corrigendum}/req-class/geometry-fg`, `{identifier-corrigendum}/req/geometry-fg/media-type`, `{identifier-corrigendum}/conf/geometry-fg`]
+- add:[`{identifier-corrigendum}/conf/core`]
+- add:[`{identifier-corrigendum}/req-class/party`]
+- add:[`{identifier-corrigendum}/req/party/properties`]
+- add:[`{identifier-corrigendum}/req-class/business-logic`]
+- add:[`{identifier-corrigendum}/conf/business-logic`]
+- add:[`{identifier-corrigendum}/req/relation/relations`]
+- add:[`{identifier-corrigendum}/req-class/relation`]
+- add:[`{identifier-corrigendum}/req-class/geometry-fg`]
+- add:[`{identifier-corrigendum}/req/geometry-fg/media-type`]
+- add:[`{identifier-corrigendum}/conf/geometry-fg`]
+- add:[`{identifier-corrigendum}/req-class/authentication`]
+- add:[`{identifier-corrigendum}/req/authentication/id-create`]
+- add:[`{identifier-corrigendum}/req/authentication/id-read`]
+- add:[`{identifier-corrigendum}/req/authentication/me`]
+- add:[`{identifier-corrigendum}/conf/authentication`]
 
 add:[All other new identifiers introduced by this corrigendum use `{identifier-corrigendum}` as the base URI.]
 

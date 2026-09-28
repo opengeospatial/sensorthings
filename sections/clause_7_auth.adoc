@@ -16,15 +16,16 @@ In addition, some implementations may wish to link the authentication identifier
 
 ====
 [%metadata]
-identifier:: {identifier}/req-class/authentication
+identifier:: {identifier-corrigendum}/req-class/authentication
 obligation:: requirement
 subject:: Target Type: Implementation
 inherit:: {identifier-corrigendum}/req-class/party
 requirement:: {identifier}/req/authentication/id
-requirement:: {identifier}/req/authentication/id-create
-requirement:: {identifier}/req/authentication/id-read
+requirement:: {identifier-corrigendum}/req/authentication/id-create
+requirement:: {identifier-corrigendum}/req/authentication/id-read
 requirement:: {identifier}/req/authentication/id-update
 requirement:: {identifier}/req/authentication/id-delete
+requirement:: {identifier-corrigendum}/req/authentication/me
 ====
 
 [requirement]
@@ -38,17 +39,17 @@ The STAplus authentication SHALL provide a user identifier add:[that is] permane
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/authentication/id-read
+identifier:: {identifier-corrigendum}/req/authentication/id-read
 
-The STAplus implementation SHALL ensure that the `Party/authId` property is exposed in any response and can be used in STA operators such as `$filter` or `$select`.
+The STAplus implementation SHALL ensure that the `Party/authId` property is add:[not] exposed in any response add:[, including MQTT payloads,] and can add:[not] be used in STA operators such as `$select` add:[or `$expand` or `$orderby`] unless the requesting user is represented by the `Party`. add:[The property SHALL NOT be used in `$filter` except as specified in `{identifier-corrigendum}/req/authentication/me`.] add:[An MQTT message SHALL NOT contain `Party/authId` unless the MQTT client is authenticated as the user represented by that `Party`.]
 ====
 
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/authentication/id-create
+identifier:: {identifier-corrigendum}/req/authentication/id-create
 
-The STAplus implementation SHALL overwrite any existing value and SHALL set the `Party/authId` property with the user's identification value provided by the authentication (e.g., `REMOTE_USER`). 
+The STAplus implementation SHALL overwrite any existing value and SHALL set the `Party/authId` property with the user's identification value provided by the authentication (e.g., `REMOTE_USER`). add:[The implementation SHALL set `Party/@iot.id` to a random identifier that is not correlated to the user identification.]
 ====
 
 [requirement]
@@ -66,3 +67,5 @@ identifier:: {identifier}/req/authentication/id-delete
 
 The STAplus implementation SHALL ensure that the `Party/authId` property cannot be deleted.
 ====
+
+NOTE: add:[Requirement `{identifier-corrigendum}/req/authentication/me` belongs to this Requirements Class. It is specified after the last original requirement of this Standard (see <<req-authentication-me>>) so that the requirement numbers of STAplus 1.0 remain unchanged.]

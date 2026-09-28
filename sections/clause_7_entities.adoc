@@ -100,16 +100,18 @@ Each `Party` entity SHALL have the mandatory properties and MAY have the optiona
 |Zero or One (optional)
 
 |displayName
-|del:[A property commonly used for saluting the party] add:[A display name for the party, commonly used in user interfaces. This name is not used as creator identification. When the associated `License/definition` identifies an attribution license, creator identification is always `License/attributionText` of that `License` instance.]
+|del:[A property commonly used for saluting the party] add:[A display name for the party, commonly used in user interfaces. This name is not used as creator identification.]
 |CharacterString
 |Zero or One (optional)
 
 |authId
-|A system del:[] add:[-]wide unique property (e.g., `REMOTE_USER` or `SUB` from authentication) to uniquely identify the party
+|A systemadd:[-]wide unique property (e.g., `REMOTE_USER` or `SUB` from authentication) to uniquely identify the party
 |CharacterString
 |Zero or One (optional)
 
 |===
+
+NOTE: add:[In OGC SensorThings API Part 1: Sensing 1.1, and in this Standard, a requirement whose identifier ends in `/properties` specifies the attributes of an entity type. The same word is also the name of a JSON object member on some SensorThings entity types, including `Thing`, `ObservedProperty`, and `FeatureOfInterest`. The identifier `{identifier-corrigendum}/req/party/properties` specifies the attributes of a `Party` listed in <<tab-properties-party>> (`role`, `description`, `displayName`, and `authId`). A `Party` entity has no JSON object member named `properties`. That omission keeps uncontrolled personal data off the entity, as described under Security Considerations.]
 
 [requirement]
 ====
@@ -229,7 +231,7 @@ Each `License` entity SHALL have the mandatory properties and MAY have the optio
 |Zero or One (optional)
 
 |attributionText
-|del:[The text to be used as attribution when mandated by the license.] add:[The citation text for this `License` when `definition` identifies an attribution license. A template `License` is read-only and does not store a party-specific name. When `definition` does not identify an attribution license, this property is unused and the template is associated as-is. When `definition` identifies an attribution license, each use is a party-specific instance of the template with this property filled; this property and `description` are the writable properties of that instance, and the associated `Party` may update them. Creator identification is always this text. If that instance is the license of an aggregate `MultiDatastream`, the text is the copyright naming of contributors whose source license requires attribution, recorded at derivation.]
+|del:[The text to be used as attribution when mandated by the license.] add:[The citation text for this `License` when `definition` identifies an attribution license.]
 |CharacterString
 |Zero or One (optional)
 |===

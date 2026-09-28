@@ -2,17 +2,17 @@
 :doctype: standard
 :encoding: utf-8
 :lang: en
-:status: draft
+:status: approved
 :committee: technical
 :draft: 1.0.1
 :external-id: http://www.opengis.net/doc/is/sensorthings-staplus/1.0.1
 :docnumber: 22-022r2
-:received-date: 2026-09-10
-:issued-date: 2026-09-10
-:published-date: 2026-09-10
+:received-date: 2026-09-25
+:issued-date: 2026-09-25
+:published-date: 2026-09-25
 :fullname: Andreas Matheus
 :docsubtype: Implementation
-:keywords: OGC Standard, API, SensorThings, STAplus
+:keywords: OGC Standard, API, SensorThings, STAplus, Corrigendum
 :submitting-organizations: Secure Dimensions GmbH; Centre de Recerca Ecològica i Aplicacions Forestals (CREAF); Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
 :mn-document-class: ogc
 :mn-output-extensions: html,pdf
@@ -24,8 +24,6 @@
 :CRS84: urn:ogc:def:crs:OGC::CRS84
 :identifier: http://www.opengis.net/spec/sensorthings-staplus/1.0
 :identifier-corrigendum: http://www.opengis.net/spec/sensorthings-staplus/1.0.1
-
-:literal-R: (R)
 
 [.preface]
 == metanorma-extension
@@ -41,6 +39,7 @@
 |campaign|{identifier}/req-class/campaign
 |business-logic-gdpr-note|{identifier-corrigendum}/req/business-logic/gdpr-note
 |business-logic-attribution|{identifier-corrigendum}/req/business-logic/attribution
+|authentication-me|{identifier-corrigendum}/req/authentication/me
 |===
 
 ////

@@ -4,7 +4,7 @@ All requirements-classes and conformance-classes described in this document are 
 
 === Introduction
 
-The STAplus 1.0 standard defines an extension to the OGC Standards <<OGC15-078r6>> (SensorThings API v1.0) and <<OGC18-088>> (SensorThings API v1.1) by adding additional entity types to the data model. Access to the STAplus entities via HTTP is defined in the Read, Create, Update, and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTT Requirements Class. A default del:[default-]CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometry del:[] add:[-]FG and Geometry del:[] add:[-]WKT Requirements Class add:[es]. The Authentication Requirements Class supports the unique identification of acting users. The Business Logic Requirements Class supports the textual description of the implemented business logicadd:[, including a GDPR compliance note for `Location` and `HistoricalLocation` of a `Thing` owned by an individual `Party`, and a License attribution note for creator identification when `License/definition` identifies an attribution license]. An example of such a Business Logic is described in the <<OGC21-068>>.
+The STAplus 1.0 standard defines an extension to the OGC Standards <<OGC15-078r6>> (SensorThings API v1.0) and <<OGC18-088>> (SensorThings API v1.1) by adding additional entity types to the data model. Access to the STAplus entities via HTTP is defined in the Read, Create, Update, and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTT Requirements Class. A default del:[default-]CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometryadd:[-]FG and Geometryadd:[-]WKT Requirements Class add:[es]. The Authentication Requirements Class supports the unique identification of acting users. The Business Logic Requirements Class supports the textual description of the implemented business logicadd:[, including a personal-data note that the operator of the endpoint is responsible for identifying personal data and for their lawful processing, and a License attribution note for creator identification when `License/definition` identifies an attribution license]. del:[An example of such a Business Logic is described in the <<OGC21-068>>.
 
 === STAplus 1.0 Conformance Classes
 
@@ -28,17 +28,17 @@ This is the list of STAplus Conformance Classes.
 
 * *Delete* (optional): This Conformance Class supports del:[to delete] add:[deleting] STAplus entities via HTTP.
 
-* *Authentication* (optional): This Conformance Class supports user authentication and their unique identification.
+* *Authentication* (optional): This Conformance Class supports user authentication and their unique identification. 
 
 * *Geometry-FG* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Features and del:[their Geometries] add:[Geometries JSON as defined in <<OGC21-045r1>>].
 
-* *Geometry-WKT* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Well del:[] add:[-]Known Text (WKT) as defined in <<ISO19125-1>>.
+* *Geometry-WKT* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Welladd:[-]Known Text (WKT) as defined in <<ISO19125-1>>.
 
 * *MQTT Subscribe STA v1.0* (optional): This Conformance Class supports a client to receive STAplus entity changes via MQTT as defined in <<OGC15-078r6>>.
 
 * *MQTT Subscribe STA v1.1* (optional): This Conformance Class supports a client to receive STAplus entity changes via MQTT as defined in <<OGC18-088>>.
 
-* *Business Logic* (optional): This Conformance Class del:[supports] add:[requires] that the implementation's business logic is described in English text to help developers understand the details of CRUD access. add:[It includes the GDPR compliance note that `Location` and `HistoricalLocation` of a `Thing` owned by a `Party` whose `role` is equal to `individual` are personal data and are restricted to that party. It also includes the License attribution note that system `License` entities are templates, that a non-attribution license uses the template as-is, that each use of an attribution license is a party-specific instance with `attributionText` filled, that creator identification is always that `attributionText`, that `Party/displayName` and `Party/authId` are not used as creator identification, and that a personal name in `attributionText` of an individual party is personal data.]
+* *Business Logic* (optional): This Conformance Class del:[supports] add:[requires] that the implementation's business logic is described in English text to help developers understand the details of CRUD access. add:[It includes the personal-data note that the operator of the endpoint is responsible for identifying personal data and for their lawful processing. It also includes the License attribution note.]
 
 [[service-root-advertisement]]
 ==== Advertisement on the service root URI
@@ -72,7 +72,7 @@ add:[The following table lists, for each STAplus Conformance Class, the addition
 |None beyond claiming the class.
 
 |Authentication +
-`{identifier}/conf/authentication`
+`{identifier-corrigendum}/conf/authentication`
 |None beyond claiming the class.
 
 |Geometry-FG +
@@ -93,7 +93,7 @@ add:[The following table lists, for each STAplus Conformance Class, the addition
 
 |Business Logic +
 `{identifier-corrigendum}/conf/business-logic`
-|A JSON object in `serverSettings` with the name `{identifier-corrigendum}/conf/business-logic`, containing `href` whose value is the URL of the HTML page that describes the business logic, including the GDPR compliance note and the License attribution note.
+|A JSON object in `serverSettings` with the name `{identifier-corrigendum}/conf/business-logic`, containing `href` whose value is the URL of the HTML page that describes the business logic, including the personal-data note and the License attribution note.
 |===
 
 [%unnumbered]
@@ -201,16 +201,17 @@ The `Authentication` Conformance Class is defined as follows:
 .Authentication
 ====
 [%metadata]
-identifier:: {identifier}/conf/authentication
+identifier:: {identifier-corrigendum}/conf/authentication
 inherit:: {identifier-corrigendum}/conf/core
-target:: {identifier}/req-class/authentication
+target:: {identifier-corrigendum}/req-class/authentication
 
 classification:: Target Type: Implementation
-conformance-test:: {identifier}/conf/authentication/id
-conformance-test:: {identifier}/conf/authentication/id-create
-conformance-test:: {identifier}/conf/authentication/id-read
-conformance-test:: {identifier}/conf/authentication/id-update
-conformance-test:: {identifier}/conf/authentication/id-delete
+conformance-test:: {identifier-corrigendum}/conf/authentication/id
+conformance-test:: {identifier-corrigendum}/conf/authentication/id-create
+conformance-test:: {identifier-corrigendum}/conf/authentication/id-read
+conformance-test:: {identifier-corrigendum}/conf/authentication/id-update
+conformance-test:: {identifier-corrigendum}/conf/authentication/id-delete
+conformance-test:: {identifier-corrigendum}/conf/authentication/me
 ====
 
 ==== Conformance Class *Geometry-FG*

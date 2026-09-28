@@ -1,7 +1,7 @@
 [[staplus-business-logic-gdpr-note]]
-== Additional Business Logic requirements
+== Additional Business Logic and Authentication requirements
 
-add:[These requirements belong to Requirements Class <<business-logic>>. They are specified after the last original requirement of STAplus 1.0 so that existing requirement numbers remain unchanged.]
+add:[These requirements belong to Requirements Class <<business-logic>> or Requirements Class <<auth>> as indicated. They are specified after the last original requirement of STAplus 1.0 so that existing requirement numbers remain unchanged.]
 
 [[req-business-logic-gdpr-note]]
 [requirement]
@@ -9,8 +9,17 @@ add:[These requirements belong to Requirements Class <<business-logic>>. They ar
 [%metadata]
 identifier:: {identifier-corrigendum}/req/business-logic/gdpr-note
 
-add:[The advertised Business Logic SHALL state that when a `Thing` is associated with a `Party` whose `role` is equal to `individual`, the `Location` and `HistoricalLocation` of that `Thing` are personal data. The advertised Business Logic SHALL state that public access to those entities SHALL be restricted and that access SHALL be allowed only when `Thing/Party/authId` is identical to the authenticated user identifier (`REMOTE_USER`).]
+add:[The advertised Business Logic SHALL state all of the following:]
+
+* add:[This Standard does not determine which STAplus or SensorThings entities or properties are personal data.]
+* add:[The operator of the endpoint is responsible for identifying personal data and for their lawful processing.]
+* add:[Lawful processing is achieved by access control, by a legal basis determined by the operator, or by both.]
+* add:[Access control and lawful processing apply to HTTP operations and to MQTT publish and subscribe.]
+* add:[A `Party` entity is deleted only when the authenticated user identifier (`REMOTE_USER`) is identical to that `Party/authId`. An HTTP DELETE of a `Party` is rejected when that condition is not met.]
+* add:[Claiming this Conformance Class does not constitute GDPR compliance of the deployment.]
 ====
+
+NOTE: add:[A `$filter` that compares `authId` with a literal value, including `$filter=authId eq ''`, is rejected with HTTP 400.]
 
 [[req-business-logic-attribution]]
 [requirement]
@@ -26,6 +35,19 @@ add:[The advertised Business Logic SHALL state all of the following:]
 * add:[For a party-specific instance of an attribution license, the writable properties are `attributionText` and `description`. Those properties MAY be updated only by the `Party` that is associated with the `License` through a `Datastream`, `MultiDatastream`, `Thing`, `ObservationGroup`, or `Campaign`.]
 * add:[When `License/definition` identifies an attribution license, creator identification SHALL always be the `attributionText` of that `License` instance. `Party/displayName` and `Party/authId` SHALL NOT be used as creator identification.]
 * add:[A template `License` SHALL NOT store a party-specific name in `attributionText`.]
-* add:[The `Party` of a derived or aggregate `Datastream` or `MultiDatastream` is the producer of that derived work. When the `License/definition` of an aggregate `MultiDatastream` identifies an attribution license, that `License` SHALL contain in `attributionText` the copyright naming of all contributors whose source `License/definition` identifies an attribution license. Those names SHALL be collected by expanding each such source `Datastream` or `MultiDatastream` to its `License`, or each grouped `Observation` to its `Datastream` and `License`, and SHALL be stored in the aggregate work's own `License/attributionText` at the time of derivation.]
-* add:[When `License/definition` identifies an attribution license and a `Party` whose `role` is equal to `individual` has a personal name in `attributionText` used as creator identification, that name is personal data. A `License` entity, `termsOfUse`, or `privacyPolicy` is not a legal basis for publishing that name. The legal basis is recorded in the authentication system that supplies `Party/authId`, or in another system aligned with that identifier. The advertised Business Logic SHALL state that the party is informed that this `attributionText` will appear on the associated stream and on derived productions.]
+* add:[The `Party` of a derived or aggregate `Datastream` or `MultiDatastream` is the producer of that derived work. When the `License/definition` of an aggregate `MultiDatastream` identifies an attribution license, that `License` SHALL identify contributors whose source `License/definition` identifies an attribution license by reference to those source `License` instances, not by copying their `attributionText`. Those references SHALL be obtained by expanding each such source `Datastream` or `MultiDatastream` to its `License`, or each grouped `Observation` to its `Datastream` and `License`.]
+* add:[This Standard does not determine whether `attributionText` used as creator citation is personal data, or the legal basis for publishing it. Lawful processing of that text is the operator's responsibility, as specified in <<req-business-logic-gdpr-note>>.]
+====
+
+[[req-authentication-me]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier-corrigendum}/req/authentication/me
+
+add:[The STAplus implementation SHALL support the parameterless OData function `me()` that evaluates to the authenticated user identifier (`REMOTE_USER`).]
+
+add:[The implementation SHALL accept a `$filter` that compares `authId` with `me()`, including `Parties?$filter=authId eq me()` and a navigation path such as `Datastreams?$filter=Party/authId eq me()`. For `Parties?$filter=authId eq me()`, the response SHALL contain the `Party` whose `authId` is identical to `REMOTE_USER`. If no such `Party` exists, the implementation SHALL return HTTP 200 with an empty collection.]
+
+add:[An unauthenticated request that applies `me()` SHALL be rejected with HTTP 404.]
 ====
