@@ -1,0 +1,47 @@
+= OGC SensorThings API Extension: STAplus 1.0 — GDPR Profile
+
+Metanorma source of the STAplus GDPR Profile (draft 0.1), built from the OGC standard template
+(https://github.com/opengeospatial/templates/tree/master/standard).
+
+== Content
+
+* `26-055.adoc` - main document with the metadata and the includes of all sections
+* `sections/` - one file per clause and annex
+** `clause_6_informative_text.adoc` - analysis of direct and indirect personal data in STAplus 1.0.1
+** `clause_7_normative_text.adoc` - requirements class GDPR, personal data register, entity type Agreement
+** `clause_8_accepted_clients.adoc` - optional requirements class Accepted Clients, entity types Client and WriteProfile
+** `clause_9_dggs.adoc` - optional requirements class DGGS (spatial obfuscation with OGC 26-057 Cells), with examples
+** `annex-a.adoc` - abstract test suite (conformance classes GDPR, Accepted Clients and DGGS)
+** `annex-b.adoc` - data model UML diagrams
+** `annex-c-gdpr-mapping.adoc` - mapping of GDPR articles to requirements
+** `annex-d-accepted-clients-example.adoc` - example of the Accepted Clients conformance class
+** `annex-e-agreement-example.adoc` - example of the Agreement entity type
+** `annex-f-accepted-client-dggs-example.adoc` - example of an Accepted Client with DGGS obfuscation
+** `annex-g-client-restricted-agreement-example.adoc` - example of an Agreement restricted to applications
+* `requirements/accepted-clients/`, `abstract_tests/accepted-clients/` - requirements, recommendations and abstract tests of the Accepted Clients class
+* `requirements/dggs/`, `abstract_tests/dggs/` - requirements and abstract tests of the DGGS class
+* `requirements/gdpr/` - requirements class, one file per requirement (`REQnnn_*.adoc`) and recommendation (`REC_*.adoc`)
+* `abstract_tests/gdpr/` - conformance class and one abstract test per requirement (`ATSnnn_*.adoc`)
+* `code/examples/` - JSON examples (the `dggs-*.json` files are included in Clause 9)
+
+Base URI of all provisions: `http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0`
+
+The OGC document number is 26-055.
+
+== Building
+
+Locally with the Metanorma CLI:
+
+[source,sh]
+----
+metanorma compile -t ogc -x html,pdf,doc 26-055.adoc
+----
+
+or with Docker:
+
+[source,sh]
+----
+docker run -v "$(pwd)":/metanorma metanorma/metanorma metanorma compile -t ogc -x html,pdf 26-055.adoc
+----
+
+or `metanorma site generate` using `metanorma.yml`.
