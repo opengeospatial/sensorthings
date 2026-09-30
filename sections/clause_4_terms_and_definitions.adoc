@@ -13,9 +13,9 @@ The position of a `Party` at a given time. A `PartyLocation` is distinct from th
 
 An activity performed by a `Party` at a given time, which may be associated with observations made while that activity took place.
 
-==== Share
+del:[Share]
 
-A grant from a `Party` (the grantor) to one or more other parties (the recipients) of a permission on exactly one `PartyLocation` or `PartyActivity`.
+del:[A grant from a `Party` (the grantor) to one or more other parties (the recipients) of a permission on exactly one `PartyLocation` or `PartyActivity`.]
 
 [abbreviations]
 === Abbreviated terms

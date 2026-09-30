@@ -19,7 +19,7 @@ This Requirements Class extends the Default-CRS Requirements Class of <<OGC22-02
 identifier:: {identifier}/req-class/default-crs
 obligation:: requirement
 subject:: Target Type: Implementation
-inherit:: {identifier-101}/req-class/default-crs
+inherit:: {staplus-10}/req-class/default-crs
 inherit:: <<GeoJSON>>
 requirement:: {identifier}/req/default-crs/crs-definition
 requirement:: {identifier}/req/default-crs/axis-order
@@ -73,7 +73,7 @@ This Requirements Class extends the Geometry-FG Requirements Class of <<OGC22-02
 identifier:: {identifier}/req-class/geometry-fg
 obligation:: requirement
 subject:: Target Type: Implementation
-inherit:: {identifier-101}/req-class/geometry-fg
+inherit:: {staplus-101}/req-class/geometry-fg
 inherit:: <<OGC21-045r1>>
 requirement:: {identifier}/req/geometry-fg/media-type
 requirement:: {identifier}/req/geometry-fg/processing
@@ -84,7 +84,7 @@ requirement:: {identifier}/req/geometry-fg/processing
 [%metadata]
 identifier:: {identifier}/req/geometry-fg/media-type
 
-The STAplus implementation SHALL accept the media-type `application/vnd.ogc.fg+json` as value to the `encodingType` property of the `PartyLocation` entity to indicate that the structuring of the geometry is compliant with <<OGC21-045r1>>.
+del:[The STAplus implementation SHALL accept the media-type `application/vnd.ogc.fg+json` as value to the `encodingType` property of the `PartyLocation` entity] add:[The STAplus implementation SHALL accept the media-type `application/geo+json` as value to the `encodingType` property of the `PartyLocation` entity] to indicate that the structuring of the geometry is compliant with <<OGC21-045r1>>.
 ====
 
 [requirement]
@@ -92,7 +92,7 @@ The STAplus implementation SHALL accept the media-type `application/vnd.ogc.fg+j
 [%metadata]
 identifier:: {identifier}/req/geometry-fg/processing
 
-The Geometry-FG processing, CRS, and output requirements of <<OGC22-022r2>> SHALL also apply to the `position` property of a `PartyLocation` entity.
+del:[The Geometry-FG processing, CRS, and output requirements of <<OGC22-022r2>> SHALL also apply to the `position` property of a `PartyLocation` entity.] add:[The Geometry-FG default-CRS, supported-CRS, CRS-error, processing, and output requirements of <<OGC22-022r2>> SHALL also apply to the `position` property of a `PartyLocation` entity.]
 ====
 
 [[GeometryWKT]]
@@ -108,9 +108,10 @@ This Requirements Class extends the Geometry-WKT Requirements Class of <<OGC22-0
 identifier:: {identifier}/req-class/geometry-wkt
 obligation:: requirement
 subject:: Target Type: Implementation
-inherit:: {identifier-101}/req-class/geometry-wkt
+inherit:: {staplus-10}/req-class/geometry-wkt
 inherit:: <<ISO19125-1>>
 requirement:: {identifier}/req/geometry-wkt/media-type
+requirement:: {identifier}/req/geometry-wkt/default-crs-only
 requirement:: {identifier}/req/geometry-wkt/processing
 ====
 
@@ -125,7 +126,15 @@ The STAplus implementation SHALL accept the media-type `application/wkt` as valu
 [requirement]
 ====
 [%metadata]
+identifier:: {identifier}/req/geometry-wkt/default-crs-only
+
+add:[A `PartyLocation` entity has no `properties` member, so the `crs` or `srid` property of `{staplus-10}/req/geometry-wkt/crs-definition` cannot be supplied. The STAplus implementation SHALL reject with HTTP 400 the Create or Update of a `PartyLocation` whose `position` is encoded as WKT in a CRS other than the default-CRS.]
+====
+
+[requirement]
+====
+[%metadata]
 identifier:: {identifier}/req/geometry-wkt/processing
 
-The Geometry-WKT processing, CRS, and output requirements of <<OGC22-022r2>> SHALL also apply to the `position` property of a `PartyLocation` entity.
+del:[The Geometry-WKT processing, CRS, and output requirements of <<OGC22-022r2>> SHALL also apply to the `position` property of a `PartyLocation` entity.] add:[The Geometry-WKT default-CRS, supported-CRS, CRS-error, value, processing, and output requirements of <<OGC22-022r2>> SHALL also apply to the `position` property of a `PartyLocation` entity.]
 ====

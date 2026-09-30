@@ -1,31 +1,11 @@
-[[staplus-business-logic]]
-== STAplus Business Logic Requirements
+del:[STAplus Business Logic Requirements]
 
-=== Overview
+del:[Overview]
 
-The Business Logic Requirements Class is inherited from <<OGC22-022r2>>, including the GDPR compliance note for `Location` and `HistoricalLocation` of a `Thing` owned by an individual `Party`, and the License attribution note that system `License` entities are templates and that each use is an instance with `attributionText` filled. The full GDPR Conformance Class of this Standard is specified in <<staplus-gdpr>>.
+del:[The Business Logic Requirements Class is inherited from <<OGC22-022r2>>, including the GDPR compliance note for `Location` and `HistoricalLocation` of a `Thing` owned by an individual `Party`, and the License attribution note that system `License` entities are templates and that each use is an instance with `attributionText` filled. The full GDPR Conformance Class of this Standard is specified in STAplus GDPR Requirements.]
 
-[[business-logic]]
-=== Requirements Class *Business Logic*
+del:[Requirements Class *Business Logic*]
 
-[requirements_class]
-.Business Logic
+del:[Requirements Class `http://www.opengis.net/spec/sensorthings-staplus/1.1/req-class/business-logic` (Business Logic)]
 
-====
-[%metadata]
-identifier:: {identifier}/req-class/business-logic
-obligation:: requirement
-subject:: Target Type: Implementation
-inherit:: {identifier-101}/req-class/business-logic
-requirement:: {identifier}/req/business-logic/definition
-requirement:: {identifier-101}/req/business-logic/gdpr-note
-requirement:: {identifier-101}/req/business-logic/attribution
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/business-logic/definition
-
-The implementation SHALL conform to the Business Logic Requirements Class of <<OGC22-022r2>>.
-====
+del:[Requirement `http://www.opengis.net/spec/sensorthings-staplus/1.1/req/business-logic/definition`: The implementation SHALL conform to the Business Logic Requirements Class of <<OGC22-022r2>>.]

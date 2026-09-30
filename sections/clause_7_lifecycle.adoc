@@ -1,0 +1,33 @@
+[[staplus-lifecycle]]
+== add:[STAplus Party Context Lifecycle Requirements]
+
+=== add:[Overview]
+
+add:[A `PartyLocation` or `PartyActivity` can carry an optional `retentionTime`. The party that creates the entity sets that time to limit how long the observer context is kept. This clause specifies that the implementation removes the entity when that time is reached. It does not specify who may read the entity before that time.]
+
+NOTE: add:[The Requirements Class in this section is part of the Conformance Class <<conformance_class_party_context>>.]
+
+[[lifecycle]]
+=== add:[Requirements Class *Lifecycle*]
+
+[requirements_class]
+.Lifecycle
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/lifecycle
+obligation:: requirement
+subject:: Target Type: Implementation
+inherit:: {identifier}/req-class/party-location
+inherit:: {identifier}/req-class/party-activity
+requirement:: {identifier}/req/lifecycle/retention-time
+====
+
+[[retention-time]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/lifecycle/retention-time
+
+add:[If `retentionTime` is present on a `PartyLocation` or `PartyActivity` and the current time is not before `retentionTime`, the implementation SHALL NOT include the entity in any response, including MQTT messages, and SHALL delete it. The deletion SHALL remove the association from every `Observation` that linked to that entity.]
+====

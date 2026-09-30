@@ -1,9 +1,13 @@
 [[staplus-entities]]
 == STAplus Entity Type Requirements
 
-`PartyLocation` and `PartyActivity` are the STAplus 1.1 entity types of the <<conformance_class_party_context>> Conformance Class. `Party`, `License`, `ObservationGroup`, `Relation`, and `Campaign` remain as defined in <<OGC22-022r2>>. The optional `Share` entity is defined in the <<conformance_class_sharing_party_context>> Conformance Class.
+del:[`PartyLocation` and `PartyActivity` are the STAplus 1.1 entity types of the <<conformance_class_party_context>> Conformance Class. `Party`, `License`, `ObservationGroup`, `Relation`, and `Campaign` remain as defined in <<OGC22-022r2>>. The optional `Share` entity is defined in the Conformance Class *Sharing Party Context* Conformance Class.]
 
-This clause also defines the additional direct relations from `Observation` and `Party` that STAplus 1.1 adds. If the implementation conforms to <<conformance_class_sharing_party_context>>, a `Party` also has `Shares` and `ReceivedShares`, and a `PartyLocation` and a `PartyActivity` also have `Shares`. Those relations are defined in Requirement Class <<share>>.
+add:[`PartyLocation` and `PartyActivity` are the entity types of the <<conformance_class_party_context>> Conformance Class. `Party`, `License`, `ObservationGroup`, `Relation`, and `Campaign` remain as defined in <<OGC22-022r2>>.]
+
+del:[This clause also defines the additional direct relations from `Observation` and `Party` that STAplus 1.1 adds. If the implementation conforms to Conformance Class *Sharing Party Context*, a `Party` also has `Shares` and `ReceivedShares`, and a `PartyLocation` and a `PartyActivity` also have `Shares`. Those relations are defined in Requirement Class Requirements Class *Share*.]
+
+add:[This clause also defines the additional direct relations from `Observation` and `Party` that this Standard adds.]
 
 NOTE: Please be aware that all of the Requirements Classes in this section are part of the Conformance Class <<conformance_class_party_context>>.
 
@@ -20,7 +24,7 @@ NOTE: For more information, please see https://docs.ogc.org/is/18-088/18-088.htm
 identifier:: {identifier}/req-class/entity-control-information
 obligation:: requirement
 subject:: Target Type: Implementation
-inherit:: {identifier-101}/req-class/entity-control-information
+inherit:: {staplus-10}/req-class/entity-control-information
 inherit:: <<OGC15-078r6>> or <<OGC18-088>>
 requirement:: {identifier}/req/common-control-information
 ====
@@ -30,7 +34,7 @@ requirement:: {identifier}/req/common-control-information
 [%metadata]
 identifier:: {identifier}/req/common-control-information
 
-Each STAplus 1.1 entity SHALL have the common control information defined in <<OGC22-022r2>>.
+del:[Each STAplus 1.1 entity SHALL have] add:[Each `PartyLocation` and `PartyActivity` entity SHALL have] the common control information defined in <<OGC22-022r2>>.
 ====
 
 [[party-location]]
@@ -38,7 +42,7 @@ Each STAplus 1.1 entity SHALL have the common control information defined in <<O
 
 The `PartyLocation` entity records the position of a `Party`. It is used to associate observations with the observer's position. That position is not the SensorThings `Location` of a `Thing` and is not the `FeatureOfInterest`. The `time` property is the time instant or time period when the party was at that position.
 
-The `position` property uses the same encoding rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC22-022r2>>. The `encodingType` property indicates the encoding. The optional `retentionTime` is the time until which the entity is retained. The optional `restricted` property, when true, limits access to the linked `Party` as specified in the Personal Data Lifecycle Requirements Class.
+The `position` property uses the same encoding rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC22-022r2>>. The `encodingType` property indicates the encoding. The optional `retentionTime` is the time until which the entity is retained. del:[The optional `restricted` property, when true, limits access to the linked `Party` as specified in the Personal Data Lifecycle Requirements Class.]
 
 [requirements_class]
 .PartyLocation
@@ -73,7 +77,7 @@ Each `PartyLocation` entity SHALL have the mandatory properties and MAY have the
 |One (mandatory)
 
 |encodingType
-|The encoding type of the `position` property. The value is one of the media types listed in <<media-types>>. The implementation advertises the supported values as specified in <<OGC22-022r2>> and <<encoding-type>>
+|The encoding type of the `position` property. The value is one of the media types listed in <<media-types>>. del:[The implementation advertises the supported values as specified in <<OGC22-022r2>> and `encoding-type`] add:[The implementation advertises the supported values as specified in <<encoding-type>>]
 |CharacterString (ValueCode)
 |One (mandatory)
 
@@ -103,16 +107,12 @@ Each `PartyLocation` entity SHALL have the mandatory properties and MAY have the
 |One (mandatory)
 
 |retentionTime
-|The time until which the entity is retained. If this property is absent, the entity remains until it is deleted. If the current time is not before `retentionTime`, the GDPR Conformance Class requires the entity to be deleted.
+|The time until which the entity is retained. If this property is absent, the entity remains until it is deleted. del:[If the current time is not before `retentionTime`, the GDPR Conformance Class requires the entity to be deleted.] add:[If the current time is not before `retentionTime`, the entity is deleted as specified in <<retention-time>>.]
 |TM Instant
 |Zero or One (optional)
-
-|restricted
-|When true, only the linked `Party` may access the entity, and a `Share` of the entity is not valid. If this property is absent, the implementation treats it as false.
-|Boolean
-|Zero or One (optional)
-
 |===
+
+del:[Properties of a `PartyLocation` entity: restricted — When true, only the linked `Party` may access the entity, and a `Share` of the entity is not valid. If this property is absent, the implementation treats it as false. — Boolean — Zero or One (optional)]
 
 [requirement]
 ====
@@ -169,7 +169,7 @@ An implementation SHALL allow each `PartyLocation` to have direct associations t
 [[party-activity]]
 === Requirements Class *PartyActivity*
 
-The `PartyActivity` entity records an activity performed by a `Party`. It is used to associate observations with what the party was doing. The `definition` property is a URI that identifies the activity type. The `time` property is a time instant or a time period. The optional `retentionTime` is the time until which the entity is retained. The optional `restricted` property, when true, limits access to the linked `Party` as specified in the Personal Data Lifecycle Requirements Class.
+The `PartyActivity` entity records an activity performed by a `Party`. It is used to associate observations with what the party was doing. The `definition` property is a URI that identifies the activity type. The `time` property is a time instant or a time period. The optional `retentionTime` is the time until which the entity is retained. del:[The optional `restricted` property, when true, limits access to the linked `Party` as specified in the Personal Data Lifecycle Requirements Class.]
 
 [requirements_class]
 .PartyActivity
@@ -219,16 +219,12 @@ Each `PartyActivity` entity SHALL have the mandatory properties and MAY have the
 |Zero or One (optional)
 
 |retentionTime
-|The time until which the entity is retained. If this property is absent, the entity remains until it is deleted. If the current time is not before `retentionTime`, the GDPR Conformance Class requires the entity to be deleted.
+|The time until which the entity is retained. If this property is absent, the entity remains until it is deleted. del:[If the current time is not before `retentionTime`, the GDPR Conformance Class requires the entity to be deleted.] add:[If the current time is not before `retentionTime`, the entity is deleted as specified in <<retention-time>>.]
 |TM Instant
 |Zero or One (optional)
-
-|restricted
-|When true, only the linked `Party` may access the entity, and a `Share` of the entity is not valid. If this property is absent, the implementation treats it as false.
-|Boolean
-|Zero or One (optional)
-
 |===
+
+del:[Properties of a `PartyActivity` entity: restricted — When true, only the linked `Party` may access the entity, and a `Share` of the entity is not valid. If this property is absent, the implementation treats it as false. — Boolean — Zero or One (optional)]
 
 [requirement]
 ====
@@ -285,7 +281,7 @@ An implementation SHALL allow each `PartyActivity` to have direct associations t
 [[observation-relations]]
 === Requirements Class *Observation and Party relations*
 
-STAplus 1.1 extends the SensorThings `Observation` entity and the STAplus `Party` entity with the navigation properties defined in <<tab-relations-observation-11>> and <<tab-relations-party-11>>. The `Party` relations defined in <<OGC22-022r2>> remain in force.
+del:[STAplus 1.1 extends the SensorThings `Observation` entity] add:[This Standard extends the SensorThings `Observation` entity] and the STAplus `Party` entity with the navigation properties defined in <<tab-relations-observation-11>> and <<tab-relations-party-11>>. The `Party` relations defined in <<OGC22-022r2>> remain in force.
 
 [requirements_class]
 .Observation and Party relations
@@ -299,7 +295,6 @@ inherit:: {identifier}/req-class/party-location
 inherit:: {identifier}/req-class/party-activity
 requirement:: {identifier}/req/observation/relations
 requirement:: {identifier}/req/party/relations
-requirement:: {identifier}/req/party-context/individual-gdpr
 ====
 
 [requirement]
@@ -311,7 +306,7 @@ An implementation SHALL allow each `Observation` to have the direct associations
 ====
 
 [[tab-relations-observation-11]]
-.Direct relation from an `Observation` entity to STAplus 1.1 entity types
+.Direct relation from an `Observation` entity to del:[STAplus 1.1] add:[Party Context] entity types
 [cols="25a,25a,20a,30a"]
 |===
 |Relation name| Entity type |Cardinality |Description
@@ -336,7 +331,7 @@ In addition to the `Party` relations defined in <<OGC22-022r2>>, an implementati
 ====
 
 [[tab-relations-party-11]]
-.Additional direct relation from a `Party` entity to STAplus 1.1 entity types
+.Additional direct relation from a `Party` entity to del:[STAplus 1.1] add:[Party Context] entity types
 [cols="25a,25a,20a,30a"]
 |===
 |Relation name| Entity type |Cardinality |Description
@@ -352,10 +347,5 @@ In addition to the `Party` relations defined in <<OGC22-022r2>>, an implementati
 |A `Party` has zero-to-many `PartyActivities`.
 |===
 
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/party-context/individual-gdpr
+del:[Requirement `http://www.opengis.net/spec/sensorthings-staplus/1.1/req/party-context/individual-gdpr`: If the implementation accepts a `Party` entity whose `role` is equal to `individual`, the implementation SHALL conform to Conformance Class *GDPR*.]
 
-If the implementation accepts a `Party` entity whose `role` is equal to `individual`, the implementation SHALL conform to <<conformance_class_gdpr>>.
-====

@@ -4,9 +4,9 @@
 
 === Overview
 
-As many IoT devices are resource-constrained, the SensorThings API adopts the efficient REST web service style. That means the Read, Create, Update, Delete actions can be performed on a STAplus 1.1 entity type. The requirements in this clause apply to `PartyLocation` and `PartyActivity` and follow the corresponding requirements of <<OGC22-022r2>>. If the implementation conforms to <<conformance_class_sharing_party_context>>, they also apply to `Share`.
+As many IoT devices are resource-constrained, the SensorThings API adopts the efficient REST web service style. That means the Read, Create, Update, Delete actions del:[can be performed on a STAplus 1.1 entity type.] add:[can be performed on a `PartyLocation` or `PartyActivity` entity type.] The requirements in this clause apply to `PartyLocation` and `PartyActivity` and follow the corresponding requirements of <<OGC22-022r2>>.del:[ If the implementation conforms to Conformance Class *Sharing Party Context*, they also apply to `Share`.]
 
-The collection URLs use the entity-set names `PartyLocations` and `PartyActivities`. If the implementation conforms to <<conformance_class_sharing_party_context>>, the collection URL uses the entity-set name `Shares`.
+del:[The collection URLs use the entity-set names `PartyLocations` and `PartyActivities`. If the implementation conforms to Conformance Class *Sharing Party Context*, the collection URL uses the entity-set name `Shares`.] add:[The collection URLs use the entity-set names `PartyLocations` and `PartyActivities`.]
 
 [[read-entity]]
 === Requirements Class *Read*
@@ -20,7 +20,7 @@ identifier:: {identifier}/req-class/read
 obligation:: requirement
 subject:: Target Type: Implementation
 inherit:: {identifier}/req-class/entity-control-information
-inherit:: {identifier-101}/req-class/read
+inherit:: {staplus-10}/req-class/read
 requirement:: {identifier}/req/read/entity
 ====
 
@@ -29,9 +29,9 @@ requirement:: {identifier}/req/read/entity
 [%metadata]
 identifier:: {identifier}/req/read/entity
 
-To read a STAplus 1.1 entity or a collection of STAplus 1.1 entities, the client SHALL send an HTTP GET request to that entity or the collection's URL as defined in <<OGC22-022r2>>.
+del:[To read a STAplus 1.1 entity or a collection of STAplus 1.1 entities,] add:[To read a `PartyLocation` or `PartyActivity` entity or a collection of such entities,] the client SHALL send an HTTP GET request to that entity or the collection's URL as defined in <<OGC22-022r2>>.
 
-The collection URLs SHALL use the entity-set names `PartyLocations` and `PartyActivities`. If the implementation conforms to <<conformance_class_sharing_party_context>>, the collection URL SHALL use the entity-set name `Shares`.
+The collection URLs SHALL use the entity-set names `PartyLocations` and `PartyActivities`.del:[ If the implementation conforms to Conformance Class *Sharing Party Context*, the collection URL SHALL use the entity-set name `Shares`.]
 
 If the target URL for the collection is a navigationLink, the entity is automatically linked to the entity or entities represented by the navigationLink.
 
@@ -50,11 +50,12 @@ identifier:: {identifier}/req-class/create
 obligation:: requirement
 subject:: Target Type: Implementation
 inherit:: {identifier}/req-class/entity-control-information
-inherit:: {identifier-101}/req-class/create
+inherit:: {staplus-10}/req-class/create
 requirement:: {identifier}/req/create/entity
 requirement:: {identifier}/req/create/link-to-existing-entities
 requirement:: {identifier}/req/create/deep-insert
 requirement:: {identifier}/req/create/deep-insert-status-code
+requirement:: {identifier}/req/party-context/party-role
 ====
 
 [requirement]
@@ -62,7 +63,7 @@ requirement:: {identifier}/req/create/deep-insert-status-code
 [%metadata]
 identifier:: {identifier}/req/create/entity
 
-To create a STAplus 1.1 entity in a collection, the client SHALL send an HTTP POST request to that collection's URL as defined in <<OGC22-022r2>>. The POST body SHALL contain a single valid entity representation.
+To create del:[a STAplus 1.1 entity] add:[a `PartyLocation` or `PartyActivity` entity] in a collection, the client SHALL send an HTTP POST request to that collection's URL as defined in <<OGC22-022r2>>. The POST body SHALL contain a single valid entity representation.
 
 If the target URL for the collection is a navigationLink, the new entity is automatically linked to the entity containing the navigationLink.
 
@@ -78,7 +79,7 @@ Adapted from <<ODATA, OData Version 4.01. Part 1: Protocol, §11.4.2 Create an E
 [%metadata]
 identifier:: {identifier}/req/create/link-to-existing-entities
 
-A STAplus implementation that supports entity creation SHALL support linking new STAplus 1.1 entities to existing entities upon creation. To create a new entity with links to existing entities in a single request, the client SHALL include the unique identifiers of the related entities associated with the corresponding navigation properties in the request body.
+A STAplus implementation that supports entity creation SHALL support linking del:[new STAplus 1.1 entities] add:[new `PartyLocation` or `PartyActivity` entities] to existing entities upon creation. To create a new entity with links to existing entities in a single request, the client SHALL include the unique identifiers of the related entities associated with the corresponding navigation properties in the request body.
 ====
 
 [requirement]
@@ -86,7 +87,7 @@ A STAplus implementation that supports entity creation SHALL support linking new
 [%metadata]
 identifier:: {identifier}/req/create/deep-insert
 
-A request to create a STAplus 1.1 entity that includes related entities, represented using the appropriate inline representation, is referred to as a "deep insert". A STAplus implementation that supports entity creation SHALL support deep insert.
+A request to create del:[a STAplus 1.1 entity] add:[a `PartyLocation` or `PartyActivity` entity] that includes related entities, represented using the appropriate inline representation, is referred to as a "deep insert". A STAplus implementation that supports entity creation SHALL support deep insert.
 
 If the inline representation contains a value for a computed property (__i.e.__, id), the service SHALL ignore that value when creating the related entity.
 
@@ -101,8 +102,21 @@ Adapted from <<ODATA, OData Version 4.01. Part 1: Protocol, §11.4.2.2 Create Re
 [%metadata]
 identifier:: {identifier}/req/create/deep-insert-status-code
 
-Upon successfully creating a STAplus 1.1 entity, the service response SHALL contain a Location header that contains the URL of the created entity. Upon successful completion the service SHALL respond with 201 Created.
+Upon successfully creating del:[a STAplus 1.1 entity] add:[a `PartyLocation` or `PartyActivity` entity], the service response SHALL contain a Location header that contains the URL of the created entity. Upon successful completion the service SHALL respond with 201 Created.
 ====
+
+[[req-party-context-party-role]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/party-context/party-role
+
+add:[The implementation SHALL reject with HTTP 403 the Create or Update of a `PartyLocation` or `PartyActivity` whose `Party` has `role` equal to `individual`, including by deep insert and by MQTT, unless the implementation meets the conditions of the next paragraph.]
+
+add:[An implementation that accepts `PartyLocation` or `PartyActivity` of a `Party` whose `role` is equal to `individual` SHALL conform to the Business Logic Conformance Class `{staplus-101}/conf/business-logic` of <<OGC22-022r2>>. The advertised Business Logic SHALL state, as part of the personal-data note of `{staplus-101}/req/business-logic/gdpr-note`, which access control and which legal basis apply to `PartyLocation` and `PartyActivity` of such a `Party`, for HTTP operations and for MQTT.]
+====
+
+NOTE: add:[For a `Party` whose `role` is `institutional` or `system`, this requirement imposes no condition. The GDPR Profile <<OGC26-055>> specifies access control and a legal basis for `PartyLocation` and `PartyActivity` of individual parties; its Party Context Conformance Class requires the statement of this requirement in the Business Logic.]
 
 [[staplus-update]]
 === Requirements Class *Update*
@@ -116,7 +130,7 @@ identifier:: {identifier}/req-class/update
 obligation:: requirement
 subject:: Target Type: Implementation
 inherit:: {identifier}/req-class/entity-control-information
-inherit:: {identifier-101}/req-class/update
+inherit:: {staplus-10}/req-class/update
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-put
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity-jsonpatch
@@ -131,7 +145,7 @@ requirement:: {identifier}/req/update/entity-jsonpatch
 [%metadata]
 identifier:: {identifier}/req/update/entity
 
-To update a STAplus 1.1 entity in a collection a STAplus implementation SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity.
+To update del:[a STAplus 1.1 entity] add:[a `PartyLocation` or `PartyActivity` entity] in a collection a STAplus implementation SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-update-entity.
 ====
 
 
@@ -163,9 +177,10 @@ identifier:: {identifier}/req-class/delete
 obligation:: requirement
 subject:: Target Type: Implementation
 inherit:: {identifier}/req-class/entity-control-information
-inherit:: {identifier-101}/req-class/delete
+inherit:: {staplus-10}/req-class/delete
 inherit:: https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-delete-entity
 requirement:: {identifier}/req/delete/entity
+requirement:: {identifier}/req/party-context/party-delete
 ====
 
 [requirement]
@@ -173,5 +188,16 @@ requirement:: {identifier}/req/delete/entity
 [%metadata]
 identifier:: {identifier}/req/delete/entity
 
-To delete a STAplus 1.1 entity in a collection a STAplus implementation SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-delete-entity.
+To delete del:[a STAplus 1.1 entity] add:[a `PartyLocation` or `PartyActivity` entity] in a collection a STAplus implementation SHALL follow the requirements as defined in https://docs.ogc.org/is/18-088/18-088.html#req-create-update-delete-delete-entity.
+====
+
+[[req-party-context-party-delete]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/party-context/party-delete
+
+add:[When the implementation deletes a `PartyLocation` or `PartyActivity`, it SHALL remove the association from every `Observation` that linked to that entity.]
+
+add:[When the implementation deletes a `Party`, it SHALL delete every `PartyLocation` and `PartyActivity` whose `Party` association identifies that `Party`, and SHALL remove the association from every `Observation` that linked to one of those entities. The deletion SHALL be completed before the response to the request that deletes the `Party` is sent.]
 ====

@@ -1,29 +1,11 @@
-[[staplus-auth]]
-== STAplus Authentication Requirements
+del:[STAplus Authentication Requirements]
 
-=== Overview
+del:[Overview]
 
-The Authentication Requirements Class is inherited from <<OGC22-022r2>> without change.
+del:[The Authentication Requirements Class is inherited from <<OGC22-022r2>> without change.]
 
-[[auth]]
-=== Requirements Class *Authentication*
+del:[Requirements Class *Authentication*]
 
-[requirements_class]
-.Authentication
+del:[Requirements Class `http://www.opengis.net/spec/sensorthings-staplus/1.1/req-class/authentication` (Authentication)]
 
-====
-[%metadata]
-identifier:: {identifier}/req-class/authentication
-obligation:: requirement
-subject:: Target Type: Implementation
-inherit:: {identifier-101}/req-class/authentication
-requirement:: {identifier}/req/authentication/id
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/authentication/id
-
-The implementation SHALL conform to the Authentication Requirements Class of <<OGC22-022r2>>.
-====
+del:[Requirement `http://www.opengis.net/spec/sensorthings-staplus/1.1/req/authentication/id`: The implementation SHALL conform to the Authentication Requirements Class of <<OGC22-022r2>>.]

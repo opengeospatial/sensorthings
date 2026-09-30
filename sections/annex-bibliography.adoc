@@ -11,3 +11,5 @@
 * [[[W3C-DID, Decentralized Identifiers (DIDs) v1.0]]], W3C, _Decentralized Identifiers (DIDs) v1.0_, (2022), https://www.w3.org/TR/did-core/
 
 * [[[GDPR, Regulation (EU) 2016/679]]], European Union, _Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data (General Data Protection Regulation)_, (2016), https://eur-lex.europa.eu/eli/reg/2016/679/oj
+
+* [[[OGC26-055,OGC SensorThings API Extension: STAplus 1.0 GDPR Profile]]], add:[OGC, _OGC SensorThings API Extension: STAplus 1.0 — GDPR Profile_ (draft), OGC (2026), http://www.opengis.net/doc/is/sensorthings-staplus-gdpr/1.0]

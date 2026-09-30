@@ -20,5 +20,38 @@
 |2026-08-21 |0.14 |Andreas Matheus |GDPR, Annex A, Annex C |Retention of `HistoricalLocation` of an individual party's `Thing` from `HistoricalLocation/time` plus advertised `retentionPeriod`. A current `Location` is not auto-deleted.
 |2026-08-23 |0.15 |Andreas Matheus |Entities, GDPR, Share, Annex A, Annex B, Annex C |Drop `purpose` from `PartyLocation` and `PartyActivity`. Keep `time` and `retentionTime`. `Share/purpose` remains.
 |2026-08-23 |0.16 |Andreas Matheus |Scope |Rewrite Security Considerations as readable prose.
+|2026-09-29 |0.17 |Andreas Matheus |All sections |Converted from STAplus 1.1 into the separate extension STAplus Party Context 1.0. GDPR, Personal Data Lifecycle, and Sharing Party Context Conformance Classes removed; personal-data rules and named-recipient disclosure moved to OGC 26-055. Aligned with the approved corrigendum 22-022r2. See <<changes-0-17>>.
 
 |===
+
+[[changes-0-17]]
+=== Changes in draft 0.17
+
+The draft 0.16 was circulated. All changes in draft 0.17 are marked in the AsciiDoc source with `\add:[\]` and `\del:[\]`. Removed requirements, abstract tests, and clauses are kept as struck-out text in the change-marked build.
+
+==== Identifiers
+
+* The Standard is no longer a revision of STAplus. It is the separate extension STAplus Party Context 1.0. The base URI changes from `http://www.opengis.net/spec/sensorthings-staplus/1.1` to `{identifier}`. All requirement, requirements class, conformance class, and abstract test identifiers of this Standard change accordingly. This change is not marked in the text because it is made in the document attribute `identifier`.
+* References to STAplus 1.0.1 provisions use the identifiers of the approved corrigendum 22-022r2: `{staplus-101}` for Core, Party, Authentication, Business Logic, and Geometry-FG, and `{staplus-10}` for all other provisions, including Read, Create, Update, Delete, Default-CRS, Geometry-WKT, Entity Control Information, and MQTT. Draft 0.16 used the 1.0.1 base URI for all inherited provisions.
+
+==== Removed
+
+* The GDPR Conformance Class and the GDPR and Personal Data Lifecycle Requirements Classes. This Standard no longer specifies access control, disclosure, or a legal basis for personal data. It can be used without such rules for parties whose `role` is `institutional` or `system`. For a `Party` whose `role` is `individual`, `{identifier}/req/party-context/party-role` requires a Business Logic statement of the rules that apply. The GDPR Profile <<OGC26-055>> (informative reference) specifies such rules. `Location` and `HistoricalLocation` of a `Thing` and `FeatureOfInterest` are no longer addressed; they are the operator's responsibility as specified in <<OGC22-022r2>>.
+* The Sharing Party Context Conformance Class, the Share and Sharing Requirements Classes, and the `Share` entity. In <<OGC26-055>>, disclosure to named recipient parties is an `Agreement` whose audience is a list of recipients.
+* The `restricted` property of `PartyLocation` and `PartyActivity`. In <<OGC26-055>>, withdrawal of an `Agreement` replaces it.
+* The requirement that an `Observation` of an individual party has a `PartyLocation`.
+* The Authentication and Business Logic Conformance Classes of this Standard, which only re-declared the STAplus 1.0.1 classes. They apply as specified in <<OGC22-022r2>>.
+* Annex C (Relationship to the GDPR). The mapping to the GDPR is in <<OGC26-055>>.
+* The media type `application/vnd.ogc.fg+json`, which the corrigendum 22-022r2 removed.
+
+==== Added or changed
+
+* `{identifier}/req/party-context/individual-gdpr` is replaced by `{identifier}/req/party-context/party-role`: `PartyLocation` and `PartyActivity` of a `Party` whose `role` is `individual` are rejected with HTTP 403 unless the implementation conforms to the STAplus 1.0.1 Business Logic Conformance Class and its Business Logic states the access control and legal basis that apply to them. This Standard has no normative reference to OGC 26-055.
+* `{identifier}/req-class/lifecycle` with `{identifier}/req/lifecycle/retention-time` (from the removed Personal Data Lifecycle Requirements Class, without GDPR framing).
+* `{identifier}/req/party-context/party-delete`: deleting a `PartyLocation`, a `PartyActivity`, or their `Party`.
+* `{identifier}/req/geometry-fg/media-type` uses `application/geo+json`, as in the corrigendum 22-022r2. The Geometry-FG and Geometry-WKT requirements name the corrigendum requirements that apply to `PartyLocation/position`.
+* `{identifier}/req/geometry-wkt/default-crs-only`: a WKT-encoded `PartyLocation/position` is in the default-CRS, because `PartyLocation` has no `properties` member for `crs` or `srid`.
+* The landing-page advertisement is a JSON object named with the Landing Page Conformance Class URI, following the pattern of the corrigendum 22-022r2. The statement that the corrigendum advertises `encodingType` ValueCodes as an array is corrected.
+* The descriptions of the corrigendum's `gdpr-note` and `attribution` requirements in draft 0.16 did not match the approved corrigendum. They are removed.
+* Table of STAplus 1.0.1 conformance classes used by this Standard (<<tab-staplus-dependencies>>).
+* Consistency review of 2026-09-30: the Party Context Conformance Class no longer lists the requirement `{identifier}/req/party-context/party-role` as a target, because that requirement belongs to the Observation and Party relations Requirements Class; `{identifier}/req/lifecycle/retention-time` states the removal of the `Observation` associations itself instead of referring to a requirement of the optional Delete Requirements Class; the Authentication row of <<tab-staplus-dependencies>> is marked as not required; the landing-page example lists `{staplus-101}/conf/core`; Annex B shows one Party Context data model figure. The requirement `{identifier}/req/party-context/party-role` and its test (now `{identifier}/conf/create/party-role`) moved to the Create Requirements and Conformance Classes, because the test creates entities. The Update Conformance Class inherits the Create Conformance Class, so that `{identifier}/req/party-context/party-role` also applies to Update. Status `swg-draft`; <<OGC18-088>> dated 2021.

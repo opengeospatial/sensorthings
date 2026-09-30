@@ -4,50 +4,110 @@ All requirements-classes and conformance-classes described in this document are 
 
 === Introduction
 
-STAplus 1.1 is an extension of <<OGC22-022r2>>. An implementation that claims conformance to this Standard also conforms to STAplus 1.0.1.
+del:[STAplus 1.1 is an extension of <<OGC22-022r2>>. An implementation that claims conformance to this Standard also conforms to STAplus 1.0.1.]
 
-This Standard adds the `PartyLocation` and `PartyActivity` entity types to the STAplus data model. Access to these entities via HTTP is defined in the Read, Create, Update, and Delete Requirements Classes. The use of MQTT is defined in the MQTT Requirements Classes. The Default-CRS, Geometry-FG, and Geometry-WKT Requirements Classes of <<OGC22-022r2>> are extended so that they also apply to `PartyLocation/position`. The mandatory Landing Page Requirements Class is introduced by this Standard: it requires the advertised geometry `encodingType` ValueCodes for `FeatureOfInterest/feature`, `Location/location`, and `PartyLocation/position`, and requires the accepted `PartyLocation` `environment` EnvCodes to be advertised as a JSON array on the landing page. The Authentication Requirements Class is inherited from <<OGC22-022r2>>. The Business Logic Requirements Class is inherited from <<OGC22-022r2>>, including the GDPR compliance note for `Location` and `HistoricalLocation` of an individual party's `Thing`. The GDPR Conformance Class of this Standard is the full GDPR class: it restricts Read, Create, Update, and Delete of those `Thing` locations and of `PartyLocation` and `PartyActivity` to the authenticated owner. An implementation that accepts a `Party` whose `role` is equal to `individual` also claims the GDPR Conformance Class. The optional Sharing Party Context Conformance Class adds the `Share` entity so that the owner of a `PartyLocation` or `PartyActivity` can grant named other parties access to that entity.
+add:[This Standard is an extension of <<OGC22-022r2>>. An implementation that claims conformance to this Standard also conforms to STAplus 1.0.1.]
 
-=== STAplus 1.1 Conformance Classes
+del:[This Standard adds the `PartyLocation` and `PartyActivity` entity types to the STAplus data model. Access to these entities via HTTP is defined in the Read, Create, Update, and Delete Requirements Classes. The use of MQTT is defined in the MQTT Requirements Classes. The Default-CRS, Geometry-FG, and Geometry-WKT Requirements Classes of <<OGC22-022r2>> are extended so that they also apply to `PartyLocation/position`. The mandatory Landing Page Requirements Class is introduced by this Standard: it requires the advertised geometry `encodingType` ValueCodes for `FeatureOfInterest/feature`, `Location/location`, and `PartyLocation/position`, and requires the accepted `PartyLocation` `environment` EnvCodes to be advertised as a JSON array on the landing page. The Authentication Requirements Class is inherited from <<OGC22-022r2>>. The Business Logic Requirements Class is inherited from <<OGC22-022r2>>, including the GDPR compliance note for `Location` and `HistoricalLocation` of an individual party's `Thing`. The GDPR Conformance Class of this Standard is the full GDPR class: it restricts Read, Create, Update, and Delete of those `Thing` locations and of `PartyLocation` and `PartyActivity` to the authenticated owner. An implementation that accepts a `Party` whose `role` is equal to `individual` also claims the GDPR Conformance Class. The optional Sharing Party Context Conformance Class adds the `Share` entity so that the owner of a `PartyLocation` or `PartyActivity` can grant named other parties access to that entity.]
 
-This OGC Standard defines two mandatory conformance classes, one conditionally mandatory conformance class, and several optional conformance classes.
+add:[This Standard adds the `PartyLocation` and `PartyActivity` entity types to the STAplus data model. Access to these entities via HTTP is defined in the Read, Create, Update, and Delete Requirements Classes. The use of MQTT is defined in the MQTT Requirements Classes. The retention of observer context is defined in the Lifecycle Requirements Class. The Default-CRS, Geometry-FG, and Geometry-WKT Requirements Classes of <<OGC22-022r2>> are extended so that they also apply to `PartyLocation/position`. The mandatory Landing Page Requirements Class requires the accepted geometry `encodingType` ValueCodes and the accepted `PartyLocation` `environment` EnvCodes to be advertised on the landing page. This Standard does not define access control, disclosure, or a legal basis for personal data. An implementation accepts `PartyLocation` and `PartyActivity` of a `Party` whose `role` is `individual` only if its advertised Business Logic states them (see <<req-party-context-party-role>>).]
+
+=== del:[STAplus 1.1] add:[Party Context] Conformance Classes
+
+del:[This OGC Standard defines two mandatory conformance classes, one conditionally mandatory conformance class, and several optional conformance classes.] add:[This OGC Standard defines two mandatory conformance classes and several optional conformance classes.]
 
 Conformance with this Standard is to be checked using all the relevant tests specified in Annex A of this document and in Annex A of <<OGC22-022r2>>. The framework, concepts, and methodology for testing, and the criteria to be achieved to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC Compliance Testing web site.
 
 In order to conform to this OGC Standard, a software implementation can choose to implement:
 
 * The mandatory conformance classes `Landing Page` and `Party Context`;
-* The `GDPR` Conformance Class if the implementation accepts a `Party` entity whose `role` is equal to `individual`;
+* del:[The `GDPR` Conformance Class if the implementation accepts a `Party` entity whose `role` is equal to `individual`;] add:[The Business Logic Conformance Class of <<OGC22-022r2>> if the implementation accepts `PartyLocation` or `PartyActivity` of a `Party` whose `role` is equal to `individual`;]
 * Any of the optional conformance classes; and
 * Pass all applicable tests as defined in Annex A of this document and in Annex A of <<OGC22-022r2>>.
 
-This is the list of STAplus 1.1 Conformance Classes.
+del:[This is the list of STAplus 1.1 Conformance Classes.] add:[This is the list of Party Context Conformance Classes.]
 
 * *Landing Page* (mandatory): This Conformance Class is introduced by this Standard. It requires the implementation to advertise the supported geometry `encodingType` ValueCodes for `FeatureOfInterest/feature`, `Location/location`, and `PartyLocation/position` as a JSON array on the landing page, and requires the implementation to advertise the accepted `environment` EnvCodes for `PartyLocation` as a JSON array on the landing page.
 
-* *Party Context* (mandatory): This Conformance Class incorporates STAplus 1.0.1 Core and adds the Read of `PartyLocation` and `PartyActivity` via HTTP. It also extends the Default-CRS Requirements Class to `PartyLocation/position`. If the implementation accepts a `Party` whose `role` is equal to `individual`, it also claims `GDPR`.
+* *Party Context* (mandatory): This Conformance Class incorporates STAplus 1.0.1 Core and adds the Read of `PartyLocation` and `PartyActivity` via HTTP. It also extends the Default-CRS Requirements Class to `PartyLocation/position`. del:[If the implementation accepts a `Party` whose `role` is equal to `individual`, it also claims `GDPR`.] add:[It also specifies the retention of observer context.]
 
-* *Create* (optional): This Conformance Class supports creating STAplus 1.1 entities via HTTP.
+* *Create* (optional): del:[This Conformance Class supports creating STAplus 1.1 entities via HTTP.] add:[This Conformance Class supports creating `PartyLocation` and `PartyActivity` entities via HTTP. It also specifies the conditions under which `PartyLocation` and `PartyActivity` of a `Party` whose `role` is equal to `individual` are accepted.]
 
-* *Update* (optional): This Conformance Class supports updating STAplus 1.1 entities via HTTP.
+* *Update* (optional): del:[This Conformance Class supports updating STAplus 1.1 entities via HTTP.] add:[This Conformance Class supports updating `PartyLocation` and `PartyActivity` entities via HTTP. It requires the Create Conformance Class, whose requirement <<req-party-context-party-role>> also governs the Update of `PartyLocation` and `PartyActivity` of a `Party` whose `role` is equal to `individual`.]
 
-* *Delete* (optional): This Conformance Class supports deleting STAplus 1.1 entities via HTTP.
-
-* *Authentication* (optional): This Conformance Class is inherited from <<OGC22-022r2>>.
+* *Delete* (optional): del:[This Conformance Class supports deleting STAplus 1.1 entities via HTTP.] add:[This Conformance Class supports deleting `PartyLocation` and `PartyActivity` entities via HTTP, and deleting them together with their `Party`.] del:[*Authentication* (optional): This Conformance Class is inherited from <<OGC22-022r2>>.]
 
 * *Geometry-FG* (optional): This Conformance Class extends the STAplus 1.0.1 Geometry-FG Requirements Class to `PartyLocation/position`.
 
 * *Geometry-WKT* (optional): This Conformance Class extends the STAplus 1.0.1 Geometry-WKT Requirements Class to `PartyLocation/position`.
 
-* *MQTT Subscribe STA v1.0* (optional): This Conformance Class supports a client to receive STAplus 1.1 entity changes via MQTT as defined in <<OGC15-078r6>>.
+* *MQTT Subscribe STA v1.0* (optional): This Conformance Class supports a client to del:[receive STAplus 1.1 entity changes via MQTT as defined in <<OGC15-078r6>>.] add:[receive `PartyLocation` and `PartyActivity` entity changes via MQTT as defined in <<OGC15-078r6>>.]
 
-* *MQTT Subscribe STA v1.1* (optional): This Conformance Class supports a client to receive STAplus 1.1 entity changes via MQTT as defined in <<OGC18-088>>.
+* *MQTT Subscribe STA v1.1* (optional): This Conformance Class supports a client to del:[receive STAplus 1.1 entity changes via MQTT as defined in <<OGC18-088>>.] add:[receive `PartyLocation` and `PartyActivity` entity changes via MQTT as defined in <<OGC18-088>>.] del:[*Business Logic* (optional): This Conformance Class is inherited from <<OGC22-022r2>>, including the GDPR compliance note for `Location` and `HistoricalLocation` of an individual party's `Thing`, and the License attribution note that system `License` entities are templates and that each use is an instance with `attributionText` filled.] del:[*GDPR* (mandatory when any `Party` has `role` equal to `individual`; otherwise optional): This Conformance Class restricts Read, Create, Update, and Delete of `Location` and `HistoricalLocation` of a `Thing` owned by an individual `Party` to that authenticated party. It also restricts Read, Create, Update, and Delete of `PartyLocation` and `PartyActivity` to the authenticated party linked via the `Party` association, and specifies the personal-data lifecycle. Conformance to this class is not a certification of compliance with <<GDPR>>.] del:[*Sharing Party Context* (optional): This Conformance Class adds the `Share` entity. A valid `Share` grants named recipient parties Read, and optionally Update, of a `PartyLocation` or `PartyActivity` that the GDPR Requirements Class otherwise restricts to the owner.]
 
-* *Business Logic* (optional): This Conformance Class is inherited from <<OGC22-022r2>>, including the GDPR compliance note for `Location` and `HistoricalLocation` of an individual party's `Thing`, and the License attribution note that system `License` entities are templates and that each use is an instance with `attributionText` filled.
+[[staplus-dependencies]]
+==== add:[Required STAplus 1.0.1 conformance classes]
 
-* *GDPR* (mandatory when any `Party` has `role` equal to `individual`; otherwise optional): This Conformance Class restricts Read, Create, Update, and Delete of `Location` and `HistoricalLocation` of a `Thing` owned by an individual `Party` to that authenticated party. It also restricts Read, Create, Update, and Delete of `PartyLocation` and `PartyActivity` to the authenticated party linked via the `Party` association, and specifies the personal-data lifecycle. Conformance to this class is not a certification of compliance with <<GDPR>>.
+add:[<<tab-staplus-dependencies>> lists, for each conformance class of <<OGC22-022r2>>, whether an implementation of this Standard implements it. The identifiers are those of the STAplus 1.0.1 corrigendum: the Core, Authentication, Geometry-FG, and Business Logic Conformance Classes use the base URI `{staplus-101}`; the other Conformance Classes retain the STAplus 1.0 base URI `{staplus-10}`.]
 
-* *Sharing Party Context* (optional): This Conformance Class adds the `Share` entity. A valid `Share` grants named recipient parties Read, and optionally Update, of a `PartyLocation` or `PartyActivity` that the GDPR Requirements Class otherwise restricts to the owner.
+[[tab-staplus-dependencies]]
+.add:[STAplus 1.0.1 conformance classes used by this Standard]
+[cols="18,33,11,38",options="header"]
+|===
+|add:[STAplus conformance class] |add:[Identifier] |add:[Obligation] |add:[Reason]
+
+|add:[Core]
+|add:[`{staplus-101}/conf/core`]
+|add:[required]
+|add:[Defines `Party` and its `role`, the Read Requirements Class, and the Default-CRS Requirements Class that this Standard extends to `PartyLocation/position`.]
+
+|add:[Create]
+|add:[`{staplus-10}/conf/create`]
+|add:[conditional]
+|add:[Required by the Create Conformance Class of this Standard.]
+
+|add:[Update]
+|add:[`{staplus-10}/conf/update`]
+|add:[conditional]
+|add:[Required by the Update Conformance Class of this Standard.]
+
+|add:[Delete]
+|add:[`{staplus-10}/conf/delete`]
+|add:[conditional]
+|add:[Required by the Delete Conformance Class of this Standard, including the deletion of a `Party`.]
+
+|add:[Authentication]
+|add:[`{staplus-101}/conf/authentication`]
+|add:[not required]
+|add:[Not required by this Standard.]
+
+|add:[Business Logic]
+|add:[`{staplus-101}/conf/business-logic`]
+|add:[conditional]
+|add:[Required if the implementation accepts `PartyLocation` or `PartyActivity` of a `Party` whose `role` is equal to `individual` (<<req-party-context-party-role>>).]
+
+|add:[Geometry-FG]
+|add:[`{staplus-101}/conf/geometry-fg`]
+|add:[conditional]
+|add:[Required by the Geometry-FG Conformance Class of this Standard.]
+
+|add:[Geometry-WKT]
+|add:[`{staplus-10}/conf/geometry-wkt`]
+|add:[conditional]
+|add:[Required by the Geometry-WKT Conformance Class of this Standard.]
+
+|add:[MQTT Subscribe STA v1.0]
+|add:[`{staplus-10}/conf/mqtt-subscribe-sta-10`]
+|add:[conditional]
+|add:[Required by the MQTT Subscribe STA v1.0 Conformance Class of this Standard.]
+
+|add:[MQTT Subscribe STA v1.1]
+|add:[`{staplus-10}/conf/mqtt-subscribe-sta-11`]
+|add:[conditional]
+|add:[Required by the MQTT Subscribe STA v1.1 Conformance Class of this Standard.]
+|===
+
+add:[An implementation that accepts `PartyLocation` or `PartyActivity` of a `Party` whose `role` is equal to `individual` also implements the Business Logic Conformance Class of <<OGC22-022r2>> (see <<req-party-context-party-role>>).]
 
 [[conformance_class_landing_page]]
 ==== Conformance Class *Landing Page*
@@ -74,7 +134,7 @@ The `Party Context` Conformance Class is defined as follows:
 ====
 [%metadata]
 identifier:: {identifier}/conf/party-context
-inherit:: {identifier-101}/conf/core
+inherit:: {staplus-101}/conf/core
 inherit:: {identifier}/conf/landing-page
 target:: {identifier}/req-class/entity-control-information
 target:: {identifier}/req-class/party-location
@@ -82,17 +142,17 @@ target:: {identifier}/req-class/party-activity
 target:: {identifier}/req-class/observation-relations
 target:: {identifier}/req-class/read
 target:: {identifier}/req-class/default-crs
-target:: {identifier}/req/party-context/individual-gdpr
+target:: {identifier}/req-class/lifecycle
 
 classification:: Target Type: Implementation
 conformance-test:: {identifier}/conf/party-context/common-control-information
 conformance-test:: {identifier}/conf/party-context/entities
 conformance-test:: {identifier}/conf/party-context/read
-conformance-test:: {identifier}/conf/party-context/individual-gdpr
 conformance-test:: {identifier}/conf/party-context/default-crs/crs-definition
 conformance-test:: {identifier}/conf/party-context/default-crs/axis-order
 conformance-test:: {identifier}/conf/party-context/default-crs/media-type
 conformance-test:: {identifier}/conf/party-context/default-crs/processing
+conformance-test:: {identifier}/conf/party-context/retention-time
 ====
 
 ==== Conformance Class *Create*
@@ -104,11 +164,12 @@ The `Create` Conformance Class is defined as follows:
 [%metadata]
 identifier:: {identifier}/conf/create
 inherit:: {identifier}/conf/party-context
-inherit:: {identifier-101}/conf/create
+inherit:: {staplus-10}/conf/create
 target:: {identifier}/req-class/create
 
 classification:: Target Type: Implementation
 conformance-test:: {identifier}/conf/create/http
+conformance-test:: {identifier}/conf/create/party-role
 ====
 
 ==== Conformance Class *Update*
@@ -120,7 +181,8 @@ The `Update` Conformance Class is defined as follows:
 [%metadata]
 identifier:: {identifier}/conf/update
 inherit:: {identifier}/conf/party-context
-inherit:: {identifier-101}/conf/update
+inherit:: {identifier}/conf/create
+inherit:: {staplus-10}/conf/update
 target:: {identifier}/req-class/update
 
 classification:: Target Type: Implementation
@@ -137,28 +199,19 @@ The `Delete` Conformance Class is defined as follows:
 [%metadata]
 identifier:: {identifier}/conf/delete
 inherit:: {identifier}/conf/party-context
-inherit:: {identifier-101}/conf/delete
+inherit:: {staplus-10}/conf/delete
 target:: {identifier}/req-class/delete
 
 classification:: Target Type: Implementation
 conformance-test:: {identifier}/conf/delete/entity
+conformance-test:: {identifier}/conf/delete/party-delete
 ====
 
-==== Conformance Class *Authentication*
+del:[Conformance Class *Authentication*]
 
-The `Authentication` Conformance Class is defined as follows:
-[conformance_class]
-.Authentication
-====
-[%metadata]
-identifier:: {identifier}/conf/authentication
-inherit:: {identifier}/conf/party-context
-inherit:: {identifier-101}/conf/authentication
-target:: {identifier}/req-class/authentication
+del:[The `Authentication` Conformance Class is defined as follows:]
 
-classification:: Target Type: Implementation
-conformance-test:: {identifier}/conf/authentication/id
-====
+del:[Conformance Class `http://www.opengis.net/spec/sensorthings-staplus/1.1/conf/authentication` (Authentication)]
 
 ==== Conformance Class *Geometry-FG*
 
@@ -169,12 +222,14 @@ The `Geometry-FG` Conformance Class is defined as follows:
 [%metadata]
 identifier:: {identifier}/conf/geometry-fg
 inherit:: {identifier}/conf/party-context
-inherit:: {identifier-101}/conf/geometry-fg
+inherit:: {staplus-101}/conf/geometry-fg
 target:: {identifier}/req-class/geometry-fg
 
 classification:: Target Type: Implementation
 conformance-test:: {identifier}/conf/geometry-fg/media-type
+conformance-test:: {identifier}/conf/geometry-fg/crs-error
 conformance-test:: {identifier}/conf/geometry-fg/processing
+conformance-test:: {identifier}/conf/geometry-fg/out
 ====
 
 ==== Conformance Class *Geometry-WKT*
@@ -186,11 +241,12 @@ The `Geometry-WKT` Conformance Class is defined as follows:
 [%metadata]
 identifier:: {identifier}/conf/geometry-wkt
 inherit:: {identifier}/conf/party-context
-inherit:: {identifier-101}/conf/geometry-wkt
+inherit:: {staplus-10}/conf/geometry-wkt
 target:: {identifier}/req-class/geometry-wkt
 
 classification:: Target Type: Implementation
 conformance-test:: {identifier}/conf/geometry-wkt/media-type
+conformance-test:: {identifier}/conf/geometry-wkt/default-crs-only
 conformance-test:: {identifier}/conf/geometry-wkt/processing
 ====
 
@@ -203,7 +259,7 @@ The `MQTT Subscribe` STA v1.0 Conformance Class is defined as follows:
 [%metadata]
 identifier:: {identifier}/conf/mqtt-subscribe-sta-10
 inherit:: {identifier}/conf/party-context
-inherit:: {identifier-101}/conf/mqtt-subscribe-sta-10
+inherit:: {staplus-10}/conf/mqtt-subscribe-sta-10
 target:: {identifier}/req-class/mqtt-subscribe-sta-10
 
 classification:: Target Type: Implementation
@@ -219,102 +275,28 @@ The `MQTT Subscribe` STA v1.1 Conformance Class is defined as follows:
 [%metadata]
 identifier:: {identifier}/conf/mqtt-subscribe-sta-11
 inherit:: {identifier}/conf/party-context
-inherit:: {identifier-101}/conf/mqtt-subscribe-sta-11
+inherit:: {staplus-10}/conf/mqtt-subscribe-sta-11
 target:: {identifier}/req-class/mqtt-subscribe-sta-11
 
 classification:: Target Type: Implementation
 conformance-test:: {identifier}/conf/mqtt-subscribe-sta-11/definition
 ====
 
-==== Conformance Class *Business Logic*
+del:[Conformance Class *Business Logic*]
 
-The `Business Logic` Conformance Class is defined as follows:
-[conformance_class]
-.Business Logic
-====
-[%metadata]
-identifier:: {identifier}/conf/business-logic
-inherit:: {identifier}/conf/party-context
-inherit:: {identifier-101}/conf/business-logic
-target:: {identifier}/req-class/business-logic
+del:[The `Business Logic` Conformance Class is defined as follows:]
 
-classification:: Target Type: Implementation
-conformance-test:: {identifier}/conf/business-logic/definition
-conformance-test:: {identifier}/conf/business-logic/gdpr-note
-conformance-test:: {identifier}/conf/business-logic/attribution
-====
+del:[Conformance Class `http://www.opengis.net/spec/sensorthings-staplus/1.1/conf/business-logic` (Business Logic)]
 
-[[conformance_class_gdpr]]
-==== Conformance Class *GDPR*
+del:[Conformance Class *GDPR*]
 
-The `GDPR` Conformance Class is defined as follows:
-[conformance_class]
-.GDPR
-====
-[%metadata]
-identifier:: {identifier}/conf/gdpr
-inherit:: {identifier}/conf/party-context
-inherit:: {identifier}/conf/authentication
-inherit:: {identifier}/conf/create
-inherit:: {identifier}/conf/update
-inherit:: {identifier}/conf/delete
-inherit:: {identifier}/conf/business-logic
-target:: {identifier}/req-class/gdpr
-target:: {identifier}/req-class/personal-data-lifecycle
+del:[The `GDPR` Conformance Class is defined as follows:]
 
-classification:: Target Type: Implementation
-conformance-test:: {identifier}/conf/gdpr/authentication
-conformance-test:: {identifier}/conf/gdpr/thing-location
-conformance-test:: {identifier}/conf/gdpr/party
-conformance-test:: {identifier}/conf/gdpr/read
-conformance-test:: {identifier}/conf/gdpr/create
-conformance-test:: {identifier}/conf/gdpr/update
-conformance-test:: {identifier}/conf/gdpr/delete
-conformance-test:: {identifier}/conf/gdpr/no-leak
-conformance-test:: {identifier}/conf/gdpr/cascade
-conformance-test:: {identifier}/conf/gdpr/mqtt
-conformance-test:: {identifier}/conf/gdpr/business-logic
-conformance-test:: {identifier}/conf/gdpr/retention-time
-conformance-test:: {identifier}/conf/gdpr/historical-location-retention
-conformance-test:: {identifier}/conf/gdpr/restriction
-conformance-test:: {identifier}/conf/gdpr/privacy-notice
-conformance-test:: {identifier}/conf/gdpr/legal-basis
-conformance-test:: {identifier}/conf/gdpr/erasure-set
-conformance-test:: {identifier}/conf/gdpr/portability
-conformance-test:: {identifier}/conf/gdpr/party-location-required
-conformance-test:: {identifier}/conf/gdpr/foi-public
-conformance-test:: {identifier}/conf/gdpr/foi-assertion
-====
+del:[Conformance Class `http://www.opengis.net/spec/sensorthings-staplus/1.1/conf/gdpr` (GDPR)]
 
-[[conformance_class_sharing_party_context]]
-==== Conformance Class *Sharing Party Context*
+del:[Conformance Class *Sharing Party Context*]
 
-The `Sharing Party Context` Conformance Class is defined as follows:
-[conformance_class]
-.Sharing Party Context
-====
-[%metadata]
-identifier:: {identifier}/conf/sharing-party-context
-inherit:: {identifier}/conf/gdpr
-inherit:: {identifier}/conf/create
-inherit:: {identifier}/conf/update
-inherit:: {identifier}/conf/delete
-target:: {identifier}/req-class/share
-target:: {identifier}/req-class/sharing
+del:[The `Sharing Party Context` Conformance Class is defined as follows:]
 
-classification:: Target Type: Implementation
-conformance-test:: {identifier}/conf/sharing-party-context/properties
-conformance-test:: {identifier}/conf/sharing-party-context/relations
-conformance-test:: {identifier}/conf/sharing-party-context/target
-conformance-test:: {identifier}/conf/sharing-party-context/authentication
-conformance-test:: {identifier}/conf/sharing-party-context/valid
-conformance-test:: {identifier}/conf/sharing-party-context/read-share
-conformance-test:: {identifier}/conf/sharing-party-context/create
-conformance-test:: {identifier}/conf/sharing-party-context/update-share
-conformance-test:: {identifier}/conf/sharing-party-context/delete-share
-conformance-test:: {identifier}/conf/sharing-party-context/read-target
-conformance-test:: {identifier}/conf/sharing-party-context/update-target
-conformance-test:: {identifier}/conf/sharing-party-context/no-inheritance
-conformance-test:: {identifier}/conf/sharing-party-context/mqtt
-conformance-test:: {identifier}/conf/sharing-party-context/business-logic
-====
+del:[Conformance Class `http://www.opengis.net/spec/sensorthings-staplus/1.1/conf/sharing-party-context` (Sharing Party Context)]
+

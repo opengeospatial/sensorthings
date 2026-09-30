@@ -1,19 +1,29 @@
 [preface]
 == Preface
 
-STAplus 1.1 extends <<OGC22-022r2>> (OGC SensorThings API Extension: STAplus 1.0.1 corrigendum) with two entity types that record where a party was and what a party was doing when an observation was made. When those entities relate to a natural person, this Standard specifies the full GDPR Conformance Class: testable technical measures for `Thing` location of an individual party and for observer context. Conformance to those measures is not a certification of legal compliance.
+del:[STAplus 1.1 extends <<OGC22-022r2>> (OGC SensorThings API Extension: STAplus 1.0.1 corrigendum) with two entity types that record where a party was and what a party was doing when an observation was made. When those entities relate to a natural person, this Standard specifies the full GDPR Conformance Class: testable technical measures for `Thing` location of an individual party and for observer context. Conformance to those measures is not a certification of legal compliance.]
 
-STAplus 1.1 is fully backwards compatible with STAplus 1.0.1 and with the OGC SensorThings API Part 1: Sensing and Sensing Version 1.1. An implementation that conforms to this Standard also conforms to STAplus 1.0.1. The service root URI remains the SensorThings API service root.
+add:[STAplus Party Context 1.0 is an extension of <<OGC22-022r2>> (OGC SensorThings API Extension: STAplus 1.0.1 corrigendum). It adds two entity types that record where a party was and what a party was doing when an observation was made. It is not a revision of STAplus: all STAplus 1.0.1 entity types, requirements, and conformance classes remain in force unchanged. This Standard can be used without further Standards for parties whose `role` is `institutional` or `system`. When those entities relate to a natural person, they are personal data; an implementation then states in its advertised Business Logic how they are protected. The OGC SensorThings API Extension: STAplus 1.0 GDPR Profile <<OGC26-055>> specifies such protection.]
+
+del:[STAplus 1.1 is fully backwards compatible with STAplus 1.0.1 and with the OGC SensorThings API Part 1: Sensing and Sensing Version 1.1. An implementation that conforms to this Standard also conforms to STAplus 1.0.1. The service root URI remains the SensorThings API service root.]
+
+add:[An implementation that conforms to this Standard also conforms to STAplus 1.0.1 and to the OGC SensorThings API Part 1: Sensing or Sensing Version 1.1. This Standard does not change the SensorThings API service root URI.]
 
 
 [abstract]
 == Abstract
 
-The OGC SensorThings API Extension: STAplus 1.1 Standard specifies a backwards-compatible extension to <<OGC22-022r2>>.
+del:[The OGC SensorThings API Extension: STAplus 1.1 Standard specifies a backwards-compatible extension to <<OGC22-022r2>>.]
 
-STAplus 1.0.1 already supports ownership, licensing, grouping, relations, campaigns, and a GDPR compliance note in the Business Logic for `Thing` location of an individual party. STAplus 1.1 adds the `PartyLocation` and `PartyActivity` entity types so that an `Observation` can be linked to the observer's position and to the activity the party was performing. These links are distinct from the SensorThings `Location` of a `Thing` and from the `FeatureOfInterest`. The GDPR Conformance Class of this Standard is required when a `Party` has `role` equal to `individual`. It restricts access to `Thing` location of an individual party and to that observer context. The optional `Share` entity allows the owner of a `PartyLocation` or `PartyActivity` to grant named other parties access to that personal context.
+add:[The OGC SensorThings API Extension: STAplus Party Context 1.0 Standard specifies a backwards-compatible extension to <<OGC22-022r2>>.]
 
-All other STAplus 1.0.1 entity types, requirements, and conformance classes remain in force. This Standard defines the additional entity types, their relations, the corresponding Read, Create, Update, Delete, MQTT, and geometry-encoding requirements, the Landing Page Conformance Class, the GDPR Conformance Class, and the optional Sharing Party Context Conformance Class. Conformance to this Standard is not a certification of compliance with the European General Data Protection Regulation.
+del:[STAplus 1.0.1 already supports ownership, licensing, grouping, relations, campaigns, and a GDPR compliance note in the Business Logic for `Thing` location of an individual party. STAplus 1.1 adds the `PartyLocation` and `PartyActivity` entity types so that an `Observation` can be linked to the observer's position and to the activity the party was performing. These links are distinct from the SensorThings `Location` of a `Thing` and from the `FeatureOfInterest`. The GDPR Conformance Class of this Standard is required when a `Party` has `role` equal to `individual`. It restricts access to `Thing` location of an individual party and to that observer context. The optional `Share` entity allows the owner of a `PartyLocation` or `PartyActivity` to grant named other parties access to that personal context.]
+
+add:[STAplus 1.0.1 supports ownership, licensing, grouping, relations, and campaigns. This Standard adds the `PartyLocation` and `PartyActivity` entity types so that an `Observation` can be linked to the observer's position and to the activity the party was performing. These links are distinct from the SensorThings `Location` of a `Thing` and from the `FeatureOfInterest`. For a `Party` whose `role` is `institutional` or `system`, this Standard is complete. For a `Party` whose `role` is `individual`, an implementation accepts these entities only if its advertised Business Logic states the access control and legal basis that apply to them, for example by implementing the GDPR Profile <<OGC26-055>>.]
+
+del:[All other STAplus 1.0.1 entity types, requirements, and conformance classes remain in force. This Standard defines the additional entity types, their relations, the corresponding Read, Create, Update, Delete, MQTT, and geometry-encoding requirements, the Landing Page Conformance Class, the GDPR Conformance Class, and the optional Sharing Party Context Conformance Class. Conformance to this Standard is not a certification of compliance with the European General Data Protection Regulation.]
+
+add:[This Standard defines the additional entity types, their relations, the corresponding Read, Create, Update, Delete, MQTT, and geometry-encoding requirements, the retention of observer context, the rule for parties whose `role` is `individual`, and the Landing Page Conformance Class. It does not define access-control or disclosure rules for personal data.]
 
 The key work for crafting this OGC Standard was undertaken in the _Enhancing Citizen Observatories for healthy, sustainable, resilient and inclusive cities_ (CitiObs) project, which received funding from the European Union’s Horizon Europe research and innovation program.
 

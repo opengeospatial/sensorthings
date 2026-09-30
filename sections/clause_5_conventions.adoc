@@ -9,8 +9,10 @@ The normative provisions in this standard are denoted by the URI
 
 All requirements and conformance tests that appear in this document are denoted by absolute URIs which are compliant with this base.
 
-Provisions inherited from STAplus 1.0.1 are denoted by the URI `{identifier-101}`.
+del:[Provisions inherited from STAplus 1.0.1 are denoted by the URI `http://www.opengis.net/spec/sensorthings-staplus/1.0.1`.]
+
+add:[Provisions of <<OGC22-022r2>> are referenced by their identifiers as defined in that Standard. STAplus 1.0.1 retains the base URI `{staplus-10}` for all provisions that were not changed by the corrigendum; changed and new provisions use `{staplus-101}`.]
 
 === JSON encoding of relation names
 
-Association role names in the Clause 7 relation tables use STA PascalCase (`PartyLocation`, `Observations`, `PartyActivities`, `Shares`, `Recipients`, `ReceivedShares`) as used in the JSON encoding. UML association ends in <<OGC22-022r2>> and in the STAplus 1.1 UML may use camelCase (`partyLocation`, `observations`, `partyActivities`, `shares`, `recipients`, `receivedShares`).
+Association role names in the Clause 7 relation tables use STA PascalCase del:[(`PartyLocation`, `Observations`, `PartyActivities`, `Shares`, `Recipients`, `ReceivedShares`)] add:[(`PartyLocation`, `Observations`, `PartyActivities`)] as used in the JSON encoding. UML association ends in <<OGC22-022r2>> del:[and in the STAplus 1.1 UML may use camelCase] add:[and in the Party Context UML may use camelCase] del:[(`partyLocation`, `observations`, `partyActivities`, `shares`, `recipients`, `receivedShares`)] add:[(`partyLocation`, `observations`, `partyActivities`)].
