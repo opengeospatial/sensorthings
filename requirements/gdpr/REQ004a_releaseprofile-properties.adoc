@@ -1,0 +1,11 @@
+[[req_gdpr_releaseprofile-properties]]
+[requirement]
+.add:[ReleaseProfile properties]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/releaseprofile-properties
+part:: add:[Each ReleaseProfile entity SHALL have the common control information defined in `http://www.opengis.net/spec/sensorthings-staplus/1.0/req/common-control-information`.]
+part:: add:[Each ReleaseProfile entity SHALL have the mandatory properties and MAY have the optional properties listed in <<tab-releaseprofile-properties>>, with the data types and values defined there. A ReleaseProfile entity SHALL NOT have a `properties` property.]
+part:: add:[Each member of `privacyAreas` SHALL have at least one of the members `locationResolution` and `timeResolution`. Its `area`, if present, SHALL be a GeoJSON Polygon or MultiPolygon encoded in the default-CRS as defined in `http://www.opengis.net/spec/sensorthings-staplus/1.0/req-class/default-crs`.]
+part:: add:[Each `locationResolution` SHALL be a number greater than zero. Each `timeResolution` SHALL be an ISO 8601 duration of the form `PnD`, `PTnH` or `PTnM` that is not shorter than `PT1M`.]
+====

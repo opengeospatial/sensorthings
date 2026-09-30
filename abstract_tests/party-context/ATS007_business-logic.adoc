@@ -1,0 +1,18 @@
+[[ats_party-context_business-logic]]
+[abstract_test]
+.add:[Business Logic statement for individual parties]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/business-logic
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/business-logic
+test-purpose:: add:[Verify that the Business Logic states how observer context of individual parties is processed.]
+test-method-type:: Inspection
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[Follow the Business Logic link advertised in the `serverSettings` object on the service root URI. Verify that the page states that only the data subject writes PartyLocation and PartyActivity of individual parties, that they are withheld unless an Agreement of the data subject authorizes their release, that it names the legal basis for storing them and that this legal basis is the one declared in the privacy notice, that the effective Agreement is the legal basis for their release, that the rules apply to HTTP and MQTT, and that the page links to the privacy notice.]
+--
+=====
+====

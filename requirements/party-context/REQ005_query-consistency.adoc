@@ -1,0 +1,8 @@
+[[req_party-context_query-consistency]]
+[requirement]
+.add:[Queries and MQTT on observer context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/query-consistency
+part:: add:[<<req_gdpr_query-consistency>> and <<req_gdpr_mqtt>> SHALL apply to PartyLocation and PartyActivity entities and to their associations with Observations as released according to <<req_party-context_release>> and <<req_party-context_association-release>>. A withheld PartyLocation or PartyActivity SHALL NOT be counted in `@iot.count` and SHALL NOT be delivered in an MQTT message.]
+====

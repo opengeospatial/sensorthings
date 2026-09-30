@@ -1,0 +1,38 @@
+[[ats_party-context_release]]
+[abstract_test]
+.add:[Release of observer context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/release
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/release
+test-purpose:: add:[Verify that observer context is withheld unless the data subject authorizes its release.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[As U1, create a PartyLocation L1 and a PartyActivity A1 associated with P1. As A and as U2, request `PartyLocations(L1)` and `PartyActivities(A1)` and verify HTTP 404. Request `PartyLocations`, `PartyActivities` and `Parties(P1)?$expand=PartyLocations,PartyActivities` and verify that L1 and A1 are not contained.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create an Agreement G1 for `PartyLocation/position` with `permittedOperations` = `["publish"\]` and `audience` = `public`. As A, verify that L1 is still withheld.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create an Agreement G2 for `PartyLocation/time` with `permittedOperations` = `["publish"\]` and `audience` = `public`. As A, verify that L1 is released with `position` and `time`.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create an Agreement G3 for `PartyActivity/definition` and `PartyActivity/time` with `permittedOperations` = `["publish"\]`, `audience` = `recipients` and `Recipients` = P2. As U2, verify that A1 is released. As A, verify that A1 is withheld.]
+--
+
+[.component,class=step]
+--
+add:[As U1, withdraw G1. As A, verify that L1 is withheld again.]
+--
+=====
+====

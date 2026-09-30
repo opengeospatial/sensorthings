@@ -1,7 +1,7 @@
 {
   "iss": "https://auth.example.org",
   "sub": "did:example:123456789abcdefghi",
-  "aud": "https://example.org/staplus/v1.1",
+  "aud": "https://example.org/staplus-partycontext/v1.0",
   "client_id": "citiobs-airquality-app",
   "software_id": "4f2a1d9e-6b0c-4c3e-9a57-8e1f0d2b6c44",
   "software_version": "2.3.2",

@@ -25,7 +25,9 @@ U3:: an authenticated user that is not (yet) represented by a Party;
 A:: an unauthenticated client;
 S:: a principal with an operator-managed identity that is represented by the Party PS whose `role` is `system`.
 
-Before each test, P1 and P2 have no Agreements unless the test creates them. D1 denotes a Datastream associated with P1.
+Before each test, P1 and P2 have no Agreements del:[unless the test creates them.] add:[and no ReleaseProfiles unless the test creates them.] D1 denotes a Datastream associated with P1.
+
+add:[Where a test creates "an Agreement with `audience` = ...", or with any other property of a ReleaseProfile such as `Recipients`, `clientIds`, `zoneLevel`, `privacyZones`, `locationResolution` or `timeResolution`, this denotes an Agreement that is associated with a ReleaseProfile of the same Party, newly created by the same requester, that has these properties. Where such a test expects HTTP 400 because of one of these properties, the creation of the ReleaseProfile is expected to be rejected.]
 
 The abstract tests of the Accepted Clients conformance class additionally use:
 

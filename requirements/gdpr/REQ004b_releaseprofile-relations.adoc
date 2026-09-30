@@ -1,0 +1,11 @@
+[[req_gdpr_releaseprofile-relations]]
+[requirement]
+.add:[ReleaseProfile relations]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/releaseprofile-relations
+part:: add:[An implementation SHALL allow each ReleaseProfile to have the direct associations to other entity types listed in <<tab-releaseprofile-relations>>, and SHALL allow each Party and each Agreement to have the direct association to ReleaseProfile listed in <<tab-relations-to-releaseprofile>>.]
+part:: add:[Each ReleaseProfile SHALL be associated with exactly one Party. The `role` of that Party SHALL be `individual`.]
+part:: add:[A ReleaseProfile whose `audience` is `recipients` SHALL be associated with at least one Party through the `Recipients` association. A ReleaseProfile whose `audience` is not `recipients` SHALL NOT have a `Recipients` association. A Party in `Recipients` SHALL NOT be the Party of the ReleaseProfile.]
+part:: add:[The implementation SHALL NOT provide a navigation from a Party in `Recipients` to the ReleaseProfiles that name it.]
+====

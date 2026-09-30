@@ -4,7 +4,7 @@
 
 === General
 
-This annex illustrates the life cycle of `Agreement` entities (<<clause-gdpr>>) for a single data subject, Jane, who contributes air-quality observations to the STAplus endpoint of the fictitious city of Musterstadt, for example with the application of <<annex-accepted-clients-example>>. All names, identifiers and URLs are fictitious.
+This annex illustrates the life cycle of `Agreement` add:[and `ReleaseProfile` ]entities (<<clause-gdpr>>) for a single data subject, Jane, who contributes air-quality observations to the STAplus endpoint of the fictitious city of Musterstadt, for example with the application of <<annex-accepted-clients-example>>. All names, identifiers and URLs are fictitious.
 
 Jane gives three Agreements:
 
@@ -12,7 +12,7 @@ Jane gives three Agreements:
 . to publish the precise position of her sensor to everyone during a measurement campaign that starts later; and
 . to store and publish the attribution text of her CC BY licence, signed with a key of her decentralized identifier.
 
-The example then shows what different requesters receive, how Jane reviews her Agreements, which requests the implementation rejects, and what happens when Jane withdraws an Agreement.
+The example then shows what different requesters receive, how Jane reviews her Agreements, which requests the implementation rejects, del:[and ]what happens when Jane withdraws an Agreementadd:[, and how a privacy area protects her home whatever she agrees to].
 
 === Advertised settings
 
@@ -36,6 +36,11 @@ The service root URI advertises the GDPR conformance class, the privacy notice a
     },
     "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr": {
       "privacyNotice": "https://sta.musterstadt.example/privacy.html",
+      "retentionPeriod": {
+        "default": "P5Y",
+        "PartyLocation": "P1Y",
+        "HistoricalLocation": "P1Y"
+      },
       "locationGeneralization": { "method": "grid", "resolution": 1000 },
       "timeGeneralization": { "resolution": "PT1H" }
     }
@@ -45,7 +50,7 @@ The service root URI advertises the GDPR conformance class, the privacy notice a
 
 === Agreement 1: display name, created by deep insert
 
-A display name is direct personal data. It may only be stored if an Agreement for `Party/displayName` with the operation `store` is effective at the completion of the request (<<req_gdpr_store-direct>>). Jane therefore creates her Party and the Agreement in one request. The implementation sets `authId` from the authentication of the request (STAplus Authentication conformance class).
+A display name is direct personal data. It may only be stored if an Agreement for `Party/displayName` with the operation `store` is effective at the completion of the request (<<req_gdpr_store-direct>>). Jane therefore creates her Party and the Agreement in one request. The implementation sets `authId` from the authentication of the request (STAplus Authentication conformance class).add:[ Because the Agreement permits `publish`, it needs a ReleaseProfile that states to whom the name is released (<<req_gdpr_agreement-relations>>); Jane creates it by deep insert as well.]
 
 [[example-agreement-deep-insert]]
 .Creation of a Party together with an Agreement for the display name
@@ -69,7 +74,7 @@ Content-Type: application/json
       "definition": "https://sta.musterstadt.example/consent/display-name/v2",
       "coveredProperties": ["Party/displayName"],
       "permittedOperations": ["store", "publish"],
-      "audience": "authenticated"
+      "ReleaseProfile": { "name": "Registered users", "audience": "authenticated" }
     }
   ]
 }
@@ -92,18 +97,18 @@ The implementation creates the Agreement with a random identifier that is not co
   "definition": "https://sta.musterstadt.example/consent/display-name/v2",
   "coveredProperties": ["Party/displayName"],
   "permittedOperations": ["store", "publish"],
-  "audience": "authenticated",
   "grantedTime": "2026-09-25T10:02:11Z",
   "effectiveTime": "2026-09-25T10:02:11Z",
   "status": "active",
   "Party@iot.navigationLink": "https://sta.musterstadt.example/v1.1/Agreements('b7e2c1a0-4f53-4d7e-9a61-2f0c8d4e9f11')/Party",
-  "Campaign@iot.navigationLink": "https://sta.musterstadt.example/v1.1/Agreements('b7e2c1a0-4f53-4d7e-9a61-2f0c8d4e9f11')/Campaign"
+  "Campaign@iot.navigationLink": "https://sta.musterstadt.example/v1.1/Agreements('b7e2c1a0-4f53-4d7e-9a61-2f0c8d4e9f11')/Campaign",
+  "ReleaseProfile@iot.navigationLink": "https://sta.musterstadt.example/v1.1/Agreements('b7e2c1a0-4f53-4d7e-9a61-2f0c8d4e9f11')/ReleaseProfile"
 }
 ----
 
 === Variant: release only through one application
 
-If the endpoint claims the Accepted Clients conformance class, Jane can restrict Agreement 1 to the AirBuddy application of <<annex-accepted-clients-example>> (<<req_accepted-clients_client-restricted-agreements>>). Because Agreements are immutable, she creates a new Agreement and withdraws Agreement 1:
+If the endpoint claims the Accepted Clients conformance class, Jane can restrict Agreement 1 to the AirBuddy application of <<annex-accepted-clients-example>> (<<req_accepted-clients_client-restricted-agreements>>). Because Agreements add:[and ReleaseProfiles ]are immutable, she creates a new Agreement add:[with a new ReleaseProfile that names the application ]and withdraws Agreement 1:
 
 [source,json]
 ----
@@ -114,8 +119,11 @@ If the endpoint claims the Accepted Clients conformance class, Jane can restrict
   "definition": "https://sta.musterstadt.example/consent/display-name-airbuddy/v1",
   "coveredProperties": ["Party/displayName"],
   "permittedOperations": ["store", "publish"],
-  "audience": "authenticated",
-  "clientIds": ["airbuddy-mobile"],
+  "ReleaseProfile": {
+    "name": "Registered users of AirBuddy",
+    "audience": "authenticated",
+    "clientIds": ["airbuddy-mobile"]
+  },
   "Party": { "@iot.id": "6c9e2f70-8a41-4d0b-b3e5-7f1a9c2d8e03" }
 }
 ----
@@ -124,7 +132,7 @@ A registered user who reads through any accepted release of AirBuddy receives "`
 
 === Agreement 2: precise position, for the period of a campaign
 
-Positions and times are indirect personal data. They are always stored, but released to others only in generalized form unless an Agreement authorizes the release of the stored value (<<req_gdpr_release-location>>). The city runs a four-week measurement campaign from 1 October to 29 October 2026. On 25 September, Jane agrees that everyone may see the precise position of her sensor for the duration of that campaign. The city wants to compare her readings with its official monitoring stations, but the Agreement cannot restrict the release to the city: with `audience` `public`, the position is available to every requester, and the purpose says so (see the NOTE after <<tab-relations-to-agreement>>). She sets `effectiveTime` to the start and `expiryTime` to the end of the campaign. The operation is `publish` only, because storage of indirect personal data needs no Agreement.
+Positions and times are indirect personal data. They are always stored, but released to others only in generalized form unless an Agreement authorizes the release of the stored value (<<req_gdpr_release-location>>). The city runs a four-week measurement campaign from 1 October to 29 October 2026. On 25 September, Jane agrees that everyone may see the precise position of her sensor for the duration of that campaign. The city wants to compare her readings with its official monitoring stations, but the Agreement cannot restrict the release to the city: with del:[`audience` `public`] add:[a ReleaseProfile whose `audience` is `public`], the position is available to every requester, and the purpose says so (see the NOTE after <<tab-relations-to-agreement>>). She sets `effectiveTime` to the start and `expiryTime` to the end of the campaign. The operation is `publish` only, because storage of indirect personal data needs no Agreement.
 
 [[example-agreement-location]]
 .Agreement for the release of precise positions until a given time
@@ -144,17 +152,17 @@ Content-Type: application/json
   "definition": "https://sta.musterstadt.example/consent/precise-location/v1",
   "coveredProperties": ["Location/location", "FeatureOfInterest/feature"],
   "permittedOperations": ["publish"],
-  "audience": "public",
+  "ReleaseProfile": { "name": "Everyone", "audience": "public" },
   "effectiveTime": "2026-10-01T00:00:00Z",
   "expiryTime": "2026-10-29T00:00:00Z"
 }
 ----
 
-The Agreement exists from 25 September on, but it is effective only from 1 October until 29 October (<<req_gdpr_agreement-effective>>). Before and after that period, positions are released in generalized form, without any action by Jane. The implementation would reject an `effectiveTime` before the time of the request, or an `expiryTime` that is not later than `effectiveTime`, with HTTP 400 (<<req_gdpr_agreement-create>>). Jane can withdraw the Agreement at any time, also before the campaign starts.
+The Agreement exists from 25 September on, but it is effective only from 1 October until 29 October (<<req_gdpr_agreement-effective>>). Before and after that period, positions are released in generalized form, without any action by Jane. The implementation would reject an `effectiveTime` before the time of the request, or an `expiryTime` that is not later than `effectiveTime`, with HTTP 400 (<<req_gdpr_agreement-create>>). Jane can withdraw the Agreement at any time, also before the campaign starts.add:[ The implementation stores the deep-inserted ReleaseProfile "`Everyone`" with the identifier `9a2e7c15-3b48-4f0d-8c61-5e7a2d9b0f34`; further Agreements can refer to it.]
 
 === Agreement 3: attribution text, with proof
 
-Jane licenses her Datastream under CC BY 4.0. The attribution text of the party-specific License instance contains her name and is direct personal data. Observations under that licence are released only to requesters who also receive the attribution text (<<req_gdpr_attribution-integrity>>). The client lets Jane sign the Agreement with a key of her decentralized identifier and sends the signature as `proof` (<<rec_gdpr_proof>>).
+Jane licenses her Datastream under CC BY 4.0. The attribution text of the party-specific License instance contains her name and is direct personal data. Observations under that licence are released only to requesters who also receive the attribution text (<<req_gdpr_attribution-integrity>>). The client lets Jane sign the Agreement with a key of her decentralized identifier and sends the signature as `proof` (<<rec_gdpr_proof>>).add:[ The Agreement refers to the ReleaseProfile "`Everyone`" created with Agreement 2.]
 
 [[example-agreement-proof]]
 .Agreement for the attribution text, signed by the data subject
@@ -167,7 +175,7 @@ Jane licenses her Datastream under CC BY 4.0. The attribution text of the party-
   "definition": "https://sta.musterstadt.example/consent/attribution/v1",
   "coveredProperties": ["License/attributionText"],
   "permittedOperations": ["store", "publish"],
-  "audience": "public",
+  "ReleaseProfile": { "@iot.id": "9a2e7c15-3b48-4f0d-8c61-5e7a2d9b0f34" },
   "proof": {
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
@@ -238,19 +246,20 @@ An unauthenticated requester receives Jane's Party without the display name. The
   "role": "individual",
   "Datastreams@iot.navigationLink": "https://sta.musterstadt.example/v1.1/Parties('6c9e2f70-8a41-4d0b-b3e5-7f1a9c2d8e03')/Datastreams",
   "Things@iot.navigationLink": "https://sta.musterstadt.example/v1.1/Parties('6c9e2f70-8a41-4d0b-b3e5-7f1a9c2d8e03')/Things",
-  "Agreements@iot.navigationLink": "https://sta.musterstadt.example/v1.1/Parties('6c9e2f70-8a41-4d0b-b3e5-7f1a9c2d8e03')/Agreements"
+  "Agreements@iot.navigationLink": "https://sta.musterstadt.example/v1.1/Parties('6c9e2f70-8a41-4d0b-b3e5-7f1a9c2d8e03')/Agreements",
+  "ReleaseProfiles@iot.navigationLink": "https://sta.musterstadt.example/v1.1/Parties('6c9e2f70-8a41-4d0b-b3e5-7f1a9c2d8e03')/ReleaseProfiles"
 }
 ----
 
-The `Agreements` navigation link is present, but following it returns an empty collection for anyone other than Jane (<<req_gdpr_agreement-access>>).
+The `Agreements` add:[and `ReleaseProfiles` ]navigation del:[link is] add:[links are] present, but following del:[it returns an empty collection] add:[them returns empty collections] for anyone other than Jane (<<req_gdpr_agreement-access>>add:[, <<req_gdpr_releaseprofile-lifecycle>>]).
 
 === Review by the data subject
 
-Jane locates her Party with the STAplus function `me()` and reviews all her Agreements (<<req_gdpr_access-right>>):
+Jane locates her Party with the STAplus function `me()` and reviews all her Agreements add:[with their ReleaseProfiles ](<<req_gdpr_access-right>>):
 
 [source,http]
 ----
-GET /v1.1/Parties?$filter=authId eq me()&$expand=Agreements($select=name,coveredProperties,permittedOperations,audience,effectiveTime,expiryTime,status)
+GET /v1.1/Parties?$filter=authId eq me()&$expand=Agreements($select=name,coveredProperties,permittedOperations,effectiveTime,expiryTime,status;$expand=ReleaseProfile($select=name,audience))
 ----
 
 [source,json]
@@ -267,28 +276,28 @@ GET /v1.1/Parties?$filter=authId eq me()&$expand=Agreements($select=name,covered
         "name": "Show my display name",
         "coveredProperties": ["Party/displayName"],
         "permittedOperations": ["store", "publish"],
-        "audience": "authenticated",
         "effectiveTime": "2026-09-25T10:02:11Z",
-        "status": "active"
+        "status": "active",
+        "ReleaseProfile": { "name": "Registered users", "audience": "authenticated" }
       },
       {
         "@iot.id": "3e8a5d21-7c04-4b9f-8e16-c5a2f0d7b943",
         "name": "Precise sensor position during the autumn campaign",
         "coveredProperties": ["Location/location", "FeatureOfInterest/feature"],
         "permittedOperations": ["publish"],
-        "audience": "public",
         "effectiveTime": "2026-10-01T00:00:00Z",
         "expiryTime": "2026-10-29T00:00:00Z",
-        "status": "active"
+        "status": "active",
+        "ReleaseProfile": { "name": "Everyone", "audience": "public" }
       },
       {
         "@iot.id": "f41c9b06-2d7e-4a38-b5e0-8a6d3c1f2e57",
         "name": "Attribution of my observations",
         "coveredProperties": ["License/attributionText"],
         "permittedOperations": ["store", "publish"],
-        "audience": "public",
         "effectiveTime": "2026-09-25T10:16:03Z",
-        "status": "active"
+        "status": "active",
+        "ReleaseProfile": { "name": "Everyone", "audience": "public" }
       }
     ]
   }]
@@ -314,9 +323,9 @@ GET /v1.1/Parties?$filter=authId eq me()&$expand=Agreements($select=name,covered
 |Only the data subject can create an Agreement for their Party (<<req_gdpr_agreement-create>>).
 
 |c
-|Jane POSTs an Agreement with `permittedOperations` `["publish"]` and no `audience`.
+|Jane POSTs an Agreement with `permittedOperations` `["publish"]` and no del:[`audience`] add:[ReleaseProfile].
 |400
-|`audience` is mandatory when `publish` is permitted (<<req_gdpr_agreement-create>>).
+|del:[`audience` is mandatory when `publish` is permitted (<<req_gdpr_agreement-create>>).] add:[An Agreement that permits `publish` needs a ReleaseProfile with an `audience` (<<req_gdpr_agreement-relations>>).]
 
 |d
 |Jane POSTs an Agreement with `effectiveTime` `2026-09-01T00:00:00Z`, before the time of the request.
@@ -329,7 +338,7 @@ GET /v1.1/Parties?$filter=authId eq me()&$expand=Agreements($select=name,covered
 |`Party/authId` is not Agreement-controlled in <<tab-register>>; it is never released to others.
 
 |f
-|Jane PATCHes Agreement 1 with a new `purpose` or `audience` `public`.
+|Jane PATCHes Agreement 1 with a new `purpose` or del:[`audience` `public`] add:[another ReleaseProfile].
 |400
 |Agreements are immutable except for `status` (<<req_gdpr_agreement-immutable>>). Jane creates a new Agreement instead.
 
@@ -339,9 +348,19 @@ GET /v1.1/Parties?$filter=authId eq me()&$expand=Agreements($select=name,covered
 |A withdrawn Agreement cannot be reactivated (<<req_gdpr_agreement-immutable>>).
 
 |h
-|Another user requests `Parties?$filter=Agreements/any(a: a/audience eq 'public')&$count=true`.
+|Another user requests del:[`Parties?$filter=Agreements/any(a: a/audience eq 'public')&$count=true`] add:[`Parties?$filter=ReleaseProfiles/any(r: r/audience eq 'public')&$count=true`].
 |200
-|Not rejected, but evaluated as if the Agreements of other data subjects did not exist: Jane's Party is not contained and not counted (<<req_gdpr_agreement-access>>).
+|Not rejected, but evaluated as if the del:[Agreements] add:[ReleaseProfiles] of other data subjects did not exist: Jane's Party is not contained and not counted (del:[<<req_gdpr_agreement-access>>] add:[<<req_gdpr_releaseprofile-lifecycle>>]).
+
+|add:[i]
+|add:[Jane DELETEs the ReleaseProfile "`Everyone`" while Agreement 3 is active.]
+|add:[409]
+|add:[A ReleaseProfile that an active Agreement refers to cannot be deleted (<<req_gdpr_releaseprofile-lifecycle>>).]
+
+|add:[j]
+|add:[Jane PATCHes the ReleaseProfile "`Everyone`" with `audience` `authenticated`.]
+|add:[400]
+|add:[ReleaseProfiles are immutable (<<req_gdpr_releaseprofile-lifecycle>>). Jane creates a new ReleaseProfile and a new Agreement instead.]
 |===
 
 === Withdrawal
@@ -372,7 +391,6 @@ The implementation sets `withdrawalTime`. Because no Agreement for `Party/displa
   "definition": "https://sta.musterstadt.example/consent/display-name/v2",
   "coveredProperties": ["Party/displayName"],
   "permittedOperations": ["store", "publish"],
-  "audience": "authenticated",
   "grantedTime": "2026-09-25T10:02:11Z",
   "effectiveTime": "2026-09-25T10:02:11Z",
   "status": "withdrawn",
@@ -380,7 +398,7 @@ The implementation sets `withdrawalTime`. Because no Agreement for `Party/displa
 }
 ----
 
-The withdrawn Agreement remains visible to Jane as a record of her earlier consent. If she had withdrawn it with HTTP DELETE instead, it would no longer be visible to her, and any record the operator keeps to demonstrate the earlier consent would be declared in the privacy notice.
+The withdrawn Agreement remains visible to Jane as a record of her earlier consent.add:[ Its ReleaseProfile "`Registered users`" is no longer used by an active Agreement; Jane can delete it or keep it for a later Agreement.] If she had withdrawn it with HTTP DELETE instead, it would no longer be visible to her, and any record the operator keeps to demonstrate the earlier consent would be declared in the privacy notice.
 
 Had Jane withdrawn only the `publish` part of her consent, she would instead create a new Agreement for `Party/displayName` with `permittedOperations` `["store"]` and then withdraw Agreement 1: the name would remain stored and visible to Jane, but would no longer be released to others.
 
@@ -412,11 +430,11 @@ Jane receives the Thing as submitted. Any other requester receives the mandatory
 }
 ----
 
-A query such as `Things?$filter=substringof('Lindenweg',description)` does not find the Thing for other requesters (<<req_gdpr_query-consistency>>). If Jane wants the name to be public, she creates an Agreement with `coveredProperties` `["Thing/name"]`, `permittedOperations` `["publish"]` and `audience` `public`; the description, which contains her address, stays private. Had she registered the sensor with the AirBuddy application of <<annex-accepted-clients-example>>, name and description would be the fixed values of its WriteProfile, and would be released without an Agreement.
+A query such as `Things?$filter=substringof('Lindenweg',description)` does not find the Thing for other requesters (<<req_gdpr_query-consistency>>). If Jane wants the name to be public, she creates an Agreement with `coveredProperties` `["Thing/name"]`, `permittedOperations` `["publish"]` and del:[`audience` `public`] add:[the ReleaseProfile "`Everyone`"]; the description, which contains her address, stays private. Had she registered the sensor with the AirBuddy application of <<annex-accepted-clients-example>>, name and description would be the fixed values of its WriteProfile, and would be released without an Agreement.
 
 === An open contributor
 
-Not every contributor wants protection. Max, another citizen scientist, wants everything he contributes to be open data, including his name, his texts and the exact positions and times of his measurements. He expresses this with a single Agreement that covers every Agreement-controlled property path of <<tab-register>>, with the operations `store` and `publish` and the audience `public`:
+Not every contributor wants protection. Max, another citizen scientist, wants everything he contributes to be open data, including his name, his texts and the exact positions and times of his measurements. He expresses this with a single Agreement that covers every Agreement-controlled property path of <<tab-register>>, with the operations `store` and `publish` and del:[the audience `public`] add:[a ReleaseProfile with the `audience` `public` and no resolution]:
 
 [[example-agreement-open-contributor]]
 .Agreement of an open contributor
@@ -444,19 +462,19 @@ Not every contributor wants protection. Max, another citizen scientist, wants ev
     "Campaign/name", "Campaign/description", "Campaign/properties"
   ],
   "permittedOperations": ["store", "publish"],
-  "audience": "public",
+  "ReleaseProfile": { "name": "Everyone", "audience": "public" },
   "Party": { "@iot.id": "0b7d3e19-c4a2-4f86-9e51-7a2c8d6f1b40" }
 }
 ----
 
-If the implementation claims the Accepted Clients conformance class, Max adds `Datastream/WriteProfile` and `MultiDatastream/WriteProfile`; if it claims the DGGS conformance class, he adds `Observation/Cell`, `Datastream/Cell` and `MultiDatastream/Cell`. Without `zoneLevel`, the Cell associations are then released at the stored zone level.
+If the implementation claims the Accepted Clients conformance class, Max adds `Datastream/WriteProfile` and `MultiDatastream/WriteProfile`; if it claims the DGGS conformance class, he adds `Observation/Cell`, `Datastream/Cell` and `MultiDatastream/Cell`. Without `zoneLevel`add:[ in the ReleaseProfile], the Cell associations are then released at the stored zone level.
 
 The Agreement refers to property paths, not to individual entities. It therefore applies to everything Max contributes from now on, until he withdraws it; a single withdrawal returns all his data to the defaults of this Profile at once.
 
 Even this Agreement does not release everything:
 
 * `Party/authId` is not Agreement-controlled and is never released to others, because it would allow Max to be tracked across services;
-* his Agreements remain visible only to him (<<req_gdpr_agreement-access>>);
+* his Agreements add:[and ReleaseProfiles ]remain visible only to him (<<req_gdpr_agreement-access>>add:[, <<req_gdpr_releaseprofile-lifecycle>>]);
 * `License/attributionText` is released, but still cannot be used in `$filter` or `$orderby` (<<req_gdpr_attribution-filter>>); and
 * `Observation/result` and `Observation/parameters` are not controlled by Agreements at all; the privacy notice declares how they are released.
 
@@ -464,4 +482,56 @@ A consent of this breadth is valid only if it is specific and informed (GDPR Art
 
 The list of property paths is fixed by the version of this Profile and of the conformance classes that the endpoint implements. A later version that adds property paths does not extend an existing Agreement; the contributor has to create a new one.
 
-NOTE: For the release of positions as DGGS Cells, an Agreement can additionally carry `zoneLevel` and `privacyZones`. <<clause-dggs>> contains an example.
+=== add:[A privacy area around the home]
+
+add:[After the campaign, Jane wants to make sure that nothing she contributes near her home is ever released to others more precisely than a 2 km grid and three hours, whatever she agrees to in future, even if she overlooks it when she joins the next campaign. This is not a consent, so she needs no Agreement: she creates a ReleaseProfile with a privacy area and no Agreement (<<req_gdpr_privacy-areas>>).]
+
+[source,http]
+----
+POST /v1.1/Parties('6c9e2f70-8a41-4d0b-b3e5-7f1a9c2d8e03')/ReleaseProfiles
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6ImF0K2p3dCJ9...
+Content-Type: application/json
+----
+
+[source,json]
+----
+{
+  "name": "Home",
+  "description": "Never finer than 2 km and 3 hours around my home",
+  "privacyAreas": [
+    {
+      "area": {
+        "type": "Polygon",
+        "coordinates": [[[7.080, 50.720], [7.140, 50.720], [7.140, 50.755], [7.080, 50.755], [7.080, 50.720]]]
+      },
+      "locationResolution": 2000,
+      "timeResolution": "PT3H"
+    }
+  ]
+}
+----
+
+add:[The privacy area takes effect with the response to this request. <<tab-agreement-example-privacy-area>> shows its effect on the position and the time of an observation of her balcony sensor, which lies inside the area.]
+
+[[tab-agreement-example-privacy-area]]
+.add:[Release of the balcony sensor data with the privacy area]
+[cols="30,35,35",options="header"]
+|===
+|add:[Situation] |add:[`FeatureOfInterest/feature`] |add:[`Observation/phenomenonTime`]
+
+|add:[Another requester, no Agreement for location or time]
+|add:[2 km grid (the public 1 km grid, raised by the privacy area)]
+|add:[truncated to three hours (the public one hour, raised by the privacy area)]
+
+|add:[Another requester, while an Agreement for precise positions with the ReleaseProfile "`Everyone`" is effective]
+|add:[2 km grid: the privacy area prevails over the Agreement]
+|add:[truncated to three hours]
+
+|add:[Jane, as data subject]
+|add:[precise]
+|add:[precise]
+|===
+
+add:[If Jane wants to publish the precise position of her balcony sensor again, she deletes the ReleaseProfile "`Home`". Others can notice that her data near the area are released more coarsely than elsewhere, but not where inside the area she lives; she has therefore chosen an area that is considerably larger than her home.]
+
+NOTE: For the release of positions as DGGS Cells, del:[an Agreement] add:[a ReleaseProfile] can additionally carry `zoneLevel` and `privacyZones`. <<clause-dggs>> contains an example.

@@ -1,0 +1,11 @@
+[[req_gdpr_privacy-areas]]
+[requirement]
+.add:[Privacy areas]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/privacy-areas
+part:: add:[The privacy areas of a Party `P` are the members of `privacyAreas` of all ReleaseProfiles associated with `P`, whether or not an Agreement is associated with the ReleaseProfile. A privacy area SHALL take effect when its ReleaseProfile is created, and SHALL cease to take effect when its ReleaseProfile is deleted.]
+part:: add:[A privacy area without `area` SHALL apply to every indirect location and time value of every entity attributable to `P`.]
+part:: add:[A privacy area with `area` SHALL apply to an indirect location value if at least one position of the stored value lies inside `area`. It SHALL apply to an indirect time value of an entity if at least one position of the stored location of that entity lies inside `area`, where the location of an Observation is the `feature` of its FeatureOfInterest, the location of a HistoricalLocation is the `location` of its Locations, the location of a Datastream or MultiDatastream is its `observedArea`, and the location of a PartyLocation is its `position`.]
+part:: add:[Privacy areas SHALL restrict the release to every requester that is not the data subject, irrespective of the Agreements of `P` (<<req_gdpr_release-resolution>>). They SHALL NOT restrict the release to the data subject (<<req_gdpr_access-right>>).]
+====

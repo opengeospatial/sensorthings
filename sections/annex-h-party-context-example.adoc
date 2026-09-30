@@ -1,0 +1,94 @@
+[[annex-party-context-example]]
+[appendix,obligation="informative"]
+== add:[Example of observer context released to named recipients]
+
+=== add:[General]
+
+add:[This annex illustrates the Party Context conformance class (<<clause-party-context>>) and an Agreement whose ReleaseProfile has the `audience` `recipients`. Jane, the data subject of <<annex-agreement-example>>, takes part in the walking campaign of the Musterstadt environmental office. While walking, she records particulate matter with a mobile sensor. Her application records her position as a `PartyLocation` and her activity as a `PartyActivity` of <<OGC26-040>>. The campaign coordinator, Max, is represented by the Party PM. Jane wants Max, and nobody else, to see where and when she walked, but not which observation was made where.]
+
+add:[All names, identifiers and URLs are fictitious.]
+
+=== add:[Observer context created by Jane]
+
+add:[Jane's application creates a PartyLocation, a PartyActivity and an Observation that refers to both, in one request. Only Jane, as the data subject of her Party, can create them (<<req_party-context_write>>).]
+
+[source,json]
+----
+{
+  "phenomenonTime": "2026-10-03T09:12:40Z",
+  "resultTime": "2026-10-03T09:12:40Z",
+  "result": 18.4,
+  "Datastream": {"@iot.id": "d-pm25-jane"},
+  "PartyLocation": {
+    "position": {"type": "Point", "coordinates": [8.6821, 50.1109]},
+    "encodingType": "application/geo+json",
+    "environment": "outdoor",
+    "positionalUncertainty": 5.0,
+    "time": "2026-10-03T09:12:40Z",
+    "retentionTime": "2027-10-03T00:00:00Z",
+    "Party": {"@iot.id": "p-jane"}
+  },
+  "PartyActivity": {
+    "definition": "https://vocab.musterstadt.example/activity/walking",
+    "name": "Walking",
+    "time": "2026-10-03T09:00:00Z/2026-10-03T10:00:00Z",
+    "Party": {"@iot.id": "p-jane"}
+  }
+}
+----
+
+=== add:[Agreement for the coordinator]
+
+add:[Jane creates one Agreement that covers the position and time of her PartyLocations and the definition and time of her PartyActivities, restricted to the campaign and, by a deep-inserted ReleaseProfile, to Max. She does not cover `Observation/PartyLocation` and `Observation/PartyActivity`, so the association between her observations and her track is not released (<<req_party-context_association-release>>).]
+
+[source,json]
+----
+{
+  "name": "Show my walks to the campaign coordinator",
+  "legalBasis": "consent",
+  "purpose": "Let the coordinator of the walking campaign see where and when I walked",
+  "definition": "https://sta.musterstadt.example/consent/walking-campaign-track/v1",
+  "coveredProperties": [
+    "PartyLocation/position",
+    "PartyLocation/time",
+    "PartyActivity/definition",
+    "PartyActivity/time"
+  ],
+  "permittedOperations": ["publish"],
+  "expiryTime": "2026-12-31T23:59:59Z",
+  "Party": {"@iot.id": "p-jane"},
+  "Campaign": {"@iot.id": "c-walking-2026"},
+  "ReleaseProfile": {
+    "name": "Campaign coordinator",
+    "audience": "recipients",
+    "Recipients": [{"@iot.id": "p-max"}]
+  }
+}
+----
+
+add:[The `Campaign` association limits the Agreement to entities that belong to the campaign (<<req_gdpr_agreement-effective>>). The ReleaseProfile has neither `locationResolution` nor `timeResolution`, because observer context is released with its stored values or not at all. For the same reason, a PartyLocation inside one of Jane's privacy areas, such as the area around her home in <<annex-agreement-example>>, is withheld even from Max (<<req_party-context_release>>).]
+
+=== add:[What different requesters receive]
+
+[[tab-pc-release]]
+.add:[Observer context released to different requesters]
+[cols="30,70",options="header"]
+|===
+|add:[Requester] |add:[Response to `GET https://sta.musterstadt.example/v1.1/PartyLocations?$expand=Observations`]
+
+|add:[Jane (data subject)]
+|add:[All her PartyLocations with all properties and the associated Observations (<<req_gdpr_access-right>>).]
+
+|add:[Max (recipient, authenticated as PM)]
+|add:[Jane's PartyLocations of the campaign with `position` and `time`. `Observations` is empty, because the association is not released.]
+
+|add:[Another authenticated user]
+|add:[No PartyLocation of Jane.]
+
+|add:[Unauthenticated requester]
+|add:[No PartyLocation of Jane.]
+|===
+
+=== add:[Withdrawal and deletion]
+
+add:[When Jane withdraws the Agreement, Max no longer receives her PartyLocations. What Max has already retrieved cannot be recalled; the privacy notice says so (<<req_party-context_privacy-notice>>). When `retentionTime` is reached, the implementation deletes the PartyLocation (<<OGC26-040>>, requirement `/req/lifecycle/retention-time`). When Jane deletes her Party, all her PartyLocations and PartyActivities are deleted (<<req_party-context_register>>).]

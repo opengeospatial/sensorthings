@@ -281,6 +281,6 @@ GET /v1.1/Datastreams(42)/WriteProfile
 
 * data subject: HTTP 200 with WriteProfile 3;
 * any other requester without an effective Agreement: HTTP 404;
-* any other requester after the data subject has created an Agreement with `coveredProperties` `["Datastream/WriteProfile"]`, `permittedOperations` `["publish"]` and a matching `audience`: HTTP 200 with WriteProfile 3.
+* any other requester after the data subject has created an Agreement with `coveredProperties` `["Datastream/WriteProfile"]`, `permittedOperations` `["publish"]` and a del:[matching `audience`] add:[ReleaseProfile with a matching `audience`]: HTTP 200 with WriteProfile 3.
 
 Correspondingly, `GET /v1.1/WriteProfiles(3)/Datastreams` lists `Datastreams(42)` only for requesters to whom the association is released. A data consumer can therefore see that all data on the endpoint was written by declared applications, and what each application is permitted to write, without learning which person uses which application.

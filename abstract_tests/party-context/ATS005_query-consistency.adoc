@@ -1,0 +1,23 @@
+[[ats_party-context_query-consistency]]
+[abstract_test]
+.add:[Queries and MQTT on observer context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/query-consistency
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/query-consistency
+test-purpose:: add:[Verify that queries and MQTT cannot disclose withheld observer context.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[As U1, create a PartyLocation L1 of P1 with a precise Point, without Agreements. As A, request `PartyLocations?$filter=st_within(position, geography'POLYGON((…))')&$count=true` with a polygon that contains the Point and verify that L1 is not contained and not counted.]
+--
+
+[.component,class=step]
+--
+add:[If the implementation claims an MQTT Subscribe conformance class: as A, subscribe to `v1.1/PartyLocations`. As U1, create a PartyLocation L2 of P1. Verify that A receives no message about L2.]
+--
+=====
+====

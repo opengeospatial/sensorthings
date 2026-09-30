@@ -1,0 +1,43 @@
+[[ats_gdpr_retention]]
+[abstract_test]
+.add:[Retention]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/retention
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/retention
+test-purpose:: add:[Verify that attributable entities are deleted or anonymized when their retention instant is reached.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[Request the service root URI. Verify that the GDPR object in `serverSettings` contains `retentionPeriod` with a member `default` whose value is an ISO 8601 duration, and that every other member is named with an entity type and has an ISO 8601 duration as value.]
+--
+
+[.component,class=step]
+--
+add:[Configure the implementation under test with a short `default` duration, for example `PT5M`, or use a test deployment with such a setting. As U1, create in D1 an Observation O1 whose `phenomenonTime` is the current time, and a HistoricalLocation of a Thing of P1.]
+--
+
+[.component,class=step]
+--
+add:[Before the retention instant, as U1, verify that O1 and the HistoricalLocation are released with their stored values.]
+--
+
+[.component,class=step]
+--
+add:[One day after the retention instant, as U1, verify that O1 and the HistoricalLocation are either no longer present or anonymized as declared in the privacy notice: no association with P1, location and time generalized, free text erased.]
+--
+
+[.component,class=step]
+--
+add:[If the implementation claims the Party Context conformance class: create a PartyLocation L1 of P1 with a `retentionTime` earlier than its retention instant, and verify that L1 is deleted after `retentionTime`. Create a PartyLocation L2 without `retentionTime` and verify that L2 is deleted, not anonymized, after its retention instant.]
+--
+
+[.component,class=step]
+--
+add:[If the implementation advertises `inactivityPeriod`: after that period without authentication of U2, verify that P2 and its attributable entities are erased as specified in <<req_gdpr_erasure>>.] add:[Follow the Business Logic link advertised in the `serverSettings` object and verify that the page states that the implementation deletes a Party whose principal has not been authenticated during `inactivityPeriod`, and states that period.]
+--
+=====
+====

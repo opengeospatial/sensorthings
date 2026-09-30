@@ -1,0 +1,29 @@
+[[ats_gdpr_releaseprofile-properties]]
+[abstract_test]
+.add:[ReleaseProfile properties]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/releaseprofile-properties
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/releaseprofile-properties
+test-purpose:: add:[Verify that ReleaseProfiles have the properties defined in the ReleaseProfile properties table with valid values.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[As U1, create a ReleaseProfile RP1 for P1 with `name`, `description`, `audience` = `authenticated`, `locationResolution` = 500, `timeResolution` = `PT1H` and one member of `privacyAreas` with an `area` (GeoJSON Polygon) and `locationResolution` = 1000. Omit `locationResolution` and `timeResolution` if the corresponding generalization is not advertised.]
+--
+
+[.component,class=step]
+--
+add:[As U1, request RP1 without `$select`. Verify that `@iot.id`, `@iot.selfLink` and the submitted properties are present with the submitted values, and that no `properties` member is present.]
+--
+
+[.component,class=step]
+--
+add:[As U1, POST ReleaseProfiles for P1 with `audience` = `everyone`, with `locationResolution` = 0, with `timeResolution` = `PT30S`, with a member of `privacyAreas` that has neither `locationResolution` nor `timeResolution`, with a member of `privacyAreas` whose `area` is a GeoJSON Point, and with a `properties` member. Verify HTTP 400 for each request.]
+--
+
+=====
+====

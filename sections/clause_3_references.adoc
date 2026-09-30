@@ -7,7 +7,7 @@ The following documents are referred to in the text in such a way that some or a
 
 * [[[OGC15-078r6,nofetch(OGC 15-078r6)]]], _OGC SensorThings API Part 1: Sensing_. OGC (2016). https://docs.ogc.org/is/15-078r6/15-078r6.html
 
-* [[[OGC18-088,nofetch(OGC 18-088)]]], _OGC SensorThings API Part 1: Sensing Version 1.1_. OGC (2020). https://docs.ogc.org/is/18-088/18-088.html
+* [[[OGC18-088,nofetch(OGC 18-088)]]], _OGC SensorThings API Part 1: Sensing Version 1.1_. OGC (2021). https://docs.ogc.org/is/18-088/18-088.html
 
 * [[[GDPR,nofetch(Regulation (EU) 2016/679)]]], _Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation)_. Official Journal of the European Union, L 119, 4 May 2016, pp. 1–88. https://eur-lex.europa.eu/eli/reg/2016/679/oj
 
@@ -34,5 +34,7 @@ The following documents are referred to in the text in such a way that some or a
 * [[[MQTT5,nofetch(OASIS MQTT 5.0)]]], _MQTT Version 5.0_. OASIS Standard (2019). https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html
 
 * [[[OGC26-057,nofetch(OGC 26-057)]]], _OGC SensorThings API Extension: DGGS 1.0_. Matheus, A. (ed.), OGC (2026). http://www.opengis.net/doc/is/sensorthings-dggs/1.0
+
+* [[[OGC26-040,nofetch(OGC 26-040)]]], add:[_OGC SensorThings API Extension: STAplus Party Context 1.0_ (draft). Matheus, A. (ed.), OGC (2026). http://www.opengis.net/doc/is/sensorthings-staplus-party-context/1.0]
 
 * [[[OGC20-040r3,nofetch(OGC 20-040r3)]]], _OGC Abstract Specification Topic 21: Discrete Global Grid Systems — Part 1 Core Reference system and Operations and Equal Area Earth Reference System_. OGC (2021). https://docs.ogc.org/as/20-040r3/20-040r3.html

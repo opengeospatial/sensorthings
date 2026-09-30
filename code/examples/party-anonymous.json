@@ -1,8 +1,8 @@
 {
   "@iot.id": "5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8",
-  "@iot.selfLink": "https://example.org/staplus/v1.1/Parties('5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8')",
+  "@iot.selfLink": "https://example.org/staplus-partycontext/v1.0/Parties('5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8')",
   "role": "individual",
-  "Datastreams@iot.navigationLink": "https://example.org/staplus/v1.1/Parties('5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8')/Datastreams",
-  "Things@iot.navigationLink": "https://example.org/staplus/v1.1/Parties('5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8')/Things",
-  "Agreements@iot.navigationLink": "https://example.org/staplus/v1.1/Parties('5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8')/Agreements"
+  "Datastreams@iot.navigationLink": "https://example.org/staplus-partycontext/v1.0/Parties('5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8')/Datastreams",
+  "Things@iot.navigationLink": "https://example.org/staplus-partycontext/v1.0/Parties('5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8')/Things",
+  "Agreements@iot.navigationLink": "https://example.org/staplus-partycontext/v1.0/Parties('5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8')/Agreements"
 }

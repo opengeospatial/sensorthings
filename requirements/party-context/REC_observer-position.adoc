@@ -1,0 +1,8 @@
+[[rec_party-context_observer-position]]
+[recommendation]
+.add:[Position of the observer]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/party-context/observer-position
+part:: add:[A client SHOULD record the position of the observing user in a PartyLocation and SHOULD NOT use it as the `feature` of a FeatureOfInterest. A FeatureOfInterest SHOULD describe the observed real-world object or area.]
+====

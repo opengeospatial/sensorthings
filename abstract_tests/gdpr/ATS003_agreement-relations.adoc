@@ -30,5 +30,10 @@ As U1, follow `Party@iot.navigationLink` and verify that P1 is returned. Follow 
 As U1, request `Parties(P1)/Agreements` and `Campaigns(C1)/Agreements` and verify that each collection contains G1.
 --
 
+
+[.component,class=step]
+--
+add:[As U1, create a ReleaseProfile RP2 for P1 with `audience` = `authenticated` and an Agreement G2 for `Party/displayName` with `permittedOperations` = `["publish"\]` associated with RP2. Follow `ReleaseProfile@iot.navigationLink` of G2 and verify that RP2 is returned.]
+--
 =====
 ====

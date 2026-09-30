@@ -1,0 +1,39 @@
+[[ats_gdpr_releaseprofile-lifecycle]]
+[abstract_test]
+.add:[ReleaseProfile life cycle and access]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/releaseprofile-lifecycle
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/releaseprofile-lifecycle
+test-purpose:: add:[Verify that only the data subject creates, reads and deletes ReleaseProfiles, that ReleaseProfiles are immutable and that a ReleaseProfile in use cannot be deleted.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[Issue an HTTP GET request to the service root URI. Verify that the `value` array contains an object with `name` = `ReleaseProfiles` and a `url` that resolves to the ReleaseProfile collection.]
+--
+
+[.component,class=step]
+--
+add:[As A, POST a valid ReleaseProfile for P1 and verify HTTP 401. As U2, POST a valid ReleaseProfile for P1 and verify HTTP 403.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create a ReleaseProfile RP1 for P1 with `audience` = `public`. Verify that its `@iot.id` is not equal to, and not derived from, the `authId` of P1. PATCH RP1 with `audience` = `authenticated` and verify HTTP 400 and that `audience` is unchanged.]
+--
+
+[.component,class=step]
+--
+add:[As U2 and as A, request the ReleaseProfile collection, `ReleaseProfiles(RP1)`, `ReleaseProfiles(RP1)/Party` and `Parties(P1)?$expand=ReleaseProfiles`. Verify that RP1 is not contained or that the response is HTTP 404. As U2, request `Parties?$filter=ReleaseProfiles/any(r:r/audience eq 'public')` and verify that P1 is not contained. As U2, PATCH and DELETE RP1 and verify HTTP 404.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create an Agreement G1 for `Party/displayName` with `permittedOperations` = `["publish"\]` associated with RP1. DELETE RP1 and verify HTTP 409. Withdraw G1, DELETE RP1 and verify a success status code; request RP1 and verify HTTP 404.]
+--
+
+=====
+====

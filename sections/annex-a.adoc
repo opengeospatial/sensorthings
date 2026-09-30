@@ -22,6 +22,12 @@ include::../abstract_tests/gdpr/ATS003_agreement-relations.adoc[]
 
 include::../abstract_tests/gdpr/ATS004_agreement-entity-set.adoc[]
 
+include::../abstract_tests/gdpr/ATS004a_releaseprofile-properties.adoc[]
+
+include::../abstract_tests/gdpr/ATS004b_releaseprofile-relations.adoc[]
+
+include::../abstract_tests/gdpr/ATS004c_releaseprofile-lifecycle.adoc[]
+
 
 include::../abstract_tests/gdpr/ATS005_agreement-create.adoc[]
 
@@ -41,6 +47,10 @@ include::../abstract_tests/gdpr/ATS011_release-direct.adoc[]
 include::../abstract_tests/gdpr/ATS011a_release-free-text.adoc[]
 
 include::../abstract_tests/gdpr/ATS012_release-location.adoc[]
+
+include::../abstract_tests/gdpr/ATS012a_release-resolution.adoc[]
+
+include::../abstract_tests/gdpr/ATS012b_privacy-areas.adoc[]
 
 include::../abstract_tests/gdpr/ATS013_release-time.adoc[]
 
@@ -64,6 +74,8 @@ include::../abstract_tests/gdpr/ATS017_access-right.adoc[]
 include::../abstract_tests/gdpr/ATS018_rectification.adoc[]
 
 include::../abstract_tests/gdpr/ATS019_erasure.adoc[]
+
+include::../abstract_tests/gdpr/ATS019a_retention.adoc[]
 
 
 include::../abstract_tests/gdpr/ATS020_advertisement.adoc[]
@@ -102,6 +114,8 @@ include::../abstract_tests/accepted-clients/ATS009_writeprofile-enforcement.adoc
 
 include::../abstract_tests/accepted-clients/ATS009a_free-text-policy.adoc[]
 
+include::../abstract_tests/accepted-clients/ATS009b_write-location-resolution.adoc[]
+
 include::../abstract_tests/accepted-clients/ATS010_provenance-binding.adoc[]
 
 include::../abstract_tests/accepted-clients/ATS011_bound-writes.adoc[]
@@ -132,7 +146,7 @@ include::../abstract_tests/dggs/ATS001_advertisement.adoc[]
 
 include::../abstract_tests/dggs/ATS002_cell-register.adoc[]
 
-include::../abstract_tests/dggs/ATS003_agreement-zone-level.adoc[]
+include::../abstract_tests/dggs/ATS003_releaseprofile-zone-level.adoc[]
 
 include::../abstract_tests/dggs/ATS004_cell-release.adoc[]
 
@@ -153,3 +167,23 @@ include::../abstract_tests/dggs/ATS011_aggregation-threshold.adoc[]
 include::../abstract_tests/dggs/ATS012_aggregation-differencing.adoc[]
 
 include::../abstract_tests/dggs/ATS013_privacy-notice.adoc[]
+
+=== add:[Conformance Class Party Context]
+
+add:[This subclause defines the abstract tests of the Party Context conformance class. The requesters and entities are defined in <<clause-conventions-requesters,Clause 5>>. The implementation under test implements <<OGC26-040>>.]
+
+include::../abstract_tests/party-context/ATS_class_party-context.adoc[]
+
+include::../abstract_tests/party-context/ATS001_register.adoc[]
+
+include::../abstract_tests/party-context/ATS002_release.adoc[]
+
+include::../abstract_tests/party-context/ATS003_association-release.adoc[]
+
+include::../abstract_tests/party-context/ATS004_write.adoc[]
+
+include::../abstract_tests/party-context/ATS005_query-consistency.adoc[]
+
+include::../abstract_tests/party-context/ATS006_privacy-notice.adoc[]
+
+include::../abstract_tests/party-context/ATS007_business-logic.adoc[]

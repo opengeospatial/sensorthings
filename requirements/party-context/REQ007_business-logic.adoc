@@ -1,0 +1,9 @@
+[[req_party-context_business-logic]]
+[requirement]
+.add:[Business Logic statement for individual parties]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/business-logic
+part:: add:[The advertised Business Logic (`http://www.opengis.net/spec/sensorthings-staplus/1.0.1/req/business-logic/gdpr-note`) SHALL state that PartyLocation and PartyActivity entities of a Party whose `role` is `individual` are processed according to the GDPR and Party Context conformance classes of this Profile: only the data subject creates, updates and deletes them (<<req_party-context_write>>); they are withheld from everyone other than the data subject unless Agreements of the data subject authorize their release; the legal basis for storing them is the legal basis declared in the privacy notice (<<req_party-context_privacy-notice>>), which the statement SHALL name; the legal basis for releasing them to anyone other than the data subject is the effective Agreement; and the same rules apply to HTTP operations and to MQTT. The statement SHALL link to the privacy notice.]
+part:: add:[This statement SHALL be the statement required by the requirement `/req/party-context/party-role` of <<OGC26-040>>.]
+====

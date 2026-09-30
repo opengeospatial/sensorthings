@@ -4,17 +4,43 @@
     "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell",
     "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell-crud",
     "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/authentication",
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/observed-properties",
     "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation",
     "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr",
     "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs"
   ],
-  "http://www.opengis.net/spec/sensorthings-dggs/1.0/req/grid-system": {
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/landing-page": {
     "gridSystem": "H3",
     "coarsestZoneLevel": 4,
-    "finestZoneLevel": 12
+    "finestZoneLevel": 12,
+    "cellCreateBoundary": {
+      "encodingType": "application/geo+json",
+      "boundary": {
+        "type": "Polygon",
+        "coordinates": [[[8.0, 49.0], [9.0, 49.0], [9.0, 50.0], [8.0, 50.0], [8.0, 49.0]]]
+      }
+    }
+  },
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/observed-properties": {
+    "functions": [
+      {"id": "min", "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/min", "equation": "min(x_1, ..., x_n)", "method": "MIN"},
+      {"id": "max", "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/max", "equation": "max(x_1, ..., x_n)", "method": "MAX"},
+      {"id": "avg", "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/avg", "equation": "(1/n) * sum(x_i)", "method": "AVG"},
+      {"id": "stddev", "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/stddev", "equation": "sqrt( 1/(n-1) * sum( (x_i - avg)^2 ) ) for n >= 2; null otherwise", "method": "STDDEV"},
+      {"id": "count", "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/count", "equation": "n", "method": "COUNT"}
+    ]
+  },
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation": {
+    "intervals": ["1hour", "1day"],
+    "zoneLevels": {"7": ["1hour", "1day"], "6": ["1day"]}
   },
   "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr": {
     "privacyNotice": "https://example.org/staplus/privacy.html",
+    "retentionPeriod": {
+      "default": "P5Y",
+      "PartyLocation": "P1Y",
+      "HistoricalLocation": "P1Y"
+    },
     "locationGeneralization": {
       "method": "dggs",
       "zoneLevel": 7

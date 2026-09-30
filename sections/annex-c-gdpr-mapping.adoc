@@ -23,16 +23,16 @@ This annex maps provisions of the GDPR (<<GDPR>>) to the requirements of this Pr
 |<<req_gdpr_agreement-properties>>, <<req_gdpr_agreement-immutable>>, <<req_gdpr_attribution-filter>>
 
 |Art. 5(1)(c) data minimisation
-|No storage of direct personal data without Agreement; generalization of location and time
-|<<req_gdpr_store-direct>>, <<req_gdpr_release-location>>, <<req_gdpr_release-time>>
+|No storage of direct personal data without Agreement; generalization of location and timeadd:[; release resolution chosen by the data subject; privacy areas]
+|<<req_gdpr_store-direct>>, <<req_gdpr_release-location>>, <<req_gdpr_release-time>>add:[, <<req_gdpr_release-resolution>>, <<req_gdpr_privacy-areas>>]
 
 |Art. 5(1)(e) storage limitation
-|Erasure on withdrawal or expiry; erasure or anonymization on deletion of the Party
-|<<req_gdpr_store-direct>>, <<req_gdpr_erasure>>
+|Erasure on withdrawal or expiry; erasure or anonymization on deletion of the del:[Party] add:[Party; deletion or anonymization when the advertised retention period of an entity expires; optional erasure of inactive Parties; deletion of observer context at its `retentionTime`]
+|<<req_gdpr_store-direct>>, del:[<<req_gdpr_erasure>>] add:[<<req_gdpr_erasure>>, <<req_gdpr_retention>>]
 
 |Art. 5(1)(f) integrity and confidentiality
 |Access control for Agreements; release control; query consistency; no query on attribution text; TLS
-|<<req_gdpr_agreement-access>>, <<req_gdpr_release-direct>>, <<req_gdpr_query-consistency>>, <<req_gdpr_attribution-filter>>, <<req_gdpr_mqtt>>, <<req_gdpr_transport-security>>
+|<<req_gdpr_agreement-access>>, add:[<<req_gdpr_releaseprofile-lifecycle>>, ]<<req_gdpr_release-direct>>, <<req_gdpr_query-consistency>>, <<req_gdpr_attribution-filter>>, <<req_gdpr_mqtt>>, <<req_gdpr_transport-security>>
 
 |Art. 5(2) accountability; Art. 7(1) demonstrating consent
 |Agreement record with `grantedTime`, `definition` and optional `proof`; retention of withdrawn records
@@ -43,8 +43,8 @@ This annex maps provisions of the GDPR (<<GDPR>>) to the requirements of this Pr
 |<<req_gdpr_agreement-properties>>
 
 |Art. 7(2) distinguishable, specific consent
-|One Agreement per purpose, property set, operation set and audience
-|<<req_gdpr_agreement-properties>>
+|One Agreement per purpose, property set, operation set and del:[audience] add:[ReleaseProfile (audience, applications, resolution)]
+|<<req_gdpr_agreement-properties>>add:[, <<req_gdpr_releaseprofile-properties>>, <<req_gdpr_release-resolution>>]
 
 |Art. 7(3) withdrawal of consent
 |Withdrawal by PATCH or DELETE, effective immediately
@@ -83,8 +83,8 @@ This annex maps provisions of the GDPR (<<GDPR>>) to the requirements of this Pr
 |<<req_gdpr_agreement-withdrawal>>, <<req_gdpr_relation-release>>, <<req_gdpr_campaign-participation>>, <<req_gdpr_privacy-notice>>
 
 |Art. 25 data protection by design and by default
-|Default non-release of direct personal data, free text and precise location and time; deterministic generalization
-|<<req_gdpr_release-direct>>, <<req_gdpr_release-free-text>>, <<req_gdpr_release-location>>, <<req_gdpr_release-time>>
+|Default non-release of direct personal data, free text and precise location and time; deterministic generalization add:[with nested partitions; minimum obfuscation in privacy areas chosen by the data subject]
+|<<req_gdpr_release-direct>>, <<req_gdpr_release-free-text>>, <<req_gdpr_release-location>>, <<req_gdpr_release-time>>add:[, <<req_gdpr_release-resolution>>, <<req_gdpr_privacy-areas>>]
 
 |Art. 32 security of processing
 |Authentication (STAplus), TLS, pseudonymous `Party/@iot.id`, `authId` never exposed
@@ -99,8 +99,8 @@ This annex maps provisions of the GDPR (<<GDPR>>) to the requirements of this Pr
 |<<req_accepted-clients_registry-access>>, <<req_accepted-clients_provenance-binding>>
 
 |Art. 25 data protection by design (Accepted Clients)
-|Write access only for accepted client releases; enforcement of declared JSON Schemas for results, parameters, properties and texts; verified absence of free text; declared on-device processing
-|<<req_accepted-clients_client-acceptance>>, <<req_accepted-clients_writeprofile-enforcement>>, <<req_accepted-clients_free-text-policy>>, <<req_accepted-clients_bound-writes>>
+|Write access only for accepted client releases; enforcement of declared JSON Schemas for results, parameters, properties and texts; verified absence of free text; declared on-device processingadd:[; enforced minimum location resolution before storage]
+|<<req_accepted-clients_client-acceptance>>, <<req_accepted-clients_writeprofile-enforcement>>, <<req_accepted-clients_free-text-policy>>, <<req_accepted-clients_bound-writes>>add:[, <<req_accepted-clients_write-location-resolution>>]
 
 |Art. 26, 28 joint controllers and processors (Accepted Clients)
 |Explicit acceptance of each application provider (institutional Party) creates the basis for the contractual relationship; the contract itself is organisational
@@ -119,8 +119,8 @@ This annex maps provisions of the GDPR (<<GDPR>>) to the requirements of this Pr
 |<<req_dggs_cell-release>>, <<req_dggs_geometry-release>>, <<req_dggs_privacy-zones>>, <<req_dggs_write-zone-level>>
 
 |Art. 7(2), 6(1)(a) specific consent (DGGS)
-|Precision of publication as a parameter of the Agreement (`zoneLevel`)
-|<<req_dggs_agreement-zone-level>>
+|Precision of publication as a parameter of the del:[Agreement] add:[ReleaseProfile] (`zoneLevel`)
+|<<req_dggs_releaseprofile-zone-level>>
 
 |Art. 5(1)(f) confidentiality, Recital 26 anonymous information (DGGS)
 |Control of Cell navigation and fine Cells; minimum number of distinct contributors and protection against differencing for aggregates
@@ -137,4 +137,20 @@ This annex maps provisions of the GDPR (<<GDPR>>) to the requirements of this Pr
 |Art. 30, 33, 34, Chapter V
 |Not addressed; organisational obligations of the controller
 |—
+
+|add:[Art. 5(1)(c) data minimisation, Art. 25(2) data protection by default (Party Context)]
+|add:[Observer context (`PartyLocation`, `PartyActivity`) and its association with Observations withheld unless authorized]
+|add:[<<req_party-context_release>>, <<req_party-context_association-release>>, <<req_party-context_query-consistency>>]
+
+|add:[Art. 6(1)(a), Art. 7 consent (named recipients)]
+|add:[ReleaseProfile whose `audience` is a list of named recipient Parties]
+|add:[<<req_gdpr_agreement-effective>>, <<req_gdpr_releaseprofile-relations>>]
+
+|add:[Art. 15, 16, 17 rights of the data subject (Party Context)]
+|add:[Observer context attributable to its Party; only the data subject writes it; deleted with the Party]
+|add:[<<req_party-context_register>>, <<req_party-context_write>>]
+
+|add:[Art. 13 information (Party Context)]
+|add:[Privacy notice on observer context]
+|add:[<<req_party-context_privacy-notice>>]
 |===

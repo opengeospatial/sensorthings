@@ -1,0 +1,11 @@
+[[req_dggs_releaseprofile-zone-level]]
+[requirement]
+.del:[Agreement] add:[ReleaseProfile] zone level and privacy zones
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/releaseprofile-zone-level
+part:: The implementation SHALL allow each del:[Agreement] add:[ReleaseProfile] to have the optional properties `zoneLevel` and `privacyZones` listed in <<tab-releaseprofile-dggs-properties>>.
+part:: The implementation SHALL reject with HTTP 400 the creation of del:[an Agreement] add:[a ReleaseProfile] whose `zoneLevel` is smaller than `coarsestZoneLevel` or larger than `finestZoneLevel`, or whose `privacyZones` contains a value that is not a valid zone identifier of the advertised grid system at a zone level between `coarsestZoneLevel` and `finestZoneLevel`.
+part:: The implementation SHALL NOT create Cell entities for the zone identifiers in `privacyZones`, and SHALL NOT provide any association from a Cell to an Agreementadd:[ or a ReleaseProfile].
+part:: `zoneLevel` and `privacyZones` SHALL be immutable according to del:[<<req_gdpr_agreement-immutable>>] add:[<<req_gdpr_releaseprofile-lifecycle>>].
+====

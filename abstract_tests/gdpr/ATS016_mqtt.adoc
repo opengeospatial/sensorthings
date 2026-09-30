@@ -12,12 +12,12 @@ test-method-type:: Functional
 =====
 [.component,class=step]
 --
-Skip this test if the implementation claims neither MQTT Subscribe STA v1.0 nor MQTT Subscribe STA v1.1.
+del:[Skip this test if the implementation claims neither MQTT Subscribe STA v1.0 nor MQTT Subscribe STA v1.1.] add:[Skip this test only if the implementation does not deliver entity changes via MQTT at all. The test applies also if the implementation offers MQTT only for the SensorThings entity types and claims no MQTT Subscribe conformance class of STAplus or of OGC 26-040.]
 --
 
 [.component,class=step]
 --
-Connect client A to the MQTT broker without authentication and subscribe to the topics `Parties`, `Agreements`, `Locations` and `Datastreams(D1)/Observations`. Connect client U2 authenticated as U2 and subscribe to the same topics.
+Connect client A to the MQTT broker without authentication and subscribe to the topics del:[`Parties`, `Agreements`, `Locations` and `Datastreams(D1)/Observations`] add:[`Parties`, `Agreements`, `Locations`, `HistoricalLocations`, `FeaturesOfInterest` and `Datastreams(D1)/Observations`, omitting the topics of entity types that the implementation does not deliver via MQTT]. Connect client U2 authenticated as U2 and subscribe to the same topics.
 --
 
 [.component,class=step]

@@ -45,5 +45,10 @@ Wait until `effectiveTime` has passed. As A, verify that `displayName` is presen
 As U1, create a Campaign CA associated with P1, Datastreams DA (associated with CA) and DB (not associated with CA), each with an Observation whose FeatureOfInterest has a precise Point. Create an Agreement G5 associated with CA for `FeatureOfInterest/feature` with `permittedOperations` = `["publish"]` and `audience` = `public`. As A, verify that the FeatureOfInterest of the Observation in DA is released as submitted and that the FeatureOfInterest of the Observation in DB is generalized or withheld.
 --
 
+
+[.component,class=step]
+--
+add:[As U1, withdraw G2, G3 and G4. Create an Agreement G6 for `Party/displayName` with `permittedOperations` = `["publish"\]`, `audience` = `recipients` and `Recipients` = P2. As U2, verify that `displayName` is present. As A and as another authenticated user that is not represented by P2, verify that `displayName` is absent.]
+--
 =====
 ====

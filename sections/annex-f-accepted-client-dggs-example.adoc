@@ -26,13 +26,25 @@ The service root URI advertises the GDPR, Accepted Clients and DGGS conformance 
       "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell",
       "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell-crud"
     ],
-    "http://www.opengis.net/spec/sensorthings-dggs/1.0/req/grid-system": {
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/landing-page": {
       "gridSystem": "H3",
       "coarsestZoneLevel": 4,
-      "finestZoneLevel": 12
+      "finestZoneLevel": 12,
+      "cellCreateBoundary": {
+        "encodingType": "application/geo+json",
+        "boundary": {
+          "type": "Polygon",
+          "coordinates": [[[8.0, 49.0], [9.0, 49.0], [9.0, 50.0], [8.0, 50.0], [8.0, 49.0]]]
+        }
+      }
     },
     "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr": {
       "privacyNotice": "https://sta.musterstadt.example/privacy.html",
+      "retentionPeriod": {
+        "default": "P5Y",
+        "PartyLocation": "P1Y",
+        "HistoricalLocation": "P1Y"
+      },
       "acceptancePolicy": "https://sta.musterstadt.example/client-acceptance.html",
       "locationGeneralization": { "method": "dggs", "zoneLevel": 7 },
       "timeGeneralization": { "resolution": "PT1H" }
@@ -271,7 +283,7 @@ Without an Agreement of the data subject, other requesters receive the Cell asso
 |empty collection
 |===
 
-If the data subject wants registered users to see the measurements at a finer level, for example to help the city identify noisy streets, she creates an Agreement for the Cell association with `zoneLevel` 9 (<<req_dggs_agreement-zone-level>>):
+If the data subject wants registered users to see the measurements at a finer level, for example to help the city identify noisy streets, she creates an Agreement for the Cell association with add:[a ReleaseProfile whose ]`zoneLevel` add:[is ]9 (<<req_dggs_releaseprofile-zone-level>>):
 
 [source,json]
 ----
@@ -281,8 +293,11 @@ If the data subject wants registered users to see the measurements at a finer le
   "definition": "https://sta.musterstadt.example/consent/noise-cells/v1",
   "coveredProperties": ["Observation/Cell", "FeatureOfInterest/feature"],
   "permittedOperations": ["publish"],
-  "audience": "authenticated",
-  "zoneLevel": 9,
+  "ReleaseProfile": {
+    "name": "Registered users at street-block level",
+    "audience": "authenticated",
+    "zoneLevel": 9
+  },
   "Party": { "@iot.id": "6c9e2f70-8a41-4d0b-b3e5-7f1a9c2d8e03" }
 }
 ----

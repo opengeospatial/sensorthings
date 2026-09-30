@@ -1,0 +1,39 @@
+[[ats_gdpr_releaseprofile-relations]]
+[abstract_test]
+.add:[ReleaseProfile relations]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/releaseprofile-relations
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/releaseprofile-relations
+test-purpose:: add:[Verify the associations of ReleaseProfiles with Parties and Agreements.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[As U1, create a ReleaseProfile RP1 for P1 with `audience` = `recipients` and `Recipients` = P2, and an Agreement G1 for `Party/displayName` with `permittedOperations` = `["publish"\]` associated with RP1.]
+--
+
+[.component,class=step]
+--
+add:[As U1, request RP1 and verify that `Party@iot.navigationLink`, `Recipients@iot.navigationLink` and `Agreements@iot.navigationLink` are present. Follow them and verify that P1, P2 and G1 are returned. Request `Agreements(G1)/ReleaseProfile` and `Parties(P1)/ReleaseProfiles` and verify that RP1 is returned or contained.]
+--
+
+[.component,class=step]
+--
+add:[As U1, POST a ReleaseProfile with `audience` = `recipients` and no `Recipients`, one with `audience` = `public` and `Recipients` = P2, and one with `audience` = `recipients` and `Recipients` = P1. Verify HTTP 400 for each request.]
+--
+
+[.component,class=step]
+--
+add:[As U1, POST an Agreement with `permittedOperations` = `["publish"\]` and no ReleaseProfile, an Agreement with `permittedOperations` = `["store"\]` associated with RP1, an Agreement with `permittedOperations` = `["publish"\]` associated with a ReleaseProfile of P1 that has no `audience`, and an Agreement of P1 associated with a ReleaseProfile of P2. Verify HTTP 400 for each request.]
+--
+
+[.component,class=step]
+--
+add:[As U2, request `Parties(P2)?$expand=ReleaseProfiles` and verify that RP1 is not contained.]
+--
+
+=====
+====

@@ -4,6 +4,6 @@
 ====
 [%metadata]
 identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/access-right
-part:: The implementation SHALL release to the data subject of a Party `P` all stored values of all entities attributable to `P`, without omission, generalization or withholding, except where <<req_gdpr_personal-data-register>> requires otherwise for an entity that is also attributable to another Party.
-part:: The implementation SHALL release to the data subject the Agreements of `P` when the data subject requests `Parties?$filter=authId eq me()&$expand=Agreements`.
+part:: The implementation SHALL release to the data subject of a Party `P` all stored values of all entities attributable to `P`, without omission, generalization or withholding, except where <<req_gdpr_personal-data-register>> requires otherwise for an entity that is also attributable to another Partyadd:[, and except where <<req_gdpr_retention>> applies: <<req_gdpr_retention>> takes precedence over this requirement, so that the stored values of an entity are not released to the data subject from its retention instant on].
+part:: The implementation SHALL release to the data subject the Agreements of `P` when the data subject requests `Parties?$filter=authId eq me()&$expand=Agreements`.add:[ The implementation SHALL release to the data subject the ReleaseProfiles of `P` when the data subject requests `Parties?$filter=authId eq me()&$expand=ReleaseProfiles`.]
 ====

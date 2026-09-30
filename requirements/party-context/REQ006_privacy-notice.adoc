@@ -1,0 +1,8 @@
+[[req_party-context_privacy-notice]]
+[requirement]
+.add:[Privacy notice for observer context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/privacy-notice
+part:: add:[If the implementation claims the Party Context conformance class, the privacy notice (<<req_gdpr_privacy-notice>>) SHALL state that the implementation stores PartyLocation and PartyActivity entities, the legal basis for storing them (item (c) of <<req_gdpr_privacy-notice>>), that they are withheld from others unless the data subject authorizes their release by an Agreement, that `retentionTime` and the deletion of the Party remove them, and that values released to recipients cannot be recalled by withdrawing the Agreement.]
+====

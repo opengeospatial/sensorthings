@@ -22,7 +22,7 @@ As U1, PATCH G1 with a new value for `purpose`. Verify HTTP 400 and that `purpos
 
 [.component,class=step]
 --
-As U1, PATCH G1 with `coveredProperties` extended by one path. Verify HTTP 400 and that `coveredProperties` is unchanged.
+As U1, PATCH G1 with `coveredProperties` extended by one path. Verify HTTP 400 and that `coveredProperties` is unchanged.add:[ If G1 is associated with a ReleaseProfile, PATCH G1 with an association to another ReleaseProfile of P1. Verify HTTP 400 and that the association is unchanged.]
 --
 
 [.component,class=step]

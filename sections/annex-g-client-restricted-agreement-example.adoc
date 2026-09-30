@@ -4,7 +4,7 @@
 
 === General
 
-This annex illustrates <<req_accepted-clients_client-restricted-agreements>>. Jane, the data subject of <<annex-agreement-example>>, wants her display name to appear next to her measurements in the AirBuddy application of <<annex-accepted-clients-example>>, but not in any other application and not on the open web. With an Agreement of the GDPR requirements class alone, this cannot be expressed: `audience` `authenticated` releases the name to every registered user, whatever application that user reads with. With the Accepted Clients conformance class, the Agreement can name the application.
+This annex illustrates <<req_accepted-clients_client-restricted-agreements>>. Jane, the data subject of <<annex-agreement-example>>, wants her display name to appear next to her measurements in the AirBuddy application of <<annex-accepted-clients-example>>, but not in any other application and not on the open web. With an Agreement of the GDPR requirements class alone, this cannot be expressed: `audience` `authenticated` releases the name to every registered user, whatever application that user reads with. With the Accepted Clients conformance class, the del:[Agreement] add:[ReleaseProfile of the Agreement] can name the application.
 
 All names, identifiers and URLs are fictitious.
 
@@ -22,9 +22,9 @@ The catalog of the endpoint contains, among others, the following Client entitie
 |CityMap 5.0.0 |`citymap-web` |`5.0.0` |`accepted` |map viewer of a third party, reads and writes
 |===
 
-=== Creating the Agreement
+=== Creating the Agreement add:[and its ReleaseProfile]
 
-Jane already has an Agreement that permits `store` for `Party/displayName`, so that her display name is stored but not released. She now creates an Agreement that permits `publish`, restricted to AirBuddy:
+Jane already has an Agreement that permits `store` for `Party/displayName`, so that her display name is stored but not released. She now creates an Agreement that permits `publish`, restricted to AirBuddyadd:[ by a deep-inserted ReleaseProfile]:
 
 [[example-cra-create]]
 .Agreement that releases the display name only through AirBuddy
@@ -44,12 +44,15 @@ Content-Type: application/json
   "definition": "https://sta.musterstadt.example/consent/display-name-airbuddy/v1",
   "coveredProperties": ["Party/displayName"],
   "permittedOperations": ["publish"],
-  "audience": "authenticated",
-  "clientIds": ["airbuddy-mobile"]
+  "ReleaseProfile": {
+    "name": "Registered users of AirBuddy",
+    "audience": "authenticated",
+    "clientIds": ["airbuddy-mobile"]
+  }
 }
 ----
 
-The implementation checks that `airbuddy-mobile` is a `clientId` in its catalog and that `audience` is `authenticated`, and stores the Agreement:
+The implementation checks that `airbuddy-mobile` is a `clientId` in its catalog and that `audience` is `authenticated`, and stores the Agreement add:[and the ReleaseProfile]:
 
 [source,json]
 ----
@@ -61,17 +64,16 @@ The implementation checks that `airbuddy-mobile` is a `clientId` in its catalog 
   "definition": "https://sta.musterstadt.example/consent/display-name-airbuddy/v1",
   "coveredProperties": ["Party/displayName"],
   "permittedOperations": ["publish"],
-  "audience": "authenticated",
-  "clientIds": ["airbuddy-mobile"],
   "grantedTime": "2026-09-25T18:40:02Z",
   "effectiveTime": "2026-09-25T18:40:02Z",
-  "status": "active"
+  "status": "active",
+  "ReleaseProfile@iot.navigationLink": "https://sta.musterstadt.example/v1.1/Agreements('a4c1e9f2-6b3d-4e70-9a58-2d7f1c0b8e64')/ReleaseProfile"
 }
 ----
 
-The Agreement refers to the application `airbuddy-mobile`, not to one of its releases. It therefore remains valid when further releases of AirBuddy are accepted.
+The del:[Agreement] add:[ReleaseProfile] refers to the application `airbuddy-mobile`, not to one of its releases. It therefore remains valid when further releases of AirBuddy are accepted.
 
-Two variants of the request are rejected with HTTP 400: `clientIds` = `["airbuddy-mobil"]`, because no Client with that `clientId` exists, and `audience` = `public` together with `clientIds`, because an unauthenticated request carries no credential from which the application could be determined.
+Two variants of the request are rejected with HTTP 400add:[, and neither the Agreement nor the ReleaseProfile is created]: `clientIds` = `["airbuddy-mobil"]`, because no Client with that `clientId` exists, and `audience` = `public` together with `clientIds`, because an unauthenticated request carries no credential from which the application could be determined.
 
 === How a read request is evaluated
 

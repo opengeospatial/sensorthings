@@ -5,11 +5,13 @@ The OGC SensorThings API Extension: STAplus 1.0 Standard (corrigendum 1.0.1) sup
 
 This GDPR Profile closes that gap for deployments that are subject to the European General Data Protection Regulation (GDPR). It identifies the direct personal data of the STAplus data model, most prominently the properties of the `Party` entity type and the `attributionText` of party-specific `License` instances, and the indirect personal data that are captured in location and time properties inherited from SensorThings API. It adds the entity type `Agreement`, which records the authorization of a data subject for storing and publishing specific personal data, and it makes an effective `Agreement` the legal basis before an implementation releases, for example, `Party/displayName` or `License/attributionText`. Without an `Agreement`, precise location and time values are either generalized or withheld.
 
-The Profile defines one mandatory conformance class, _GDPR_, with requirements and abstract tests for the personal data register, the `Agreement` life cycle (creation, access, withdrawal, expiry), the release control for direct and indirect personal data, query evaluation that cannot be used as an oracle, attribution integrity, MQTT, the data subject rights of access, rectification and erasure, the advertisement of a privacy notice, and transport security. It specifies which STAplus 1.0.1 conformance classes an implementation of the GDPR conformance class shall implement.
+The Profile defines one mandatory conformance class, _GDPR_, with requirements and abstract tests for the personal data register, the `Agreement` life cycle (creation, access, withdrawal, expiry), add:[the `ReleaseProfile` that states audience, applications, location and time resolution and privacy areas, ]the release control for direct and indirect personal data, query evaluation that cannot be used as an oracle, attribution integrity, MQTT, the data subject rights of access, rectification and erasure, the advertisement of a privacy notice, and transport security. It specifies which STAplus 1.0.1 conformance classes an implementation of the GDPR conformance class shall implement.
 
 The optional conformance class _Accepted Clients_ addresses the fact that the operator of an endpoint usually does not know what applications write into free-text properties, `parameters` and observation results. Each endpoint keeps a public catalog of accepted client applications, identified strictly by their OAuth 2.0 `client_id` and software version or software identifier, together with `WriteProfile` entities that declare and enforce, by JSON Schema, what each application may write. Write requests from any other client are rejected with HTTP 403, and every `Datastream` and `MultiDatastream` is bound to the `WriteProfile` under which it was created.
 
-The optional conformance class _DGGS_ uses the cells of the OGC SensorThings API Extension: DGGS 1.0 (OGC 26-057) for spatial obfuscation. Locations are released as the cell of an advertised public zone level instead of coordinates; data subjects can authorize finer or coarser zone levels and define privacy zones in their Agreements; the Cell associations, cell navigation and the materialization of fine cells are controlled as personal data; accepted clients can be limited to sending cells only; and DGGS aggregates are released only when they cover a minimum number of distinct individuals.
+The optional conformance class _DGGS_ uses the cells of the OGC SensorThings API Extension: DGGS 1.0 (OGC 26-057) for spatial obfuscation. Locations are released as the cell of an advertised public zone level instead of coordinates; data subjects can authorize finer or coarser zone levels and define privacy zones in their del:[Agreements] add:[ReleaseProfiles]; the Cell associations, cell navigation and the materialization of fine cells are controlled as personal data; accepted clients can be limited to sending cells only; and DGGS aggregates are released only when they cover a minimum number of distinct individuals.
+
+add:[The optional conformance class _Party Context_ applies this Profile to the `PartyLocation` and `PartyActivity` entity types of the OGC SensorThings API Extension: STAplus Party Context 1.0 (OGC 26-040), which record where a party was and what it was doing when an observation was made. These entities, and their association with observations, are withheld from everyone other than the data subject unless an Agreement authorizes their release. An Agreement can name its audience, through its ReleaseProfile, as the public, all authenticated users, or a list of named recipient parties, for example a campaign coordinator who reviews observer tracks.]
 
 == Preface
 
@@ -39,11 +41,42 @@ The strength of the Accepted Clients conformance class depends on how reliably t
 
 DGGS cells make obfuscation standard and verifiable, but a coarse cell remains personal data while it is linked to a Party, and a sequence of coarse cells over time can still reveal routines. The public zone level therefore needs to be chosen together with the time generalization. Aggregates of DGGS cells are only anonymous if enough distinct individuals contribute; counting observations is not sufficient.
 
+add:[An Agreement whose ReleaseProfile names a list of recipients limits who receives the released values. It cannot limit what the recipients do with them, and values already retrieved cannot be recalled by withdrawing the Agreement. The privacy notice needs to say so.]
+
 == Submitters
 
 All questions regarding this submission should be directed to the editor or the submitters:
 
 |===
 |*Name* |*Affiliation* |*OGC Member*
-|Andreas Matheus |Secure Dimensions GmbH |Yes
+|Andreas Matheus 
+|Secure Dimensions GmbH 
+|Yes
+
+|Joan Maso
+|Centre de Recerca Ecològica i Aplicacions Forestals (CREAF)
+|Yes
+
+|Hylke van der Schaaf
+|Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+|Yes
+
+|===
+
+[[contributors]]
+== Contributors
+
+.Contributors
+[%autowidth,cols="3*"]
+|===
+|Name |Representing |OGC Member
+
+|Katharina Schleidt
+|DataCove e.U.
+|Yes
+
+|Kateryna Konieva
+|Individual
+|Yes
+
 |===

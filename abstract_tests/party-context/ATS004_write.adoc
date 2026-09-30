@@ -1,0 +1,33 @@
+[[ats_party-context_write]]
+[abstract_test]
+.add:[Writing observer context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/write
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/write
+test-purpose:: add:[Verify that only the data subject writes observer context.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[As A, POST a PartyLocation associated with P1 and verify HTTP 401. As U2, POST a PartyLocation associated with P1 and verify HTTP 403.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create a PartyLocation L1 associated with P1. As U2, PATCH and DELETE L1 and verify HTTP 403 or HTTP 404, and that L1 is unchanged.]
+--
+
+[.component,class=step]
+--
+add:[As U2, create an Observation in a Datastream of P2 associated with L1 and verify HTTP 403.]
+--
+
+[.component,class=step]
+--
+add:[As U1, PATCH the `Party` association of L1 to P2 and verify HTTP 400.]
+--
+=====
+====

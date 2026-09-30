@@ -1,6 +1,6 @@
 {
   "@iot.id": "7b3f0e9c-2a41-4d86-8c15-f0a6e3d92b57",
-  "@iot.selfLink": "https://example.org/staplus/v1.1/WriteProfiles('7b3f0e9c-2a41-4d86-8c15-f0a6e3d92b57')",
+  "@iot.selfLink": "https://example.org/staplus-partycontext/v1.0/WriteProfiles('7b3f0e9c-2a41-4d86-8c15-f0a6e3d92b57')",
   "name": "PM2.5 low-cost sensor, v2",
   "description": "Stationary PM2.5 readings with fixed sampling intervals; no user-entered text",
   "entityTypes": [ "Thing", "Location", "Datastream", "Observation", "FeatureOfInterest" ],
@@ -64,7 +64,7 @@
   "clientSideProcessing": { "locationResolution": 100 },
   "creationTime": "2026-09-01T08:55:00Z",
   "status": "active",
-  "Clients@iot.navigationLink": "https://example.org/staplus/v1.1/WriteProfiles('7b3f0e9c-2a41-4d86-8c15-f0a6e3d92b57')/Clients",
-  "ObservedProperties@iot.navigationLink": "https://example.org/staplus/v1.1/WriteProfiles('7b3f0e9c-2a41-4d86-8c15-f0a6e3d92b57')/ObservedProperties",
-  "Datastreams@iot.navigationLink": "https://example.org/staplus/v1.1/WriteProfiles('7b3f0e9c-2a41-4d86-8c15-f0a6e3d92b57')/Datastreams"
+  "Clients@iot.navigationLink": "https://example.org/staplus-partycontext/v1.0/WriteProfiles('7b3f0e9c-2a41-4d86-8c15-f0a6e3d92b57')/Clients",
+  "ObservedProperties@iot.navigationLink": "https://example.org/staplus-partycontext/v1.0/WriteProfiles('7b3f0e9c-2a41-4d86-8c15-f0a6e3d92b57')/ObservedProperties",
+  "Datastreams@iot.navigationLink": "https://example.org/staplus-partycontext/v1.0/WriteProfiles('7b3f0e9c-2a41-4d86-8c15-f0a6e3d92b57')/Datastreams"
 }

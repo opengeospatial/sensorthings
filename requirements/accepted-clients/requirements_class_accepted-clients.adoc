@@ -17,6 +17,7 @@ requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/acce
 requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/client-acceptance
 requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/writeprofile-enforcement
 requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/free-text-policy
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/write-location-resolution
 requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/provenance-binding
 requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/bound-writes
 requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/link-conformance

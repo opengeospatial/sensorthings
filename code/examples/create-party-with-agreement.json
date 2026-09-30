@@ -9,7 +9,10 @@
       "definition": "https://example.org/staplus/consent/display-name/v2",
       "coveredProperties": [ "Party/displayName" ],
       "permittedOperations": [ "store", "publish" ],
-      "audience": "authenticated"
+      "ReleaseProfile": {
+        "name": "Registered users",
+        "audience": "authenticated"
+      }
     }
   ]
 }

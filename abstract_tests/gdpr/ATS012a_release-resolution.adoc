@@ -1,0 +1,44 @@
+[[ats_gdpr_release-resolution]]
+[abstract_test]
+.add:[Release resolution]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/release-resolution
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/release-resolution
+test-purpose:: add:[Verify that the ReleaseProfile of an effective Agreement determines the resolution at which locations and times are released, and that the release resolution is not coarser than the public generalization.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[Request the service root URI and record whether `locationGeneralization` and `timeGeneralization` are advertised and, if so, their resolutions `G` (metres) and `T` (duration). If the implementation claims the DGGS conformance class, as U1 create a ReleaseProfile with `locationResolution` = 500 and verify HTTP 400, and skip the location steps below. If `locationGeneralization` is not advertised, as U1 create a ReleaseProfile with `locationResolution` = 500 and verify HTTP 400; if `timeGeneralization` is not advertised, create a ReleaseProfile with `timeResolution` = `PT1H` and verify HTTP 400.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create a Thing T1 of P1 with a Location L1 whose `location` is a Point `X` given to seven decimal places, and in D1 an Observation O1 with a `phenomenonTime` `t` given to the second.]
+--
+
+[.component,class=step]
+--
+add:[If `locationGeneralization` is advertised: as U1, create a ReleaseProfile RP1 with `audience` = `public` and `locationResolution` = `G`/4, and an Agreement G1 for `Location/location` with `permittedOperations` = `["publish"\]` associated with RP1. As A, request `Locations(L1)` twice and verify identical geometries that are not identical to `X` and whose distance to `X` does not exceed `G`/2.]
+--
+
+[.component,class=step]
+--
+add:[If `timeGeneralization` is advertised and `T` is longer than `PT1H`: as U1, create a ReleaseProfile RP2 with `audience` = `public` and `timeResolution` = `PT1H`, and an Agreement G2 for `Observation/phenomenonTime` with `permittedOperations` = `["publish"\]` associated with RP2. As A, verify that `phenomenonTime` of O1 is `t` truncated to the full hour.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create a ReleaseProfile RP3 with `audience` = `authenticated` and no resolution, and an Agreement G3 for `Location/location` and `Observation/phenomenonTime` with `permittedOperations` = `["publish"\]` associated with RP3. As U2, verify that L1 carries `X` and O1 carries `t`. As A, verify the generalized values of the previous steps.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create a ReleaseProfile RP4 with `audience` = `public` and `locationResolution` = 10 × `G`, and an Agreement G4 for `Location/location` associated with RP4. Withdraw G1 and G3. As A, verify that the geometry of L1 is identical to the geometry released without an Agreement in <<ats_gdpr_release-location>>.]
+--
+
+=====
+====

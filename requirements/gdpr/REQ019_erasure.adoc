@@ -4,7 +4,9 @@
 ====
 [%metadata]
 identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/erasure
-part:: When the data subject deletes their Party `P` by HTTP DELETE, the implementation SHALL erase `P`, the Agreements of `P` (subject to <<req_gdpr_agreement-withdrawal>>) and the values of all direct personal data properties of all entities attributable to `P`.
+part:: When the data subject deletes their Party `P` by HTTP DELETE, the implementation SHALL erase `P`, the Agreements of `P` (subject to <<req_gdpr_agreement-withdrawal>>)add:[, the ReleaseProfiles of `P`] and the values of all direct personal data properties of all entities attributable to `P`.
 part:: For every other entity attributable to `P`, the implementation SHALL either delete the entity or irreversibly anonymize it, as declared in the privacy notice for the entity type. Anonymization SHALL at least remove the association with `P`, replace the stored values of indirect location and time properties by their generalized values according to <<req_gdpr_release-location>> and <<req_gdpr_release-time>>, and erase the values of free-text properties that are not exempt according to <<req_gdpr_release-free-text>>, replacing the values of mandatory properties by the empty string.
+part:: add:[The implementation SHALL remove `P` from the `Recipients` association of every ReleaseProfile of another Party.]
 part:: The implementation SHALL complete the erasure before the response to the HTTP DELETE request is sent.
+part:: add:[The action declared in the privacy notice for an entity type SHALL also apply when the retention instant of an entity of that type is reached (<<req_gdpr_retention>>).]
 ====

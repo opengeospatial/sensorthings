@@ -17,6 +17,9 @@ abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/g
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-properties
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-relations
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-entity-set
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/releaseprofile-properties
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/releaseprofile-relations
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/releaseprofile-lifecycle
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-create
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-access
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/agreement-immutable
@@ -26,6 +29,8 @@ abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/g
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/release-direct
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/release-free-text
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/release-location
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/release-resolution
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/privacy-areas
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/release-time
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/query-consistency
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/attribution-filter
@@ -37,6 +42,7 @@ abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/g
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/access-right
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/rectification
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/erasure
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/retention
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/advertisement
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/privacy-notice
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/transport-security

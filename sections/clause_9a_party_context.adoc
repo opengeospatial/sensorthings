@@ -1,0 +1,43 @@
+[[clause-party-context]]
+== add:[Requirements Class Party Context]
+
+=== add:[Overview]
+
+add:[The OGC SensorThings API Extension: STAplus Party Context 1.0 (<<OGC26-040>>) adds the entity types `PartyLocation` and `PartyActivity`. A `PartyLocation` records where a Party was, a `PartyActivity` what the Party was doing, when an observation was made. Both are associated with exactly one Party and can be associated with Observations. For a Party whose `role` is `individual`, they form a record of the movements and activities of a natural person: an observer track.]
+
+add:[<<OGC26-040>> defines these entities without access control. It can be used without further rules for parties whose `role` is `institutional` or `system`. It accepts PartyLocation and PartyActivity of a Party whose `role` is `individual` only if the advertised Business Logic states the access control and legal basis that apply to them (<<OGC26-040>>, requirement `/req/party-context/party-role`). The Party Context requirements class of this Profile specifies these rules and the corresponding Business Logic statement:]
+
+* add:[that observer context is part of the personal data register and attributable to its Party, so that the rights of access, rectification and erasure apply;]
+* add:[that a PartyLocation or PartyActivity is withheld from everyone other than the data subject unless Agreements of the data subject authorize the release of its location or activity and its time;]
+* add:[that the association between an Observation and the observer context is released only with a further Agreement, so that published observations do not reveal the track of the observer;]
+* add:[that only the data subject writes observer context;]
+* add:[the statement in the Business Logic that <<OGC26-040>> requires for individual parties; and]
+* add:[the statements in the privacy notice.]
+
+add:[An Agreement whose ReleaseProfile has the `audience` `recipients` (<<req_gdpr_agreement-effective>>) releases observer context to named Parties only, for example to the coordinator of a campaign who reviews the tracks of the participants. Observer context is never generalized, also not with the DGGS conformance class: a PartyLocation or PartyActivity is released with its stored values or withheld completely. Consequently, observer context to which a privacy area or privacy zone of the data subject applies is withheld, and a `locationResolution` or `timeResolution` in the ReleaseProfile of an Agreement covering observer context withholds it as well.]
+
+include::../requirements/party-context/requirements_class_party-context.adoc[]
+
+=== add:[Personal data register]
+
+include::../requirements/party-context/REQ001_register.adoc[]
+
+=== add:[Release]
+
+include::../requirements/party-context/REQ002_release.adoc[]
+
+include::../requirements/party-context/REQ003_association-release.adoc[]
+
+include::../requirements/party-context/REQ005_query-consistency.adoc[]
+
+=== add:[Writing observer context]
+
+include::../requirements/party-context/REQ004_write.adoc[]
+
+include::../requirements/party-context/REC_observer-position.adoc[]
+
+=== add:[Transparency]
+
+include::../requirements/party-context/REQ006_privacy-notice.adoc[]
+
+include::../requirements/party-context/REQ007_business-logic.adoc[]

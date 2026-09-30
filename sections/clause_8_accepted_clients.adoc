@@ -137,7 +137,7 @@ include::../requirements/accepted-clients/REQ002_client-relations.adoc[]
 
 A WriteProfile describes the write behaviour that one or more Clients have declared and that the implementation enforces. Several releases of the same application can implement the same WriteProfile; a new WriteProfile is needed only when the write behaviour changes. Because Datastreams and MultiDatastreams are bound to a WriteProfile, a WriteProfile cannot be changed after creation; it can only be superseded.
 
-The `entitySchemas` are the enforcement mechanism for content that the implementation cannot otherwise interpret. For example, a schema for `Observation` can restrict `result` to a number range and `parameters` to a closed set of members, and a schema for `Datastream` can restrict `name` and `description` to an enumeration or a pattern. `resultCategory` and `clientSideProcessing` are declarations that make the behaviour of the Client transparent to data consumers and data subjects. `freeTextPolicy` is verified: for `none` and `controlled-vocabulary`, the implementation checks when the WriteProfile is created that its schemas admit no free text (<<req_accepted-clients_free-text-policy>>). Names, descriptions and properties written under such a WriteProfile are not the text of a user and are released without an Agreement of the data subject; text written under `moderated` or `free` is released only with an Agreement (<<req_gdpr_release-free-text>>).
+The `entitySchemas` are the enforcement mechanism for content that the implementation cannot otherwise interpret. For example, a schema for `Observation` can restrict `result` to a number range and `parameters` to a closed set of members, and a schema for `Datastream` can restrict `name` and `description` to an enumeration or a pattern. `resultCategory` and `clientSideProcessing` are declarations that make the behaviour of the Client transparent to data consumers and data subjects.add:[ The properties of a WriteProfile control what is stored; the conditions under which stored values are released to others are the properties of the ReleaseProfiles of the data subject (<<clause-gdpr>>).] `freeTextPolicy` is verified: for `none` and `controlled-vocabulary`, the implementation checks when the WriteProfile is created that its schemas admit no free text (<<req_accepted-clients_free-text-policy>>). Names, descriptions and properties written under such a WriteProfile are not the text of a user and are released without an Agreement of the data subject; text written under `moderated` or `free` is released only with an Agreement (<<req_gdpr_release-free-text>>).
 
 [[tab-writeprofile-properties]]
 .Properties of a WriteProfile entity
@@ -184,6 +184,11 @@ The `entitySchemas` are the enforcement mechanism for content that the implement
 |The declared processing on the device before upload, with the optional members `locationResolution` (Number, metres) and `mediaAnonymization` (Array of ValueCode [`faces`, `license-plates`, `voices`]).
 |JSON Object
 |Zero or one (optional)
+
+|add:[`storedLocationResolution`]
+|add:[The resolution, in metres, to which the implementation generalizes the positions written by Clients implementing this WriteProfile before it stores them (<<req_accepted-clients_write-location-resolution>>). Unlike `clientSideProcessing`, it is enforced. Not used if the DGGS conformance class is claimed (see `maxZoneLevel` and `locationPolicy`).]
+|add:[Number, greater than zero]
+|add:[Zero or one (optional)]
 
 |`creationTime`
 |The time at which the WriteProfile was created.
@@ -244,6 +249,10 @@ include::../requirements/accepted-clients/REQ009_writeprofile-enforcement.adoc[]
 
 include::../requirements/accepted-clients/REQ009a_free-text-policy.adoc[]
 
+add:[`clientSideProcessing` only declares what a Client does on the device. Without the DGGS conformance class, the operator can enforce a minimum spatial obfuscation for all data written by an application with the WriteProfile property `storedLocationResolution`: the implementation generalizes each written position before it is stored, so that the precise position is not stored, although it is transmitted. The generalized value is then the stored value; no ReleaseProfile can authorize the release of a finer position. `storedLocationResolution` is the store-time counterpart of the release-time `locationResolution` of a ReleaseProfile (<<req_gdpr_release-resolution>>).]
+
+include::../requirements/accepted-clients/REQ009b_write-location-resolution.adoc[]
+
 include::../requirements/accepted-clients/REQ010_provenance-binding.adoc[]
 
 include::../requirements/accepted-clients/REQ011_bound-writes.adoc[]
@@ -272,12 +281,12 @@ include::../requirements/accepted-clients/REQ015_mqtt-create.adoc[]
 
 === Agreements restricted to applications
 
-An Agreement of the GDPR requirements class releases a value to every requester of its `audience`, whatever application the requester uses. With the client catalog, a data subject can restrict the release further to named applications, for example "`show my display name to registered users of the AirBuddy app`". The implementation then resolves the client identification also for read requests and releases the value only if the request comes through one of the listed applications.
+An Agreement of the GDPR requirements class releases a value to every requester of del:[its `audience`] add:[the `audience` of its ReleaseProfile], whatever application the requester uses. With the client catalog, a data subject can restrict the release further to named applicationsadd:[ by the ReleaseProfile property `clientIds`], for example "`show my display name to registered users of the AirBuddy app`". The implementation then resolves the client identification also for read requests and releases the value only if the request comes through one of the listed applications.
 
-The Agreement refers to client identifiers, not to Client entities. A Client entity describes one release, whereas a data subject agrees to an application; an Agreement that referenced a release would stop being effective with the next release. Because Agreements are immutable, the reference to the application keeps the Agreement valid across releases, and the status of the Client entities decides whether a release is currently trusted.
+The del:[Agreement] add:[ReleaseProfile] refers to client identifiers, not to Client entities. A Client entity describes one release, whereas a data subject agrees to an application; an Agreement that referenced a release would stop being effective with the next release. Because del:[Agreements are] add:[ReleaseProfiles are] immutable, the reference to the application keeps the Agreement valid across releases, and the status of the Client entities decides whether a release is currently trusted.
 
-[[tab-agreement-ac-properties]]
-.Additional property of an Agreement entity (Accepted Clients)
+[[tab-releaseprofile-ac-properties]]
+.Additional property of del:[an Agreement] add:[a ReleaseProfile] entity (Accepted Clients)
 [cols="17,38,23,22",options="header"]
 |===
 |Name |Definition |Data type |Multiplicity and use

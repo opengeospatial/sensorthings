@@ -1,0 +1,14 @@
+[[req_gdpr_releaseprofile-lifecycle]]
+[requirement]
+.add:[ReleaseProfile life cycle and access]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/releaseprofile-lifecycle
+part:: add:[The `value` array of the service root URI SHALL contain an entry with `name` equal to `ReleaseProfiles` and with `url` equal to the URL of the ReleaseProfile collection.]
+part:: add:[The implementation SHALL accept the creation of a ReleaseProfile, by HTTP POST to the ReleaseProfile collection, by HTTP POST to the `ReleaseProfiles` navigation link of a Party, or by deep insert together with an Agreement, only if the requester is the data subject of the associated Party. It SHALL reject a creation request from an unauthenticated requester with HTTP 401 and from an authenticated requester that is not the data subject with HTTP 403.]
+part:: add:[The implementation SHALL reject with HTTP 400 a creation request in which a value is outside the value domain defined in <<tab-releaseprofile-properties>> or violates <<req_gdpr_releaseprofile-properties>>, or in which the associations do not conform to <<req_gdpr_releaseprofile-relations>>. No entity SHALL be created.]
+part:: add:[The implementation SHALL set `@iot.id` of the ReleaseProfile to a random identifier that is not correlated to the user identification of the data subject.]
+part:: add:[The properties and associations of a ReleaseProfile SHALL NOT be changed after creation. An HTTP PUT or PATCH request by the data subject SHALL be rejected with HTTP 400 and SHALL leave the ReleaseProfile unchanged.]
+part:: add:[The data subject SHALL be able to delete a ReleaseProfile by HTTP DELETE, unless an Agreement whose `status` is `active` is associated with it; such a request SHALL be rejected with HTTP 409. A deletion SHALL take effect for every HTTP request and every MQTT message processed after the response to the deletion request has been sent.]
+part:: add:[<<req_gdpr_agreement-access>> SHALL apply to ReleaseProfiles as it applies to Agreements: the implementation SHALL NOT include a ReleaseProfile or any of its properties in a response to a requester that is not the data subject of the associated Party, SHALL answer requests of such a requester to an individual ReleaseProfile, to a resource path that traverses a ReleaseProfile, and to a PUT, PATCH or DELETE of a ReleaseProfile with HTTP 404, and SHALL evaluate every query option and expression that navigates to ReleaseProfiles as if the ReleaseProfiles of other data subjects did not exist.]
+====

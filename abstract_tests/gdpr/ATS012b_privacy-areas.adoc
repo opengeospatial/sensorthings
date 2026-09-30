@@ -1,0 +1,44 @@
+[[ats_gdpr_privacy-areas]]
+[abstract_test]
+.add:[Privacy areas]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr/privacy-areas
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/privacy-areas
+test-purpose:: add:[Verify that privacy areas restrict the release irrespective of Agreements, from the creation of their ReleaseProfile until its deletion.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[As U1, create a Thing T1 of P1 with a Location L1 whose `location` is a Point `X`, and a ReleaseProfile RP1 with `audience` = `public` and no resolution with an Agreement G1 for `Location/location` and `Observation/phenomenonTime` with `permittedOperations` = `["publish"\]` associated with RP1. As A, verify that L1 carries `X`.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create a ReleaseProfile RP2 without `audience` and without Agreement, whose `privacyAreas` has one member with an `area` of about 1 km × 1 km that contains `X`, `locationResolution` = 1000 and, if `timeGeneralization` is advertised, `timeResolution` = `P1D`. As A and as U2, verify that L1 no longer carries `X`; if `locationGeneralization` is advertised, verify that the released geometry is identical for A and U2 and at most 2000 m from `X`, otherwise verify HTTP 404. As U1, verify that L1 carries `X`.]
+--
+
+[.component,class=step]
+--
+add:[If `timeGeneralization` is advertised: as U1, create in D1 an Observation O1 whose FeatureOfInterest `feature` is `X` and an Observation O2 whose FeatureOfInterest lies outside the `area` of RP2, both with a `phenomenonTime` given to the second. As A, verify that the `phenomenonTime` of O1 is truncated to the day and that the `phenomenonTime` of O2 is released as submitted.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create a Location L2 of T1 outside the `area` of RP2. As A, verify that L2 carries its submitted position. As A, request `Locations?$filter=st_equals(location, geography'POINT(...)')` with the coordinates of `X` and verify that L1 is not contained and not counted.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create a ReleaseProfile RP3 whose `privacyAreas` has one member without `area` and with `locationResolution` = 5000. As A, verify that L2 no longer carries its submitted position.]
+--
+
+[.component,class=step]
+--
+add:[As U1, DELETE RP2 and RP3. As A, verify that L1 carries `X` and L2 its submitted position.]
+--
+
+=====
+====

@@ -22,7 +22,7 @@ Verify that `serverSettings` contains the object `http://www.opengis.net/spec/se
 
 [.component,class=step]
 --
-Verify that `serverSettings` contains the object `http://www.opengis.net/spec/sensorthings-dggs/1.0/req/grid-system` and that `coarsestZoneLevel` <= `locationGeneralization/zoneLevel` <= `finestZoneLevel`.
+Verify that `serverSettings` contains the object del:[`http://www.opengis.net/spec/sensorthings-dggs/1.0/req/grid-system`] add:[`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/landing-page`] and that `coarsestZoneLevel` <= `locationGeneralization/zoneLevel` <= `finestZoneLevel`.
 --
 
 [.component,class=step]

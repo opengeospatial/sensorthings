@@ -1,6 +1,6 @@
 {
   "@iot.id": "1c7e4b2a-93d5-4f08-b6a1-5e2d9c0f7a31",
-  "@iot.selfLink": "https://example.org/staplus/v1.1/Clients('1c7e4b2a-93d5-4f08-b6a1-5e2d9c0f7a31')",
+  "@iot.selfLink": "https://example.org/staplus-partycontext/v1.0/Clients('1c7e4b2a-93d5-4f08-b6a1-5e2d9c0f7a31')",
   "clientId": "citiobs-airquality-app",
   "name": "CitiObs Air Quality",
   "description": "Mobile app that uploads PM2.5 readings of low-cost sensors",
@@ -11,6 +11,6 @@
   "authenticationMethod": "attestation",
   "status": "accepted",
   "acceptedTime": "2026-09-01T09:00:00Z",
-  "Party@iot.navigationLink": "https://example.org/staplus/v1.1/Clients('1c7e4b2a-93d5-4f08-b6a1-5e2d9c0f7a31')/Party",
-  "WriteProfiles@iot.navigationLink": "https://example.org/staplus/v1.1/Clients('1c7e4b2a-93d5-4f08-b6a1-5e2d9c0f7a31')/WriteProfiles"
+  "Party@iot.navigationLink": "https://example.org/staplus-partycontext/v1.0/Clients('1c7e4b2a-93d5-4f08-b6a1-5e2d9c0f7a31')/Party",
+  "WriteProfiles@iot.navigationLink": "https://example.org/staplus-partycontext/v1.0/Clients('1c7e4b2a-93d5-4f08-b6a1-5e2d9c0f7a31')/WriteProfiles"
 }

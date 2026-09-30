@@ -14,7 +14,7 @@ inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/req-class/read
 inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/req-class/cell-cud
 requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/advertisement
 requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/cell-register
-requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/agreement-zone-level
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/releaseprofile-zone-level
 requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/cell-release
 requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/privacy-zones
 requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/geometry-release

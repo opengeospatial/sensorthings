@@ -1,0 +1,21 @@
+[[cc_party-context]]
+[conformance_class]
+.add:[Party Context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req-class/party-context
+classification:: Target Type:Implementation
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/party-context
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/create
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/update
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/delete
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/register
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/release
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/association-release
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/write
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/query-consistency
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/privacy-notice
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/business-logic
+====

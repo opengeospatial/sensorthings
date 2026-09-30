@@ -1,0 +1,9 @@
+[[req_party-context_association-release]]
+[requirement]
+.add:[Release of the association between observations and observer context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/association-release
+part:: add:[The implementation SHALL NOT release the association between an Observation and a PartyLocation or PartyActivity attributable to a Party `P` whose `role` is `individual` to a requester `r` that is not the data subject of `P`, unless the PartyLocation or PartyActivity is released to `r` according to <<req_party-context_release>> and an Agreement of `P` exists that is effective for the property path `Observation/PartyLocation` or `Observation/PartyActivity`, respectively, the operation `publish` and `r`.]
+part:: add:[Where the association is not released, the navigation property `PartyLocation` or `PartyActivity` of the Observation SHALL be evaluated as if the association did not exist, the navigation property `Observations` of the PartyLocation or PartyActivity SHALL NOT contain the Observation, and query options and expressions that navigate through the association, including `$expand`, `$filter` and `$count`, SHALL be evaluated as if the association did not exist.]
+====

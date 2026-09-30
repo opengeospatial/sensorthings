@@ -4,8 +4,13 @@
   "definition": "https://example.org/staplus/consent/location-cells/v1",
   "coveredProperties": [ "Observation/Cell", "FeatureOfInterest/feature" ],
   "permittedOperations": [ "publish" ],
-  "audience": "authenticated",
-  "zoneLevel": 10,
-  "privacyZones": [ "88394460e5fffff" ],
-  "Party": { "@iot.id": "5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8" }
+  "ReleaseProfile": {
+    "name": "Registered users at level 10, not finer than level 8 near home",
+    "audience": "authenticated",
+    "zoneLevel": 10,
+    "privacyZones": [ "88394460e5fffff" ]
+  },
+  "Party": {
+    "@iot.id": "5d0f9a3e-8c1b-4e2a-b6d4-71c3e0a9f2b8"
+  }
 }

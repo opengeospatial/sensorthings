@@ -1,0 +1,10 @@
+[[req_party-context_write]]
+[requirement]
+.add:[Writing observer context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/write
+part:: add:[The implementation SHALL create, update or delete a PartyLocation or PartyActivity associated with a Party `P` whose `role` is `individual` only if the requester is the data subject of `P`. It SHALL reject such a request from an unauthenticated requester with HTTP 401 and from any other authenticated requester with HTTP 403. An Agreement SHALL NOT permit another requester to write observer context.]
+part:: add:[The implementation SHALL associate an Observation with a PartyLocation or PartyActivity, including by deep insert, only if the requester is the data subject of the Party of that PartyLocation or PartyActivity and the Observation is attributable to the same Party. It SHALL reject any other such request with HTTP 403.]
+part:: add:[The implementation SHALL reject with HTTP 400 a request that changes the `Party` association of a PartyLocation or PartyActivity.]
+====

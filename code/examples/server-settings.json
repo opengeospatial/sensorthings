@@ -2,27 +2,27 @@
   "value": [
     {
       "name": "Things",
-      "url": "https://example.org/staplus/v1.1/Things"
+      "url": "https://example.org/staplus-partycontext/v1.0/Things"
     },
     {
       "name": "Parties",
-      "url": "https://example.org/staplus/v1.1/Parties"
+      "url": "https://example.org/staplus-partycontext/v1.0/Parties"
     },
     {
       "name": "Licenses",
-      "url": "https://example.org/staplus/v1.1/Licenses"
+      "url": "https://example.org/staplus-partycontext/v1.0/Licenses"
     },
     {
       "name": "Agreements",
-      "url": "https://example.org/staplus/v1.1/Agreements"
+      "url": "https://example.org/staplus-partycontext/v1.0/Agreements"
     },
     {
       "name": "Clients",
-      "url": "https://example.org/staplus/v1.1/Clients"
+      "url": "https://example.org/staplus-partycontext/v1.0/Clients"
     },
     {
       "name": "WriteProfiles",
-      "url": "https://example.org/staplus/v1.1/WriteProfiles"
+      "url": "https://example.org/staplus-partycontext/v1.0/WriteProfiles"
     }
   ],
   "serverSettings": {
@@ -41,6 +41,11 @@
     },
     "http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/gdpr": {
       "privacyNotice": "https://example.org/staplus/privacy.html",
+      "retentionPeriod": {
+        "default": "P5Y",
+        "PartyLocation": "P1Y",
+        "HistoricalLocation": "P1Y"
+      },
       "locationGeneralization": {
         "method": "grid",
         "resolution": 1000

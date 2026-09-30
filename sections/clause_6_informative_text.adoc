@@ -165,13 +165,13 @@ Controlling the release of individual properties is not sufficient, because the 
 
 Query oracle:: A requester who cannot see `displayName` could test a guessed name with `$filter=displayName eq 'Jane Doe'`, or narrow a precise location with a sequence of `st_within` filters, or a precise time with range filters. <<req_gdpr_query-consistency>> requires that those queries are evaluated against the released value only, and that `@iot.count` counts only released entities. The same evaluation is not sufficient for `License/attributionText`. A released citation typically contains the name of the data subject, and an expression on it would let any requester collect all Datastreams and MultiDatastreams of that person. The Agreement for `publish` covers displaying the citation with the data, not locating data by the citation. <<req_gdpr_attribution-filter>> therefore rejects a request whose `$filter` or `$orderby` references `License/attributionText`.
 
-Averaging:: If a location were obfuscated with random noise drawn anew for each request, repeated requests would average the noise out. Generalization is therefore required to be deterministic (<<req_gdpr_release-location>>).
+Averaging:: If a location were obfuscated with random noise drawn anew for each request, repeated requests would average the noise out. Generalization is therefore required to be deterministic (<<req_gdpr_release-location>>).add:[ For the same reason, the partitions used for different release resolutions are required to be nested: a position released at 500 m to one requester and at 1 km to another could otherwise be narrowed down to the intersection of both cells.]
 
 Expansion and navigation:: A value hidden in `Parties(...)` must also be hidden in `Datastreams(...)?$expand=Party` and in any other path (<<req_gdpr_release-direct>>).
 
 MQTT:: Subscribers receive entity representations without a request; they are subject to the same rules (<<req_gdpr_mqtt>>).
 
-Linkage through the ownership model:: `Party/@iot.id` links all attributable entities of one person. Even generalized locations of many observations can reveal a home when combined. The operator needs to consider this in choosing the resolution; <<rec_gdpr_dpia>> recommends a data protection impact assessment.
+Linkage through the ownership model:: `Party/@iot.id` links all attributable entities of one person. Even generalized locations of many observations can reveal a home when combined. The operator needs to consider this in choosing the resolution; <<rec_gdpr_dpia>> recommends a data protection impact assessment.add:[ The data subject can protect places such as the home with privacy areas (<<req_gdpr_privacy-areas>>).]
 
 Co-attribution:: A `FeatureOfInterest` can be shared by observations of several persons. Its location is released precisely only if every person has agreed (<<req_gdpr_personal-data-register>>).
 
@@ -182,7 +182,7 @@ The entity type `Agreement` records, in a machine-readable way, the authorizatio
 * stores a direct personal data value, for example `Party/displayName` or `License/attributionText` (operation `store`); and
 * releases a direct personal data value, a precise location or a precise time to anyone other than the data subject (operation `publish`).
 
-An `Agreement` states the legal basis (`consent`, `explicit-consent` for special categories of personal data according to GDPR Article 9(2)(a), or `contract`), a specific `purpose`, the `definition` URI of the text the data subject agreed to, the `coveredProperties` it applies to, the `permittedOperations`, and for publication the `audience` (`public` or `authenticated`). The implementation sets `grantedTime` and `status`. The data subject may set an `effectiveTime` from which the Agreement applies, for example the start of a campaign, and an `expiryTime` after which it no longer applies. `grantedTime` records when the data subject gave the authorization; `effectiveTime` records when processing under it may begin. An `effectiveTime` earlier than `grantedTime` is rejected, because an authorization cannot legitimize processing that has already taken place.
+An `Agreement` states the legal basis (`consent`, `explicit-consent` for special categories of personal data according to GDPR Article 9(2)(a), or `contract`), a specific `purpose`, the `definition` URI of the text the data subject agreed to, the `coveredProperties` it applies to, the `permittedOperations`, and for publication del:[the `audience` (`public` or `authenticated`).] add:[a `ReleaseProfile` that states the conditions of the release.] The implementation sets `grantedTime` and `status`. The data subject may set an `effectiveTime` from which the Agreement applies, for example the start of a campaign, and an `expiryTime` after which it no longer applies. `grantedTime` records when the data subject gave the authorization; `effectiveTime` records when processing under it may begin. An `effectiveTime` earlier than `grantedTime` is rejected, because an authorization cannot legitimize processing that has already taken place.
 
 An `Agreement` has no `properties` member, for the same reason as `Party`: it must not become a store for uncontrolled personal data. The optional `proof` member can carry evidence created by the data subject, for example a signature with a key bound to a Decentralized Identifier (<<DID>>), which strengthens the controller's ability to demonstrate consent (GDPR Article 7(1)).
 
@@ -197,7 +197,7 @@ An `Agreement` has no `properties` member, for the same reason as `Party`: it mu
 
 |active
 |`effectiveTime` passes (if later than `grantedTime`)
-|The Agreement becomes effective. No request is needed. Privacy zones of the Agreement (DGGS) apply from creation, because they only restrict release.
+|The Agreement becomes effective. No request is needed. del:[Privacy zones of the Agreement (DGGS) apply from creation, because they only restrict release.] add:[Privacy areas and privacy zones are properties of ReleaseProfiles and do not depend on Agreements.]
 
 |active
 |`expiryTime` passes
@@ -212,9 +212,19 @@ An `Agreement` has no `properties` member, for the same reason as `Party`: it mu
 |Treated as withdrawal; the Agreement is no longer visible through the API. A record may be retained to demonstrate the earlier consent.
 |===
 
-The content of an `Agreement` cannot be changed after creation. A data subject who wants to change the scope, purpose or audience creates a new `Agreement` and withdraws the old one. This keeps each `Agreement` a faithful record of what the data subject agreed to at `grantedTime`.
+The content of an `Agreement` cannot be changed after creation. A data subject who wants to change the scope, purpose or audience creates a new `Agreement`add:[, with a new `ReleaseProfile` if the release conditions change,] and withdraws the old one. This keeps each `Agreement` a faithful record of what the data subject agreed to at `grantedTime`.
 
 An `Agreement` may be associated with a `Campaign`. It then applies only to the Campaign and to the entities that belong to it, for example the Datastream with which a citizen takes part in a measurement campaign. A citizen can thereby publish precise locations for the campaign without publishing them for any other contribution. An `Agreement` that is not associated with a `Campaign` applies to all contributions of the data subject.
+
+add:[The OGC SensorThings API Extension: STAplus Party Context 1.0 (<<OGC26-040>>) adds the entity types `PartyLocation` and `PartyActivity`, which record where a Party was and what it was doing when an observation was made. For an individual, they form an observer track. The optional Party Context conformance class (<<clause-party-context>>) withholds that track from everyone other than the data subject unless Agreements authorize its release, and releases the association between observations and the track only with a further Agreement.]
+
+=== add:[The ReleaseProfile entity type]
+
+add:[The Agreement records whether the data subject authorizes a release; the entity type `ReleaseProfile` records how. It states to whom the covered values are released (`audience`: `public`, `authenticated`, or `recipients` with the `Recipients` association, for example the coordinator of a campaign), through which applications (`clientIds`, with the Accepted Clients conformance class), and at what precision (`locationResolution` and `timeResolution`, or `zoneLevel` with the DGGS conformance class), for example "`publish the position of my sensor to registered users at 500 m and the times per hour`". An Agreement that permits `publish` refers to exactly one ReleaseProfile; several Agreements can share one. The Agreement limits who receives the values; it cannot limit what the recipients do with them.]
+
+add:[A ReleaseProfile also carries the data subject's minimum obfuscation. Its `privacyAreas` (and `privacyZones` with the DGGS conformance class) restrict every release of the data subject's locations and times, whatever Agreements authorize, from the moment the ReleaseProfile is created until it is deleted. Protecting the home therefore needs no consent record: the data subject creates a ReleaseProfile with a privacy area and no Agreement.]
+
+add:[The ReleaseProfile controls release. What is stored is controlled by the WriteProfiles of accepted clients (<<clause-accepted-clients>>): `storedLocationResolution`, and with the DGGS conformance class `maxZoneLevel` and `locationPolicy`, make the implementation or the client coarsen positions before they are stored, so that no ReleaseProfile can release them more precisely.]
 
 [[clause-trust-in-clients]]
 === Knowing what is written

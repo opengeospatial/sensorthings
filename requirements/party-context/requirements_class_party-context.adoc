@@ -1,0 +1,25 @@
+[[rc_party-context]]
+[requirements_class]
+.add:[Party Context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req-class/party-context
+subject:: Implementation
+obligation:: requirement
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req-class/gdpr
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/req-class/party-location
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/req-class/party-activity
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/req-class/observation-relations
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/req-class/lifecycle
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/req-class/create
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/req-class/update
+inherit:: http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/req-class/delete
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/register
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/release
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/association-release
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/write
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/query-consistency
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/privacy-notice
+requirement:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/business-logic
+recommendation:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/rec/party-context/observer-position
+====

@@ -1,0 +1,48 @@
+[[ats_accepted-clients_write-location-resolution]]
+[abstract_test]
+.add:[Stored location resolution]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/write-location-resolution
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/write-location-resolution
+test-purpose:: add:[Verify that positions written under a WriteProfile with `storedLocationResolution` are generalized before they are stored, and that precise locations cannot be linked to governed entities.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[Request the service root URI. If the implementation claims the DGGS conformance class, or if `locationGeneralization` is not advertised, as OP POST a WriteProfile for C1 with `storedLocationResolution` = 100 and verify HTTP 400; skip the remaining steps.]
+--
+
+[.component,class=step]
+--
+add:[As OP, POST a WriteProfile for C1 with `storedLocationResolution` = 0 and verify HTTP 400. As OP, create a WriteProfile WPR for C1 that permits Thing, Location, Datastream, Observation and FeatureOfInterest and has `storedLocationResolution` = 500.]
+--
+
+[.component,class=step]
+--
+add:[As U1 using C1, create under WPR a Thing T1 associated with P1 with a Location L1 whose `location` is a GeoJSON Point `X` given to seven decimal places, a Datastream D2 bound to WPR, and an Observation with a new FeatureOfInterest F1 whose `feature` is `X`.]
+--
+
+[.component,class=step]
+--
+add:[As U1, request `Locations(L1)` and `FeaturesOfInterest(F1)`. Verify that the stored geometries are not identical to `X` and that their distance to `X` does not exceed 1000 m. Create a second Location with the same `X` and verify that its stored geometry is identical to that of L1.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create an Agreement for P1 with `coveredProperties` containing `Location/location`, `permittedOperations` containing `publish` and `audience` = `public`. As A, verify that `Locations(L1)` carries the geometry stored for L1, not `X`.]
+--
+
+[.component,class=step]
+--
+add:[As U1 using a Client C2 whose WriteProfile has no `storedLocationResolution`, create a Location L3 with `location` = `X`, and request to associate L3 with T1. Verify HTTP 403.]
+--
+
+[.component,class=step]
+--
+add:[If the implementation claims the Party Context conformance class: as U1 using C1, create under WPR a PartyLocation of P1. Verify HTTP 403.]
+--
+=====
+====

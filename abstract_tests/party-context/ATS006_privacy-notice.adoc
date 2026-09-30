@@ -1,0 +1,18 @@
+[[ats_party-context_privacy-notice]]
+[abstract_test]
+.add:[Privacy notice for observer context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/privacy-notice
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/privacy-notice
+test-purpose:: add:[Verify that the privacy notice describes the processing of observer context.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[Retrieve the privacy notice without authentication and verify that it contains the statements required by the requirement.]
+--
+=====
+====

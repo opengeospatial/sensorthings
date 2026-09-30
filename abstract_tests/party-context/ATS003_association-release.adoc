@@ -1,0 +1,28 @@
+[[ats_party-context_association-release]]
+[abstract_test]
+.add:[Release of the association between observations and observer context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context/association-release
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/association-release
+test-purpose:: add:[Verify that the link between an observation and the observer context is released only with an Agreement.]
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+add:[As U1, create an Observation O1 in D1 associated with a PartyLocation L1 of P1, and Agreements that release L1 to the public. As A, request `Observations(O1)?$expand=PartyLocation` and `PartyLocations(L1)/Observations` and verify that the association is not released.]
+--
+
+[.component,class=step]
+--
+add:[As A, request `Observations?$filter=PartyLocation/id eq L1` and verify that O1 is not contained.]
+--
+
+[.component,class=step]
+--
+add:[As U1, create an Agreement for `Observation/PartyLocation` with `permittedOperations` = `["publish"\]` and `audience` = `public`. As A, repeat the first step and verify that the association is released.]
+--
+=====
+====

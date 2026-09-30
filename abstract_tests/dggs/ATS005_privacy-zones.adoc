@@ -37,7 +37,7 @@ As U1, create a second Agreement covering `Observation/Cell` with `permittedOper
 
 [.component,class=step]
 --
-As U1, withdraw both Agreements. As A, verify that the Cells of O1 and O2 are at the public zone level.
+As U1, withdraw both Agreements. add:[As A, verify that the Cell of O1 is c8 and that the Cell of O2 is d8, because the privacy zones remain in effect. As U1, delete the ReleaseProfiles of both Agreements.] As A, verify that the Cells of O1 and O2 are at the public zone level.
 --
 
 =====

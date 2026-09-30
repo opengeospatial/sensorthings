@@ -17,12 +17,12 @@ As U1, create an Agreement for P1 with all mandatory properties and with the opt
 
 [.component,class=step]
 --
-As U1, request the created Agreement without `$select`. Verify that `@iot.id`, `@iot.selfLink`, `legalBasis`, `purpose`, `definition`, `coveredProperties`, `permittedOperations`, `audience`, `grantedTime`, `effectiveTime` and `status` are present.
+As U1, request the created Agreement without `$select`. Verify that `@iot.id`, `@iot.selfLink`, `legalBasis`, `purpose`, `definition`, `coveredProperties`, `permittedOperations`, del:[`audience`, ]`grantedTime`, `effectiveTime` and `status` are present.add:[ Verify that `audience` is not present.]
 --
 
 [.component,class=step]
 --
-Verify that `legalBasis` is one of `consent`, `explicit-consent`, `contract`; that `permittedOperations` is a non-empty array of values from `store`, `publish`; that `audience` is one of `public`, `authenticated`; that `status` is one of `active`, `withdrawn`; that `definition` is an absolute URI; and that `grantedTime`, `effectiveTime` and `expiryTime` are ISO 8601 instants.
+Verify that `legalBasis` is one of `consent`, `explicit-consent`, `contract`; that `permittedOperations` is a non-empty array of values from `store`, `publish`; del:[that `audience` is one of `public`, `authenticated`; ]that `status` is one of `active`, `withdrawn`; that `definition` is an absolute URI; and that `grantedTime`, `effectiveTime` and `expiryTime` are ISO 8601 instants.
 --
 
 [.component,class=step]

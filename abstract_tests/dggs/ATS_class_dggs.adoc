@@ -12,7 +12,7 @@ inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell
 inherit:: http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell-crud
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/advertisement
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/cell-register
-abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/agreement-zone-level
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/releaseprofile-zone-level
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/cell-release
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/privacy-zones
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/geometry-release

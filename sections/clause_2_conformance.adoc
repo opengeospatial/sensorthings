@@ -2,13 +2,13 @@
 
 === General
 
-This Standard defines three conformance classes: _GDPR_, which is mandatory, and _Accepted Clients_ and _DGGS_, which are optional. The standardization target of all conformance classes is an implementation of the OGC SensorThings API Extension: STAplus 1.0 (corrigendum 1.0.1), that is, a STAplus service endpoint.
+del:[This Standard defines three conformance classes: _GDPR_, which is mandatory, and _Accepted Clients_ and _DGGS_, which are optional.] add:[This Standard defines four conformance classes: _GDPR_, which is mandatory, and _Accepted Clients_, _DGGS_ and _Party Context_, which are optional.] The standardization target of all conformance classes is an implementation of the OGC SensorThings API Extension: STAplus 1.0 (corrigendum 1.0.1), that is, a STAplus service endpoint.
 
 Conformance with this Standard shall be checked using all the relevant tests specified in <<annex-ats>> (normative) of this document. The framework, concepts, and methodology for testing, and the criteria to be achieved to claim conformance are specified in the OGC Compliance Testing Policies and Procedures and the OGC Compliance Testing web site.
 
 In order to conform to this OGC Standard, a software implementation shall:
 
-* implement the mandatory conformance class GDPR, and optionally the conformance classes Accepted Clients and DGGS;
+* del:[implement the mandatory conformance class GDPR, and optionally the conformance classes Accepted Clients and DGGS;] add:[implement the mandatory conformance class GDPR, and optionally the conformance classes Accepted Clients, DGGS and Party Context;]
 * implement the STAplus 1.0.1 conformance classes listed as _required_ in <<tab-staplus-dependencies>>;
 * pass all applicable tests specified in <<annex-ats>>; and
 * pass all applicable tests of the STAplus 1.0.1 conformance classes it implements, including the tests of the conditional classes it claims.
@@ -58,7 +58,7 @@ The DGGS conformance class (`http://www.opengis.net/spec/sensorthings-staplus-gd
 |Exempts authenticated creation of a Cell by reference from throttling. Not needed for obfuscation: creating a Cell records neither a user identifier nor a Party, and the users of a GDPR implementation are identified by the STAplus Authentication conformance class.
 
 |ObservedProperties
-|`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/observedproperties`
+|del:[`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/observedproperties`] add:[`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/observed-properties`]
 |conditional
 |Required by Aggregation.
 
@@ -71,6 +71,52 @@ The DGGS conformance class (`http://www.opengis.net/spec/sensorthings-staplus-gd
 |`http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/staplus`
 |conditional
 |Recommended with Aggregation: aggregate MultiDatastreams are owned by a Party with `role` `system` and are therefore not attributable to contributing individuals.
+|===
+
+=== add:[Conformance class Party Context]
+
+add:[The Party Context conformance class (`http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/party-context`) tests the Party Context requirements class specified in <<clause-party-context>>. Its prerequisite is the GDPR conformance class. It applies this Profile to the `PartyLocation` and `PartyActivity` entity types of the OGC SensorThings API Extension: STAplus Party Context 1.0 (<<OGC26-040>>). <<tab-party-context-dependencies>> lists the conformance classes of <<OGC26-040>> that an implementation of the Party Context conformance class has to implement. <<OGC26-040>> can be used without this Profile for parties whose `role` is `institutional` or `system`. It accepts observer context of a Party whose `role` is `individual` only if the Business Logic states the access control and legal basis that apply; <<req_party-context_business-logic>> provides that statement. The GDPR conformance class requires an implementation of <<OGC26-040>> that accepts individual parties to implement the Party Context conformance class (<<req_gdpr_personal-data-register>>).]
+
+[[tab-party-context-dependencies]]
+.add:[Party Context 1.0 conformance classes used by the Party Context conformance class]
+[cols="18,33,11,38",options="header"]
+|===
+|add:[Party Context 1.0 conformance class] |add:[Identifier] |add:[Obligation] |add:[Reason]
+
+|add:[Landing Page]
+|add:[`http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/landing-page`]
+|add:[required]
+|add:[Advertises the accepted geometry `encodingType` ValueCodes and `PartyLocation` `environment` codes.]
+
+|add:[Party Context]
+|add:[`http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/party-context`]
+|add:[required]
+|add:[Defines the `PartyLocation` and `PartyActivity` entity types, their `retentionTime`, and their associations with `Party` and `Observation`.]
+
+|add:[Create]
+|add:[`http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/create`]
+|add:[required]
+|add:[Creation of `PartyLocation` and `PartyActivity` by the data subject. Its requirement `/req/party-context/party-role` accepts observer context of individual parties only with the Business Logic statement of <<req_party-context_business-logic>>.]
+
+|add:[Update]
+|add:[`http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/update`]
+|add:[required]
+|add:[Rectification of observer context by the data subject.]
+
+|add:[Delete]
+|add:[`http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/delete`]
+|add:[required]
+|add:[Erasure of observer context, including its deletion together with the `Party` (`/req/party-context/party-delete`).]
+
+|add:[Geometry-FG, Geometry-WKT]
+|add:[`http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/geometry-fg`, `http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/geometry-wkt`]
+|add:[not required]
+|add:[Independent of this Profile.]
+
+|add:[MQTT Subscribe STA v1.0, v1.1]
+|add:[`http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/mqtt-subscribe-sta-10`, `http://www.opengis.net/spec/sensorthings-staplus-party-context/1.0/conf/mqtt-subscribe-sta-11`]
+|add:[conditional]
+|add:[If claimed, <<req_gdpr_mqtt>> applies to messages about `PartyLocation` and `PartyActivity`.]
 |===
 
 === Required STAplus 1.0.1 conformance classes

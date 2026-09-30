@@ -1,0 +1,10 @@
+[[req_party-context_register]]
+[requirement]
+.add:[Observer context in the personal data register]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/register
+part:: add:[If the implementation claims the Party Context conformance class, the rows of <<tab-register>> marked _(Party Context only)_ SHALL be part of the personal data register, and a PartyLocation or PartyActivity associated with a Party `P` SHALL be attributable to `P` (rule (9) of <<req_gdpr_personal-data-register>>).]
+part:: add:[The implementation SHALL accept the property paths `PartyLocation/position`, `PartyLocation/time`, `PartyActivity/definition`, `PartyActivity/time`, `PartyActivity/name`, `PartyActivity/description`, `Observation/PartyLocation` and `Observation/PartyActivity` as values of `Agreement/coveredProperties`.]
+part:: add:[The rights of access (<<req_gdpr_access-right>>), rectification and erasure (<<req_gdpr_erasure>>) SHALL apply to PartyLocation and PartyActivity entities attributable to `P`. On deletion of `P`, these entities SHALL be deleted, not anonymized.]
+====

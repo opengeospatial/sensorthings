@@ -1,0 +1,12 @@
+[[req_accepted-clients_write-location-resolution]]
+[requirement]
+.add:[Stored location resolution]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/accepted-clients/write-location-resolution
+part:: add:[The implementation SHALL allow each WriteProfile to have the optional property `storedLocationResolution` listed in <<tab-writeprofile-properties>>.]
+part:: add:[The implementation SHALL reject with HTTP 400 the creation of a WriteProfile whose `storedLocationResolution` is not greater than zero, or that has `storedLocationResolution` while `locationGeneralization` is not advertised (see <<req_gdpr_advertisement>>) or while the implementation claims the DGGS conformance class, in which case the WriteProfile properties `maxZoneLevel` and `locationPolicy` (<<req_dggs_write-zone-level>>) apply instead.]
+part:: add:[For a create or update request of a Client that is permitted by a WriteProfile with `storedLocationResolution` (if more than one such WriteProfile permits the request, the largest value applies), the implementation SHALL replace the values of `Location/location`, `FeatureOfInterest/feature`, `Datastream/observedArea` and `MultiDatastream/observedArea` in the request by the generalized values computed according to <<req_gdpr_release-location>> with a partition whose cells have a nominal edge length not smaller than `storedLocationResolution`, before storing them. The submitted values SHALL NOT be stored.]
+part:: add:[If the implementation claims the Party Context conformance class, the implementation SHALL reject with HTTP 403 a request under such a WriteProfile that contains a `PartyLocation/position` value.]
+part:: add:[If a WriteProfile with `storedLocationResolution` governs an entity according to <<req_accepted-clients_link-conformance>>, the implementation SHALL reject with HTTP 403 a request that associates a Thing governed by it with a Location, or an Observation governed by it with a FeatureOfInterest, whose stored location was not generalized under this requirement with a resolution not smaller than `storedLocationResolution`.]
+====

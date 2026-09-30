@@ -1,0 +1,39 @@
+[[ats_dggs_releaseprofile-zone-level]]
+[abstract_test]
+.del:[Agreement] add:[ReleaseProfile] zone level and privacy zones
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/dggs/releaseprofile-zone-level
+target:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/dggs/releaseprofile-zone-level
+test-purpose:: Verify the validation of the del:[Agreement] add:[ReleaseProfile] extension and that privacy zones do not create public Cells.
+test-method-type:: Functional
+
+[.component,class=test method]
+=====
+[.component,class=step]
+--
+As U1, POST del:[an Agreement for P1 covering `Observation/Cell`] add:[a ReleaseProfile for P1] with `zoneLevel` = `finestZoneLevel` + 1. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+As U1, POST del:[an Agreement] add:[a ReleaseProfile] with `privacyZones` = `["not-a-zone"]`. Verify HTTP 400.
+--
+
+[.component,class=step]
+--
+Select a valid zone identifier z8 at level 8 for which `Cells(z8)` returns HTTP 404. As U1, POST a valid del:[Agreement] add:[ReleaseProfile] with `zoneLevel` = 10 and `privacyZones` = `[z8]`. Verify HTTP 201.
+--
+
+[.component,class=step]
+--
+As OP (administrator) and as A, request `Cells(z8)`. Verify HTTP 404.
+--
+
+[.component,class=step]
+--
+As U1, PATCH the del:[Agreement] add:[ReleaseProfile] with `zoneLevel` = 12. Verify HTTP 400.
+--
+
+=====
+====

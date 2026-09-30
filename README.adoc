@@ -1,6 +1,6 @@
 = OGC SensorThings API Extension: STAplus 1.0 — GDPR Profile
 
-Metanorma source of the STAplus GDPR Profile (draft 0.1), built from the OGC standard template
+Metanorma source of the STAplus GDPR Profile (draft 0.2), built from the OGC standard template
 (https://github.com/opengeospatial/templates/tree/master/standard).
 
 == Content
@@ -11,6 +11,7 @@ Metanorma source of the STAplus GDPR Profile (draft 0.1), built from the OGC sta
 ** `clause_7_normative_text.adoc` - requirements class GDPR, personal data register, entity type Agreement
 ** `clause_8_accepted_clients.adoc` - optional requirements class Accepted Clients, entity types Client and WriteProfile
 ** `clause_9_dggs.adoc` - optional requirements class DGGS (spatial obfuscation with OGC 26-057 Cells), with examples
+** `clause_9a_party_context.adoc` - optional requirements class Party Context (observer context of OGC 26-040)
 ** `annex-a.adoc` - abstract test suite (conformance classes GDPR, Accepted Clients and DGGS)
 ** `annex-b.adoc` - data model UML diagrams
 ** `annex-c-gdpr-mapping.adoc` - mapping of GDPR articles to requirements
@@ -18,8 +19,10 @@ Metanorma source of the STAplus GDPR Profile (draft 0.1), built from the OGC sta
 ** `annex-e-agreement-example.adoc` - example of the Agreement entity type
 ** `annex-f-accepted-client-dggs-example.adoc` - example of an Accepted Client with DGGS obfuscation
 ** `annex-g-client-restricted-agreement-example.adoc` - example of an Agreement restricted to applications
+** `annex-h-party-context-example.adoc` - example of observer context released to named recipients
 * `requirements/accepted-clients/`, `abstract_tests/accepted-clients/` - requirements, recommendations and abstract tests of the Accepted Clients class
 * `requirements/dggs/`, `abstract_tests/dggs/` - requirements and abstract tests of the DGGS class
+* `requirements/party-context/`, `abstract_tests/party-context/` - requirements and abstract tests of the Party Context class
 * `requirements/gdpr/` - requirements class, one file per requirement (`REQnnn_*.adoc`) and recommendation (`REC_*.adoc`)
 * `abstract_tests/gdpr/` - conformance class and one abstract test per requirement (`ATSnnn_*.adoc`)
 * `code/examples/` - JSON examples (the `dggs-*.json` files are included in Clause 9)
@@ -27,6 +30,10 @@ Metanorma source of the STAplus GDPR Profile (draft 0.1), built from the OGC sta
 Base URI of all provisions: `http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0`
 
 The OGC document number is 26-055.
+
+== Change marks
+
+From draft 0.2 on, changes are marked in the AsciiDoc source with `\add:[\]` and `\del:[\]`. `26-055-diff.adoc` is a link to `26-055.adoc`. Change-marked build: `metanorma compile -t ogc -x html,pdf 26-055-diff.adoc`. Clean build (changes accepted): `metanorma compile -t ogc -x html,pdf -r ./accept_changes.rb 26-055.adoc`.
 
 == Building
 

@@ -1,0 +1,13 @@
+[[req_party-context_release]]
+[requirement]
+.add:[Release of observer context]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/party-context/release
+part:: add:[The implementation SHALL NOT release a PartyLocation attributable to a Party `P` whose `role` is `individual` to a requester `r` that is not the data subject of `P`, unless Agreements of `P` exist that are effective for the property paths `PartyLocation/position` and `PartyLocation/time`, the operation `publish` and `r`. Otherwise the PartyLocation SHALL be withheld.]
+part:: add:[An Agreement effective for `PartyLocation/position` SHALL release the properties `position`, `positionalUncertainty`, `elevation` and `elevationUncertainty`. The properties `encodingType`, `environment` and `retentionTime` of a released PartyLocation SHALL be released.]
+part:: add:[The implementation SHALL NOT release a PartyActivity attributable to `P` to `r` unless Agreements of `P` exist that are effective for the property paths `PartyActivity/definition` and `PartyActivity/time`, the operation `publish` and `r`. Otherwise the PartyActivity SHALL be withheld. The `name` and `description` of a released PartyActivity SHALL be released according to <<req_gdpr_release-free-text>>. The `retentionTime` of a released PartyActivity SHALL be released.]
+part:: add:[The implementation SHALL NOT generalize a PartyLocation or PartyActivity. A PartyLocation or PartyActivity is either released with its stored values or withheld; this also applies if the implementation claims the DGGS conformance class.]
+part:: add:[Where <<req_gdpr_release-resolution>> results in a release resolution greater than zero for `PartyLocation/position` or for the time property of a PartyLocation or PartyActivity, in particular because a privacy area (<<req_gdpr_privacy-areas>>) or, with the DGGS conformance class, a privacy zone (<<req_dggs_privacy-zones>>) applies, or because the ReleaseProfile of the effective Agreement has a `locationResolution` or `timeResolution`, the PartyLocation or PartyActivity SHALL be withheld.]
+part:: add:[This requirement SHALL apply to every response, including responses to requests with `$select`, `$expand` at any depth, the navigation links `Parties(...)/PartyLocations`, `Parties(...)/PartyActivities`, `PartyLocations(...)/PartyActivities` and `PartyActivities(...)/PartyLocations`, and MQTT payloads.]
+====

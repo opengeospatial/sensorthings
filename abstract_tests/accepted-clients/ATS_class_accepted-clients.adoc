@@ -17,6 +17,7 @@ abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/a
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/client-acceptance
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/writeprofile-enforcement
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/free-text-policy
+abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/write-location-resolution
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/provenance-binding
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/bound-writes
 abstract-test:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/conf/accepted-clients/link-conformance

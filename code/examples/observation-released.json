@@ -1,9 +1,9 @@
 {
   "@iot.id": "0f6a2b9d-71e4-4c58-a3d0-9b8e5c1f7a26",
-  "@iot.selfLink": "https://example.org/staplus/v1.1/Observations('0f6a2b9d-71e4-4c58-a3d0-9b8e5c1f7a26')",
+  "@iot.selfLink": "https://example.org/staplus-partycontext/v1.0/Observations('0f6a2b9d-71e4-4c58-a3d0-9b8e5c1f7a26')",
   "phenomenonTime": "2026-09-23T10:00:00Z",
   "resultTime": "2026-09-23T10:00:00Z",
   "result": 12.4,
-  "Datastream@iot.navigationLink": "https://example.org/staplus/v1.1/Observations('0f6a2b9d-71e4-4c58-a3d0-9b8e5c1f7a26')/Datastream",
-  "FeatureOfInterest@iot.navigationLink": "https://example.org/staplus/v1.1/Observations('0f6a2b9d-71e4-4c58-a3d0-9b8e5c1f7a26')/FeatureOfInterest"
+  "Datastream@iot.navigationLink": "https://example.org/staplus-partycontext/v1.0/Observations('0f6a2b9d-71e4-4c58-a3d0-9b8e5c1f7a26')/Datastream",
+  "FeatureOfInterest@iot.navigationLink": "https://example.org/staplus-partycontext/v1.0/Observations('0f6a2b9d-71e4-4c58-a3d0-9b8e5c1f7a26')/FeatureOfInterest"
 }

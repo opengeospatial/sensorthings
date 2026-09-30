@@ -32,7 +32,7 @@ As U1, POST an Agreement for P1 with `coveredProperties` = `["Party/authId"]`. V
 
 [.component,class=step]
 --
-As U1, POST an Agreement for P1 with `permittedOperations` = `["publish"]` and without `audience`. Verify HTTP 400.
+As U1, POST an Agreement for P1 with `permittedOperations` = `["publish"]` and without del:[`audience`] add:[a ReleaseProfile]. Verify HTTP 400.
 --
 
 [.component,class=step]
@@ -80,5 +80,10 @@ Inspect the `@iot.id` of the created Agreement and verify that it is not equal t
 As U3 (an authenticated user without a Party), POST a Party with `role` = `individual` that contains a deep-inserted valid Agreement. Verify that the Party and the Agreement are created and associated.
 --
 
+
+[.component,class=step]
+--
+add:[As U1, POST an Agreement for P1 with `permittedOperations` = `["store"\]` that is associated with a ReleaseProfile, and an Agreement for P1 with `permittedOperations` = `["publish"\]` that is associated with a ReleaseProfile of P2. Verify that each request is rejected with HTTP 400 and that no Agreement is created.]
+--
 =====
 ====

@@ -1,0 +1,16 @@
+[[req_gdpr_retention]]
+[requirement]
+.add:[Retention]
+====
+[%metadata]
+identifier:: http://www.opengis.net/spec/sensorthings-staplus-gdpr/1.0/req/gdpr/retention
+part:: add:[The implementation SHALL advertise the member `retentionPeriod` in the GDPR object of the `serverSettings` object (<<tab-gdpr-settings>>). The member `default` SHALL be an ISO 8601 duration. Each other member SHALL be named with an entity type and SHALL be an ISO 8601 duration that replaces `default` for that entity type.]
+part:: add:[For each entity that is attributable to a Party `P` whose `role` is `individual`, other than `P` itself and the Agreements of `P`, the implementation SHALL determine a retention instant by adding the applicable duration to the start instant of the entity. The start instant SHALL be: for an Observation, the end of `phenomenonTime`; for a HistoricalLocation, `time`; for a PartyLocation, the end of `time`; for a PartyActivity, the end of `time`; for any other entity, the latest of its time of creation and the retention start instants of the attributable entities associated with it.]
+part:: add:[If a PartyLocation or PartyActivity has a `retentionTime` that is earlier than the retention instant, `retentionTime` SHALL be the retention instant.]
+part:: add:[From the retention instant on, the implementation SHALL NOT release the stored values of the entity to any requester, including the data subject, and SHALL apply to the entity the action that the privacy notice declares for its entity type according to <<req_gdpr_erasure>>: deletion, or anonymization as specified in that requirement. The action SHALL be completed within one day (`P1D`) after the retention instant. A PartyLocation or PartyActivity SHALL be deleted.]
+part:: add:[Direct personal data SHALL be retained only as long as an Agreement is effective for it and the operation `store` (<<req_gdpr_store-direct>>); `retentionPeriod` SHALL NOT extend that time.]
+part:: add:[If the implementation advertises the member `inactivityPeriod`, it SHALL apply <<req_gdpr_erasure>> to a Party whose `role` is `individual` and whose principal has not been authenticated during that period, as if the data subject had deleted the Party.]
+part:: add:[If the implementation advertises the member `inactivityPeriod`, the advertised Business Logic SHALL state, together with the statement required by `http://www.opengis.net/spec/sensorthings-staplus/1.0.1/req/business-logic/gdpr-note` that a Party is deleted only when the authenticated user identifier is identical to its `authId`, that the implementation itself also deletes a Party whose `role` is `individual` when its principal has not been authenticated during `inactivityPeriod`, and SHALL state that period.]
+====
+
+NOTE: add:[The personal-data note of STAplus 1.0.1 governs deletion requests: an HTTP DELETE of a Party by any user other than the one represented by that Party is rejected. The erasure after `inactivityPeriod` is a deletion performed by the implementation that this Profile adds. The Business Logic states it so that the advertised statement of the operator remains accurate.]
