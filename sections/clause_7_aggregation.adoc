@@ -41,7 +41,7 @@ The implementation SHALL be configured with a non-empty set of aggregate interva
 
 The implementation SHALL be configured with the zone levels at which each interval applies. An interval MAY apply to one or more zone levels. A zone level MAY have zero, one, or many intervals.
 
-The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/aggregation/intervals`. That object SHALL contain:
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name del:[`{identifier}/req/aggregation/intervals`] add:[`{identifier}/conf/aggregation`]. That object SHALL contain:
 
 * a property `intervals` whose value is a JSON array of the configured interval identifiers;
 * a property `zoneLevels` whose value is a JSON object. Each name is a zone level encoded as a string. Each value is a JSON array of the interval identifiers that apply at that zone level.
@@ -52,7 +52,7 @@ The implementation SHALL provide a JSON object in the `serverSettings` object on
 [source,json]
 ----
 {
-  "http://www.opengis.net/spec/sensorthings-dggs/1.0/req/aggregation/intervals": {
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation": {
     "intervals": ["1min", "1hour", "1day", "1month", "1year"],
     "zoneLevels": {
       "4": ["1month", "1year"],

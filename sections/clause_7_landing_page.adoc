@@ -7,13 +7,13 @@ A client that links an `Observation`, a `Datastream`, or a `MultiDatastream` to 
 
 This Requirements Class also requires the implementation to advertise a geometry that defines the area within which a `Cell` can be created. That geometry SHALL be a Polygon or a MultiPolygon and MAY contain holes.
 
-The landing page is the resource at the root URI, as specified in <<OGC18-088>> §9.2.1. Extensions that need to expose additional server settings do so in a property of the `serverSettings` object that is named after the URI of the requirement that defines the setting.
+The landing page is the resource at the root URI, as specified in <<OGC18-088>> §9.2.1. del:[Extensions that need to expose additional server settings do so in a property of the `serverSettings` object that is named after the URI of the requirement that defines the setting.] add:[Extensions that need to expose additional server settings do so in a property of the `serverSettings` object. Following <<OGC22-022r2>>, this Standard names each such property with the URI of the Conformance Class that defines the settings: one JSON object per Conformance Class.]
 
 The `conformance` array of `serverSettings` SHALL include the Conformance Class URIs of this Standard that the implementation claims, as specified in <<OGC18-088>> §9.2.1.
 
 This clause also defines the <<aggregate-functions>> Requirements Class. That class advertises each aggregate function with a definition identifier and a well-accepted mathematical equation, and it registers the entity links that connect a base `ObservedProperty` to the derived `ObservedProperty` of each function.
 
-NOTE: The Requirements Classes in this section are part of the Conformance Class <<conformance_class_landing_page>>.
+NOTE: del:[The Requirements Classes in this section are part of the Conformance Class <<conformance_class_landing_page>>.] add:[The Landing Page Requirements Class is part of the Conformance Class <<conformance_class_landing_page>>. The Aggregate Functions Requirements Class is part of the Conformance Class <<conformance_class_observed_properties>>.]
 
 [[landing-page]]
 === Requirements Class *Landing Page*
@@ -37,7 +37,7 @@ requirement:: {identifier}/req/cell-create-boundary
 [%metadata]
 identifier:: {identifier}/req/grid-system
 
-The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/grid-system`. That object SHALL contain:
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name del:[`{identifier}/req/grid-system`] add:[`{identifier}/conf/landing-page`]. That object SHALL contain:
 
 * a property `gridSystem` whose value is a CharacterString that identifies the Discrete Global Grid System deployed by the implementation (for example `H3` or `GEOHASH`);
 * a property `coarsestZoneLevel` whose value is an Integer that identifies the coarsest zone level at which the implementation materializes parent cells;
@@ -54,7 +54,7 @@ Every `Cell/system` value SHALL be identical to the advertised `gridSystem`.
 [%metadata]
 identifier:: {identifier}/req/cell-create-boundary
 
-The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/cell-create-boundary`. That object SHALL contain:
+del:[The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/cell-create-boundary`. That object SHALL contain:] add:[The JSON object with the name `{identifier}/conf/landing-page` in the `serverSettings` object on the landing page (the root URI) SHALL contain a member `cellCreateBoundary` whose value is a JSON object. That JSON object SHALL contain:]
 
 * a property `encodingType` whose value is a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>> (for example `application/geo+json`);
 * a property `boundary` whose value is a geometry that defines the area within which a `Cell` can be created.
@@ -84,7 +84,7 @@ requirement:: {identifier}/req/entity-linking
 [%metadata]
 identifier:: {identifier}/req/aggregate-functions
 
-The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/req/aggregate-functions`. That object SHALL contain a property `functions` whose value is a JSON array. The array SHALL contain one object for each of the aggregate functions `min`, `max`, `avg`, `stddev`, and `count`, in that order.
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name del:[`{identifier}/req/aggregate-functions`] add:[`{identifier}/conf/observed-properties`]. That object SHALL contain a property `functions` whose value is a JSON array. The array SHALL contain one object for each of the aggregate functions `min`, `max`, `avg`, `stddev`, and `count`, in that order.
 
 Each object in `functions` SHALL contain:
 
@@ -132,21 +132,22 @@ The implementation SHALL provide a JSON object in the `serverSettings` object on
     "http://www.opengis.net/spec/iot_sensing/1.1/req/request-data",
     "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/landing-page",
     "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell",
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/observed-properties",
     "https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md"
   ],
-  "http://www.opengis.net/spec/sensorthings-dggs/1.0/req/grid-system": {
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/landing-page": {
     "gridSystem": "H3",
     "coarsestZoneLevel": 4,
-    "finestZoneLevel": 15
-  },
-  "http://www.opengis.net/spec/sensorthings-dggs/1.0/req/cell-create-boundary": {
-    "encodingType": "application/geo+json",
-    "boundary": {
-      "type": "Polygon",
-      "coordinates": [[[8.0, 49.0], [9.0, 49.0], [9.0, 50.0], [8.0, 50.0], [8.0, 49.0]]]
+    "finestZoneLevel": 15,
+    "cellCreateBoundary": {
+      "encodingType": "application/geo+json",
+      "boundary": {
+        "type": "Polygon",
+        "coordinates": [[[8.0, 49.0], [9.0, 49.0], [9.0, 50.0], [8.0, 50.0], [8.0, 49.0]]]
+      }
     }
   },
-  "http://www.opengis.net/spec/sensorthings-dggs/1.0/req/aggregate-functions": {
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/observed-properties": {
     "functions": [
       {
         "id": "min",

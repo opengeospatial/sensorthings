@@ -6,4 +6,6 @@
 |===
 |Date |Release |Editor | Primary clauses modified |Description
 |2026-08-19 |0.1 |Andreas Matheus |all |Initial draft of OGC SensorThings API extension: DGGS 1.0
+|2026-09-29 |0.2 |Andreas Matheus |Front material, Scope, Conformance, Clauses 6, 7, Bibliography |OGC 26-040 is now STAplus Party Context 1.0, an extension of STAplus 1.0.1 rather than a revision. References updated. Changes are marked with `\add:[\]` and `\del:[\]`.
+|2026-09-30 |0.2 |Andreas Matheus |Title, Front material, Conformance, Clause 6 |Consistency review: the STAplus Conformance Class inherits the STAplus 1.0.1 Core Conformance Class instead of the Party Requirements Class; title written as "Extension"; draft number and dates aligned with this history. The Aggregate Functions Requirements Class and its tests (now `/conf/observed-properties/aggregate-functions` and `/conf/observed-properties/entity-linking`) moved from the Landing Page to the ObservedProperties Conformance Class. The STAplus Conformance Class also inherits the STAplus 1.0.1 Business Logic Conformance Class. Landing-page settings are JSON objects named with the Conformance Class URI (`/conf/landing-page` with `cellCreateBoundary`, `/conf/observed-properties`, `/conf/aggregation`) instead of requirement URIs.
 |===

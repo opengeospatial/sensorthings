@@ -3,7 +3,7 @@ This Standard extends <<OGC18-088>> with the `Cell` entity type and with the cor
 
 This Standard does not replace <<OGC18-088>>. All SensorThings Sensing requirements of <<OGC18-088>> remain in force unless this Standard explicitly extends them. This Standard does not require a particular DGGS (H3, Geohash, S2, ISEA3H, or any other). The deployed grid system and the cell-create boundary SHALL be advertised as specified in the <<conformance_class_landing_page>> Conformance Class.
 
-This Standard can also be used with <<OGC22-022r2>> (STAplus 1.0.1) and with <<OGC26-040>> (STAplus 1.1). <<OGC22-022r2>> is a normative reference for an implementation that claims the <<conformance_class_staplus>> Conformance Class. <<OGC22-022r2>> replaces STAplus 1.0 (OGC 22-022r1). This Standard inherits the Party Requirements Class at `{identifier-staplus}/req-class/party`. An implementation that combines this extension with STAplus remains subject to the STAplus requirements that it claims.
+This Standard can also be used with <<OGC22-022r2>> (STAplus 1.0.1) and with <<OGC26-040>> del:[(STAplus 1.1)] add:[(STAplus Party Context 1.0)]. <<OGC22-022r2>> is a normative reference for an implementation that claims the <<conformance_class_staplus>> Conformance Class. <<OGC22-022r2>> replaces STAplus 1.0 (OGC 22-022r1). This Standard inherits the Party Requirements Class at `{identifier-staplus}/req-class/party`. An implementation that combines this extension with STAplus remains subject to the STAplus requirements that it claims.
 
 This Standard does not specify a particular storage architecture, database product, or internal scheduling mechanism for aggregation.
 

@@ -1,15 +1,15 @@
-= OGC SensorThings API extension: DGGS 1.0
+= OGC SensorThings API Extension: DGGS 1.0
 :doctype: standard
 :encoding: utf-8
 :lang: en
 :status: swg-draft
 :committee: technical
-:draft: 1.0
+:draft: 0.2
 :external-id: http://www.opengis.net/doc/is/sensorthings-dggs/1.0
 :docnumber: 26-057
 :received-date: 2026-08-19
-:issued-date: 2026-09-24
-:published-date: 2026-09-24
+:issued-date: 2026-09-29
+:published-date: 2026-09-29
 :fullname: Andreas Matheus
 :docsubtype: Implementation
 :keywords: OGC Standard, API, SensorThings, DGGS, Cell, Aggregation, H3, Geohash, STAplus

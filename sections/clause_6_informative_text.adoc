@@ -1,9 +1,9 @@
 [obligation=informative]
 == Introduction
 
-The SensorThings API extension: DGGS 1.0 extends <<OGC18-088>> so that observations can be spatially grouped: an observation linked to a `Cell` directly or indirectly via `Datastream` or `MultiDatastream` was made somewhere in that cell.
+The SensorThings API del:[extension] add:[Extension]: DGGS 1.0 extends <<OGC18-088>> so that observations can be spatially grouped: an observation linked to a `Cell` directly or indirectly via `Datastream` or `MultiDatastream` was made somewhere in that cell.
 
-The same `Cell` model can also be used with <<OGC22-022r2>> (STAplus 1.0.1) and with <<OGC26-040>> (STAplus 1.1). STAplus adds party, licence, grouping, and related entity types on top of SensorThings. An implementation may therefore deploy DGGS on SensorThings alone, or together with either STAplus 1.0.1 or STAplus 1.1. The optional <<conformance_class_staplus>> Conformance Class applies when STAplus is enabled.
+The same `Cell` model can also be used with <<OGC22-022r2>> (STAplus 1.0.1) and with <<OGC26-040>> del:[(STAplus 1.1)] add:[(STAplus Party Context 1.0)]. STAplus adds party, licence, grouping, and related entity types on top of SensorThings. An implementation may therefore deploy DGGS on SensorThings alone, del:[or together with either STAplus 1.0.1 or STAplus 1.1.] add:[or together with STAplus 1.0.1, optionally extended by STAplus Party Context 1.0.] The optional <<conformance_class_staplus>> Conformance Class applies when STAplus is enabled.
 
 === Motivation
 

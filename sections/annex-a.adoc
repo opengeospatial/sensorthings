@@ -20,7 +20,7 @@ target:: {identifier}/req/grid-system
 test-purpose:: To verify that the implementation advertises the deployed grid system, the coarsest zone level, and the finest zone level as a JSON object on the landing page.
 test-method:: Inspect the landing page (the root URI):
 
-part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/req/grid-system`.
+part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/conf/landing-page`.
 
 part:: Verify that the object has a property `gridSystem` whose value is a non-empty CharacterString (for example `H3` or `GEOHASH`).
 
@@ -45,49 +45,11 @@ target:: {identifier}/req/cell-create-boundary
 test-purpose:: To verify that the implementation advertises a Polygon or MultiPolygon that defines the area within which a `Cell` can be created.
 test-method:: Inspect the landing page (the root URI):
 
-part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/req/cell-create-boundary`.
+part:: Find the member `cellCreateBoundary` of the JSON object in the `serverSettings` object with the name `{identifier}/conf/landing-page`.
 
-part:: Verify that the object has a property `encodingType` whose value is a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>.
+part:: Verify that `cellCreateBoundary` has a property `encodingType` whose value is a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>.
 
-part:: Verify that the object has a property `boundary` whose value is a Polygon or a MultiPolygon, encoded as indicated by `encodingType`. A simple polygon or a multi-polygon with holes is permitted.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/landing-page/aggregate-functions
-target:: {identifier}/conf/landing-page
-
-target:: {identifier}/req/aggregate-functions
-
-
-test-purpose:: To verify that the implementation advertises each aggregate function with a definition identifier and a well-accepted mathematical equation.
-test-method:: Inspect the landing page (the root URI):
-
-part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/req/aggregate-functions`.
-
-part:: Verify that `functions` is a JSON array of five objects whose `id` values are `min`, `max`, `avg`, `stddev`, and `count`, in that order.
-
-part:: For each object, verify that `definition` is a URI, that `equation` is a non-empty CharacterString, and that `method` is a non-empty CharacterString.
-====
-
-[conformance_test]
-====
-[%metadata]
-identifier:: {identifier}/conf/landing-page/entity-linking
-target:: {identifier}/conf/landing-page
-
-target:: {identifier}/req/entity-linking
-
-
-test-purpose:: To verify that the implementation advertises entity linking as specified in <<INSIDE-EntityLinking>>.
-test-method:: Inspect the landing page (the root URI):
-
-part:: Verify that the `conformance` array of `serverSettings` contains `https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md`.
-
-part:: Find the JSON object in the `serverSettings` object with that name and verify that `registeredLinks` includes `ObservedProperty/properties/derivations/derivation`, `ObservedProperty/properties/prov:wasDerivedFrom`, and `ObservedProperty/properties/prov:qualifiedDerivation/prov:wasDerivedFrom`.
-
-part:: Verify that each of those registered links has `targetType` equal to `ObservedProperty`.
+part:: Verify that `cellCreateBoundary` has a property `boundary` whose value is a Polygon or a MultiPolygon, encoded as indicated by `encodingType`. A simple polygon or a multi-polygon with holes is permitted.
 ====
 
 
@@ -350,6 +312,44 @@ part:: Repeatedly submit create-by-reference requests and verify that the servic
 [conformance_test]
 ====
 [%metadata]
+identifier:: {identifier}/conf/observed-properties/aggregate-functions
+target:: {identifier}/conf/observed-properties
+
+target:: {identifier}/req/aggregate-functions
+
+
+test-purpose:: To verify that the implementation advertises each aggregate function with a definition identifier and a well-accepted mathematical equation.
+test-method:: Inspect the landing page (the root URI):
+
+part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/conf/observed-properties`.
+
+part:: Verify that `functions` is a JSON array of five objects whose `id` values are `min`, `max`, `avg`, `stddev`, and `count`, in that order.
+
+part:: For each object, verify that `definition` is a URI, that `equation` is a non-empty CharacterString, and that `method` is a non-empty CharacterString.
+====
+
+[conformance_test]
+====
+[%metadata]
+identifier:: {identifier}/conf/observed-properties/entity-linking
+target:: {identifier}/conf/observed-properties
+
+target:: {identifier}/req/entity-linking
+
+
+test-purpose:: To verify that the implementation advertises entity linking as specified in <<INSIDE-EntityLinking>>.
+test-method:: Inspect the landing page (the root URI):
+
+part:: Verify that the `conformance` array of `serverSettings` contains `https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md`.
+
+part:: Find the JSON object in the `serverSettings` object with that name and verify that `registeredLinks` includes `ObservedProperty/properties/derivations/derivation`, `ObservedProperty/properties/prov:wasDerivedFrom`, and `ObservedProperty/properties/prov:qualifiedDerivation/prov:wasDerivedFrom`.
+
+part:: Verify that each of those registered links has `targetType` equal to `ObservedProperty`.
+====
+
+[conformance_test]
+====
+[%metadata]
 identifier:: {identifier}/conf/observed-properties/base
 target:: {identifier}/conf/observed-properties
 
@@ -438,7 +438,7 @@ target:: {identifier}/req/aggregation/intervals
 test-purpose:: To verify that the implementation advertises the configured aggregate intervals and the zone levels at which they apply.
 test-method:: Inspect the landing page (the root URI):
 
-part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/req/aggregation/intervals`.
+part:: Find the JSON object in the `serverSettings` object with the name `{identifier}/conf/aggregation`.
 
 part:: Verify that `intervals` is a non-empty JSON array of CharacterString values.
 

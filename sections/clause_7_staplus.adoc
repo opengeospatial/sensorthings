@@ -3,7 +3,7 @@
 
 === Overview
 
-The <<conformance_class_staplus>> Conformance Class is optional. An implementation that claims it SHALL also conform to <<OGC22-022r2>> (STAplus 1.0.1). An implementation that conforms to <<OGC26-040>> (STAplus 1.1) uses the same `Party` model, including `role` `system`. Contributor citation on an attribution license follows the Business Logic of the STAplus standard that the implementation claims.
+The <<conformance_class_staplus>> Conformance Class is optional. An implementation that claims it SHALL also conform to <<OGC22-022r2>> (STAplus 1.0.1). An implementation that conforms to <<OGC26-040>> del:[(STAplus 1.1)] add:[(STAplus Party Context 1.0)] del:[uses the same `Party` model, including `role` `system`.] add:[extends STAplus 1.0.1 and therefore uses the same `Party` model, including `role` `system`.] Contributor citation on an attribution license follows the Business Logic of the STAplus standard that the implementation claims.
 
 When this Conformance Class is claimed, each aggregate `MultiDatastream` is owned by a `Party` whose `role` is `system`. That `Party` is the producer of the aggregate. That association identifies aggregate `MultiDatastreams` among other streams.
 
@@ -24,6 +24,7 @@ obligation:: requirement
 subject:: Target Type: Implementation
 inherit:: {identifier}/req-class/aggregation
 inherit:: {identifier-staplus}/req-class/party
+inherit:: {identifier-staplus}/req-class/business-logic
 requirement:: {identifier}/req/staplus/aggregate-party
 ====
 

@@ -8,6 +8,6 @@
 
 * [[[OGC21-038r1, OGC API — Discrete Global Grid Systems — Part 1: Core]]], OGC, _OGC API — Discrete Global Grid Systems — Part 1: Core_, OGC (2023), https://docs.ogc.org/is/21-038r1/21-038r1.html
 
-* [[[OGC26-040,OGC SensorThings API Extension: STAplus 1.1]]], OGC, _OGC SensorThings API Extension: STAplus 1.1_, OGC (2026)
+* [[[OGC26-040,OGC SensorThings API Extension: STAplus Party Context 1.0]]], del:[OGC, _OGC SensorThings API Extension: STAplus 1.1_, OGC (2026)] add:[OGC, _OGC SensorThings API Extension: STAplus Party Context 1.0_ (draft), OGC (2026), http://www.opengis.net/doc/is/sensorthings-staplus-party-context/1.0]
 
 * [[[INSIDE-EntityLinking,SensorThings API Entity Linking]]], INSIDE information systems, _Custom Entity Linking_, https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md

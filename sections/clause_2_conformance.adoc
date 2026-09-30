@@ -4,9 +4,9 @@ All requirements-classes and conformance-classes described in this document are 
 
 === Introduction
 
-The OGC SensorThings API extension: DGGS 1.0 is an extension of <<OGC18-088>>. An implementation that claims conformance to this Standard SHALL also conform to the Sensing data model of <<OGC18-088>>. An implementation MAY also conform to <<OGC22-022r2>> or <<OGC26-040>>. Those STAplus Standards are required only if the implementation claims the <<conformance_class_staplus>> Conformance Class.
+The OGC SensorThings API del:[extension] add:[Extension]: DGGS 1.0 is an extension of <<OGC18-088>>. An implementation that claims conformance to this Standard SHALL also conform to the Sensing data model of <<OGC18-088>>. del:[An implementation MAY also conform to <<OGC22-022r2>> or <<OGC26-040>>. Those STAplus Standards are required] add:[An implementation MAY also conform to <<OGC22-022r2>> and to its extension <<OGC26-040>>. <<OGC22-022r2>> is required] only if the implementation claims the <<conformance_class_staplus>> Conformance Class.
 
-This Standard adds the `Cell` entity type to the SensorThings data model. The `Cell` Conformance Class defines the data model extension. The mandatory `Landing Page` Conformance Class requires the implementation to advertise the deployed grid system in the `serverSettings` object on the landing page, as specified for extensions in <<OGC18-088>> §9.2.1, to advertise a Polygon or MultiPolygon that defines the area within which a `Cell` can be created, and to advertise each aggregate function with a definition identifier, a well-accepted mathematical equation, and entity linking as specified in <<INSIDE-EntityLinking>>. The `Cell CRUD` Conformance Class defines the Read of `Cell` via HTTP GET and restricts Create, Update, and Delete of a `Cell`. A created `Cell` SHALL be within the advertised cell-create boundary, and anonymous creation is throttled. The `Authentication` Conformance Class exempts authenticated creation of a `Cell` from throttling. The `ObservedProperties` Conformance Class defines how a base `ObservedProperty` is linked to the derived `ObservedProperty` of each aggregate function. Create, Update, and Delete of a derived `ObservedProperty` are limited to the implementation itself and to an administrator. The `Aggregation` Conformance Class defines how an implementation calculates aggregate values from raw observations linked to a cell and publishes those values as `Observation` entities of a `MultiDatastream`. An implementation that claims the `Aggregation` Conformance Class SHALL also conform to the MultiDatastream Requirements Class of <<OGC18-088>>. The optional `STAplus` Conformance Class applies when STAplus is enabled: each aggregate `MultiDatastream` is owned by a `Party` whose `role` is `system`. That `Party` is the producer of the aggregate.
+This Standard adds the `Cell` entity type to the SensorThings data model. The `Cell` Conformance Class defines the data model extension. The mandatory `Landing Page` Conformance Class requires the implementation to advertise the deployed grid system in the `serverSettings` object on the landing page, as specified for extensions in <<OGC18-088>> §9.2.1del:[, to advertise a Polygon or MultiPolygon that defines the area within which a `Cell` can be created, and to advertise each aggregate function with a definition identifier, a well-accepted mathematical equation, and entity linking as specified in <<INSIDE-EntityLinking>>.] add:[, and to advertise a Polygon or MultiPolygon that defines the area within which a `Cell` can be created.] The `Cell CRUD` Conformance Class defines the Read of `Cell` via HTTP GET and restricts Create, Update, and Delete of a `Cell`. A created `Cell` SHALL be within the advertised cell-create boundary, and anonymous creation is throttled. The `Authentication` Conformance Class exempts authenticated creation of a `Cell` from throttling. The `ObservedProperties` Conformance Class defines how a base `ObservedProperty` is linked to the derived `ObservedProperty` of each aggregate function. add:[It requires the implementation to advertise each aggregate function with a definition identifier, a well-accepted mathematical equation, and entity linking as specified in <<INSIDE-EntityLinking>>.] Create, Update, and Delete of a derived `ObservedProperty` are limited to the implementation itself and to an administrator. The `Aggregation` Conformance Class defines how an implementation calculates aggregate values from raw observations linked to a cell and publishes those values as `Observation` entities of a `MultiDatastream`. An implementation that claims the `Aggregation` Conformance Class SHALL also conform to the MultiDatastream Requirements Class of <<OGC18-088>>. The optional `STAplus` Conformance Class applies when STAplus is enabled: each aggregate `MultiDatastream` is owned by a `Party` whose `role` is `system`. That `Party` is the producer of the aggregate.
 
 === DGGS 1.0 Conformance Classes
 
@@ -22,7 +22,7 @@ In order to conform to this OGC Standard, a software implementation shall choose
 
 This is the list of DGGS 1.0 Conformance Classes.
 
-* *Landing Page* (mandatory): This Conformance Class requires the implementation to advertise the deployed grid system (for example H3 or Geohash) and the coarsest and finest zone levels as a JSON object on the landing page, and to advertise a Polygon or MultiPolygon that defines the area within which a `Cell` can be created. It also requires the implementation to advertise each aggregate function (`min`, `max`, `avg`, `stddev`, `count`) with a definition identifier and a well-accepted mathematical equation, and to register entity links as specified in <<INSIDE-EntityLinking>>.
+* *Landing Page* (mandatory): This Conformance Class requires the implementation to advertise the deployed grid system (for example H3 or Geohash) and the coarsest and finest zone levels as a JSON object on the landing page, and to advertise a Polygon or MultiPolygon that defines the area within which a `Cell` can be created. del:[It also requires the implementation to advertise each aggregate function (`min`, `max`, `avg`, `stddev`, `count`) with a definition identifier and a well-accepted mathematical equation, and to register entity links as specified in <<INSIDE-EntityLinking>>.]
 
 * *Cell* (mandatory): This Conformance Class defines the `Cell` entity, its properties, and its associations with `Observation`, `Datastream`, `MultiDatastream`, and `Cell`. `Cell/@iot.id` is a CharacterString, identical to `zoneId`. The optional `Cell/boundary` property is the geometry of the zone and uses the same encoding rules as `Location/location` and `FeatureOfInterest/feature`.
 
@@ -30,7 +30,7 @@ This is the list of DGGS 1.0 Conformance Classes.
 
 * *Authentication* (optional): Authenticated creation of a `Cell` by reference is not throttled. That creation records neither a user identifier nor a `Party`.
 
-* *ObservedProperties* (optional): This Conformance Class defines how a base `ObservedProperty` and the derived `ObservedProperty` of each aggregate function are linked. The definition identifier of the function advertised on the landing page SHALL be linked to the derived `ObservedProperty` that is associated with the corresponding value in the aggregate `MultiDatastream`. Create, Update, and Delete of a derived `ObservedProperty` SHALL be performed only by the implementation itself or by an administrator.
+* *ObservedProperties* (optional): This Conformance Class defines how a base `ObservedProperty` and the derived `ObservedProperty` of each aggregate function are linked. The definition identifier of the function advertised on the landing page SHALL be linked to the derived `ObservedProperty` that is associated with the corresponding value in the aggregate `MultiDatastream`. Create, Update, and Delete of a derived `ObservedProperty` SHALL be performed only by the implementation itself or by an administrator. add:[It also requires the implementation to advertise each aggregate function (`min`, `max`, `avg`, `stddev`, `count`) with a definition identifier and a well-accepted mathematical equation, and to register entity links as specified in <<INSIDE-EntityLinking>>.]
 
 * *Aggregation* (optional): This Conformance Class defines how an implementation calculates aggregate values from raw observations linked to a cell. The implementation is configured with aggregate intervals. Aggregation starts at the finest resolution of the linked cell and visits every parent up to the configured coarsest resolution. Each aggregate function is calculated as advertised on the landing page.
 
@@ -46,13 +46,10 @@ The `Landing Page` Conformance Class is defined as follows:
 [%metadata]
 identifier:: {identifier}/conf/landing-page
 target:: {identifier}/req-class/landing-page
-target:: {identifier}/req-class/aggregate-functions
 
 classification:: Target Type: Implementation
 conformance-test:: {identifier}/conf/landing-page/grid-system
 conformance-test:: {identifier}/conf/landing-page/cell-create-boundary
-conformance-test:: {identifier}/conf/landing-page/aggregate-functions
-conformance-test:: {identifier}/conf/landing-page/entity-linking
 ====
 
 [[conformance_class_cell]]
@@ -128,8 +125,11 @@ The `ObservedProperties` Conformance Class is defined as follows:
 identifier:: {identifier}/conf/observed-properties
 inherit:: {identifier}/conf/landing-page
 target:: {identifier}/req-class/observed-properties
+target:: {identifier}/req-class/aggregate-functions
 
 classification:: Target Type: Implementation
+conformance-test:: {identifier}/conf/observed-properties/aggregate-functions
+conformance-test:: {identifier}/conf/observed-properties/entity-linking
 conformance-test:: {identifier}/conf/observed-properties/base
 conformance-test:: {identifier}/conf/observed-properties/derived
 conformance-test:: {identifier}/conf/observed-properties/derived-cud
@@ -168,7 +168,8 @@ The `STAplus` Conformance Class is defined as follows:
 [%metadata]
 identifier:: {identifier}/conf/staplus
 inherit:: {identifier}/conf/aggregation
-inherit:: {identifier-staplus}/req-class/party
+inherit:: {identifier-staplus}/conf/core
+inherit:: {identifier-staplus}/conf/business-logic
 target:: {identifier}/req-class/staplus
 
 classification:: Target Type: Implementation
