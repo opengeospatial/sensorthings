@@ -41,7 +41,7 @@ The STAplus authentication SHALL provide a user identifier add:[that is] permane
 [%metadata]
 identifier:: {identifier-corrigendum}/req/authentication/id-read
 
-The STAplus implementation SHALL ensure that the `Party/authId` property is add:[not] exposed in any response add:[, including MQTT payloads,] and can add:[not] be used in STA operators such as `$select` add:[or `$expand` or `$orderby`] unless the requesting user is represented by the `Party`. add:[The property SHALL NOT be used in `$filter` except as specified in `{identifier-corrigendum}/req/authentication/me`.] add:[An MQTT message SHALL NOT contain `Party/authId` unless the MQTT client is authenticated as the user represented by that `Party`.]
+The STAplus implementation SHALL ensure that the `Party/authId` property is add:[not] exposed in any responseadd:[, including MQTT payloads,] and can add:[not] be used in STA operators such as `$select` add:[or `$expand` or `$orderby`] unless the requesting user is represented by the `Party`. add:[The property SHALL NOT be used in `$filter` except as specified in `{identifier-corrigendum}/req/authentication/me`.] add:[An MQTT message SHALL NOT contain `Party/authId` unless the MQTT client is authenticated as the user represented by that `Party`.]
 ====
 
 [requirement]
@@ -49,7 +49,7 @@ The STAplus implementation SHALL ensure that the `Party/authId` property is add:
 [%metadata]
 identifier:: {identifier-corrigendum}/req/authentication/id-create
 
-The STAplus implementation SHALL overwrite any existing value and SHALL set the `Party/authId` property with the user's identification value provided by the authentication (e.g., `REMOTE_USER`). add:[The implementation SHALL set `Party/@iot.id` to a random identifier that is not correlated to the user identification.]
+The STAplus implementation SHALL overwrite any existing value and SHALL set the `Party/authId` property with add:[a unique identifier based on] the user's identification value provided by the authentication (e.g., `REMOTE_USER`). add:[The implementation SHALL set `Party/@iot.id` to a random identifier that is not correlated to the user identification.]
 ====
 
 [requirement]

@@ -271,9 +271,9 @@ test-purpose:: To verify that the identifier value stored in `Party/authId` is t
 test-method:: For a non-existing `Party` entity:
 
 part:: Submit an HTTP POST request to create a `Party` entity where the `authId` is not set.
-part:: Observe the response to find the location URI for the created `Party` entity.
-part:: Issue an HTTP GET request to the location URI and verify that the `Party/authId` is set with the unique identifier that represents the user.
-part:: Issue an HTTP GET request to the location URI and verify that `Party/@iot.id` is a random identifier that is not correlated to the user identification.
+part:: Observe the response to find the del:[location] URI for the created `Party` entity.
+part:: Issue an HTTP GET request to the del:[location] URI and verify that the `Party/authId` is set with the unique identifier that represents the user.
+part:: Issue an HTTP GET request to the del:[location] URI and verify that `Party/@iot.id` is a random identifier that is not correlated to the user identification.
 
 part:: Submit an HTTP POST request to create a `Party` entity where the `authId` is set with some value.
 part:: Observe the response status code and verify it is 400.
@@ -641,11 +641,11 @@ target:: {identifier-corrigendum}/req/business-logic/gdpr-note
 test-purpose:: add:[To verify that the advertised Business Logic includes the personal-data note.]
 test-method:: add:[On the service root URI, find the JSON object with name `{identifier-corrigendum}/conf/business-logic` and follow the link provided in the `href` property. Verify that the loaded HTML page states the following:]
 
-part:: add:[This Standard does not determine which entities or properties are personal data.]
+part:: add:[The STAplus 1.0 Corrigendum Standard does not determine which entities or properties are personal data.]
 part:: add:[The operator of the endpoint is responsible for identifying personal data and for their lawful processing.]
 part:: add:[Lawful processing is achieved by access control, by a legal basis determined by the operator, or by both.]
 part:: add:[Access control and lawful processing apply to HTTP operations and to MQTT publish and subscribe.]
-part:: add:[A `Party` entity is deleted only when `REMOTE_USER` is identical to that `Party/authId`. An HTTP DELETE of a `Party` is rejected when that condition is not met.]
+part:: add:[A `Party` entity is deleted only when `REMOTE_USER` is associated with that `Party/authId`. An HTTP DELETE of a `Party` is rejected when that condition is not met.]
 part:: add:[Claiming this Conformance Class does not constitute GDPR compliance of the deployment.]
 ====
 

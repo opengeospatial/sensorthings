@@ -7,3 +7,5 @@
 * [[[ODATA, OData Version 4.01. Part 1: Protocol]]], OASIS, _OData Version 4.01. Part 1: Protocol_, (2020), http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html.
 
 * [[[W3C-DID, Decentralized Identifiers (DIDs) v1.0]]], W3C, _Decentralized Identifiers (DIDs) v1.0_, (2022), https://www.w3.org/TR/did-core/
+
+* [[[GDPR,nofetch(Regulation (EU) 2016/679)]]], _Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation)_. Official Journal of the European Union, L 119, 4 May 2016, pp. 1–88. https://eur-lex.europa.eu/eli/reg/2016/679/oj

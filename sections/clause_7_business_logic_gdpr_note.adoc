@@ -11,15 +11,13 @@ identifier:: {identifier-corrigendum}/req/business-logic/gdpr-note
 
 add:[The advertised Business Logic SHALL state all of the following:]
 
-* add:[This Standard does not determine which STAplus or SensorThings entities or properties are personal data.]
+* add:[The STAplus 1.0 Corrigendum Standard does not determine which STAplus or SensorThings entities or properties are personal data.]
 * add:[The operator of the endpoint is responsible for identifying personal data and for their lawful processing.]
 * add:[Lawful processing is achieved by access control, by a legal basis determined by the operator, or by both.]
 * add:[Access control and lawful processing apply to HTTP operations and to MQTT publish and subscribe.]
-* add:[A `Party` entity is deleted only when the authenticated user identifier (`REMOTE_USER`) is identical to that `Party/authId`. An HTTP DELETE of a `Party` is rejected when that condition is not met.]
-* add:[Claiming this Conformance Class does not constitute GDPR compliance of the deployment.]
+* add:[A `Party` entity is deleted only when the authenticated user identifier (`REMOTE_USER`) is associated with that `Party/authId`. An HTTP DELETE of a `Party` is rejected when that condition is not met.]
+* add:[Claiming the STAplus 1.0 Corrigendum Standard conformance class Business Logic does not constitute GDPR compliance of the deployment.]
 ====
-
-NOTE: add:[A `$filter` that compares `authId` with a literal value, including `$filter=authId eq ''`, is rejected with HTTP 400.]
 
 [[req-business-logic-attribution]]
 [requirement]
@@ -36,7 +34,7 @@ add:[The advertised Business Logic SHALL state all of the following:]
 * add:[When `License/definition` identifies an attribution license, creator identification SHALL always be the `attributionText` of that `License` instance. `Party/displayName` and `Party/authId` SHALL NOT be used as creator identification.]
 * add:[A template `License` SHALL NOT store a party-specific name in `attributionText`.]
 * add:[The `Party` of a derived or aggregate `Datastream` or `MultiDatastream` is the producer of that derived work. When the `License/definition` of an aggregate `MultiDatastream` identifies an attribution license, that `License` SHALL identify contributors whose source `License/definition` identifies an attribution license by reference to those source `License` instances, not by copying their `attributionText`. Those references SHALL be obtained by expanding each such source `Datastream` or `MultiDatastream` to its `License`, or each grouped `Observation` to its `Datastream` and `License`.]
-* add:[This Standard does not determine whether `attributionText` used as creator citation is personal data, or the legal basis for publishing it. Lawful processing of that text is the operator's responsibility, as specified in <<req-business-logic-gdpr-note>>.]
+* add:[The STAplus 1.0 Corrigendum Standard does not determine whether `attributionText` used as creator citation is personal data, or the legal basis for publishing it. Lawful processing of that text is the operator's responsibility, as specified in <<req-business-logic-gdpr-note>>.]
 ====
 
 [[req-authentication-me]]
@@ -47,7 +45,7 @@ identifier:: {identifier-corrigendum}/req/authentication/me
 
 add:[The STAplus implementation SHALL support the parameterless OData function `me()` that evaluates to the authenticated user identifier (`REMOTE_USER`).]
 
-add:[The implementation SHALL accept a `$filter` that compares `authId` with `me()`, including `Parties?$filter=authId eq me()` and a navigation path such as `Datastreams?$filter=Party/authId eq me()`. For `Parties?$filter=authId eq me()`, the response SHALL contain the `Party` whose `authId` is identical to `REMOTE_USER`. If no such `Party` exists, the implementation SHALL return HTTP 200 with an empty collection.]
+add:[The implementation SHALL accept a `$filter` that compares `authId` with `me()`, including `Parties?$filter=authId eq me()` and a navigation path such as `Datastreams?$filter=Party/authId eq me()`. For `Parties?$filter=authId eq me()`, the response SHALL contain the `Party` whose `authId` is associated with `REMOTE_USER`. If no such `Party` exists, the implementation SHALL return HTTP 200 with an empty collection.]
 
 add:[An unauthenticated request that applies `me()` SHALL be rejected with HTTP 404.]
 ====
