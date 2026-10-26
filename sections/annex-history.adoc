@@ -25,6 +25,7 @@ This section provides detailed information about the different revisions.
 |2026-09-10 |1.0.1 |Andreas Matheus | Scope, Conformance, Party, Business Logic, Geometry-FG, Annex A | Review results from the OGC SensorThings SWG: this document is written as a replacement for STAplus 1.0 (OGC #22-022r1). See <<changes-1-0-1>>.
 |2026-09-22 |1.0.1 |Andreas Matheus | Authentication, Business Logic, Scope, Conformance, Annex A | MUST changes in Authentication requirements and the Authentication abstract tests. Added requirement `me`. `gdpr-note` now covers MQTT as an access path. See <<changes-1-0-1>>.
 |2026-10-09 |1.0.1 |Andreas Matheus | Authentication, Security Considerations, Annex A, Bibliography | Allowing that `Party/authId` is a derived identifier from the user's authentication identifier. Adding the GDPR regulation to Bibliography.
+|2026-10-26 |1.0.1 |Andreas Matheus | All sections| Editorial changes incorporating proofreading feedback from Joan Maso
 
 |===
 
@@ -35,11 +36,11 @@ This corrigendum includes the following normative additions and corrections that
 
 ==== Replacement of STAplus 1.0
 
-* Review results from the OGC SensorThings SWG: this Standard is a corrigendum for STAplus 1.0 and is written as a replacement for STAplus 1.0 (OGC #22-022r1). All changes relative to STAplus 1.0 are summarized in this annex.
+* This Standard is a corrigendum for STAplus 1.0 and is written as a replacement for STAplus 1.0 (OGC #22-022r1). All changes relative to STAplus 1.0 are summarized in this annex.
 
 ==== Party role code
 
-* Extended `Party.role` with the value `system`. A `Party` with `role` equal to `system` represents an autonomously acting computer, process, or similar. The allowed values are `individual`, `institutional`, and `system`.
+* Extended `Party.role` with the value `system`. A `Party` with `role` equal to `system` represents an autonomously acting computer, process, or similar.
 * Updated the `Party` term and the Party requirements class introduction accordingly.
 * Added `system` to the `PartyRoleCode` enumeration in the UML.
 
@@ -49,33 +50,37 @@ This corrigendum includes the following normative additions and corrections that
 
 ==== Personal-data note in Business Logic
 
-* Added requirement `{identifier-corrigendum}/req/business-logic/gdpr-note`: the advertised Business Logic states that The STAplus 1.0 Corrigendum Standard does not determine which STAplus or SensorThings entities or properties are personal data, that the operator of the endpoint is responsible for identifying personal data and for their lawful processing, that lawful processing is achieved by access control, by a legal basis determined by the operator, or by both, that access control and lawful processing apply to HTTP operations and to MQTT publish and subscribe, that a `Party` entity is deleted only when `REMOTE_USER` is associate with that `Party/authId` and that an HTTP DELETE of a `Party` is rejected when that condition is not met, and that claiming this Conformance Class does not constitute GDPR compliance of the deployment.
-* The note is advertised through the existing Business Logic `serverSettings` object, so an endpoint that claims Business Logic exposes the operator's personal-data statement.
+* Added requirement `{identifier-corrigendum}/req/business-logic/gdpr-note`: the advertised Business Logic states that The STAplus 1.0 Corrigendum Standard does not determine which STAplus or SensorThings entities or properties contain personal data, that the operator of the endpoint is responsible for identifying personal data and for their lawful processing, that lawful processing is achieved by access control, by a legal basis determined by the operator, or by both, that access control and lawful processing apply to HTTP operations and to MQTT publish and subscribe, that a `Party` entity is deleted only when the authenticated user is associated with that `Party/authId` and that an HTTP DELETE of a `Party` is rejected otherwise, and that claiming this Conformance Class does not constitute GDPR compliance of the deployment.
+* The requirement `{identifier-corrigendum}/req/business-logic/gdpr-note` is advertised through the existing Business Logic `serverSettings` object, so an endpoint that claims Business Logic exposes the operator's personal-data statement.
 
 ==== License attribution note in Business Logic
 
 * Added requirement `{identifier-corrigendum}/req/business-logic/attribution`: the advertised Business Logic states that system `License` entities are templates and are read-only, that a `License` whose `definition` does not identify an attribution license is associated as the template with no party-specific instance and no `attributionText`, that each use of an attribution license is a party-specific instance with `attributionText` filled, that the writable properties of that instance are `attributionText` and `description` and that the associated `Party` may update them, that creator identification is always that `attributionText`, that `Party/displayName` and `Party/authId` are not used as creator identification, that a template does not store a party-specific name, that an aggregate `MultiDatastream` whose license requires attribution identifies contributors by reference to those source `License` instances and does not copy their `attributionText`, and that The STAplus 1.0 Corrigendum Standard does not determine whether `attributionText` used as creator identification is personal data or the legal basis for publishing it.
-* The note is advertised through the existing Business Logic `serverSettings` object. The data model is unchanged.
+* The requirement `{identifier-corrigendum}/req/business-logic/attribution` is advertised through the existing Business Logic `serverSettings` object. The data model is unchanged.
 
 ==== Business Logic Requirements Class identifier
 
-* Review results from the OGC SensorThings SWG: the Requirements Class identifier is `{identifier-corrigendum}/req-class/business-logic` and the Conformance Class identifier is `{identifier-corrigendum}/conf/business-logic` because those classes now include the 1.0.1 requirements `{identifier-corrigendum}/req/business-logic/gdpr-note` and `{identifier-corrigendum}/req/business-logic/attribution` and the corresponding abstract tests.
+* The Requirements Class identifier is `{identifier-corrigendum}/req-class/business-logic` and the Conformance Class identifier is `{identifier-corrigendum}/conf/business-logic` because those classes now include the 1.0.1 requirements `{identifier-corrigendum}/req/business-logic/gdpr-note` and `{identifier-corrigendum}/req/business-logic/attribution` and the corresponding abstract tests.
 
-==== JSON-FG
+==== Geometry-FG Requirements Class
 
 * Replaced the draft JSON-FG bibliography entry with the published Implementation Standard <<OGC21-045r1>> (https://docs.ogc.org/is/21-045r1/21-045r1.html[OGC 21-045r1]) as a normative reference.
 * Removed the notes that treated Geometry-FG as informative until JSON-FG was adopted.
 * Changed the Geometry-FG `encodingType` ValueCode from `application/vnd.ogc.fg+json` to `application/geo+json`.
 * Changed requirement URI for media-type to `{identifier-corrigendum}/req/geometry-fg/media-type` and as a consequence the requirements class URI to `{identifier-corrigendum}/req-class/geometry-fg` as well as the conformance class URI to `{identifier-corrigendum}/conf/geometry-fg`
 
-==== Authentication MUST changes
+==== Authentication changes
 
 * Changed requirement `{identifier-corrigendum}/req/authentication/id-create` (Requirement 27): in addition to setting `Party/authId` from the authentication, the implementation SHALL set `Party/@iot.id` to a random identifier that is not correlated to the user identification.
-* Changed requirement `{identifier-corrigendum}/req/authentication/id-read`: `Party/authId` is not exposed in any response, including MQTT payloads, and cannot be used in `$select`, `$expand`, or `$orderby` unless the requesting user is represented by the `Party`. The property is not used in `$filter` except as specified in `{identifier-corrigendum}/req/authentication/me`. An MQTT message does not contain `Party/authId` unless the MQTT client is authenticated as the user represented by that `Party`.
+* Changed requirement `{identifier-corrigendum}/req/authentication/id-read`: `Party/authId` is not exposed in any response, including MQTT payloads, and cannot be used in `$select`, `$expand`, or `$orderby` unless the authenticated user is represented by the `Party`. The property is not used in `$filter` except as specified in `{identifier-corrigendum}/req/authentication/me`. An MQTT message does not contain `Party/authId` unless the MQTT client is authenticated as the user represented by that `Party`.
 * Requirement `{identifier}/req/authentication/id-update` (Requirement 28) is unchanged. Its identifier remains STAplus 1.0.
-* Added requirement `{identifier-corrigendum}/req/authentication/me`: the implementation SHALL support the parameterless OData function `me()` that evaluates to `REMOTE_USER`; SHALL accept `$filter=authId eq me()` (including a navigation path such as `Party/authId eq me()`); and SHALL reject an unauthenticated request that applies `me()` with HTTP 404. This requirement belongs to Authentication.
+* Added requirement `{identifier-corrigendum}/req/authentication/me`: the implementation SHALL support the parameterless OData function `me()` that evaluates to the authenticated user; SHALL accept `$filter=authId eq me()` (including a navigation path such as `Party/authId eq me()`); SHALL return HTTP 200 with an empty collection if no such `Party` exists; and SHALL reject an unauthenticated request that applies `me()` with HTTP 404. This requirement belongs to Authentication.
 * Corrected the `{identifier-corrigendum}/conf/authentication/id-delete` abstract test to attempt clearing `authId` with HTTP PATCH rather than HTTP DELETE of the `Party` entity.
 * As a consequence the Requirements Class identifier is `{identifier-corrigendum}/req-class/authentication` and the Conformance Class identifier is `{identifier-corrigendum}/conf/authentication`.
+
+==== Terms and Definition
+
+* Added definition for Attribution License
 
 ==== Identifiers updated to 1.0.1
 

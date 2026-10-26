@@ -15,7 +15,7 @@ add:[The advertised Business Logic SHALL state all of the following:]
 * add:[The operator of the endpoint is responsible for identifying personal data and for their lawful processing.]
 * add:[Lawful processing is achieved by access control, by a legal basis determined by the operator, or by both.]
 * add:[Access control and lawful processing apply to HTTP operations and to MQTT publish and subscribe.]
-* add:[A `Party` entity is deleted only when the authenticated user identifier (`REMOTE_USER`) is associated with that `Party/authId`. An HTTP DELETE of a `Party` is rejected when that condition is not met.]
+* add:[A `Party` entity is deleted only when the authenticated user identifier is associated with that `Party/authId`. An HTTP DELETE of a `Party` is rejected when that condition is not met.]
 * add:[Claiming the STAplus 1.0 Corrigendum Standard conformance class Business Logic does not constitute GDPR compliance of the deployment.]
 ====
 
@@ -43,9 +43,9 @@ add:[The advertised Business Logic SHALL state all of the following:]
 [%metadata]
 identifier:: {identifier-corrigendum}/req/authentication/me
 
-add:[The STAplus implementation SHALL support the parameterless OData function `me()` that evaluates to the authenticated user identifier (`REMOTE_USER`).]
+add:[The STAplus implementation SHALL support the parameterless OData function `me()` that evaluates to the authenticated user.]
 
-add:[The implementation SHALL accept a `$filter` that compares `authId` with `me()`, including `Parties?$filter=authId eq me()` and a navigation path such as `Datastreams?$filter=Party/authId eq me()`. For `Parties?$filter=authId eq me()`, the response SHALL contain the `Party` whose `authId` is associated with `REMOTE_USER`. If no such `Party` exists, the implementation SHALL return HTTP 200 with an empty collection.]
+add:[The implementation SHALL accept a `$filter` that compares `authId` with `me()`, including `Parties?$filter=authId eq me()` and a navigation path such as `Datastreams?$filter=Party/authId eq me()`. For `Parties?$filter=authId eq me()`, the response SHALL contain the `Party` whose `authId` is associated with the authenticated user. If no such `Party` exists, the implementation SHALL return HTTP 200 with an empty collection.]
 
 add:[An unauthenticated request that applies `me()` SHALL be rejected with HTTP 404.]
 ====

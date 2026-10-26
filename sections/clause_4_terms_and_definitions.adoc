@@ -11,6 +11,10 @@ An event or an activity that results in or is linked to a collection of `MultiDa
 
 An agreement between a party and other parties to gain access and use primarily observations but also groups of observations and campaigns. The agreement can include, among others, clauses about how to share data with others not involved in the licensing agreement, the capability to execute commercial activities, the authorization to share modified versions of the data, and the need for attributing the original authors. Associating a license with a `MultiDatastream`del:[,] add:[ or] `Datastream` expresses del:[re-use] add:[reuse] conditions for all associated observations. Associating a license to an `ObservationGroup` or a `Campaign` expresses their del:[re-use] add:[reuse] conditions.
 
+==== Attribution License
+
+add:[Attribution License: A data license that strictly requires users to credit the creator (or author) by displaying a mandatory attribution text provided directly by the original creator.]
+
 ==== ObservationGroup
 
 A collection of observations that are grouped together for a particular purpose.

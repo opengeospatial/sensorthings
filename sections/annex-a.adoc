@@ -645,7 +645,7 @@ part:: add:[The STAplus 1.0 Corrigendum Standard does not determine which entiti
 part:: add:[The operator of the endpoint is responsible for identifying personal data and for their lawful processing.]
 part:: add:[Lawful processing is achieved by access control, by a legal basis determined by the operator, or by both.]
 part:: add:[Access control and lawful processing apply to HTTP operations and to MQTT publish and subscribe.]
-part:: add:[A `Party` entity is deleted only when `REMOTE_USER` is associated with that `Party/authId`. An HTTP DELETE of a `Party` is rejected when that condition is not met.]
+part:: add:[A `Party` entity is deleted only when the authenticated user is associated with that `Party/authId`. An HTTP DELETE of a `Party` is rejected when that condition is not met.]
 part:: add:[Claiming this Conformance Class does not constitute GDPR compliance of the deployment.]
 ====
 
@@ -688,7 +688,7 @@ test-method:: add:[Verify that an authenticated user can filter with `me()`:]
 
 part:: add:[Have the user authenticate.]
 part:: add:[Construct an HTTP GET request to `Parties?$filter=authId eq me()`.]
-part:: add:[Verify HTTP 200 and that the collection contains the `Party` whose `authId` is identical to `REMOTE_USER`.]
+part:: add:[Verify HTTP 200 and that the collection contains the `Party` whose `authId` is associated with the authenticated user.]
 
 test-method:: add:[Verify that an authenticated user with no `Party` receives an empty collection:]
 

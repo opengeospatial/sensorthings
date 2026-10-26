@@ -7,9 +7,9 @@
 :draft: 1.0.1
 :external-id: http://www.opengis.net/doc/is/sensorthings-staplus/1.0.1
 :docnumber: 22-022r2
-:received-date: 2026-10-09
-:issued-date: 2026-10-09
-:published-date: 2026-10-09
+:received-date: 2026-10-26
+:issued-date: 2026-10-26
+:published-date: 2026-10-26
 :fullname: Andreas Matheus
 :docsubtype: Implementation
 :keywords: OGC Standard, API, SensorThings, STAplus, Corrigendum
