@@ -13,7 +13,7 @@ An agreement between a party and other parties to gain access and use primarily 
 
 ==== Attribution License
 
-add:[Attribution License: A data license that strictly requires users to credit the creator (or author) by displaying a mandatory attribution text provided directly by the original creator.]
+add:[A data license that strictly requires users to credit the creator (or author) by displaying an attribution text provided directly by the original creator.]
 
 ==== ObservationGroup
 

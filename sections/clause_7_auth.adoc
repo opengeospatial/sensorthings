@@ -68,4 +68,17 @@ identifier:: {identifier}/req/authentication/id-delete
 The STAplus implementation SHALL ensure that the `Party/authId` property cannot be deleted.
 ====
 
-NOTE: add:[Requirement `{identifier-corrigendum}/req/authentication/me` belongs to this Requirements Class. It is specified after the last original requirement of this Standard (see <<req-authentication-me>>) so that the requirement numbers of STAplus 1.0 remain unchanged.]
+[[req-authentication-me]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier-corrigendum}/req/authentication/me
+
+add:[The STAplus implementation SHALL support the parameterless OData function `me()` that evaluates to the authenticated user.]
+
+add:[The implementation SHALL accept a `$filter` that compares `authId` with `me()`, including `Parties?$filter=authId eq me()` and a navigation path such as `Datastreams?$filter=Party/authId eq me()`. For `Parties?$filter=authId eq me()`, the response SHALL contain the `Party` whose `authId` is associated with the authenticated user. If no such `Party` exists, the implementation SHALL return HTTP 200 with an empty collection.]
+
+add:[An unauthenticated request that applies `me()` SHALL be rejected with HTTP 404.]
+====
+
+NOTE: add:[<<req-authentication-me>> is an additional requirement of this corrigendum.]

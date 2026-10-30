@@ -4,7 +4,7 @@ All requirements-classes and conformance-classes described in this document are 
 
 === Introduction
 
-The STAplus 1.0 standard defines an extension to the OGC Standards <<OGC15-078r6>> (SensorThings API v1.0) and <<OGC18-088>> (SensorThings API v1.1) by adding additional entity types to the data model. Access to the STAplus entities via HTTP is defined in the Read, Create, Update, and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTT Requirements Class. A default del:[default-]CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the Geometryadd:[-]FG and Geometryadd:[-]WKT Requirements Class add:[es]. The Authentication Requirements Class supports the unique identification of acting users. The Business Logic Requirements Class supports the textual description of the implemented business logicadd:[, including a personal-data note that the operator of the endpoint is responsible for identifying personal data and for their lawful processing, and a License attribution note for creator identification when `License/definition` identifies an attribution license]. del:[An example of such a Business Logic is described in the <<OGC21-068>>.]
+The STAplus 1.0 standard defines an extension to the OGC Standards <<OGC15-078r6>> (SensorThings API v1.0) and <<OGC18-088>> (SensorThings API v1.1) by adding additional entity types to the data model. Access to the STAplus entities via HTTP is defined in the Read, Create, Update, and Delete Requirements Classes. The use of MQTT for STAplus entities is defined in the MQTT Requirements Class. A default del:[default-]CRS is defined via the Default-CRS Requirements Class and additional geometry encodings are defined in the del:[Geometry FG and ]Geometryadd:[-]WKT Requirements Class. The Authentication Requirements Class supports the unique identification of acting users. The Business Logic Requirements Class supports the textual description of the implemented business logicadd:[, including a personal-data note that the operator of the endpoint is responsible for identifying personal data and for their lawful processing, and a License attribution note for creator identification when `License/definition` identifies an attribution license]. del:[An example of such a Business Logic is described in the <<OGC21-068>>.]
 
 === STAplus 1.0 Conformance Classes
 
@@ -30,9 +30,9 @@ This is the list of STAplus Conformance Classes.
 
 * *Authentication* (optional): This Conformance Class supports user authentication and their unique identification. 
 
-* *Geometry-FG* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Features and del:[their Geometries] add:[Geometries JSON as defined in <<OGC21-045r1>>].
+del:[* *Geometry-FG* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Features and their Geometries.]
 
-* *Geometry-WKT* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Welladd:[-]Known Text (WKT) as defined in <<ISO19125-1>>.
+* *Geometry-WKT* (optional): This Conformance Class supports the alternative geometry encoding for the `feature` and `location` properties based on Welladd:[-]Known Text (WKT) as defined in <<OGC06-103r4>>.
 
 * *MQTT Subscribe STA v1.0* (optional): This Conformance Class supports a client to receive STAplus entity changes via MQTT as defined in <<OGC15-078r6>>.
 
@@ -45,9 +45,9 @@ This is the list of STAplus Conformance Classes.
 
 add:[This subsection is informative. It collects the advertisements that existing requirements of this Standard already place on the SensorThings service root URI. It does not define a Landing Page Requirements Class or Conformance Class.]
 
-add:[The service root URI is the SensorThings landing page. SensorThings API 1.1 advertises claimed conformance class URIs in the `conformance` array of the `serverSettings` object. An implementation that claims STAplus conformance classes on a SensorThings API 1.1 endpoint includes the identifiers of those classes in that array. SensorThings API 1.0 does not define `serverSettings`; this Standard nevertheless uses that object for the Geometry-WKT and Business Logic advertisements.]
+add:[The service root URI is the SensorThings landing page. SensorThings API 1.1 advertises claimed conformance class URIs in the `conformance` array of the `serverSettings` object. An implementation that claims STAplus conformance classes on a SensorThings API 1.1 endpoint includes the identifiers of those classes in that array. SensorThings API 1.0 does not define `serverSettings`. This Standard nevertheless uses that object for the Geometry-WKT and Business Logic advertisements.]
 
-add:[The following table lists, for each STAplus Conformance Class, the additional information that class requires on the service root URI when the class is claimed. The accepted geometry `encodingType` ValueCodes follow from the claimed geometry classes (`application/geo+json` for Core and Geometry-FG, `application/wkt` for Geometry-WKT). This Standard does not require those ValueCodes to be listed as a separate array on the service root URI.]
+add:[The following table lists, for each STAplus Conformance Class, the additional information that class requires on the service root URI when the class is claimed. The accepted geometry `encodingType` ValueCodes follow from the claimed geometry classes (`application/geo+json` for Core, `application/wkt` for Geometry-WKT). This Standard does not require those ValueCodes to be listed as a separate array on the service root URI.]
 
 [[tab-service-root-advertisement]]
 .Advertisements on the service root URI by claimed Conformance Class
@@ -74,10 +74,6 @@ add:[The following table lists, for each STAplus Conformance Class, the addition
 |Authentication +
 `{identifier-corrigendum}/conf/authentication`
 |None beyond claiming the class.
-
-|Geometry-FG +
-`{identifier-corrigendum}/conf/geometry-fg`
-|The default-CRS and the list of supported CRS, advertised on the conformance page (the service root URI).
 
 |Geometry-WKT +
 `{identifier}/conf/geometry-wkt`
@@ -212,26 +208,6 @@ conformance-test:: {identifier-corrigendum}/conf/authentication/id-read
 conformance-test:: {identifier-corrigendum}/conf/authentication/id-update
 conformance-test:: {identifier-corrigendum}/conf/authentication/id-delete
 conformance-test:: {identifier-corrigendum}/conf/authentication/me
-====
-
-==== Conformance Class *Geometry-FG*
-
-The `Geometry-FG` Conformance Class is defined as follows:
-[conformance_class]
-.Geometry-FG
-====
-[%metadata]
-identifier:: {identifier-corrigendum}/conf/geometry-fg
-inherit:: {identifier-corrigendum}/conf/core
-target:: {identifier-corrigendum}/req-class/geometry-fg
-
-classification:: Target Type: Implementation
-conformance-test:: {identifier-corrigendum}/conf/geometry-fg/media-type
-conformance-test:: {identifier-corrigendum}/conf/geometry-fg/default-crs
-conformance-test:: {identifier-corrigendum}/conf/geometry-fg/supported-crs
-conformance-test:: {identifier-corrigendum}/conf/geometry-fg/crs-error
-conformance-test:: {identifier-corrigendum}/conf/geometry-fg/processing
-conformance-test:: {identifier-corrigendum}/conf/geometry-fg/out
 ====
 
 ==== Conformance Class *Geometry-WKT*

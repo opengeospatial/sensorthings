@@ -12,7 +12,7 @@
 :published-date: 2026-10-26
 :fullname: Andreas Matheus
 :docsubtype: Implementation
-:keywords: OGC Standard, API, SensorThings, STAplus, Corrigendum
+:keywords: OGC Standard, API, SensorThings, STAplus, Citizen Science, Corrigendum
 :submitting-organizations: Secure Dimensions GmbH; Centre de Recerca Ecològica i Aplicacions Forestals (CREAF); Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
 :mn-document-class: ogc
 :mn-output-extensions: html,pdf
@@ -65,7 +65,6 @@ include::sections/clause_7_mqtt.adoc[]
 include::sections/clause_7_business_logic.adoc[]
 include::sections/clause_7_auth.adoc[]
 include::sections/clause_7_feature_of_interest_location.adoc[]
-include::sections/clause_7_business_logic_gdpr_note.adoc[]
 
 include::sections/clause_8_media_types.adoc[]
 

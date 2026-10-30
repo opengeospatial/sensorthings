@@ -11,7 +11,7 @@ To get out of this situation, the STAplus Standard defines a default-CRS based o
 
 To indicate that the default-CRS and GeoJSON geometry encoding is used, the `encodingType` property of the `FeatureOfInterest` and `Location` entity is to be used with the value `application/geo+json`. 
 
-In addition, the STAplus extension supports other (commonly used) encodings via the del:[`Geometry Encoding` Requirements Class] add:[Geometry-FG and Geometry-WKT Requirements Classes]. 
+In addition, the STAplus extension supports other (commonly used) encodings via the del:[`Geometry Encoding` Requirements Class] add:[Geometry-WKT Requirements Class]. 
 
 [[CRS]]
 === Default-CRS Requirements Class
@@ -66,78 +66,6 @@ identifier:: {identifier}/req/default-crs/processing
 The STAplus implementation SHALL enforce the `default-CRS` to any geometry data contained in the `FeatureOfInterest` and `Location` entity. The STAplus implementation SHALL reject any geometry **not** encoded in the `default-CRS` without further processing.
 ====
 
-[[GeometryFG]]
-=== Geometry-FG Requirements Class
-
-del:[This Requirements Class remains informative until <<FG>> is an adopted OGC Standard.]
-
-This Requirements Class defines the use of geometry encoding compliant with del:[the OGC Draft Standard <<FG>>] add:[<<OGC21-045r1>>].
-
-[requirements_class]
-.Geometry-FG
-
-====
-[%metadata]
-identifier:: {identifier-corrigendum}/req-class/geometry-fg
-obligation:: requirement
-subject:: Target Type: Implementation
-inherit:: <<OGC21-045r1>>
-requirement:: {identifier-corrigendum}/req/geometry-fg/media-type
-requirement:: {identifier}/req/geometry-fg/default-crs
-requirement:: {identifier}/req/geometry-fg/supported-crs
-requirement:: {identifier}/req/geometry-fg/crs-error
-requirement:: {identifier}/req/geometry-fg/processing
-requirement:: {identifier}/req/geometry-fg/out
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier-corrigendum}/req/geometry-fg/media-type
-
-The STAplus implementation SHALL accept the media-type del:[`application/vnd.ogc.fg+json`] add:[`application/geo+json`] as value to the `encodingType` property of the `FeatureOfInterest` and `Location` entities to indicate that the structuring of the geometry is del:[be] compliant with del:[<<FG>>] add:[<<OGC21-045r1>>].
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/geometry-fg/default-crs
-
-The STAplus implementation SHALL advertise the default-CRS on the conformance page.
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/geometry-fg/supported-crs
-
-The STAplus implementation SHALL advertise the list of the supported CRS on the conformance page.
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/geometry-fg/crs-error
-
-The STAplus implementation SHALL return an error if the geometry data inside `feature` or `location` properties is encoded in an unsupported CRS.
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/geometry-fg/processing
-
-del:[If necessary, t]add:[T]he implementation SHALL apply a CRS transformation to the `default-CRS` if necessary before further processing or storing the geometry data.
-====
-
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/geometry-fg/out
-
-The STAplus implementation SHALL use the default-CRS to encode the `feature` and `location` geometries in a response.
-====
-
 
 [[GeometryWKT]]
 === Geometry-WKT Requirements Class
@@ -152,7 +80,7 @@ This Requirements Class defines the use of geometry encoding compliant with Well
 identifier:: {identifier}/req-class/geometry-wkt
 obligation:: requirement
 subject:: Target Type: Implementation
-inherit:: <<ISO19125-1>>
+inherit:: <<OGC06-103r4>>
 requirement:: {identifier}/req/geometry-wkt/media-type
 requirement:: {identifier}/req/geometry-wkt/crs-definition
 requirement:: {identifier}/req/geometry-wkt/default-crs

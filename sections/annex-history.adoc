@@ -25,7 +25,7 @@ This section provides detailed information about the different revisions.
 |2026-09-10 |1.0.1 |Andreas Matheus | Scope, Conformance, Party, Business Logic, Geometry-FG, Annex A | Review results from the OGC SensorThings SWG: this document is written as a replacement for STAplus 1.0 (OGC #22-022r1). See <<changes-1-0-1>>.
 |2026-09-22 |1.0.1 |Andreas Matheus | Authentication, Business Logic, Scope, Conformance, Annex A | MUST changes in Authentication requirements and the Authentication abstract tests. Added requirement `me`. `gdpr-note` now covers MQTT as an access path. See <<changes-1-0-1>>.
 |2026-10-09 |1.0.1 |Andreas Matheus | Authentication, Security Considerations, Annex A, Bibliography | Allowing that `Party/authId` is a derived identifier from the user's authentication identifier. Adding the GDPR regulation to Bibliography.
-|2026-10-26 |1.0.1 |Andreas Matheus | All sections| Editorial changes incorporating proofreading feedback from Joan Maso
+|2026-10-26 |1.0.1 |Andreas Matheus | All sections| Editorial changes incorporating proofreading feedback from Joan Maso. Deleted the Geometry-FG requirements class, conformance class, and abstract tests. See <<changes-1-0-1>>. Disolved chapter "Additional Business Logic and Authentication Requirements" and moved the requirements into the associated Requirements classes.
 
 |===
 
@@ -61,20 +61,18 @@ This corrigendum includes the following normative additions and corrections that
 ==== Business Logic Requirements Class identifier
 
 * The Requirements Class identifier is `{identifier-corrigendum}/req-class/business-logic` and the Conformance Class identifier is `{identifier-corrigendum}/conf/business-logic` because those classes now include the 1.0.1 requirements `{identifier-corrigendum}/req/business-logic/gdpr-note` and `{identifier-corrigendum}/req/business-logic/attribution` and the corresponding abstract tests.
+* `{identifier-corrigendum}/req/business-logic/gdpr-note` and `{identifier-corrigendum}/req/business-logic/attribution` are additional requirements of that Requirements Class. They are numbered in sequence with the other requirements of the class.
 
-==== Geometry-FG Requirements Class
+==== Removal of Requirements Class Geometry-FG
 
-* Replaced the draft JSON-FG bibliography entry with the published Implementation Standard <<OGC21-045r1>> (https://docs.ogc.org/is/21-045r1/21-045r1.html[OGC 21-045r1]) as a normative reference.
-* Removed the notes that treated Geometry-FG as informative until JSON-FG was adopted.
-* Changed the Geometry-FG `encodingType` ValueCode from `application/vnd.ogc.fg+json` to `application/geo+json`.
-* Changed requirement URI for media-type to `{identifier-corrigendum}/req/geometry-fg/media-type` and as a consequence the requirements class URI to `{identifier-corrigendum}/req-class/geometry-fg` as well as the conformance class URI to `{identifier-corrigendum}/conf/geometry-fg`
+* STAplus 1.0 introduced the Geometry-FG Conformance Class because the draft Geometry-FG Standard defined its own media type. The approved OGC Standard uses the GeoJSON media type `application/geo+json`. Separate requirements for handling Geometry-FG geometries are no longer needed. This corrigendum therefore removes the Geometry-FG Conformance Class and the related abstract tests.
 
 ==== Authentication changes
 
-* Changed requirement `{identifier-corrigendum}/req/authentication/id-create` (Requirement 27): in addition to setting `Party/authId` from the authentication, the implementation SHALL set `Party/@iot.id` to a random identifier that is not correlated to the user identification.
+* Changed requirement `{identifier-corrigendum}/req/authentication/id-create` (Requirement 29): in addition to setting `Party/authId` from the authentication, the implementation SHALL set `Party/@iot.id` to a random identifier that is not correlated to the user identification.
 * Changed requirement `{identifier-corrigendum}/req/authentication/id-read`: `Party/authId` is not exposed in any response, including MQTT payloads, and cannot be used in `$select`, `$expand`, or `$orderby` unless the authenticated user is represented by the `Party`. The property is not used in `$filter` except as specified in `{identifier-corrigendum}/req/authentication/me`. An MQTT message does not contain `Party/authId` unless the MQTT client is authenticated as the user represented by that `Party`.
-* Requirement `{identifier}/req/authentication/id-update` (Requirement 28) is unchanged. Its identifier remains STAplus 1.0.
-* Added requirement `{identifier-corrigendum}/req/authentication/me`: the implementation SHALL support the parameterless OData function `me()` that evaluates to the authenticated user; SHALL accept `$filter=authId eq me()` (including a navigation path such as `Party/authId eq me()`); SHALL return HTTP 200 with an empty collection if no such `Party` exists; and SHALL reject an unauthenticated request that applies `me()` with HTTP 404. This requirement belongs to Authentication.
+* Requirement `{identifier}/req/authentication/id-update` (Requirement 30) is unchanged. Its identifier remains STAplus 1.0.
+* Added requirement `{identifier-corrigendum}/req/authentication/me`: the implementation SHALL support the parameterless OData function `me()` that evaluates to the authenticated user; SHALL accept `$filter=authId eq me()` (including a navigation path such as `Party/authId eq me()`); SHALL return HTTP 200 with an empty collection if no such `Party` exists; and SHALL reject an unauthenticated request that applies `me()` with HTTP 404. This requirement is an additional requirement of Requirements Class Authentication and is numbered in sequence with the other requirements of the class.
 * Corrected the `{identifier-corrigendum}/conf/authentication/id-delete` abstract test to attempt clearing `authId` with HTTP PATCH rather than HTTP DELETE of the `Party` entity.
 * As a consequence the Requirements Class identifier is `{identifier-corrigendum}/req-class/authentication` and the Conformance Class identifier is `{identifier-corrigendum}/conf/authentication`.
 
@@ -84,11 +82,11 @@ This corrigendum includes the following normative additions and corrections that
 
 ==== Identifiers updated to 1.0.1
 
-* Review results from the OGC SensorThings SWG: `{identifier-corrigendum}/conf/core`, `{identifier-corrigendum}/req-class/party`, and `{identifier-corrigendum}/req/party/properties` use the 1.0.1 base URI because the Party requirements now include the `system` role. `{identifier-corrigendum}/req-class/geometry-fg`, `{identifier-corrigendum}/req/geometry-fg/media-type`, and `{identifier-corrigendum}/conf/geometry-fg` use the 1.0.1 base URI because the Geometry-FG media type is `application/geo+json`.
+* Review results from the OGC SensorThings SWG: `{identifier-corrigendum}/conf/core`, `{identifier-corrigendum}/req-class/party`, and `{identifier-corrigendum}/req/party/properties` use the 1.0.1 base URI because the Party requirements now include the `system` role.
 * Authentication identifiers updated to `1.0.1` because `{identifier-corrigendum}/req/authentication/id-create` and `{identifier-corrigendum}/req/authentication/id-read` change MUST statements: `{identifier-corrigendum}/req-class/authentication`, `{identifier-corrigendum}/conf/authentication`.
 * ATS identifiers changed from `1.0` to `1.0.1` if at least one requirement or requirements class uses version `1.0.1` now.
 
-This corrigendum does not renumber existing conformance classes, requirements, or abstract tests. Existing identifiers remain those of STAplus 1.0 (`{identifier}`), except `{identifier-corrigendum}/conf/core`, `{identifier-corrigendum}/req-class/party`, `{identifier-corrigendum}/req/party/properties`, `{identifier-corrigendum}/req-class/business-logic`, `{identifier-corrigendum}/conf/business-logic`, `{identifier-corrigendum}/req-class/geometry-fg`, `{identifier-corrigendum}/req/geometry-fg/media-type`, `{identifier-corrigendum}/conf/geometry-fg`, `{identifier-corrigendum}/req-class/authentication`, `{identifier-corrigendum}/req/authentication/id-create`, `{identifier-corrigendum}/req/authentication/id-read`, `{identifier-corrigendum}/req/authentication/me`, `{identifier-corrigendum}/conf/authentication`, and the abstract tests that have at least one 1.0.1 requirement, requirements class, or conformance class as a target. The other new identifiers introduced by this corrigendum use `{identifier-corrigendum}`. Requirement `{identifier-corrigendum}/req/business-logic/gdpr-note` follows the last original requirement (`{identifier}/req/geometry-wkt/out`). Requirement `{identifier-corrigendum}/req/business-logic/attribution` follows `{identifier-corrigendum}/req/business-logic/gdpr-note`. Requirement `{identifier-corrigendum}/req/authentication/me` follows `{identifier-corrigendum}/req/business-logic/attribution`. The corresponding abstract tests (`{identifier-corrigendum}/conf/business-logic/gdpr-note`, `{identifier-corrigendum}/conf/business-logic/attribution`, and `{identifier-corrigendum}/conf/authentication/me`) are appended after the last original Annex A test (`{identifier}/conf/mqtt-subscribe-sta-11/definition`).
+This corrigendum does not renumber existing conformance classes or abstract tests. Requirement numbers follow the order of the requirements in this document. Existing identifiers remain those of STAplus 1.0 (`{identifier}`), except `{identifier-corrigendum}/conf/core`, `{identifier-corrigendum}/req-class/party`, `{identifier-corrigendum}/req/party/properties`, `{identifier-corrigendum}/req-class/business-logic`, `{identifier-corrigendum}/conf/business-logic`, `{identifier-corrigendum}/req-class/authentication`, `{identifier-corrigendum}/req/authentication/id-create`, `{identifier-corrigendum}/req/authentication/id-read`, `{identifier-corrigendum}/req/authentication/me`, `{identifier-corrigendum}/conf/authentication`, and the abstract tests that have at least one 1.0.1 requirement, requirements class, or conformance class as a target. The other new identifiers introduced by this corrigendum use `{identifier-corrigendum}`. Requirements `{identifier-corrigendum}/req/business-logic/gdpr-note` and `{identifier-corrigendum}/req/business-logic/attribution` are additional requirements of Requirements Class Business Logic, and requirement `{identifier-corrigendum}/req/authentication/me` is an additional requirement of Requirements Class Authentication. They are numbered in sequence with the other requirements of those classes. The corresponding abstract tests (`{identifier-corrigendum}/conf/business-logic/gdpr-note`, `{identifier-corrigendum}/conf/business-logic/attribution`, and `{identifier-corrigendum}/conf/authentication/me`) are appended after the last original Annex A test (`{identifier}/conf/mqtt-subscribe-sta-11/definition`).
 
 [[editorial-changes-1-0-1]]
 === Editorial changes in release 1.0.1
@@ -99,7 +97,6 @@ This release also applies an editorial English review. The technical meaning of 
 
 * Corrected the Default-CRS requirements class title (`.Defaul-CRS` to `.Default-CRS`).
 * Corrected the Geometry-WKT requirements class listing so that it references `{identifier}/req/geometry-wkt/crs-definition` (previously `crs-defintion`).
-* Removed the extra slash from the Geometry-FG media-type conformance test URI (`{identifier-corrigendum}/conf/geometry-fg/media-type`) in Clause 2 and Annex A.
 * Restored the missing table cell delimiter on the last row of the Campaign properties table.
 * Pointed the PUT update requirement at the SensorThings PUT requirement anchor (`#req-create-update-delete-update-entity-put`).
 * Marked the missing MQTT Subscribe abstract test steps as `part::`.
@@ -109,7 +106,7 @@ This release also applies an editorial English review. The technical meaning of 
 
 * Replaced German-influenced phrasing (for example compatible to, compliant to, supports to create, allows that, resp., emphasizes on, responsible of, included into).
 * Corrected articles and collocations (for example an HTTP, an ObservationGroup, constrain/constraint, the latter, whose value).
-* Aligned spelling and naming: reuse (not re-use), SensorThings API, Well-Known Text, Geometry-FG, Geometry-WKT, machine-readable, terms of use.
+* Aligned spelling and naming: reuse (not re-use), SensorThings API, Well-Known Text, Geometry-WKT, machine-readable, terms of use.
 * Corrected revision history wording in earlier rows (abstract test suite, adapted, proofreading).
 
 ==== Paragraph rewrites
