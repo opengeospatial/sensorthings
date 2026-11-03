@@ -13,7 +13,7 @@ The contents of this Clause are based on:
 
 NOTE: The OData specification uses the term "property". To avoid confusion with "ObservedProperty" and the "properties" attribute in almost every Entity Type, this document uses the terms "attribute" where OData uses the term "property".
 
-The entity model consists of the following elements:
+The entity model consists of the following elements.
 
 * `Keyed element`: Element that has a key that uniquely identifies an instance of this element amongst other instances of the same type of element.
 * `Entity Type`: Named, structured, keyed element that defines the attributes and relations of Entities.

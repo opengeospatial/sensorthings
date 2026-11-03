@@ -21,7 +21,7 @@ It contains a core data model, an abstract REST API for accessing data, and bind
 
 The data model is an implementation of the core concepts of the Observations, Measurements and Samples OGC/ISO specification.
 The API allows for creating, reading, updating and deleting all parts of the data model.
-It also features extensive filtering and response-customisation capabilities.
+It also features extensive filtering and response-customization capabilities.
 
 Even though the SensorThings API was initially designed for IoT, the previous versions have shown to be wel suited for any use case involving time-series data.
 

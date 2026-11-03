@@ -1041,7 +1041,7 @@ identifier:: {identifier}/req/api/read/options/filter
 
 part:: A service SHALL support the `$filter` query option as described in section <<read_options_filter>>.
 
-part:: A service SHALL list the suppored filter function in the service document as described in section <<read_service_document>>.
+part:: A service SHALL list the supported filter function in the service document as described in section <<read_service_document>>.
 ====
 
 

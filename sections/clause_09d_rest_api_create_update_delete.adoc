@@ -326,7 +326,7 @@ delete http://host/service/Datastreams(1)/ProximateFeatureOfInterest/$ref
 
 EntitySet navigation attributes (<<pattern_entityset_related>>) can be extended with a new link to an existing entity by sending a create request to the association link of the navigation attribute.
 The "create" request contains an entity reference to the single entity to be added to the set of related entities.
-If the two entities are already related, the operation has no effect and returns a succes.
+If the two entities are already related, the operation has no effect and returns a success.
 
 .Example of a request adding `FeatureType 3` as FeatureType of `Feature 1`.
 [source,text]

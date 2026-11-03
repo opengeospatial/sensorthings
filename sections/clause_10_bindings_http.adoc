@@ -27,7 +27,7 @@ If the service supports the HTTP interface binding, then the `+serverSettings+` 
 
 `{identifier}/req/binding/http`
 
-This Object SHALL contain an attribute named `+endpoints+` of type Array. The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the HTTP service
+This Object SHALL contain an attribute named `+endpoints+` of type Array. The JSON Array `+endpoints+` SHALL hold a list of URL Schemes that can be used to connect to the HTTP service.
 
 
 [requirement]

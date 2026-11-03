@@ -357,7 +357,7 @@ Payload:
 ----
 
 
-More advanced clients are adviced to use the MQTT Request/Response pattern to create entities, since it allows the server to return a success or failure response on entity creation.
+More advanced clients are advised to use the MQTT Request/Response pattern to create entities, since it allows the server to return a success or failure response on entity creation.
 
 
 [[req_mqtt_simple_create]]

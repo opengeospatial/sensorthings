@@ -21,7 +21,7 @@ A Datastream is a collection of Observations grouped by the same ObservedPropert
 An Observation is an event performed by a Sensor that produces a result whose value is an estimate of an ObservedProperty of any given Feature which may be a proximate or ultimate feature of interest.
 Details of each above described entity are provided in the sections below.
 
-All data model requirements are grouped in the following requirements class:
+All data model requirements are grouped in the following requirements class.
 
 
 [requirements_class]
@@ -104,7 +104,7 @@ Examples of the use of Thing are:
 - A weather station that houses a varying set of environmental sensors;
 - A thermostat in a room, monitoring and controlling the temperature on that room;
 - A drone that mounts a LiDAR sensor for mapping purposes;
-- A science vessel that has many sensors installed;
+- A science vessel that has many sensors installed; and
 - An upstream oil well that is equipped with compound gas detection devices.
 
 
@@ -217,7 +217,7 @@ The Location entity geo-locates the Thing or the Things it associated with.
 A Thing's Location entity is defined as the last known location of the Thing.
 
 Section 7.1.4 of [<<OgcOMS>> and <<IsoOMS>>] provides a detailed explanation of observation location.
-Examples of the use of Location are:
+Examples of the use of Location are as follow.
 
 - An air quality sensing facility's Location can be the physical location where the facility is situated, but the (proximate) Feature that is characterized by the Observation could be the air envelope around the Sensor which is subsequently used to estimate the air quality of the district where the facility is situated.
 
@@ -550,7 +550,7 @@ part:: The service shall ensure the linked ObservedProperties match the definiti
 A Datastream groups a collection of Observations into a time series measuring the same ObservedProperties by the same Sensor for the same Thing.
 Examples of Datastreams could be:
 
-- An air quality monitoring station may have multiple Datastreams, each recording a specific pollutant measured by a specific sensor.
+- An air quality monitoring station may have multiple Datastreams, each recording a specific pollutant measured by a specific sensor; and
 - A sensor that measures multiple ObservedProperties can generate a single Datastream with a composite resultType.
 
 A Datastream can both have a proximate feature of interest and one or more ultimate features of interest.
@@ -1241,7 +1241,7 @@ The subject is the Feature that can take the role of proximate feature of intere
 In cases where estimating the value of a property of interest is not possible directly, a proxy feature is used.
 Such an application typically requires taking a sample of the ultimate feature of interest such that this sample, the proximate feature of interest, represents an approximation of the domain feature.
 
-Some examples of features are:
+Some examples of features are as follow.
 
 - The ultimate feature of a WiFi enabled thermostat, with a built-in temperature sensor, could be the room that the thermostat monitors.
 The exact position of the thermostat is captured in a Location entity of the Thing representing the thermostat.

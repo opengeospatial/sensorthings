@@ -117,7 +117,7 @@ test-method::
 ... Execute read requests with $count=false,
 ... Test if the server correctly omits a count in the response.
 ... Execute read requests with $count=true,
-... Test if the response correctly containst a count.
+... Test if the response correctly contains a count.
 ====
 
 
@@ -134,7 +134,7 @@ test-method::
 ... Execute read requests with a $orderby containing a single attribute.
 .... Validate that the returned entities are correctly ordered, in ascending order, by the given attribute.
 ... Execute read requests with a $orderby containing a single attribute with the `desc` modifier.
-.... Validate that the returned entities are correctly ordered, in decending order, by the given attribute.
+.... Validate that the returned entities are correctly ordered, in descending order, by the given attribute.
 ... Execute read requests with a $orderby containing a single attribute with the `asc` modifier.
 .... Validate that the returned entities are correctly ordered, in ascending order, by the given attribute.
 ... Execute read requests with a $orderby containing two attributes.

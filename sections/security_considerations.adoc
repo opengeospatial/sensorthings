@@ -1,5 +1,6 @@
 [[security_considerations]]
 === Security Considerations
+
 Writing security considerations for implementing the OGC SensorThings API (STA) 2.0 is challenging.
 This is because the range of uses of a STA implementation cannot be always known.
 The use cases for an implementation could vary from automated tools for analytical purposes that fetch data (observations) to produce statistics, reports, etc. to Web-Mapping applications running in a Web Browser that interact with a STA service based on user interactions like pan, zoom in and zoom out.
