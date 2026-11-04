@@ -11,6 +11,7 @@ _plantuml_images
 23-019.html
 23-019.xml
 23-019.presentation.xml
+*.pdf.err
 document.err
 document.doc
 document.html

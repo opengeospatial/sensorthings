@@ -5,23 +5,23 @@
 :status: approved
 :committee: technical
 :draft: 2.0
-:external-id: http://www.opengis.net/doc/{doc-type}/{standard}/{m.n}
+:external-id: http://www.opengis.net/doc/IS/SensorThingsAPI/2.0
 :docnumber: 23-019
 :received-date: 2026-05-26
 :issued-date: 2026-09-14
-:published-date: 2029-03-30
+:published-date: 2026-11-04
 :fullname: Hylke van der Schaaf
 :docsubtype: implementation
 :keywords: ogcdoc, OGC document, API, OData, openapi, html, MQTT, iot, internet of things, sensors, swe, sensor webs, sensor web enablement, sensor networks
 :submitting-organizations: Fraunhofer-Gesellschaft, Germany; University of Calgary, Canada; SensorUp Inc., Canada; Keys, USA; DataCove e.U., Austria; Secure Dimensions, Germany; CREAF, Spain; BRGM, France
 :mn-document-class: ogc
-:mn-output-extensions: xml,html,doc,pdf
+:mn-output-extensions: xml,html,pdf
 :local-cache-only:
 :data-uri-image:
-:pdf-uri: ./document.pdf
-:xml-uri: ./document.xml
-:doc-uri: ./document.doc
-:edition: 0.1
+:pdf-uri: ./23-019.pdf
+:xml-uri: ./23-019.xml
+//:doc-uri: ./23-019.doc
+:edition: 2.0
 :toclevels: 3
 :htmltoclevels: 4
 

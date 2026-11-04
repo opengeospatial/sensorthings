@@ -23,7 +23,7 @@ The data model is an implementation of the core concepts of the Observations, Me
 The API allows for creating, reading, updating and deleting all parts of the data model.
 It also features extensive filtering and response-customization capabilities.
 
-Even though the SensorThings API was initially designed for IoT, the previous versions have shown to be wel suited for any use case involving time-series data.
+Even though the SensorThings API was initially designed for IoT, the previous versions have shown to be well suited for any use case involving time-series data.
 
 
 
