@@ -19,7 +19,7 @@
 :local-cache-only:
 :data-uri-image:
 :pdf-uri: ./23-019.pdf
-:xml-uri: ./23-019.xml
+//:xml-uri: ./23-019.xml
 //:doc-uri: ./23-019.doc
 :edition: 2.0
 :toclevels: 3
