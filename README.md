@@ -8,7 +8,7 @@ The OGC SensorThings API is an OGC standard specification for providing an open 
 
 The standard is on [OGC SensorThings API page](https://www.ogc.org/standards/sensorthings):
 
-* [SensorThings API Part 1: Sensing 1.0](http://docs.opengeospatial.org/is/15-078r6/15-078r6.html) ([PDF version](https://portal.opengeospatial.org/files/15-078r6))
+* [SensorThings API 2.0](https://docs.ogc.org/is/23-019/23-019.html) ([PDF version](https://docs.ogc.org/is/23-019/23-019.pdf))
 * [SensorThings API Part 1: Sensing 1.1](https://docs.ogc.org/is/18-088/18-088.html) ([PDF version](https://docs.ogc.org/is/18-088/18-088.pdf))
 * [SensorThings API Part 2: Tasking Core 1.0](http://docs.opengeospatial.org/is/17-079r1/17-079r1.html) ([PDF version](https://portal.opengeospatial.org/files/17-079r1))
 * [OGC SensorThings API Tasking Core Discussion Paper](https://portal.ogc.org/files/?artifact_id=79179)
@@ -74,6 +74,6 @@ code for the standards document they contain. In particular, there are:
  - :white_check_mark: 18-056: OGC SensorThings API Tasking Core Discussion Paper (published)
  - :white_check_mark: 18-088: SensorThings API Part 1: Sensing 1.1 (published)
  - :white_check_mark: 22-022: SensorThings API Extension: STAplus 1.0 (published)
- - :construction: 23-019: OGC SensorThings API 2.0 (in development)
- - :construction: 24-032: SensorThings API Extension: WebSub Asynchronous Messaging Standard (in development)
+ - :construction: 23-019: OGC SensorThings API 2.0 (published)
+ - :construction: 24-032: SensorThings API Extension: WebSub Asynchronous Messaging Standard (published)
  - :construction: 24-046: SensorThings API 2.0 Extensions (in development)
