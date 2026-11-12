@@ -1,15 +1,15 @@
 [[dggs-aggregation]]
-== DGGS Aggregation Requirements
+== del:[DGGS Aggregation Requirements]add:[Aggregation Requirements]
 
 === Overview
 
-The <<conformance_class_aggregation>> Conformance Class defines how an implementation calculates aggregate values from raw `Observation` entities that are linked to a `Cell`. Aggregation is a SensorThings behaviour. This Standard does not specify a storage architecture, a database product, or an internal job scheduler.
+The <<conformance_class_aggregation,Aggregation>> Conformance Class defines how an implementation calculates aggregate values from raw `Observation` entities del:[that are linked to a `Cell`] add:[of a `Datastream` that is linked to a `Cell`]. Aggregation is a SensorThings behaviour. This Standard does not specify a storage architecture, a database product, or an internal job scheduler.
 
-An implementation that claims this Conformance Class SHALL also conform to <<conformance_class_cell_crud>>, to <<conformance_class_observed_properties>>, and to the MultiDatastream Requirements Class of <<OGC18-088>>.
+An implementation that claims this Conformance Class also conforms to the del:[MultiDatastream] add:[Datastream and MultiDatastream] Requirements Classes of <<OGC18-088>>.
 
-The implementation is configured with a set of aggregate intervals and with the zone levels at which each interval applies. When a raw observation is linked to a cell, aggregation starts at that cell (the finest resolution in the request) and visits every parent up to the advertised `coarsestZoneLevel`. For each visited cell and each interval that applies at that zone level, the implementation calculates the aggregate functions advertised on the landing page from the raw observations that contribute to that cell, and publishes the result as an `Observation` of a `MultiDatastream` that is linked to that `Cell`. Each value in that result is linked to the corresponding derived `ObservedProperty`, and that `ObservedProperty` is linked to the function definition advertised on the landing page.
+The implementation is configured with a set of aggregate intervals and with the zone levels at which each interval applies. When a raw observation del:[is linked to a cell] add:[is created in a `Datastream` that is linked to a cell], aggregation starts at that cell (the finest resolution in the request) and visits every parent up to the advertised `coarsestZoneLevel`. For each visited cell and each interval that applies at that zone level, the implementation calculates the aggregate functions advertised on the landing page from the raw observations that contribute to that cell, and publishes the result as an `Observation` of a del:[`MultiDatastream`] add:[`Datastream` or a `MultiDatastream`] that is linked to that `Cell`. add:[A `Datastream` aggregate has one derived `ObservedProperty` and a single `result`.] Each value in a `MultiDatastream` result is linked to the corresponding derived `ObservedProperty`, and that `ObservedProperty` is linked to the function definition advertised on the landing page. add:[A `Datastream` or `MultiDatastream` that is linked to a `Cell` has `observedArea` equal to the `boundary` of that `Cell`.]
 
-NOTE: The Requirements Class in this section is part of the Conformance Class <<conformance_class_aggregation>>.
+NOTE: The Requirements Class in this section is part of the Conformance Class <<conformance_class_aggregation,Aggregation>>.
 
 [[aggregation]]
 === Requirements Class *Aggregation*
@@ -21,16 +21,26 @@ NOTE: The Requirements Class in this section is part of the Conformance Class <<
 [%metadata]
 identifier:: {identifier}/req-class/aggregation
 obligation:: requirement
-subject:: Target Type: Implementation
-inherit:: {identifier}/req-class/cell-cud
-inherit:: {identifier}/req-class/observed-properties
+subject:: Implementation
+inherit:: {identifier-sta}/req/datastream
 inherit:: {identifier-sta}/req/multi-datastream
 requirement:: {identifier}/req/aggregation/intervals
+requirement:: {identifier}/req/aggregation/landing-page-functions
+requirement:: {identifier}/req/aggregation/landing-page-entity-linking
 requirement:: {identifier}/req/aggregation/functions
 requirement:: {identifier}/req/aggregation/traversal
 requirement:: {identifier}/req/aggregation/multidatastream
 requirement:: {identifier}/req/aggregation/consistency
+requirement:: {identifier}/req/aggregation/observed-area
 ====
+
+add:[Requirements <<aggregation-landing-page-functions>> and <<aggregation-landing-page-entity-linking>> advertise each aggregate function with a definition identifier and a well-accepted mathematical equation, and register the entity links that connect a base `ObservedProperty` to the derived `ObservedProperty` of each function.]
+
+add:[The requirements to advertise the deployed grid system and `cellsBoundary` are specified in the <<system,System>> Requirements Class.]
+
+add:[The landing page is the resource at the root URI, as specified in <<OGC18-088>> §9.2.1. Extensions that need to expose additional server settings do so in a property of the `serverSettings` object. Following <<OGC22-022r2>>, this Standard names each such property with the URI of the Conformance Class that defines the settings: one JSON object per Conformance Class.]
+
+add:[The `conformance` array of `serverSettings` includes the Conformance Class URIs of this Standard that the implementation claims, as specified in <<OGC18-088>> §9.2.1.]
 
 [requirement]
 ====
@@ -39,12 +49,12 @@ identifier:: {identifier}/req/aggregation/intervals
 
 The implementation SHALL be configured with a non-empty set of aggregate intervals. Each interval SHALL be a duration or a calendar period (for example `1min`, `1hour`, `1day`, `1month`, `1year`).
 
-The implementation SHALL be configured with the zone levels at which each interval applies. An interval MAY apply to one or more zone levels. A zone level MAY have zero, one, or many intervals.
+The implementation SHALL be configured with the zone levels at which each interval applies. An interval MAY apply to one or more zone levels. A zone level MAY have del:[zero,] one, or many add:[temporal] intervals.
 
-The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name del:[`{identifier}/req/aggregation/intervals`] add:[`{identifier}/conf/aggregation`]. That object SHALL contain:
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/conf/aggregation`. That object SHALL contain:
 
 * a property `intervals` whose value is a JSON array of the configured interval identifiers;
-* a property `zoneLevels` whose value is a JSON object. Each name is a zone level encoded as a string. Each value is a JSON array of the interval identifiers that apply at that zone level.
+* a property `zoneLevels` whose value is a JSON object. Each name is a zone level encoded as del:[a string.] add:[an integer.] Each value is a JSON array of the interval identifiers that apply at that zone level.
 ====
 
 .Example interval configuration on the landing page
@@ -67,14 +77,149 @@ The implementation SHALL provide a JSON object in the `serverSettings` object on
 ----
 ====
 
+[[aggregation-landing-page-functions]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/aggregation/landing-page-functions
+
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/conf/del:[observed-properties] add:[aggregation]`. That object SHALL contain a property `functions` whose value is a JSON array. The array SHALL contain one object for each of the aggregate functions `min`, `max`, `avg`, `stddev`, and `count`, in that order.
+
+Each object in `functions` SHALL contain:
+
+* a property `id` whose value is the CharacterString `min`, `max`, `avg`, `stddev`, or `count`;
+* a property `definition` whose value is a URI that identifies that aggregate function;
+* a property `equation` whose value is a CharacterString that is a well-accepted mathematical equation for that function;
+* a property `method` whose value is a CharacterString that names the function (for example `MIN`, `MAX`, `AVG`, `STDDEV`, `COUNT`).
+
+The equations SHALL be:
+
+* `min`: the minimum of the contributing numeric results;
+* `max`: the maximum of the contributing numeric results;
+* `avg`: the arithmetic mean of the contributing numeric results;
+* `stddev`: the sample standard deviation of the contributing numeric results, or null if fewer than two results contribute;
+* `count`: the number of contributing raw observations.
+
+The `definition` URI of each function SHALL be the identifier that an `ObservedProperty` uses to link to that function, as specified in <<conformance_class_observed_properties,ObservedProperties>>.
+====
+
+[[aggregation-landing-page-entity-linking]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/aggregation/landing-page-entity-linking
+
+The implementation SHALL implement entity linking as specified in https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md[<<INSIDE-EntityLinking>>].
+
+The `conformance` array of `serverSettings` SHALL include `https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md`.
+
+The implementation SHALL provide a JSON object in the `serverSettings` object on the landing page with that name. That object SHALL contain a property `registeredLinks` whose value is a JSON object that SHALL include the following entity links, each with `targetType` equal to `ObservedProperty`:
+
+* `ObservedProperty/properties/derivations/derivation`: forward link from a base `ObservedProperty` to a derived aggregate `ObservedProperty`;
+* `ObservedProperty/properties/prov:wasDerivedFrom`: link from a derived `ObservedProperty` to the base `ObservedProperty`;
+* `ObservedProperty/properties/prov:qualifiedDerivation/prov:wasDerivedFrom`: provenance link from a derived `ObservedProperty` to the base `ObservedProperty`.
+====
+
+.Example `serverSettings` on the landing page
+====
+[source,json]
+----
+{
+  "conformance": [
+    "http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel",
+    "http://www.opengis.net/spec/iot_sensing/1.1/req/resource-path/resource-path-to-entities",
+    "http://www.opengis.net/spec/iot_sensing/1.1/req/request-data",
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/core",
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation",
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/observed-properties",
+    "https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md"
+  ],
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/core": {
+    "gridSystem": "H3",
+    "coarsestZoneLevel": 4,
+    "finestZoneLevel": 15,
+    "removeOrphanCells": false,
+    "cellsBoundary": {
+      "encodingType": "application/geo+json",
+      "boundary": {
+        "type": "Polygon",
+        "coordinates": [[[8.0, 49.0], [9.0, 49.0], [9.0, 50.0], [8.0, 50.0], [8.0, 49.0]]]
+      }
+    }
+  },
+  "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/aggregation": {
+    "intervals": ["1min", "1hour", "1day", "1month", "1year"],
+    "zoneLevels": {
+      "4": ["1month", "1year"],
+      "5": ["1month", "1year"],
+      "6": ["1day", "1month"],
+      "7": ["1hour", "1day"],
+      "8": ["1min", "1hour"],
+      "9": ["1min", "1hour"]
+    },
+    "functions": [
+      {
+        "id": "min",
+        "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/min",
+        "equation": "min(x_1, ..., x_n)",
+        "method": "MIN"
+      },
+      {
+        "id": "max",
+        "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/max",
+        "equation": "max(x_1, ..., x_n)",
+        "method": "MAX"
+      },
+      {
+        "id": "avg",
+        "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/avg",
+        "equation": "(1/n) * sum(x_i)",
+        "method": "AVG"
+      },
+      {
+        "id": "stddev",
+        "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/stddev",
+        "equation": "sqrt( 1/(n-1) * sum( (x_i - avg)^2 ) ) for n >= 2; null otherwise",
+        "method": "STDDEV"
+      },
+      {
+        "id": "count",
+        "definition": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/count",
+        "equation": "n",
+        "method": "COUNT"
+      }
+    ]
+  },
+  "https://github.com/INSIDE-information-systems/SensorThingsAPI/blob/master/EntityLinking/Linking.md": {
+    "registeredLinks": {
+      "ObservedProperty/properties/derivations/derivation": {
+        "targetType": "ObservedProperty",
+        "description": "Forward link mapping from a base variable to its statistical aggregations."
+      },
+      "ObservedProperty/properties/prov:wasDerivedFrom": {
+        "targetType": "ObservedProperty",
+        "description": "Provenance link mapping back to the primary source or base ObservedProperty."
+      },
+      "ObservedProperty/properties/prov:qualifiedDerivation/prov:wasDerivedFrom": {
+        "targetType": "ObservedProperty",
+        "description": "Provenance link mapping back to the primary source or base ObservedProperty."
+      }
+    }
+  }
+}
+----
+
+`functions` is a property of the `{identifier}/conf/aggregation` object, the same object that advertises `intervals` and `zoneLevels`.
+====
+
 [requirement]
 ====
 [%metadata]
 identifier:: {identifier}/req/aggregation/functions
 
-For each visited cell and each applicable interval, the implementation SHALL calculate the aggregate functions advertised on the landing page as specified in <<req-aggregate-functions>>, from the numeric raw observation results that contribute to that cell in that interval. The calculation of each function SHALL match the advertised `equation` of that function.
+For each visited cell and each applicable interval, the implementation SHALL calculate the aggregate functions advertised on the landing page as specified in <<aggregation-landing-page-functions>>, from the numeric raw observation results that contribute to that cell in that interval. The calculation of each function SHALL match the advertised `equation` of that function.
 
-Raw observations that contribute to a cell are the observations linked to that cell and the observations linked to any descendant of that cell that fall in the interval. Only observations whose `result` is numeric SHALL contribute. Observations that are not linked to a `Cell`, directly or through their `Datastream`, SHALL NOT contribute.
+Raw observations that contribute to a cell are the observations del:[linked to that cell and the observations linked to any descendant of that cell] add:[of the `Datastreams` linked to that cell and of the `Datastreams` linked to any descendant of that cell] that fall in the interval. Only observations whose `result` is numeric SHALL contribute. del:[Observations that are not linked to a `Cell`, directly or through their `Datastream`, whose `Datastream` is not linked to a `Cell` SHALL NOT contribute.]
 ====
 
 [requirement]
@@ -82,11 +227,11 @@ Raw observations that contribute to a cell are the observations linked to that c
 [%metadata]
 identifier:: {identifier}/req/aggregation/traversal
 
-When a raw `Observation` is created or updated with a link to a `Cell`, or when a raw `Observation` is created or updated in a `Datastream` that is linked to a `Cell`, the implementation SHALL calculate aggregates for that `Cell` and for every ancestor `Cell` obtained by following `Parent` until the advertised `coarsestZoneLevel`.
+When del:[a raw `Observation` is created or updated with a link to a `Cell`, or when ]a raw `Observation` is created or updated in a `Datastream` that is linked to a `Cell`, the implementation SHALL calculate aggregates for that `Cell` and for every ancestor `Cell` obtained by following `Parent` until the advertised `coarsestZoneLevel`.
 
-Traversal SHALL start at the finest resolution (the linked `Cell`) and SHALL visit each parent in turn up to the coarsest resolution. For each visited cell, the implementation SHALL calculate the aggregate functions for every interval that applies at that cell's `zoneLevel`.
+Traversal SHALL start at the finest resolution (the del:[linked `Cell`] add:[`Cell` linked to the `Datastream`]) and SHALL visit each parent in turn up to the coarsest resolution. For each visited cell, the implementation SHALL calculate the aggregate functions for every interval that applies at that cell's `zoneLevel`.
 
-If a parent `Cell` does not yet exist, the implementation SHALL materialize it as specified in `{identifier}/req/cell-cud/parent-materialization` before publishing aggregates for that parent.
+del:[If a parent `Cell` does not yet exist, the implementation SHALL materialize it as specified in `{identifier}/req/cell-cud/parent-materialization` before publishing aggregates for that parent.] add:[When the implementation creates an aggregate `Datastream` or `MultiDatastream`, it SHALL follow <<materialize-parents>>. If a parent `Cell` does not yet exist, the implementation SHALL instantiate that parent, and only when that parent is spatially within the cells boundary advertised as specified in <<cells-boundary>>. Each instantiated parent SHALL be linked through the `Parent` association. A `Cell` whose `zoneLevel` is less than or equal to `coarsestZoneLevel` SHALL have no `Parent`.]
 ====
 
 [requirement]
@@ -94,19 +239,22 @@ If a parent `Cell` does not yet exist, the implementation SHALL materialize it a
 [%metadata]
 identifier:: {identifier}/req/aggregation/multidatastream
 
-The implementation SHALL publish each aggregate as an `Observation` of a `MultiDatastream` that is linked to the visited `Cell`.
+The implementation SHALL publish each aggregate as an `Observation` of a del:[`MultiDatastream`] add:[`Datastream` or a `MultiDatastream`] that is linked to the visited `Cell`.
 
-That `MultiDatastream` SHALL:
+add:[A `Datastream` that publishes an aggregate SHALL have one derived `ObservedProperty`, the derived property of one advertised aggregate function, and a `Cell` association to the visited `Cell`. Each aggregate `Observation` of that `Datastream` SHALL have `result` equal to the value of that function.]
+
+del:[That `MultiDatastream`] add:[A `MultiDatastream` that publishes an aggregate] SHALL:
 
 * have `observationType` equal to `http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_ComplexObservation`;
 * have an `ObservedProperties` array of derived `ObservedProperty` entities in the order of the advertised aggregate functions, as specified in `{identifier}/req/observed-properties/multidatastream`;
 * have a `unitOfMeasurements` array that matches that `ObservedProperties` array as specified in <<OGC18-088>> Req 42. The unit of `count` SHALL be unity;
 * have a `Cell` association to the visited `Cell`.
 
-Each aggregate `Observation` SHALL:
+Each aggregate `Observation` SHALL have `phenomenonTime` equal to the time period of the aggregate interval.
 
-* have `phenomenonTime` equal to the time period of the aggregate interval;
-* have `result` equal to a JSON array of values in the same order as the advertised aggregate functions.
+add:[An aggregate `Observation` of a `Datastream` SHALL have `result` equal to the value of that `Datastream`'s aggregate function.]
+
+An aggregate `Observation` of a `MultiDatastream` SHALL have `result` equal to a JSON array of values in the same order as the advertised aggregate functions.
 ====
 
 [requirement]
@@ -116,7 +264,18 @@ identifier:: {identifier}/req/aggregation/consistency
 
 Datastreams whose raw observations contribute to aggregates of the same `Cell` and the same base `ObservedProperty` SHALL use the same `unitOfMeasurement`.
 
-MultiDatastreams that publish aggregates of the same `Cell` and the same base `ObservedProperty` SHALL use the same `ObservedProperties` array and the same `unitOfMeasurements` array, regardless of the aggregate interval.
+add:[Datastreams that publish an aggregate of the same `Cell`, the same base `ObservedProperty`, and the same aggregate function SHALL use the same `ObservedProperty` and the same `unitOfMeasurement`, regardless of the aggregate interval.]
+
+MultiDatastreams that publish aggregates of the same `Cell` and the same base `ObservedProperty` SHALL use the same `ObservedProperties` arraydel:[and the same `unitOfMeasurements` array], regardless of the aggregate interval.
+====
+
+[[req-aggregation-observed-area]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/aggregation/observed-area
+
+add:[A `Datastream` or a `MultiDatastream` that is linked to a `Cell` SHALL have `observedArea` equal to the `boundary` geometry of that `Cell`.]
 ====
 
 .Example aggregate `MultiDatastream` linked to a cell
@@ -147,9 +306,79 @@ MultiDatastreams that publish aggregates of the same `Cell` and the same base `O
     "dggs.cell": "891f8d7a49bffff",
     "dggs.interval": "1hour"
   },
-  "Cell": { "@iot.id": "891f8d7a49bffff" }
+  "observedArea": {
+    "type": "Polygon",
+    "coordinates": [[[8.68, 49.41], [8.69, 49.41], [8.69, 49.42], [8.68, 49.42], [8.68, 49.41]]]
+  },
+  "Cell": { "@iot.id": "891f8d7a49bffff" },
+  "ObservedProperties": [
+    {
+      "@iot.id": 1101,
+      "name": "Air Temperature Min",
+      "definition": "http://vocabs.lter-europe.net/EnvThes/21532",
+      "description": "The lowest recorded air temperature over a given interval.",
+      "properties": {
+        "role": "aggregate",
+        "aggregation_method": "MIN",
+        "aggregation_function": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/min",
+        "prov:wasDerivedFrom.ObservedProperty@iot.id": 1100
+      }
+    },
+    {
+      "@iot.id": 1102,
+      "name": "Air Temperature Max",
+      "definition": "http://www.opengis.net/def/property/sensorthings-dggs/1.0/air-temperature-max",
+      "description": "The highest recorded air temperature over a given interval.",
+      "properties": {
+        "role": "aggregate",
+        "aggregation_method": "MAX",
+        "aggregation_function": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/max",
+        "prov:wasDerivedFrom.ObservedProperty@iot.id": 1100
+      }
+    },
+    {
+      "@iot.id": 1103,
+      "name": "Air Temperature Avg",
+      "definition": "http://www.opengis.net/def/property/sensorthings-dggs/1.0/air-temperature-avg",
+      "description": "The arithmetic mean of the recorded air temperature over a given interval.",
+      "properties": {
+        "role": "aggregate",
+        "aggregation_method": "AVG",
+        "aggregation_function": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/avg",
+        "prov:wasDerivedFrom.ObservedProperty@iot.id": 1100
+      }
+    },
+    {
+      "@iot.id": 1104,
+      "name": "Air Temperature Stddev",
+      "definition": "http://www.opengis.net/def/property/sensorthings-dggs/1.0/air-temperature-stddev",
+      "description": "The sample standard deviation of the recorded air temperature over a given interval.",
+      "properties": {
+        "role": "aggregate",
+        "aggregation_method": "STDDEV",
+        "aggregation_function": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/stddev",
+        "prov:wasDerivedFrom.ObservedProperty@iot.id": 1100
+      }
+    },
+    {
+      "@iot.id": 1105,
+      "name": "Air Temperature Count",
+      "definition": "http://www.opengis.net/def/property/sensorthings-dggs/1.0/air-temperature-count",
+      "description": "The number of air temperature readings in a given interval.",
+      "properties": {
+        "role": "aggregate",
+        "aggregation_method": "COUNT",
+        "aggregation_function": "http://www.opengis.net/def/function/sensorthings-dggs/1.0/count",
+        "prov:wasDerivedFrom.ObservedProperty@iot.id": 1100
+      }
+    }
+  ]
 }
 ----
+
+`observedArea` is the `boundary` of `Cell` `891f8d7a49bffff`.
+
+`ObservedProperties` lists the derived properties in the order `min`, `max`, `avg`, `stddev`, `count`, the same order as `unitOfMeasurements` and `multiObservationDataTypes`. Each has `properties.role` `aggregate`. `aggregation_method` and `aggregation_function` are the `method` and `definition` of the advertised function at that position. Each is derived from the base `ObservedProperty` `@iot.id` `1100`.
 ====
 
 .Example aggregate `Observation`

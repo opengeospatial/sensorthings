@@ -1,15 +1,21 @@
 [[dggs-staplus]]
-== DGGS STAplus Requirements
+== del:[DGGS STAplus Requirements]add:[STAplus Requirements]
 
 === Overview
 
-The <<conformance_class_staplus>> Conformance Class is optional. An implementation that claims it SHALL also conform to <<OGC22-022r2>> (STAplus 1.0.1). An implementation that conforms to <<OGC26-040>> del:[(STAplus 1.1)] add:[(STAplus Party Context 1.0)] del:[uses the same `Party` model, including `role` `system`.] add:[extends STAplus 1.0.1 and therefore uses the same `Party` model, including `role` `system`.] Contributor citation on an attribution license follows the Business Logic of the STAplus standard that the implementation claims.
+The <<conformance_class_staplus,STAplus>> Conformance Class is optional. An implementation that claims it also conforms to <<OGC22-022r2>> (STAplus 1.0.1). del:[Contributor citation on an attribution license follows the Business Logic of the STAplus standard that the implementation claims.]
 
-When this Conformance Class is claimed, each aggregate `MultiDatastream` is owned by a `Party` whose `role` is `system`. That `Party` is the producer of the aggregate. That association identifies aggregate `MultiDatastreams` among other streams.
+The <<staplus,STAplus>> Requirements Class depends on the Core Conformance Class of <<OGC22-022r2>> (`{identifier-staplus}/conf/core`). add:[It defines two restrictions on that model.]
 
-Creator identification of the aggregate follows `{identifier-staplus}/req/business-logic/attribution` in <<OGC22-022r2>>. `Party/displayName` and `Party/authId` are not creator identification. When the `License` of the aggregate identifies an attribution license, contributors are identified by reference to the source `License` instances. Their `attributionText` is not copied onto the aggregate.
+del:[When this Conformance Class is claimed, each aggregate `MultiDatastream` is owned by a `Party` whose `role` is `system`. That `Party` is the producer of the aggregate. That association identifies aggregate `MultiDatastreams` among other streams.]
 
-NOTE: The Requirements Class in this section is part of the Conformance Class <<conformance_class_staplus>>.
+add:[A `Party` that is associated with an aggregated `Datastream` or a `MultiDatastream` has `role` `system`.]
+
+del:[Creator identification of the aggregate follows `{identifier-staplus}/req/business-logic/attribution` in <<OGC22-022r2>>. `Party/displayName` and `Party/authId` are not creator identification. When the `License` of the aggregate identifies an attribution license, contributors are identified by reference to the source `License` instances. Their `attributionText` is not copied onto the aggregate.]
+
+add:[When an aggregate `Datastream` or `MultiDatastream` is associated with a `License` whose `definition` identifies an attribution license, `License/attributionText` lists every `License` of the `Datastream` and `MultiDatastream` entities that provide the observations upon which the aggregate was calculated. The value is a space-separated string of the `@iot.id` values of those contributing licenses.]
+
+NOTE: The Requirements Class in this section is part of the Conformance Class <<conformance_class_staplus,STAplus>>. add:[`{identifier}/req/staplus/attribution` replaces the use of `{identifier-staplus}/req/business-logic/attribution` for that citation.]
 
 [[staplus]]
 === Requirements Class *STAplus*
@@ -21,24 +27,33 @@ NOTE: The Requirements Class in this section is part of the Conformance Class <<
 [%metadata]
 identifier:: {identifier}/req-class/staplus
 obligation:: requirement
-subject:: Target Type: Implementation
-inherit:: {identifier}/req-class/aggregation
-inherit:: {identifier-staplus}/req-class/party
-inherit:: {identifier-staplus}/req-class/business-logic
-requirement:: {identifier}/req/staplus/aggregate-party
+subject:: Implementation
+inherit:: {identifier-staplus}/conf/core
+requirement:: {identifier}/req/staplus/party-role
+requirement:: {identifier}/req/staplus/attribution
 ====
 
+[[req-staplus-party-role]]
 [requirement]
 ====
 [%metadata]
-identifier:: {identifier}/req/staplus/aggregate-party
+identifier:: {identifier}/req/staplus/party-role
 
-Each aggregate `MultiDatastream` SHALL be owned by a `Party`. That `Party` SHALL have `role` equal to the CharacterString `system`. That `Party` is the producer of the aggregate.
-
-`Party/displayName` and `Party/authId` SHALL NOT be used as creator identification of the aggregate. When the `License` of the aggregate identifies an attribution license, contributor identification SHALL follow the attribution requirement of the STAplus standard that the implementation claims. For <<OGC22-022r2>>, that requirement is `{identifier-staplus}/req/business-logic/attribution`: contributors are identified by reference to the source `License` instances, and the aggregate `License` does not receive a copy of their `attributionText`.
+add:[A `Party` that is associated with an aggregated `Datastream` or a `MultiDatastream` SHALL have `role` equal to the CharacterString `system`.]
 ====
 
-.Example aggregate `MultiDatastream` owned by a system `Party`
+[[req-staplus-attribution]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/staplus/attribution
+
+add:[When an aggregate `Datastream` or `MultiDatastream` is associated with a `License` whose `definition` identifies an attribution license, `License/attributionText` SHALL contain the list of all `License` entities of the `Datastream` and `MultiDatastream` entities that provide the observations upon which that aggregate was calculated.]
+
+add:[The value of that `attributionText` SHALL be a space-separated string of the `@iot.id` values of those contributing `License` entities.]
+====
+
+.Example aggregate `MultiDatastream` associated with a system `Party` and an attribution `License`
 ====
 [source,json]
 ----
@@ -48,7 +63,8 @@ Each aggregate `MultiDatastream` SHALL be owned by a `Party`. That `Party` SHALL
   "description": "Aggregated observations (min/max/avg/stddev/count) for H3 cell 891f8d7a49bffff at interval 1hour",
   "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_ComplexObservation",
   "Cell": { "@iot.id": "891f8d7a49bffff" },
-  "Party": { "@iot.id": 1 }
+  "Party": { "@iot.id": 1 },
+  "License": { "@iot.id": 9 }
 }
 ----
 
@@ -60,7 +76,19 @@ The associated `Party`:
   "@iot.id": 1,
   "displayName": "DGGS aggregation",
   "role": "system",
-  "description": "Autonomous process that publishes aggregate MultiDatastreams"
+  "description": "Autonomous process that publishes aggregate Datastreams and MultiDatastreams"
+}
+----
+
+The associated attribution `License`. The observations were provided by streams whose licenses are `@iot.id` `3` and `@iot.id` `7`:
+
+[source,json]
+----
+{
+  "@iot.id": 9,
+  "name": "CC BY 4.0",
+  "definition": "https://creativecommons.org/licenses/by/4.0/",
+  "attributionText": "3 7"
 }
 ----
 ====

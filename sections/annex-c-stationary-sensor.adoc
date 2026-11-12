@@ -1,0 +1,296 @@
+[appendix,obligation="informative"]
+[[annex-stationary-sensor]]
+== Example: del:[DGGS] add:[Spatio-temporal Aggregations] Extension with stationary sensor
+
+This appendix shows how a client starts a sensor that remains at one installation and groups that sensor's observations with this extension. The Sensing entities of <<OGC18-088>> record the device and the fixed coordinate. This extension adds the zone: each `Datastream` of the sensor refers to the one `Cell` that contains the installation. An `Observation` has no `Cell`. The cell of an observation is the cell of its `Datastream`.
+
+The installation coordinate is Marienplatz in Munich. Entity identifiers and the zone identifier below are illustrations. A deployment substitutes its service root, its observed-property identifiers, and the zone identifier its client computes for this coordinate.
+
+=== The installation
+
+The city of Munich mounts an air-temperature and humidity sensor at Marienplatz. The sensor does not move. The coordinate that matters is the installation, longitude `11.5755` and latitude `48.1374`. That point is stored as `Location/location` of the `Thing`. The outdoor air at the installation is the `FeatureOfInterest`. The `Cell` is neither of those geometries. It is the zone of the deployed grid that contains the installation, and it is the spatial group for every observation of the sensor. The city mounts many such sensors. Several of them fall in one zone, and the zones that contain sensors are more than one.
+
+The client uses one `Datastream` for air temperature and one `Datastream` for relative humidity. Both refer to the same `Cell`. Every other installation repeats that pair, with the zone identifier of its own coordinate.
+
+=== Read the grid before creating the sensor
+
+The client reads the landing page and uses the `{identifier}/conf/core` object in `serverSettings`.
+
+[source]
+----
+GET /v1.1
+----
+
+[source,json]
+----
+{
+  "value": [
+    { "name": "Things", "url": "https://example.org/v1.1/Things" },
+    { "name": "Locations", "url": "https://example.org/v1.1/Locations" },
+    { "name": "Sensors", "url": "https://example.org/v1.1/Sensors" },
+    { "name": "ObservedProperties", "url": "https://example.org/v1.1/ObservedProperties" },
+    { "name": "Datastreams", "url": "https://example.org/v1.1/Datastreams" },
+    { "name": "Observations", "url": "https://example.org/v1.1/Observations" },
+    { "name": "Cells", "url": "https://example.org/v1.1/Cells" }
+  ],
+  "serverSettings": {
+    "conformance": [
+      "http://www.opengis.net/spec/iot_sensing/1.1/req/datamodel",
+      "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/core",
+      "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/cell"
+    ],
+    "http://www.opengis.net/spec/sensorthings-dggs/1.0/conf/core": {
+      "gridSystem": "H3",
+      "coarsestZoneLevel": 4,
+      "finestZoneLevel": 15,
+      "removeOrphanCells": false,
+      "cellsBoundary": {
+        "encodingType": "application/geo+json",
+        "boundary": {
+          "type": "Polygon",
+          "coordinates": [[[11.36, 48.06], [11.72, 48.06], [11.72, 48.25], [11.36, 48.25], [11.36, 48.06]]]
+        }
+      }
+    }
+  }
+}
+----
+
+From that object the client takes four facts.
+
+* The deployed grid is `H3`.
+* Cells are materialized only inside `cellsBoundary`. The Marienplatz coordinate lies inside that polygon.
+* The client chooses zone level `9`, which is between `coarsestZoneLevel` and `finestZoneLevel`.
+* A reference materializes only the referenced `Cell`.
+
+The client computes the zone identifier of the installation in that grid at the chosen level. In this example the result is `891f8d7a49bffff`. The service does not compute the identifier for the client.
+
+=== Create the Sensing entities
+
+The client creates the device and its fixed position as specified in <<OGC18-088>>. The `Location` holds the surveyed point. The cell reference comes later, on the `Datastream`.
+
+[source]
+----
+POST /v1.1/Things
+----
+
+[source,json]
+----
+{
+  "name": "Marienplatz air-temperature sensor",
+  "description": "Stationary sensor mounted at Marienplatz, Munich",
+  "properties": { "installation": "fixed" }
+}
+----
+
+The `Thing` identifier in this example is `1`.
+
+[source]
+----
+POST /v1.1/Things(1)/Locations
+----
+
+[source,json]
+----
+{
+  "name": "Marienplatz installation",
+  "description": "Surveyed position of the stationary sensor at Marienplatz, Munich",
+  "encodingType": "application/geo+json",
+  "location": {
+    "type": "Point",
+    "coordinates": [11.5755, 48.1374]
+  }
+}
+----
+
+The client also creates the `Sensor`, the `ObservedProperty` for air temperature, the `ObservedProperty` for relative humidity, and the `FeatureOfInterest` for the outdoor air at the installation. In this example their identifiers are `1`, `1100`, `1300`, and `1`. The temperature unit is degree Celsius. The humidity unit is percent. Every sensor in the city uses those two units, so observations that later fall in one aggregate use one unit per base property.
+
+=== Link the Datastream to the cell
+
+The client creates the `Datastream` and refers to the cell with `@iot.id` only. The nested object contains no `zoneId`, no `system`, no `zoneLevel`, no `boundary`, and no navigation property.
+
+[source]
+----
+POST /v1.1/Datastreams
+----
+
+[source,json]
+----
+{
+  "name": "Air temperature",
+  "description": "Air temperature measured by the sensor at Marienplatz, Munich",
+  "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+  "unitOfMeasurement": {
+    "name": "degree Celsius",
+    "symbol": "degC",
+    "definition": "http://www.qudt.org/vocab/unit/DEG_C"
+  },
+  "Thing": { "@iot.id": 1 },
+  "Sensor": { "@iot.id": 1 },
+  "ObservedProperty": { "@iot.id": 1100 },
+  "Cell": { "@iot.id": "891f8d7a49bffff" }
+}
+----
+
+The `Datastream` identifier in this example is `7`. The implementation accepts the request because the zone is inside `cellsBoundary`. The `Cell` `891f8d7a49bffff` did not exist yet, so the implementation instantiates that `Cell` from the advertised grid:
+
+* `@iot.id` and `zoneId` are `891f8d7a49bffff`;
+* `system` is `H3`;
+* `zoneLevel` is `9`;
+* `boundary` and `encodingType` are filled from the grid when the implementation stores the zone geometry.
+
+The implementation does not instantiate a parent of `891f8d7a49bffff`.
+
+[source]
+----
+GET /v1.1/Cells('891f8d7a49bffff')
+----
+
+The response is HTTP 200 and the instantiated `Cell`. The humidity `Datastream` of the same installation repeats `"Cell": { "@iot.id": "891f8d7a49bffff" }` and uses `ObservedProperty` `1300`. In this example that `Datastream` identifier is `8`. The `Cell` already exists, so the implementation links the stream to it.
+
+Two other requests fail, and the client does not use them to start the sensor.
+
+* `POST /v1.1/Cells` with a `Cell` representation is rejected with HTTP 403. A client cannot create a `Cell`.
+* A `Datastream` body whose nested `Cell` sets any property other than `@iot.id` is rejected with HTTP 400.
+* A reference to a zone outside `cellsBoundary` is rejected with HTTP 403, and that `Cell` is not materialized.
+
+=== Publish the first observation
+
+The sensor then reports a reading on the `Datastream`. The body has no `Cell`. The observation is grouped in `891f8d7a49bffff` because its `Datastream` is linked to that `Cell`.
+
+[source]
+----
+POST /v1.1/Datastreams(7)/Observations
+----
+
+[source,json]
+----
+{
+  "phenomenonTime": "2026-11-07T16:00:00Z",
+  "resultTime": "2026-11-07T16:00:05Z",
+  "result": 12.4,
+  "FeatureOfInterest": { "@iot.id": 1 }
+}
+----
+
+Further readings use the same request. The installation does not move, so the client does not send a new zone identifier and does not change `Datastream/Cell`. The fixed coordinate remains on `Location`. The zone geometry, when the implementation stores it, remains on `Cell/boundary`.
+
+A client reads the grouping through the `Datastream`:
+
+[source]
+----
+GET /v1.1/Observations(1)/Datastream/Cell
+GET /v1.1/Cells('891f8d7a49bffff')/Datastreams
+----
+
+=== Many sensors in several cells
+
+The Marienplatz sensor is `Thing` `1`, linked to `Cell` `891f8d7a49bffff`. A second sensor, `Thing` `3`, is mounted at another address in that same zone. Its temperature `Datastream` is `9` and its humidity `Datastream` is `10`. Both refer to `891f8d7a49bffff`. A third sensor, `Thing` `4`, stands in a different zone, `891fb46626bffff`. Its temperature `Datastream` is `11` and its humidity `Datastream` is `12`.
+
+During the hour beginning at `2026-11-07T16:00:00Z` the temperature `result` values are:
+
+* `Datastream` `7`: `12.4` and `13.0`;
+* `Datastream` `9`: `11.8`;
+* `Datastream` `11`: `10.0`.
+
+The humidity `result` values in that hour are:
+
+* `Datastream` `8`: `60` and `62`;
+* `Datastream` `10`: `58`;
+* `Datastream` `12`: `55`.
+
+=== How the aggregate MultiDatastream is calculated
+
+This service claims the <<conformance_class_aggregation,Aggregation>> and <<conformance_class_observed_properties,ObservedProperties>> Conformance Classes. The landing page advertises the functions `min`, `max`, `avg`, `stddev`, and `count`, in that order, and advertises `1hour` as an interval that applies at zone level `9`.
+
+An aggregate `MultiDatastream` carries one base property. Temperature and humidity are not mixed in one result array, because the array is five function values of one base `ObservedProperty`, and the units of those properties differ. The city therefore has, for each participating `Cell` and each applicable interval:
+
+* one temperature `MultiDatastream`, whose base property is `1100`;
+* one humidity `MultiDatastream`, whose base property is `1300`.
+
+The implementation creates the derived `ObservedProperty` entities. For temperature they are `1101` through `1105`: minimum, maximum, average, standard deviation, and count, each with `properties.role` `aggregate` and `prov:wasDerivedFrom.ObservedProperty@iot.id` `1100`. For humidity they are `1301` through `1305`, derived from `1300`, with the same five functions. The base properties have `properties.role` `base`. A client does not create these derived properties.
+
+The `ObservedProperties` array of each aggregate `MultiDatastream` lists those derived properties in the advertised function order. `unitOfMeasurements` follows that order. For temperature the first four units are degree Celsius and the `count` unit is unity. For humidity the first four units are percent and the `count` unit is unity. `observationType` is `OM_ComplexObservation`. `observedArea` is the `boundary` of the linked `Cell`.
+
+When a raw observation is created, traversal starts at the `Cell` of its `Datastream` and follows `Parent` up to `coarsestZoneLevel`. For every visited cell, and for every interval that applies at that cell's `zoneLevel`, the implementation calculates the five functions from the numeric raw `result` values that contribute to that cell in that interval. Those raw observations are the observations of `Datastream` entities linked to that cell, and of `Datastream` entities linked to any descendant of that cell, whose `ObservedProperty` is the base property of the aggregate. A missing parent inside `cellsBoundary` is instantiated. The references that started the sensors did not instantiate parents.
+
+For `Cell` `891f8d7a49bffff` and the hour beginning at 16:00, the contributing temperature results are `12.4`, `13.0`, and `11.8` from `Thing` `1` and `Thing` `3`. The sample standard deviation uses the advertised equation `sqrt( 1/(n-1) * sum( (x_i - avg)^2 ) )` for `n >= 2`. The result array is `[11.8, 13.0, 12.4, 0.6, 3]`: minimum, maximum, average, standard deviation, and count. The humidity results `60`, `62`, and `58` produce `[58, 62, 60, 2, 3]` on the humidity `MultiDatastream` of the same cell. The temperature aggregate is the following entity. Its identifier in this example is `42`.
+
+[source,json]
+----
+{
+  "@iot.id": 42,
+  "name": "Air temperature, 891f8d7a49bffff, 1hour",
+  "description": "min, max, avg, stddev, and count of air temperature in this zone",
+  "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_ComplexObservation",
+  "unitOfMeasurements": [
+    { "name": "degree Celsius", "symbol": "degC", "definition": "http://www.qudt.org/vocab/unit/DEG_C" },
+    { "name": "degree Celsius", "symbol": "degC", "definition": "http://www.qudt.org/vocab/unit/DEG_C" },
+    { "name": "degree Celsius", "symbol": "degC", "definition": "http://www.qudt.org/vocab/unit/DEG_C" },
+    { "name": "degree Celsius", "symbol": "degC", "definition": "http://www.qudt.org/vocab/unit/DEG_C" },
+    { "name": "unity", "symbol": "1", "definition": "http://www.qudt.org/vocab/unit/UNITLESS" }
+  ],
+  "ObservedProperties": [
+    { "@iot.id": 1101 },
+    { "@iot.id": 1102 },
+    { "@iot.id": 1103 },
+    { "@iot.id": 1104 },
+    { "@iot.id": 1105 }
+  ],
+  "Cell": { "@iot.id": "891f8d7a49bffff" }
+}
+----
+
+The published observation for that hour has `phenomenonTime` equal to the hour and `result` equal to `[11.8, 13.0, 12.4, 0.6, 3]`. Positions in `result` match `ObservedProperties`: `1101` is the minimum of base property `1100`, `1102` the maximum, `1103` the average, `1104` the standard deviation, and `1105` the count.
+
+`Thing` `4` contributes only to `Cell` `891fb46626bffff`. Its single temperature result `10.0` gives `[10.0, 10.0, 10.0, null, 1]` on that cell's temperature `MultiDatastream`. The standard deviation is null because `n` is less than 2. Its humidity result `55` is likewise the only humidity input of that cell.
+
+In this example `881f8d7a49bffff` is the parent of both fine cells. The temperature aggregate of the parent is calculated from the raw results of every temperature `Datastream` linked to the parent or to either child: `12.4`, `13.0`, `11.8`, and `10.0`. That result is `[10.0, 13.0, 11.8, 1.296, 4]`. The humidity parent aggregate uses `60`, `62`, `58`, and `55`. The same five derived properties are reused. A coarser cell does not define a new `ObservedProperty`. The walk continues through each ancestor to `coarsestZoneLevel`, and each ancestor receives its own `MultiDatastream` per base property and applicable interval.
+
+=== With the STAplus extension
+
+An implementation may also claim the <<conformance_class_staplus,STAplus>> Conformance Class. The grouping by `Cell` above does not require it. When the class is claimed, the service conforms to <<OGC22-022r2>> and the city is a `Party`.
+
+The city mounts the sensors and records their observations. Its `role` is `institutional`.
+
+[source,json]
+----
+{
+  "@iot.id": "city-munich",
+  "role": "institutional",
+  "displayName": "City of Munich",
+  "description": "Mounts the stationary sensors and records their observations under CC0."
+}
+----
+
+The recording license is the template `CC_PD`. Its `definition` is the Creative Commons CC0 1.0 public-domain dedication, `https://creativecommons.org/publicdomain/zero/1.0/`. That definition does not identify an attribution license. <<OGC22-022r2>> therefore associates the template itself. The city does not create a party-specific `License`, and the template has no `attributionText`.
+
+[source,json]
+----
+{
+  "@iot.id": "CC_PD",
+  "name": "CC0 1.0",
+  "definition": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "description": "Public-domain dedication. This template is not an attribution license."
+}
+----
+
+Each raw `Datastream` of a city sensor, including `7`, `8`, `9`, `10`, `11`, and `12`, and each `Thing`, includes:
+
+[source,json]
+----
+"Party": { "@iot.id": "city-munich" },
+"License": { "@iot.id": "CC_PD" }
+----
+
+The aggregate `MultiDatastream` entities use the same template. CC0 does not ask for a citation, so their `License` is `CC_PD` and they carry no `attributionText`. The `Party` of each aggregate is the producer of that derived work and has `role` `system`, as specified in <<staplus>>. The city remains the `Party` of the recordings. `MultiDatastream` `42` then also contains:
+
+[source,json]
+----
+"Party": {
+  "@iot.id": "dggs-aggregation",
+  "role": "system",
+  "displayName": "DGGS aggregation"
+},
+"License": { "@iot.id": "CC_PD" }
+----

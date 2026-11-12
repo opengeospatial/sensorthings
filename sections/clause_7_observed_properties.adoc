@@ -1,13 +1,13 @@
 [[dggs-observed-properties]]
-== DGGS ObservedProperties Requirements
+== del:[DGGS ObservedProperties Requirements]add:[ObservedProperties Requirements]
 
 === Overview
 
-An aggregate `MultiDatastream` has a result array whose order is the advertised aggregate functions, for example `[min, max, avg, stddev, count]`. Each position in that array is an `ObservedProperty`. That `ObservedProperty` SHALL be linked to the aggregate function that is advertised on the landing page with the same definition identifier, as specified in <<req-aggregate-functions>>.
+add:[An aggregate `Datastream` has one derived `ObservedProperty` and a single `result` for one advertised aggregate function.] An aggregate `MultiDatastream` has a result array whose order is the advertised aggregate functions, for example `[min, max, avg, stddev, count]`. Each position in that array is an `ObservedProperty`. That `ObservedProperty` is linked to the aggregate function that is advertised on the landing page with the same definition identifier, as specified in <<aggregation-landing-page-functions>>.
 
-A base `ObservedProperty` is the property of the contributing raw observations. Each aggregate function applied to that base property has a derived `ObservedProperty`. The two are linked with entity linking as specified in <<INSIDE-EntityLinking>> and registered on the landing page. Create, Update, and Delete of a derived `ObservedProperty` are limited to the implementation itself and to an administrator, because those entities are used by aggregate `MultiDatastreams`.
+A base `ObservedProperty` is the property of the contributing raw observations. Each aggregate function applied to that base property has a derived `ObservedProperty`. The two are linked with entity linking as specified in <<INSIDE-EntityLinking>> and registered on the landing page. Create, Update, and Delete of a derived `ObservedProperty` are limited to the implementation itself and to an administrator, because those entities are used by aggregate add:[`Datastreams` and] `MultiDatastreams`.
 
-NOTE: The Requirements Class in this section is part of the Conformance Class <<conformance_class_observed_properties>>.
+NOTE: The Requirements Class in this section is part of the Conformance Class <<conformance_class_observed_properties,ObservedProperties>>. add:[That Conformance Class depends on the ObservedProperty Requirements Class of <<OGC18-088>> (`{identifier-sta}/req/datamodel/observed-property`).]
 
 [[observed-properties]]
 === Requirements Class *ObservedProperties*
@@ -19,8 +19,8 @@ NOTE: The Requirements Class in this section is part of the Conformance Class <<
 [%metadata]
 identifier:: {identifier}/req-class/observed-properties
 obligation:: requirement
-subject:: Target Type: Implementation
-inherit:: {identifier}/req-class/aggregate-functions
+subject:: Implementation
+inherit:: {identifier-sta}/req/datamodel/observed-property
 requirement:: {identifier}/req/observed-properties/base
 requirement:: {identifier}/req/observed-properties/derived
 requirement:: {identifier}/req/observed-properties/derived-cud
@@ -64,7 +64,7 @@ The derived `ObservedProperty` MAY contain a `prov:qualifiedDerivation` object. 
 [%metadata]
 identifier:: {identifier}/req/observed-properties/derived-cud
 
-Create, Update, and Delete of a derived `ObservedProperty` SHALL be performed only by the implementation itself or by an administrator. Derived `ObservedProperty` entities are used by aggregate `MultiDatastreams` and SHALL not be modified by other clients.
+Create, Update, and Delete of a derived `ObservedProperty` SHALL be performed only by the implementation itself or by an administrator. Derived `ObservedProperty` entities are used by aggregate del:[`MultiDatastreams`] add:[`Datastreams` and `MultiDatastreams`] and SHALL not be modified by other clients.
 
 A request from any other client that would create, update, or delete a derived `ObservedProperty` SHALL be rejected with HTTP 403 Forbidden.
 ====
@@ -77,6 +77,8 @@ identifier:: {identifier}/req/observed-properties/multidatastream
 The `ObservedProperties` array of an aggregate `MultiDatastream` SHALL contain the derived `ObservedProperty` entities in the same order as the advertised `functions` array on the landing page.
 
 Each derived `ObservedProperty` in that array SHALL be linked to the aggregate function at the same position: `properties.aggregation_function` SHALL be identical to that function's `definition`, and `properties.aggregation_method` SHALL be identical to that function's `method`.
+
+add:[The `ObservedProperty` of an aggregate `Datastream` SHALL be the derived `ObservedProperty` of its aggregate function. `properties.aggregation_function` SHALL be identical to that function's `definition`, and `properties.aggregation_method` SHALL be identical to that function's `method`.]
 ====
 
 .Example base `ObservedProperty` with derived aggregate properties

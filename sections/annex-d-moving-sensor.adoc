@@ -1,0 +1,245 @@
+[appendix,obligation="informative"]
+[[annex-moving-sensor]]
+== Example: del:[DGGS] add:[Spatio-temporal Aggregations] Extension with moving sensor
+
+This appendix shows how an implementation stores air-quality observations from a sensor that moves. A citizen scientist rides a bicycle through Munich. The sensor is mounted on the bicycle and reports a sample every few seconds. The sample position hops from one zone of the deployed grid to another.
+
+A `Datastream` has zero-or-one `Cell`, and an `Observation` has no `Cell`. The cell of an observation is the cell of its `Datastream`. One `Datastream` therefore groups every one of its observations in a single zone. The ride cannot be stored as one `Datastream` linked to one `Cell`: that would place samples from other zones into the first zone. The implementation stores the ride as one `Datastream` per zone the bicycle enters, for the same `Thing`, `Sensor`, and `ObservedProperty`. The position of each sample is the `FeatureOfInterest` of that `Observation`, as specified in <<OGC18-088>>.
+
+The service is the Munich deployment of <<annex-stationary-sensor>>: grid system `H3`, zone level `9`, and a `cellsBoundary` that covers the city. Entity identifiers and zone identifiers below are illustrations. The two coordinates are stops on the ride.
+
+=== The ride
+
+The bicycle starts at Marienplatz, longitude `11.5755` and latitude `48.1374`. The next sample used in this example is taken at Sendlinger Tor, longitude `11.5675` and latitude `48.1333`. The client computes the zone identifier of each fix in the advertised grid at level `9`. In this example those identifiers are `891fb466257ffff` for Marienplatz and `891fb46624fffff` for Sendlinger Tor. They are different zones, both inside `cellsBoundary`.
+
+The `Thing` is the kit on the bicycle. It has one `Sensor` and one `ObservedProperty`, PM2.5, whose identifier in this example is `1200`. The `Thing` identifier is `2`. The `Thing` has no `Location` that stands for the ride. Each sample carries its own position.
+
+=== First sample, first cell
+
+The client looks for a `Datastream` of this kit and this property already linked to the Marienplatz zone.
+
+[source]
+----
+GET /v1.1/Datastreams?$filter=Thing/id eq 2 and ObservedProperty/id eq 1200 and Cell/id eq '891fb466257ffff'
+----
+
+The collection is empty, so the client creates the `Datastream` and refers to the cell with `@iot.id` only.
+
+[source]
+----
+POST /v1.1/Datastreams
+----
+
+[source,json]
+----
+{
+  "name": "PM2.5 in 891fb466257ffff",
+  "description": "PM2.5 samples from the bicycle kit taken in this zone",
+  "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+  "unitOfMeasurement": {
+    "name": "microgram per cubic metre",
+    "symbol": "ug/m3",
+    "definition": "http://dd.eionet.europa.eu/vocabulary/uom/concentration/ug.m-3"
+  },
+  "Thing": { "@iot.id": 2 },
+  "Sensor": { "@iot.id": 2 },
+  "ObservedProperty": { "@iot.id": 1200 },
+  "Cell": { "@iot.id": "891fb466257ffff" }
+}
+----
+
+The `Datastream` identifier in this example is `21`. The implementation instantiates `Cell` `891fb466257ffff` from the advertised grid when that `Cell` does not yet exist. It instantiates only that `Cell`.
+
+The client posts the sample on that `Datastream`. The body has no `Cell`. The `FeatureOfInterest` is the GPS fix.
+
+[source]
+----
+POST /v1.1/Datastreams(21)/Observations
+----
+
+[source,json]
+----
+{
+  "phenomenonTime": "2026-11-07T16:10:00Z",
+  "resultTime": "2026-11-07T16:10:02Z",
+  "result": 8.6,
+  "FeatureOfInterest": {
+    "name": "Air at the bicycle",
+    "description": "Outdoor air at the sample position",
+    "encodingType": "application/geo+json",
+    "feature": {
+      "type": "Point",
+      "coordinates": [11.5755, 48.1374]
+    }
+  }
+}
+----
+
+Further samples whose fix falls in `891fb466257ffff` are posted to `Datastream` `21`. The client does not change `Datastream/Cell`.
+
+=== The next sample falls in another cell
+
+At Sendlinger Tor the client computes `891fb46624fffff`. The same filter for that zone returns an empty collection. The client creates a second `Datastream`, `22`, with the same `Thing`, `Sensor`, and `ObservedProperty`, and with `"Cell": { "@iot.id": "891fb46624fffff" }`. The implementation instantiates that `Cell` and no parent.
+
+The client posts the sample to `Datastream` `22`, with a `FeatureOfInterest` whose point is `[11.5675, 48.1333]`.
+
+The client leaves `Datastream` `21` linked to `891fb466257ffff`. Updating that link to the new zone would move the Marienplatz samples into the Sendlinger Tor zone, because every observation of a `Datastream` takes the cell of that `Datastream`.
+
+When the bicycle enters a zone it has already used, the filter returns the existing `Datastream` and the client appends the new samples there. Two passes through Marienplatz share `Datastream` `21`.
+
+A client reads one zone, or follows the ride by the sample positions:
+
+[source]
+----
+GET /v1.1/Cells('891fb466257ffff')/Datastreams?$expand=Observations
+GET /v1.1/Things(2)/Datastreams?$expand=Observations/FeatureOfInterest,Cell
+----
+
+The first request returns the samples grouped in the Marienplatz zone. The second returns every per-zone `Datastream` of the kit. Ordering those observations by `phenomenonTime` and reading each `FeatureOfInterest` reconstructs the track. The track is not a property of one `Cell`.
+
+=== With the STAplus extension
+
+An implementation that also claims the <<conformance_class_staplus,STAplus>> Conformance Class uses <<OGC22-022r2>> for the citizen, for the ride, and for citation. This Standard adds two restrictions, both about aggregates.
+
+The ride is a `Campaign` that contains every per-zone `Datastream` of this bicycle. The `Campaign` is the collection of the ride. Each `Datastream` remains linked to one `Cell`.
+
+One person organises the ride and rides the bicycle. <<OGC22-022r2>> records that person once, as a `Party` with `role` `individual`. The `Party` of the `Campaign` is the managing party. The `Party` of each `Datastream` in the `Campaign` is the participant who collected the samples. Both associations use this same `Party`.
+
+[source]
+----
+POST /v1.1/Parties
+----
+
+[source,json]
+----
+{
+  "role": "individual",
+  "displayName": "Long John Silver",
+  "description": "Citizen scientist in Munich who manages this bicycle campaign and collects the samples."
+}
+----
+
+The `Party` identifier in this example is `citizen-01`. The person creates a party-specific attribution `License`. `attributionText` is the citation for the samples.
+
+[source]
+----
+POST /v1.1/Licenses
+----
+
+[source,json]
+----
+{
+  "name": "CC BY 4.0 — Long John Silver",
+  "definition": "https://creativecommons.org/licenses/by/4.0/",
+  "attributionText": "Long John Silver"
+}
+----
+
+The `License` identifier in this example is `lic-citizen`. The client then creates the `Campaign`. `name`, `description`, `termsOfUse`, and `creationTime` are mandatory in <<OGC22-022r2>>. `Party` is `citizen-01`, the campaign manager.
+
+[source]
+----
+POST /v1.1/Campaigns
+----
+
+[source,json]
+----
+{
+  "name": "Munich bicycle air-quality ride",
+  "description": "PM2.5 samples collected by bicycle on 7 November 2026. The campaign manager is the participant.",
+  "termsOfUse": "Cite the samples as Long John Silver.",
+  "creationTime": "2026-11-07T16:00:00Z",
+  "Party": { "@iot.id": "citizen-01" },
+  "License": { "@iot.id": "lic-citizen" }
+}
+----
+
+The `Campaign` identifier in this example is `ride-01`. After the two per-zone `Datastream` entities exist, the stored `Campaign` reads as follows. `Party` is the manager. Each `Datastream/Party` is the participant. The identifier is `citizen-01` in every case.
+
+[source,json]
+----
+{
+  "@iot.id": "ride-01",
+  "name": "Munich bicycle air-quality ride",
+  "description": "PM2.5 samples collected by bicycle on 7 November 2026. The campaign manager is the participant.",
+  "termsOfUse": "Cite the samples as Long John Silver.",
+  "creationTime": "2026-11-07T16:00:00Z",
+  "Party": {
+    "@iot.id": "citizen-01",
+    "role": "individual",
+    "displayName": "Long John Silver"
+  },
+  "License": { "@iot.id": "lic-citizen" },
+  "Datastreams": [
+    {
+      "@iot.id": 21,
+      "name": "PM2.5 in 891fb466257ffff",
+      "Cell": { "@iot.id": "891fb466257ffff" },
+      "Party": { "@iot.id": "citizen-01" }
+    },
+    {
+      "@iot.id": 22,
+      "name": "PM2.5 in 891fb46624fffff",
+      "Cell": { "@iot.id": "891fb46624fffff" },
+      "Party": { "@iot.id": "citizen-01" }
+    }
+  ]
+}
+----
+
+Each per-zone `Datastream` create, including `Datastream` `21` and `Datastream` `22`, includes that same participant, the license, and the `Campaign`:
+
+[source,json]
+----
+"Party": { "@iot.id": "citizen-01" },
+"License": { "@iot.id": "lic-citizen" },
+"Campaigns": [{ "@iot.id": "ride-01" }]
+----
+
+A `Datastream` has zero-to-many `Campaigns`, so the same zone stream can also belong to a longer campaign. For this ride, both streams belong to `ride-01`. The whole ride is read from the `Campaign`, and each member still carries its own `Cell`:
+
+[source]
+----
+GET /v1.1/Campaigns('ride-01')/Datastreams?$expand=Cell,Observations/FeatureOfInterest
+----
+
+`role` `system` is required only for a `Party` associated with an aggregated `Datastream` or a `MultiDatastream`. The citizen's `Party` is not that producer. Aggregate streams are not members of `ride-01`.
+
+When the implementation also claims the <<conformance_class_aggregation,Aggregation>> Conformance Class, it can publish an aggregate for each zone that received samples, and for coarser parent zones. The implementation instantiates a missing parent `Cell` up to `coarsestZoneLevel` when that parent lies inside `cellsBoundary`. The references sent while the bicycle was moving did not instantiate those parents.
+
+The aggregate `MultiDatastream` is linked to the zone it summarizes. Its `Party` has `role` `system`.
+
+Long John Silver records the ride under CC BY 4.0. That `definition` identifies an attribution license, so each recording uses his party-specific instance `lic-citizen`, whose `attributionText` is `Long John Silver`. The aggregate is a derived work of those recordings, and its `License` is an attribution license as well. <<staplus>> requires the aggregate `attributionText` to list the contributing licenses by `@iot.id`. It does not copy `Long John Silver` from `lic-citizen`. Both per-zone streams use that one license, so the aggregate citation is the single token `lic-citizen`. A client that expands `lic-citizen` reads the name.
+
+The implementation stores that aggregate license as its own instance, because an attribution license is not the shared template:
+
+[source,json]
+----
+{
+  "@iot.id": "lic-agg-ride",
+  "name": "CC BY 4.0 aggregate",
+  "definition": "https://creativecommons.org/licenses/by/4.0/",
+  "attributionText": "lic-citizen"
+}
+----
+
+The hour aggregate of PM2.5 in the Marienplatz zone of the ride is then:
+
+[source,json]
+----
+{
+  "@iot.id": 51,
+  "name": "PM2.5, 891fb466257ffff, 1hour",
+  "description": "min, max, avg, stddev, and count of PM2.5 in this zone of the ride",
+  "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_ComplexObservation",
+  "Cell": { "@iot.id": "891fb466257ffff" },
+  "Party": {
+    "@iot.id": "dggs-aggregation",
+    "role": "system",
+    "displayName": "DGGS aggregation"
+  },
+  "License": { "@iot.id": "lic-agg-ride" }
+}
+----
+
+`ObservedProperties` on that `MultiDatastream` are the five derived properties of the PM2.5 base property, in the advertised function order. The Sendlinger Tor zone has its own aggregate `MultiDatastream`. It uses the same `lic-agg-ride` value `lic-citizen`, because that zone's recording is also `lic-citizen`. The aggregate streams are not members of `Campaign` `ride-01`.

@@ -1,14 +1,12 @@
 [[dggs-entities]]
-== DGGS Entity Type Requirements
+== del:[DGGS Entity Type Requirements]add:[Core Requirements]
 
-`Cell` is the entity type of the <<conformance_class_cell>> Conformance Class. This clause also defines the additional direct relations from `Observation`, `Datastream`, and `MultiDatastream` that this Standard adds. The SensorThings entity types of <<OGC18-088>> remain as defined in that Standard.
+`Cell` is the entity type of the <<conformance_class_core,Core>> Conformance Class. This clause also defines the additional direct relations from del:[`Observation`, `Datastream`, and `MultiDatastream`] add:[`Datastream` and `MultiDatastream`] that this Standard adds. The SensorThings entity types of <<OGC18-088>> remain as defined in that Standard.
 
-NOTE: Please be aware that all of the Requirements Classes in this section are part of the Conformance Class <<conformance_class_cell>>.
+NOTE: Please be aware that all of the Requirements Classes in this section are part of the Conformance Class <<conformance_class_core,Core>>.
 
 [[common-control-information]]
 === Requirements Class *Entity Control Information*
-
-NOTE: For more information, please see https://docs.ogc.org/is/18-088/18-088.html#common-control-information[<<OGC18-088, OGC SensorThings API Part 1: Sensing Version 1.1, §8.1>>].
 
 [requirements_class]
 .Entity Control Information
@@ -17,7 +15,7 @@ NOTE: For more information, please see https://docs.ogc.org/is/18-088/18-088.htm
 [%metadata]
 identifier:: {identifier}/req-class/entity-control-information
 obligation:: requirement
-subject:: Target Type: Implementation
+subject:: Implementation
 inherit:: {identifier-sta}/req/datamodel/entity-control-information
 requirement:: {identifier}/req/common-control-information
 ====
@@ -33,17 +31,19 @@ Each `Cell` entity SHALL have the common control information defined in <<OGC18-
 [[cell]]
 === Requirements Class *Cell*
 
-The `Cell` entity represents one zone of the Discrete Global Grid System deployed by the implementation. It is used to spatially group observations: an `Observation`, a `Datastream`, or a `MultiDatastream` linked to a `Cell` belongs somewhere in that cell.
+The `Cell` entity represents one zone of the Discrete Global Grid System deployed by the implementation. It is used to spatially group observations: del:[an `Observation`, a `Datastream`, or a `MultiDatastream` linked to a `Cell` belongs somewhere in that cell.] add:[the observations of a `Datastream` or a `MultiDatastream` linked to a `Cell` belong somewhere in that cell.]
 
-The `zoneId` property is the string representation of the cell identifier in the deployed grid system. It SHALL be identical to `@iot.id`. For H3, `zoneId` is the hexadecimal H3 index. For Geohash, `zoneId` is the geohash string.
+The `zoneId` property is the string representation of the cell identifier in the deployed grid system. It is identical to `@iot.id`. For H3, `zoneId` is the hexadecimal H3 index. For Geohash, `zoneId` is the geohash string.
 
-The `@iot.id` of a `Cell` SHALL be a CharacterString, encoded as a JSON string. That encoding ensures that a JavaScript client can parse the identifier without issues that BigInt indexes would cause.
+The `@iot.id` of a `Cell` is a CharacterString, encoded as a JSON string. That encoding ensures that a JavaScript client can parse the identifier without issues that BigInt indexes would cause.
 
-The `system` property identifies the deployed grid system. Its value SHALL be the `gridSystem` value advertised on the landing page as specified in <<grid-system>>.
+The `system` property identifies the deployed grid system. Its value is the `gridSystem` value advertised on the landing page as specified in <<grid-system>>.
 
-The `zoneLevel` property is the hierarchical resolution of the zone. A smaller value is a coarser zone. A larger value is a finer zone. `zoneLevel` is optional because some grid systems encode the level in the identifier.
+The `zoneLevel` property is the hierarchical add:[level of] resolution of the zone. A smaller value is a coarser zone. A larger value is a finer zone. `zoneLevel` is optional because some grid systems encode the level in the identifier.
 
-The `boundary` property is the geometry of the DGGS zone. It uses the same encoding rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>. The `encodingType` property indicates the encoding of `boundary`. If `boundary` is present, `encodingType` SHALL be present.
+The `boundary` property is the geometry of the DGGS zone. It uses the same encoding rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>. The `encodingType` property indicates the encoding of `boundary`. If `boundary` is present, `encodingType` is present.
+
+add:[The implementation may delete an orphan `Cell`. Whether the implementation does so is advertised as `removeOrphanCells` on the landing page.]
 
 [requirements_class]
 .Cell
@@ -52,12 +52,13 @@ The `boundary` property is the geometry of the DGGS zone. It uses the same encod
 [%metadata]
 identifier:: {identifier}/req-class/cell
 obligation:: requirement
-subject:: Target Type: Implementation
+subject:: Implementation
 inherit:: {identifier}/req-class/entity-control-information
 requirement:: {identifier}/req/cell/properties
 requirement:: {identifier}/req/cell/id-type
 requirement:: {identifier}/req/cell/relations
 requirement:: {identifier}/req/cell/consistency
+requirement:: {identifier}/req/cell/remove-orphan-cells
 ====
 
 [requirement]
@@ -75,27 +76,27 @@ Each `Cell` entity SHALL have the mandatory properties and MAY have the optional
 |Name |Definition |Data type |Cardinality and use
 
 |zoneId
-|The string representation of the DGGS zone identifier. The value SHALL be identical to `@iot.id`
+|The string representation of the DGGS zone identifier. The value is identical to `@iot.id`
 |CharacterString
 |One (mandatory)
 
 |zoneLevel
-|The hierarchical resolution of the zone in the deployed grid system. A smaller value is coarser
+|The hierarchical add:[level of] resolution of the zone in the deployed grid system. A smaller value is coarser
 |Integer
 |Zero or One (optional)
 
 |system
-|The identifier of the deployed grid system. The value SHALL be identical to the `gridSystem` advertised on the landing page
+|The identifier of the deployed add:[discrete global] grid system. The value is identical to the `gridSystem` advertised on the landing page
 |CharacterString
 |One (mandatory)
 
 |boundary
-|The geometry of the DGGS zone. The encoding SHALL follow the same rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>
+|The geometry of the DGGS zone. The encoding follows the same rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>
 |Any
 |Zero or One (optional)
 
 |encodingType
-|The encoding type of the `boundary` property. The value SHALL be a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>> (for example `application/geo+json`). If `boundary` is present, `encodingType` SHALL be present
+|The encoding type of the `boundary` property. The value is a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>> (for example `application/geo+json`). If `boundary` is present, `encodingType` is present
 |ValueCode
 |Zero or One (optional)
 
@@ -112,7 +113,7 @@ Each `Cell` entity SHALL have the mandatory properties and MAY have the optional
 [%metadata]
 identifier:: {identifier}/req/cell/id-type
 
-The `@iot.id` of a `Cell` SHALL be of type CharacterString. In the JSON encoding, `@iot.id` SHALL be a JSON string, not a JSON number. This requirement ensures that a JavaScript client can parse the identifier without loss of precision.
+The `@iot.id` of a `Cell` SHALL be of type CharacterString. In the JSON encoding, `@iot.id` SHALL be a JSON string, not a JSON number. This requirement ensures that a JavaScript client can parse the identifier without del:[loss of precision] add:[the nedd to support BigInteger].
 
 The `zoneId` of a `Cell` SHALL be identical to `@iot.id`.
 ====
@@ -141,11 +142,6 @@ An implementation SHALL allow each `Cell` to have direct associations to other e
 |Zero to Many
 |A `Cell` has zero-to-many child `Cells` at the next finer zone level.
 
-|Observations
-|Observation
-|Zero to Many
-|A `Cell` has zero-to-many `Observations`.
-
 |Datastreams
 |Datastream
 |Zero to Many
@@ -162,11 +158,6 @@ An implementation SHALL allow each `Cell` to have direct associations to other e
 [cols="25a,25a,20a,30a"]
 |===
 |Relation name| Source Entity type |Cardinality |Description
-
-|Cell
-|Observation
-|Zero or One
-|An `Observation` has zero-to-one `Cell`.
 
 |Cell
 |Datastream
@@ -196,7 +187,20 @@ identifier:: {identifier}/req/cell/consistency
 
 Datastreams that are linked to the same `Cell` and that observe the same `ObservedProperty` SHALL use the same `unitOfMeasurement`.
 
-MultiDatastreams that are linked to the same `Cell` and that represent the same aggregate of the same base `ObservedProperty` SHALL use the same `ObservedProperties` array and the same `unitOfMeasurements` array.
+add:[Datastreams that publish an aggregate of the same `Cell`, the same base `ObservedProperty`, and the same aggregate function SHALL use the same `ObservedProperty` and the same `unitOfMeasurement`.]
+
+MultiDatastreams that are linked to the same `Cell` and that represent the same aggregate of the same base `ObservedProperty` SHALL use the same `ObservedProperties` arraydel:[ and the same `unitOfMeasurements` array].
+====
+
+[[req-cell-remove-orphan-cells]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cell/remove-orphan-cells
+
+add:[The JSON object with the name `{identifier}/conf/core` in the `serverSettings` object on the landing page (the root URI) SHALL contain a property `removeOrphanCells` whose value is a Boolean.]
+
+add:[If `removeOrphanCells` is `true`, the implementation SHALL delete an orphan `Cell`. If `removeOrphanCells` is `false`, the implementation SHALL NOT delete a `Cell` on the ground that it is an orphan.]
 ====
 
 .Example `Cell` entity
@@ -208,7 +212,6 @@ MultiDatastreams that are linked to the same `Cell` and that represent the same 
   "@iot.selfLink": "http://example.org/v1.1/Cells('891f8d7a49bffff')",
   "Parent@iot.navigationLink": "Cells('891f8d7a49bffff')/Parent",
   "Children@iot.navigationLink": "Cells('891f8d7a49bffff')/Children",
-  "Observations@iot.navigationLink": "Cells('891f8d7a49bffff')/Observations",
   "Datastreams@iot.navigationLink": "Cells('891f8d7a49bffff')/Datastreams",
   "MultiDatastreams@iot.navigationLink": "Cells('891f8d7a49bffff')/MultiDatastreams",
   "zoneId": "891f8d7a49bffff",
@@ -224,43 +227,26 @@ MultiDatastreams that are linked to the same `Cell` and that represent the same 
 ====
 
 [[cell-relations]]
-=== Requirements Class *Observation, Datastream and MultiDatastream relations*
+=== Requirements Class *del:[Observation, Datastream and MultiDatastream relations]add:[Datastream and MultiDatastream relations]*
 
-This Standard extends the SensorThings `Observation` and `Datastream` entities, and the `MultiDatastream` entity of <<OGC18-088>> Clause 12, with the navigation properties defined in <<tab-relations-observation-dggs>>, <<tab-relations-datastream-dggs>>, and <<tab-relations-multidatastream-dggs>>. The relations defined in <<OGC18-088>> remain in force.
+This Standard extends the SensorThings del:[`Observation` and `Datastream` entities] add:[`Datastream` entity], and the `MultiDatastream` entity of <<OGC18-088>> Clause 12, with the navigation properties defined in del:[the table "Direct relation from an `Observation` entity to `Cell`", <<tab-relations-datastream-dggs>>,] add:[<<tab-relations-datastream-dggs>>] and <<tab-relations-multidatastream-dggs>>. The relations defined in <<OGC18-088>> remain in force.
+
+add:[This Standard does not add a `Cell` association to the `Observation` entity. The `Cell` of an `Observation` is the `Cell` of its `Datastream` or `MultiDatastream` and is reached by navigation, for example `Observations(1)/Datastream/Cell`. The observations of a `Cell` are reached through its streams, for example `Cells('891f8d7a49bffff')/Datastreams?$expand=Observations`.]
 
 [requirements_class]
-.Observation, Datastream and MultiDatastream relations
+.del:[Observation, Datastream and MultiDatastream relations]add:[Datastream and MultiDatastream relations]
 
 ====
 [%metadata]
 identifier:: {identifier}/req-class/cell-relations
 obligation:: requirement
-subject:: Target Type: Implementation
+subject:: Implementation
 inherit:: {identifier}/req-class/cell
-requirement:: {identifier}/req/observation/relations
 requirement:: {identifier}/req/datastream/relations
 requirement:: {identifier}/req/multidatastream/relations
 ====
 
-[requirement]
-====
-[%metadata]
-identifier:: {identifier}/req/observation/relations
-
-An implementation SHALL allow each `Observation` to have the direct association listed in <<tab-relations-observation-dggs>>.
-====
-
-[[tab-relations-observation-dggs]]
-.Direct relation from an `Observation` entity to `Cell`
-[cols="25a,25a,20a,30a"]
-|===
-|Relation name| Entity type |Cardinality |Description
-
-|Cell
-|Cell
-|Zero or One
-|An `Observation` has zero-to-one `Cell`. The observation belongs somewhere in that cell.
-|===
+del:[Requirement `{identifier}/req/observation/relations`: An implementation SHALL allow each `Observation` to have the direct association `Cell` (entity type `Cell`, cardinality Zero or One). An `Observation` has zero-to-one `Cell`. The observation belongs somewhere in that cell.]
 
 [requirement]
 ====
@@ -301,3 +287,68 @@ If the implementation conforms to the MultiDatastream Requirements Class of <<OG
 |Zero or One
 |A `MultiDatastream` has zero-to-one `Cell`. The observations of the multi-datastream are grouped in that cell.
 |===
+
+[[system]]
+=== Requirements Class *System*
+
+add:[The System Requirements Class requires the implementation to advertise the deployed grid system and `cellsBoundary` in the `{identifier}/conf/core` JSON object of `serverSettings` on the landing page.]
+
+[requirements_class]
+.System
+
+====
+[%metadata]
+identifier:: {identifier}/req-class/system
+obligation:: requirement
+subject:: Implementation
+inherit:: http://www.opengis.net/spec/iot_sensing/1.1/req/resource-path
+requirement:: {identifier}/req/grid-system
+requirement:: {identifier}/req/cells-boundary
+requirement:: {identifier}/req/materialize-parents
+====
+
+[[grid-system]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/grid-system
+
+The implementation SHALL del:[provide] add:[include] a JSON object in the `serverSettings` object on the landing page (the root URI) with the name `{identifier}/conf/core`. That object SHALL contain:
+
+* a property `gridSystem` whose value is a CharacterString that identifies the Discrete Global Grid System deployed by the implementation (for example `H3` or `GEOHASH`);
+* a property `coarsestZoneLevel` whose value is an Integer that identifies the coarsest zone level at which the implementation materializes parent cells;
+* a property `finestZoneLevel` whose value is an Integer that identifies the finest zone level at which the implementation materializes cells.
+
+The advertised `finestZoneLevel` SHALL be greater than or equal to the advertised `coarsestZoneLevel`.
+
+Every `Cell/system` value SHALL be identical to the advertised `gridSystem`.
+====
+
+[[cells-boundary]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/cells-boundary
+
+The JSON object with the name `{identifier}/conf/core` in the `serverSettings` object on the landing page (the root URI) SHALL contain a member del:[`cellCreateBoundary`] add:[`cellsBoundary`] whose value is a JSON object. That JSON object SHALL contain:
+
+* a property `encodingType` whose value is a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>> (for example `application/geo+json`);
+* a property `boundary` whose value is a geometry that defines del:[the area within which a `Cell` can be created] add:[the area within which the implementation materializes `Cell` entities].
+
+The advertised `boundary` SHALL be a Polygon or a MultiPolygon. A Polygon MAY be a simple polygon (one exterior ring and no holes). A Polygon or a MultiPolygon MAY contain holes (interior rings).
+
+add:[`cellsBoundary` is the area within which the implementation materializes cells. The implementation materializes a `Cell` only when that `Cell` is spatially within `cellsBoundary`. `cellsBoundary` is used to prevent flooding of the database with too many `Cell` entities.]
+
+add:[The default `cellsBoundary` covers "the world".]
+====
+
+[[materialize-parents]]
+[requirement]
+====
+[%metadata]
+identifier:: {identifier}/req/materialize-parents
+
+add:[The implementation SHALL instantiate missing parent `Cell` entities when it creates an aggregate `Datastream` or `MultiDatastream`.]
+
+add:[When the implementation creates aggregate streams, it SHALL instantiate every missing parent `Cell` from the zone level of the aggregated `Cell` up to the advertised `coarsestZoneLevel`. ]
+====

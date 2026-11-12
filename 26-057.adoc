@@ -1,15 +1,15 @@
-= OGC SensorThings API Extension: DGGS 1.0
+= OGC SensorThings API Extension: del:[DGGS] add:[Spatio-temporal Aggregations] 1.0
 :doctype: standard
 :encoding: utf-8
 :lang: en
 :status: swg-draft
 :committee: technical
-:draft: 0.2
+:draft: 0.4
 :external-id: http://www.opengis.net/doc/is/sensorthings-dggs/1.0
 :docnumber: 26-057
 :received-date: 2026-08-19
-:issued-date: 2026-09-29
-:published-date: 2026-09-29
+:issued-date: 2026-11-10
+:published-date: 2026-11-10
 :fullname: Andreas Matheus
 :docsubtype: Implementation
 :keywords: OGC Standard, API, SensorThings, DGGS, Cell, Aggregation, H3, Geohash, STAplus
@@ -33,15 +33,16 @@
 |===
 |common-control-information|{identifier}/req/common-control-information
 |cell|{identifier}/req-class/cell
+|system|{identifier}/req-class/system
 |cell-relations|{identifier}/req-class/cell-relations
-|landing-page|{identifier}/req-class/landing-page
 |grid-system|{identifier}/req/grid-system
-|cell-create-boundary|{identifier}/req/cell-create-boundary
+|cells-boundary|{identifier}/req/cells-boundary
+|materialize-parents|{identifier}/req/materialize-parents
 |cell-id-type|{identifier}/req/cell/id-type
-|cell-cud|{identifier}/req-class/cell-cud
-|read|{identifier}/req-class/read
-|authentication|{identifier}/req-class/authentication
-|aggregate-functions|{identifier}/req-class/aggregate-functions
+|cell-crud|{identifier}/req-class/cell-crud
+|del:[authentication]|del:[{identifier}/req-class/authentication]
+|aggregation-landing-page-functions|{identifier}/req/aggregation/landing-page-functions
+|aggregation-landing-page-entity-linking|{identifier}/req/aggregation/landing-page-entity-linking
 |observed-properties|{identifier}/req-class/observed-properties
 |aggregation|{identifier}/req-class/aggregation
 |staplus|{identifier}/req-class/staplus
@@ -65,18 +66,19 @@ include::sections/clause_5_conventions.adoc[]
 include::sections/clause_6_informative_text.adoc[]
 
 include::sections/clause_7_entities.adoc[]
-include::sections/clause_7_landing_page.adoc[]
 include::sections/clause_7_cell_crud.adoc[]
-include::sections/clause_7_auth.adoc[]
-include::sections/clause_7_observed_properties.adoc[]
 include::sections/clause_7_aggregation.adoc[]
+include::sections/clause_7_observed_properties.adoc[]
 include::sections/clause_7_staplus.adoc[]
+include::sections/clause_7_auth.adoc[]
 
 ////
 add or remove annexes after "A" as necessary
 ////
 include::sections/annex-a.adoc[]
 include::sections/annex-b.adoc[]
+include::sections/annex-c-stationary-sensor.adoc[]
+include::sections/annex-d-moving-sensor.adoc[]
 ////
 Revision History should be the last annex before the Bibliography
 Bibliography should be the last annex

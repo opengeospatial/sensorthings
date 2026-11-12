@@ -13,8 +13,8 @@ Provisions inherited from <<OGC18-088>> are denoted by the URI `{identifier-sta}
 
 === JSON encoding of relation names
 
-Association role names in the Clause 7 relation tables use STA PascalCase (`Cell`, `Observations`, `Datastreams`, `MultiDatastreams`, `Parent`, `Children`) as used in the JSON encoding. UML association ends in <<OGC18-088>> and in the DGGS 1.0 UML may use camelCase (`cell`, `observations`, `datastreams`, `multiDatastreams`, `parent`, `children`).
+Association role names in the Clause 7 relation tables use STA PascalCase (`Cell`, del:[`Observations`, ]`Datastreams`, `MultiDatastreams`, `Parent`, `Children`) as used in the JSON encoding. UML association ends in <<OGC18-088>> and in the del:[DGGS] add:[Spatio-temporal Aggregations] 1.0 UML may use camelCase (`cell`, del:[`observations`, ]`datastreams`, `multiDatastreams`, `parent`, `children`).
 
 === Entity type URL
 
-The URL of the `Cell` entity type SHALL use the entity-set name `Cells`.
+The URL of the `Cell` entity type uses the entity-set name `Cells`.

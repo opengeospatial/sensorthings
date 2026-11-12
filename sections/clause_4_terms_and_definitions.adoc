@@ -5,13 +5,17 @@
 
 The terms and definitions of <<OGC18-088>> apply. The following terms are added by this Standard.
 
-==== Cell
+==== del:[C] add:[c]ell
 
-A SensorThings entity that represents one zone of the Discrete Global Grid System deployed by the implementation. An `Observation`, a `Datastream`, or a `MultiDatastream` linked to a `Cell` is spatially grouped as belonging somewhere in that cell. The optional `Cell/boundary` property is the geometry of that zone.
+add:[DGGS spatial, spatio-temporal or temporal unit of geometry with dimension greater than 0, associated with a zone (<<OGC20-040r3>>).]
+
+del:[A] add:[In this OGC Standard, a] SensorThings add:[API] entity that represents one zone of the Discrete Global Grid System deployed by the implementation. del:[An `Observation`, a `Datastream`, or a `MultiDatastream` linked to a `Cell` is spatially grouped as belonging somewhere in that cell.] add:[The observations of a `Datastream` or a `MultiDatastream` linked to a `Cell` are spatially grouped as belonging somewhere in that cell.] The optional `Cell/boundary` property is the geometry of that zone.
 
 ==== zone identifier
 
-The string representation of a DGGS zone identifier in the deployed grid system, stored as `Cell/zoneId`. The value SHALL be identical to `Cell/@iot.id`.
+add:[DGGS numerical order of a discrete global grid in the tessellation sequence (<<OGC20-040r3>>).]
+
+del:[The] ad:[In this OGC Sandard, the] string representation of a DGGS zone identifier in the deployed grid system, stored as `Cell/zoneId`. The value is identical to `Cell/@iot.id`.
 
 ==== zone level
 
@@ -19,39 +23,53 @@ The hierarchical resolution of a zone in the deployed grid system, stored as `Ce
 
 ==== boundary
 
-The geometry of a DGGS zone, stored as `Cell/boundary`. The encoding SHALL follow the same rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>.
+The geometry of one DGGS zone, stored as `Cell/boundary`. The encoding follows the same rules as `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>. add:[`Cell/boundary` is the geometry of that zone. It is not the area within which the implementation materializes cells.]
 
 ==== encodingType
 
-The encoding type of `Cell/boundary`. The value SHALL be a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>. If `boundary` is present, `encodingType` SHALL be present.
+The encoding type of `Cell/boundary`. The value is a media type as used for `Location/location` and `FeatureOfInterest/feature` in <<OGC18-088>>. If `boundary` is present, `encodingType` is present.
 
-==== cell-create boundary
+==== del:[cell-create boundary] add:[cells boundary]
 
-The Polygon or MultiPolygon advertised on the landing page that defines the area within which a `Cell` can be created. A simple polygon or a multi-polygon with holes is permitted.
+The Polygon or MultiPolygon advertised on the landing page as del:[`cellCreateBoundary`] add:[`cellsBoundary`]. del:[It defines the area within which a `Cell` can be created.] add:[It defines the area within which the implementation materializes `Cell` entities. It is used to prevent flooding of the database with too many cells.] A simple polygon or a multi-polygon with holes is permitted.
+
+==== add:[discrete global grid system (DGGS)]
+
+add:[Integrated system comprising a hierarchy of discrete global grids , spatio-temporal referencing  by zonal identifiers. (<<OGC20-040r3>>).]
 
 ==== parent cell
 
-The unique coarser zone that contains a given zone at the next coarser zone level of the same grid system.
+add:[DGGS cell in a higher refinement level of discrete global grid with immediate descendants (<<OGC20-040r3>>).]
+
+The unique coarser zone that contains del:[a] add:[the center point of the] given zone at the next coarser zone level of the same grid system.
+
+==== add:[child cell]
+
+add:[Descendant of a parent cell.]
+
+==== add:[orphan cell]
+
+add:[Is a `Cell` whose last linked `Datastream` or `MultiDatastream` has been removed, so that no `Datastream` and no `MultiDatastream` is linked to it.]
 
 ==== coarsest zone level
 
-The lowest zone level at which the implementation materializes cells and, if the <<conformance_class_aggregation>> Conformance Class is claimed, at which materializing of parent cells and aggregation stops. Advertised as `coarsestZoneLevel` on the landing page.
+The lowest zone level at which the implementation materializes cells and, if the <<conformance_class_aggregation,Aggregation>> Conformance Class is claimed, at which materializing of parent cells and aggregation stops. Advertised as `coarsestZoneLevel` on the landing page. add:[Creating an aggregate `Datastream` or `MultiDatastream` also instantiates missing parent cells up to this level. A client reference that materializes a `Cell` does not materialize parent cells.]
 
 ==== finest zone level
 
 The highest zone level at which the implementation materializes cells. Advertised as `finestZoneLevel` on the landing page. A larger zone level is a finer (smaller) zone.
 
-==== aggregate interval
+==== aggregate add:[temporal] interval
 
-A configured duration or calendar period over which raw observation results that are linked to a cell are summarized (for example one minute, one hour, one day, one month, or one year).
+A configured duration or calendar period over which raw observation results del:[that are linked to a cell] add:[of the `Datastreams` that are linked to a cell] are summarized (for example one minute, one hour, one day, one month, or one year).
 
 ==== aggregate observation
 
-An `Observation` whose result is calculated from raw observation results that are linked to a cell, for one aggregate interval and one set of aggregate functions. An aggregate observation is published on a `MultiDatastream` that is linked to the `Cell`.
+An `Observation` whose result is calculated from raw observation results del:[that are linked to a cell] add:[of the `Datastreams` that are linked to a cell or a child cell], for one aggregate add:[temporal] interval and one set of aggregate functions. An aggregate observation is published on a del:[`MultiDatastream`] add:[`Datastream` or a `MultiDatastream`] that is linked to the `Cell`.
 
 ==== aggregate function
 
-A well-accepted mathematical function that is calculated from the numeric raw observation results that contribute to a cell in an aggregate interval. This Standard advertises `min`, `max`, `avg`, `stddev`, and `count` on the landing page, each with a definition identifier and an equation.
+A well-accepted mathematical function that is calculated from the numeric raw observation results that contribute to a cell in an aggregate add:[temporal] interval. This Standard advertises `min`, `max`, `avg`, `stddev`, and `count` on the landing page, each with a definition identifier and an equation.
 
 ==== base ObservedProperty
 
